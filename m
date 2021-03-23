@@ -1,118 +1,147 @@
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com (NAM12-BN8-obe.outbound.protection.outlook.com [40.107.237.44])
- by mx.groups.io with SMTP id smtpd.web12.6423.1616492326220372674
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+ by mx.groups.io with SMTP id smtpd.web10.7542.1616500024827517443
  for <poky@lists.yoctoproject.org>;
- Tue, 23 Mar 2021 02:38:46 -0700
+ Tue, 23 Mar 2021 04:47:05 -0700
 Authentication-Results: mx.groups.io;
- dkim=fail reason="body hash did not verify" header.i=@windriversystems.onmicrosoft.com header.s=selector2-windriversystems-onmicrosoft-com header.b=HgjM+gD2;
- spf=pass (domain: windriver.com, ip: 40.107.237.44, mailfrom: kexin.hao@windriver.com)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Tr2frrRWfhRan9y7aTfiySKZrT6dJ5P130C6lqKe0nTaM5fRi+5Aj///bArRUIOcBhEHePmuAWRW5vrIsQVz2lDj+v5WmV5FBuIjDtA0KGZCCSy805VF4paY8Yrqlndgv+zZ7W58yaxtuYMTVwIdfrcwQUL74wDi412mAcbhwHgIYDmnr8qsAQxHDugWlAcd6CW3xt7XvTayP2u0uSKSI7KF5Z2zX/5afHM/eJmLGRuIKNImVI+unq7oyGIJbp47I0Hfld/0uVPmo4HFoLVkmLCikY1Xu9Y6duK76+d9KoB14k0+K2cZrpbnDXnu6c8W0f5Rd2jzCf4aeHK0UMdwFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2UN0fCJIFhVfyiHOI4s8SSKQN//DBz8Aj4gK2XnIHDk=;
- b=kgGiGQS+mGuAhBUS386DwD8YLpgffIkCQFUfCOYhSeXIf5CD4LoQ01t8RBTi+wWsb7A1YUJFaf4E/pFRkXzAISyUpnhCWUzJUKV5IBI72w8g7rK1vwWidReC3yWZeX4vnnsu3bmndWkDnpyBOQAkS4nhHP5SF0STFBQVnhnxFCPiBitAYcyT2q+pD0zBlX4u/a6hv4aaCtShQRi35gvTivSZuGnGGSWC33lLfSxOSoeZ3PbPTOwAHtHSMPvGNVaecRvJXALD8vi4j+0uid/DsbG4OFLWAwfuVIQeGQRAhQvaIj3XAtLNLcmY7znNYwqIfLRFMAGg/6H9q4mEvka9ZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=windriver.com; dmarc=pass action=none
- header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+ dkim=pass header.i=@argentum-systems.co.uk header.s=google header.b=NLqhQ7dB;
+ spf=pass (domain: argentum-systems.co.uk, ip: 209.85.208.179, mailfrom: attie.grande@argentum-systems.co.uk)
+Received: by mail-lj1-f179.google.com with SMTP id u20so25149577lja.13
+        for <poky@lists.yoctoproject.org>; Tue, 23 Mar 2021 04:47:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=windriversystems.onmicrosoft.com;
- s=selector2-windriversystems-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2UN0fCJIFhVfyiHOI4s8SSKQN//DBz8Aj4gK2XnIHDk=;
- b=HgjM+gD2VXoc2Sc9mjxu9NX8tT+97akaVU6yaqSwJzyoXOC8QDOpTOqe62TI47yi6CCd072gxdfa76hetmD9gaecSxXEIsHIx3hjdhBlFdmtTtzupqezd0s278eJBKP9fvBef7D8g8ugWM3hvUxpUwHPAMnBTW7PDzda4aFtnII=
-Authentication-Results: lists.yoctoproject.org; dkim=none (message not signed)
- header.d=none;lists.yoctoproject.org; dmarc=none action=none
- header.from=windriver.com;
-Received: from DM6PR11MB2682.namprd11.prod.outlook.com (20.176.97.143) by
- DM6PR11MB4610.namprd11.prod.outlook.com (20.180.254.211) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3955.18; Tue, 23 Mar 2021 09:38:44 +0000
-Received: from DM6PR11MB2682.namprd11.prod.outlook.com
- ([fe80::d8e:556b:f64c:6d6a]) by DM6PR11MB2682.namprd11.prod.outlook.com
- ([fe80::d8e:556b:f64c:6d6a%5]) with mapi id 15.20.3955.027; Tue, 23 Mar 2021
- 09:38:44 +0000
-From: "Kevin Hao" <kexin.hao@windriver.com>
-To: <poky@lists.yoctoproject.org>
-CC: Richard Purdie <richard.purdie@linuxfoundation.org>
-Subject: [PATCH] meta-yocto-bsp: beaglebone: Set a fixed size for boot partition in WIC image
-Date: Tue, 23 Mar 2021 17:35:29 +0800
-Message-ID: <20210323093529.35493-1-kexin.hao@windriver.com>
-X-Mailer: git-send-email 2.30.2
-X-Originating-IP: [60.247.85.82]
-X-ClientProxiedBy: HK2PR04CA0063.apcprd04.prod.outlook.com
- (2603:1096:202:14::31) To DM6PR11MB2682.namprd11.prod.outlook.com
- (2603:10b6:5:c3::15)
-Return-Path: kexin.hao@windriver.com
+        d=argentum-systems.co.uk; s=google;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=N90To4/t2h2/6ejPOJlZrCVm1jJTvAVCOl81pre4/Tc=;
+        b=NLqhQ7dBoo+vYSIfTcN6BLvqH9V9BaC9YPNisLLZvs69yjlB8WuvzJX+MOvPmIbIEs
+         JnqqqOlBd6y+PiyZ2Mia+HrEYCRnETYk4ieQzPd3WpkSqlmiO1N7GNThXUEvVF3kjEhq
+         EE41DbqHjUxuBbZQbx8gOLg+qsdHTO+IUGb15JCriqG3AbSo5C07SG1fsLUYz2QceYkR
+         U8rCiynpPyEuNRaGq15RZ0ca434v5pj5Y//7/t9dmlTNPjLTTeXflfjjuYcL2m0Pt+Ye
+         hcKbtCOyskekbw9/YwoH/osAvccz8oQvrhKSJC3qWzpyosWVZkHUZqdoUEYm4bSiaXG4
+         c35Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=N90To4/t2h2/6ejPOJlZrCVm1jJTvAVCOl81pre4/Tc=;
+        b=MmHoSioH6E2UxEX5yj5KZ8itY7SmQp8OxS6D2w9tCTtYVPBcP1Hq6EdxXlXMk9ZnP/
+         +5AA7snPBUVTEfWqRzDkElyD6cDtehJFpfcJ7mknMFDjCQl40txtCJJnVIKvxXt08Bfg
+         cxyn9k0RmJ/2x3tMjnD8szKhkGByQYpzGKEp6p7xkThAgIgtVK4JtfAC7Gn3crqesJ1N
+         ZbSC3hFZmK+2gYC6uTDFygVCGRiMzxZKpz2xCc0CJfeTyQ61lYDIIE0FA/lAOh1STguQ
+         CrOAxrcq4npbvBmuMBll7EJSRs7sHFciZIHelPR2PIsH19B6EZNTWvjP6/LqmpfhvCsr
+         BqQA==
+X-Gm-Message-State: AOAM5325nWIZbrqJhUJDU8gONPKrsG8nKGdSYvz5pwwxi6AJ25wnBNWd
+	45TgwdHYry24syRSf/V73SpeFUkhG9tlnBQMgNlOL8C4B1PhmKuh
+X-Google-Smtp-Source: ABdhPJy6lOqdC3JSSLVwYhSezIPHIkbsWphcB2HEoBm45mrSWEgrwEwPl1VSVya33NYoVvDiFuwcs/fvgpt5wamxcCQ=
+X-Received: by 2002:a05:651c:103a:: with SMTP id w26mr2878914ljm.273.1616500022592;
+ Tue, 23 Mar 2021 04:47:02 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from pek-lpggp6.wrs.com (60.247.85.82) by HK2PR04CA0063.apcprd04.prod.outlook.com (2603:1096:202:14::31) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3955.18 via Frontend Transport; Tue, 23 Mar 2021 09:38:43 +0000
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 18819330-69e2-4189-7ee3-08d8eddf739f
-X-MS-TrafficTypeDiagnostic: DM6PR11MB4610:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: 
-	<DM6PR11MB46105C22178FE529365D558FE2649@DM6PR11MB4610.namprd11.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1417;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	TxWGjbTKh5pqCA25ZX8LVh73ps/Ip8bx5EW9Y0ncHUiWmNPGDHb0VCpJRuTOEo1yp44xBg7Q+cZGev0eUL3c3znCj/xfhFWowOz0xecUZcteVnlcQvc3BhSUHaPGeiUyxJRb3IqHdvFc4u6Y+BR65RxajM15wSbV++sUtg4CznwgTZ/Klh/h5xgy5qDEs4Lh11fAEeleLsFiVZVFdj7zaWcDSD6KS7Z8U7Ac6UTCpnnLYjS7/yLqCpLpHd5X+3VQIwOcuqN7G+yemtopclxxS31twioPRkjpdGppYEFIWIIO3TblZLYG3mToqgBve1W3BTLgpz3TokS66VE6tn/8Wj9j5Bb4ck//ws9ggPhYs1mgsK5Zg2T4G4mRXcM0hryErE4XD2q80Bta7PbJMM1IzcZp+xJ0s8/r9hRNNLCpfNa9B9jY5PIba8p976fgRFVBjyfJ9ju/aZpzNtPKoLRvYTti9HChpzgWyJSvyqAQ5qtvpwPCblfH0oaMZ9RZ165Y3VUkTiRg1utO7TeHQhOMoPLs52H+A5F+OBa7UcGHcWhZ29rVVRzxmzxGyKyfel8G7Ln1YiUzz5H1NhfWiK5ySwioaMBtoLxWT5r0slKmsIrh/zEJJC1wXvMel0taJ5bLgVH97ONQi/XcAHaezZuDQNeHwafqxpBaht/rbxFD5a/Y0sM88NFXTfV6K23zsc2O
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR11MB2682.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(136003)(396003)(346002)(39850400004)(376002)(366004)(8676002)(16526019)(36756003)(956004)(6916009)(66476007)(66556008)(26005)(186003)(86362001)(66946007)(8936002)(2616005)(83380400001)(6666004)(316002)(6486002)(5660300002)(6506007)(2906002)(4326008)(478600001)(52116002)(1076003)(6512007)(38100700001)(3714002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData: 
-	+U/G2vfrI5k5Wzkt4TmK0zCuUbaFURz6jYSwEbjSYPbgtMZ9Qduzpxk8FXYzmInlvfUx4UG2PmH5N5j+gRktTLm6HtUiO0giViB7XFfSHy7qHuHs8KjMRaOlxRnl9Wsfcd/3eYcHLz4NEPvGPoWXB2Cs7Gt/VyjOxxAg/QpNVD+sUtGPnqbFjsSbAAEeotV4AUnHkAlVbIck6Q6IddqWW4wVWNxK9ATwcatitIvTPKyyc7bBKPntUW9ZIeC6eXeUsr4PQHY8+WwuRhiFuiajFytytWccY6JKxdcWsTbu51sbqtjICOrKPjfk9Nq4NIDr2FPl37oGPJ3UVoL4wC3t61mPJNnkRt9L+YejVdAyhZgz93nMLtr5a271k/OPpPss4Lg1V8tyUJL9OHdCzV9moHSFUVwK4yl6zm6LC+lE/pw2VNf5kBgfam3N094O8iVh3YFYpCvKi9PSxPST+v4iC2RrLsUewT9euNfKbSuM16f3fi4ZBacgzD2ypt0A55yN+VhZwnDBNkhMnY8cJq11V0mFE8SKEHpeSFcMuUVwNWmTcZyIp9OR/M5U3iIchzSx2cxFXCU9JszJZmaEipu8/OUkGFIyWfQJcjD5NverV+SAj8+zE9ecUm+YfUJOMcdUhOuR8yM9W8HfAY6Qrx2UVClSQuVOeJiy4TYclnrlo7Y966p2JXBSObnGMMUq8CQJU3xu6JV9uMaRgbyZeRxcUDfS9voql3rwn4okGB/i8NC/Vqp03pJddG29BrDYrVCn
-X-OriginatorOrg: windriver.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18819330-69e2-4189-7ee3-08d8eddf739f
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB2682.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2021 09:38:44.8086
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d1OfaoTNLuNQHvRE2amWj+VaZKMH5IFjPLx2A3SEGRrNIlA0wEtSTHP3YWR8ZVXJJp286p9UPvLaoCJ0TjVh0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4610
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
+From: "Attie Grande" <attie.grande@argentum-systems.co.uk>
+Date: Tue, 23 Mar 2021 11:46:52 +0000
+Message-ID: <CAAsqSTfbHeVt9jyrw12Xkrpj_+-kUXHHwVRQGCe0jD2k_R1o=A@mail.gmail.com>
+Subject: image.bbclass - get_rootfs_size
+To: poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-After the dosfstools has been updated to v4.2 by commit b522f24723e1
-("dosfstools: update 4.1 -> 4.2"), the commit b29eb5be67e9 ("mkfs.fat:
-Align total number of sectors to be multiple of sectors per track") in
-v4.2 has caused a regression in beagebone black board. The reason is
-that the real total sectors of the fat filesystem created by the mkdosfs
-may not be the same size as what we requested due to align with the
-sectors per track, this change seem no side effect to linux kernel,
-but it breaks the beaglebone black boot ROM and make it can't load the
-MLO. In order to fix this issue, we choose to set a fixed size for the
-boot partition to make sure that the total sectors always are aligned
-with the sectors per track.
+Hi all,
 
-[Yocto #14306]
+I've run into this issue a few times, and have probably worked around
+it in a different way each time. Today I went digging.
 
-Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
+The top-level issue is as follows:
+
+    | DEBUG: Actual Rootfs size:  28893
+/proj/build/tmp-glibc/work/rockchip_rk3328_evb-oe-linux/core-image-minimal/1.0-r0/rootfs
+    [...]
+    | mke2fs 1.45.6 (20-Mar-2020)
+    | Discarding device blocks: done
+    | Creating filesystem with 41656 1k blocks and 10416 inodes
+    | Filesystem UUID: bad8bdcd-750e-474f-9927-5efde8c23229
+    | Superblock backups stored on blocks:
+    |       8193, 24577, 40961
+    |
+    | Allocating group tables: done
+    | Writing inode tables: done
+    | Creating journal (4096 blocks): done
+    | Copying files into the device: __populate_fs: Could not allocate
+block in ext2 filesystem while writing file "libkmod.so.2.3.5"
+    | mkfs.ext4: Could not allocate block in ext2 filesystem while
+populating file system
+    | WARNING: exit code 1 from a shell command.
+    |
+    ERROR: Task
+(/proj/sources/poky/meta/recipes-core/images/core-image-minimal.bb:do_image_ext4)
+failed with exit code '1'
+
+There doesn't appear to be any reference to this, and the root cause
+is down to an incorrect estimation of the space requirements.
+
+I'm running on ZFS, with compression enabled - the compression being
+the fundamental issue here.
+`df` by default will report the space used on-disk, not the actual
+size of the contents of these files.
+Adding the `--apparent-size` flag will produce the correct figures,
+and the task completes successfully.
+
+    $ du -ks ./rootfs
+    28893   ./rootfs
+    $ du -ks --apparent-size ./rootfs
+    37831   ./rootfs
+
+If there's any backstory or reasoning behind not doing this, please
+let me know, and apologies for not finding it.
+An alternative approach could be to use `-b` (which implies
+`--apparent-size`) instead of `-k`, but this would require a larger
+patch.
+
+This fix will also likely resolve any issues with sparse files that
+might make it into the rootfs:
+
+    $ truncate -s $(( 10 * 1024 * 1024 )) x
+    $ du -ks x
+    0       x
+    $ du -ks --apparent-size x
+    10240   x
+
+I have included a patch below that can be applied on top of master / 22931ae.
+This patch also applies on top of gatesgarth / 6ed895d, which is where
+I'm currently working.
+
+Regards,
+Attie
+
+
+
+From: Attie Grande <attie.grande@argentum-systems.co.uk>
+Date: Tue, 23 Mar 2021 10:54:30 +0000
+Subject: [PATCH] image.bbclass: Use apparent size of files, instead of on-disk
+ size
+
+While building on a filesystem with compression enabled, the output of
+`du` might (will on ZFS) produce the compressed size of the data
+on-disk, not the actual size of the data held within.
+
+This will also resolve any issues with sparse files that may be
+present.
+
+When estimating the size for a filesystem, this incorrect figure will
+often cause the task to fail due to insufficient space, for example:
+
+  Copying files into the device: __populate_fs: Could not allocate
+  block in ext2 filesystem while writing file "libkmod.so.2.3.5"
 ---
- meta-yocto-bsp/wic/beaglebone-yocto.wks | 2 +-
+ meta/classes/image.bbclass | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/wic/beaglebone-yocto.wks b/meta-yocto-bsp/wic/b=
-eaglebone-yocto.wks
-index 701ae0b3d4bd..7a28fb23dc89 100644
---- a/meta-yocto-bsp/wic/beaglebone-yocto.wks
-+++ b/meta-yocto-bsp/wic/beaglebone-yocto.wks
-@@ -2,6 +2,6 @@
- # long-description: Creates a partitioned SD card image for Beaglebone.
- # Boot files are located in the first vfat partition.
-=20
--part /boot --source bootimg-partition --ondisk mmcblk0 --fstype=3Dvfat --l=
-abel boot --active --align 4 --size 16 --sourceparams=3D"loader=3Du-boot" -=
--use-uuid
-+part /boot --source bootimg-partition --ondisk mmcblk0 --fstype=3Dvfat --l=
-abel boot --active --align 4 --fixed-size 32 --sourceparams=3D"loader=3Du-b=
-oot" --use-uuid
- part / --source rootfs --ondisk mmcblk0 --fstype=3Dext4 --label root --ali=
-gn 4 --use-uuid
- bootloader --append=3D"console=3DttyS0,115200"
---=20
-2.30.2
+diff --git a/meta/classes/image.bbclass b/meta/classes/image.bbclass
+index b558653..905ab50 100644
+--- a/meta/classes/image.bbclass
++++ b/meta/classes/image.bbclass
+@@ -518,7 +518,7 @@ def get_rootfs_size(d):
+     initramfs_fstypes = d.getVar('INITRAMFS_FSTYPES') or ''
+     initramfs_maxsize = d.getVar('INITRAMFS_MAXSIZE')
 
+-    output = subprocess.check_output(['du', '-ks',
++    output = subprocess.check_output(['du', '-ks', '--apparent-size',
+                                       d.getVar('IMAGE_ROOTFS')])
+     size_kb = int(output.split()[0])
+
+-- 
+2.7.4
