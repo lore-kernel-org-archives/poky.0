@@ -1,93 +1,71 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
- by mx.groups.io with SMTP id smtpd.web10.8077.1616941971453517638
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+ by mx.groups.io with SMTP id smtpd.web08.8860.1616946300930962560
  for <poky@lists.yoctoproject.org>;
- Sun, 28 Mar 2021 07:32:51 -0700
+ Sun, 28 Mar 2021 08:45:01 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=L0cfE9ma;
- spf=pass (domain: gmail.com, ip: 209.85.218.41, mailfrom: jan.vermaete@gmail.com)
-Received: by mail-ej1-f41.google.com with SMTP id u5so15517030ejn.8
-        for <poky@lists.yoctoproject.org>; Sun, 28 Mar 2021 07:32:51 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=g/PF4SLK;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.54, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f54.google.com with SMTP id y124-20020a1c32820000b029010c93864955so7259534wmy.5
+        for <poky@lists.yoctoproject.org>; Sun, 28 Mar 2021 08:45:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=DP77hbCtbLPkmYtHkBGWvtfk1Uxsghdr4wTf+TMtHVc=;
-        b=L0cfE9maQIofQM0KYC6Qtut4AW7BO7hFTvTjEpKPXVT7tYvJ3xvVn1fN+K8prhqlCu
-         Ut7aRnmau9Qv8x/w19sB4bcxSM/rTv6paKt/21ZMM0AfbfDnfS4zKf13Wt58Q52GDN4t
-         1x2XCaETjXuCsFgz6H7K37axzG/yUtEdbiq4uFCSOVik6h/IRthXRiW9NTha4QW83CoV
-         YOn1L51cKMX+h+r8259zmfCnmXrlzrWN93MZC26A2uan7ZXteNRLZDkyfx8byEmuQ0rP
-         /ZkLAXSlYnrpD/qH7lzEE+gA1ZhB/JB2oR4AdcG51Ch6U3aJg3S84y7vKT5nUfb76ebp
-         Immw==
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:cc:date:in-reply-to:references
+         :user-agent:mime-version:content-transfer-encoding;
+        bh=9isO7h/RMeQ+eEh41OsTFm6xxjDbJiOvl2Gl9n0aokU=;
+        b=g/PF4SLKWMkFXJEKWCOwuQpntE0W4UKNkMEv2ROVucxzeqqUh8KFrFGtWIyKYh4kHv
+         prVZBWkSm09Lq/9xJIpHgGKr0Qyg88zcFInYcNUyd9GFKJ0I5ZaLCsYHbapWDZt1Lmtp
+         Cbynx1unYhz/5e7mbDezAlIrS9ahx8cUI+qCA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=DP77hbCtbLPkmYtHkBGWvtfk1Uxsghdr4wTf+TMtHVc=;
-        b=GkSNzh382l1aRGdKGbi3lHdA6jZZMV3xjqCrMQX8qHiDY83IOrSWxXXKn+CyzOJnih
-         zrMcO77W+OPQw0EQVVDCiXWb9fNtdL5unQqt1dCTEMcxXFK76LzaHge8ljKJHotTBJiY
-         VA7YpNzRrz4pHMVIkxJkg2Jr8fVcjsKHUPWTSrughQRIBJUzDq4m79OTA6Le5Oypcb0/
-         vN6i8QMXyNNF4GpahQJfPk6+FlBwrF/bwAA8eYR+dhUJ7DKMqJaoUrXnsJnSBoUT94VZ
-         +bePC7IvNsMEgSHqFkmoNuW7uf8X+mBJpOYKXE3hQhPfVIhKgda3jD0pRMqxX1Xgb+sk
-         x1sw==
-X-Gm-Message-State: AOAM531NSmn2kPvxtXvIMHchZf0iThOK3gxjjgPGsc22OYfr28BI4KIf
-	G93h9ZxyLmZLHEMdns6c0vZZIW1c3KZFIw==
-X-Google-Smtp-Source: ABdhPJwpfN1yKw94mDCDwYNGJCDocS9K74Cfb7RP3tKndhCF4Y7Hk6igoSy0OE20j/c8l7i6dIs0wA==
-X-Received: by 2002:a17:906:b2d6:: with SMTP id cf22mr24443693ejb.321.1616941969590;
-        Sun, 28 Mar 2021 07:32:49 -0700 (PDT)
-Return-Path: <jan.vermaete@gmail.com>
-Received: from localhost.localdomain (78-20-166-56.access.telenet.be. [78.20.166.56])
-        by smtp.gmail.com with ESMTPSA id i10sm6679772ejv.106.2021.03.28.07.32.48
+        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=9isO7h/RMeQ+eEh41OsTFm6xxjDbJiOvl2Gl9n0aokU=;
+        b=ZPi8mtcaoM91Y2Zpw/B5Y0pDjfeOMwM+NFv2YGXrQqng8xTfRANr23Pf0Q2d4atOw1
+         m6BFw7fpBiobznoHvBY6ffhPjKpneKQ+9zn5z4ixeuZIMPyUcD9UH2lia5Fb38qj8VdP
+         jF2y5Era4JFQKE5CMrsT03q7eZx+bYr5l3/lJtEt4oXR+6NPZQoYc7S02JlBlNKR+3Bk
+         h3rKIoykMjkiDcnncNIK5LhAunZNao/mAfsD6WFcQLKUU1VKJcbOXQEFgyPs95MeCgD9
+         HvTCdp2UYrTYv09buDg52Wr42nI/D2IrOGhR4DZOajs3URsUKC8RtIbkH3nSNAU5PoDt
+         HzXg==
+X-Gm-Message-State: AOAM530I6mbG6V/bydjmPP3dvN9vnoVSdara4Klcnr6cH1UfTNMs1ZJm
+	LgiqKFFyfJ8uYO5pi6XbUmuqnQ==
+X-Google-Smtp-Source: ABdhPJwsGQ8sNEpjPrK4NwXGmWn5ikgb9UwfZyM2WBUM7HHbDt75OYiMTQQO6yFDbui6wuS/lqrfbA==
+X-Received: by 2002:a7b:ce16:: with SMTP id m22mr21884572wmc.65.1616946299253;
+        Sun, 28 Mar 2021 08:44:59 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from ?IPv6:2001:8b0:aba:5f3c:1d2c:6290:11e9:3ac1? ([2001:8b0:aba:5f3c:1d2c:6290:11e9:3ac1])
+        by smtp.gmail.com with ESMTPSA id k24sm20219111wmr.48.2021.03.28.08.44.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Mar 2021 07:32:49 -0700 (PDT)
-From: "jan" <jan.vermaete@gmail.com>
-X-Google-Original-From: Jan Vermaete <jan.vermaet@gmail.com>
-To: poky@lists.yoctoproject.org
+        Sun, 28 Mar 2021 08:44:58 -0700 (PDT)
+Message-ID: <48f4196457da1450694707cf4f60d0cc537c71ed.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH 1/1] Allow to overrule the URL in a bbappend.
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: jan <jan.vermaete@gmail.com>, poky@lists.yoctoproject.org
 Cc: Jan Vermaete <jan.vermaet@gmail.com>
-Subject: [PATCH 1/1] Allow to overrule the URL in a bbappend.
-Date: Sun, 28 Mar 2021 16:29:58 +0200
-Message-Id: <20210328142957.3008-1-jan.vermaet@gmail.com>
-X-Mailer: git-send-email 2.25.1
+Date: Sun, 28 Mar 2021 16:44:55 +0100
+In-Reply-To: <20210328142957.3008-1-jan.vermaet@gmail.com>
+References: <20210328142957.3008-1-jan.vermaet@gmail.com>
+User-Agent: Evolution 3.40.0-1 
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-With this small patch, it's possible to overrule the public
-URL with a local mirror for those without Internet access.
+On Sun, 2021-03-28 at 16:29 +0200, jan wrote:
+> With this small patch, it's possible to overrule the public
+> URL with a local mirror for those without Internet access.
+> 
+> Signed-off-by: Jan Vermaete <jan.vermaet@gmail.com>
+> ---
+>  meta/recipes-core/meta/cve-update-db-native.bb | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 
-Signed-off-by: Jan Vermaete <jan.vermaet@gmail.com>
----
- meta/recipes-core/meta/cve-update-db-native.bb | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+This sounds reasonable but could you please use a name which is a little
+more specific, "BASE_URL" is rather generic and hard to understand out 
+of context. Some of the class variables will end up in global scope.
 
-diff --git a/meta/recipes-core/meta/cve-update-db-native.bb b/meta/recipes-core/meta/cve-update-db-native.bb
-index b3dc33734d..6b0643b4fa 100644
---- a/meta/recipes-core/meta/cve-update-db-native.bb
-+++ b/meta/recipes-core/meta/cve-update-db-native.bb
-@@ -12,6 +12,8 @@ deltask do_compile
- deltask do_install
- deltask do_populate_sysroot
- 
-+BASE_URL ?= "https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-"
-+
- python () {
-     if not bb.data.inherits_class("cve-check", d):
-         raise bb.parse.SkipRecipe("Skip recipe when cve-check class is not loaded.")
-@@ -28,7 +30,6 @@ python do_fetch() {
- 
-     bb.utils.export_proxies(d)
- 
--    BASE_URL = "https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-"
-     YEAR_START = 2002
- 
-     db_file = d.getVar("CVE_CHECK_DB_FILE")
-@@ -64,7 +65,7 @@ python do_fetch() {
-         for i, year in enumerate(range(YEAR_START, date.today().year + 1)):
-             bb.debug(2, "Updating %d" % year)
-             ph.update((float(i + 1) / total_years) * 100)
--            year_url = BASE_URL + str(year)
-+            year_url = (d.getVar('BASE_URL')) + str(year)
-             meta_url = year_url + ".meta"
-             json_url = year_url + ".json.gz"
- 
--- 
-2.25.1
+Also, patches against openembedded-core need to be sent to the 
+openembedded-core mailing list.
+
+Cheers,
+
+Richard
 
