@@ -1,60 +1,93 @@
-Received: from mail.yoctoproject.org (mail.yoctoproject.org [198.145.29.25])
- by mx.groups.io with SMTP id smtpd.web11.693.1616881634892380866
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+ by mx.groups.io with SMTP id smtpd.web10.8077.1616941971453517638
  for <poky@lists.yoctoproject.org>;
- Sat, 27 Mar 2021 14:47:15 -0700
+ Sun, 28 Mar 2021 07:32:51 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@srin-me.20150623.gappssmtp.com header.s=20150623 header.b=Zck+42fJ;
- spf=none, err=SPF record not found (domain: srin.me, ip: 198.145.29.25, mailfrom: s@srin.me)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	by mail.yoctoproject.org (Postfix) with ESMTPS id 58A8938C07C9
-	for <poky@yoctoproject.org>; Sat, 27 Mar 2021 21:47:11 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id w3so13673552ejc.4
-        for <poky@yoctoproject.org>; Sat, 27 Mar 2021 14:47:11 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=L0cfE9ma;
+ spf=pass (domain: gmail.com, ip: 209.85.218.41, mailfrom: jan.vermaete@gmail.com)
+Received: by mail-ej1-f41.google.com with SMTP id u5so15517030ejn.8
+        for <poky@lists.yoctoproject.org>; Sun, 28 Mar 2021 07:32:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=srin-me.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=WckGKgT+b9AQS+ZWsVgfUNIv7h+Lwix4h39qiR9ICrU=;
-        b=Zck+42fJ0Q+A2DgbRnXAtDaDdaZn7tlRqV5k41ETsWqu6do0jbL/09GROOLEy8e/HC
-         bJQppsOlyw3p2u4k599Y6hTdiMEwl9d7pTC5Cm0kvBicjBNBGO0zuMZ5h0/eJLioTJKd
-         KcvifPg8uvB6VZzFYgqd++EgGXmZYfPFX23NncVaCoZ7DVABNEISAEw+u5l8zclfsGq4
-         w2xlXEWBaiki6TXnqgbNaz1fH9pdHB9HpyDohOY3Y1vMh4MPEDVt7DBDo7J+G8fAu+Aq
-         SDabJjrJgsNVhUn7tBmtDzyZcnnIHeuB9a9Y254MUiZv7n4DVH+Aavkm1SqgUIUsPBIm
-         quTw==
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=DP77hbCtbLPkmYtHkBGWvtfk1Uxsghdr4wTf+TMtHVc=;
+        b=L0cfE9maQIofQM0KYC6Qtut4AW7BO7hFTvTjEpKPXVT7tYvJ3xvVn1fN+K8prhqlCu
+         Ut7aRnmau9Qv8x/w19sB4bcxSM/rTv6paKt/21ZMM0AfbfDnfS4zKf13Wt58Q52GDN4t
+         1x2XCaETjXuCsFgz6H7K37axzG/yUtEdbiq4uFCSOVik6h/IRthXRiW9NTha4QW83CoV
+         YOn1L51cKMX+h+r8259zmfCnmXrlzrWN93MZC26A2uan7ZXteNRLZDkyfx8byEmuQ0rP
+         /ZkLAXSlYnrpD/qH7lzEE+gA1ZhB/JB2oR4AdcG51Ch6U3aJg3S84y7vKT5nUfb76ebp
+         Immw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=WckGKgT+b9AQS+ZWsVgfUNIv7h+Lwix4h39qiR9ICrU=;
-        b=asTu5j4JkXDu65tmGf2jvh2KvgMtFCjMWFwZ/sr/FcRzBT644dJ+VcioMPUrl75sDu
-         WRAQmagzXaKRs/E6k/l7WX2gxMCBDVvFtjtkquWp45w7fHzH0e85pQH4iXv3kP0uvaEK
-         Ebxvpjm8JYJ3kO8zeS0snuIjRi3y96daoJUws0cetQOm1Jo7YFBM0D2hDgviK+gg9Z5Z
-         L9/k3wDpmFnO7gSqZ7eI91Df9YPM1oy1Sd6SRsVlVbD9LU7Ql5WyMvX5nRby6A0eSILA
-         oodpIqXKwDALULWivoza8WKGukVA4Fls9PbpbaT71Bd7P0CO39LAEez/W744il2VT/oE
-         DDZA==
-X-Gm-Message-State: AOAM530oIo2DDqIJnoZ4x1pS1y0CAACUB/4D78fyX5D8YtdMujXjrOTh
-	/ppd1P22VULni6kPp3pIUJR6IuQoBk7ul93Xwjc0X1Ql/e0=
-X-Google-Smtp-Source: ABdhPJxTotbJX0mnIbtLyAq2WdZp2GVgH4gX/DTOuOEtcjCQ7KxBknLJ4tJUtmUzmLkvqBlruEoDvZQJtd0ZYrwXpBI=
-X-Received: by 2002:a17:906:1a44:: with SMTP id j4mr22164608ejf.401.1616881629674;
- Sat, 27 Mar 2021 14:47:09 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=DP77hbCtbLPkmYtHkBGWvtfk1Uxsghdr4wTf+TMtHVc=;
+        b=GkSNzh382l1aRGdKGbi3lHdA6jZZMV3xjqCrMQX8qHiDY83IOrSWxXXKn+CyzOJnih
+         zrMcO77W+OPQw0EQVVDCiXWb9fNtdL5unQqt1dCTEMcxXFK76LzaHge8ljKJHotTBJiY
+         VA7YpNzRrz4pHMVIkxJkg2Jr8fVcjsKHUPWTSrughQRIBJUzDq4m79OTA6Le5Oypcb0/
+         vN6i8QMXyNNF4GpahQJfPk6+FlBwrF/bwAA8eYR+dhUJ7DKMqJaoUrXnsJnSBoUT94VZ
+         +bePC7IvNsMEgSHqFkmoNuW7uf8X+mBJpOYKXE3hQhPfVIhKgda3jD0pRMqxX1Xgb+sk
+         x1sw==
+X-Gm-Message-State: AOAM531NSmn2kPvxtXvIMHchZf0iThOK3gxjjgPGsc22OYfr28BI4KIf
+	G93h9ZxyLmZLHEMdns6c0vZZIW1c3KZFIw==
+X-Google-Smtp-Source: ABdhPJwpfN1yKw94mDCDwYNGJCDocS9K74Cfb7RP3tKndhCF4Y7Hk6igoSy0OE20j/c8l7i6dIs0wA==
+X-Received: by 2002:a17:906:b2d6:: with SMTP id cf22mr24443693ejb.321.1616941969590;
+        Sun, 28 Mar 2021 07:32:49 -0700 (PDT)
+Return-Path: <jan.vermaete@gmail.com>
+Received: from localhost.localdomain (78-20-166-56.access.telenet.be. [78.20.166.56])
+        by smtp.gmail.com with ESMTPSA id i10sm6679772ejv.106.2021.03.28.07.32.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 28 Mar 2021 07:32:49 -0700 (PDT)
+From: "jan" <jan.vermaete@gmail.com>
+X-Google-Original-From: Jan Vermaete <jan.vermaet@gmail.com>
+To: poky@lists.yoctoproject.org
+Cc: Jan Vermaete <jan.vermaet@gmail.com>
+Subject: [PATCH 1/1] Allow to overrule the URL in a bbappend.
+Date: Sun, 28 Mar 2021 16:29:58 +0200
+Message-Id: <20210328142957.3008-1-jan.vermaet@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: "R Srinivasan" <s@srin.me>
-Date: Sat, 27 Mar 2021 17:46:59 -0400
-Message-ID: <CAGNn0ha9Kvpt-Nw8USXtossi_mhLxHOC7k1OC=5jp09TiJeg-w@mail.gmail.com>
-Subject: Qt version upgrade
-To: poky@yoctoproject.org
-Content-Type: multipart/alternative; boundary="0000000000002e500405be8b97a6"
+Content-Transfer-Encoding: 8bit
 
---0000000000002e500405be8b97a6
-Content-Type: text/plain; charset="UTF-8"
+With this small patch, it's possible to overrule the public
+URL with a local mirror for those without Internet access.
 
-We are using "warrior" qt 5.12.6 am looking to upgrade to 5.15.2 or later.
+Signed-off-by: Jan Vermaete <jan.vermaet@gmail.com>
+---
+ meta/recipes-core/meta/cve-update-db-native.bb | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Not sure where to start? Pointers requested.
+diff --git a/meta/recipes-core/meta/cve-update-db-native.bb b/meta/recipes-core/meta/cve-update-db-native.bb
+index b3dc33734d..6b0643b4fa 100644
+--- a/meta/recipes-core/meta/cve-update-db-native.bb
++++ b/meta/recipes-core/meta/cve-update-db-native.bb
+@@ -12,6 +12,8 @@ deltask do_compile
+ deltask do_install
+ deltask do_populate_sysroot
+ 
++BASE_URL ?= "https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-"
++
+ python () {
+     if not bb.data.inherits_class("cve-check", d):
+         raise bb.parse.SkipRecipe("Skip recipe when cve-check class is not loaded.")
+@@ -28,7 +30,6 @@ python do_fetch() {
+ 
+     bb.utils.export_proxies(d)
+ 
+-    BASE_URL = "https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-"
+     YEAR_START = 2002
+ 
+     db_file = d.getVar("CVE_CHECK_DB_FILE")
+@@ -64,7 +65,7 @@ python do_fetch() {
+         for i, year in enumerate(range(YEAR_START, date.today().year + 1)):
+             bb.debug(2, "Updating %d" % year)
+             ph.update((float(i + 1) / total_years) * 100)
+-            year_url = BASE_URL + str(year)
++            year_url = (d.getVar('BASE_URL')) + str(year)
+             meta_url = year_url + ".meta"
+             json_url = year_url + ".json.gz"
+ 
+-- 
+2.25.1
 
-Thanks, srini
-
---0000000000002e500405be8b97a6
-Content-Type: text/html; charset="UTF-8"
-
-<div dir="ltr"><div>We are using &quot;warrior&quot; qt 5.12.6 am looking to upgrade to 5.15.2 or later.</div><div><br></div><div>Not sure where to start? Pointers requested.</div><div><br></div><div>Thanks, srini<br></div></div>
-
---0000000000002e500405be8b97a6--
