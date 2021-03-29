@@ -1,71 +1,40 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
- by mx.groups.io with SMTP id smtpd.web08.8860.1616946300930962560
+Received: from mail.yoctoproject.org (mail.yoctoproject.org [198.145.29.25])
+ by mx.groups.io with SMTP id smtpd.web11.18624.1617005427782419111
  for <poky@lists.yoctoproject.org>;
- Sun, 28 Mar 2021 08:45:01 -0700
+ Mon, 29 Mar 2021 01:10:30 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=g/PF4SLK;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.54, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f54.google.com with SMTP id y124-20020a1c32820000b029010c93864955so7259534wmy.5
-        for <poky@lists.yoctoproject.org>; Sun, 28 Mar 2021 08:45:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:cc:date:in-reply-to:references
-         :user-agent:mime-version:content-transfer-encoding;
-        bh=9isO7h/RMeQ+eEh41OsTFm6xxjDbJiOvl2Gl9n0aokU=;
-        b=g/PF4SLKWMkFXJEKWCOwuQpntE0W4UKNkMEv2ROVucxzeqqUh8KFrFGtWIyKYh4kHv
-         prVZBWkSm09Lq/9xJIpHgGKr0Qyg88zcFInYcNUyd9GFKJ0I5ZaLCsYHbapWDZt1Lmtp
-         Cbynx1unYhz/5e7mbDezAlIrS9ahx8cUI+qCA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=9isO7h/RMeQ+eEh41OsTFm6xxjDbJiOvl2Gl9n0aokU=;
-        b=ZPi8mtcaoM91Y2Zpw/B5Y0pDjfeOMwM+NFv2YGXrQqng8xTfRANr23Pf0Q2d4atOw1
-         m6BFw7fpBiobznoHvBY6ffhPjKpneKQ+9zn5z4ixeuZIMPyUcD9UH2lia5Fb38qj8VdP
-         jF2y5Era4JFQKE5CMrsT03q7eZx+bYr5l3/lJtEt4oXR+6NPZQoYc7S02JlBlNKR+3Bk
-         h3rKIoykMjkiDcnncNIK5LhAunZNao/mAfsD6WFcQLKUU1VKJcbOXQEFgyPs95MeCgD9
-         HvTCdp2UYrTYv09buDg52Wr42nI/D2IrOGhR4DZOajs3URsUKC8RtIbkH3nSNAU5PoDt
-         HzXg==
-X-Gm-Message-State: AOAM530I6mbG6V/bydjmPP3dvN9vnoVSdara4Klcnr6cH1UfTNMs1ZJm
-	LgiqKFFyfJ8uYO5pi6XbUmuqnQ==
-X-Google-Smtp-Source: ABdhPJwsGQ8sNEpjPrK4NwXGmWn5ikgb9UwfZyM2WBUM7HHbDt75OYiMTQQO6yFDbui6wuS/lqrfbA==
-X-Received: by 2002:a7b:ce16:: with SMTP id m22mr21884572wmc.65.1616946299253;
-        Sun, 28 Mar 2021 08:44:59 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:1d2c:6290:11e9:3ac1? ([2001:8b0:aba:5f3c:1d2c:6290:11e9:3ac1])
-        by smtp.gmail.com with ESMTPSA id k24sm20219111wmr.48.2021.03.28.08.44.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 28 Mar 2021 08:44:58 -0700 (PDT)
-Message-ID: <48f4196457da1450694707cf4f60d0cc537c71ed.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH 1/1] Allow to overrule the URL in a bbappend.
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: jan <jan.vermaete@gmail.com>, poky@lists.yoctoproject.org
-Cc: Jan Vermaete <jan.vermaet@gmail.com>
-Date: Sun, 28 Mar 2021 16:44:55 +0100
-In-Reply-To: <20210328142957.3008-1-jan.vermaet@gmail.com>
-References: <20210328142957.3008-1-jan.vermaet@gmail.com>
-User-Agent: Evolution 3.40.0-1 
+ dkim=missing; spf=permerror, err=parse error for token &{10 18 a1.net}: parse error for token &{10 18 spf.a1.net}: parse error for token &{10 18 a1telekom.at}: parse error for token &{10 18 spf.qb-feedback.com}: parse error for token &{10 18 spf2.qb-feedback.com}: limit exceeded (domain: streamunlimited.com, ip: 198.145.29.25, mailfrom: quentin.schulz@streamunlimited.com)
+Received: from bsmtp.bon.at (bsmtp.bon.at [213.33.87.14])
+	by mail.yoctoproject.org (Postfix) with ESMTPS id 69A0938C0636
+	for <poky@yoctoproject.org>; Mon, 29 Mar 2021 08:10:27 +0000 (UTC)
+Received: from qschulz (vpn.streamunlimited.com [91.114.0.140])
+	by bsmtp.bon.at (Postfix) with ESMTPSA id 4F84y92Zh2z5tlG;
+	Mon, 29 Mar 2021 10:10:25 +0200 (CEST)
+Date: Mon, 29 Mar 2021 10:10:23 +0200
+From: "Quentin Schulz" <quentin.schulz@streamunlimited.com>
+To: R Srinivasan <s@srin.me>
+Cc: poky@yoctoproject.org
+Subject: Re: [poky] Qt version upgrade
+Message-ID: <20210329081023.uc34ceahpv44qifb@qschulz>
+References: <CAGNn0ha9Kvpt-Nw8USXtossi_mhLxHOC7k1OC=5jp09TiJeg-w@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGNn0ha9Kvpt-Nw8USXtossi_mhLxHOC7k1OC=5jp09TiJeg-w@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sun, 2021-03-28 at 16:29 +0200, jan wrote:
-> With this small patch, it's possible to overrule the public
-> URL with a local mirror for those without Internet access.
+Hi Srini,
+
+On Sat, Mar 27, 2021 at 05:46:59PM -0400, R Srinivasan wrote:
+> We are using "warrior" qt 5.12.6 am looking to upgrade to 5.15.2 or later.
 > 
-> Signed-off-by: Jan Vermaete <jan.vermaet@gmail.com>
-> ---
->  meta/recipes-core/meta/cve-update-db-native.bb | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+> Not sure where to start? Pointers requested.
+> 
 
-This sounds reasonable but could you please use a name which is a little
-more specific, "BASE_URL" is rather generic and hard to understand out 
-of context. Some of the class variables will end up in global scope.
+Hardknott branch of meta-qt5 targets qt 5.15.2 currently.
 
-Also, patches against openembedded-core need to be sent to the 
-openembedded-core mailing list.
+Either upgrade your layers to hardknott release (yet to be released, but
+should come out in April/May if it follows usual timeframe) or backport
+recipes to your version of Yocto by yourself.
 
 Cheers,
-
-Richard
-
+Quentin
