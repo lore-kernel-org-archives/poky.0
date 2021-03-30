@@ -1,110 +1,253 @@
-Received: from mail.yoctoproject.org (mail.yoctoproject.org [198.145.29.25])
- by mx.groups.io with SMTP id smtpd.web10.19903.1617017570264530190
- for <poky@lists.yoctoproject.org>;
- Mon, 29 Mar 2021 04:32:50 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@srin-me.20150623.gappssmtp.com header.s=20150623 header.b=jMxwvqvP;
- spf=none, err=SPF record not found (domain: srin.me, ip: 198.145.29.25, mailfrom: s@srin.me)
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	by mail.yoctoproject.org (Postfix) with ESMTPS id C72E438C063A
-	for <poky@yoctoproject.org>; Mon, 29 Mar 2021 11:32:47 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id z1so13823707edb.8
-        for <poky@yoctoproject.org>; Mon, 29 Mar 2021 04:32:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=srin-me.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=H9jRhhF2Uc4S2b7J6hQHvgcfSMxYiAfY8V/vEJRSn0g=;
-        b=jMxwvqvPf2vYC0RhiGif5KvQznhEkbe/7y4sSGWuj5hqz/wj9ELhrtljE76XHG908c
-         eJPSgQ8GAR9e6Jne2N6fnvmrA6HWr+tvZdwqtCuCtYjJQkp5IC7oIutIizInQE0FE2CS
-         0wpdrEBJVo/7wJocX0FYJF3+kNNYBkkN7RvJ4jmqa7U5XeQYL3dHB9jaiZadFrzJnabI
-         8Hs5a9mtUyRpa9EBH1qCqLosLLTtW6ZxivPFO9Auc9Eis48q0QgCUR9I/uhVBrGlkU99
-         J6V5cY/8g1s/QmH6/0wG7XS2svDTN4PYNL00p6D/ni0aOpzI7OXENpL4GQFgc3a1Nc2G
-         D2Xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=H9jRhhF2Uc4S2b7J6hQHvgcfSMxYiAfY8V/vEJRSn0g=;
-        b=ChYVzIk3rwRrRPaDBHWsGS0ivnLTNmy4BVS+3bSOY8AtRq/83zaK9tt/a4YLvTXCe0
-         TDe+NEnva7ziUoRkR+tznCEaobC0eN8yjcP0lSpIzAjpRVFi8tEGqPpCG9M2J0rrWaz3
-         NglXANaev7IR5uqfbv/cu2qnNiT/d/4MlplSGvNdO1b/IyhBuS30UAirnMKnPjrrPl+e
-         zGmgh479IKNKQP8JnDuA6j7LWB3RLHJ1o4F8Eyzo5vmgNqMz4ad3enL9JmvTnD1ujSqZ
-         x2gUxCOv4R6MozI205Cm8AGHbEFrmbDl+7GZb5JWw2uC83Upuyngbsu6t8Uocm6DAEuG
-         6tWA==
-X-Gm-Message-State: AOAM530lQInZuIh5xcSL5MJaQt9LXod6zLx515+1KoBZ6YewZDLpOSht
-	LY/6n9jbqr8TbQb4IFOkSuwy35IeokDl9HyriqmoRG2W7jA=
-X-Google-Smtp-Source: ABdhPJwsN7ZvMkfezKGkF5pVWQ+5SuxRctYvNEkDoFH7WzrIl9qtZeZH1DzJLsLrgiF/X5xR2H9bs1Ty/m3b6PKDhoI=
-X-Received: by 2002:a05:6402:14cc:: with SMTP id f12mr29154814edx.19.1617017566246;
- Mon, 29 Mar 2021 04:32:46 -0700 (PDT)
+Subject: Kernel Patch apply issue #poky #raspberrypi
+To: poky@lists.yoctoproject.org
+From: "Arun Ravindran" <arunlee@gmail.com>
+X-Originating-Location: Enfield, Leinster, IE (192.198.151.51)
+X-Originating-Platform: Windows Firefox 87
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-References: <CAGNn0ha9Kvpt-Nw8USXtossi_mhLxHOC7k1OC=5jp09TiJeg-w@mail.gmail.com>
- <20210329081023.uc34ceahpv44qifb@qschulz>
-In-Reply-To: <20210329081023.uc34ceahpv44qifb@qschulz>
-From: "R Srinivasan" <s@srin.me>
-Date: Mon, 29 Mar 2021 07:32:36 -0400
-Message-ID: <CAGNn0hZ-9jJOYyDB7ao0JoMF4v=O0fxPSKR9XBOfEWmrULVa1g@mail.gmail.com>
-Subject: Re: [poky] Qt version upgrade
-To: Quentin Schulz <quentin.schulz@streamunlimited.com>
-Cc: poky@yoctoproject.org
-Content-Type: multipart/alternative; boundary="000000000000a1da9e05beab3dbe"
+Date: Tue, 30 Mar 2021 01:30:22 -0700
+Message-ID: <n1kb.1617093022933367201.LRqM@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="SdlI4uLSapHDMyyRoqIh"
 
---000000000000a1da9e05beab3dbe
-Content-Type: text/plain; charset="UTF-8"
-
-Thanks Khem, Quentin, I will start investigating Hardknott first.
-Appreciate your help. srini
-
-On Mon, Mar 29, 2021 at 4:10 AM Quentin Schulz <
-quentin.schulz@streamunlimited.com> wrote:
-
-> Hi Srini,
->
-> On Sat, Mar 27, 2021 at 05:46:59PM -0400, R Srinivasan wrote:
-> > We are using "warrior" qt 5.12.6 am looking to upgrade to 5.15.2 or
-> later.
-> >
-> > Not sure where to start? Pointers requested.
-> >
->
-> Hardknott branch of meta-qt5 targets qt 5.15.2 currently.
->
-> Either upgrade your layers to hardknott release (yet to be released, but
-> should come out in April/May if it follows usual timeframe) or backport
-> recipes to your version of Yocto by yourself.
->
-> Cheers,
-> Quentin
->
-
---000000000000a1da9e05beab3dbe
-Content-Type: text/html; charset="UTF-8"
+--SdlI4uLSapHDMyyRoqIh
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">Thanks Khem, Quentin, I will start investigating Hardknott=
- first. Appreciate your help. srini<br></div><br><div class=3D"gmail_quote"=
-><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Mar 29, 2021 at 4:10 AM Quen=
-tin Schulz &lt;<a href=3D"mailto:quentin.schulz@streamunlimited.com">quenti=
-n.schulz@streamunlimited.com</a>&gt; wrote:<br></div><blockquote class=3D"g=
-mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
-,204,204);padding-left:1ex">Hi Srini,<br>
-<br>
-On Sat, Mar 27, 2021 at 05:46:59PM -0400, R Srinivasan wrote:<br>
-&gt; We are using &quot;warrior&quot; qt 5.12.6 am looking to upgrade to 5.=
-15.2 or later.<br>
-&gt; <br>
-&gt; Not sure where to start? Pointers requested.<br>
-&gt; <br>
-<br>
-Hardknott branch of meta-qt5 targets qt 5.15.2 currently.<br>
-<br>
-Either upgrade your layers to hardknott release (yet to be released, but<br=
->
-should come out in April/May if it follows usual timeframe) or backport<br>
-recipes to your version of Yocto by yourself.<br>
-<br>
-Cheers,<br>
-Quentin<br>
-</blockquote></div>
+Hi,
 
---000000000000a1da9e05beab3dbe--
+I am trying to build yocto image for raspberrypi, with realsense enabled. =
+I have taken the realsense uvcvideo patches.
+
+While trying to build i get the following message:
+
+ERROR: linux-raspberrypi-1_5.4.72+gitAUTOINC+5d52d9eea9_154de7bbd5-r0 do_p=
+atch: Could not apply patches for raspberrypi4-64.
+ERROR: linux-raspberrypi-1_5.4.72+gitAUTOINC+5d52d9eea9_154de7bbd5-r0 do_p=
+atch: Patch failures can be resolved in the linux source directory /home/ar=
+avind2/work/project-yocto/mvdevice/build/tmp/work-shared/raspberrypi4-64/ke=
+rnel-source)
+ERROR: linux-raspberrypi-1_5.4.72+gitAUTOINC+5d52d9eea9_154de7bbd5-r0 do_p=
+atch: Execution of '/home/aravind2/work/project-yocto/mvdevice/build/tmp/wo=
+rk/raspberrypi4_64-poky-linux/linux-raspberrypi/1_5.4.72+gitAUTOINC+5d52d9e=
+ea9_154de7bbd5-r0/temp/run.do_patch.29421' failed with exit code 1:
+(1/6) 0001-Revert-selftests-bpf-Skip-perf-hw-events-test-if-the.patch
+(2/6) 0002-Revert-selftests-bpf-Fix-perf_buffer-test-on-systems.patch
+(3/6) realsense_hid_5.4.patch
+(4/6) realsense_metadata_5.4.patch
+(5/6) realsense_powerlinefrequency_control_fix_5.4.patch
+(6/6) realsense_camera_formats_5.4.patch
+[INFO]: check of .kernel-meta//patches///realsense_camera_formats_5.4.patc=
+h with "git am" did not pass, trying reduced context.
+[INFO]: Context reduced git-am of .kernel-meta//patches///realsense_camera=
+_formats_5.4.patch with "git am" did not work, trying "apply".
+error: patch failed: drivers/media/v4l2-core/v4l2-ioctl.c:1330
+error: drivers/media/v4l2-core/v4l2-ioctl.c: patch does not apply
+error: patch failed: include/uapi/linux/videodev2.h:727
+error: include/uapi/linux/videodev2.h: patch does not apply
+[ERROR]: Application of .kernel-meta//patches///realsense_camera_formats_5=
+.4.patch failed.
+Patch needs to be refreshed. Sample resolution script:
+.git/rebase-apply/resolve_rejects
+WARNING: exit code 1 from a shell command.
+
+ERROR: Logfile of failure stored in: /home/aravind2/work/project-yocto/mvd=
+evice/build/tmp/work/raspberrypi4_64-poky-linux/linux-raspberrypi/1_5.4.72+=
+gitAUTOINC+5d52d9eea9_154de7bbd5-r0/temp/log.do_patch.29421
+Log data follows:
+| DEBUG: Executing python function extend_recipe_sysroot
+| NOTE: Direct dependencies are ['/home/aravind2/work/project-yocto/poky/m=
+eta/recipes-kernel/kern-tools/kern-tools-native_git.bb:do_populate_sysroot'=
+, '/home/aravind2/work/project-yocto/poky/meta/recipes-devtools/quilt/quilt=
+-native_0.66.bb:do_populate_sysroot', 'virtual:native:/home/aravind2/work/p=
+roject-yocto/poky/meta/recipes-devtools/patch/patch_2.7.6.bb:do_populate_sy=
+sroot']
+| NOTE: Installed into sysroot: []
+| NOTE: Skipping as already exists in sysroot: ['kern-tools-native', 'quil=
+t-native', 'patch-native', 'gnu-config-native', 'automake-native', 'attr-na=
+tive', 'libtool-native', 'autoconf-native', 'texinfo-dummy-native', 'gettex=
+t-minimal-native', 'm4-native']
+| DEBUG: Python function extend_recipe_sysroot finished
+| DEBUG: Executing shell function do_patch
+| (1/6) 0001-Revert-selftests-bpf-Skip-perf-hw-events-test-if-the.patch
+| (2/6) 0002-Revert-selftests-bpf-Fix-perf_buffer-test-on-systems.patch
+| (3/6) realsense_hid_5.4.patch
+| (4/6) realsense_metadata_5.4.patch
+| (5/6) realsense_powerlinefrequency_control_fix_5.4.patch
+| (6/6) realsense_camera_formats_5.4.patch
+| [INFO]: check of .kernel-meta//patches///realsense_camera_formats_5.4.pa=
+tch with "git am" did not pass, trying reduced context.
+| [INFO]: Context reduced git-am of .kernel-meta//patches///realsense_came=
+ra_formats_5.4.patch with "git am" did not work, trying "apply".
+| error: patch failed: drivers/media/v4l2-core/v4l2-ioctl.c:1330
+| error: drivers/media/v4l2-core/v4l2-ioctl.c: patch does not apply
+| error: patch failed: include/uapi/linux/videodev2.h:727
+| error: include/uapi/linux/videodev2.h: patch does not apply
+| [ERROR]: Application of .kernel-meta//patches///realsense_camera_formats=
+_5.4.patch failed.
+|=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Patch needs to be =
+refreshed. Sample resolution script:
+|=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 .git/rebase-apply/resolve_rejects
+| ERROR: Could not apply patches for raspberrypi4-64.
+| ERROR: Patch failures can be resolved in the linux source directory /hom=
+e/aravind2/work/project-yocto/mvdevice/build/tmp/work-shared/raspberrypi4-6=
+4/kernel-source)
+| WARNING: exit code 1 from a shell command.
+| ERROR: Execution of '/home/aravind2/work/project-yocto/mvdevice/build/tm=
+p/work/raspberrypi4_64-poky-linux/linux-raspberrypi/1_5.4.72+gitAUTOINC+5d5=
+2d9eea9_154de7bbd5-r0/temp/run.do_patch.29421' failed with exit code 1:
+| (1/6) 0001-Revert-selftests-bpf-Skip-perf-hw-events-test-if-the.patch
+| (2/6) 0002-Revert-selftests-bpf-Fix-perf_buffer-test-on-systems.patch
+| (3/6) realsense_hid_5.4.patch
+| (4/6) realsense_metadata_5.4.patch
+| (5/6) realsense_powerlinefrequency_control_fix_5.4.patch
+| (6/6) realsense_camera_formats_5.4.patch
+| [INFO]: check of .kernel-meta//patches///realsense_camera_formats_5.4.pa=
+tch with "git am" did not pass, trying reduced context.
+| [INFO]: Context reduced git-am of .kernel-meta//patches///realsense_came=
+ra_formats_5.4.patch with "git am" did not work, trying "apply".
+| error: patch failed: drivers/media/v4l2-core/v4l2-ioctl.c:1330
+| error: drivers/media/v4l2-core/v4l2-ioctl.c: patch does not apply
+| error: patch failed: include/uapi/linux/videodev2.h:727
+| error: include/uapi/linux/videodev2.h: patch does not apply
+| [ERROR]: Application of .kernel-meta//patches///realsense_camera_formats=
+_5.4.patch failed.
+|=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Patch needs to be =
+refreshed. Sample resolution script:
+|=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 .git/rebase-apply/resolve_rejects
+| WARNING: exit code 1 from a shell command.
+|
+ERROR: Task (/home/aravind2/work/project-yocto/poky/../meta-raspberrypi/re=
+cipes-kernel/linux/linux-raspberrypi_5.4.bb:do_patch) failed with exit code=
+ '1'
+NOTE: Tasks Summary: Attempted 717 tasks of which 706 didn't need to be re=
+run and 1 failed.
+NOTE: No commit since BUILDHISTORY_COMMIT !=3D '1'
+
+Summary: 1 task failed:
+/home/aravind2/work/project-yocto/poky/../meta-raspberrypi/recipes-kernel/=
+linux/linux-raspberrypi_5.4.bb:do_patch
+
+But i am able to apply the failing patch without any issue on https://gith=
+ub.com/raspberrypi/linux/tree/rpi-5.4.y and also at /home/aravind2/work/pro=
+ject-yocto/mvdevice/build/tmp/work-shared/raspberrypi4-64/kernel-source.
+
+I recreated the patch multiple times from the kernel-source directory of m=
+y build tree, but it always fails.
+
+I try git am --abort and then apply again the patch it succeeds without an=
+y issue.
+
+But while building from bitbake, it is always failing.
+
+What could be the issue? Could you please help me?
+
+regards
+Arun
+
+--SdlI4uLSapHDMyyRoqIh
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,<br /><br />I am trying to build yocto image for raspberrypi, with reals=
+ense enabled. I have taken the realsense uvcvideo patches.<br /><br />While=
+ trying to build i get the following message:<br /><br />ERROR: linux-raspb=
+errypi-1_5.4.72+gitAUTOINC+5d52d9eea9_154de7bbd5-r0 do_patch: Could not app=
+ly patches for raspberrypi4-64.<br />ERROR: linux-raspberrypi-1_5.4.72+gitA=
+UTOINC+5d52d9eea9_154de7bbd5-r0 do_patch: Patch failures can be resolved in=
+ the linux source directory /home/aravind2/work/project-yocto/mvdevice/buil=
+d/tmp/work-shared/raspberrypi4-64/kernel-source)<br />ERROR: linux-raspberr=
+ypi-1_5.4.72+gitAUTOINC+5d52d9eea9_154de7bbd5-r0 do_patch: Execution of '/h=
+ome/aravind2/work/project-yocto/mvdevice/build/tmp/work/raspberrypi4_64-pok=
+y-linux/linux-raspberrypi/1_5.4.72+gitAUTOINC+5d52d9eea9_154de7bbd5-r0/temp=
+/run.do_patch.29421' failed with exit code 1:<br />(1/6) 0001-Revert-selfte=
+sts-bpf-Skip-perf-hw-events-test-if-the.patch<br />(2/6) 0002-Revert-selfte=
+sts-bpf-Fix-perf_buffer-test-on-systems.patch<br />(3/6) realsense_hid_5.4.=
+patch<br />(4/6) realsense_metadata_5.4.patch<br />(5/6) realsense_powerlin=
+efrequency_control_fix_5.4.patch<br />(6/6) realsense_camera_formats_5.4.pa=
+tch<br />[INFO]: check of .kernel-meta//patches///realsense_camera_formats_=
+5.4.patch with "git am" did not pass, trying reduced context.<br />[INFO]: =
+Context reduced git-am of .kernel-meta//patches///realsense_camera_formats_=
+5.4.patch with "git am" did not work, trying "apply".<br />error: patch fai=
+led: drivers/media/v4l2-core/v4l2-ioctl.c:1330<br />error: drivers/media/v4=
+l2-core/v4l2-ioctl.c: patch does not apply<br />error: patch failed: includ=
+e/uapi/linux/videodev2.h:727<br />error: include/uapi/linux/videodev2.h: pa=
+tch does not apply<br />[ERROR]: Application of .kernel-meta//patches///rea=
+lsense_camera_formats_5.4.patch failed.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; Patch needs to be refreshed. Sample resolution script:<b=
+r />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; .git/rebase-apply/resolve_rejects<br />WARNING: exit code 1 from a shell =
+command.<br /><br />ERROR: Logfile of failure stored in: /home/aravind2/wor=
+k/project-yocto/mvdevice/build/tmp/work/raspberrypi4_64-poky-linux/linux-ra=
+spberrypi/1_5.4.72+gitAUTOINC+5d52d9eea9_154de7bbd5-r0/temp/log.do_patch.29=
+421<br />Log data follows:<br />| DEBUG: Executing python function extend_r=
+ecipe_sysroot<br />| NOTE: Direct dependencies are ['/home/aravind2/work/pr=
+oject-yocto/poky/meta/recipes-kernel/kern-tools/kern-tools-native_git.bb:do=
+_populate_sysroot', '/home/aravind2/work/project-yocto/poky/meta/recipes-de=
+vtools/quilt/quilt-native_0.66.bb:do_populate_sysroot', 'virtual:native:/ho=
+me/aravind2/work/project-yocto/poky/meta/recipes-devtools/patch/patch_2.7.6=
+.bb:do_populate_sysroot']<br />| NOTE: Installed into sysroot: []<br />| NO=
+TE: Skipping as already exists in sysroot: ['kern-tools-native', 'quilt-nat=
+ive', 'patch-native', 'gnu-config-native', 'automake-native', 'attr-native'=
+, 'libtool-native', 'autoconf-native', 'texinfo-dummy-native', 'gettext-min=
+imal-native', 'm4-native']<br />| DEBUG: Python function extend_recipe_sysr=
+oot finished<br />| DEBUG: Executing shell function do_patch<br />| (1/6) 0=
+001-Revert-selftests-bpf-Skip-perf-hw-events-test-if-the.patch<br />| (2/6)=
+ 0002-Revert-selftests-bpf-Fix-perf_buffer-test-on-systems.patch<br />| (3/=
+6) realsense_hid_5.4.patch<br />| (4/6) realsense_metadata_5.4.patch<br />|=
+ (5/6) realsense_powerlinefrequency_control_fix_5.4.patch<br />| (6/6) real=
+sense_camera_formats_5.4.patch<br />| [INFO]: check of .kernel-meta//patche=
+s///realsense_camera_formats_5.4.patch with "git am" did not pass, trying r=
+educed context.<br />| [INFO]: Context reduced git-am of .kernel-meta//patc=
+hes///realsense_camera_formats_5.4.patch with "git am" did not work, trying=
+ "apply".<br />| error: patch failed: drivers/media/v4l2-core/v4l2-ioctl.c:=
+1330<br />| error: drivers/media/v4l2-core/v4l2-ioctl.c: patch does not app=
+ly<br />| error: patch failed: include/uapi/linux/videodev2.h:727<br />| er=
+ror: include/uapi/linux/videodev2.h: patch does not apply<br />| [ERROR]: A=
+pplication of .kernel-meta//patches///realsense_camera_formats_5.4.patch fa=
+iled.<br />|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Patch ne=
+eds to be refreshed. Sample resolution script:<br />|&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .git/rebase-apply/=
+resolve_rejects<br />| ERROR: Could not apply patches for raspberrypi4-64.<=
+br />| ERROR: Patch failures can be resolved in the linux source directory =
+/home/aravind2/work/project-yocto/mvdevice/build/tmp/work-shared/raspberryp=
+i4-64/kernel-source)<br />| WARNING: exit code 1 from a shell command.<br /=
+>| ERROR: Execution of '/home/aravind2/work/project-yocto/mvdevice/build/tm=
+p/work/raspberrypi4_64-poky-linux/linux-raspberrypi/1_5.4.72+gitAUTOINC+5d5=
+2d9eea9_154de7bbd5-r0/temp/run.do_patch.29421' failed with exit code 1:<br =
+/>| (1/6) 0001-Revert-selftests-bpf-Skip-perf-hw-events-test-if-the.patch<b=
+r />| (2/6) 0002-Revert-selftests-bpf-Fix-perf_buffer-test-on-systems.patch=
+<br />| (3/6) realsense_hid_5.4.patch<br />| (4/6) realsense_metadata_5.4.p=
+atch<br />| (5/6) realsense_powerlinefrequency_control_fix_5.4.patch<br />|=
+ (6/6) realsense_camera_formats_5.4.patch<br />| [INFO]: check of .kernel-m=
+eta//patches///realsense_camera_formats_5.4.patch with "git am" did not pas=
+s, trying reduced context.<br />| [INFO]: Context reduced git-am of .kernel=
+-meta//patches///realsense_camera_formats_5.4.patch with "git am" did not w=
+ork, trying "apply".<br />| error: patch failed: drivers/media/v4l2-core/v4=
+l2-ioctl.c:1330<br />| error: drivers/media/v4l2-core/v4l2-ioctl.c: patch d=
+oes not apply<br />| error: patch failed: include/uapi/linux/videodev2.h:72=
+7<br />| error: include/uapi/linux/videodev2.h: patch does not apply<br />|=
+ [ERROR]: Application of .kernel-meta//patches///realsense_camera_formats_5=
+.4.patch failed.<br />|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; Patch needs to be refreshed. Sample resolution script:<br />|&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .git/re=
+base-apply/resolve_rejects<br />| WARNING: exit code 1 from a shell command=
+.<br />|<br />ERROR: Task (/home/aravind2/work/project-yocto/poky/../meta-r=
+aspberrypi/recipes-kernel/linux/linux-raspberrypi_5.4.bb:do_patch) failed w=
+ith exit code '1'<br />NOTE: Tasks Summary: Attempted 717 tasks of which 70=
+6 didn't need to be rerun and 1 failed.<br />NOTE: No commit since BUILDHIS=
+TORY_COMMIT !=3D '1'<br /><br />Summary: 1 task failed:<br />&nbsp; /home/a=
+ravind2/work/project-yocto/poky/../meta-raspberrypi/recipes-kernel/linux/li=
+nux-raspberrypi_5.4.bb:do_patch<br /><br /><br />But i am able to apply the=
+ failing patch without any issue on <a href=3D"https://github.com/raspberry=
+pi/linux/tree/rpi-5.4.y" target=3D"_blank" rel=3D"noopener">https://github.=
+com/raspberrypi/linux/tree/rpi-5.4.y</a> and also at /home/aravind2/work/pr=
+oject-yocto/mvdevice/build/tmp/work-shared/raspberrypi4-64/kernel-source.<b=
+r /><br />I recreated the patch multiple times from the kernel-source direc=
+tory of my build tree, but it always fails.<br /><br />I try git am --abort=
+ and then apply again the patch it succeeds without any issue.<br /><br />B=
+ut while building from bitbake, it is always failing.<br /><br />What could=
+ be the issue? Could you please help me?<br /><br />regards<br />Arun
+
+--SdlI4uLSapHDMyyRoqIh--
