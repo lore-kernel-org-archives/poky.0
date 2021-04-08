@@ -1,73 +1,69 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
- by mx.groups.io with SMTP id smtpd.web12.1387.1617735068404915011
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
+ by mx.groups.io with SMTP id smtpd.web08.405.1617898859240779617
  for <poky@lists.yoctoproject.org>;
- Tue, 06 Apr 2021 11:51:08 -0700
+ Thu, 08 Apr 2021 09:20:59 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=uUUDEZWy;
- spf=softfail (domain: sakoman.com, ip: 209.85.210.181, mailfrom: steve@sakoman.com)
-Received: by mail-pf1-f181.google.com with SMTP id a12so11089364pfc.7
-        for <poky@lists.yoctoproject.org>; Tue, 06 Apr 2021 11:51:08 -0700 (PDT)
+ dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=uYVswnTK;
+ spf=softfail (domain: sakoman.com, ip: 209.85.167.174, mailfrom: steve@sakoman.com)
+Received: by mail-oi1-f174.google.com with SMTP id 25so1265540oiy.5
+        for <poky@lists.yoctoproject.org>; Thu, 08 Apr 2021 09:20:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=sakoman-com.20150623.gappssmtp.com; s=20150623;
-        h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+        h=from:to:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=nqXRHsSc4fDWsedG+blSAfVGL6P7Wky/A/y/WhOprkI=;
-        b=uUUDEZWycPV96+v9Q+lNys7CZk2+Y9SJTzYhTBs8wDSW7qGPRchJDEAK9IznnfsR/S
-         Shc3/dUn6d/QArkJq+lZ+zYsw1XAzpC99Yac3pqgMrKC0h3d861N8yqErohMWlZ4MUVR
-         TQkWK9OeJdNauQ00iFVTFF+gpk+yAdh5wV07FUMZD+V++EskW1oPozV0IUgx/jYnHZ7f
-         dq2tUiir7SJib9Xjjl82/jjL7cjHonD0FAZ+kRojIAamdR21LH4SaWLHgFcJln2/fDt/
-         tNBB73cW/YEQliZSZGusMfjM7PpjRqRTV98EzxI5z9uz3cL6QIRdeMcP78JeabsvmboF
-         TdRA==
+        bh=TLMyMqdUj1oelZVJHIJ36QwNsNRwCGgR4vlKsnLrCdU=;
+        b=uYVswnTKhfbfwTEBsqIL/6CWsLBikO8WPYKKWs+5E7F/SoFByqh1aXCXZ0lQDVbBh4
+         Bl5pi4SUsUFklicKukhiPFZ2XMZC3WGysLUiIa0Spj4DTGScYQiGbTqz9LKNcgEoBQ9T
+         nDFNjW6y7zV8SOZNRBw+fvUoDh9lABCCu0JUyNMMZZHrnd7Ywlb4lRlhn538ZsA+eSok
+         TL2cG83OYUbuqTSFZElOfIE0rKf5306p1aNoRyoQqbZytEmRZxEjNoNHirwbVQxQbqNN
+         RQHF1QoRWLWgLgA9oJSQHrO3Q4YUrSO2NnWf2d2vJByPLuULnHBddt0KixdozLItYXe6
+         YwXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=nqXRHsSc4fDWsedG+blSAfVGL6P7Wky/A/y/WhOprkI=;
-        b=nQTl9m0KKrLf21H0kHiPbBTRVrquMWVmZovCxrJyvhWVESRsril9UweiumEQkHXhaj
-         SJcxz2phjweLXy8kOfhDb8hW7foWsZZ3uYnM/Nchf4NnODawusitJgNMEig6bJHm4Rdd
-         mqwPfXOm+u0fWDNm75J1WSxeZ9dZJpT6zRzHcZGQJpWdI7zFKA8fKSNVUNFiOfE5s9lm
-         W9v845HeR95molA5T+8lO5e5gsZRY3wEVYGb1A0PgIuRjYSXLmZAa/LBdBF3O7+XdWdr
-         zFoUChPZgBMpyjepMAadQw9IaS30kX/akTpBZNsGLuMYchdlXj3693ob97aFyDkSqozn
-         kc0Q==
-X-Gm-Message-State: AOAM530GHzQikBsX5yLKXmZOuJXw1+KsnEUaYAbTC/tHod6UHcxCvkZV
-	BVoqpjSxiVf5iOVIOWfrEMDFGPCPf+j2Fu+mGKo=
-X-Google-Smtp-Source: ABdhPJz2WTsVJq7pUIciCLtHy/iVZbkvrQSE/euBRkOM2T6IhJzuWJxcpQsLSWHxkI33ZMRTo6BL/A==
-X-Received: by 2002:a05:6a00:b47:b029:20d:1c65:75f0 with SMTP id p7-20020a056a000b47b029020d1c6575f0mr28802915pfo.9.1617735067464;
-        Tue, 06 Apr 2021 11:51:07 -0700 (PDT)
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=TLMyMqdUj1oelZVJHIJ36QwNsNRwCGgR4vlKsnLrCdU=;
+        b=T/No7cOewbYr1IsYrjA4ZWGWXtFMLCPj/dzGGd9iuy3WDLMBE+iNkFgQzZuoImMZ95
+         p7faqYL+kgmSDLzmGetd1hMbmYsfZ/sqD92bY3G2GXg89yEH2m0Y8FpGsjiTgifkCd62
+         e25OAuweli5qkCceiZHjhCKMArbjXGnxcW8W2QdL/OjOn/5uEVk/zPtpO/rv7+whmdcQ
+         +aRIxB68Sq0sA/xcTW7Ju0fDls+F0tJIBpv8v3zLKqhay9WAAVPkcOMdHSe7wq72A1Fs
+         cbWxjQpjc+d12fNVE1HwFYfrGdCCi/5ruU1fh7lexHmgVn1HOT+mCbHsr8H0W1tqR8ws
+         J/5A==
+X-Gm-Message-State: AOAM531/B3U0pQmi2XbxUlJe7Jb1eNYgN30t3R4jga0IyDZJrmUShr8p
+	V+ncy0+YQs5EqcAp8m1qYxhnnz0KaAOgg1H+z40=
+X-Google-Smtp-Source: ABdhPJwCZ49aw/S/waKAgvaYz6CwjGRBe85rKeCNWyz/CGmZISS8KDLeDVxBBCqaMh98eixA2+jk8Q==
+X-Received: by 2002:aca:ad57:: with SMTP id w84mr6723642oie.100.1617898858005;
+        Thu, 08 Apr 2021 09:20:58 -0700 (PDT)
 Return-Path: <steve@sakoman.com>
 Received: from localhost.localdomain ([72.173.249.164])
-        by smtp.gmail.com with ESMTPSA id e13sm18882826pfi.199.2021.04.06.11.51.04
+        by smtp.gmail.com with ESMTPSA id i4sm6205177otj.56.2021.04.08.09.20.54
         for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Apr 2021 11:51:07 -0700 (PDT)
+        Thu, 08 Apr 2021 09:20:57 -0700 (PDT)
 From: "Steve Sakoman" <steve@sakoman.com>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell] poky.conf: Bump version for 3.1.7 release
-Date: Tue,  6 Apr 2021 08:50:46 -1000
-Message-Id: <f525cb7e0b900908e99d7672347a8c6e5be11101.1617734966.git.steve@sakoman.com>
+Subject: [meta-yocto][dunfell 0/1] Pull request (cover letter only)
+Date: Thu,  8 Apr 2021 06:20:29 -1000
+Message-Id: <cover.1617898757.git.steve@sakoman.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1617734966.git.steve@sakoman.com>
-References: <cover.1617734966.git.steve@sakoman.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Steve Sakoman <steve@sakoman.com>
----
+The following changes since commit febea5f6be380fed476552d741dc97e9c78ebdd9:
+
+  linux-yocto: update genericx86* to v5.4.94 (2021-03-05 06:18:57 -1000)
+
+are available in the Git repository at:
+
+  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
+  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
+
+Steve Sakoman (1):
+  poky.conf: Bump version for 3.1.7 release
+
  meta-poky/conf/distro/poky.conf | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 521109b..d4faecb 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -1,6 +1,6 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
--DISTRO_VERSION = "3.1.6"
-+DISTRO_VERSION = "3.1.7"
- DISTRO_CODENAME = "dunfell"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}', 'snapshot')}"
 -- 
 2.25.1
 
