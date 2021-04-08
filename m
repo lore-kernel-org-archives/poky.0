@@ -1,145 +1,114 @@
-Subject: Strange issue with npm package fetch #poky #npmsw
-To: poky@lists.yoctoproject.org
-From: "Arun Ravindran" <arunlee@gmail.com>
-X-Originating-Location: IE (192.198.151.51)
-X-Originating-Platform: Windows Firefox 87
-User-Agent: GROUPS.IO Web Poster
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+ by mx.groups.io with SMTP id smtpd.web11.200.1617899688680391558
+ for <poky@lists.yoctoproject.org>;
+ Thu, 08 Apr 2021 09:34:49 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=W4Dw3Nch;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.44, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f44.google.com with SMTP id g66-20020a1c39450000b0290125d187ba22so970275wma.2
+        for <poky@lists.yoctoproject.org>; Thu, 08 Apr 2021 09:34:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
+         :mime-version:content-transfer-encoding;
+        bh=d9k9exQgfkpvHIG1stefsxTA3wvJSX+VIJeucNFnzn8=;
+        b=W4Dw3NchkMua2DdHF4TBn2wdIpBuR/orEcLp9fe5FWUhYZuRfHJnOj2Ceh3164M8SH
+         xScWm3Tq7I+C8uc3AwjYcEwKmXyJ1PPlvOvYEUo/cpC/hN/FRdUR7zbnT9kFr0lzhOu7
+         gQzZhACfJ3ihp6v3y0Uw5SLqj+MYxrQS2r4J8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=d9k9exQgfkpvHIG1stefsxTA3wvJSX+VIJeucNFnzn8=;
+        b=A0bLU1/hHs5IYR1COcn96NL+XSi2uJm93xf07LFtPRjaAIR49IKYr1Oyt/qa0n19HS
+         FTwsxkDniMvX2VDaZI8eWAGapWZG44TTGYSTZo+LWvguX2G//T7ugdwGBl4qbqacXTyd
+         3IrR5NiAEzbZveSbumMKDmGHlOjtpJThTcXFlOtk5fubyApt/Q2A3B9qhSrUXWfAkkJZ
+         NNbBpLkYzsKFo4C8VpbT3rVCv5XGgU0QeQ2C3m+7ry4TS+GsLb1JLe/dxzQ51NzN7K8/
+         g/VF6jhBnPbE9lrkfJovKZmVAWFbT1j28Rf5kGZMqttfcVK10X4+rCBYSpYkozPQeLRY
+         Gwsg==
+X-Gm-Message-State: AOAM532lZ9fGLen27xIrckhUBPWrRl3ICwHIzzw/jZxIiywbKkYs9n8d
+	FKFPbyVYRQfornwzTvTiIzzwUQ==
+X-Google-Smtp-Source: ABdhPJyXGq1Y8kHoJVG87UEvCeJCPEn9hGm7SliHJwRtL4fjyFwrA4oIHKAaYTyyDHwPxRiLDU0fNg==
+X-Received: by 2002:a1c:e088:: with SMTP id x130mr6475690wmg.62.1617899687117;
+        Thu, 08 Apr 2021 09:34:47 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from ?IPv6:2001:8b0:aba:5f3c:585b:a40e:b99a:b24a? ([2001:8b0:aba:5f3c:585b:a40e:b99a:b24a])
+        by smtp.gmail.com with ESMTPSA id k16sm27349199wrl.47.2021.04.08.09.34.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Apr 2021 09:34:46 -0700 (PDT)
+Message-ID: <c04e76e43994a96f6eef538a21339d1aae90ff57.camel@linuxfoundation.org>
+Subject: Re: [poky] Strange issue with npm package fetch #poky #npmsw
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Arun Ravindran <arunlee@gmail.com>, poky@lists.yoctoproject.org
+Date: Thu, 08 Apr 2021 17:34:42 +0100
+In-Reply-To: <giUq.1617899577929962653.dcfx@lists.yoctoproject.org>
+References: <giUq.1617899577929962653.dcfx@lists.yoctoproject.org>
+User-Agent: Evolution 3.40.0-1 
 MIME-Version: 1.0
-Date: Thu, 08 Apr 2021 09:32:57 -0700
-Message-ID: <giUq.1617899577929962653.dcfx@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="9ZmMSMpvtHyuhuWdYt3K"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
---9ZmMSMpvtHyuhuWdYt3K
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+On Thu, 2021-04-08 at 09:32 -0700, Arun Ravindran wrote:
+> Hi,
+> 
+> I have created some recipes for express and body-parser npm packages.
+> I used devtool add <git URL> to create the bb file and npm-shrinkwrap.json.
+> 
+> The recipes works fine on one of our build machines, where as on another it fails!!
+> 
+> The error we get is
+> 
+> aravind2@tmsbuild008:/build/aravind2/work/custom-yocto/mvdevice/build$ bitbake core-image-minimal
+> ERROR: ExpansionError during parsing /build/aravind2/work/custom-yocto/sources/poky/../../meta-
+> customapps/recipes-support/body-parser/body-parser_git.bb   | ETA:  0:00:25
+> Traceback (most recent call last):
+>   File "/build/aravind2/work/custom-yocto/sources/poky/bitbake/lib/bb/utils.py", line 421, in
+> better_eval(source=<code object <module> at 0x7f3a9d99fa50, file "Var <SRCPV>", line 1>, locals={'d':
+> <bb.data_smart.DataSmart object at 0x7f3a9bb99c50>}, extraglobals={'d': <bb.data_smart.DataSmart object at
+> 0x7f3a9bb99c50>}):
+>                  ctx[g] = extraglobals[g]
+>     >    return eval(source, ctx, locals)
+> 
+>   File "Var <SRCPV>", line 1, in <module>
+>   File "/build/aravind2/work/custom-yocto/sources/poky/bitbake/lib/bb/fetch2/__init__.py", line 745, in
+> get_srcrev(d=<bb.data_smart.DataSmart object at 0x7f3a9bb99c50>, method_name='sortable_revision'):
+>          scms = []
+>     >    fetcher = Fetch(d.getVar('SRC_URI').split(), d)
+>          urldata = fetcher.ud
+>   File "/build/aravind2/work/custom-yocto/sources/poky/bitbake/lib/bb/fetch2/__init__.py", line 1600, in
+> Fetch.__init__(urls=['git://github.com/expressjs/body-parser.git;protocol=https',
+> 'npmsw:///build/aravind2/work/custom-yocto/sources/poky/../../meta-customapps/recipes-support/body-
+> parser/body-parser/npm-shrinkwrap.json'], d=<bb.data_smart.DataSmart object at 0x7f3a9bb99c50>, cache=True,
+> localonly=False, connection_cache=None):
+>                      try:
+>     >                    self.ud[url] = FetchData(url, d, localonly)
+>                      except NonLocalMethod:
+>   File "/build/aravind2/work/custom-yocto/sources/poky/bitbake/lib/bb/fetch2/__init__.py", line 1262, in
+> FetchData.__init__(url='npmsw:///build/aravind2/work/custom-yocto/sources/poky/../../meta-
+> customapps/recipes-
+> support/body-parser/body-parser/npm-shrinkwrap.json', d=<bb.data_smart.DataSmart object at 0x7f3a9bb99c50>,
+> localonly=False):
+>              if not self.method:
+>     >            raise NoMethodError(url)
+> 
+> bb.data_smart.ExpansionError: Failure expanding variable SRCPV, expression was ${@bb.fetch2.get_srcrev(d)}
+> which triggered exception NoMethodError: Could not find a fetcher which supports the URL:
+> 'npmsw:///build/aravind2/work/custom-yocto/sources/poky/../../meta-customapps/recipes-support/body-
+> parser/body-parser/npm-shrinkwrap.json'
+> 
+> 
+> Summary: There was 1 ERROR message shown, returning a non-zero exit code.
+> aravind2@tmsbuild008:/build/aravind2/work/custom-yocto/mvdevice/build$
+> 
+> Both machines are  :    Ubuntu 18.04.5 LTS
+> 
+> what could be the issue here? How could this be fixed?
 
-Hi,
+Sounds like the wrong version of bitbake is being used, one which doesn't 
+contain support for the npmsw fetcher.
 
-I have created some recipes for express and body-parser npm packages.
-I used devtool add <git URL> to create the bb file and npm-shrinkwrap.json=
-.
+Cheers,
 
-The recipes works fine on one of our build machines, where as on another i=
-t fails!!
+Richard
 
-The error we get is
 
-aravind2@tmsbuild008:/build/aravind2/work/custom-yocto/mvdevice/build$ bit=
-bake core-image-minimal
-ERROR: ExpansionError during parsing /build/aravind2/work/custom-yocto/sou=
-rces/poky/../../meta-customapps/recipes-support/body-parser/body-parser_git=
-.bb=C2=A0=C2=A0 | ETA:=C2=A0 0:00:25
-Traceback (most recent call last):
-File "/build/aravind2/work/custom-yocto/sources/poky/bitbake/lib/bb/utils.=
-py", line 421, in better_eval(source=3D<code object <module> at 0x7f3a9d99f=
-a50, file "Var <SRCPV>", line 1>, locals=3D{'d': <bb.data_smart.DataSmart o=
-bject at 0x7f3a9bb99c50>}, extraglobals=3D{'d': <bb.data_smart.DataSmart ob=
-ject at 0x7f3a9bb99c50>}):
-ctx[g] =3D extraglobals[g]
->=C2=A0=C2=A0=C2=A0 return eval(source, ctx, locals)
-
-File "Var <SRCPV>", line 1, in <module>
-File "/build/aravind2/work/custom-yocto/sources/poky/bitbake/lib/bb/fetch2=
-/__init__.py", line 745, in get_srcrev(d=3D<bb.data_smart.DataSmart object =
-at 0x7f3a9bb99c50>, method_name=3D'sortable_revision'):
-scms =3D []
->=C2=A0=C2=A0=C2=A0 fetcher =3D Fetch(d.getVar('SRC_URI').split(), d)
-urldata =3D fetcher.ud
-File "/build/aravind2/work/custom-yocto/sources/poky/bitbake/lib/bb/fetch2=
-/__init__.py", line 1600, in Fetch.__init__(urls=3D['git://github.com/expre=
-ssjs/body-parser.git;protocol=3Dhttps', 'npmsw:///build/aravind2/work/custo=
-m-yocto/sources/poky/../../meta-customapps/recipes-support/body-parser/body=
--parser/npm-shrinkwrap.json'], d=3D<bb.data_smart.DataSmart object at 0x7f3=
-a9bb99c50>, cache=3DTrue, localonly=3DFalse, connection_cache=3DNone):
-try:
->=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 self.ud[url] =3D FetchData(url,=
- d, localonly)
-except NonLocalMethod:
-File "/build/aravind2/work/custom-yocto/sources/poky/bitbake/lib/bb/fetch2=
-/__init__.py", line 1262, in FetchData.__init__(url=3D'npmsw:///build/aravi=
-nd2/work/custom-yocto/sources/poky/../../meta-customapps/recipes-support/bo=
-dy-parser/body-parser/npm-shrinkwrap.json', d=3D<bb.data_smart.DataSmart ob=
-ject at 0x7f3a9bb99c50>, localonly=3DFalse):
-if not self.method:
->=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 raise =
-NoMethodError(url)
-
-bb.data_smart.ExpansionError: Failure expanding variable SRCPV, expression=
- was ${@bb.fetch2.get_srcrev(d)} which triggered exception NoMethodError: C=
-ould not find a fetcher which supports the URL: 'npmsw:///build/aravind2/wo=
-rk/custom-yocto/sources/poky/../../meta-customapps/recipes-support/body-par=
-ser/body-parser/npm-shrinkwrap.json'
-
-Summary: There was 1 ERROR message shown, returning a non-zero exit code.
-aravind2@tmsbuild008:/build/aravind2/work/custom-yocto/mvdevice/build$
-
-Both machines are=C2=A0 :=C2=A0=C2=A0=C2=A0 Ubuntu 18.04.5 LTS
-
-what could be the issue here? How could this be fixed?
-
-regards
-Arun
-
---9ZmMSMpvtHyuhuWdYt3K
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,<br /><br />I have created some recipes for express and body-parser npm =
-packages.<br />I used devtool add &lt;git URL&gt; to create the bb file and=
- npm-shrinkwrap.json.<br /><br />The recipes works fine on one of our build=
- machines, where as on another it fails!!<br /><br />The error we get is<br=
- /><br />aravind2@tmsbuild008:/build/aravind2/work/custom-yocto/mvdevice/bu=
-ild$ bitbake core-image-minimal<br />ERROR: ExpansionError during parsing /=
-build/aravind2/work/custom-yocto/sources/poky/../../meta-customapps/recipes=
--support/body-parser/body-parser_git.bb&nbsp;&nbsp; | ETA:&nbsp; 0:00:25<br=
- />Traceback (most recent call last):<br />&nbsp; File "/build/aravind2/wor=
-k/custom-yocto/sources/poky/bitbake/lib/bb/utils.py", line 421, in better_e=
-val(source=3D&lt;code object &lt;module&gt; at 0x7f3a9d99fa50, file "Var &l=
-t;SRCPV&gt;", line 1&gt;, locals=3D{'d': &lt;bb.data_smart.DataSmart object=
- at 0x7f3a9bb99c50&gt;}, extraglobals=3D{'d': &lt;bb.data_smart.DataSmart o=
-bject at 0x7f3a9bb99c50&gt;}):<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ctx[g] =3D extrag=
-lobals[g]<br />&nbsp;&nbsp;&nbsp; &gt;&nbsp;&nbsp;&nbsp; return eval(source=
-, ctx, locals)<br /><br />&nbsp; File "Var &lt;SRCPV&gt;", line 1, in &lt;m=
-odule&gt;<br />&nbsp; File "/build/aravind2/work/custom-yocto/sources/poky/=
-bitbake/lib/bb/fetch2/__init__.py", line 745, in get_srcrev(d=3D&lt;bb.data=
-_smart.DataSmart object at 0x7f3a9bb99c50&gt;, method_name=3D'sortable_revi=
-sion'):<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scms =3D []<b=
-r />&nbsp;&nbsp;&nbsp; &gt;&nbsp;&nbsp;&nbsp; fetcher =3D Fetch(d.getVar('S=
-RC_URI').split(), d)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-urldata =3D fetcher.ud<br />&nbsp; File "/build/aravind2/work/custom-yocto/=
-sources/poky/bitbake/lib/bb/fetch2/__init__.py", line 1600, in Fetch.__init=
-__(urls=3D['git://github.com/expressjs/body-parser.git;protocol=3Dhttps', '=
-npmsw:///build/aravind2/work/custom-yocto/sources/poky/../../meta-customapp=
-s/recipes-support/body-parser/body-parser/npm-shrinkwrap.json'], d=3D&lt;bb=
-.data_smart.DataSmart object at 0x7f3a9bb99c50&gt;, cache=3DTrue, localonly=
-=
-=3DFalse, connection_cache=3DNone):<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; try:<br />&nbsp;&nbsp;&nbsp; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; self.ud[url] =3D FetchData(url, d, localonly)<br />&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; except NonLocalMethod:<br />&nbsp; File "/=
-build/aravind2/work/custom-yocto/sources/poky/bitbake/lib/bb/fetch2/__init_=
-_.py", line 1262, in FetchData.__init__(url=3D'npmsw:///build/aravind2/work=
-/custom-yocto/sources/poky/../../meta-customapps/recipes-support/body-parse=
-r/body-parser/npm-shrinkwrap.json', d=3D&lt;bb.data_smart.DataSmart object =
-at 0x7f3a9bb99c50&gt;, localonly=3DFalse):<br />&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if not self.method:<br />&nbs=
-p;&nbsp;&nbsp; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; raise NoMethodError(url)<br /><br />bb.data_smart.ExpansionError=
-: Failure expanding variable SRCPV, expression was ${@bb.fetch2.get_srcrev(=
-d)} which triggered exception NoMethodError: Could not find a fetcher which=
- supports the URL: 'npmsw:///build/aravind2/work/custom-yocto/sources/poky/=
-../../meta-customapps/recipes-support/body-parser/body-parser/npm-shrinkwra=
-p.json'<br /><br /><br />Summary: There was 1 ERROR message shown, returnin=
-g a non-zero exit code.<br /><a href=3D"mailto:aravind2@tmsbuild008:/build/=
-aravind2/work/custom-yocto/mvdevice/build$" target=3D"_blank" rel=3D"noopen=
-er">aravind2@tmsbuild008:/build/aravind2/work/custom-yocto/mvdevice/build$<=
-/a><br /><br />Both machines are&nbsp; :&nbsp;&nbsp;&nbsp; Ubuntu 18.04.5 L=
-TS<br /><br />what could be the issue here? How could this be fixed?<br /><=
-br />regards<br />Arun
-
---9ZmMSMpvtHyuhuWdYt3K--
