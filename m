@@ -1,86 +1,99 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
- by mx.groups.io with SMTP id smtpd.web10.10713.1619188343214347658
+Received: from gproxy1-pub.mail.unifiedlayer.com (gproxy1-pub.mail.unifiedlayer.com [69.89.25.95])
+ by mx.groups.io with SMTP id smtpd.web09.5982.1619698754716495813
  for <poky@lists.yoctoproject.org>;
- Fri, 23 Apr 2021 07:32:23 -0700
+ Thu, 29 Apr 2021 05:19:14 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Z5l2EGqt;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.53, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f53.google.com with SMTP id e7so39650313wrs.11
-        for <poky@lists.yoctoproject.org>; Fri, 23 Apr 2021 07:32:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=6XOO5xX3HXE+PUT4u79/ipCocXNarYrkmEl0v1qnnt4=;
-        b=Z5l2EGqtnt+CPnP/a5ICjlpmM986ZH9WNN5ckZ7ew3LQZbJ4XgM0/ToPBcQagy9epq
-         bNNM6rhtUfEXo1dJkQw7o1epSg5meOXUDZ4coALwzZ9hieqAMrILZgx6smdUJStoaMo2
-         UvILdDv7JYaS8kDMCGQdWVFXpDPVV5sZGasKw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=6XOO5xX3HXE+PUT4u79/ipCocXNarYrkmEl0v1qnnt4=;
-        b=NBhDQ17CcLWXf3Rd0w84CDnkPNiY+JHXEuH7zN41hx8sjQbMqocQz4tMwf6zzpmc1F
-         MFd5l1Fsj2G0FV+6ZxH1C3AHqBqZMq8eqwNb9GPTzt/BFPS+ygOfFNNKLpR+jgFv6HAQ
-         SAZ9Ul5/KRkVmFzWkxAWR7aPyDthQoFQ7QSKsehYNA7YrgZHLprlOJcxo9aCMwDh8jmx
-         Z3jn0n+qSo3tlTp3SyLkYbP9TB7nul3ZYatvQ8GbnFdUBM3v3TP323eZyc4PEBb3/Brc
-         bwyVtbjI2iNWRZKn55ljUqG9KOeGr760Qdjap9jaG1wfXmUd4nU+T04Gb20RjLZJvuDM
-         yIBg==
-X-Gm-Message-State: AOAM530TSihkE3woaWPmwQHr3jluQxwJEwbkNQ7yO/Rjv0QvKhqlL0JN
-	mn1TIirKRhgaCyNqJLu2sAbKXw==
-X-Google-Smtp-Source: ABdhPJzM3sgtZz0Hyg8PoDm80t46c9T6luhLiTvsjk/TqrdalrXLEI9k8tOOUG+GRK7AJg73L2Q31A==
-X-Received: by 2002:adf:fa49:: with SMTP id y9mr5076114wrr.229.1619188341622;
-        Fri, 23 Apr 2021 07:32:21 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:9e5d:1acf:2dd2:29e6? ([2001:8b0:aba:5f3c:9e5d:1acf:2dd2:29e6])
-        by smtp.gmail.com with ESMTPSA id h8sm7063290wmq.19.2021.04.23.07.32.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Apr 2021 07:32:21 -0700 (PDT)
-Message-ID: <d261c84350b9ee7fd4bdf12cc9ebc80947c5a622.camel@linuxfoundation.org>
-Subject: Re: [poky] ca-certificates busybox incompatibility
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Will Stott <w.stott@engineeredarts.co.uk>, poky@lists.yoctoproject.org
-Date: Fri, 23 Apr 2021 15:32:19 +0100
-In-Reply-To: <a347b2b6-3196-bb70-3cd4-99f51bb07ac9@engineeredarts.co.uk>
-References: <a347b2b6-3196-bb70-3cd4-99f51bb07ac9@engineeredarts.co.uk>
-User-Agent: Evolution 3.40.0-1 
+ dkim=pass header.i=@linumiz.com header.s=default header.b=F1NcKBsh;
+ spf=pass (domain: linumiz.com, ip: 69.89.25.95, mailfrom: parthiban@linumiz.com)
+Received: from cmgw14.unifiedlayer.com (unknown [10.9.0.14])
+	by gproxy1.mail.unifiedlayer.com (Postfix) with ESMTP id B5663F7E47287
+	for <poky@lists.yoctoproject.org>; Thu, 29 Apr 2021 06:19:11 -0600 (MDT)
+Received: from md-in-79.webhostbox.net ([43.225.55.182])
+	by cmsmtp with ESMTP
+	id c5dNlb1mYSr9Cc5dOlmDKL; Thu, 29 Apr 2021 06:19:11 -0600
+X-Authority-Reason: nr=8
+X-Authority-Analysis: v=2.4 cv=FYZUeLy6 c=1 sm=1 tr=0 ts=608aa43f
+ a=LfuyaZh/8e9VOkaVZk0aRw==:117 a=LfuyaZh/8e9VOkaVZk0aRw==:17
+ a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19 a=IkcTkHD0fZMA:10:nop_charset_1
+ a=3YhXtTcJ-WEA:10:nop_rcvd_month_year
+ a=oz0wMknONp8A:10:endurance_base64_authed_username_1 a=vU9dKmh3AAAA:8
+ a=DAI4Hx-KdJkgVCj3FIMA:9 a=QEXdDO2ut3YA:10:nop_charset_2
+ a=rsP06fVo5MYu2ilr0aT5:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=linumiz.com
+	; s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	MIME-Version:Date:Message-ID:From:Cc:To:References:Subject:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=bFnz8uf764Hbm6B0aLGzD7U8HkWy/nSZORReUDw074U=; b=F1NcKBsh+vcA9gNhxOtX5S3tvo
+	k0T9lSDl9PAndrXDV0ZTwS0Ag44+QUfS1LAttSNRr9hU1PGh56nby6iIkmlUwa1OD0Sdb6ch+QjZT
+	Y10SHdU4t3XL0iLuldsctl057b1wMWIvXxBf0j2vkNn8O8/jGNCDWKlUcyCaJASi66SV9cwWFxZCD
+	JMyvYEB524wofJ2RAxi+/aQWmUjQN9uaGO4OB0AXRsTSZJgEmah+o+D6LoXEntbAAfwuRS93fOhuN
+	VRU0C/7cBi8suPHmsazuV3avEKMJF4UyT9qJ9l+0gGFda5r5aBDJx2z7KLQoknM+5Tm7jDWmTtzBz
+	c9n7f7hQ==;
+Received: from p4fe0abaa.dip0.t-ipconnect.de ([79.224.171.170]:54582 helo=[192.168.8.138])
+	by md-in-79.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.94)
+	(envelope-from <parthiban@linumiz.com>)
+	id 1lc5dM-0018FB-Ne; Thu, 29 Apr 2021 12:19:08 +0000
+Subject: python3: Enable AF_BLUETOOTH socket support
+References: <9c131edd-b1ef-fbb6-62ae-15bf88ba58c6@linumiz.com>
+To: poky@lists.yoctoproject.org
+Cc: Parthiban <parthiban@linumiz.com>
+From: "Parthiban" <parthiban@linumiz.com>
+Organization: Linumiz
+X-Forwarded-Message-Id: <9c131edd-b1ef-fbb6-62ae-15bf88ba58c6@linumiz.com>
+Message-ID: <d28faa25-707b-7cc2-d247-b2adf7ad1230@linumiz.com>
+Date: Thu, 29 Apr 2021 14:19:05 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <9c131edd-b1ef-fbb6-62ae-15bf88ba58c6@linumiz.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - md-in-79.webhostbox.net
+X-AntiAbuse: Original Domain - lists.yoctoproject.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - linumiz.com
+X-BWhitelist: no
+X-Source-IP: 79.224.171.170
+X-Source-L: No
+X-Exim-ID: 1lc5dM-0018FB-Ne
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: p4fe0abaa.dip0.t-ipconnect.de ([192.168.8.138]) [79.224.171.170]:54582
+X-Source-Auth: parthiban@linumiz.com
+X-Email-Count: 6
+X-Source-Cap: bGludW1jbWM7aG9zdGdhdG9yO21kLWluLTc5LndlYmhvc3Rib3gubmV0
+X-Local-Domain: yes
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2021-04-23 at 12:33 +0100, Will Stott wrote:
-> The 
-> meta/recipes-support/ca-certificates/update-ca-certificates-support-Toybox.patch 
-> file replaces the use of mktemp -t with mktemp --tmpdir which is 
-> incompatible with BusyBox's mktemp.
-> 
-> It seems to be to create compatibility with toybox - however toybox's 
-> help online doesn't mention --tmpdir, only -t as used before the patch.
-> 
-> We've just created a bbappend to remove the patch but it seems like 
-> something other people must have been coming across... it shows up like 
-> this when we're using deb packages:
-> 
-> 
-> Setting up ca-certificates (20210119-r0) ...
-> mktemp: unrecognized option '--tmpdir'
-> BusyBox v1.33.0 () multi-call binary.
-> 
-> Usage: mktemp [-dt] [-p DIR] [TEMPLATE]
-> dpkg: error processing package ca-certificates (--configure):
-> 
-> 
-> Has anyone else seen this issue? -t does seem to be deprecated in 
-> coreutils but it is at least present in busybox and toybox.
-> 
-> Seems to me this patch could just be removed, and not cause any issues?
+Dear All,
 
-Sounds like it probably could/should be. Has someone asked upstream busybox 
-about this? Would be useful to understand their direction here...
+We are trying to enable AF_BLUETOOTH socket support in python3. As python3 configure checks for
+bluetooth.h in sysroot and decides to enable HAVE_BLUETOOTH flag, I did add "bluez5" in DEPENDS.
 
-If they'd take a patch to use --tmpdir that would solve some of the issues.
+Both adding
 
-Cheers,
+DEPENDS += " bluez5 "
+OR
+DEPENDS_append_class-target = " bluez5 "
 
-Richard
+results in cyclic dependency loop as bluez5 depends on python3 as well.
 
+I did tried disabling ptest and relevant python3 dependency with
+PACKAGES_remove = " ${PN}-testtools ${PN}-ptest "
+EXTRA_OECONF_remove = " --enable-test --disable-testing "
+do_compile_ptest_base[noexec] = "1
+
+but no luck.
+
+Thanks in advance for right pointers or help to enable bluetooth support in python3.
+
+-- 
+Thanks,
+Parthiban N
+https://www.linumiz.com
+Berlin, Germany
