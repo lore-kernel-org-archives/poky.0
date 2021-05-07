@@ -1,88 +1,108 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
- by mx.groups.io with SMTP id smtpd.web11.14684.1620413269410385828
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+ by mx.groups.io with SMTP id smtpd.web10.17105.1620424648000307234
  for <poky@lists.yoctoproject.org>;
- Fri, 07 May 2021 11:47:49 -0700
+ Fri, 07 May 2021 14:57:28 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=GWNHhIyx;
- spf=pass (domain: gmail.com, ip: 209.85.208.42, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-ed1-f42.google.com with SMTP id bf4so11343246edb.11
-        for <poky@lists.yoctoproject.org>; Fri, 07 May 2021 11:47:49 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=G434bDwy;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.51, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f51.google.com with SMTP id v12so10625270wrq.6
+        for <poky@lists.yoctoproject.org>; Fri, 07 May 2021 14:57:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=1YYg2r9ywpAVqrqhrKauPwq5/6vvcetmeeuKrclWKwY=;
-        b=GWNHhIyxvtiDkXw1osLxs7izTjih6zp8Pefm0PbU3KSuCgw87MB74WXiFobN9OsJcJ
-         i1LrSspsRVbLQ1/urSjsPBy+UcH3ycgiE9O5IYNuEDOFfqAZFoQ2WXRH1DFcduXyzTTO
-         vcKeq+hOoNO1GH29rSjEirjYZzStJ+JFyfp+T2JlAHm8VdsWhYntvxuFm4JhOhQIDA+F
-         v1i5dfhnf3XbUxuRd8LMPEIUaexPfgQdLs+Zp9e4qhd/n8OGihGGqBXyp01/eA4z9Yxv
-         4+VCatt6MZPhZEf14DNz8NTYBkaLE7keq/WWk+qemgbD8X3DpfSBBkiEtl3sk/Q8LVkX
-         P6nw==
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
+         :mime-version:content-transfer-encoding;
+        bh=9SxT1+A7WVew0rj4dRDtvwu5BOlEccOsb0W1PqBg3EI=;
+        b=G434bDwyA2HO/qQyHAt6yT3BwsXksC1HjODcSAE/ZZp32NWAPlPxan5/+CUXQnJ477
+         UJJLhVNQWN3VO9f0zMOny1Sc1pvsg7UyMBDKW9/x+J+Gi9ElqZNVjGiyAcEcSY/04z+o
+         ZuoFjPnZFa/bDkPbx6lEz2xU7zvS7wYkpDFOI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=1YYg2r9ywpAVqrqhrKauPwq5/6vvcetmeeuKrclWKwY=;
-        b=ryJKwsgylvpi64VIiRR0t1nzwIfCSGyEwGrFdiSC5eTnihFJcKp3sgkmVDh5VA5Vll
-         /YZ/bsz0sYmyHERaoxndR3cV2vrbDJ2x1Llo7kkJMvZGh321sji3LQrg7/xUDLMXmwY/
-         Srqqf2WOr7bWNr4Tb8gMpa20EXBRLKk8X6jjbn2fM0f5HDaLa1M3cEil8EAYIP98tHp3
-         dVAHjwEjqQUjOS9ZchTfphqoeIHOJVbI/IZKzsyUVcAWh787E6cIH/FModFrGNVi9FU9
-         eWNwPt4fnya+KnuVJ2mkFyIGA/2c3uosCcFqhk4ntL4XAFjhg3NdJGjp4xqXVyVVvD9m
-         42Xw==
-X-Gm-Message-State: AOAM532cRFbiNDxrVV4CAEzHs51L294ZvAJqmDoGWzLV7aUoVZI0Xe3O
-	doEtPGbMUdA2wjFHgrA5zHMXN+eA01U=
-X-Google-Smtp-Source: ABdhPJy2rUOxurFaTIEKHEIqIOpJ9z7MhdRgf6QI+svUccex8Ngz48SHFDOE420Ajv9DRtngX5LZVA==
-X-Received: by 2002:a05:6402:154d:: with SMTP id p13mr13281364edx.371.1620413267837;
-        Fri, 07 May 2021 11:47:47 -0700 (PDT)
-Return-Path: <alex.kanavin@gmail.com>
-Received: from localhost.localdomain ([2a02:2454:2a0:cb00:eb83:2e01:3dda:5d46])
-        by smtp.gmail.com with ESMTPSA id f19sm4715837edu.12.2021.05.07.11.47.47
+        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=9SxT1+A7WVew0rj4dRDtvwu5BOlEccOsb0W1PqBg3EI=;
+        b=UvkvBjC4KEyORTCgBnSry+Ik3WdCE7X1NIgS5iH3XLEFIXcUbhIiSgF5H7GJ2XZP8U
+         g1pu3OSAOwF6ItMbZi2Vny+aq5PMYTqbJ16E/VaaIKhx+oL7SPZ9kl0QqlvtwvW/Xhxe
+         Vso/EqtpUxwDgt2cxGqodZpgd4u2QeJxw6fMGSdCKymAwkQiiu+oG7VI/6FO9EJLy6ZL
+         vB4LIkAloYbUxy5z2lv4EQUDcjXV494gYtHeTsUoUm+nvtEi3Cbwb9V3xtZrZGp8rXUx
+         rRI1aoZjYSLYz/uQsMX7vAm97EgyjTq9Y3eIALR6xXyCZk0SmefaWbGRBDSpXjTkp8g5
+         6nkA==
+X-Gm-Message-State: AOAM532r6hfjaP3dg6EZpvRsvyoQOBoKkiocKVKRX8KdH78qZ44ITtGs
+	YN4Vi00IXTdgQnUd0rYg/jh6Ew==
+X-Google-Smtp-Source: ABdhPJzeokhugp21Y2G7KlpkCq/yAksstHifpkyvFWQRlBdpO0398lWIwEnJsqdvhxHPhoFN4vz/jQ==
+X-Received: by 2002:a5d:5242:: with SMTP id k2mr15311436wrc.269.1620424646489;
+        Fri, 07 May 2021 14:57:26 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from ?IPv6:2001:8b0:aba:5f3c:8b6c:ea91:f112:97a5? ([2001:8b0:aba:5f3c:8b6c:ea91:f112:97a5])
+        by smtp.gmail.com with ESMTPSA id l18sm9828467wrx.96.2021.05.07.14.57.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 May 2021 11:47:47 -0700 (PDT)
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-To: poky@lists.yoctoproject.org
-Cc: Alexander Kanavin <alex.kanavin@gmail.com>
-Subject: [PATCH] poky.conf: move pam DISTRO_FEATURE from altcfg to default poky
-Date: Fri,  7 May 2021 20:47:32 +0200
-Message-Id: <20210507184732.733161-1-alex.kanavin@gmail.com>
-X-Mailer: git-send-email 2.31.1
+        Fri, 07 May 2021 14:57:25 -0700 (PDT)
+Message-ID: <53c84f02a55895e9c1d723b7f74f7441184ef88c.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH] poky.conf: move pam DISTRO_FEATURE from altcfg to default poky
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Alexander Kanavin <alex.kanavin@gmail.com>, poky@lists.yoctoproject.org
+Date: Fri, 07 May 2021 22:57:25 +0100
+In-Reply-To: <20210507184732.733161-1-alex.kanavin@gmail.com>
+References: <20210507184732.733161-1-alex.kanavin@gmail.com>
+User-Agent: Evolution 3.40.0-1 
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-This is needed to run libpam-ptest and also for running weston under
-systemd which is an increasingly common configuration.
+On Fri, 2021-05-07 at 20:47 +0200, Alexander Kanavin wrote:
+> This is needed to run libpam-ptest and also for running weston under
+> systemd which is an increasingly common configuration.
+> 
+> Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
+> ---
+>  meta-poky/conf/distro/include/poky-distro-alt-test-config.inc | 4 ++--
+>  meta-poky/conf/distro/poky.conf                               | 2 +-
+>  2 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
+> index 273ebfdfef..4c377b4deb 100644
+> --- a/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
+> +++ b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
+> @@ -1,5 +1,5 @@
+> -# Add an extra DISTRO_FEATURE
+> -DISTRO_FEATURES_append = " pam"
+> +# Remove an extra DISTRO_FEATURE
+> +DISTRO_FEATURES_remove = "pam"
 
-Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
----
- meta-poky/conf/distro/include/poky-distro-alt-test-config.inc | 4 ++--
- meta-poky/conf/distro/poky.conf                               | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+Red flag number one is a remove in our own configuration flags. We should
+never really be doing that. I know we do in some cases, I still hate it
+every time I see it and we need to minimise it.
 
-diff --git a/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
-index 273ebfdfef..4c377b4deb 100644
---- a/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
-+++ b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
-@@ -1,5 +1,5 @@
--# Add an extra DISTRO_FEATURE
--DISTRO_FEATURES_append = " pam"
-+# Remove an extra DISTRO_FEATURE
-+DISTRO_FEATURES_remove = "pam"
- 
- # Use the LTSI Kernel
- PREFERRED_VERSION_linux-yocto = "5.4%"
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 522cc92f74..03abc6c55a 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -13,7 +13,7 @@ TARGET_VENDOR = "-poky"
- LOCALCONF_VERSION = "1"
- 
- # Override these in poky based distros
--POKY_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch wayland vulkan"
-+POKY_DEFAULT_DISTRO_FEATURES = "largefile opengl pam ptest multiarch wayland vulkan"
- POKY_DEFAULT_EXTRA_RDEPENDS = "packagegroup-core-boot"
- POKY_DEFAULT_EXTRA_RRECOMMENDS = "kernel-module-af-packet"
- 
--- 
-2.31.1
+>  # Use the LTSI Kernel
+>  PREFERRED_VERSION_linux-yocto = "5.4%"
+> diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+> index 522cc92f74..03abc6c55a 100644
+> --- a/meta-poky/conf/distro/poky.conf
+> +++ b/meta-poky/conf/distro/poky.conf
+> @@ -13,7 +13,7 @@ TARGET_VENDOR = "-poky"
+>  LOCALCONF_VERSION = "1"
+>   # Override these in poky based distros
+> -POKY_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch wayland vulkan"
+> +POKY_DEFAULT_DISTRO_FEATURES = "largefile opengl pam ptest multiarch wayland vulkan"
+>  POKY_DEFAULT_EXTRA_RDEPENDS = "packagegroup-core-boot"
+>  POKY_DEFAULT_EXTRA_RRECOMMENDS = "kernel-module-af-packet"
+
+This change moves pam away from our systemd configuration which I suspect will 
+break your wayland changes.
+
+I also would like to maintain the pam distro feature in testing and I suspect this
+way around, we have more users testing it and the other way around we'd see a lot
+of bitrot and breakage.
+
+I've commented elsewhere there is a perception pam is heavy, both through extra
+dependencies and also in more convoluted codepaths for things like logins. Some
+users need/want the simpler option.
+
+The reason driving the change is being able to test libpam-ptest and I suspect adding
+that on its own to one of our altcfg images and triggering the ptest runner may
+be a better way to resolve the issue.
+
+Cheers,
+
+Richard
+
 
