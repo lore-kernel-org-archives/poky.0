@@ -1,134 +1,98 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
- by mx.groups.io with SMTP id smtpd.web09.7332.1621338963594020702
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+ by mx.groups.io with SMTP id smtpd.web11.356.1621354384085591257
  for <poky@lists.yoctoproject.org>;
- Tue, 18 May 2021 04:56:04 -0700
+ Tue, 18 May 2021 09:13:04 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@burtonini-com.20150623.gappssmtp.com header.s=20150623 header.b=kNmiEgKe;
- spf=pass (domain: burtonini.com, ip: 209.85.128.54, mailfrom: ross@burtonini.com)
-Received: by mail-wm1-f54.google.com with SMTP id t206so5295298wmf.0
-        for <poky@lists.yoctoproject.org>; Tue, 18 May 2021 04:56:03 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=JHUMaZaF;
+ spf=pass (domain: gmail.com, ip: 209.85.215.177, mailfrom: raj.khem@gmail.com)
+Received: by mail-pg1-f177.google.com with SMTP id t193so7365862pgb.4
+        for <poky@lists.yoctoproject.org>; Tue, 18 May 2021 09:13:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=burtonini-com.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=OMDwkWGazpgJ+F7r8FOQA4po9m/Cxbz11OaIztojnho=;
-        b=kNmiEgKexdPvzj0+TzzYmEPybZFjWVURLGFsgSEzUzRv6sM6wWm24pNHUNrdFjPEJ4
-         I4P/Z/TSxgYEMTpe5heOnwdVuXg50vgGXR34EtNBv4pOKO6C8trsXJXlDAIRbEzxRyEh
-         oHjKCjOjSosVJn+1jjexN8ysasX+L+iW47LRnDZEOMaemvtMZEt7XUYminlFYJV8afV0
-         lAvTncI/T9/sh2IiG15Wf0gyQhLk2D9cxhfUWvCh2YW8a/mlSKRp3tcjf3DrZDDD+NvD
-         RMgXuEnEsyNwEVlimnX3+woIzU/VHKWNwoEU6ZHJJ9kIsF1nZ4hgnSeQuuAcguLOwkJ+
-         8lXA==
+        d=gmail.com; s=20161025;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=IKnBPc3mkKtGqiOc4JWpfMSsDRt6SD7MM0h5/rdlJ20=;
+        b=JHUMaZaFmb1ccM2fJ9bCFTsdCFPGKEbG2vVrRmpPNmsWNEP2gFX29B7g1DO2Z6FKCk
+         SXLJAsWyknvIBCsGcFG5OKNnAMhC6O0n3R9NsqNmcMwHxSxbcrfKcQIzK39tWzoOfX+Q
+         jjY5de0HSvUAicsfAE5+j1ZNyxiaD+2Uv7mwrqkagQgmwF9gC467dwSot1+jApCxCMr5
+         IK4loJDVZ4DWruYyTwpRNAiAvfKhM4NR34kC8OEAWw4F4/Hf5XRwyarkl4J2fsUBy5N+
+         e6i5f/aDM5ejVVoFmEBP/JQuQQ1wSQeqBd3pkNRNyjh5/yqP295gye8XeaD1XCnjlm94
+         XV0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=OMDwkWGazpgJ+F7r8FOQA4po9m/Cxbz11OaIztojnho=;
-        b=AJPkrrb5tz4HJkYaFIx7rGofGpaccSof9RFeU61BEHMOWskDHGs1haYQZAMdqVupHB
-         wIVEglDm0zQhNABf+9JDEUdD+vinEy9DxbpA1f0W6xZjAXz6O0GettT8L/0H8GlT1g1Y
-         0ipinS2d+8pWo9EgiT4dkHBUAwvjJ+OjmpsJy97e4FaMpcMukRQm4TNJygIoegtrGOTN
-         DsyJdwKcK/Z0+DM1Wjr/sNC0dsAupbmEGG01WOuWh7ufgI3hdLqNz7GR/dma25D+ym9F
-         y+i5fjDgN3cFSOMEnXVPuK+YoN64nnxMGNcKL6iRYXKc94hpjEFx73xAag4eyB90K7vA
-         7MFQ==
-X-Gm-Message-State: AOAM530xN4KXkyEnSU+g/8Nv5RHzU3sjXC2BpJuAmYYA7Kixgt5EyLNi
-	RsZtQ33ZAaB6H884WwrCtp1akH/N/7g8O+/2ANg4AQ==
-X-Google-Smtp-Source: ABdhPJxWklu12g7nO3ABAboU5qLrmGANSrbZ3U9rJvOLxdvgcAJkPwFKqlZfoQtCat9QbAW5IG9zbjLHm0sZ6l+DiTM=
-X-Received: by 2002:a7b:cc83:: with SMTP id p3mr5185579wma.169.1621338961919;
- Tue, 18 May 2021 04:56:01 -0700 (PDT)
-MIME-Version: 1.0
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=IKnBPc3mkKtGqiOc4JWpfMSsDRt6SD7MM0h5/rdlJ20=;
+        b=iRtrbQUB8SJONdwVRPpQ6Rp6psTBazqBQwexVR5GMe3ZM0gZo+HvvtstJAeXUCvTGG
+         qOlEPo68z7OZD9aZhKI2lQfk3JHvqXT5QqTBMQzjncMtnswKf2rsHNEvEIK0MDy53QUY
+         KuKMsBAdgH9XTso6TyVMZi90iLsVmgGwR7tHPG94fxqBNDRib1FDoRvpS0vqfBy1AHJu
+         77Iea+jo1GiV0Gy30Qelea5w7nczqt8o8QIMCZJzsT/kkm7XWMX5gfU4sO/T+eX20q7J
+         8iy+/0/KuvyHldXpQvAENX8hA/Ll9fw7uXDCtt4C/zdn2IpvQI5H2jwnEZ1si0e3bkwh
+         S1nw==
+X-Gm-Message-State: AOAM531B/l9pKv3Gb4FHuMwbtUGFiprUxHY4YkEXgcyAGxtxvHdyrqDe
+	AKWkxgiCsIc4dPoofBbYXM0=
+X-Google-Smtp-Source: ABdhPJzI8kZGMdWZ71a9y/01NtlJkGZNtV0+ycTuIKH5NIH9mJsDTQJMxSPmCvkSqeEces8MpQlxHg==
+X-Received: by 2002:a65:60d8:: with SMTP id r24mr5849438pgv.226.1621354383520;
+        Tue, 18 May 2021 09:13:03 -0700 (PDT)
+Return-Path: <raj.khem@gmail.com>
+Received: from ?IPv6:2601:646:9200:a0f0::a746? ([2601:646:9200:a0f0::a746])
+        by smtp.gmail.com with ESMTPSA id h76sm13509927pfe.161.2021.05.18.09.13.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 May 2021 09:13:03 -0700 (PDT)
+Subject: Re: [bitbake-devel] Disable Reproducible Build - reg
+To: Daniel Selvan <daniel.selvan@jasmin-infotech.com>,
+ Konrad Weihmann <kweihmann@outlook.com>
+Cc: poky <poky@lists.yoctoproject.org>,
+ bitbake-devel <bitbake-devel@lists.openembedded.org>
 References: <141358386.90607893.1621323974188.JavaMail.zimbra@jasmin-infotech.com>
  <1180155480.90839930.1621324248815.JavaMail.zimbra@jasmin-infotech.com>
  <AM9PR09MB46424A47140676C11DAD16D2A82C9@AM9PR09MB4642.eurprd09.prod.outlook.com>
  <1263831117.91201115.1621324764469.JavaMail.zimbra@jasmin-infotech.com>
+From: "Khem Raj" <raj.khem@gmail.com>
+Message-ID: <d3ce10b6-4630-031c-d4d7-f8d46bb14e1c@gmail.com>
+Date: Tue, 18 May 2021 09:12:59 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
+MIME-Version: 1.0
 In-Reply-To: <1263831117.91201115.1621324764469.JavaMail.zimbra@jasmin-infotech.com>
-From: "Ross Burton" <ross@burtonini.com>
-Date: Tue, 18 May 2021 12:55:51 +0100
-Message-ID: <CAAnfSTvHC0OjXmXoXVqewG_vvaS-6oLfshdOcgZu1L42YCMb4Q@mail.gmail.com>
-Subject: Re: [bitbake-devel] Disable Reproducible Build - reg
-To: Daniel Selvan <daniel.selvan@jasmin-infotech.com>
-Cc: Konrad Weihmann <kweihmann@outlook.com>, poky <poky@lists.yoctoproject.org>, 
-	bitbake-devel <bitbake-devel@lists.openembedded.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 
-That error isn't caused by Yocto, so you'll have to work on the source
-of the recipe that is failing.
 
-Ross
 
-On Tue, 18 May 2021 at 08:59, Daniel Selvan
-<daniel.selvan@jasmin-infotech.com> wrote:
->
+On 5/18/21 12:59 AM, Daniel Selvan wrote:
 > Hi,
->
-> I already added the line "BUILD_REPRODUCIBLE_BINARIES =3D '0'" in by loc=
-al.conf yet if I try to add __DATE__ I get the following error: "error: mac=
-ro "__DATE__" might prevent reproducible builds [-Werror=3Ddate-time]"
->
+> 
+> I already added the line "BUILD_REPRODUCIBLE_BINARIES = '0'" in by local.conf yet if I try to add __DATE__ I get the following error: "error: macro "__DATE__" might prevent reproducible builds [-Werror=date-time]"
+> 
 > Can you comment on this?
->
+
+we internally enabled this option via adding it to TARGET_CC_ARCH in 
+meta/classes/reproducible_build.bbclass
+
+TARGET_CC_ARCH_append_class-target = " -Wdate-time"
+
+
+perhaps change it to
+
+TARGET_CC_ARCH_append_class-target = 
+"${@oe.utils.ifelse(d.getVar('BUILD_REPRODUCIBLE_BINARIES') == '1', ' 
+-Wdate-time', '')}
+"
+
+would you mind testing it out ? and if it works for you then send a 
+patch to oe-core
+
+> 
 > Kind regards,
->
->
+> 
+> 
 > Daniel Selvan D.
->
->
-> --
->
->
-> P Please consider the environment before printing this email.
->
-> ----- Original Message -----
-> From: "Konrad Weihmann" <kweihmann@outlook.com>
-> To: "Daniel D" <daniel.selvan@jasmin-infotech.com>, "poky" <poky@lists.y=
-octoproject.org>, "bitbake-devel" <bitbake-devel@lists.openembedded.org>
-> Sent: Tuesday, 18 May, 2021 13:26:19
-> Subject: Re: [bitbake-devel] Disable Reproducible Build - reg
->
-> You could either create a distro configuration of your own (one that
-> doesn't inherit the poky.conf) or set `BUILD_REPRODUCIBLE_BINARIES` to
-> `0` to reduce the impact of the inherited reproducible_build class
->
-> On 18.05.21 09:50, Daniel Selvan wrote:
-> > Hi,
-> >
-> > I wonder how to disable the Yocto reproducible builds, since it is
-> > enabled by default now
-> > (https://www.yoctoproject.org/docs/latest/ref-manual/ref-manual.html#m=
-igration-3.1-reproducible-builds
-> > <https://www.yoctoproject.org/docs/latest/ref-manual/ref-manual.html#m=
-igration-3.1-reproducible-builds>).
-> >
-> > Thanks in advance.
-> >
-> > Kind regards,
-> >
-> > Daniel Selvan D.
-> >
-> > Senior Systems Engineer*|* Jasmin Infotech
-> > <http://www.jasmin-infotech.com/the-company/contact-us/>
-> >
-> > *+91 9445556596 <callto:9445556596>*
-> >
-> > =EF=BB=BF--
-> >
-> > P Please consider the environment before printing this email.
-> >
-> >
-> >
-> > Information in this email is proprietary and Confidential to Jasmin
-> > Infotech Pvt. Ltd. Any use, copying or dissemination of the informatio=
-n
-> > in any manner without prior approval, is strictly prohibited. If you a=
-re
-> > not the intended recipient, please destroy the message and please info=
-rm
-> > to us..
-> >
-> >
-> >
-> >
->
->
->
->=20
->
+> 
+> 
+> 
+> 
+> 
+> 
