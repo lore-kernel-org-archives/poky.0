@@ -1,98 +1,70 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
- by mx.groups.io with SMTP id smtpd.web11.356.1621354384085591257
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+ by mx.groups.io with SMTP id smtpd.web10.340.1621462664112065885
  for <poky@lists.yoctoproject.org>;
- Tue, 18 May 2021 09:13:04 -0700
+ Wed, 19 May 2021 15:17:44 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=JHUMaZaF;
- spf=pass (domain: gmail.com, ip: 209.85.215.177, mailfrom: raj.khem@gmail.com)
-Received: by mail-pg1-f177.google.com with SMTP id t193so7365862pgb.4
-        for <poky@lists.yoctoproject.org>; Tue, 18 May 2021 09:13:04 -0700 (PDT)
+ dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=q1K2z0Yp;
+ spf=softfail (domain: sakoman.com, ip: 209.85.216.48, mailfrom: steve@sakoman.com)
+Received: by mail-pj1-f48.google.com with SMTP id gb21-20020a17090b0615b029015d1a863a91so4319298pjb.2
+        for <poky@lists.yoctoproject.org>; Wed, 19 May 2021 15:17:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=IKnBPc3mkKtGqiOc4JWpfMSsDRt6SD7MM0h5/rdlJ20=;
-        b=JHUMaZaFmb1ccM2fJ9bCFTsdCFPGKEbG2vVrRmpPNmsWNEP2gFX29B7g1DO2Z6FKCk
-         SXLJAsWyknvIBCsGcFG5OKNnAMhC6O0n3R9NsqNmcMwHxSxbcrfKcQIzK39tWzoOfX+Q
-         jjY5de0HSvUAicsfAE5+j1ZNyxiaD+2Uv7mwrqkagQgmwF9gC467dwSot1+jApCxCMr5
-         IK4loJDVZ4DWruYyTwpRNAiAvfKhM4NR34kC8OEAWw4F4/Hf5XRwyarkl4J2fsUBy5N+
-         e6i5f/aDM5ejVVoFmEBP/JQuQQ1wSQeqBd3pkNRNyjh5/yqP295gye8XeaD1XCnjlm94
-         XV0A==
+        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=R35qjXY+3vNeWN/JtCZGgrGdI60dIvDVnLcr/T1K7x4=;
+        b=q1K2z0YpVElz+f3224bg44GJDvbb4SMyNGeRIk5+gvUEdFDnLERzaAz6eDPPs4/ZIa
+         sy8oIOYrD21G5o2lZsIsqM4CgRtYNPpMm/tjKRSOyxFTaz1mmPGkaLpmiWqCa+j7CmmQ
+         ctOwKmYtiAuvhcbhdTJFXw5V9pwofvPIlv0FLKic84K9uvku98gU91AQHUBC838VtZXV
+         /OZOnY0ZEQk1iaitPrmvpF1v8WOjQvydb2Jd/iBUqtlErte5qSJRygzZBgmM8PU8bqn5
+         k3Xtz3s/kZSipRHkgVcK5zZuuz2keqPPbo6n/ZnOD4GR5qb0jvEM6qPJgWsonQ1qqTQC
+         msMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=IKnBPc3mkKtGqiOc4JWpfMSsDRt6SD7MM0h5/rdlJ20=;
-        b=iRtrbQUB8SJONdwVRPpQ6Rp6psTBazqBQwexVR5GMe3ZM0gZo+HvvtstJAeXUCvTGG
-         qOlEPo68z7OZD9aZhKI2lQfk3JHvqXT5QqTBMQzjncMtnswKf2rsHNEvEIK0MDy53QUY
-         KuKMsBAdgH9XTso6TyVMZi90iLsVmgGwR7tHPG94fxqBNDRib1FDoRvpS0vqfBy1AHJu
-         77Iea+jo1GiV0Gy30Qelea5w7nczqt8o8QIMCZJzsT/kkm7XWMX5gfU4sO/T+eX20q7J
-         8iy+/0/KuvyHldXpQvAENX8hA/Ll9fw7uXDCtt4C/zdn2IpvQI5H2jwnEZ1si0e3bkwh
-         S1nw==
-X-Gm-Message-State: AOAM531B/l9pKv3Gb4FHuMwbtUGFiprUxHY4YkEXgcyAGxtxvHdyrqDe
-	AKWkxgiCsIc4dPoofBbYXM0=
-X-Google-Smtp-Source: ABdhPJzI8kZGMdWZ71a9y/01NtlJkGZNtV0+ycTuIKH5NIH9mJsDTQJMxSPmCvkSqeEces8MpQlxHg==
-X-Received: by 2002:a65:60d8:: with SMTP id r24mr5849438pgv.226.1621354383520;
-        Tue, 18 May 2021 09:13:03 -0700 (PDT)
-Return-Path: <raj.khem@gmail.com>
-Received: from ?IPv6:2601:646:9200:a0f0::a746? ([2601:646:9200:a0f0::a746])
-        by smtp.gmail.com with ESMTPSA id h76sm13509927pfe.161.2021.05.18.09.13.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 May 2021 09:13:03 -0700 (PDT)
-Subject: Re: [bitbake-devel] Disable Reproducible Build - reg
-To: Daniel Selvan <daniel.selvan@jasmin-infotech.com>,
- Konrad Weihmann <kweihmann@outlook.com>
-Cc: poky <poky@lists.yoctoproject.org>,
- bitbake-devel <bitbake-devel@lists.openembedded.org>
-References: <141358386.90607893.1621323974188.JavaMail.zimbra@jasmin-infotech.com>
- <1180155480.90839930.1621324248815.JavaMail.zimbra@jasmin-infotech.com>
- <AM9PR09MB46424A47140676C11DAD16D2A82C9@AM9PR09MB4642.eurprd09.prod.outlook.com>
- <1263831117.91201115.1621324764469.JavaMail.zimbra@jasmin-infotech.com>
-From: "Khem Raj" <raj.khem@gmail.com>
-Message-ID: <d3ce10b6-4630-031c-d4d7-f8d46bb14e1c@gmail.com>
-Date: Tue, 18 May 2021 09:12:59 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.1
+        bh=R35qjXY+3vNeWN/JtCZGgrGdI60dIvDVnLcr/T1K7x4=;
+        b=CeBq/kJtS6xWFGlhOwy/f+YEKTqIEubLyxtno8SAXtOYSv589YZsqO5TlT4hugAgi8
+         HDySb3E+JsLL4IYZp/qq/LjvSneUu6vIS6+uvqlURL9QFSG6SME3OhQWu0Isdl+VY/LW
+         /UZ+tvQaOdjaXWLIP3oweqTvitRmsUSbFJW5MvRmimzlpVVmPGAr3hW76ArSSLWkomQV
+         ArEnutxU6RDad/u5W+SvJzTZ4rUoEWY5VVuvaPbk73mbivtMYTjLmZr836rIw0/omatj
+         x7q+OU8kebdaIaw6wWqSuj3qYyl1E6waIsLNn1tUtSkW/pZ+N3GM+Hm8YLRmY9lOHv0J
+         Vs5w==
+X-Gm-Message-State: AOAM533cjSUSmdO/9Qmgzz3mi/s2LdGHKgkijKnFb76WzP1pSKd6hDCg
+	xHPMbah0Cx/b128Fyhn0V2pYyXrg/4bWFJwDjS0=
+X-Google-Smtp-Source: ABdhPJxw4r9VvyWxfA1EukvhQxXCLLItys3MMktwRE5Ty0EngDeoheMm3MRLb3l7169/b5x+LqVqUQ==
+X-Received: by 2002:a17:90a:b283:: with SMTP id c3mr1228508pjr.31.1621462663159;
+        Wed, 19 May 2021 15:17:43 -0700 (PDT)
+Return-Path: <steve@sakoman.com>
+Received: from localhost.localdomain (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
+        by smtp.gmail.com with ESMTPSA id c12sm300036pfr.154.2021.05.19.15.17.41
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 19 May 2021 15:17:42 -0700 (PDT)
+From: "Steve Sakoman" <steve@sakoman.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][dunfell 0/2] Pull request (cover letter only)
+Date: Wed, 19 May 2021 12:17:33 -1000
+Message-Id: <cover.1621462564.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <1263831117.91201115.1621324764469.JavaMail.zimbra@jasmin-infotech.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+The following changes since commit d8bdb69e6bd7b52cf047cd6be406bf632a600a58:
 
+  poky-tiny.conf: set PREFERRED_VERSION_linux-yocto-tiny to 5.4% (2021-05-15 10:27:47 +0100)
 
-On 5/18/21 12:59 AM, Daniel Selvan wrote:
-> Hi,
-> 
-> I already added the line "BUILD_REPRODUCIBLE_BINARIES = '0'" in by local.conf yet if I try to add __DATE__ I get the following error: "error: macro "__DATE__" might prevent reproducible builds [-Werror=date-time]"
-> 
-> Can you comment on this?
+are available in the Git repository at:
 
-we internally enabled this option via adding it to TARGET_CC_ARCH in 
-meta/classes/reproducible_build.bbclass
+  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
+  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
 
-TARGET_CC_ARCH_append_class-target = " -Wdate-time"
+Steve Sakoman (2):
+  poky.conf: Add fedora33 as a supported distro
+  poky.conf: Bump version for 3.1.8 release
 
+ meta-poky/conf/distro/poky.conf | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-perhaps change it to
+-- 
+2.25.1
 
-TARGET_CC_ARCH_append_class-target = 
-"${@oe.utils.ifelse(d.getVar('BUILD_REPRODUCIBLE_BINARIES') == '1', ' 
--Wdate-time', '')}
-"
-
-would you mind testing it out ? and if it works for you then send a 
-patch to oe-core
-
-> 
-> Kind regards,
-> 
-> 
-> Daniel Selvan D.
-> 
-> 
-> 
-> 
-> 
-> 
