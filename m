@@ -1,92 +1,84 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
- by mx.groups.io with SMTP id smtpd.web10.6540.1623746936497012445
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
+ by mx.groups.io with SMTP id smtpd.web08.6655.1623747364508670858
  for <poky@lists.yoctoproject.org>;
- Tue, 15 Jun 2021 01:48:56 -0700
+ Tue, 15 Jun 2021 01:56:04 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=eIwj83zO;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.41, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f41.google.com with SMTP id t11-20020a1cc30b0000b02901cec841b6a0so460504wmf.0
-        for <poky@lists.yoctoproject.org>; Tue, 15 Jun 2021 01:48:56 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=OqD6hL64;
+ spf=pass (domain: gmail.com, ip: 209.85.221.174, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-vk1-f174.google.com with SMTP id az3so4790252vkb.12
+        for <poky@lists.yoctoproject.org>; Tue, 15 Jun 2021 01:56:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=05HFHcKyxVJCqqlq+yEjruPjBx9dAmGRQePm7QJObQw=;
-        b=eIwj83zOO4KUa7bstqRbXyzhhO/rYPkYHjkAEjhKplK/QEPNTahw1jPBP/TE3qWZ3x
-         TKcLufLm6vqkT7ACqh/1FEJ4detMUiupDa5VtFn+vLicpNbzbLjk/Eie8IhoJU5+dnED
-         DRZFg+T5uqRYJatVaChcAiV8HgVvGtSgY1uWc=
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=PuW4qsQhbaQrePUZiuoXvARspfUYHWkxxBAylBn7wtQ=;
+        b=OqD6hL64lJGORryXXqjUeNX1Hw0objyQV7VbeFvR19229OqG2BSM/5x6bY/zW9qqcC
+         O/cWxqpPDyOX0fQvBaP0MwZsCQI0qbO/cMbrAMPtHsB9bDf8LofCXw1mZl216L2TxPwb
+         tt3ZvyquBAsZYzchl+vg0CIR36Zq2dn1smGEXy+/axXY1lgi1RELAZbW8W3cjDAYDMqs
+         K7DL2ymqdJph5A1vJR9W+zWy35MSIpakyQgqqjENtM2zUjoEoJc8NNW7mpgllcCsPSb+
+         KmWYFeh6kw2Un8bp8MdnnJY6QToIO92Dy0nPKdLw/RHi1qMUozIKY9r0APgE84EZ3n8Z
+         fQxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=05HFHcKyxVJCqqlq+yEjruPjBx9dAmGRQePm7QJObQw=;
-        b=T3IDjrMLHHViuiPGvvzINXOLHT+hTYJIT+1zfsNTwdGoqxQxAh7YU59lhf0OlLiHOM
-         ruhPDIkGYpYW+KRd8NmDzKw+9gv9Ej4E9QnQZjTQpMfwudjzUgdMjRqqG0nT0rVpu24o
-         twEHEv7LXz7qhHZcU/2qMAXcMhSwMjewi//j9Z4yVPvqOMPY17IbWi8FgLkDMW9GKJt+
-         UgJpYMO+iAT7bJ78agLUEZagH27ZIw6ZV1AmKAv8cEBCDi9STUa+Wje8fv4Va1vI64BE
-         eGZfGezUSiY90jta+JVuzWqKRedZMQd43rsbhseh9L+stMEnw5a3bW9Vkf3qSrOzDv+o
-         PqHg==
-X-Gm-Message-State: AOAM531tfz3MDPVxjr2ngxV8fpE2FcmJjMD70qJMUQRuyxS5WbRii/i8
-	K/ZD2TrqgJEj2jG/qZnBdJDLpQ==
-X-Google-Smtp-Source: ABdhPJzRMyvcrTeslQCG4CVjNo3HCftDRbylKiCSVsUpOK8uKqvO4WmUxQMi0QWjURH0rKvcxiJxUw==
-X-Received: by 2002:a7b:c453:: with SMTP id l19mr3965861wmi.154.1623746934822;
-        Tue, 15 Jun 2021 01:48:54 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:c376:a25:72e5:3c84? ([2001:8b0:aba:5f3c:c376:a25:72e5:3c84])
-        by smtp.gmail.com with ESMTPSA id n8sm15069820wmi.16.2021.06.15.01.48.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Jun 2021 01:48:54 -0700 (PDT)
-Message-ID: <5ed9e1d2676d4d31289ebaf2ec3b492c1daa88a7.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH] local.conf.sample: disable prelink
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Alexander Kanavin <alex.kanavin@gmail.com>, poky@lists.yoctoproject.org
-Date: Tue, 15 Jun 2021 09:48:53 +0100
-In-Reply-To: <20210615081225.1734033-1-alex.kanavin@gmail.com>
-References: <20210615081225.1734033-1-alex.kanavin@gmail.com>
-User-Agent: Evolution 3.40.0-1 
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=PuW4qsQhbaQrePUZiuoXvARspfUYHWkxxBAylBn7wtQ=;
+        b=TDUx6DDqEWpj7JWOGxuLkGrkS33xy0RmVTsvw2PVOWqtO87fbU/eZGMeGrxHh/8jKG
+         epdvHITU5N3aUJ5E4ZfEHo1LWU1A4B89piOtA8bPqhoJX0q+SLiemJde+str8k8oH87W
+         ygnn5hmxlQ9iQTx1KWXJ/eP8aD0TebM9OClzO6Sg3ZkNCFV/LJb0tZPLYX/5lXGDNZoB
+         W88sNEb9CTNxkw3nKfIybs6vH0N5bKpDBYFh7J889eIqikVjrq8Y+Lc5gCy2ZJDCHOxv
+         UlLVmMj/bf5fOslmhZ0Dh6wMA7ghOX4fDOhCQkFiWMfat7PJUJgkE+G1aY0YzexKitb/
+         /fxw==
+X-Gm-Message-State: AOAM532zhtUugF1nTTtJN0/otUmileNLuqP8i/IAqi2UCcpjig/GAMDC
+	TuEFPwNyMgkteC0ssuDFlLTLbak0V1rzPSRIJi4=
+X-Google-Smtp-Source: ABdhPJwIMOURe5WYZgnC39ul0g5K0dUfRiOFKUN7CH9DCKL3+45KHEVQ+FDE9tiLM2dWcVzisyhmi12mn3z7oZJQJVc=
+X-Received: by 2002:a05:6122:43:: with SMTP id q3mr3292624vkn.10.1623747363642;
+ Tue, 15 Jun 2021 01:56:03 -0700 (PDT)
 MIME-Version: 1.0
+References: <20210615081225.1734033-1-alex.kanavin@gmail.com> <5ed9e1d2676d4d31289ebaf2ec3b492c1daa88a7.camel@linuxfoundation.org>
+In-Reply-To: <5ed9e1d2676d4d31289ebaf2ec3b492c1daa88a7.camel@linuxfoundation.org>
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+Date: Tue, 15 Jun 2021 10:55:51 +0200
+Message-ID: <CANNYZj84MXS57sG5CWLmS-Y_0-w8h1_9NLmtjFEo4pJ5snXvcA@mail.gmail.com>
+Subject: Re: [poky] [PATCH] local.conf.sample: disable prelink
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="000000000000d0a16f05c4ca2448"
+
+--000000000000d0a16f05c4ca2448
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
 
-On Tue, 2021-06-15 at 10:12 +0200, Alexander Kanavin wrote:
-> There's an issue on ppc32 where one of the wayland libraries is incorrectly
-> relocated [1]. I also believe that any such custom, yocto-specific optimization
-> which does intricate binary rewriting needs to be justified with rigoroous
-> benchmarks but I can't find any.
-> 
-> https://bugzilla.yoctoproject.org/show_bug.cgi?id=14429
-> 
-> Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
-> ---
->  meta-poky/conf/local.conf.sample | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+On Tue, 15 Jun 2021 at 10:48, Richard Purdie <
+richard.purdie@linuxfoundation.org> wrote:
 
-I appreciate the desire simply to delete/disable anything that causes issues
-but in this case I draw the line and my answer is no. It works fine in the
-vast majority of usage.
+> I appreciate the desire simply to delete/disable anything that causes
+> issues
+> but in this case I draw the line and my answer is no. It works fine in the
+> vast majority of usage.
+>
 
-Cheers,
+But where are the benchmarks that show it's actually beneficial? And
+commitment from someone to maintain it and address open issues (there are
+more than just this one)?
 
-Richard
+Alex
 
-> diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
-> index fb14379d28..1794126672 100644
-> --- a/meta-poky/conf/local.conf.sample
-> +++ b/meta-poky/conf/local.conf.sample
-> @@ -148,8 +148,7 @@ EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
->  # enable extra features. Some available options which can be included in this variable
->  # are:
->  #   - 'buildstats' collect build statistics
-> -#   - 'image-prelink' in order to prelink the filesystem image
-> -USER_CLASSES ?= "buildstats image-prelink"
-> +USER_CLASSES ?= "buildstats"
->  
-> 
-> 
-> 
->  #
->  # Runtime testing of images
-> 
-> 
+--000000000000d0a16f05c4ca2448
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
+_attr">On Tue, 15 Jun 2021 at 10:48, Richard Purdie &lt;<a href=3D"mailto:r=
+ichard.purdie@linuxfoundation.org">richard.purdie@linuxfoundation.org</a>&g=
+t; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
+x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">I appr=
+eciate the desire simply to delete/disable anything that causes issues<br>
+but in this case I draw the line and my answer is no. It works fine in the<=
+br>
+vast majority of usage.<br></blockquote><div><br></div>But where are the be=
+nchmarks that show it&#39;s actually beneficial? And commitment from someon=
+e to maintain it and address open issues (there are more than just this one=
+)?</div><div class=3D"gmail_quote"><br></div><div class=3D"gmail_quote">Ale=
+x<br></div></div>
 
+--000000000000d0a16f05c4ca2448--
