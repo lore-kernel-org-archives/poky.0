@@ -1,155 +1,80 @@
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
- by mx.groups.io with SMTP id smtpd.web08.9770.1623142418332554372
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+ by mx.groups.io with SMTP id smtpd.web09.6318.1623744752366632722
  for <poky@lists.yoctoproject.org>;
- Tue, 08 Jun 2021 01:53:38 -0700
+ Tue, 15 Jun 2021 01:12:32 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@konsulko.com header.s=google header.b=GKI9r0d4;
- spf=pass (domain: konsulko.com, ip: 209.85.210.42, mailfrom: paul.barker@konsulko.com)
-Received: by mail-ot1-f42.google.com with SMTP id j11-20020a9d738b0000b02903ea3c02ded8so6015388otk.5
-        for <poky@lists.yoctoproject.org>; Tue, 08 Jun 2021 01:53:38 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=NUiLNVRz;
+ spf=pass (domain: gmail.com, ip: 209.85.218.53, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-ej1-f53.google.com with SMTP id l1so20991154ejb.6
+        for <poky@lists.yoctoproject.org>; Tue, 15 Jun 2021 01:12:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=l11ZNJ/R4OkBXonUxRDf1m2Hw6ESxBMe8fIJDSVN8MU=;
-        b=GKI9r0d4XYH/ep5X2WmW91kGPas7Z+0MvJOB5qfXDpbaHCB07nwH4kgdydcBIT+lHf
-         b2hrfiHsLEFmWz21EMk55FbyBel5t1eNmeF20uh4gvYclgPNyIgWCYjoS+kKKqKwfE2O
-         Tbvh6dMy7gJmCj9MgD/WzDNooDvjuzESLmw7Q=
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=eiCTp8hjc5x/6xKEDyD2/h4xEq6cpRq1YNQVD6v3DOo=;
+        b=NUiLNVRzMmAUb8vEgIXXR2P3qEdK2nQrnoSfKfRFVbPt+L5aJIbUUoTN3OBeFqkCrw
+         DaNi9l2rScnMwRZEuLjlb5wXl0abCJfUDV5yFveR+BJmgwiYlRunvP5dps/I2xypR0LQ
+         EZJLAmPKIg9b5PDdQ0jrmqsf3OdT/NzKy3NdfzHYns1EmNIYyuco82HXoINg4zTzKCep
+         VA3/9aCJOotpF5ondIvf4jX7mbTA68/SjxT3ZNBfaacF3HeYnrM+ZW4ILntJLS+2/7Su
+         lw3CEZKqEqXke7fgTxoxWJopkec0RwwRHrwF69D+CovSd5pGrol1LrlwJNF/QhaXzhV2
+         j/XA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=l11ZNJ/R4OkBXonUxRDf1m2Hw6ESxBMe8fIJDSVN8MU=;
-        b=q/my+mMjyNMs58p/0fLzzRHvzTWEhP6EBNf3HQRA5gyM0JQTMW6R40rA3l457VPh+I
-         SKBTrtr0Xyz0UfxdYgzg6wRsAiuEtjTA44UJvgvk34A9tUpqMj97bW1yFBho66DD0vC+
-         wqqot8zqVV0na/n3kzbkCulL3POcEJzc75/XY3LWXI46VR9/oybAMkKPXWCyInEcxjiH
-         WxQh1XA7HF0CbLjzDV5BsoX2cSCf7r2kXmVDmk2CbJ1f9rZ9Ik3r82UPh7U6SJRZZip5
-         2hBwqyhvew95W9rfr9ib8Nb9DOqjL98wkbZP3xdb6YqyfDczfZBpWmBWHn9RGH+p/Jzv
-         owag==
-X-Gm-Message-State: AOAM533wiSmBYHrU0rk+2hFVQNOkVKPTU8CvlA+/sASlSBSoQ1zFBTBz
-	v10Cx6qVhR2C0VvVmE1Rvf9qcrG+pYY9O0ECPRK6TA==
-X-Google-Smtp-Source: ABdhPJwi7NHY20MKLJei/XEakQX1qKG7rANdhcFaX5COs8PkCUjUZIP1Np2LrLyH0BUkoHUy5g9XGqEZpwVXyz7/R8c=
-X-Received: by 2002:a9d:443:: with SMTP id 61mr11666046otc.305.1623142417528;
- Tue, 08 Jun 2021 01:53:37 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=eiCTp8hjc5x/6xKEDyD2/h4xEq6cpRq1YNQVD6v3DOo=;
+        b=Xr2uA4hqgRaJbk900d1kyAlftF2r0Ww/pNABH4faCdTuvgCRXe2whmet8NLeSc/cdb
+         CaGZ4gu+8aboAzn31LBA6vzSCvFBmUCurXIuxmZOgyvOJT2Gg7TftR6wPbBgTaAi7z8u
+         yuDbNCbnbzR60SmUeufvq03+h/D7RbXGd2VH8G4XETbn0FwAfL/onE+ee0yQ2fh+sl8X
+         MphWdGNWyWn8HL7tQ6lc0+OcylMfN3UOTWlVqYh4j1KlPsG1CWB9PmV3N3+8nmH/PSlZ
+         ZvoB35r0HpMMWGTjkfieMs47DQaGjRM+Dv8SoZQrySI1c5GAR7B0VgHPHr5gSr9fe6IU
+         WAQg==
+X-Gm-Message-State: AOAM5328FcIPf0QorJ6PKvPCUq24NVxaYtkvB1EBaZtBCLiHlg1ur1jl
+	1IIebdT6w9g8b/GBoZYo8tMqUOz7GVw3LQ==
+X-Google-Smtp-Source: ABdhPJxV9JEi0RkRHLikyRF1X3QIGRdUkNLeyNm7rOH80XlsMYDAz7eZop1BPHPLBAVQPxjlqsvn7w==
+X-Received: by 2002:a17:906:144b:: with SMTP id q11mr3157685ejc.478.1623744750618;
+        Tue, 15 Jun 2021 01:12:30 -0700 (PDT)
+Return-Path: <alex.kanavin@gmail.com>
+Received: from localhost.localdomain ([2a02:2454:2a0:cb00:eb83:2e01:3dda:5d46])
+        by smtp.gmail.com with ESMTPSA id lz24sm6404806ejb.33.2021.06.15.01.12.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Jun 2021 01:12:30 -0700 (PDT)
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+To: poky@lists.yoctoproject.org
+Cc: Alexander Kanavin <alex.kanavin@gmail.com>
+Subject: [PATCH] local.conf.sample: disable prelink
+Date: Tue, 15 Jun 2021 10:12:25 +0200
+Message-Id: <20210615081225.1734033-1-alex.kanavin@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-References: <20210607152809.3071859-1-richard.purdie@linuxfoundation.org>
-In-Reply-To: <20210607152809.3071859-1-richard.purdie@linuxfoundation.org>
-From: "Paul Barker" <pbarker@konsulko.com>
-Date: Tue, 8 Jun 2021 09:53:28 +0100
-Message-ID: <CAM9ZRVsCsog4x5OHaq9zsWiJXuG0dzvsUq6x3KR48HpBrzuWRg@mail.gmail.com>
-Subject: Re: [poky] [PATCH] README.poky: Update to switch to markdown format and update
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-I've given this a quick review for markdown usage, hopefully some of
-these comments are useful. I recommend checking with
-https://github.com/markdownlint/markdownlint to help find subtle
-syntax errors which might trip up the rendering.
+There's an issue on ppc32 where one of the wayland libraries is incorrectly
+relocated [1]. I also believe that any such custom, yocto-specific optimization
+which does intricate binary rewriting needs to be justified with rigoroous
+benchmarks but I can't find any.
 
-On Mon, 7 Jun 2021 at 16:30, Richard Purdie
-<richard.purdie@linuxfoundation.org> wrote:
-> --- a/meta-poky/README.poky
-> +++ b/meta-poky/README.poky
-> @@ -1,35 +1,19 @@
-> -Poky
-> -=3D=3D=3D=3D
-> +#Poky
+https://bugzilla.yoctoproject.org/show_bug.cgi?id=14429
 
-Underlining with =3D characters is still supported for h1 headings if
-this is preferred.
+Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
+---
+ meta-poky/conf/local.conf.sample | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
->
-> -Poky is an integration of various components to form a complete prepacka=
-ged
-> -build system and development environment. It features support for buildi=
-ng
-> -customised embedded device style images. There are reference demo images
-> -featuring a X11/Matchbox/GTK themed UI called Sato. The system supports
-> -cross-architecture application development using QEMU emulation and a
-> -standalone toolchain and SDK with IDE integration.
-> +Poky is an integration of various components to form pre-packaged build =
-system and development environment which is used as a development and valid=
-ation tool by the [Yocto Project](http://www.yoctoproject.org/ "Yocto Proje=
-ct"). It features support for building customised embedded style device ima=
-ges and custom containers. There are reference demo images ranging from X11=
-/GTK+ to Weston, commandline and more. The system supports cross-architectu=
-re application development using QEMU emulation and a standalone toolchain =
-and SDK suitable for IDE integration.
+diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
+index fb14379d28..1794126672 100644
+--- a/meta-poky/conf/local.conf.sample
++++ b/meta-poky/conf/local.conf.sample
+@@ -148,8 +148,7 @@ EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+ # enable extra features. Some available options which can be included in this variable
+ # are:
+ #   - 'buildstats' collect build statistics
+-#   - 'image-prelink' in order to prelink the filesystem image
+-USER_CLASSES ?= "buildstats image-prelink"
++USER_CLASSES ?= "buildstats"
+ 
+ #
+ # Runtime testing of images
+-- 
+2.31.1
 
-You should be able to hard wrap these lines at a reasonable length in
-the source file and they should still be rendered into a single nicely
-flowed paragraph by most markdown processors.
-
->
-> -Additional information on the specifics of hardware that Poky supports
-> -is available in README.hardware. Further hardware support can easily be =
-added
-> -in the form of layers which extend the systems capabilities in a modular=
- way.
-> +Additional information on the specifics of hardware that Poky supports i=
-s available in README.hardware. Further hardware support can easily be adde=
-d in the form of BSP layers which extend the systems capabilities in a modu=
-lar way. Many layers are available and can be found through the [layer inde=
-x](https://layers.openembedded.org/ "layer index").
-
-The link title is intended to be rendered as a tooltip when hovering
-over the link so it's not needed unless it adds extra information. See
-the example in https://www.markdownguide.org/basic-syntax/#adding-titles.
-So this could just be [layer index](https://layers.openembedded.org/).
-The same applies for other links below.
-
->
-> -As an integration layer Poky consists of several upstream projects such =
-as
-> -BitBake, OpenEmbedded-Core, Yocto documentation and various sources of i=
-nformation
-> -e.g. for the hardware support. Poky is in turn a component of the Yocto =
-Project.
-> +As an integration layer Poky consists of several upstream projects such =
-as  [BitBake](https://git.openembedded.org/bitbake/ "BitBake"), [OpenEmbedd=
-ed-Core](https://git.openembedded.org/openembedded-core/ "OpenEmbedded-Core=
-"), [Yocto documentation](http://git.yoctoproject.org/cgit.cgi/yocto-docs/ =
-"Yocto documentation"), the '[meta-yocto](http://git.yoctoproject.org/cgit.=
-cgi/meta-yocto/ "meta-yocto")' layer which has configuration and hardware s=
-upport components. These components are all part of the Yocto Project and O=
-penEmbedded ecosystems.
->
-> -The Yocto Project has extensive documentation about the system including=
- a
-> -reference manual which can be found at:
-> -    http://yoctoproject.org/documentation
-> +The Yocto Project has extensive documentation about the system including=
- a  reference manual which can be found at  https://docs.yoctoproject.org/
-
-Raw URLs usually render ok but proper syntax is to surround them in
-angle brackets like <https://docs.yoctoproject.org/>.
-
->
-> -OpenEmbedded-Core is a layer containing the core metadata for current ve=
-rsions
-> -of OpenEmbedded. It is distro-less (can build a functional image with
-> -DISTRO =3D "") and contains only emulated machine support.
-> +OpenEmbedded is the build architecture used by Poky and the Yocto projec=
-t.
-> +For information about OpenEmbedded, see the [OpenEmbedded website](http:=
-//www.openembedded.org/ "OpenEmbedded website").
->
-> -For information about OpenEmbedded, see the OpenEmbedded website:
-> -    http://www.openembedded.org/
-> +#Contribution Guidelines
->
-> -
-> -Contribution Guidelines
-> -=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-These should be h2 headings which can be achieved by underlining with
-- characters or using two hashes. Documents render best with just one
-h1 heading at the top level.
-
-Thanks,
-
---=20
-Paul Barker
-Konsulko Group
