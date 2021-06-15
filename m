@@ -1,73 +1,100 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
- by mx.groups.io with SMTP id smtpd.web12.458.1623776481517319915
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+ by mx.groups.io with SMTP id smtpd.web11.730.1623777683403898130
  for <poky@lists.yoctoproject.org>;
- Tue, 15 Jun 2021 10:01:21 -0700
+ Tue, 15 Jun 2021 10:21:23 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=WlbeNroP;
- spf=softfail (domain: sakoman.com, ip: 209.85.215.173, mailfrom: steve@sakoman.com)
-Received: by mail-pg1-f173.google.com with SMTP id w31so9479875pga.6
-        for <poky@lists.yoctoproject.org>; Tue, 15 Jun 2021 10:01:21 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=HW6zQKYJ;
+ spf=pass (domain: gmail.com, ip: 209.85.214.182, mailfrom: raj.khem@gmail.com)
+Received: by mail-pl1-f182.google.com with SMTP id 69so8817472plc.5
+        for <poky@lists.yoctoproject.org>; Tue, 15 Jun 2021 10:21:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
-        h=from:to:subject:date:message-id:in-reply-to:references:mime-version
-         :content-transfer-encoding;
-        bh=mYCRmaKSbDrM5BeXh6izp92d+WiZVSIi0smoeJ7lNP4=;
-        b=WlbeNroPwiNCFQ5tG+Qwdz7JR6bRU4O21w9ewqvV8EHaNhqUwtd+eNyIg8fMy0nMux
-         8l5DYr7fJ46Ba0Z/oaQYmzRNubcwoXacPOc20il2DbdWczdMWfoDa49aMo3WkFR8sHnC
-         IYL3DAxAECa5+ZM5A8Irf+VfijonKROSl8pqJkl+IJllMI1RB2YkNNY1zwGWir2ceffd
-         OljorKPZLplXHLAfWhR8quwfkdPd89c7uAfoKTOEn/HJPOhee1bBfE4BqllnGHFdAsNP
-         id0VZpP4bBKXiLLjXNkD25fLq0L0fD4vTpLE0764ZN73aNCb/Xg4oPq8ToXYN5TO4paO
-         AOWA==
+        d=gmail.com; s=20161025;
+        h=to:references:from:organization:subject:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=RXrlJbJ160f33GfeaBR/ZBmP1tBAj7WUsTdENL7HU5M=;
+        b=HW6zQKYJzCIHA+WRRxaXGYu7aGgBxKxJlhq8ovrjh21PNhNBUdweLTsOwM6UBNSpkj
+         hwhYFxGirNAdP5+KjppNVTTwyfuOFaz1LkE9860+f7Dbs1H0FpUvh43Em0Z+yJEl/BTN
+         KZUVUNiLTWUOa16wOiheS94k59r3+YUlVfMiX/Ts5ndlxXIXs9jwYjReS1IFMpg4ItSc
+         iZbKEqbV2rdggxFRHJbayMjMMq/6P4aLRuZ26EEed7hOJmw0yAuQGUZEOA9FGlUm/XFd
+         nPLzgqkb7jxRtaZD7iiILebbHYFeBnaygA+POoo5TKN/rp2uPxlBWG80W8F2wlwKVcXx
+         VrTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=mYCRmaKSbDrM5BeXh6izp92d+WiZVSIi0smoeJ7lNP4=;
-        b=BKuIOGfjhPoKhvKLLCZSI/tp/rvT/Y9XojGJtzBeYJmxCy2Yza33JZKCg58a+RUEF2
-         ETQerh4j6zwraBL+EWu2yWSb2m2se+Kwy6xoKQztXqFo/drrU+pXhtmrP0X50NYAPFY0
-         ue8/NC7q5apnFZGLrCPj+hyz3lJxyC0hd7BMT8wU4PXD1KfK+ssGo55mAnZep3FGNcoh
-         RQ04Doh847Xrqa/gT40MPWykygoun6xQHPKj3HGt8k5EKyz4tuGTwA1yYiRlS6jFZ6pt
-         pYHA+gdZgufdFwi6mfUCw+CbuUIc33jN77JrKrai/UmcJRY2IEsbrmRrRimlfiBQBv+L
-         Zy9w==
-X-Gm-Message-State: AOAM532v9hb4hwYzdNowd9nxznf+QnMBBe5d+RGw8Pflp3Einufjs+lc
-	Cq76GBIBgd64+NMP4+FsY7JHyMsGwHdROeMeDyo=
-X-Google-Smtp-Source: ABdhPJyHq5FgzsQu1ZgIhqZswKQfnmAOjogp3KPO81E3ksgvxBbjYizKd4r515Q4oAVSgcQ9aNF2cw==
-X-Received: by 2002:a63:3d8f:: with SMTP id k137mr464067pga.161.1623776480448;
-        Tue, 15 Jun 2021 10:01:20 -0700 (PDT)
-Return-Path: <steve@sakoman.com>
-Received: from localhost.localdomain ([172.243.4.16])
-        by smtp.gmail.com with ESMTPSA id z15sm17595100pgu.71.2021.06.15.10.01.17
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Jun 2021 10:01:20 -0700 (PDT)
-From: "Steve Sakoman" <steve@sakoman.com>
-To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell 2/2] poky.conf: Bump version for 3.1.9 release
-Date: Tue, 15 Jun 2021 07:00:48 -1000
-Message-Id: <b5f041dbaee9ee57f4ada119dfaccb53f99385f3.1623776375.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1623776375.git.steve@sakoman.com>
-References: <cover.1623776375.git.steve@sakoman.com>
+        h=x-gm-message-state:to:references:from:organization:subject
+         :message-id:date:user-agent:mime-version:in-reply-to
+         :content-language:content-transfer-encoding;
+        bh=RXrlJbJ160f33GfeaBR/ZBmP1tBAj7WUsTdENL7HU5M=;
+        b=Um4+AVYetmP0xoEj2558vwGRQ5+UlVxli5tx5mm1AfGhtuNbTkpjb//UMkUvXytq+z
+         8atudx+NX2cPzVZpddrnojqDoapjvIkzzDZky/Uc4p2pSp8hivprZTLbws4eGAeNmzpw
+         1HOibKnYwKKLNaTU2Bal3dQriVwBxkWcnO3MJaqdgZd6ib4TznyXeAsroL1KtssPSoAa
+         U6JViv2HugUNvOjW262lmHC0XK5jAQaLuVHJB1D973Nm++IFsMq/TruM8mhHDLYJVd4J
+         vHiPYfJn/GC7uS0fuzU5ekB4BkKOTTVDYzCFL1meuiM4iOUIQBLyipUrcP+XU50SbpDm
+         xbdA==
+X-Gm-Message-State: AOAM532gEwQmoZPl15CptuofdHlo7piOq+vlMh7n1zUAKfi9iW9P/16I
+	/WWIJGfFzpSXW+v1xFYSJ5ImPWqwTtfokw==
+X-Google-Smtp-Source: ABdhPJzzCGyAHydYQM3ey2hXVbb4PEerQY9+kpSETUN2a8TveQNGDvamb37osFJ0rnI/uWsH3DwqyA==
+X-Received: by 2002:a17:902:b193:b029:11a:a179:453a with SMTP id s19-20020a170902b193b029011aa179453amr4775773plr.69.1623777682494;
+        Tue, 15 Jun 2021 10:21:22 -0700 (PDT)
+Return-Path: <raj.khem@gmail.com>
+Received: from ?IPv6:2601:646:9200:a0f0:2116:639e:d2af:5c44? ([2601:646:9200:a0f0:2116:639e:d2af:5c44])
+        by smtp.gmail.com with ESMTPSA id g8sm2748376pja.14.2021.06.15.10.21.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Jun 2021 10:21:22 -0700 (PDT)
+To: Alexander Kanavin <alex.kanavin@gmail.com>, poky@lists.yoctoproject.org
+References: <20210615081225.1734033-1-alex.kanavin@gmail.com>
+From: "Khem Raj" <raj.khem@gmail.com>
+Organization: HIMVIS LLC
+Subject: Re: [poky] [PATCH] local.conf.sample: disable prelink
+Message-ID: <32a729c7-54a8-f808-9e3e-900cd5aebe3c@gmail.com>
+Date: Tue, 15 Jun 2021 10:21:20 -0700
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.11.0
 MIME-Version: 1.0
+In-Reply-To: <20210615081225.1734033-1-alex.kanavin@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Steve Sakoman <steve@sakoman.com>
----
- meta-poky/conf/distro/poky.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index c2d42c9..92e9ba5 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -1,6 +1,6 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
--DISTRO_VERSION = "3.1.8"
-+DISTRO_VERSION = "3.1.9"
- DISTRO_CODENAME = "dunfell"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}', 'snapshot')}"
--- 
-2.25.1
 
+On 6/15/21 1:12 AM, Alexander Kanavin wrote:
+> There's an issue on ppc32 where one of the wayland libraries is incorrectly
+> relocated [1]. I also believe that any such custom, yocto-specific optimization
+> which does intricate binary rewriting needs to be justified with rigoroous
+> benchmarks but I can't find any.
+
+We only use prelink on glibc based systems but they do give slight 
+improved runtime/boottime performance on kind of devices yocto project 
+is used on. However it will be good to get some idea of what this saving 
+is now a days before we disable it fully.
+
+its perhaps better to disable it for ppc alone so something like this
+USER_CLASSES_remove = "image-prelink" in qemuppc.conf would be limited
+
+> 
+> https://bugzilla.yoctoproject.org/show_bug.cgi?id=14429
+> 
+> Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
+> ---
+>   meta-poky/conf/local.conf.sample | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
+> index fb14379d28..1794126672 100644
+> --- a/meta-poky/conf/local.conf.sample
+> +++ b/meta-poky/conf/local.conf.sample
+> @@ -148,8 +148,7 @@ EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+>   # enable extra features. Some available options which can be included in this variable
+>   # are:
+>   #   - 'buildstats' collect build statistics
+> -#   - 'image-prelink' in order to prelink the filesystem image
+> -USER_CLASSES ?= "buildstats image-prelink"
+> +USER_CLASSES ?= "buildstats"
+>   
+>   #
+>   # Runtime testing of images
+> 
+> 
+> 
+> 
+> 
