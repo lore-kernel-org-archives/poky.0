@@ -1,107 +1,188 @@
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
- by mx.groups.io with SMTP id smtpd.web08.5263.1623836722701977724
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+ by mx.groups.io with SMTP id smtpd.web08.9730.1623860044226731374
  for <poky@lists.yoctoproject.org>;
- Wed, 16 Jun 2021 02:45:23 -0700
+ Wed, 16 Jun 2021 09:14:04 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=bt+mV1Sw;
- spf=pass (domain: gmail.com, ip: 209.85.221.178, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-vk1-f178.google.com with SMTP id u66so475302vkb.4;
-        Wed, 16 Jun 2021 02:45:22 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=JssbV7xx;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.51, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f51.google.com with SMTP id l18-20020a1ced120000b029014c1adff1edso4484372wmh.4
+        for <poky@lists.yoctoproject.org>; Wed, 16 Jun 2021 09:14:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=4R/ozKgK8DjWnmwyO6ULFUhseSgYV3nTHEDVotjZ8u0=;
-        b=bt+mV1SwuMIJ0n3DK8orBOMyokM/DX90yYnFbr0o+RXVaGtmnJ41NnQarKZfDlQ2AK
-         EjNUAOW0Y2GR2mCWjdd7d+7ZkLQbzB91oE97mYAAL8J5uVMzw1xACA1rcGPzw//buxJU
-         jyoYit3wKsIGbEuM1hqqNRRhnZZxL1qdmPJWxwufziFPD1xV7MOvnE3kExsLi9jEtV29
-         6ddAjqN87vl4azWPHP4EA/iSQSw/Gs9Y3N7aPj4i4jtpM8i7GzL5z41BtX7haLBFhhTd
-         OLEZLhMbJlGCkD+uI/XKX5kSryGvf9IEmfeA0kcH3v+WNyzHi9UFfCwn0P/a8dYvzvTp
-         l2fw==
+        d=linuxfoundation.org; s=google;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=NSYMVaG2WIvT939HGlSp7l6Oh9Xxrs7c/JFR9VuFcbA=;
+        b=JssbV7xxNsrl9vsnM2QB4jPIMnoMsLhfqhAH2nyZUMlrPZN3aFIIesyU6avIJdxCNW
+         sLq7HtP5PAQtAz6aeuOtOuxvZ8/wYIXOZCqbqK6yPoXBffT5MHYKeNoNpwQnFhSyLyFG
+         9t0tX9aPjGEOm7RM1zG1Osq++gthZIk1N6cVE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=4R/ozKgK8DjWnmwyO6ULFUhseSgYV3nTHEDVotjZ8u0=;
-        b=lvxwTqE3e0hGfWKjptIVCUb9q3YfLZtrrxR1s7sgpx/lQXWNKERZNICsjs+zDO1Flx
-         uTpXxiKAg6ALO7td2z76gzls/S5h3I4ojjxx+bcG2oMPSVIpqmuWOqMiWp/S12rNgQR7
-         2mv4RE3vM12n3hlCtF25pCbSIRBtJwBwp3rPRszJwM68Em6QQUyQw6/Myqdt6vcMTFxU
-         V3Dq4UjQbuwptcdqe0y+LYfJCJHT7rU7PHCWYS4RMg/gmlaVOs0V0iU12M3z7pA8RAIz
-         F4M1EmVtvLtEQw5WrSp89JmNygH8FgzpmS7WJzkypSyyCOg3V1lAWQAJZP+P9BKj84V3
-         RkDw==
-X-Gm-Message-State: AOAM530lSFDtUGKW4EqmIqyQi4rOF0BDBBLGUvU0wP6IcqGff6WZt6Hg
-	zzHy1dU5WkVOPVY8ywgwauBFJK/lqnvF3qKZubc=
-X-Google-Smtp-Source: ABdhPJwJmcvgkSc/rKOWT68jCBSDXXUcEjA5CeovSgiKVkOZNmtdcDTIPCVLuFvqqtp5WheoM4OkGEglUvXlCxLcK7Y=
-X-Received: by 2002:a1f:aac7:: with SMTP id t190mr358118vke.0.1623836721783;
- Wed, 16 Jun 2021 02:45:21 -0700 (PDT)
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=NSYMVaG2WIvT939HGlSp7l6Oh9Xxrs7c/JFR9VuFcbA=;
+        b=rBIG1gvUmGVcbEFX6LQFXBSOKSwzPVqHmpRUm+qVzYePi5GvwL185VEsrZIRYiVeZw
+         0hMYZBfvErDuRwPdAzojJ0cHSy0rYf6hFlK3ZpwBO6jIMv/cw0N3NRvboE9R/lxP4FCs
+         V6ROcc72DVSE9NFufyLK3s0cGHCVnapzz84ghF3g5ZjAvvAraXMpWxnZDf7ieVM+VYOE
+         hum5neulzl5+kG8GMpKVqP/FTLoa809Q0Ya030YbLMz8pWQx8PC4RCoQDbGNUfvt6wED
+         5RmG4EoZ0bMgFsUzr9mcYWAVbxi20R3vvzBsD4nPk2Dkx5klsY5YCl9n/eJf+Hb826pr
+         4LRQ==
+X-Gm-Message-State: AOAM532g/aGpBoDFJEl7enqr2zMU7CZCuZf/sW9+nXnD3p5H5JEoWVCL
+	tUYX+Mr1GgHXMPIrydfBdLnkrleIau+i7Q==
+X-Google-Smtp-Source: ABdhPJxd5/7pOu7XeebfEl1uvDWRKmgQTTzEzU6knGXCY6z7EPOnPSeUEq+DdI0ipovJvEPHGMvRSA==
+X-Received: by 2002:a05:600c:4f90:: with SMTP id n16mr12178211wmq.139.1623860042423;
+        Wed, 16 Jun 2021 09:14:02 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from hex.int.rpsys.net ([2001:8b0:aba:5f3c:31b6:9a4e:bc39:a574])
+        by smtp.gmail.com with ESMTPSA id u16sm2853575wru.56.2021.06.16.09.14.01
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Jun 2021 09:14:02 -0700 (PDT)
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH v2] README.poky: Formatting and content cleanup
+Date: Wed, 16 Jun 2021 17:14:01 +0100
+Message-Id: <20210616161401.3349481-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20210615081225.1734033-1-alex.kanavin@gmail.com>
- <5ed9e1d2676d4d31289ebaf2ec3b492c1daa88a7.camel@linuxfoundation.org>
- <CANNYZj84MXS57sG5CWLmS-Y_0-w8h1_9NLmtjFEo4pJ5snXvcA@mail.gmail.com>
- <CANNYZj8S7V5owiS0p3B1fD7n_JpF-OPLApO=e9d+SiPuyFWHZw@mail.gmail.com> <0451f536368310860d9acb12e5a8424881b545e8.camel@linuxfoundation.org>
-In-Reply-To: <0451f536368310860d9acb12e5a8424881b545e8.camel@linuxfoundation.org>
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-Date: Wed, 16 Jun 2021 11:45:10 +0200
-Message-ID: <CANNYZj9Z87Jb7Ea-vtQ1ZEmtQvfFRDtTXAxvStZT3c02RnU01g@mail.gmail.com>
-Subject: Re: [poky] [PATCH] local.conf.sample: disable prelink
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: Mark Hatle <mark.hatle@kernel.crashing.org>, poky@lists.yoctoproject.org, 
-	Yocto-mailing-list <yocto@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="000000000000f9a7bc05c4def27d"
+Content-Transfer-Encoding: 8bit
 
---000000000000f9a7bc05c4def27d
-Content-Type: text/plain; charset="UTF-8"
+The README is rather out of date, update the content with the new content
+properly in markdown format.
 
-On Wed, 16 Jun 2021 at 11:11, Richard Purdie <
-richard.purdie@linuxfoundation.org> wrote:
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/README.poky.md | 93 +++++++++++++++++++++++-----------------
+ 1 file changed, 53 insertions(+), 40 deletions(-)
 
-> What makes me sad is that this is an embedded focused feature which
-> the project should be caring about, i.e. memory footprint and speed.
-> I don't know why the numbers don't show it, Mark and I have theories
-> but it would take work to explore them and neither of us have that time,
-> nor are we experts on prelink able to maintain it with the time we have
-> available.
->
+diff --git a/meta-poky/README.poky.md b/meta-poky/README.poky.md
+index be0c6c016e0..289373f9441 100644
+--- a/meta-poky/README.poky.md
++++ b/meta-poky/README.poky.md
+@@ -1,71 +1,84 @@
+ Poky
+ ====
+ 
+-Poky is an integration of various components to form a complete prepackaged
+-build system and development environment. It features support for building
+-customised embedded device style images. There are reference demo images
+-featuring a X11/Matchbox/GTK themed UI called Sato. The system supports
+-cross-architecture application development using QEMU emulation and a
+-standalone toolchain and SDK with IDE integration.
++Poky is an integration of various components to form a pre-packaged
++build system and development environment which is used as a development and
++validation tool by the [Yocto Project](http://www.yoctoproject.org/). It
++features support for building customised embedded style device images
++and custom containers. There are reference demo images ranging from X11/GTK+
++ to Weston, commandline and more. The system supports cross-architecture
++application development using QEMU emulation and a standalone toolchain and
++SDK suitable for IDE integration.
+ 
+ Additional information on the specifics of hardware that Poky supports
+ is available in README.hardware. Further hardware support can easily be added
+-in the form of layers which extend the systems capabilities in a modular way.
++in the form of BSP layers which extend the systems capabilities in a modular way.
++Many layers are available and can be found through the
++[layer index](https://layers.openembedded.org/).
+ 
+ As an integration layer Poky consists of several upstream projects such as 
+-BitBake, OpenEmbedded-Core, Yocto documentation and various sources of information 
+-e.g. for the hardware support. Poky is in turn a component of the Yocto Project.
++[BitBake](https://git.openembedded.org/bitbake/),
++[OpenEmbedded-Core](https://git.openembedded.org/openembedded-core/),
++[Yocto documentation](http://git.yoctoproject.org/cgit.cgi/yocto-docs/),
++the '[meta-yocto](http://git.yoctoproject.org/cgit.cgi/meta-yocto/)' layer
++which has configuration and hardware support components. These components
++are all part of the Yocto Project and OpenEmbedded ecosystems.
+ 
+ The Yocto Project has extensive documentation about the system including a 
+-reference manual which can be found at:
+-    http://yoctoproject.org/documentation
+-
+-OpenEmbedded-Core is a layer containing the core metadata for current versions
+-of OpenEmbedded. It is distro-less (can build a functional image with
+-DISTRO = "") and contains only emulated machine support.
+-
+-For information about OpenEmbedded, see the OpenEmbedded website:
+-    http://www.openembedded.org/
++reference manual which can be found at <https://docs.yoctoproject.org/>
+ 
++OpenEmbedded is the build architecture used by Poky and the Yocto project.
++For information about OpenEmbedded, see the 
++[OpenEmbedded website](http://www.openembedded.org/).
+ 
+ Contribution Guidelines
+-=======================
++-----------------------
++
++The project works using a mailing list patch submission process. Patches
++should be sent to the mailing list for the repository the components
++originate from (see below). Throughout the Yocto Project, the README
++files in the component in question should detail where to send patches,
++who the maintainers are and where bugs should be reported.
+ 
+ A guide to submitting patches to OpenEmbedded is available at:
+ 
+-http://www.openembedded.org/wiki/How_to_submit_a_patch_to_OpenEmbedded
++<http://www.openembedded.org/wiki/How_to_submit_a_patch_to_OpenEmbedded>
+ 
+ There is good documentation on how to write/format patches at:
+ 
+-https://www.openembedded.org/wiki/Commit_Patch_Message_Guidelines
+-
++<https://www.openembedded.org/wiki/Commit_Patch_Message_Guidelines>
+ 
+ Where to Send Patches
+-=====================
++---------------------
+ 
+ As Poky is an integration repository (built using a tool called combo-layer),
+ patches against the various components should be sent to their respective
+ upstreams:
+ 
+-bitbake:
+-    Git repository: http://git.openembedded.org/bitbake/
+-    Mailing list: bitbake-devel@lists.openembedded.org
++OpenEmbedded-Core (files in meta/, meta-selftest/, meta-skeleton/, scripts/):
++
++- Git repository: <https://git.openembedded.org/openembedded-core/>
++- Mailing list: openembedded-core@lists.openembedded.org
++
++BitBake (files in bitbake/):
++
++- Git repository: <https://git.openembedded.org/bitbake/>
++- Mailing list: bitbake-devel@lists.openembedded.org
++
++Documentation (files in documentation/):
++
++- Git repository: <https://git.yoctoproject.org/cgit/cgit.cgi/yocto-docs/>
++- Mailing list: docs@lists.yoctoproject.org
+ 
+-documentation:
+-    Git repository: http://git.yoctoproject.org/cgit/cgit.cgi/yocto-docs/
+-    Mailing list: docs@lists.yoctoproject.org
++meta-yocto (files in meta-poky/, meta-yocto-bsp/):
+ 
+-meta-poky, meta-yocto-bsp:
+-    Git repository: http://git.yoctoproject.org/cgit/cgit.cgi/meta-yocto(-bsp)
+-    Mailing list: poky@lists.yoctoproject.org
++- Git repository: <http://git.yoctoproject.org/cgit/cgit.cgi/meta-yocto>
++- Mailing list: poky@lists.yoctoproject.org
+ 
+-Everything else should be sent to the OpenEmbedded Core mailing list.  If in
+-doubt, check the oe-core git repository for the content you intend to modify.
+-Before sending, be sure the patches apply cleanly to the current oe-core git
+-repository.
++If in doubt, check the openembedded-core git repository for the content you
++intend to modify as most files are from there unless clearly one of the above
++categories. Before sending, be sure the patches apply cleanly to the current
++git repository branch in question.
+ 
+-    Git repository: http://git.openembedded.org/openembedded-core/
+-    Mailing list: openembedded-core@lists.openembedded.org
++[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/765/badge)](https://bestpractices.coreinfrastructure.org/projects/765)
+ 
+-Note: The scripts directory should be treated with extra care as it is a mix of
+-oe-core and poky-specific files from meta-poky.
+-- 
+2.30.2
 
-What I think happened is that glibc simply got better at linking, optimised
-the runtime bits to the fullest, and any benefits prelink may once have had
-aren't there anymore. Which is IMO fine - I am terrified of custom address
-arithmetic that's not really understood by anyone, and very easy to get
-wrong, with devastating consequences. I spent more or less the whole day
-stepping assembly in gdb to figure out what exactly is going wrong in that
-ppc bug.
-
-The value proposition of Yocto is still very strong, and is not at all
-affected by dropping prelink, in my opinion.
-
-Alex
-
---000000000000f9a7bc05c4def27d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
-_attr">On Wed, 16 Jun 2021 at 11:11, Richard Purdie &lt;<a href=3D"mailto:r=
-ichard.purdie@linuxfoundation.org">richard.purdie@linuxfoundation.org</a>&g=
-t; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
-x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-What makes me sad is that this is an embedded focused feature which=C2=A0<b=
-r>
-the project should be caring about, i.e. memory footprint and speed.<br>
-I don&#39;t know why the numbers don&#39;t show it, Mark and I have theorie=
-s<br>
-but it would take work to explore them and neither of us have that time,<br=
->
-nor are we experts on prelink able to maintain it with the time we have<br>
-available.<br></blockquote><div><br></div><div>What I think happened is tha=
-t glibc simply got better at linking, optimised the runtime bits to the ful=
-lest, and any benefits prelink may once have had aren&#39;t there anymore. =
-Which is IMO fine - I am terrified of custom address arithmetic that&#39;s =
-not really understood by anyone, and very easy to get wrong, with devastati=
-ng consequences. I spent more or less the whole day stepping assembly in gd=
-b to figure out what exactly is going wrong in that ppc bug.</div><div><br>=
-</div><div>The value proposition of Yocto is still very strong, and is not =
-at all affected by dropping prelink, in my opinion.<br></div><div><br></div=
-><div>Alex<br></div></div></div>
-
---000000000000f9a7bc05c4def27d--
