@@ -1,157 +1,89 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
- by mx.groups.io with SMTP id smtpd.web08.1031.1623778693852248925
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+ by mx.groups.io with SMTP id smtpd.web10.5065.1623834671090628018
  for <poky@lists.yoctoproject.org>;
- Tue, 15 Jun 2021 10:38:14 -0700
+ Wed, 16 Jun 2021 02:11:11 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=k3BLoD3k;
- spf=pass (domain: gmail.com, ip: 209.85.214.179, mailfrom: raj.khem@gmail.com)
-Received: by mail-pl1-f179.google.com with SMTP id e1so8836289plh.8;
-        Tue, 15 Jun 2021 10:38:13 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=eLmpFUqh;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.50, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f50.google.com with SMTP id n35-20020a05600c3ba3b02901cdecb6bda8so3563401wms.5
+        for <poky@lists.yoctoproject.org>; Wed, 16 Jun 2021 02:11:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:organization:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=VohProjJGW/SyFKvg5uxm2WmcO8ZH6Bpuv223+O5YKg=;
-        b=k3BLoD3kgsPqaLgJvSMnRKJukvtanEYyNtfoFAe+Ko9x4XscqSA3XVscKRDrSGvOnC
-         VYF+dziJhianp2VI9NW/mI17Txj0WeWxVHE02UdfD5iH+8Uq0fo4kwUU2QvizOf/R7lP
-         nkNG26hEQZGJuSnkCfmH4OaEoWVVvyxBTnXoWSq4cNFTlT6AY+mr+Tq19bA3PCvo0iXW
-         fB5w0AZiZj7lQEle/3Bv+MuE+Knc0lDZN3RieYtLbyKs/9kcSJsgzrm1rcVywsEJjfX5
-         o5hvZflcQSOYxDyEbd5VJOf0mGmIVgCGS5DZTtC89K5YiovAJ9Fp5ZQgB7zyn+13mhTD
-         n+RA==
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:cc:date:in-reply-to:references
+         :user-agent:mime-version:content-transfer-encoding;
+        bh=xTUr6UCW8VtRFlokOZE8/JKENY/6PfohZH18B0f2zGA=;
+        b=eLmpFUqhbUDnOp9cGUutBXnfKLmsYItCrNukgQtV66k4YNRuctI2VXMl+zV9+Ld/3y
+         Nlp/Wsst5+SY2JKH+jeEnlLrBplso4qCKB0Y7VL5AorUs2cWSKres+bkOReyCcaGBKvl
+         umvIP0F8l+64Ks8PAikml0J4dZVMNYspqhg5U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:organization
-         :message-id:date:user-agent:mime-version:in-reply-to
-         :content-language:content-transfer-encoding;
-        bh=VohProjJGW/SyFKvg5uxm2WmcO8ZH6Bpuv223+O5YKg=;
-        b=HyHfZ8ifQxz0cTUC5GRlHNK705iEFUc/cgGHU416xMYWhdgRWDI0tOeuKcEZ8dXs/X
-         EmxlBSngjuoHf8exy7qnas9npj50rkJXfH6F8xCbeYeVPlZJVj7QTaCNvKtxAA0dQrJ/
-         Ub3DChPvIwMIbrnSexVru+5yFQfCei53yn1sD/qMRzx6GgFkW3XfDoHYF/RI+kXWAwPc
-         wLCJBuXPSoc+/DQpdAhYNLL60ImNqnethP2x0dl8lKz9Zc9y7NOLedx6TI92JBivdOUe
-         M0YD9YvfPyIfuUruBxqmM32nwxcpGo4pwnQyLwfvhi9MlRn2e+6MoFqe45kiNSq8a/VZ
-         PBcg==
-X-Gm-Message-State: AOAM531jIcmJS/WT3z/oXP4yQnEVYJbxAUMmGybls5o0daBvOfEo4Iet
-	Y6grnSv+OlL2C6gLcOyhAVnjD4pUJ3r4zg==
-X-Google-Smtp-Source: ABdhPJwp2d5Tau5ez1wleoR6hztlEm6H2BoQPj3QyvuGXDkOS0tBr5Jm3YWydUb9YrfPrKl8z1X06A==
-X-Received: by 2002:a17:90a:9bc4:: with SMTP id b4mr6103703pjw.42.1623778692829;
-        Tue, 15 Jun 2021 10:38:12 -0700 (PDT)
-Return-Path: <raj.khem@gmail.com>
-Received: from ?IPv6:2601:646:9200:a0f0:d088:fa89:ac40:a9cc? ([2601:646:9200:a0f0:d088:fa89:ac40:a9cc])
-        by smtp.gmail.com with ESMTPSA id k15sm3272589pjf.32.2021.06.15.10.38.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Jun 2021 10:38:12 -0700 (PDT)
-Subject: Re: [yocto] [poky] [PATCH] local.conf.sample: disable prelink
-To: Alexander Kanavin <alex.kanavin@gmail.com>,
- Richard Purdie <richard.purdie@linuxfoundation.org>,
- Mark Hatle <mark.hatle@kernel.crashing.org>
-Cc: poky@lists.yoctoproject.org,
- Yocto-mailing-list <yocto@lists.yoctoproject.org>
-References: <20210615081225.1734033-1-alex.kanavin@gmail.com>
- <5ed9e1d2676d4d31289ebaf2ec3b492c1daa88a7.camel@linuxfoundation.org>
- <CANNYZj84MXS57sG5CWLmS-Y_0-w8h1_9NLmtjFEo4pJ5snXvcA@mail.gmail.com>
- <CANNYZj8S7V5owiS0p3B1fD7n_JpF-OPLApO=e9d+SiPuyFWHZw@mail.gmail.com>
-From: "Khem Raj" <raj.khem@gmail.com>
-Organization: HIMVIS LLC
-Message-ID: <cf64ed11-ff36-d3db-ff0b-5bda144bd782@gmail.com>
-Date: Tue, 15 Jun 2021 10:38:10 -0700
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.11.0
-MIME-Version: 1.0
+        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=xTUr6UCW8VtRFlokOZE8/JKENY/6PfohZH18B0f2zGA=;
+        b=mLuKonByNYP94O30M1u5KdaEYClPKs7YUTctGSIBEYr7WEWmvjIs8Q0Pj1wa9jouns
+         hNp3XlkPUHcdlLfADb2V6mw81YGqvO7uKbrVAQPq0UJZ+ljS0VqJU+KJHWe9UVk8x3Kq
+         PAU0KpxVuCpr43RXXFDgxOHhshTd6LqmQwdhR14BcEK6HvPi3vFeKUafUA5GIZdz+99V
+         dLiLwvayp4iFkf6BLjKIkxTk6JWc+ZoG9nxXfGw7N86FucllNBuX5LmnKcHl539PeqaM
+         3Sy70dt5Xj880GsUvj7Bdd2lUb+T2hYyjEG1OBvBYJcqbc34rGSmNUxq/xZiuGB6Ri/Q
+         NImg==
+X-Gm-Message-State: AOAM5311ezaIqZcmneKzJhegsXF0AYA1PtPoeGIP7X5jMKPp5H3jyXxP
+	lIycFBBg4FooJoJyDGbJ5JEd/A==
+X-Google-Smtp-Source: ABdhPJwYl2xC5yNvpzW6oXfnvyC91ZbhmU/2kd2Mkp4dsanHCh+o+p1FZAYnomAMR1VCLjN3RrmH1Q==
+X-Received: by 2002:a05:600c:47c4:: with SMTP id l4mr9948027wmo.145.1623834669352;
+        Wed, 16 Jun 2021 02:11:09 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from ?IPv6:2001:8b0:aba:5f3c:1d6e:bde3:735d:6a7d? ([2001:8b0:aba:5f3c:1d6e:bde3:735d:6a7d])
+        by smtp.gmail.com with ESMTPSA id z19sm4359476wmf.31.2021.06.16.02.11.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Jun 2021 02:11:08 -0700 (PDT)
+Message-ID: <0451f536368310860d9acb12e5a8424881b545e8.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH] local.conf.sample: disable prelink
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Alexander Kanavin <alex.kanavin@gmail.com>, Mark Hatle
+	 <mark.hatle@kernel.crashing.org>
+Cc: poky@lists.yoctoproject.org, Yocto-mailing-list
+	 <yocto@lists.yoctoproject.org>
+Date: Wed, 16 Jun 2021 10:11:06 +0100
 In-Reply-To: <CANNYZj8S7V5owiS0p3B1fD7n_JpF-OPLApO=e9d+SiPuyFWHZw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+References: <20210615081225.1734033-1-alex.kanavin@gmail.com>
+	 <5ed9e1d2676d4d31289ebaf2ec3b492c1daa88a7.camel@linuxfoundation.org>
+	 <CANNYZj84MXS57sG5CWLmS-Y_0-w8h1_9NLmtjFEo4pJ5snXvcA@mail.gmail.com>
+	 <CANNYZj8S7V5owiS0p3B1fD7n_JpF-OPLApO=e9d+SiPuyFWHZw@mail.gmail.com>
+User-Agent: Evolution 3.40.0-1 
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
+On Tue, 2021-06-15 at 17:21 +0200, Alexander Kanavin wrote:
+> So the memory usage is actually *better* without prelink. And any timing 
+> benefits are lost in statistical noise, in these tests at least. 
 
+The numbers certainly don't look convincing, thanks for running the tests.
 
-On 6/15/21 8:21 AM, Alexander Kanavin wrote:
-> 
-> 
-> On Tue, 15 Jun 2021 at 10:55, Alexander Kanavin <alex.kanavin@gmail.com 
-> <mailto:alex.kanavin@gmail.com>> wrote:
-> 
->     On Tue, 15 Jun 2021 at 10:48, Richard Purdie
->     <richard.purdie@linuxfoundation.org
->     <mailto:richard.purdie@linuxfoundation.org>> wrote:
-> 
->         I appreciate the desire simply to delete/disable anything that
->         causes issues
->         but in this case I draw the line and my answer is no. It works
->         fine in the
->         vast majority of usage.
-> 
-> 
->     But where are the benchmarks that show it's actually beneficial? And
->     commitment from someone to maintain it and address open issues
->     (there are more than just this one)?
-> 
-> 
-> I went ahead and ran some quick benchmarks myself. Specifically:
-> 
-> 1. Running 'free' after things have settled down at boot:
-> 
-> a) without prelink
-> core-image-sato-sdk
->                 total        used        free      shared  buff/cache   
-> available
-> Mem:          489352      152104      236284         472      100964     
->   323824
-> core-image-ptest-fast
->                total        used        free      shared  buff/cache   
-> available
-> Mem:        1004680       43456      927688         256       33536     
->   941156
-> 
-> b) with prelink
-> core-image-sato-sdk
->                 total        used        free      shared  buff/cache   
-> available
-> Mem:          489352      153048      235544         468      100760     
->   322900
-> core-image-ptest-fast
->                total        used        free      shared  buff/cache   
-> available
-> Mem:        1004680       44444      928128         256       32108     
->   940168
-> 
-> 2. Running -c testimage
-> 
-> a) without prelink
-> core-image-sato-sdk () - Ran 66 tests in 96.693s
-> core-image-sato-sdk () - Ran 66 tests in 96.469s
-> core-image-sato-sdk () - Ran 66 tests in 94.994s
-> core-image-ptest-fast () - Ran 66 tests in 583.767s
-> core-image-ptest-fast () - Ran 66 tests in 576.564s
-> core-image-ptest-fast () - Ran 66 tests in 576.797s
-> 
-> b) with prelink
-> core-image-sato-sdk () - Ran 66 tests in 96.390s
-> core-image-sato-sdk () - Ran 66 tests in 96.615s
-> core-image-sato-sdk () - Ran 66 tests in 95.596s
-> core-image-ptest-fast () - Ran 66 tests in 576.248s
-> core-image-ptest-fast () - Ran 66 tests in 574.618s
-> core-image-ptest-fast () - Ran 66 tests in 576.760s
->
+> So I do not think it is wrong to question the usefulness of this feature. 
+> I'd like to hear Mark's take on this, as prelink-cross is primarily his 
+> work, he's put a lot of effort into it, and I would want to know where 
+> the benefits are. Note that Red Hat abandoned prelink in 2013, and 
+> prelink-cross likewise hasn't seen any commits for two years.
 
-I think the advantage is not on high end CPUs but more on less powerful 
-ones, so perhaps trying it on something like rpi0 or lower would be good
+Mark and I did briefly talk yesterday and whilst Mark can/will speak
+up, the summary was "drop it".
 
+What makes me sad is that this is an embedded focused feature which 
+the project should be caring about, i.e. memory footprint and speed.
+I don't know why the numbers don't show it, Mark and I have theories
+but it would take work to explore them and neither of us have that time,
+nor are we experts on prelink able to maintain it with the time we have
+available.
 
-> So the memory usage is actually *better* without prelink. And any timing 
-> benefits are lost in statistical noise, in these tests at least.
-> 
-> So I do not think it is wrong to question the usefulness of this 
-> feature. I'd like to hear Mark's take on this, as prelink-cross is 
-> primarily his work, he's put a lot of effort into it, and I would want 
-> to know where the benefits are. Note that Red Hat abandoned prelink in 
-> 2013, and prelink-cross likewise hasn't seen any commits for two years.
-> 
+In my view the project should be caring about things like this, instead 
+it looks more like a race to look like 'any other desktop distro' and 
+drop anything which looks different.
 
+I've tried to say no. Nobody else would appear to care, I'm hearing 
+silence. I can't fight this.
 
+Cheers,
 
-> Alex
-> 
-> 
-> 
-> 
+Richard
+
