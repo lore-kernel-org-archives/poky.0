@@ -1,89 +1,107 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
- by mx.groups.io with SMTP id smtpd.web10.5065.1623834671090628018
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+ by mx.groups.io with SMTP id smtpd.web08.5263.1623836722701977724
  for <poky@lists.yoctoproject.org>;
- Wed, 16 Jun 2021 02:11:11 -0700
+ Wed, 16 Jun 2021 02:45:23 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=eLmpFUqh;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.50, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f50.google.com with SMTP id n35-20020a05600c3ba3b02901cdecb6bda8so3563401wms.5
-        for <poky@lists.yoctoproject.org>; Wed, 16 Jun 2021 02:11:10 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=bt+mV1Sw;
+ spf=pass (domain: gmail.com, ip: 209.85.221.178, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-vk1-f178.google.com with SMTP id u66so475302vkb.4;
+        Wed, 16 Jun 2021 02:45:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:cc:date:in-reply-to:references
-         :user-agent:mime-version:content-transfer-encoding;
-        bh=xTUr6UCW8VtRFlokOZE8/JKENY/6PfohZH18B0f2zGA=;
-        b=eLmpFUqhbUDnOp9cGUutBXnfKLmsYItCrNukgQtV66k4YNRuctI2VXMl+zV9+Ld/3y
-         Nlp/Wsst5+SY2JKH+jeEnlLrBplso4qCKB0Y7VL5AorUs2cWSKres+bkOReyCcaGBKvl
-         umvIP0F8l+64Ks8PAikml0J4dZVMNYspqhg5U=
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=4R/ozKgK8DjWnmwyO6ULFUhseSgYV3nTHEDVotjZ8u0=;
+        b=bt+mV1SwuMIJ0n3DK8orBOMyokM/DX90yYnFbr0o+RXVaGtmnJ41NnQarKZfDlQ2AK
+         EjNUAOW0Y2GR2mCWjdd7d+7ZkLQbzB91oE97mYAAL8J5uVMzw1xACA1rcGPzw//buxJU
+         jyoYit3wKsIGbEuM1hqqNRRhnZZxL1qdmPJWxwufziFPD1xV7MOvnE3kExsLi9jEtV29
+         6ddAjqN87vl4azWPHP4EA/iSQSw/Gs9Y3N7aPj4i4jtpM8i7GzL5z41BtX7haLBFhhTd
+         OLEZLhMbJlGCkD+uI/XKX5kSryGvf9IEmfeA0kcH3v+WNyzHi9UFfCwn0P/a8dYvzvTp
+         l2fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=xTUr6UCW8VtRFlokOZE8/JKENY/6PfohZH18B0f2zGA=;
-        b=mLuKonByNYP94O30M1u5KdaEYClPKs7YUTctGSIBEYr7WEWmvjIs8Q0Pj1wa9jouns
-         hNp3XlkPUHcdlLfADb2V6mw81YGqvO7uKbrVAQPq0UJZ+ljS0VqJU+KJHWe9UVk8x3Kq
-         PAU0KpxVuCpr43RXXFDgxOHhshTd6LqmQwdhR14BcEK6HvPi3vFeKUafUA5GIZdz+99V
-         dLiLwvayp4iFkf6BLjKIkxTk6JWc+ZoG9nxXfGw7N86FucllNBuX5LmnKcHl539PeqaM
-         3Sy70dt5Xj880GsUvj7Bdd2lUb+T2hYyjEG1OBvBYJcqbc34rGSmNUxq/xZiuGB6Ri/Q
-         NImg==
-X-Gm-Message-State: AOAM5311ezaIqZcmneKzJhegsXF0AYA1PtPoeGIP7X5jMKPp5H3jyXxP
-	lIycFBBg4FooJoJyDGbJ5JEd/A==
-X-Google-Smtp-Source: ABdhPJwYl2xC5yNvpzW6oXfnvyC91ZbhmU/2kd2Mkp4dsanHCh+o+p1FZAYnomAMR1VCLjN3RrmH1Q==
-X-Received: by 2002:a05:600c:47c4:: with SMTP id l4mr9948027wmo.145.1623834669352;
-        Wed, 16 Jun 2021 02:11:09 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:1d6e:bde3:735d:6a7d? ([2001:8b0:aba:5f3c:1d6e:bde3:735d:6a7d])
-        by smtp.gmail.com with ESMTPSA id z19sm4359476wmf.31.2021.06.16.02.11.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Jun 2021 02:11:08 -0700 (PDT)
-Message-ID: <0451f536368310860d9acb12e5a8424881b545e8.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH] local.conf.sample: disable prelink
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Alexander Kanavin <alex.kanavin@gmail.com>, Mark Hatle
-	 <mark.hatle@kernel.crashing.org>
-Cc: poky@lists.yoctoproject.org, Yocto-mailing-list
-	 <yocto@lists.yoctoproject.org>
-Date: Wed, 16 Jun 2021 10:11:06 +0100
-In-Reply-To: <CANNYZj8S7V5owiS0p3B1fD7n_JpF-OPLApO=e9d+SiPuyFWHZw@mail.gmail.com>
-References: <20210615081225.1734033-1-alex.kanavin@gmail.com>
-	 <5ed9e1d2676d4d31289ebaf2ec3b492c1daa88a7.camel@linuxfoundation.org>
-	 <CANNYZj84MXS57sG5CWLmS-Y_0-w8h1_9NLmtjFEo4pJ5snXvcA@mail.gmail.com>
-	 <CANNYZj8S7V5owiS0p3B1fD7n_JpF-OPLApO=e9d+SiPuyFWHZw@mail.gmail.com>
-User-Agent: Evolution 3.40.0-1 
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=4R/ozKgK8DjWnmwyO6ULFUhseSgYV3nTHEDVotjZ8u0=;
+        b=lvxwTqE3e0hGfWKjptIVCUb9q3YfLZtrrxR1s7sgpx/lQXWNKERZNICsjs+zDO1Flx
+         uTpXxiKAg6ALO7td2z76gzls/S5h3I4ojjxx+bcG2oMPSVIpqmuWOqMiWp/S12rNgQR7
+         2mv4RE3vM12n3hlCtF25pCbSIRBtJwBwp3rPRszJwM68Em6QQUyQw6/Myqdt6vcMTFxU
+         V3Dq4UjQbuwptcdqe0y+LYfJCJHT7rU7PHCWYS4RMg/gmlaVOs0V0iU12M3z7pA8RAIz
+         F4M1EmVtvLtEQw5WrSp89JmNygH8FgzpmS7WJzkypSyyCOg3V1lAWQAJZP+P9BKj84V3
+         RkDw==
+X-Gm-Message-State: AOAM530lSFDtUGKW4EqmIqyQi4rOF0BDBBLGUvU0wP6IcqGff6WZt6Hg
+	zzHy1dU5WkVOPVY8ywgwauBFJK/lqnvF3qKZubc=
+X-Google-Smtp-Source: ABdhPJwJmcvgkSc/rKOWT68jCBSDXXUcEjA5CeovSgiKVkOZNmtdcDTIPCVLuFvqqtp5WheoM4OkGEglUvXlCxLcK7Y=
+X-Received: by 2002:a1f:aac7:: with SMTP id t190mr358118vke.0.1623836721783;
+ Wed, 16 Jun 2021 02:45:21 -0700 (PDT)
 MIME-Version: 1.0
+References: <20210615081225.1734033-1-alex.kanavin@gmail.com>
+ <5ed9e1d2676d4d31289ebaf2ec3b492c1daa88a7.camel@linuxfoundation.org>
+ <CANNYZj84MXS57sG5CWLmS-Y_0-w8h1_9NLmtjFEo4pJ5snXvcA@mail.gmail.com>
+ <CANNYZj8S7V5owiS0p3B1fD7n_JpF-OPLApO=e9d+SiPuyFWHZw@mail.gmail.com> <0451f536368310860d9acb12e5a8424881b545e8.camel@linuxfoundation.org>
+In-Reply-To: <0451f536368310860d9acb12e5a8424881b545e8.camel@linuxfoundation.org>
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+Date: Wed, 16 Jun 2021 11:45:10 +0200
+Message-ID: <CANNYZj9Z87Jb7Ea-vtQ1ZEmtQvfFRDtTXAxvStZT3c02RnU01g@mail.gmail.com>
+Subject: Re: [poky] [PATCH] local.conf.sample: disable prelink
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: Mark Hatle <mark.hatle@kernel.crashing.org>, poky@lists.yoctoproject.org, 
+	Yocto-mailing-list <yocto@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="000000000000f9a7bc05c4def27d"
+
+--000000000000f9a7bc05c4def27d
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
 
-On Tue, 2021-06-15 at 17:21 +0200, Alexander Kanavin wrote:
-> So the memory usage is actually *better* without prelink. And any timing 
-> benefits are lost in statistical noise, in these tests at least. 
+On Wed, 16 Jun 2021 at 11:11, Richard Purdie <
+richard.purdie@linuxfoundation.org> wrote:
 
-The numbers certainly don't look convincing, thanks for running the tests.
+> What makes me sad is that this is an embedded focused feature which
+> the project should be caring about, i.e. memory footprint and speed.
+> I don't know why the numbers don't show it, Mark and I have theories
+> but it would take work to explore them and neither of us have that time,
+> nor are we experts on prelink able to maintain it with the time we have
+> available.
+>
 
-> So I do not think it is wrong to question the usefulness of this feature. 
-> I'd like to hear Mark's take on this, as prelink-cross is primarily his 
-> work, he's put a lot of effort into it, and I would want to know where 
-> the benefits are. Note that Red Hat abandoned prelink in 2013, and 
-> prelink-cross likewise hasn't seen any commits for two years.
+What I think happened is that glibc simply got better at linking, optimised
+the runtime bits to the fullest, and any benefits prelink may once have had
+aren't there anymore. Which is IMO fine - I am terrified of custom address
+arithmetic that's not really understood by anyone, and very easy to get
+wrong, with devastating consequences. I spent more or less the whole day
+stepping assembly in gdb to figure out what exactly is going wrong in that
+ppc bug.
 
-Mark and I did briefly talk yesterday and whilst Mark can/will speak
-up, the summary was "drop it".
+The value proposition of Yocto is still very strong, and is not at all
+affected by dropping prelink, in my opinion.
 
-What makes me sad is that this is an embedded focused feature which 
-the project should be caring about, i.e. memory footprint and speed.
-I don't know why the numbers don't show it, Mark and I have theories
-but it would take work to explore them and neither of us have that time,
-nor are we experts on prelink able to maintain it with the time we have
-available.
+Alex
 
-In my view the project should be caring about things like this, instead 
-it looks more like a race to look like 'any other desktop distro' and 
-drop anything which looks different.
+--000000000000f9a7bc05c4def27d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I've tried to say no. Nobody else would appear to care, I'm hearing 
-silence. I can't fight this.
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
+_attr">On Wed, 16 Jun 2021 at 11:11, Richard Purdie &lt;<a href=3D"mailto:r=
+ichard.purdie@linuxfoundation.org">richard.purdie@linuxfoundation.org</a>&g=
+t; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
+x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+What makes me sad is that this is an embedded focused feature which=C2=A0<b=
+r>
+the project should be caring about, i.e. memory footprint and speed.<br>
+I don&#39;t know why the numbers don&#39;t show it, Mark and I have theorie=
+s<br>
+but it would take work to explore them and neither of us have that time,<br=
+>
+nor are we experts on prelink able to maintain it with the time we have<br>
+available.<br></blockquote><div><br></div><div>What I think happened is tha=
+t glibc simply got better at linking, optimised the runtime bits to the ful=
+lest, and any benefits prelink may once have had aren&#39;t there anymore. =
+Which is IMO fine - I am terrified of custom address arithmetic that&#39;s =
+not really understood by anyone, and very easy to get wrong, with devastati=
+ng consequences. I spent more or less the whole day stepping assembly in gd=
+b to figure out what exactly is going wrong in that ppc bug.</div><div><br>=
+</div><div>The value proposition of Yocto is still very strong, and is not =
+at all affected by dropping prelink, in my opinion.<br></div><div><br></div=
+><div>Alex<br></div></div></div>
 
-Cheers,
-
-Richard
-
+--000000000000f9a7bc05c4def27d--
