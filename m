@@ -1,78 +1,70 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
- by mx.groups.io with SMTP id smtpd.web12.9654.1623860115849263853
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+ by mx.groups.io with SMTP id smtpd.web08.1507.1623975692016374369
  for <poky@lists.yoctoproject.org>;
- Wed, 16 Jun 2021 09:15:16 -0700
+ Thu, 17 Jun 2021 17:21:32 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=T6FS1rxT;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.51, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f51.google.com with SMTP id u5-20020a7bc0450000b02901480e40338bso3482901wmc.1
-        for <poky@lists.yoctoproject.org>; Wed, 16 Jun 2021 09:15:15 -0700 (PDT)
+ dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=ZKYmeJmu;
+ spf=softfail (domain: sakoman.com, ip: 209.85.210.45, mailfrom: steve@sakoman.com)
+Received: by mail-ot1-f45.google.com with SMTP id 6-20020a9d07860000b02903e83bf8f8fcso7950934oto.12
+        for <poky@lists.yoctoproject.org>; Thu, 17 Jun 2021 17:21:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:cc:date:in-reply-to:references
-         :user-agent:mime-version:content-transfer-encoding;
-        bh=FqtMk+zjtdzy5gyyj2xNxZP35/9l0E2pV+NBVZcnEx8=;
-        b=T6FS1rxTjIgJ2rgiiTNOnt4GGoNHmO9/V8pmJ57XFhIO+BUvYSOrwDMiY8zoOk+8I8
-         56TSqiNDc/jz4BZ8dOw2gROHCcRbmLk5WhCJR6QAdvTkGPW6E607rdw0UER8/BJv20I+
-         DahVWqFq3dckgmCMY7up02BZjguXWDITZPqnU=
+        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=sMR+HrcPbWUSX5yXpzbiqAIXydu7UHaTwR1zD5kPcUE=;
+        b=ZKYmeJmu9Fx8qzV14caU6g4+Y3Ceby7s0Eii/96s9uUBVK3WVrJ+d1Ub9oVzLjUyGN
+         8PGX5uQcerw4IYg94vBBBom5PN+D9Xtqw3qWuVXgAnOimDMULXLbN3AQks1RkLLOL5Pu
+         P7npDjtptK2Bd19o72Euz/nAdN0R+gw4KnXYQa5uwhPWO+lCt1Vy27lXW91aSK6be4Jh
+         8fsYYxYYmMQmIgbj5GJFzNaYjASxtrMqPb4mzJd0yVRjkpoKn6WT8iC5T+pNa096VdQC
+         JcwBh1Li2vhpN6Bki+vdZvbIgHxXaGF7r/ZvIV1RU51vesnLc5RK28GyyladtDURdF2x
+         rsMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=FqtMk+zjtdzy5gyyj2xNxZP35/9l0E2pV+NBVZcnEx8=;
-        b=szGjHEZejrULCCemxQt6F+W5VX1a9G0l+VZmFqsYy02Jk4A2c+okZtY097Ftb+zAW3
-         YWUEtNhKoJljb6ZBZa2aAgB/TA+/EjT9RJTwjoUXt8dQtA5vojkQX7fw1tT/FG9TfOfl
-         2K24Ei6q5UiHhLrtPk059Uzpy/oMYRep1GeC5tp1RoQAe4OKs3A74AK0sFL8vp6LAy1t
-         Qbe5/FqLzgTqxMntfa4ogvOXn+IdFgYmfYU7DJfCyQKsDMr3PY7G1/vYz6FloPULVxi1
-         ZkvtagyFCPROP4V2f26Pv3CFGej7F1zYuEjmgPzopKFO88+P8qJ8BtqRj15gpj8QaM/9
-         sfrQ==
-X-Gm-Message-State: AOAM531yZGgKFLdqge36aCFnSL8pPMDrJV3iuiD4h9ePwrhvfE+IBqYU
-	LETT0S3LKkpihmKB+X3tyT6jGw==
-X-Google-Smtp-Source: ABdhPJw/8/6ti3SNagpfNlNdW9lNDxR5aJZ/mC0MBZ8R8nKkYHHgi3giFUgLUsxjS8bid0eCikF5dg==
-X-Received: by 2002:a05:600c:511d:: with SMTP id o29mr12665429wms.0.1623860114451;
-        Wed, 16 Jun 2021 09:15:14 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:31b6:9a4e:bc39:a574? ([2001:8b0:aba:5f3c:31b6:9a4e:bc39:a574])
-        by smtp.gmail.com with ESMTPSA id b11sm2650021wrf.43.2021.06.16.09.15.14
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=sMR+HrcPbWUSX5yXpzbiqAIXydu7UHaTwR1zD5kPcUE=;
+        b=fklpV4FFdPFDT8t3Qpxftig3krLBngm+86xIAnUguyxv1tcTGOLJDPcl5cVwOiD2GR
+         qoqPB1MCNsNs3yVhCjzFfAXL7IEqPrDZMcAt6BfQdCCecFNo2U/2QXGmPWkdetElbmbJ
+         9h9IcMF3QbaC7Xk23opDKMCp4geYTt8YF5Au/VZ9ayoYU9gTplfJtn9xyHWosDUTTiZl
+         dIeN8lmnyhsMxH9/GZsv7m9Ag9B73o2OJkTZtp+jb5o+H1QgAX+SnuYhhHawt5ZpVf/m
+         60bOueOYsnoWed+rsU+XMqyNHmvpgKURWFJkxlPu6O4iUouSrocp1FbaWcfd/aGelb9p
+         lHFA==
+X-Gm-Message-State: AOAM530CROSN3jhexdkGBYJtHxw8lyz8jSz9a09Z1F5vx/FwX34y0T/G
+	Ln1kh8wmVrAXv6675espf2iRbgeReYRXGlrMbhg=
+X-Google-Smtp-Source: ABdhPJwVMFhgN5QcDOkmIUJ5hXOle74vAsXSR26Pt4e/apuGLwlB/IjPijNDjt8v8w3s22Clh2AGCw==
+X-Received: by 2002:a05:6830:1ac6:: with SMTP id r6mr7040844otc.198.1623975690742;
+        Thu, 17 Jun 2021 17:21:30 -0700 (PDT)
+Return-Path: <steve@sakoman.com>
+Received: from localhost.localdomain ([172.243.4.16])
+        by smtp.gmail.com with ESMTPSA id s187sm1471837oig.6.2021.06.17.17.21.27
+        for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Jun 2021 09:15:14 -0700 (PDT)
-Message-ID: <45b724cdb0aad3e8e42a54a2a01f8bafcc73e706.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH] README.poky: Update to switch to markdown format and update
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Paul Barker <pbarker@konsulko.com>
-Cc: poky@lists.yoctoproject.org
-Date: Wed, 16 Jun 2021 17:15:11 +0100
-In-Reply-To: <CAM9ZRVsCsog4x5OHaq9zsWiJXuG0dzvsUq6x3KR48HpBrzuWRg@mail.gmail.com>
-References: <20210607152809.3071859-1-richard.purdie@linuxfoundation.org>
-	 <CAM9ZRVsCsog4x5OHaq9zsWiJXuG0dzvsUq6x3KR48HpBrzuWRg@mail.gmail.com>
-User-Agent: Evolution 3.40.0-1 
+        Thu, 17 Jun 2021 17:21:30 -0700 (PDT)
+From: "Steve Sakoman" <steve@sakoman.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][dunfell 0/2] Pull request (cover letter only)
+Date: Thu, 17 Jun 2021 14:21:09 -1000
+Message-Id: <cover.1623975583.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2021-06-08 at 09:53 +0100, Paul Barker wrote:
-> I've given this a quick review for markdown usage, hopefully some of
-> these comments are useful. I recommend checking with
-> https://github.com/markdownlint/markdownlint to help find subtle
-> syntax errors which might trip up the rendering.
-> 
-> On Mon, 7 Jun 2021 at 16:30, Richard Purdie
-> <richard.purdie@linuxfoundation.org> wrote:
-> > --- a/meta-poky/README.poky
-> > +++ b/meta-poky/README.poky
-> > @@ -1,35 +1,19 @@
-> > -Poky
-> > -====
-> > +#Poky
-> 
-> Underlining with = characters is still supported for h1 headings if
-> this is preferred.
+The following changes since commit 134c1e9902148f907d4f9e78435fa3a827c6df03:
 
-Thanks all for the review. I've sent a v2 which hopefully addresses
-the feedback (and passes the linter apart from some white space I left
-as it made the diff more readable).
+  poky.conf: Bump version for 3.1.8 release (2021-05-17 04:19:26 -1000)
 
-Cheers,
+are available in the Git repository at:
 
-Richard
+  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
+  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
+
+Steve Sakoman (2):
+  poky.conf: Add openSUSE Leap 15.2 as a supported distro
+  poky.conf: Bump version for 3.1.9 release
+
+ meta-poky/conf/distro/poky.conf | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+-- 
+2.25.1
 
