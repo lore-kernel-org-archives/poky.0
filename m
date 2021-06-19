@@ -1,70 +1,85 @@
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
- by mx.groups.io with SMTP id smtpd.web08.1507.1623975692016374369
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+ by mx.groups.io with SMTP id smtpd.web10.19657.1624097980448871931
  for <poky@lists.yoctoproject.org>;
- Thu, 17 Jun 2021 17:21:32 -0700
+ Sat, 19 Jun 2021 03:19:40 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=ZKYmeJmu;
- spf=softfail (domain: sakoman.com, ip: 209.85.210.45, mailfrom: steve@sakoman.com)
-Received: by mail-ot1-f45.google.com with SMTP id 6-20020a9d07860000b02903e83bf8f8fcso7950934oto.12
-        for <poky@lists.yoctoproject.org>; Thu, 17 Jun 2021 17:21:31 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=Kd1YkK7x;
+ spf=pass (domain: gmail.com, ip: 209.85.218.48, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-ej1-f48.google.com with SMTP id dm5so7652125ejc.9
+        for <poky@lists.yoctoproject.org>; Sat, 19 Jun 2021 03:19:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
-        h=from:to:subject:date:message-id:mime-version
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=sMR+HrcPbWUSX5yXpzbiqAIXydu7UHaTwR1zD5kPcUE=;
-        b=ZKYmeJmu9Fx8qzV14caU6g4+Y3Ceby7s0Eii/96s9uUBVK3WVrJ+d1Ub9oVzLjUyGN
-         8PGX5uQcerw4IYg94vBBBom5PN+D9Xtqw3qWuVXgAnOimDMULXLbN3AQks1RkLLOL5Pu
-         P7npDjtptK2Bd19o72Euz/nAdN0R+gw4KnXYQa5uwhPWO+lCt1Vy27lXW91aSK6be4Jh
-         8fsYYxYYmMQmIgbj5GJFzNaYjASxtrMqPb4mzJd0yVRjkpoKn6WT8iC5T+pNa096VdQC
-         JcwBh1Li2vhpN6Bki+vdZvbIgHxXaGF7r/ZvIV1RU51vesnLc5RK28GyyladtDURdF2x
-         rsMg==
+        bh=EVltZaK9hMbpx+8e4c+AbwjUUZqLQH3dRXZ2NrLj5Uc=;
+        b=Kd1YkK7xQtEVhfrfmxV+p6H5489SnLTjvDfV3h6AZv26e1tVp57H9NXdpPRQrBU59p
+         sxLhAZYT6T8+Kpv77gZFmxsz0FQR3IZ1uEUwu7SZe5Ktc4xP50iRqECpWhUeCvgEYIbi
+         HgyUS8U3gzXX40nbVMqmmdCoAdLclS9cSaFO9eQKIuuqn85zLeYC9bUpLLIFEEFhu3eh
+         BRfv+ytRafzuAMGkrQhA9mpoxZPDo8LsxCqbK+tHQ5JT6KupoDtytGtVe9/GWXXq2iVU
+         i5UUa1mXQ/F+h5up3Z+U3EK3BILGoF+eQdCX8c6eUnlBrAI+rKDuN2W8duy6XJ8/n92O
+         r+2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=sMR+HrcPbWUSX5yXpzbiqAIXydu7UHaTwR1zD5kPcUE=;
-        b=fklpV4FFdPFDT8t3Qpxftig3krLBngm+86xIAnUguyxv1tcTGOLJDPcl5cVwOiD2GR
-         qoqPB1MCNsNs3yVhCjzFfAXL7IEqPrDZMcAt6BfQdCCecFNo2U/2QXGmPWkdetElbmbJ
-         9h9IcMF3QbaC7Xk23opDKMCp4geYTt8YF5Au/VZ9ayoYU9gTplfJtn9xyHWosDUTTiZl
-         dIeN8lmnyhsMxH9/GZsv7m9Ag9B73o2OJkTZtp+jb5o+H1QgAX+SnuYhhHawt5ZpVf/m
-         60bOueOYsnoWed+rsU+XMqyNHmvpgKURWFJkxlPu6O4iUouSrocp1FbaWcfd/aGelb9p
-         lHFA==
-X-Gm-Message-State: AOAM530CROSN3jhexdkGBYJtHxw8lyz8jSz9a09Z1F5vx/FwX34y0T/G
-	Ln1kh8wmVrAXv6675espf2iRbgeReYRXGlrMbhg=
-X-Google-Smtp-Source: ABdhPJwVMFhgN5QcDOkmIUJ5hXOle74vAsXSR26Pt4e/apuGLwlB/IjPijNDjt8v8w3s22Clh2AGCw==
-X-Received: by 2002:a05:6830:1ac6:: with SMTP id r6mr7040844otc.198.1623975690742;
-        Thu, 17 Jun 2021 17:21:30 -0700 (PDT)
-Return-Path: <steve@sakoman.com>
-Received: from localhost.localdomain ([172.243.4.16])
-        by smtp.gmail.com with ESMTPSA id s187sm1471837oig.6.2021.06.17.17.21.27
-        for <poky@lists.yoctoproject.org>
+        bh=EVltZaK9hMbpx+8e4c+AbwjUUZqLQH3dRXZ2NrLj5Uc=;
+        b=bz1G84PcKZOB7wNrgporiOFAr7B6mO1ikISZzlv8/8iOStjVq28t/00dJlmlhozbP4
+         ZWkHRd2rxkVp9MxVq1qFapVCicpn+oXQGAdisD4VIF3yw2Ii9LEHV/BUIBmFnel7fCgS
+         rgLjrOCdl/bVUduMBm1D4rBPqOW9hY9m5mZX/O2kEe1ioKh6n2Q6HYOjCq8iAO6wznkB
+         +gkIL0vlmnQp7Zp1Wuj4Lt3L3luYqUk5WniHV+7xTdtugcsTZDcD3aSZi7QpuFbf7IXP
+         TMuEhxFrG/XlmQ8xz/5ERpp2P0jXN8GsvTCnE6XnbPoLuTMXzjD8fu09SNSzSOO6z8u3
+         nRkg==
+X-Gm-Message-State: AOAM532+PO+L24MEJjfZvgEYXzM1aXkXLQl5qE0AUCYdjN1xZTP4ZK3p
+	odRDowonDJz5wG4dpwaNply8ICD/CpfuZg==
+X-Google-Smtp-Source: ABdhPJz8E81d+tu87OfHbJ3nRiKaRx119q7A2pxdVWIPTSjrCtU/5XMtWKpEIUdrBl8QmDUAMj5/jw==
+X-Received: by 2002:a17:906:240d:: with SMTP id z13mr13277088eja.118.1624097978761;
+        Sat, 19 Jun 2021 03:19:38 -0700 (PDT)
+Return-Path: <alex.kanavin@gmail.com>
+Received: from localhost.localdomain ([2a02:2454:2a0:cb00:eb83:2e01:3dda:5d46])
+        by smtp.gmail.com with ESMTPSA id cx1sm773265edb.64.2021.06.19.03.19.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Jun 2021 17:21:30 -0700 (PDT)
-From: "Steve Sakoman" <steve@sakoman.com>
+        Sat, 19 Jun 2021 03:19:38 -0700 (PDT)
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell 0/2] Pull request (cover letter only)
-Date: Thu, 17 Jun 2021 14:21:09 -1000
-Message-Id: <cover.1623975583.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.25.1
+Cc: Alexander Kanavin <alex.kanavin@gmail.com>
+Subject: [PATCH] local.conf.sample: disable prelink
+Date: Sat, 19 Jun 2021 12:19:33 +0200
+Message-Id: <20210619101933.1854147-1-alex.kanavin@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The following changes since commit 134c1e9902148f907d4f9e78435fa3a827c6df03:
+Recent tests have not shown any improvement over not prelinking,
+and without a regression test it is very hard to say when and how
+this happened.[0]
 
-  poky.conf: Bump version for 3.1.8 release (2021-05-17 04:19:26 -1000)
+There's also a concern that no one is maintaining the code, and there
+are open bugs (including serious ones such as [1]). Given that prelink
+does intricate address arithmetic and rewriting of binaries the best
+option is to disable the feature.
 
-are available in the Git repository at:
+[0] https://lists.yoctoproject.org/g/poky/message/12467
+[1] https://bugzilla.yoctoproject.org/show_bug.cgi?id=14429
 
-  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
-  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
+Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
+---
+ meta-poky/conf/local.conf.sample | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Steve Sakoman (2):
-  poky.conf: Add openSUSE Leap 15.2 as a supported distro
-  poky.conf: Bump version for 3.1.9 release
-
- meta-poky/conf/distro/poky.conf | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
+diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
+index fb14379d28..1794126672 100644
+--- a/meta-poky/conf/local.conf.sample
++++ b/meta-poky/conf/local.conf.sample
+@@ -148,8 +148,7 @@ EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+ # enable extra features. Some available options which can be included in this variable
+ # are:
+ #   - 'buildstats' collect build statistics
+-#   - 'image-prelink' in order to prelink the filesystem image
+-USER_CLASSES ?= "buildstats image-prelink"
++USER_CLASSES ?= "buildstats"
+ 
+ #
+ # Runtime testing of images
 -- 
-2.25.1
+2.31.1
 
