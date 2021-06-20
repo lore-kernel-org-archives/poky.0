@@ -1,85 +1,132 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
- by mx.groups.io with SMTP id smtpd.web10.19657.1624097980448871931
- for <poky@lists.yoctoproject.org>;
- Sat, 19 Jun 2021 03:19:40 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=Kd1YkK7x;
- spf=pass (domain: gmail.com, ip: 209.85.218.48, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-ej1-f48.google.com with SMTP id dm5so7652125ejc.9
-        for <poky@lists.yoctoproject.org>; Sat, 19 Jun 2021 03:19:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=EVltZaK9hMbpx+8e4c+AbwjUUZqLQH3dRXZ2NrLj5Uc=;
-        b=Kd1YkK7xQtEVhfrfmxV+p6H5489SnLTjvDfV3h6AZv26e1tVp57H9NXdpPRQrBU59p
-         sxLhAZYT6T8+Kpv77gZFmxsz0FQR3IZ1uEUwu7SZe5Ktc4xP50iRqECpWhUeCvgEYIbi
-         HgyUS8U3gzXX40nbVMqmmdCoAdLclS9cSaFO9eQKIuuqn85zLeYC9bUpLLIFEEFhu3eh
-         BRfv+ytRafzuAMGkrQhA9mpoxZPDo8LsxCqbK+tHQ5JT6KupoDtytGtVe9/GWXXq2iVU
-         i5UUa1mXQ/F+h5up3Z+U3EK3BILGoF+eQdCX8c6eUnlBrAI+rKDuN2W8duy6XJ8/n92O
-         r+2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=EVltZaK9hMbpx+8e4c+AbwjUUZqLQH3dRXZ2NrLj5Uc=;
-        b=bz1G84PcKZOB7wNrgporiOFAr7B6mO1ikISZzlv8/8iOStjVq28t/00dJlmlhozbP4
-         ZWkHRd2rxkVp9MxVq1qFapVCicpn+oXQGAdisD4VIF3yw2Ii9LEHV/BUIBmFnel7fCgS
-         rgLjrOCdl/bVUduMBm1D4rBPqOW9hY9m5mZX/O2kEe1ioKh6n2Q6HYOjCq8iAO6wznkB
-         +gkIL0vlmnQp7Zp1Wuj4Lt3L3luYqUk5WniHV+7xTdtugcsTZDcD3aSZi7QpuFbf7IXP
-         TMuEhxFrG/XlmQ8xz/5ERpp2P0jXN8GsvTCnE6XnbPoLuTMXzjD8fu09SNSzSOO6z8u3
-         nRkg==
-X-Gm-Message-State: AOAM532+PO+L24MEJjfZvgEYXzM1aXkXLQl5qE0AUCYdjN1xZTP4ZK3p
-	odRDowonDJz5wG4dpwaNply8ICD/CpfuZg==
-X-Google-Smtp-Source: ABdhPJz8E81d+tu87OfHbJ3nRiKaRx119q7A2pxdVWIPTSjrCtU/5XMtWKpEIUdrBl8QmDUAMj5/jw==
-X-Received: by 2002:a17:906:240d:: with SMTP id z13mr13277088eja.118.1624097978761;
-        Sat, 19 Jun 2021 03:19:38 -0700 (PDT)
-Return-Path: <alex.kanavin@gmail.com>
-Received: from localhost.localdomain ([2a02:2454:2a0:cb00:eb83:2e01:3dda:5d46])
-        by smtp.gmail.com with ESMTPSA id cx1sm773265edb.64.2021.06.19.03.19.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Jun 2021 03:19:38 -0700 (PDT)
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+Subject: Re: [PULL][PATCH 0/2] Implement debian packages GPG signing
 To: poky@lists.yoctoproject.org
-Cc: Alexander Kanavin <alex.kanavin@gmail.com>
-Subject: [PATCH] local.conf.sample: disable prelink
-Date: Sat, 19 Jun 2021 12:19:33 +0200
-Message-Id: <20210619101933.1854147-1-alex.kanavin@gmail.com>
-X-Mailer: git-send-email 2.31.1
+From: "Ferry Toth" <fntoth@gmail.com>
+X-Originating-Location: Leiden, South Holland, NL (83.160.74.106)
+X-Originating-Platform: Linux Firefox 89
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Sun, 20 Jun 2021 13:42:23 -0700
+References: <CANNYZj9hVr8KfCXXXDHyubS44fEBPPdtpwHqab7qPGp+Rp9ujg@mail.gmail.com>
+In-Reply-To: <CANNYZj9hVr8KfCXXXDHyubS44fEBPPdtpwHqab7qPGp+Rp9ujg@mail.gmail.com>
+Message-ID: <29294.1624221743778282039@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="ANIqqEV8gD7Lqst0k61w"
 
-Recent tests have not shown any improvement over not prelinking,
-and without a regression test it is very hard to say when and how
-this happened.[0]
+--ANIqqEV8gD7Lqst0k61w
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-There's also a concern that no one is maintaining the code, and there
-are open bugs (including serious ones such as [1]). Given that prelink
-does intricate address arithmetic and rewriting of binaries the best
-option is to disable the feature.
+On Mon, Apr 1, 2019 at 02:19 AM, Alexander Kanavin wrote:
 
-[0] https://lists.yoctoproject.org/g/poky/message/12467
-[1] https://bugzilla.yoctoproject.org/show_bug.cgi?id=14429
+>=20
+> Thanks, please send these patches to openembedded-core mailing list.
 
-Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
----
- meta-poky/conf/local.conf.sample | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Yes, Xavier please don't forget to send these patches. They have become es=
+sential even now that apt will not allow unsigned repositories.
 
-diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
-index fb14379d28..1794126672 100644
---- a/meta-poky/conf/local.conf.sample
-+++ b/meta-poky/conf/local.conf.sample
-@@ -148,8 +148,7 @@ EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
- # enable extra features. Some available options which can be included in this variable
- # are:
- #   - 'buildstats' collect build statistics
--#   - 'image-prelink' in order to prelink the filesystem image
--USER_CLASSES ?= "buildstats image-prelink"
-+USER_CLASSES ?= "buildstats"
- 
- #
- # Runtime testing of images
--- 
-2.31.1
+I have refreshed your patches so they apply to gatesgarth. You can find th=
+em here if you are interested: https://github.com/htot/meta-intel-edison/tr=
+ee/gatesgarth/utils
+0001-gpg-sign-Add-parameters-to-gpg-signature-function.patch
+0002-package_manager-sign-DEB-package-feeds.patch
 
+I have one question though. When building the sdk I get:
+
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help to resolve the situation:
+
+The following packages have unmet dependencies:
+signing-keys-dev : Depends: signing-keys (=3D 1.0-r0) but it is not instal=
+lable
+E: Unable to correct problems, you have held broken packages.
+
+I don't know how to resolve that. Any ideas?
+
+>=20
+> Some kind of test case similar to the rpm feed sign test in
+> meta/lib/oeqa/selftest/cases/runtime_test.py would be good to have.
+>=20
+> Alex
+>=20
+>=20
+> On Mon, 1 Apr 2019 at 10:45, Xavier Berger <xavier.berger@bio-logic.net>
+> wrote:
+>=20
+>>=20
+>> The following patches add signing feature for debian packages.
+>>=20
+>>=20
+>> The following changes since commit
+>> 3bc700a12d4f21a5c7a1575da0972f9f78b4a091:
+>>=20
+>> mesa: update 19.0.0 -> 19.0.1 (2019-03-29 08:28:53 +0000)
+>>=20
+>> are available in the git repository at:
+>>=20
+>> git://push.yoctoproject.org/poky-contrib xberger/deb_sign
+>>=20
+>> Xavier Berger (2):
+>> gpg-sign: Add parameters to gpg signature function
+>> package_manager: sign DEB package feeds
+>>=20
+>> meta/lib/oe/gpg_sign.py | 6 +++++-
+>> meta/lib/oe/package_manager.py | 19 ++++++++++++++++---
+>> 2 files changed, 21 insertions(+), 4 deletions(-)
+>>=20
+>> --
+>> 2.7.4
+>>=20
+>> --
+>> _______________________________________________
+>> poky mailing list
+>> poky@yoctoproject.org
+>> https://lists.yoctoproject.org/listinfo/poky
+>=20
+>
+
+--ANIqqEV8gD7Lqst0k61w
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Apr 1, 2019 at 02:19 AM, Alexander Kanavin wrote:<br />
+<blockquote>Thanks, please send these patches to openembedded-core mailing=
+ list.</blockquote>
+Yes, Xavier please don't forget to send these patches. They have become es=
+sential even now that apt will not allow unsigned repositories. <br /><br /=
+>I have refreshed your patches so they apply to gatesgarth. You can find th=
+em here if you are interested: <a class=3D"moz-txt-link-freetext" href=3D"h=
+ttps://github.com/htot/meta-intel-edison/tree/gatesgarth/utils">https://git=
+hub.com/htot/meta-intel-edison/tree/gatesgarth/utils</a> <br />0001-gpg-sig=
+n-Add-parameters-to-gpg-signature-function.patch <br />0002-package_manager=
+-sign-DEB-package-feeds.patch <br /><br />I have one question though. When =
+building the sdk I get: <br /><br />Some packages could not be installed. T=
+his may mean that you have <br />requested an impossible situation or if yo=
+u are using the unstable <br />distribution that some required packages hav=
+e not yet been created <br />or been moved out of Incoming. <br />The follo=
+wing information may help to resolve the situation: <br /><br />The followi=
+ng packages have unmet dependencies: <br />&nbsp;signing-keys-dev : Depends=
+: signing-keys (=3D 1.0-r0) but it is not installable <br />E: Unable to co=
+rrect problems, you have held broken packages. <br /><br />I don't know how=
+ to resolve that. Any ideas? <br />
+<blockquote>Some kind of test case similar to the rpm feed sign test in<br=
+ />meta/lib/oeqa/selftest/cases/runtime_test.py would be good to have.<br /=
+><br />Alex<br /><br /><br />On Mon, 1 Apr 2019 at 10:45, Xavier Berger &lt=
+;xavier.berger@bio-logic.net&gt; wrote:<br />
+<blockquote><br />The following patches add signing feature for debian pac=
+kages.<br /><br /><br />The following changes since commit 3bc700a12d4f21a5=
+c7a1575da0972f9f78b4a091:<br /><br />mesa: update 19.0.0 -&gt; 19.0.1 (2019=
+-03-29 08:28:53 +0000)<br /><br />are available in the git repository at:<b=
+r /><br />git://push.yoctoproject.org/poky-contrib xberger/deb_sign<br /><b=
+r />Xavier Berger (2):<br />gpg-sign: Add parameters to gpg signature funct=
+ion<br />package_manager: sign DEB package feeds<br /><br />meta/lib/oe/gpg=
+_sign.py | 6 +++++-<br />meta/lib/oe/package_manager.py | 19 ++++++++++++++=
+++---<br />2 files changed, 21 insertions(+), 4 deletions(-)<br /><br />--<=
+br />2.7.4<br /><br />--<br />_____________________________________________=
+__<br />poky mailing list<br />poky@yoctoproject.org<br /><a href=3D"https:=
+//lists.yoctoproject.org/listinfo/poky" target=3D"_blank" rel=3D"noopener">=
+https://lists.yoctoproject.org/listinfo/poky</a></blockquote>
+</blockquote>
+
+--ANIqqEV8gD7Lqst0k61w--
