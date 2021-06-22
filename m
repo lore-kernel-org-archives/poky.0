@@ -1,132 +1,82 @@
-Subject: Re: [PULL][PATCH 0/2] Implement debian packages GPG signing
+Received: from mail.engineeredarts.co.uk (mail.engineeredarts.co.uk [62.3.104.53])
+ by mx.groups.io with SMTP id smtpd.web12.8399.1624366144191596569
+ for <poky@lists.yoctoproject.org>;
+ Tue, 22 Jun 2021 05:49:04 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@engineeredarts.co.uk header.s=modoboa header.b=Z1XvUIer;
+ spf=pass (domain: engineeredarts.co.uk, ip: 62.3.104.53, mailfrom: dan@engineeredarts.co.uk)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.engineeredarts.co.uk (Postfix) with ESMTP id 73E39281BAB
+	for <poky@lists.yoctoproject.org>; Tue, 22 Jun 2021 13:49:02 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=engineeredarts.co.uk; s=modoboa; t=1624366142;
+	bh=QhKJQixz+iUEMPuSTWfDrDfXIR4M2sJbSjy1ndN2OAI=;
+	h=From:Subject:To:Date:From;
+	b=Z1XvUIerJuFp9CWFeGyrhMVMVq9fiAbWZl7Y+djJcnI1o+tJx7t3mv5T+9phPFO9u
+	 RP8N/6UvvU06NiLoN343IezAgxsQqtDQeWIKBJCEt6S9k/Wf6AiX+lNrxD3XGcs4g6
+	 HVFnS1aDatue2URdWDwevFMVD9lbKWnu+OR+hqQcI4MQfPXJQsZ+aqwp+x9QiFEk37
+	 8BUwuHzGho23VLotP7QJH8lRiZcEz8RJlsEg0RmlkAi/qOaeoXZipA4IrNIYvlmHPd
+	 /93gsED+sLCoXV0hLS7BgNXqosgVlxsCJurLIi4ZHmbUgg+FYfiC0vX7Qnr0xbkeRg
+	 xGN3trLJyWv+w==
+X-Virus-Scanned: Debian amavisd-new at mail.engineeredarts.co.uk
+Received: from mail.engineeredarts.co.uk ([127.0.0.1])
+	by localhost (mail.engineeredarts.co.uk [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id V892sLCAItgo for <poky@lists.yoctoproject.org>;
+	Tue, 22 Jun 2021 13:48:57 +0100 (BST)
+Received: from [10.3.2.6] (cpc160893-lutn15-2-0-cust235.9-3.cable.virginm.net [86.16.192.236])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.engineeredarts.co.uk (Postfix) with ESMTPSA
+	for <poky@lists.yoctoproject.org>; Tue, 22 Jun 2021 13:48:57 +0100 (BST)
+From: "Daniel Squires" <dan@engineeredarts.co.uk>
+Subject: howto run unit tests
 To: poky@lists.yoctoproject.org
-From: "Ferry Toth" <fntoth@gmail.com>
-X-Originating-Location: Leiden, South Holland, NL (83.160.74.106)
-X-Originating-Platform: Linux Firefox 89
-User-Agent: GROUPS.IO Web Poster
+Message-ID: <646e26c8-aa05-7ae6-568d-321d7a266281@engineeredarts.co.uk>
+Date: Tue, 22 Jun 2021 13:48:57 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-Date: Sun, 20 Jun 2021 13:42:23 -0700
-References: <CANNYZj9hVr8KfCXXXDHyubS44fEBPPdtpwHqab7qPGp+Rp9ujg@mail.gmail.com>
-In-Reply-To: <CANNYZj9hVr8KfCXXXDHyubS44fEBPPdtpwHqab7qPGp+Rp9ujg@mail.gmail.com>
-Message-ID: <29294.1624221743778282039@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="ANIqqEV8gD7Lqst0k61w"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
---ANIqqEV8gD7Lqst0k61w
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Hi,
+We are trying to run some built binaries as a task in a recipe as a part 
+of unit testing. This can potentially get complicated (though I feel it 
+could/should be abstracted away) as it may need to take care of 
+architecture differences between the host and the build target but for 
+now we are happy to just run for the cases where these match, and 
+possibly later look at using qemu.
+We are struggling to find any examples of this being done in existing 
+recipes. We managed to manually run what we want by copying built files 
+into the recipe-sysroot directory and using fakechroot but feel there 
+must be an existing way to achieve what we want, and that we just 
+haven't looked for the right thing.
+We have also found some docs re ptest however these seem to all relate 
+to running tests on the final resulting image, we wish to be able to run 
+some tests before this, on individual package builds as part of CI.
+Can anyone give any pointer re this?
+Many Thanks
 
-On Mon, Apr 1, 2019 at 02:19 AM, Alexander Kanavin wrote:
+-- 
 
->=20
-> Thanks, please send these patches to openembedded-core mailing list.
+*Dan Squires*
+Developer
 
-Yes, Xavier please don't forget to send these patches. They have become es=
-sential even now that apt will not allow unsigned repositories.
+www.engineeredarts.co.uk <https://www.engineeredarts.co.uk/>
 
-I have refreshed your patches so they apply to gatesgarth. You can find th=
-em here if you are interested: https://github.com/htot/meta-intel-edison/tr=
-ee/gatesgarth/utils
-0001-gpg-sign-Add-parameters-to-gpg-signature-function.patch
-0002-package_manager-sign-DEB-package-feeds.patch
+EA Phone Number+44 (0)1326 378129
 
-I have one question though. When building the sdk I get:
+RoboThespian FB <https://www.facebook.com/RobotThespian> RoboThespian Twitter <https://twitter.com/robothespian> EA YouTube <http://youtube.com/EngineeredArts>
+Engineered Arts Logo <https://www.engineeredarts.co.uk/>
+*
 
-Some packages could not be installed. This may mean that you have
-requested an impossible situation or if you are using the unstable
-distribution that some required packages have not yet been created
-or been moved out of Incoming.
-The following information may help to resolve the situation:
+Engineered Arts Ltd *
+E1-E3 Church View Business Park,
+Bickland Water Road,
+Falmouth Cornwall,
+TR11 4FZ
+United Kingdom
 
-The following packages have unmet dependencies:
-signing-keys-dev : Depends: signing-keys (=3D 1.0-r0) but it is not instal=
-lable
-E: Unable to correct problems, you have held broken packages.
+Subscribe to Mailing List <https://www.engineeredarts.co.uk/mailing-list/>
 
-I don't know how to resolve that. Any ideas?
-
->=20
-> Some kind of test case similar to the rpm feed sign test in
-> meta/lib/oeqa/selftest/cases/runtime_test.py would be good to have.
->=20
-> Alex
->=20
->=20
-> On Mon, 1 Apr 2019 at 10:45, Xavier Berger <xavier.berger@bio-logic.net>
-> wrote:
->=20
->>=20
->> The following patches add signing feature for debian packages.
->>=20
->>=20
->> The following changes since commit
->> 3bc700a12d4f21a5c7a1575da0972f9f78b4a091:
->>=20
->> mesa: update 19.0.0 -> 19.0.1 (2019-03-29 08:28:53 +0000)
->>=20
->> are available in the git repository at:
->>=20
->> git://push.yoctoproject.org/poky-contrib xberger/deb_sign
->>=20
->> Xavier Berger (2):
->> gpg-sign: Add parameters to gpg signature function
->> package_manager: sign DEB package feeds
->>=20
->> meta/lib/oe/gpg_sign.py | 6 +++++-
->> meta/lib/oe/package_manager.py | 19 ++++++++++++++++---
->> 2 files changed, 21 insertions(+), 4 deletions(-)
->>=20
->> --
->> 2.7.4
->>=20
->> --
->> _______________________________________________
->> poky mailing list
->> poky@yoctoproject.org
->> https://lists.yoctoproject.org/listinfo/poky
->=20
->
-
---ANIqqEV8gD7Lqst0k61w
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Apr 1, 2019 at 02:19 AM, Alexander Kanavin wrote:<br />
-<blockquote>Thanks, please send these patches to openembedded-core mailing=
- list.</blockquote>
-Yes, Xavier please don't forget to send these patches. They have become es=
-sential even now that apt will not allow unsigned repositories. <br /><br /=
->I have refreshed your patches so they apply to gatesgarth. You can find th=
-em here if you are interested: <a class=3D"moz-txt-link-freetext" href=3D"h=
-ttps://github.com/htot/meta-intel-edison/tree/gatesgarth/utils">https://git=
-hub.com/htot/meta-intel-edison/tree/gatesgarth/utils</a> <br />0001-gpg-sig=
-n-Add-parameters-to-gpg-signature-function.patch <br />0002-package_manager=
--sign-DEB-package-feeds.patch <br /><br />I have one question though. When =
-building the sdk I get: <br /><br />Some packages could not be installed. T=
-his may mean that you have <br />requested an impossible situation or if yo=
-u are using the unstable <br />distribution that some required packages hav=
-e not yet been created <br />or been moved out of Incoming. <br />The follo=
-wing information may help to resolve the situation: <br /><br />The followi=
-ng packages have unmet dependencies: <br />&nbsp;signing-keys-dev : Depends=
-: signing-keys (=3D 1.0-r0) but it is not installable <br />E: Unable to co=
-rrect problems, you have held broken packages. <br /><br />I don't know how=
- to resolve that. Any ideas? <br />
-<blockquote>Some kind of test case similar to the rpm feed sign test in<br=
- />meta/lib/oeqa/selftest/cases/runtime_test.py would be good to have.<br /=
-><br />Alex<br /><br /><br />On Mon, 1 Apr 2019 at 10:45, Xavier Berger &lt=
-;xavier.berger@bio-logic.net&gt; wrote:<br />
-<blockquote><br />The following patches add signing feature for debian pac=
-kages.<br /><br /><br />The following changes since commit 3bc700a12d4f21a5=
-c7a1575da0972f9f78b4a091:<br /><br />mesa: update 19.0.0 -&gt; 19.0.1 (2019=
--03-29 08:28:53 +0000)<br /><br />are available in the git repository at:<b=
-r /><br />git://push.yoctoproject.org/poky-contrib xberger/deb_sign<br /><b=
-r />Xavier Berger (2):<br />gpg-sign: Add parameters to gpg signature funct=
-ion<br />package_manager: sign DEB package feeds<br /><br />meta/lib/oe/gpg=
-_sign.py | 6 +++++-<br />meta/lib/oe/package_manager.py | 19 ++++++++++++++=
-++---<br />2 files changed, 21 insertions(+), 4 deletions(-)<br /><br />--<=
-br />2.7.4<br /><br />--<br />_____________________________________________=
-__<br />poky mailing list<br />poky@yoctoproject.org<br /><a href=3D"https:=
-//lists.yoctoproject.org/listinfo/poky" target=3D"_blank" rel=3D"noopener">=
-https://lists.yoctoproject.org/listinfo/poky</a></blockquote>
-</blockquote>
-
---ANIqqEV8gD7Lqst0k61w--
