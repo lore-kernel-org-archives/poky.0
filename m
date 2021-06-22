@@ -1,90 +1,110 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
- by mx.groups.io with SMTP id smtpd.web10.8577.1624366349909986098
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
+ by mx.groups.io with SMTP id smtpd.web11.8548.1624366550643300758
  for <poky@lists.yoctoproject.org>;
- Tue, 22 Jun 2021 05:52:30 -0700
+ Tue, 22 Jun 2021 05:55:50 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@dynamicdevices-co-uk.20150623.gappssmtp.com header.s=20150623 header.b=IbA8GkDA;
- spf=none, err=SPF record not found (domain: dynamicdevices.co.uk, ip: 209.85.221.47, mailfrom: ajlennon@dynamicdevices.co.uk)
-Received: by mail-wr1-f47.google.com with SMTP id b3so13267074wrm.6
-        for <poky@lists.yoctoproject.org>; Tue, 22 Jun 2021 05:52:29 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=DL9MkJqp;
+ spf=pass (domain: gmail.com, ip: 209.85.222.47, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-ua1-f47.google.com with SMTP id f1so7588335uaj.10
+        for <poky@lists.yoctoproject.org>; Tue, 22 Jun 2021 05:55:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dynamicdevices-co-uk.20150623.gappssmtp.com; s=20150623;
-        h=subject:to:references:from:message-id:date:user-agent:mime-version
-         :in-reply-to:content-transfer-encoding:content-language;
-        bh=Pws6rNPJG7b5+raG+H1a2UXBpN2Om5lD1AQi3C6iDzQ=;
-        b=IbA8GkDAIS9QhIlQ5nhwqbPzonxjiuWVamKmIXa6NEHqXKYaIG3LkI5EyVkaxiX1Jm
-         VQiZ0rETCv7pSpt9VIsH8RL3zzqRqYqcjFkBn0w/srG47wrl7WqSRK81hwxZ54E01xlt
-         urqYDPu4Nu8DJDsOQa23Z4GcXwCO/dGgVmPjfgcJZbS4los1P/qMdXUOR+vBPZe2kX/Y
-         tVr/4fIMugSPQ7WzqZsR+a9MhejU2aq88ZX+vs/HRAifWGHQg2yJjViJKXfNLRzfIryw
-         PKIdbDyT4B8eddwLNGANiXXHuTOCq50trsXN6zKK5bgwayNRD4hz5DDzGYEMp8iO891u
-         e1cg==
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=lDHKYuopDLlpm/yoFe7WBui6hFSKl9wvAuGVX+/M2jA=;
+        b=DL9MkJqp55PFU4Xt9kx5iwVDLdtSmKPOb7/pUBNlSAEpvtDyl9jPqisDrva4uxD3NA
+         LxnO/RP+NIVm94zi2XN8iHCHWOxQqJ8Ne7aUznSaK6Ocix4P/zGkae7GdTUQE1n4JEVs
+         CE7L0TpItbZEddRFOTLREdElwZmDsz7IBr6agSTutBRpD5xJDbNxg17cd47WCoj+HOWk
+         A3tGOUKccwcYUqew52fJD1HTa68NELZY3oZGv7vH09bRxcQAu8/tPFKNNHx3b37MWEy3
+         5Y9XDEgi5BE5uktKMvKbrx2uHxpiVEd/aMQ0rOspYyrQn6b8vBkqa4KQh9ZuOq78i2gD
+         Rumg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=Pws6rNPJG7b5+raG+H1a2UXBpN2Om5lD1AQi3C6iDzQ=;
-        b=k+UeVmKuTCyLmvDFB0bJ9ugoOOUrcc4X9t2SjIyuPEJ6amj0uIb0Ahn6Q3smln/YSu
-         AKFcisnTh9WXjP+c+bamylvOPyWPqdSuLDT3+3+w1Z+eOTaoWEfZ7c5V1KjAQdC5rIxf
-         CT7wP+klJt+iid5tZTJrjNvm4LJ8WBEPwN+EDI4bPn/goV7JtMGs8UWIeXH7lhgWawDW
-         QmGBbzjX1ZjYuzDnYF5jVyyxVuzwtnAY3mBBQO+quyQUqdO5ZuJJmUkoNrNEHE5TI0iP
-         e5u1T5NzfLkAhNY3/4Oj17EhgMB1m1sNpcqNdg7WoJsrwFIVcR4dXURxjgQik6C5Iq7O
-         CEpw==
-X-Gm-Message-State: AOAM531sy5Wz4VR33ap+EspmEhf0wd0SFYJjOa7oMgOcahDuK/fUSrYY
-	02YoxyjYOjsebiEyhdevfpLWNdKQYl3uDw==
-X-Google-Smtp-Source: ABdhPJxF8YkKNFfsffkU9VA4O1LeGc+zcGxScxajNZkZRQYpMiW9zrwmuL7dbKp/T/RwiERVr/EUmg==
-X-Received: by 2002:a05:6000:186c:: with SMTP id d12mr4554134wri.123.1624366348127;
-        Tue, 22 Jun 2021 05:52:28 -0700 (PDT)
-Return-Path: <ajlennon@dynamicdevices.co.uk>
-Received: from [192.168.0.219] (cpc110903-live30-2-0-cust594.17-2.cable.virginm.net. [86.7.42.83])
-        by smtp.gmail.com with ESMTPSA id p16sm21581863wrs.52.2021.06.22.05.52.27
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Jun 2021 05:52:27 -0700 (PDT)
-Subject: Re: [poky] howto run unit tests
-To: poky@lists.yoctoproject.org
-References: <646e26c8-aa05-7ae6-568d-321d7a266281@engineeredarts.co.uk>
-From: "Alex J Lennon" <ajlennon@dynamicdevices.co.uk>
-Message-ID: <e59de37f-51eb-8795-1898-450ad05e6cf9@dynamicdevices.co.uk>
-Date: Tue, 22 Jun 2021 13:52:26 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=lDHKYuopDLlpm/yoFe7WBui6hFSKl9wvAuGVX+/M2jA=;
+        b=NDvGZDJWQka6mIq8VAPuolpJcNqwGL3/KLoWFgVG93rFhwAzgO2BWiXKbOX1ZRmTB/
+         VxwzHKKD8CcIXAe6O7T+WZWm/FccjQZj+4uRNCd8fiZsvWntsr8g295cd9h0qS10HVLW
+         2alD+/DNwZwyL1zXIvo+1Fin+z4IMUp1CCVvvuep/LP8AuNow3voFVthGjmmTO6tBjYT
+         goQuilsq2hNOzLJMeMgWGapTHScQZpvQ9M5XxsZl5qXJYpja9HLltCIBRnk+knah9GhM
+         YB+KKt6WBU8tgQyZvFY3wzCwW492ScDqqrz6XpbZuUg4X/hoaxhtOKXsYHRB/kBcGfVT
+         ot7g==
+X-Gm-Message-State: AOAM533GhERX6w2bzz9FtsIVtPAMe+cfTKl8wipZVh+f8Bk8pMJe4tcw
+	OWPo0k67j9GX43xqRwgxRN4TImSGAqFXs24SumNsxpW0PsA=
+X-Google-Smtp-Source: ABdhPJzW9TOVyoegT8Jb7LZY7k5jsOqSwnFPhFnc2o5S01n4A3u2hTrRoixaaaC8grCvPlBtNJ2Re6L326ks1Y2JFq0=
+X-Received: by 2002:ab0:6797:: with SMTP id v23mr3401779uar.71.1624366549768;
+ Tue, 22 Jun 2021 05:55:49 -0700 (PDT)
 MIME-Version: 1.0
+References: <646e26c8-aa05-7ae6-568d-321d7a266281@engineeredarts.co.uk>
 In-Reply-To: <646e26c8-aa05-7ae6-568d-321d7a266281@engineeredarts.co.uk>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+Date: Tue, 22 Jun 2021 14:55:38 +0200
+Message-ID: <CANNYZj8-zZHVpKBZ+2C5GxamBAA6xYBbJa0-5U_VMWnQrWF2MQ@mail.gmail.com>
+Subject: Re: [poky] howto run unit tests
+To: Daniel Squires <dan@engineeredarts.co.uk>
+Cc: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="0000000000002f1b8d05c55a4f36"
 
+--0000000000002f1b8d05c55a4f36
+Content-Type: text/plain; charset="UTF-8"
 
-On 22/06/2021 13:48, Daniel Squires wrote:
-> Hi,
-> We are trying to run some built binaries as a task in a recipe as a 
-> part of unit testing. This can potentially get complicated (though I 
-> feel it could/should be abstracted away) as it may need to take care 
-> of architecture differences between the host and the build target but 
-> for now we are happy to just run for the cases where these match, and 
+On Tue, 22 Jun 2021 at 14:49, Daniel Squires <dan@engineeredarts.co.uk>
+wrote:
+
+> We are trying to run some built binaries as a task in a recipe as a part
+> of unit testing. This can potentially get complicated (though I feel it
+> could/should be abstracted away) as it may need to take care of
+> architecture differences between the host and the build target but for
+> now we are happy to just run for the cases where these match, and
 > possibly later look at using qemu.
-> We are struggling to find any examples of this being done in existing 
-> recipes. We managed to manually run what we want by copying built 
-> files into the recipe-sysroot directory and using fakechroot but feel 
-> there must be an existing way to achieve what we want, and that we 
-> just haven't looked for the right thing.
-> We have also found some docs re ptest however these seem to all relate 
-> to running tests on the final resulting image, we wish to be able to 
-> run some tests before this, on individual package builds as part of CI.
+> We are struggling to find any examples of this being done in existing
+> recipes. We managed to manually run what we want by copying built files
+> into the recipe-sysroot directory and using fakechroot but feel there
+> must be an existing way to achieve what we want, and that we just
+> haven't looked for the right thing.
+> We have also found some docs re ptest however these seem to all relate
+> to running tests on the final resulting image, we wish to be able to run
+> some tests before this, on individual package builds as part of CI.
 > Can anyone give any pointer re this?
-> Many Thanks
 >
->
-Hi there,
 
-Dunno if this is what you need but these are some very simple examples I 
-put together to exercise the meta-mono layer build.
-
-https://github.com/DynamicDevices/meta-mono/blob/master/lib/oeqa/runtime/cases/mono.py
-
-Cheers,
+My suggestion is that you do it right from the start, and use qemu even
+when the architectures match.
+There is a helper class for this: meta/classes/qemu.bbclass. Look at
+existing uses of it for inspiration.
 
 Alex
 
+--0000000000002f1b8d05c55a4f36
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
+_attr">On Tue, 22 Jun 2021 at 14:49, Daniel Squires &lt;<a href=3D"mailto:d=
+an@engineeredarts.co.uk">dan@engineeredarts.co.uk</a>&gt; wrote:<br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft:1px solid rgb(204,204,204);padding-left:1ex">We are trying to run some =
+built binaries as a task in a recipe as a part <br>
+of unit testing. This can potentially get complicated (though I feel it <br=
+>
+could/should be abstracted away) as it may need to take care of <br>
+architecture differences between the host and the build target but for <br>
+now we are happy to just run for the cases where these match, and <br>
+possibly later look at using qemu.<br>
+We are struggling to find any examples of this being done in existing <br>
+recipes. We managed to manually run what we want by copying built files <br=
+>
+into the recipe-sysroot directory and using fakechroot but feel there <br>
+must be an existing way to achieve what we want, and that we just <br>
+haven&#39;t looked for the right thing.<br>
+We have also found some docs re ptest however these seem to all relate <br>
+to running tests on the final resulting image, we wish to be able to run <b=
+r>
+some tests before this, on individual package builds as part of CI.<br>
+Can anyone give any pointer re this?<br></blockquote><div><br></div><div>My=
+ suggestion is that you do it right from the start, and use qemu even when =
+the architectures match.</div><div>There is a helper class for this: meta/c=
+lasses/qemu.bbclass. Look at existing uses of it for inspiration.<br></div>=
+<div><br></div><div>Alex<br></div></div></div>
+
+--0000000000002f1b8d05c55a4f36--
