@@ -1,72 +1,103 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
- by mx.groups.io with SMTP id smtpd.web09.453.1624378437562244523
+Received: from sender4-op-o13.zoho.com (sender4-op-o13.zoho.com [136.143.188.13])
+ by mx.groups.io with SMTP id smtpd.web09.3871.1624516847869852175
  for <poky@lists.yoctoproject.org>;
- Tue, 22 Jun 2021 09:13:58 -0700
+ Wed, 23 Jun 2021 23:40:48 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@burtonini-com.20150623.gappssmtp.com header.s=20150623 header.b=za1fY55E;
- spf=pass (domain: burtonini.com, ip: 209.85.128.52, mailfrom: ross@burtonini.com)
-Received: by mail-wm1-f52.google.com with SMTP id o33-20020a05600c5121b02901e360c98c08so401098wms.5
-        for <poky@lists.yoctoproject.org>; Tue, 22 Jun 2021 09:13:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=burtonini-com.20150623.gappssmtp.com; s=20150623;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=2VXAZyeFSeXm3YyyOG7Yo3jyQHOZJp8a/JnmKWP3qIU=;
-        b=za1fY55EOiz3O02WkTZ3DedWpZzmJRQhLL5guR4SRDybEP3+F8zhSZvvdokViq5eBV
-         SiYTS+oAr0rpJ7ArysxiGw8UBm2gz0ITJ6Wjzl/vJxpLh3yLNuK6kp6v5EyplfF/dfRI
-         89DrU9pV3eH58lDNq+vaOn3Sc3qq2ns3X0R74Hx4nuIS6U4LYcKtVS+jIKkSZYwwOlsi
-         edmZp5XwxuvL1zD60xUBcSOQuesPCN+/geloJ5Fhl2C+q+XFqNt3wRe9wk3qsPsXBJ1o
-         zQl+T8l5EvTa8JmxMHeo2B/YlWjGdSSLd8SFFb8XpluDUZFzdeiM6Q9ustH2tUlFl0pd
-         Ev7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=2VXAZyeFSeXm3YyyOG7Yo3jyQHOZJp8a/JnmKWP3qIU=;
-        b=WZf+exqrpPou4WIbHlaUDXG52/CBWe71yXmoaV5togwDab4Cv4J6G4ZUo+58UUK1HF
-         kOUcILb3RW3L3IXT2R4aMZQdrSxs5YjAp9ZovxJxWYm5DvwRowrtNfCwI+UU9xy0jIzD
-         z4FoOGMEgsn4y5fyX6pk6/tppHsbTvCltndu8VNYeLUaF8BjpRpicnKhjhaVwjX2avRI
-         ekyZcMgVZ65CObt9MCfl8SFELbJRG17Upk9lTJTJ2CczHmQbwCSOhAikeJByGJXgbM8I
-         iwoRHzcbeipz+5Dz2cPgudFsNbqk67kKQmw19PL1hVzG8POU4Oq4q3pN31KaaEA+tmgk
-         TVDg==
-X-Gm-Message-State: AOAM533No72xEHVNtNphE5BGWN+IJKRJeHx+5d5Yc8H3FyXD2gJ6gJF9
-	Dq4vcQrSakWhV9rdWoy0w1an9yrrIxoVeXpCqVcjUw==
-X-Google-Smtp-Source: ABdhPJxkKdKseWlIRikF6ldKqkir0hsnBiyLoMfE3mWbfcVsuLdpUoCo6oSeap52bacbc73lfUSOhpwenn/x9ar3s3c=
-X-Received: by 2002:a05:600c:281:: with SMTP id 1mr5064521wmk.171.1624378435804;
- Tue, 22 Jun 2021 09:13:55 -0700 (PDT)
+ dkim=pass header.i=dwrobel@ertelnet.rybnik.pl header.s=ertelnet header.b=IACfBRli;
+ spf=pass (domain: ertelnet.rybnik.pl, ip: 136.143.188.13, mailfrom: dwrobel@ertelnet.rybnik.pl)
+ARC-Seal: i=1; a=rsa-sha256; t=1624516844; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=h5ck4Kjbr58pLExvEJsRdXn57XAFpz6qTaC85p3QbYCqDybJ1dYLoQ43DlO0z/xn6e+eQOWPCl4BvFYJU+ghnM3EnyXzAb5Ll6VicHFP17S6J8FksQ93OQEphbHnIryh+oE14+EY+jSyhegi6/MhNqIeNHWYq2lS3TJTveOoP/4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1624516844; h=Content-Transfer-Encoding:Date:From:MIME-Version:Message-ID:Subject:To; 
+	bh=cT9GA/fyQtuOLIs5kuLcHJ+s2B2dMFxMmWshfPTFzAY=; 
+	b=i8rCzjuYw7DHQOiIZEC4wO25G8gS73VTrV57t3x8yPL4X4dyYfO1bidGLFJ7e7mnydfUJbH480y6YDQSxPx9OhPX4UgDuxaZevm2h72AgB5xrqAcUCtTdc1q9sWBbsbeg9d+ROCj7MWEByjiAS+lIyqSsLlGKtegxNagGXP2feo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ertelnet.rybnik.pl;
+	spf=pass  smtp.mailfrom=dwrobel@ertelnet.rybnik.pl;
+	dmarc=pass header.from=<dwrobel@ertelnet.rybnik.pl>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1624516844;
+	s=ertelnet; d=ertelnet.rybnik.pl; i=dwrobel@ertelnet.rybnik.pl;
+	h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Transfer-Encoding;
+	bh=cT9GA/fyQtuOLIs5kuLcHJ+s2B2dMFxMmWshfPTFzAY=;
+	b=IACfBRlipg72iRbgOLzSoHJS6KyrbjToXgo58AbrAWSMwfoA+MF+spxS71O8sdOl
+	LcNcqCY4mI7cLz/FgdGx8qCIsg/rXSn56w5HZJz06rMCO/Qaj0I1bGz1By2Fkl7Xx+U
+	M22DcgyDfTcns63jMRjDbzvV4maQ0CxWXfdrClD4=
+Received: from localhost.localdomain.pl (91.230.58.69 [91.230.58.69]) by mx.zohomail.com
+	with SMTPS id 1624516839714850.2107691344929; Wed, 23 Jun 2021 23:40:39 -0700 (PDT)
+From: "Damian Wrobel" <dwrobel@ertelnet.rybnik.pl>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH] bitbake: Fix automatic generation of variable dependencies
+Date: Thu, 24 Jun 2021 08:40:25 +0200
+Message-Id: <20210624064025.102654-1-dwrobel@ertelnet.rybnik.pl>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-References: <646e26c8-aa05-7ae6-568d-321d7a266281@engineeredarts.co.uk>
-In-Reply-To: <646e26c8-aa05-7ae6-568d-321d7a266281@engineeredarts.co.uk>
-From: "Ross Burton" <ross@burtonini.com>
-Date: Tue, 22 Jun 2021 17:13:44 +0100
-Message-ID: <CAAnfSTsfuf9gjq3_0LY=qtj17jVmM7gL4Tby6zMEMYEHdtnoYw@mail.gmail.com>
-Subject: Re: [poky] howto run unit tests
-To: Daniel Squires <dan@engineeredarts.co.uk>
-Cc: poky <poky@lists.yoctoproject.org>
-Content-Type: text/plain; charset="UTF-8"
+X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-On Tue, 22 Jun 2021 at 13:49, Daniel Squires <dan@engineeredarts.co.uk> wrote:
-> We are trying to run some built binaries as a task in a recipe as a part
-> of unit testing. This can potentially get complicated (though I feel it
-> could/should be abstracted away) as it may need to take care of
-> architecture differences between the host and the build target but for
-> now we are happy to just run for the cases where these match, and
-> possibly later look at using qemu.
-> We are struggling to find any examples of this being done in existing
-> recipes. We managed to manually run what we want by copying built files
-> into the recipe-sysroot directory and using fakechroot but feel there
-> must be an existing way to achieve what we want, and that we just
-> haven't looked for the right thing.
-> We have also found some docs re ptest however these seem to all relate
-> to running tests on the final resulting image, we wish to be able to run
-> some tests before this, on individual package builds as part of CI.
+Automatically generate variable dependencies also for:
+    - "bb.utils.contains",
+    - "base_contains"
+    - "bb.utils.contains_any",
+    - "bb.utils.filter".
 
-Running stuff in qemu at build time is a bit of a pain as qemu-user
-has some rather sizable gaps, and you can't easily use qemu-system.
-If your host and target CPUs are compatible you can do horrible things
-involving fakechroot but that's not recommended.
+This is to avoid situation in which some of the variables were
+added automatically but not all of them like in the test example below:
 
-I'd say it's best to install the tests with ptest, and run them in a
-complete image as part of the CI.
+RDEPENDS_${PN} += "\
+    ${@bb.utils.contains(                                              \
+        'BB_UTILS_CONTAINS_DROPBEAR',  '1',   'dropbear',   '', d)}    \
+    ${@bb.utils.contains_any(                                          \
+        'BB_UTILS_CONTAINS_ANY_EXPAT', ['1'], 'expat',      '', d)}    \
+    ${@oe.utils.conditional(                                           \
+        'OE_UTILS_CONDITIONAL_ZLIB',   '1',   'zlib',       '', d)}    \
+    ${@bb.utils.filter('BB_UTILS_FILTER_WAYLAND_PROTOCOLS', 'xyz', d)} \
 
-Ross
+Signed-off-by: Damian Wrobel <dwrobel@ertelnet.rybnik.pl>
+---
+ bitbake/lib/bb/cache.py      | 2 +-
+ bitbake/lib/bb/codeparser.py | 4 +++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/bitbake/lib/bb/cache.py b/bitbake/lib/bb/cache.py
+index 27eb271798..2fe83ef3ac 100644
+--- a/bitbake/lib/bb/cache.py
++++ b/bitbake/lib/bb/cache.py
+@@ -26,7 +26,7 @@ import re
+ 
+ logger = logging.getLogger("BitBake.Cache")
+ 
+-__cache_version__ = "154"
++__cache_version__ = "155"
+ 
+ def getCacheFile(path, filename, mc, data_hash):
+     mcspec = ''
+diff --git a/bitbake/lib/bb/codeparser.py b/bitbake/lib/bb/codeparser.py
+index 0cec452c00..e00dc44470 100644
+--- a/bitbake/lib/bb/codeparser.py
++++ b/bitbake/lib/bb/codeparser.py
+@@ -122,7 +122,7 @@ class CodeParserCache(MultiProcessCache):
+     # so that an existing cache gets invalidated. Additionally you'll need
+     # to increment __cache_version__ in cache.py in order to ensure that old
+     # recipe caches don't trigger "Taskhash mismatch" errors.
+-    CACHE_VERSION = 11
++    CACHE_VERSION = 12
+ 
+     def __init__(self):
+         MultiProcessCache.__init__(self)
+@@ -225,10 +225,12 @@ class PythonParser():
+                     if varname not in self.contains:
+                         self.contains[varname] = set()
+                     self.contains[varname].add(node.args[1].s)
++                    self.references.add(varname)
+                 elif name in self.containsanyfuncs and isinstance(node.args[1], ast.Str):
+                     if varname not in self.contains:
+                         self.contains[varname] = set()
+                     self.contains[varname].update(node.args[1].s.split())
++                    self.references.add(varname)
+                 elif name.endswith(self.getvarflags):
+                     if isinstance(node.args[1], ast.Str):
+                         self.references.add('%s[%s]' % (varname, node.args[1].s))
+-- 
+2.31.1
+
