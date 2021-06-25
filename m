@@ -1,142 +1,106 @@
-Received: from sender4-op-o13.zoho.com (sender4-op-o13.zoho.com [136.143.188.13])
- by mx.groups.io with SMTP id smtpd.web08.6704.1624537300278072833
+Received: from EUR06-DB8-obe.outbound.protection.outlook.com (EUR06-DB8-obe.outbound.protection.outlook.com [40.92.51.54])
+ by mx.groups.io with SMTP id smtpd.web11.4190.1624603996857925604
  for <poky@lists.yoctoproject.org>;
- Thu, 24 Jun 2021 05:21:41 -0700
+ Thu, 24 Jun 2021 23:53:17 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=dwrobel@ertelnet.rybnik.pl header.s=ertelnet header.b=Xlb0sMjr;
- spf=pass (domain: ertelnet.rybnik.pl, ip: 136.143.188.13, mailfrom: dwrobel@ertelnet.rybnik.pl)
-ARC-Seal: i=1; a=rsa-sha256; t=1624537292; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=GFtBTx8xmoAjNjtRxuvq07PQ5TYqSFuHWppzjXE5RwcHVqHXnKIIdY57807uSLbq4/ReSzklDm9e1OOzLVR6NAepRA7kVjRW8jt6XQFHPzhtCnuh3v1ZpzlWE2ncgbEHCoCZCfJMP8cL9hiAFqfQAV78HyH1niZ0JHc3Ik53JvA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1624537292; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=L3985aJqYAgZcSD9J3sszLgUFFazgXszDm7dwrLVoeU=; 
-	b=JxBHhseyFPcDU3YDzZ4KTzY1bAF4uu0BiIAE23muJs7bw/c8oHtnweBvDb+YJGvDwH+nqX9VlzGozispKqXJ7orsSJqt8In37EK7Z4AXUCxPkSBqpp4O4lASHHXC7sEp4tK+rrLxZDRs7vdF46u77/iSdKIjMkpHv09yDeatPy8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ertelnet.rybnik.pl;
-	spf=pass  smtp.mailfrom=dwrobel@ertelnet.rybnik.pl;
-	dmarc=pass header.from=<dwrobel@ertelnet.rybnik.pl>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1624537292;
-	s=ertelnet; d=ertelnet.rybnik.pl; i=dwrobel@ertelnet.rybnik.pl;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=L3985aJqYAgZcSD9J3sszLgUFFazgXszDm7dwrLVoeU=;
-	b=Xlb0sMjros/aIabAl1bzo1X8ex/5ofNd4voiH6U9z3wCkxpdFMiE7Alf6/0OXnHM
-	UKydVQUPnlhNAWfinnmbuFvx37GVwxVHFWHPXLiOl+GUpK8ccvfukpyK91YWeUkXaBT
-	mo9ct99HPEr4wa1emQbLZaeFM2+JRs1JO8TVuHSE=
-Received: from mail.zoho.com by mx.zohomail.com
-	with SMTP id 1624537290059644.5442291402837; Thu, 24 Jun 2021 05:21:30 -0700 (PDT)
-Date: Thu, 24 Jun 2021 14:21:30 +0200
-From: "Damian Wrobel" <dwrobel@ertelnet.rybnik.pl>
-To: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-Cc: "poky" <poky@lists.yoctoproject.org>
-Message-ID: <17a3df7d534.c0b92256242247.1706902192878605145@ertelnet.rybnik.pl>
-In-Reply-To: <f7948e22e865aa4101b80042ac12bc5b10764820.camel@linuxfoundation.org>
-References: <20210624064025.102654-1-dwrobel@ertelnet.rybnik.pl>
-	 <146244a25957547cd9adf7e87025572c1341e6fb.camel@linuxfoundation.org>
-	 <17a3d3d8b35.e5a076c8208632.8225141840876948326@ertelnet.rybnik.pl> <f7948e22e865aa4101b80042ac12bc5b10764820.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH] bitbake: Fix automatic generation of variable dependencies
+ dkim=pass header.i=@outlook.com header.s=selector1 header.b=Y5SKKi4i;
+ spf=pass (domain: outlook.com, ip: 40.92.51.54, mailfrom: asfakr@outlook.com)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KuAMbDhYSYQeqkNFlUM+DsE2zHGgnbJT1Jmsf61bQTjE6j4ypryTav6ow8i/6c/CPya9A7cIPvWvPAoL3XK0kGDBqEMGkw3whfp/ZPSabchu4j1edPvrilL4BAiobQOtlsUlSkmV8aarhnZCWiQzb4JPhI/xX4kB9kCwXruZvJZGdZALEtQ21424kT8H51M5rGigbWCpr5ltBJ3Vpl00Nw/6lEAYViThJKpsGtNiaafMK7GLuTTVUP5MWiaOwMgoL52QUNPL79YcnY1+K2UU8m3Hp6dUiULbVqtkP9feqjJMsNlt9eRBNj2prGWergQHDrvTaZz2CGI0yy+frNcaQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s7xcZ2FIuhf1lW3RCrXZeEBFl+UTaG+5Cy07QA9oJVA=;
+ b=m10rilUkUEikH4/7J2Bf902HDSdCxUcy0M8O4fhvKO7WNClQXKSZIBer1GF2et+z6QeiuGarKiZKhgu5SkKLIRnXV/Sl+KWtIjGISClJX+GU5JMTcJoyntoT6cJyZ0yWScPzNHu3tc91sHsUSF8BMtsqCe4VtANVx046ASc4bGZteCMUsOUVC7t8M6nDv2CLqoc2Rgl4rE1YeyXpv7Ou7GcBN7EKvN8475O5QStPQFg2KpslRepRrv2f1vQX2vAjQyupKPfl97kK9t6KiZri2ssciiTvdkk3jwW8xtg/zzYf+Y28G7PT5/jGNxLaws7QvomofCDN9xW7iWhF0+YqKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s7xcZ2FIuhf1lW3RCrXZeEBFl+UTaG+5Cy07QA9oJVA=;
+ b=Y5SKKi4iRnuBvBVWCq97DmYmxJdDCO/XdHkgOhs5EKHiqDC7+BS+hilCdEjWPrtKv1ehI2RF4e7ZtY2Y8QfvFFFmMV7m3JrCfh+Bc6Smeo0397eafb2ieV8D07RyBD1AUhVsgcHvPltXdpwZqxWb7KYOqgjX22dtSwdtHJ+jeKbLl4ytAuNxU5Qje19xNXJYI4n52dy6g9ihanCfJqCD2UhK9yf2Gz/9exU1oJbObrP6caaR6+YxgMYJwjfDTuweXgXY4vpheXXzts7LkRSM04nY6qyqjtYm/KO6m9F1ejBpLNySI4uWeUegrKa/fWhbnQSGBQWgY7jMmayTNJLKfA==
+Received: from AM7EUR06FT008.eop-eur06.prod.protection.outlook.com
+ (2a01:111:e400:fc36::51) by
+ AM7EUR06HT005.eop-eur06.prod.protection.outlook.com (2a01:111:e400:fc36::390)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.18; Fri, 25 Jun
+ 2021 06:53:14 +0000
+Received: from DB7PR08MB3595.eurprd08.prod.outlook.com
+ (2a01:111:e400:fc36::49) by AM7EUR06FT008.mail.protection.outlook.com
+ (2a01:111:e400:fc36::498) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.18 via Frontend
+ Transport; Fri, 25 Jun 2021 06:53:14 +0000
+X-IncomingTopHeaderMarker: 
+ OriginalChecksum:E9D7B9C4920460A76208C4B32BFBABCBDF9FF5357F744898551E3EA57CC499F6;UpperCasedChecksum:DF0830C565F65FCF2D4D2706338FFC5E51BB6FD4FDAC3DBD809492E85C8E79D9;SizeAsReceived:7218;Count:44
+Received: from DB7PR08MB3595.eurprd08.prod.outlook.com
+ ([fe80::a8a7:b6e2:88a5:c551]) by DB7PR08MB3595.eurprd08.prod.outlook.com
+ ([fe80::a8a7:b6e2:88a5:c551%3]) with mapi id 15.20.4264.023; Fri, 25 Jun 2021
+ 06:53:14 +0000
+From: "Asfak Rahman" <asfakr@outlook.com>
+To: poky@lists.yoctoproject.org
+Cc: Asfak Rahman <asfakr@outlook.com>
+Subject: [PATCH] openssh: Remove temporary keys before generating new ones
+Date: Fri, 25 Jun 2021 09:52:57 +0300
+Message-ID: 
+ <DB7PR08MB35957959D8F1BF30774D6CF9D0069@DB7PR08MB3595.eurprd08.prod.outlook.com>
+X-Mailer: git-send-email 2.17.1
+X-TMN: [azRQqOD9rmVzqbk9nYS817aoIcytCWu1]
+X-ClientProxiedBy: HE1PR09CA0050.eurprd09.prod.outlook.com
+ (2603:10a6:7:3c::18) To DB7PR08MB3595.eurprd08.prod.outlook.com
+ (2603:10a6:10:40::14)
+Return-Path: asfakr@outlook.com
+X-Microsoft-Original-Message-ID: <20210625065257.14717-1-asfakr@outlook.com>
 MIME-Version: 1.0
-Importance: Medium
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (62.65.226.182) by HE1PR09CA0050.eurprd09.prod.outlook.com (2603:10a6:7:3c::18) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4264.18 via Frontend Transport; Fri, 25 Jun 2021 06:53:12 +0000
+X-MS-PublicTrafficType: Email
+X-IncomingHeaderCount: 44
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-Correlation-Id: 9fb5f11f-177e-4bff-4fef-08d937a5e6ce
+X-MS-Exchange-SLBlob-MailProps: 
+	mBRmoEB1kyKh4G3VY8aIiXKspBtAOBf+1VHyrp/x4sdmZmTL5ykqdd87wGjXZ6Bjsk4v/KGhxS3uzEAiisF7zLFInlHuwK7KORxf92yurU4euaaaaMQxMuZsZtwZ2vbKV8TrB9MabZ+b51VtjV6PsEr3d6Hmk/uNbsTYE3ZkO1SvumwvPhxhXq/YUfzXB/QSQNWQzJW28Y3QYWwWewOQSoEGfFy1YHyhgMXChnn/DLSCUQ79uIQPkCJ2OweyMgjBrHsp10MW6QM5SJoN+fqYgkvCWHovm/Og45ISuBUBd+oKtjR0nJJfFEQzDozmZOf49HDlZwDUhfNJApkd20985lEt2Zyio/NepF1d77PVKVmECqP2vEXLCtkArpMCMcCBV5zwddyt8Ss4aquZj9qiQr7+BjyLdAyzwRfCh9TH7YS7Nj4WGQcZWR9k/ALDEEWpLtg1fGJPH1bnjtumch7OStzAhMTghI8SO+iQhxldKX++8YFAA9nKSh2HkJtD8lC7HEWfR9eLb/vwBD/2SWAcc3ljw//G/rvXBaZ9CcjxXWmEDN7pp9PXIkZzLM8hmR0o0oeuRZfGyM4VQEY4VE7soYZBNG4Kqr6RUSNvdl3cy05pViGZAJAs590Wxpy8PQvvugRlCTxRweOBHnBXH0q6ibfzPF0+mhB4Kdm3BFJxgxfl4bUQmEGgjDpidjolMpGrGgKNiayRmoaBIZT91ZTc+M4wNGNb+hS+98rOLoBh7HR1Gn9oZ0Ju9dbIip3qmyLQwQ8t/YpDVzM=
+X-MS-TrafficTypeDiagnostic: AM7EUR06HT005:
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	jfz1B+XVeacG4Dp+KdJ1bfEYjtT/n49DYP2SqZkgNQVhwk5CWN1HSS69qhsuRv7a7LOyjYkMnyAnyAnCE6Db/pzTywK3t5iEwzeajwydeHGYc2j2zxXXw9QUHGYTuXzTTi3/v9RtZPemLQKdDIoto5I20/2Md1tmX/aOWg5G+p09m5vLwzHXOTppAsp7utUQ4qtjt5P5FF7j/06UzI+DbrJphNR82tsZnJX8FIWwVArG2o+PDS2+WUr6zUxFusWWypUeW/cCbZib+DQh7kK6E8Qd99oD3qk9931SV6XJZ9Xokxp5GMT3h2mSGoDiP2dbizafJ7suN6xQGtt+BJ6Jahms7+xQMC+PBm1iteOmcCUq/suzOsZBtkWaZ6p8ShCBiHtqH8GRWnASM1bxmLj5vw==
+X-MS-Exchange-AntiSpam-MessageData: 
+	IZgA9KQZvBWm5z5AwsXKANtdJbLeOqlMVOO8MlITnN5clNny235eINOKmhvQnlBGdCKKzxLyXyK/pr5W9z3jYqH2VsRjYewzXrZ9vXjPux9OJpa4mj2W842/v6y6f3YRT/t2WRb1ATBXPRv18jMpmw==
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fb5f11f-177e-4bff-4fef-08d937a5e6ce
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2021 06:53:14.7008
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-AuthSource: 
+	AM7EUR06FT008.eop-eur06.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7EUR06HT005
+Content-Type: text/plain
 
+Key generation may wait for user input, due to the existence of
+temporary keys resulting from power interruption in the first boot.
+This prevents users from login via ssh.
 
+Signed-off-by: Asfak Rahman <asfakr@outlook.com>
+---
+ meta/recipes-connectivity/openssh/openssh/sshd_check_keys | 1 +
+ 1 file changed, 1 insertion(+)
 
+diff --git a/meta/recipes-connectivity/openssh/openssh/sshd_check_keys b/meta/recipes-connectivity/openssh/openssh/sshd_check_keys
+index 1931dc7153..ef117de897 100644
+--- a/meta/recipes-connectivity/openssh/openssh/sshd_check_keys
++++ b/meta/recipes-connectivity/openssh/openssh/sshd_check_keys
+@@ -6,6 +6,7 @@ generate_key() {
+     local DIR="$(dirname "$FILE")"
+ 
+     mkdir -p "$DIR"
++    rm -f ${FILE}.tmp
+     ssh-keygen -q -f "${FILE}.tmp" -N '' -t $TYPE
+ 
+     # Atomically rename file public key
+-- 
+2.17.1
 
- ---- On Thu, 24 Jun 2021 11:52:43 +0200 Richard Purdie <richard.purdie@linuxfoundation.org> wrote ----
- > On Thu, 2021-06-24 at 10:58 +0200, Damian Wrobel wrote:
- > > 
- > > 
- > >  ---- On Thu, 24 Jun 2021 09:21:38 +0200 Richard Purdie <richard.purdie@linuxfoundation.org> wrote ----
- > >  > On Thu, 2021-06-24 at 08:40 +0200, Damian Wrobel wrote:
- > >  > > Automatically generate variable dependencies also for:
- > >  > >     - "bb.utils.contains",
- > >  > >     - "base_contains"
- > >  > >     - "bb.utils.contains_any",
- > >  > >     - "bb.utils.filter".
- > >  > > 
- > >  > > This is to avoid situation in which some of the variables were
- > >  > > added automatically but not all of them like in the test example below:
- > >  > > 
- > >  > > RDEPENDS_${PN} += "\
- > >  > >     ${@bb.utils.contains(                                              \
- > >  > >         'BB_UTILS_CONTAINS_DROPBEAR',  '1',   'dropbear',   '', d)}    \
- > >  > >     ${@bb.utils.contains_any(                                          \
- > >  > >         'BB_UTILS_CONTAINS_ANY_EXPAT', ['1'], 'expat',      '', d)}    \
- > >  > >     ${@oe.utils.conditional(                                           \
- > >  > >         'OE_UTILS_CONDITIONAL_ZLIB',   '1',   'zlib',       '', d)}    \
- > >  > >     ${@bb.utils.filter('BB_UTILS_FILTER_WAYLAND_PROTOCOLS', 'xyz', d)} \
- > >  > > 
- > >  > 
- > >  > This doesn't look quite right. Contains is given special handling
- > >  > which you see in the code below with "self.contains[varname].add(node.args[1].s)".
- > >  > 
- > >  > This means that the hash can reflect whether the variable contains the
- > >  > value or not instead of depending on the complete value. This means
- > >  > the hashes are optimised to a binary decision rather than varying 
- > >  > arbitrary values.
- > >  > 
- > >  > Can you describe more about the issue you're seeing?
- > >  > 
- > > 
- > > When I added above RDEPENDS_${PN} example to e.g. dash recipe and built it then I would
- > > expect that all of those variables should be visible in the output of:
- > > 
- > > $ bitbake-dumpsig -t dash do_package | grep 'RDEPENDS_dash is'
- > 
- > You'll see it actually says:
- > 
- > Variable RDEPENDS_dash value is       ${@bb.utils.contains(
- >                                                        'BB_UTILS_CONTAINS_DROPBEAR',  '1',   'dropbear',   '', d)}
- >          ${@bb.utils.contains_any(
- >                                                    'BB_UTILS_CONTAINS_ANY_EXPAT', ['1'], 'expat',      '', d)}
- >          ${@oe.utils.conditional(
- >                                                     'OE_UTILS_CONDITIONAL_ZLIB',   '1',   'zlib',       '', d)}
- >          ${@bb.utils.filter('BB_UTILS_FILTER_WAYLAND_PROTOCOLS', 'xyz', d)}
- > BB_UTILS_CONTAINS_DROPBEAR{1} = Unset
- > BB_UTILS_FILTER_WAYLAND_PROTOCOLS{xyz} = Unset
- > 
- > so the lines after the variable show that it is looking at whether those variables 
- > contain those values. In my case they don't and are unset.
-
-However, I don't see in your output the list of dependencies of the "RDEPENDS_dash" variable
-(something like: "List of dependencies for variable RDEPENDS_dash is ...").
-Based on my observation, if there are no dependent variables then changing values of these which we expect will not trigger "dash" to rebuild.
-
-In other words, if all of the variables which are used in evaluation of the RDEPENDS_dash variable are not added (unconditionally) as its dependency then
-one can observe differences between builds made with and without sstate-cache.
-
- > 
- > > That wasn't the case before this change. Now if I run it I have:
- > > 
- > > $ bitbake-dumpsig -t dash do_package | grep 'RDEPENDS_dash is' 
- > > List of dependencies for variable RDEPENDS_dash is {'BB_UTILS_CONTAINS_DROPBEAR', 'BB_UTILS_FILTER_WAYLAND_PROTOCOLS', 'OE_UTILS_CONDITIONAL_ZLIB', 'BB_UTILS_CONTAINS_ANY_EXPAT'}
- > > 
- > > The observation is that if they're not added as a dependency then changing them 
- > > didn't trigger dash rebuilt all the time.
- > 
- > They'd only trigger a rebuild if the value of interest was added or removed.
-
-By saying "value of interest" you mean:
- - addition/removal of e.g. BB_UTILS_FILTER_WAYLAND_PROTOCOLS,
-or
- - the value assigned to BB_UTILS_FILTER_WAYLAND_PROTOCOLS?
-
---
-Regards,
-Damian
-
- > 
- > > In practice this generates difficult to debug situations as build which used 
- > > sstate-cache behaves completely differently then the one made from scratch.
- > 
- > It shouldn't, at least not due to this particular change. There may be some other
- > issue such as the contains_any() or filter() usage.
- > 
- > Cheers,
- > 
- > Richard
- > 
- > 
