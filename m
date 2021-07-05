@@ -1,32 +1,59 @@
-Subject: SGTL5000 audio codec freescale in raspberry
+Subject: Yocto-hardknott build is success with lbpcre2(V10.36) but so files were never copied to /usr/lib/ when the image is flashed #poky #yocto #library #package
 To: poky@lists.yoctoproject.org
-From: nanotech.ei@gmail.com
-X-Originating-Location: Parobe, Rio Grande do Sul, BR (143.255.119.50)
-X-Originating-Platform: Android Phone Chrome 91
+From: "RK25" <rakesh1225@gmail.com>
+X-Originating-Location: Hyderabad, Telangana, IN (27.59.182.219)
+X-Originating-Platform: Windows Chrome 91
 User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Date: Thu, 01 Jul 2021 11:04:33 -0700
-Message-ID: <d5qp.1625162673007811714.91sD@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="YAGw2IiMQ90j9QqaHzvP"
+Date: Sun, 04 Jul 2021 18:28:50 -0700
+Message-ID: <YcdC.1625448530347288172.h0ud@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="PRS8K1090seEDS4CZ5Mo"
 
---YAGw2IiMQ90j9QqaHzvP
+--PRS8K1090seEDS4CZ5Mo
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-na =C3=A1rvore de arquivos do kernel linux padr=C3=A3o tem os arquivos "sgt=
-l5000.c" e "sgtl5000.h" que controlam o chip do codec. Como fa=C3=A7o para =
-incluir esses arquivos ao construir uma nova distro com o yocto for raspber=
-ry?
+Hello All,
+We tried to upgrade the Yocto version from Dunfell to Hardknott.=C2=A0 Aft=
+er successful build using hardknott, we flashed the generated image to the =
+device. But we don't see the libpcre2 package installed under /usr/lib/ fol=
+der.
 
---YAGw2IiMQ90j9QqaHzvP
+Below are the missing so files after built and installed/flashed with hard=
+knott :
+
+/usr/lib/libpcre2-8.so.0=C2=A0 /usr/lib/libpcre2-posix.so.2=C2=A0 /usr/lib=
+/libpcre2-8.so.0.9.0=C2=A0 /usr/lib/libpcre2-posix.so.2.0.3
+
+No changes were done in Yocto recipe libpcre2_10.36.bb:
+
+https://git.yoctoproject.org/cgit/cgit.cgi/poky/tree/meta/recipes-support/=
+libpcre?h=3Dhardknott
+
+pl share any inputs.
+
+--PRS8K1090seEDS4CZ5Mo
 Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-<span style=3D"vertical-align: inherit;"><span style=3D"vertical-align: inh=
-erit;">na &aacute;rvore de arquivos do kernel linux padr&atilde;o tem os ar=
-quivos "sgtl5000.c" e "sgtl5000.h" que controlam o chip do codec. </span><s=
-pan style=3D"vertical-align: inherit;">Como fa&ccedil;o para incluir esses =
-arquivos ao construir uma nova distro com o yocto for raspberry?</span></sp=
-an>
+<div>Hello All,</div>
+<div>We tried to upgrade the Yocto version from Dunfell to Hardknott.&nbsp=
+; After successful build using hardknott, we flashed the generated image to=
+ the device. But we don't see the libpcre2 package installed under /usr/lib=
+/ folder.</div>
+<div>&nbsp;</div>
+<div>Below are the missing so files after built and installed/flashed with=
+ hardknott :</div>
+<div>&nbsp;</div>
+<div>/usr/lib/libpcre2-8.so.0&nbsp; /usr/lib/libpcre2-posix.so.2&nbsp; /us=
+r/lib/libpcre2-8.so.0.9.0&nbsp; /usr/lib/libpcre2-posix.so.2.0.3</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>No changes were done in Yocto recipe libpcre2_10.36.bb:</div>
+<div>&nbsp;</div>
+<div>https://git.yoctoproject.org/cgit/cgit.cgi/poky/tree/meta/recipes-sup=
+port/libpcre?h=3Dhardknott</div>
+<div>&nbsp;</div>
+<div>&nbsp;pl share any inputs.</div>
 
---YAGw2IiMQ90j9QqaHzvP--
+--PRS8K1090seEDS4CZ5Mo--
