@@ -1,66 +1,76 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
- by mx.groups.io with SMTP id smtpd.web12.2007.1627512444609404542
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+ by mx.groups.io with SMTP id smtpd.web09.25672.1627660252253469694
  for <poky@lists.yoctoproject.org>;
- Wed, 28 Jul 2021 15:47:24 -0700
+ Fri, 30 Jul 2021 08:50:52 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=vCH+DvLW;
- spf=pass (domain: gmail.com, ip: 209.85.160.176, mailfrom: raj.khem@gmail.com)
-Received: by mail-qt1-f176.google.com with SMTP id h27so2567495qtu.9
-        for <poky@lists.yoctoproject.org>; Wed, 28 Jul 2021 15:47:24 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Vj7rH1KE;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.43, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f43.google.com with SMTP id l18so11881714wrv.5
+        for <poky@lists.yoctoproject.org>; Fri, 30 Jul 2021 08:50:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=czEopZVX5sXWsza55XjOw01LpQN6HoNOVs4A0D90RW4=;
-        b=vCH+DvLWl3TJ861c7NEPvfLjVzABFBdT+lUG/9YAgLZXBDMu5IeXkYqlWnx3fH5aNU
-         mbQqKpJSkvpuGN6XWpNv3mJj6PB1wMXO+YIULiif6/Pdxwr4jI5MGcPOuSUGL6IH+iD7
-         JyniL66604mX/cw/9J1A9QVzgUR41ZHnJzbz4oDjCzcopcKAubgLEB7Y5r9XBuI9KiiA
-         1ahhxEPrVHxuG1NkvKwj4QZqO7HxcC9RHfDOVc+ujg8slqxFFc/tGhrp8ts6RIN+GTvo
-         2g28+6XuS6jCC6+zjLHdZvrgzPw9wnBecGUKYbiBnuhJYlSNB08FO+s/YDKmU3JR+/8U
-         aaAA==
+        d=linuxfoundation.org; s=google;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=X4KaJmc9Jale/bdvbwV7Bq06UVaIfDqsR6PRg4dkkVA=;
+        b=Vj7rH1KExj7u28qPf3gomyVK/3q/Z2qWZvf57TxEbNy5ZqKQ9ond3KIdYtmktivMLh
+         UFgjPq5wztgIPpl9vGmaFTwn9rxFODTBWPosi/aleysiosSi7Fe8v7aQ/3mutasSrPqU
+         cEKjGQC7XHPdYe7+pCjoCczxWAEKHsCBBEylE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=czEopZVX5sXWsza55XjOw01LpQN6HoNOVs4A0D90RW4=;
-        b=a3vfDpGyJZYpVLZEetF/FpWRs1h/OMn+uqZFqzGqMINaPkjNyF3bE5nH4iQeTMZvK2
-         5Z9zxcnx51kzpapymLINi4etRsrpL76s76+4l2K2o8n8iyA0H4V6T5G4qkWs1v9Ii8jE
-         lZRciguX1PiBB7YqZdJ9saSsde7/+ednGpHHHrxtMc5Ev3VsMN3v2a6DQIHnpYITtE0T
-         1URmYaqVpTApfCO0FaXDeBm8oy71C418G7Iu/m4HprjxcDyJgvL/bRYsGgxwzBqOmF3a
-         1HnM9niYPnSt85IThOMOAZIhdtmotM6p37239/IaOyeUgM01kGfXZrJap00dOQJ3IGha
-         6tsA==
-X-Gm-Message-State: AOAM531Ar5ArvbPIVwnf8JMV68rd15pspBM4wR13O7NkYT/XXXGVRADT
-	FFUn7zZGXjeik6u1uzKncpaXnWuECcqbUTye8d8=
-X-Google-Smtp-Source: ABdhPJxO0bADxMfeWPZD/jlxcKw1vXNxNStecQNUsW2OxFyhcCPeGhEbHEzSPxIXcJrVGZ3sC9QW+0pi3LuxUAbajwI=
-X-Received: by 2002:ac8:598b:: with SMTP id e11mr1715808qte.299.1627512443614;
- Wed, 28 Jul 2021 15:47:23 -0700 (PDT)
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=X4KaJmc9Jale/bdvbwV7Bq06UVaIfDqsR6PRg4dkkVA=;
+        b=c1OAwovOYfbQaZ8IJ4MwynQ8B4qaf/DQGO0papemfSl0u9i6ZMYbfCJXQG+1b04jGO
+         5wc23XDxZy/2KtrdhnTVxS5fZcxXnjEiLPoPPk+Cj6lwbxjqSIQOJgmnb3LMnn4qA5Gt
+         Sf3/PpmHTw6cgb5fuvJ5yUOpWEVY6r2s9B///rAURxRdIDieKgHZuE635zX6wKchPad1
+         jHq1Cc2hj/3f3NtJFujo2mzUce5/YuY+M6NN/bgAoTqpVm+EgWDfu7Fv7XoSRpxCOGzy
+         z2lZMBgVuEmQCoJYBjMrqTXZR32vfwFTyH1AgcOfqrjT2NbjFQUri/vvKJ+8IVpi6+CN
+         iPCQ==
+X-Gm-Message-State: AOAM533KK9uOss94Gp2cjk+sCiJvK9ppnUMcgNPqkm6SKH1eGZS/5qPM
+	chpgmYLCP3mw+qEWbSyyjqLHeTsXkXfZBw==
+X-Google-Smtp-Source: ABdhPJw3tSD0P6mRxHFYIk/gXQtbbwWeaSL/qwP2JTC9lRQ75Oa7et1JFXTZf8dweQLuvLwFKeOUtA==
+X-Received: by 2002:a5d:522a:: with SMTP id i10mr3716980wra.280.1627660250368;
+        Fri, 30 Jul 2021 08:50:50 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from hex.int.rpsys.net ([2001:8b0:aba:5f3c:47e7:2d3d:e4c2:218b])
+        by smtp.gmail.com with ESMTPSA id v5sm2238428wrd.74.2021.07.30.08.50.50
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Jul 2021 08:50:50 -0700 (PDT)
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH] poky: Use SDKPATHINSTALL instead of SDKPATH
+Date: Fri, 30 Jul 2021 16:50:49 +0100
+Message-Id: <20210730155049.3368068-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <5197.1627453855196654342@lists.yoctoproject.org> <5197.1627456663662589589@lists.yoctoproject.org>
-In-Reply-To: <5197.1627456663662589589@lists.yoctoproject.org>
-From: "Khem Raj" <raj.khem@gmail.com>
-Date: Wed, 28 Jul 2021 15:46:57 -0700
-Message-ID: <CAMKF1sr8AkPYuB-BJMMYKA=OYUhBZVf6WHaxCOBXWFbZD1wzXQ@mail.gmail.com>
-Subject: Re: [yocto][poky]: Issue addng libgloss in .bb file
-To: nagesh.shamnur@gmail.com
-Cc: poky <poky@lists.yoctoproject.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-hmm its not clear why --sysroot option is not working in that case
-since it is there in your compiler cmdline and it should have added
-proper -isysroot option to let compiler find these headers
-so there is something more to the problem, I see that its trying to
-compile libgloss along with rest of newlib. libgloss is built by a
-separate recipe. So perhaps look into this area. Also try to build
-it for say arm architecture and see if it builds or not.
+SDKPATHINSTALL is the default installation path used for the SDK but is not
+the path encoded into every SDK binary as the default path. This change
+allows it to contain things like dates without requiring every nativesdk
+recipe to rebuild.
 
+Partially fixes [YOCTO #14100]
 
-On Wed, Jul 28, 2021 at 12:17 AM <nagesh.shamnur@gmail.com> wrote:
->
-> Issue got resolved after adding
-> CFLAGS_prepend = "-I${RECIPE_SYSROOT}/usr/include"
->
-> in newlib.inc
->
-> Thanks to khemraj for the help.
-> 
->
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 8ffd805945f..c7c46cd226f 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -23,7 +23,7 @@ PREFERRED_VERSION_linux-yocto ?= "5.10%"
+ PREFERRED_VERSION_linux-yocto-rt ?= "5.10%"
+ 
+ SDK_NAME = "${DISTRO}-${TCLIBC}-${SDKMACHINE}-${IMAGE_BASENAME}-${TUNE_PKGARCH}-${MACHINE}"
+-SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
++SDKPATHINSTALL = "/opt/${DISTRO}/${SDK_VERSION}"
+ 
+ DISTRO_EXTRA_RDEPENDS += "${POKY_DEFAULT_EXTRA_RDEPENDS}"
+ DISTRO_EXTRA_RRECOMMENDS += "${POKY_DEFAULT_EXTRA_RRECOMMENDS}"
+-- 
+2.30.2
+
