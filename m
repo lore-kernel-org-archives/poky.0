@@ -1,55 +1,55 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
- by mx.groups.io with SMTP id smtpd.web08.3858.1627740050817488438
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+ by mx.groups.io with SMTP id smtpd.web10.3842.1627740119571316064
  for <poky@lists.yoctoproject.org>;
- Sat, 31 Jul 2021 07:00:51 -0700
+ Sat, 31 Jul 2021 07:01:59 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=cDHzgCqm;
- spf=pass (domain: gmail.com, ip: 209.85.128.51, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-wm1-f51.google.com with SMTP id l34-20020a05600c1d22b02902573c214807so5531702wms.2
-        for <poky@lists.yoctoproject.org>; Sat, 31 Jul 2021 07:00:50 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=AsixtJH1;
+ spf=pass (domain: gmail.com, ip: 209.85.128.54, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-wm1-f54.google.com with SMTP id n11so7701242wmd.2
+        for <poky@lists.yoctoproject.org>; Sat, 31 Jul 2021 07:01:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=765FqXMhi/8cVF+oQ9pv/umuAIdT6JUWxTh7Yy1D4RY=;
-        b=cDHzgCqmXu+IP4sG2+DhwUVlks1+QnBBEzs85VlO+yfaoBspGk4Tk1Qfoa0rjT70IF
-         JobY+00SwHgDoejvVIjSYVjBfZuxSjPzH7gsqp/bji9i5QN8Vf1+8r45xd1rCCaDT6Qh
-         PA9b3xaVkRg906FB3nhyHUe0gpCmAYSGJJpyYzqpISKkkHeQw+iA6HJ2DMV7/NaqDliH
-         +Rhhte8xH6u2teHVLeESniRcG/TOiHsNHe7Xp6fNcf/5myFHlySee99yf8h23ejfate+
-         BPgzwRHxJLTOeo5iaia8TeDsOp5tfNGjxy3zMcfn8gPK5Ogkf2uiVjn3FCKTAG30C2sg
-         ufbw==
+        bh=wp7lzog7sgF9fEcON0yIwX8n6Aun3+QsdSAW8uIFTc8=;
+        b=AsixtJH12ZyB38VnGeCWz10+1gvvkIWj8QZ0wITulqAw0IdIFWlgfGCUJu+wSa2zsy
+         FBA8irpn2Ohoj8ufgR1/IPro5xpS5vApsge5WPu/7iYWBwujer3SkjQqYo0AqFIx2Gmz
+         OH/w1tCQkxK3/dghrYy6Q50+cIOyciqSArSifLEoEo3fTVSy4KM0RRd5g5HIkEJEnqJ2
+         K9kudN+vL1tqukz4SvnCfd/Smk/iXDqmVG/S1KGmWJGDoxKbD0mAFsmuXTLwMYARcX48
+         6yFQT/QGQzHVCwNPa5WlEPTyie1LuRWDp+pPmAdXN/aaQsMyOcObjeqAq/hCSeXbOefn
+         PZJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=765FqXMhi/8cVF+oQ9pv/umuAIdT6JUWxTh7Yy1D4RY=;
-        b=sEwtXv+iuUDiTo65gF7fVad4cF0fK6zIQAWg4fpMfdY9Wua0R8HD4qdgNFUikmDAgO
-         9XqXofOjPBBEA3bYtU5QaPm5YQzwmW1Hc5RUmQnxfQJ+lC3roKYJunKKHva0185rw8vN
-         FQlvvXFfPBODAFYu0EHRb1TYG5JFAWVcSM2SMOZCjZe1Q4aPFHwxMG9mpIRh/I1PTKUh
-         sZG5+8MAb+EOEVgR7nZeJzWGdoxlS4pwIZYM8nNgNmO6Ub9HQFcyDyNby0G0zslesi1v
-         fWJoEQ27wYo7gyxyXUVxLrhbfc4xR98c6cm4+KKRrj/NhtmyDJfsA/ZKQZvCXIWdwgqx
-         ot1w==
-X-Gm-Message-State: AOAM531fDdsNUVUfVVPwLVmsS9o0lPjnNYP/SAcyqYr8voPgHt9z0Vzv
-	9CGLtIV0Ywf/ghJoI7psZIZOp4sYVko=
-X-Google-Smtp-Source: ABdhPJzpiGdudTvAlyYJJMh48/NjKuOFe6cPBUimhLTTmyYUmgeR1BD+UMQF6Sicql142SMyLjlkOQ==
-X-Received: by 2002:a1c:7515:: with SMTP id o21mr8359859wmc.65.1627740049380;
-        Sat, 31 Jul 2021 07:00:49 -0700 (PDT)
+        bh=wp7lzog7sgF9fEcON0yIwX8n6Aun3+QsdSAW8uIFTc8=;
+        b=PSNLu7hdtMJfMqO+xxSogIqWz+PoZW42U8uJVp1jmpDY7jWQmcJQnmXUFKhWQQ3BrB
+         ewN3GEvs0ZttrtfKCgPCVFvgQYE0q5CFDiU39oF/IBa+bmy2z23phixodCXypozbrVsP
+         Wnd0/kTlNszetJXrHMhm0DJbug7ZNDwIJ9B7kOV/Zfl4IP+4zX4Wz6lWtJmaxdewpXae
+         4CEZPLq+SNu/xTEExFOiNIlwBA/wVKgsbP3fH3bcV1jnE52sjLZugyPuLyoFql4Qpfpf
+         JzCrjTS5yO8dZMeGSucrg+2GPReZPuCPjkX4cPEtepY6od4YI2EB/ldC3fPtTTSeIO/0
+         9tSA==
+X-Gm-Message-State: AOAM531y/FG6DZPR7nVZxaWHMKj7CimzUwLWibLL5S2BmfbKbwU/zgz/
+	OklN15XdaHVFstr7ACCpfwFnYiRh92A=
+X-Google-Smtp-Source: ABdhPJwswFAfent1yto0PvqVPRpF9mSrg0gV41PohQX4qnY26JiCkz9z9OX7zHV/wVoMJm94BLnv0A==
+X-Received: by 2002:a05:600c:4105:: with SMTP id j5mr8418734wmi.86.1627740118148;
+        Sat, 31 Jul 2021 07:01:58 -0700 (PDT)
 Return-Path: <alex.kanavin@gmail.com>
 Received: from localhost.localdomain ([2a02:2454:2a0:cb00:eb83:2e01:3dda:5d46])
-        by smtp.gmail.com with ESMTPSA id v15sm5104587wmj.11.2021.07.31.07.00.48
+        by smtp.gmail.com with ESMTPSA id l41sm5227918wmp.23.2021.07.31.07.01.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Jul 2021 07:00:48 -0700 (PDT)
+        Sat, 31 Jul 2021 07:01:57 -0700 (PDT)
 From: "Alexander Kanavin" <alex.kanavin@gmail.com>
 To: poky@lists.yoctoproject.org
 Cc: Alexander Kanavin <alex.kanavin@gmail.com>
 Subject: [PATCH] local.conf.sample: disable prelink
-Date: Sat, 31 Jul 2021 16:00:44 +0200
-Message-Id: <20210731140044.765794-1-alex.kanavin@gmail.com>
+Date: Sat, 31 Jul 2021 16:01:53 +0200
+Message-Id: <20210731140153.765974-1-alex.kanavin@gmail.com>
 X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Recent tests have not shown that prelinking works only when PIE is not
+Recent tests have shown that prelinking works only when PIE is not
 enabled [0], and as PIE is both a desirable security feature, and the only
 configuration provided and tested by Yocto, there is simply no sense
 in continuing to enable prelink.
