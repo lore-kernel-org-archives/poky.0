@@ -1,76 +1,89 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
- by mx.groups.io with SMTP id smtpd.web09.25672.1627660252253469694
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+ by mx.groups.io with SMTP id smtpd.web08.3858.1627740050817488438
  for <poky@lists.yoctoproject.org>;
- Fri, 30 Jul 2021 08:50:52 -0700
+ Sat, 31 Jul 2021 07:00:51 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Vj7rH1KE;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.43, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f43.google.com with SMTP id l18so11881714wrv.5
-        for <poky@lists.yoctoproject.org>; Fri, 30 Jul 2021 08:50:52 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=cDHzgCqm;
+ spf=pass (domain: gmail.com, ip: 209.85.128.51, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-wm1-f51.google.com with SMTP id l34-20020a05600c1d22b02902573c214807so5531702wms.2
+        for <poky@lists.yoctoproject.org>; Sat, 31 Jul 2021 07:00:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=from:to:subject:date:message-id:mime-version
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=X4KaJmc9Jale/bdvbwV7Bq06UVaIfDqsR6PRg4dkkVA=;
-        b=Vj7rH1KExj7u28qPf3gomyVK/3q/Z2qWZvf57TxEbNy5ZqKQ9ond3KIdYtmktivMLh
-         UFgjPq5wztgIPpl9vGmaFTwn9rxFODTBWPosi/aleysiosSi7Fe8v7aQ/3mutasSrPqU
-         cEKjGQC7XHPdYe7+pCjoCczxWAEKHsCBBEylE=
+        bh=765FqXMhi/8cVF+oQ9pv/umuAIdT6JUWxTh7Yy1D4RY=;
+        b=cDHzgCqmXu+IP4sG2+DhwUVlks1+QnBBEzs85VlO+yfaoBspGk4Tk1Qfoa0rjT70IF
+         JobY+00SwHgDoejvVIjSYVjBfZuxSjPzH7gsqp/bji9i5QN8Vf1+8r45xd1rCCaDT6Qh
+         PA9b3xaVkRg906FB3nhyHUe0gpCmAYSGJJpyYzqpISKkkHeQw+iA6HJ2DMV7/NaqDliH
+         +Rhhte8xH6u2teHVLeESniRcG/TOiHsNHe7Xp6fNcf/5myFHlySee99yf8h23ejfate+
+         BPgzwRHxJLTOeo5iaia8TeDsOp5tfNGjxy3zMcfn8gPK5Ogkf2uiVjn3FCKTAG30C2sg
+         ufbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=X4KaJmc9Jale/bdvbwV7Bq06UVaIfDqsR6PRg4dkkVA=;
-        b=c1OAwovOYfbQaZ8IJ4MwynQ8B4qaf/DQGO0papemfSl0u9i6ZMYbfCJXQG+1b04jGO
-         5wc23XDxZy/2KtrdhnTVxS5fZcxXnjEiLPoPPk+Cj6lwbxjqSIQOJgmnb3LMnn4qA5Gt
-         Sf3/PpmHTw6cgb5fuvJ5yUOpWEVY6r2s9B///rAURxRdIDieKgHZuE635zX6wKchPad1
-         jHq1Cc2hj/3f3NtJFujo2mzUce5/YuY+M6NN/bgAoTqpVm+EgWDfu7Fv7XoSRpxCOGzy
-         z2lZMBgVuEmQCoJYBjMrqTXZR32vfwFTyH1AgcOfqrjT2NbjFQUri/vvKJ+8IVpi6+CN
-         iPCQ==
-X-Gm-Message-State: AOAM533KK9uOss94Gp2cjk+sCiJvK9ppnUMcgNPqkm6SKH1eGZS/5qPM
-	chpgmYLCP3mw+qEWbSyyjqLHeTsXkXfZBw==
-X-Google-Smtp-Source: ABdhPJw3tSD0P6mRxHFYIk/gXQtbbwWeaSL/qwP2JTC9lRQ75Oa7et1JFXTZf8dweQLuvLwFKeOUtA==
-X-Received: by 2002:a5d:522a:: with SMTP id i10mr3716980wra.280.1627660250368;
-        Fri, 30 Jul 2021 08:50:50 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from hex.int.rpsys.net ([2001:8b0:aba:5f3c:47e7:2d3d:e4c2:218b])
-        by smtp.gmail.com with ESMTPSA id v5sm2238428wrd.74.2021.07.30.08.50.50
-        for <poky@lists.yoctoproject.org>
+        bh=765FqXMhi/8cVF+oQ9pv/umuAIdT6JUWxTh7Yy1D4RY=;
+        b=sEwtXv+iuUDiTo65gF7fVad4cF0fK6zIQAWg4fpMfdY9Wua0R8HD4qdgNFUikmDAgO
+         9XqXofOjPBBEA3bYtU5QaPm5YQzwmW1Hc5RUmQnxfQJ+lC3roKYJunKKHva0185rw8vN
+         FQlvvXFfPBODAFYu0EHRb1TYG5JFAWVcSM2SMOZCjZe1Q4aPFHwxMG9mpIRh/I1PTKUh
+         sZG5+8MAb+EOEVgR7nZeJzWGdoxlS4pwIZYM8nNgNmO6Ub9HQFcyDyNby0G0zslesi1v
+         fWJoEQ27wYo7gyxyXUVxLrhbfc4xR98c6cm4+KKRrj/NhtmyDJfsA/ZKQZvCXIWdwgqx
+         ot1w==
+X-Gm-Message-State: AOAM531fDdsNUVUfVVPwLVmsS9o0lPjnNYP/SAcyqYr8voPgHt9z0Vzv
+	9CGLtIV0Ywf/ghJoI7psZIZOp4sYVko=
+X-Google-Smtp-Source: ABdhPJzpiGdudTvAlyYJJMh48/NjKuOFe6cPBUimhLTTmyYUmgeR1BD+UMQF6Sicql142SMyLjlkOQ==
+X-Received: by 2002:a1c:7515:: with SMTP id o21mr8359859wmc.65.1627740049380;
+        Sat, 31 Jul 2021 07:00:49 -0700 (PDT)
+Return-Path: <alex.kanavin@gmail.com>
+Received: from localhost.localdomain ([2a02:2454:2a0:cb00:eb83:2e01:3dda:5d46])
+        by smtp.gmail.com with ESMTPSA id v15sm5104587wmj.11.2021.07.31.07.00.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Jul 2021 08:50:50 -0700 (PDT)
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+        Sat, 31 Jul 2021 07:00:48 -0700 (PDT)
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
 To: poky@lists.yoctoproject.org
-Subject: [PATCH] poky: Use SDKPATHINSTALL instead of SDKPATH
-Date: Fri, 30 Jul 2021 16:50:49 +0100
-Message-Id: <20210730155049.3368068-1-richard.purdie@linuxfoundation.org>
-X-Mailer: git-send-email 2.30.2
+Cc: Alexander Kanavin <alex.kanavin@gmail.com>
+Subject: [PATCH] local.conf.sample: disable prelink
+Date: Sat, 31 Jul 2021 16:00:44 +0200
+Message-Id: <20210731140044.765794-1-alex.kanavin@gmail.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-SDKPATHINSTALL is the default installation path used for the SDK but is not
-the path encoded into every SDK binary as the default path. This change
-allows it to contain things like dates without requiring every nativesdk
-recipe to rebuild.
+Recent tests have not shown that prelinking works only when PIE is not
+enabled [0], and as PIE is both a desirable security feature, and the only
+configuration provided and tested by Yocto, there is simply no sense
+in continuing to enable prelink.
 
-Partially fixes [YOCTO #14100]
+There's also a concern that no one is maintaining the code, and there
+are open bugs (including serious ones such as [1]). Given that prelink
+does intricate address arithmetic and rewriting of binaries the best
+option is to disable the feature.
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+[0]
+https://rlbl.me/prelink-1
+https://rlbl.me/prelink-2
+
+[1] https://bugzilla.yoctoproject.org/show_bug.cgi?id=14429
+
+Signed-off-by: Alexander Kanavin <alex.kanavin@gmail.com>
 ---
- meta-poky/conf/distro/poky.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ meta-poky/conf/local.conf.sample | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 8ffd805945f..c7c46cd226f 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -23,7 +23,7 @@ PREFERRED_VERSION_linux-yocto ?= "5.10%"
- PREFERRED_VERSION_linux-yocto-rt ?= "5.10%"
+diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
+index 53766d1a9b..4f5c32af3f 100644
+--- a/meta-poky/conf/local.conf.sample
++++ b/meta-poky/conf/local.conf.sample
+@@ -148,8 +148,7 @@ EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
+ # enable extra features. Some available options which can be included in this variable
+ # are:
+ #   - 'buildstats' collect build statistics
+-#   - 'image-prelink' in order to prelink the filesystem image
+-USER_CLASSES ?= "buildstats image-prelink"
++USER_CLASSES ?= "buildstats"
  
- SDK_NAME = "${DISTRO}-${TCLIBC}-${SDKMACHINE}-${IMAGE_BASENAME}-${TUNE_PKGARCH}-${MACHINE}"
--SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
-+SDKPATHINSTALL = "/opt/${DISTRO}/${SDK_VERSION}"
- 
- DISTRO_EXTRA_RDEPENDS += "${POKY_DEFAULT_EXTRA_RDEPENDS}"
- DISTRO_EXTRA_RRECOMMENDS += "${POKY_DEFAULT_EXTRA_RRECOMMENDS}"
+ #
+ # Runtime testing of images
 -- 
-2.30.2
+2.31.1
 
