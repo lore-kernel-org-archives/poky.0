@@ -1,46 +1,52 @@
-Received: from relay10.mail.gandi.net (relay10.mail.gandi.net [217.70.178.230])
- by mx.groups.io with SMTP id smtpd.web12.4323.1627993924236155713
+Received: from mailout4.zoneedit.com (mailout4.zoneedit.com [64.68.198.64])
+ by mx.groups.io with SMTP id smtpd.web08.4745.1628050903264136510
  for <poky@lists.yoctoproject.org>;
- Tue, 03 Aug 2021 05:32:04 -0700
+ Tue, 03 Aug 2021 21:21:43 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: bootlin.com, ip: 217.70.178.230, mailfrom: michael.opdenacker@bootlin.com)
-Received: (Authenticated sender: michael.opdenacker@bootlin.com)
-	by relay10.mail.gandi.net (Postfix) with ESMTPSA id 4F6AD24000B;
-	Tue,  3 Aug 2021 12:32:02 +0000 (UTC)
-Subject: Re: [poky] [PATCH] poky: Use SDKPATHINSTALL instead of SDKPATH
-To: Richard Purdie <richard.purdie@linuxfoundation.org>,
- poky@lists.yoctoproject.org
-References: <20210730155049.3368068-1-richard.purdie@linuxfoundation.org>
-From: "Michael Opdenacker" <michael.opdenacker@bootlin.com>
-Organization: Bootlin
-Message-ID: <d8c90433-0676-59ad-2561-b702155007c1@bootlin.com>
-Date: Tue, 3 Aug 2021 14:32:01 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-MIME-Version: 1.0
-In-Reply-To: <20210730155049.3368068-1-richard.purdie@linuxfoundation.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+ dkim=missing; spf=none, err=permanent DNS error (domain: denix.org, ip: 64.68.198.64, mailfrom: denis@denix.org)
+Received: from localhost (localhost [127.0.0.1])
+	by mailout4.zoneedit.com (Postfix) with ESMTP id 9D53040C16
+	for <poky@lists.yoctoproject.org>; Wed,  4 Aug 2021 04:21:42 +0000 (UTC)
+Received: from mailout4.zoneedit.com ([127.0.0.1])
+	by localhost (zmo14-pco.easydns.vpn [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id Mtmjx9lv7lTR for <poky@lists.yoctoproject.org>;
+	Wed,  4 Aug 2021 04:21:42 +0000 (UTC)
+Received: from mail.denix.org (pool-100-15-86-127.washdc.fios.verizon.net [100.15.86.127])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mailout4.zoneedit.com (Postfix) with ESMTPSA id 8D01B40C06
+	for <poky@lists.yoctoproject.org>; Wed,  4 Aug 2021 04:21:42 +0000 (UTC)
+Received: from gimli.denix (unknown [192.168.30.6])
+	by mail.denix.org (Postfix) with ESMTP id C852B17463D;
+	Wed,  4 Aug 2021 00:21:41 -0400 (EDT)
+From: "Denys Dmytriyenko" <denis@denix.org>
+To: poky@lists.yoctoproject.org
+Cc: Denys Dmytriyenko <denis@denix.org>
+Subject: [PATCH] poky-tiny: drop uclibc override
+Date: Wed,  4 Aug 2021 00:21:37 -0400
+Message-Id: <1628050897-50449-1-git-send-email-denis@denix.org>
+X-Mailer: git-send-email 2.7.4
 
-Hi Richard,
+Since uclibc is no longer supported, corresponding override was left
+un-converted to the new syntax. Simply drop it.
 
-On 7/30/21 5:50 PM, Richard Purdie wrote:
-> SDKPATHINSTALL is the default installation path used for the SDK but is not
-> the path encoded into every SDK binary as the default path. This change
-> allows it to contain things like dates without requiring every nativesdk
-> recipe to rebuild.
+Signed-off-by: Denys Dmytriyenko <denis@denix.org>
+---
+ meta-poky/conf/distro/poky-tiny.conf | 1 -
+ 1 file changed, 1 deletion(-)
 
-
-I realize that SDKPATHINSTALL is not documented while SDKPATH is.
-Is it worth adding to the documentation?
-
-Cheers,
-Michael.
-
+diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
+index 80fb368..c25e50c 100644
+--- a/meta-poky/conf/distro/poky-tiny.conf
++++ b/meta-poky/conf/distro/poky-tiny.conf
+@@ -80,7 +80,6 @@ DISTRO_FEATURES = "${DISTRO_FEATURES_TINY} \
+                   "
+ 
+ # Enable LFS - see bug YOCTO #5865
+-DISTRO_FEATURES:append_libc-uclibc = " largefile"
+ DISTRO_FEATURES:append:libc-musl = " largefile"
+ 
+ DISTRO_FEATURES:class-native = "${DISTRO_FEATURES_DEFAULT} ${POKY_DEFAULT_DISTRO_FEATURES}"
 -- 
-
-Michael Opdenacker, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.7.4
 
