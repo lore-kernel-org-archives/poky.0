@@ -1,153 +1,320 @@
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com (EUR03-VE1-obe.outbound.protection.outlook.com [40.107.5.139])
- by mx.groups.io with SMTP id smtpd.web11.8375.1628168942034211949
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com [209.85.217.48])
+ by mx.groups.io with SMTP id smtpd.web08.8528.1628169168693727409
  for <poky@lists.yoctoproject.org>;
- Thu, 05 Aug 2021 06:09:02 -0700
+ Thu, 05 Aug 2021 06:12:48 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@se.com header.s=selector2 header.b=KYLKpJkW;
- spf=pass (domain: se.com, ip: 40.107.5.139, mailfrom: milan.stevanovic@se.com)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XN20lzDqPjl3gqPZRID6XN+OdArDhnEZwfWhovKmoK0E1NkOXjcV9pzqrXBTn/6XlBW3tF+Yq7+3TIq09Y1fdsEZ2Owfpk/kFu1VJw2kTfcX5lkVIiQ/TDDVaBm4CY43x4CluFlt+pMaKUGWnk4Tt7oWBArihzTtTGchL7qHStmCscfYQfwCKPBong83svJbkd/zyIeG0vfMHx54lSbfApfHx6vlmKns71vghC4D+uZVryITwU5QF8LgpigHksrDMYCCxQ+FKTEmiOqs5vf5a6ej6oZGuYjaGiVWYf9mmXiQ7HzfhmkTCqrNwG+VjENgrI9hM2j09au3IQKGKuYgXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8icLB8sL1ty+lZDzjynX6B9CoUMXB+Rg5JDfziqPUXk=;
- b=e/S1MEEAzqZJxUyLk2VNKKlw0pJz3q9ACsM/TNKt4kpHz8zg0h3sPFpE8v3Tnr3RVPqO2mTbCQoehUM/2urKTlcO//7bfPIYiKCiC+KiUJMsKP5zSwODMMbTPk8qF19QjlfYkpPt8H991paj8ttwopgFcQRlcwmRB59926EThWSiNdB5+FpjE915Js+gVz/bjvt3hsRi9clBJ5EQCH/J7pxldjdwp5ByAWL2LSZ6NFYvSk/MxZkleQgPXxKZqWi7DWvDblTPOIb5QdC724nh0MobRo4C3WiNITQLfD/6jPWI4V/lLn9xHcyoEUmD2P1rMA3rG6JDKK0VdvsN9Pstlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=se.com; dmarc=pass action=none header.from=se.com; dkim=pass
- header.d=se.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=se.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8icLB8sL1ty+lZDzjynX6B9CoUMXB+Rg5JDfziqPUXk=;
- b=KYLKpJkWHOg7YShZyuX0NNxiuCPB2itnVWWmrajzeQcVryBBBcnQ1nm0dGd1nz+kD+MsFRL88q8zxLowy+geayp+l24NV7gSVZvfLPd5Y7b5yoV9AzAI7iRaNPF0W33iLA2mDzlFCGnrmNtwFzYHgiMHetwLmFjV93ON04xtfyLo8pjvW34W7SVmQ/VW1kreI+Y/AYsqlpHCBFzC1CDUsVopPg3uP/nLeMR6UACJRwo5znVp2t9DMbMC3Fz6/+quWTOnOl3egi8RbKihH9GqS9Tk3WTo2aom7dsPakrHUAOru+Izl1MoUU6YlBZgyysRhjyL1spZ0NtLNSj4LYPzvA==
-Received: from AM0PR04MB4804.eurprd04.prod.outlook.com (2603:10a6:208:c8::29)
- by AM0PR04MB6356.eurprd04.prod.outlook.com (2603:10a6:208:17a::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4373.25; Thu, 5 Aug
- 2021 13:08:58 +0000
-Received: from AM0PR04MB4804.eurprd04.prod.outlook.com
- ([fe80::fd72:c112:d837:15c3]) by AM0PR04MB4804.eurprd04.prod.outlook.com
- ([fe80::fd72:c112:d837:15c3%4]) with mapi id 15.20.4373.026; Thu, 5 Aug 2021
- 13:08:58 +0000
-From: "Milan STEVANOVIC" <milan.stevanovic@se.com>
-To: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-Subject: Backport to dunfell question
-Thread-Topic: Backport to dunfell question
-Thread-Index: AdeJ+wxzo6vldZaOSJuB4VOuf6HDhA==
-Date: Thu, 5 Aug 2021 13:08:58 +0000
-Message-ID: 
- <AM0PR04MB4804A80F5E94384602603C60E2F29@AM0PR04MB4804.eurprd04.prod.outlook.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_23f93e5f-d3c2-49a7-ba94-15405423c204_Enabled=true;
- MSIP_Label_23f93e5f-d3c2-49a7-ba94-15405423c204_SetDate=2021-08-05T13:08:57Z;
- MSIP_Label_23f93e5f-d3c2-49a7-ba94-15405423c204_Method=Standard;
- MSIP_Label_23f93e5f-d3c2-49a7-ba94-15405423c204_Name=SE Internal;
- MSIP_Label_23f93e5f-d3c2-49a7-ba94-15405423c204_SiteId=6e51e1ad-c54b-4b39-b598-0ffe9ae68fef;
- MSIP_Label_23f93e5f-d3c2-49a7-ba94-15405423c204_ActionId=14f44c61-04cc-4513-87d5-7ad6108073a6;
- MSIP_Label_23f93e5f-d3c2-49a7-ba94-15405423c204_ContentBits=2
-authentication-results: lists.yoctoproject.org; dkim=none (message not signed)
- header.d=none;lists.yoctoproject.org; dmarc=none action=none
- header.from=se.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8ff68c6f-7ba5-477c-818d-08d958122fd4
-x-ms-traffictypediagnostic: AM0PR04MB6356:
-x-microsoft-antispam-prvs: 
- <AM0PR04MB6356D1E145D5DBA7EB501186E2F29@AM0PR04MB6356.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- wUN5nXr5KruHo+iRo2QoHYT86YKFvmV/umei16dpsJrUUzXZMROkc1C3tquRUX9BzDWZxOqosoKv72ovSJRoeDlz4RWq7Zq1PsAcHzAw94rKGibCgacY7s3HOiF+tPeHT7Z4KqL+hEh0AALK0NDyQGpjKy+V/8mY8lZk/q/x6uC0Lv5aLBhkP9cbj3sbbL4ZzQRjV/fCBvlz+8SRZ6tObKz9QdcH7zVZGa2+oJ9OpczKEaxzC3Gka1wgJahH8cEbKJjd09voUnxgt5+skuXlvmUD5U3VLSJFLJsNKrrZbqFuhe0nqzHtky/Z75ty7VB/ivUPsSHEnG7MtJkYVaTIaM+FawTVYTBRxv8aL4j+BrlK+1yvVPmhMGgIBGykIiJp6O3FruG2pVXzqJUQux2SiwoXSu+ApngKm+eei5xGTiHN7b79KD3ONckkIMRhw/GPTbA8hI1PWxD9x/X69yN7aNwjQkuCTJ6UHcaD7GzeGO0hkmbtBvcYdFbsYHIJNb4Q4rODAWe/+Qq0zM6Cglea4UF4Id/w41Uxa4d8f6nS1Y7aiq6x/4ZOUIkmKOosau+vvTNbU/xNVdqxQQdv28/z00+6iNsR7M/q2WTkEJeI/feUgWePtVcQOLEYoLHvZH2XEe1uLGET14sT9+alEaKZNLxjL86n47ShgfNDrHaTZMxpZcfL5fd4HtEHoxh9sZLBfGyeMa0mXUZwVOuIOOItEn6diOvAIqCwd6ZhviyDLJ/1L1vjzoYZArS2nnWmT2rNa7ey6o3lfpS7MsFPWCufpLMcO1Mb4zB2dQ0fVkV5hA15S+cNQS+sJyItjCsSJ2OFtvrfMYiYRP4EHy0A8yiwjw==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB4804.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(396003)(136003)(376002)(39860400002)(346002)(366004)(38100700002)(122000001)(6916009)(33656002)(8676002)(55016002)(19627405001)(478600001)(66946007)(2906002)(5660300002)(166002)(7696005)(66476007)(66556008)(64756008)(66446008)(26005)(71200400001)(8936002)(9686003)(76116006)(52536014)(4744005)(55236004)(86362001)(38070700005)(6506007)(3480700007)(186003)(316002);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?us-ascii?Q?MvsJrP5Od0mwZ7sRfbd6VnxCFjGu3961durBC1ndJjZJClcpWgF6SkKPqCLt?=
- =?us-ascii?Q?u10BtS+CU1XRXed9sD/0BNYCWzXSu29vBf5FidlLuTfVWfJURKkHeIP/++Qw?=
- =?us-ascii?Q?Y/HW6kxbRZ5b997bA0EHIS9TqkA/rTAy74Mb3c0BQK3QV6sftNpkOitVepGx?=
- =?us-ascii?Q?kvo9HawjHbY2xtVmVeRVwJORSdhxdeew6xkyyFtsDyutotwY3GYeGB7hpLBG?=
- =?us-ascii?Q?yFZOq+1Xfvr9oy9fD5gc+4XjlboFuUtRTP1ng+7vPofBAdLHKkgmr0+nCubr?=
- =?us-ascii?Q?7rDdnBbzzb/Ds+UNXvclrCn7HQC5GSMNmokIMv2AB7xRHGkxnTVk1EXhky1X?=
- =?us-ascii?Q?gKkmevAD+o7vbqF1UF9clrZy67hCB4P7At9cpgbaimHBt/OdF9NVSK1CNCGp?=
- =?us-ascii?Q?oAI4lGVoE26E4/9lucslxBmRf0NahZiT+MVRhLA4VYCNu7pq8NG1s71Azy+3?=
- =?us-ascii?Q?3jpzA+B6q1V7lFmBcEJEBWrB1ANf2mydpXge2EjT/1RYLj/tXaeYPhhPNZuh?=
- =?us-ascii?Q?0ztIeLoa7Jr6JcoRsh4uUcgZrUg/dwfenmkUrw9t6sSSwBtlmLhzZmSaJSr+?=
- =?us-ascii?Q?1KjZTFUzM9p4LLFhTNRZ1EFpsI4+2A9oMdhXENTAZ+xxwxKKVhQvt+RoEgOr?=
- =?us-ascii?Q?DMt9GzEO/adQPw1EG9HezH4t10ouJSt5H07PGR750ZBQlkBIGj9RLIL6z7Z9?=
- =?us-ascii?Q?e2x1x02LdaWoJbzJV+TL31zQDllD3xneOA8snIqK67WCPpu9wX39oqHoFtLf?=
- =?us-ascii?Q?CEO76TAXBX6xmr7AKKKAJAx2VPdG7PGJEBIUaJD/CgVSmkYo/knMGjtuSQtm?=
- =?us-ascii?Q?/m/GS49vNVEz+vVQm18SUypbdem+pJ4NB8hm3GHjgZYR3ay5CmD24ZK0M2Bh?=
- =?us-ascii?Q?2FVh1lovq/K/t8aEKBoTpPpvghBjLtkCIaZHBKTH7cAtw8GG7r3qpiFgUFhp?=
- =?us-ascii?Q?RwZFitwOHimoVofMcOrGQJ5IXcoAjcB8CSKkjCrRxToagCQSO4j7WfbZRRWL?=
- =?us-ascii?Q?3h3eh0+fwhBBvBf6trkyUqNc1dbTqcWsEQZA7zzS962t//JpKcw3RjY5NcZV?=
- =?us-ascii?Q?02aANYLMXDGwvsmvaYNMmDEMVaYWNHbWf4rjtzI5qI2PmcbKWvahh8qV1ik+?=
- =?us-ascii?Q?F/VUeDPPGFRxFgTgHZQouKESIsKEjDF/9oSE1C+8UekzMzPZuixZl2ZX73D/?=
- =?us-ascii?Q?dMBDNCJAmdNVmYzXEJob7K33hgGBjA3tp9saBa5dx4irauYmJzH0oqVWebbo?=
- =?us-ascii?Q?mLCpC6Gevhqn7+LCPGYGHsDqfiGaOeonfOwxwgCttfEIrOpOmaLSJkeTzntv?=
- =?us-ascii?Q?j9hJAavm6T7lrgW47jMJvUy+?=
-x-ms-exchange-transport-forked: True
+ dkim=pass header.i=@gmail.com header.s=20161025 header.b=uugzHaML;
+ spf=pass (domain: gmail.com, ip: 209.85.217.48, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-vs1-f48.google.com with SMTP id bg4so3020000vsb.6
+        for <poky@lists.yoctoproject.org>; Thu, 05 Aug 2021 06:12:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=5nJ/ZG7QAschJKE5EBXirLAs+tB3zz12D6pj5peIDz4=;
+        b=uugzHaMLmWvmU/BB45UjSitrOGXZYEqNeCQi8GQvf1Um/Lw6QUuUGd+xhTnLcsSHTi
+         uT32yDB4UgNeTvYARon5wKSRKKH6TWfRY2EsxkS0SWdH+iz+QpFxKI4vUPfnFRUPmdu+
+         q1bpngh5Mt4QQuB5XEs4sP3rR0kM4FiQtklFio943koO9YlRbHImBdYvkwZznLLZ/XdE
+         vXyzzfHPv/U9oMbP03BRCvd1pFEdhva6yMMBFLPqXiN8Ufcn7Vm1QckPPGJSKDpoE1rg
+         CkHHE0POP6yVEPCA50RViMPqRDcat4AxOJooeAZ1L9dvFMZpeTVtsM7cTha0RIpALQyE
+         gzMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=5nJ/ZG7QAschJKE5EBXirLAs+tB3zz12D6pj5peIDz4=;
+        b=G8aINlwiVsJSAlIyB3GHDCeYe+VXpLMETEKGDKzdsB4Kt0bFTciVcT7ABb3ZtgIjme
+         xCok/hxge+aJ0MmWmKN0Vzxvb/6I94qFG1ZmWAQvHQ6T8FFghHh7dvzKHkkAsKuGz24b
+         dlTQ/aZF1OYhAvj97RVuwZdxiX8u6o7UtPcXex3+skDqeK8gEw0vz1e7Hx5CuZjGHgzV
+         5i1/GoSENZBFgPdSydk/Whav+m+5pdSkvCf7UrSNKzyw+zKTk0w72UoXP69fTZVy545B
+         EsueOtgzXZEAqv5aMsFvZtRI0R7F4cKeNkL3sTcu2Aw421S25ceKXFujhY586v1awEZ4
+         G7/g==
+X-Gm-Message-State: AOAM530mQVdEFeLCj3WSP1sypCwNzO3jJUvP0JpRQIK2F3XCNcqSZ1z6
+	kwu2rvQpVd7TBLyBW5O1E9zmIQal7rSrx5i2h9E=
+X-Google-Smtp-Source: ABdhPJyYu83qh1SN3bkOHZqX/nB6Ataw4wBQdNFObgpHT6vi4aBjd6cVE+P51Iwb52dJuCr7uDhOh1j55voZxgHS6DU=
+X-Received: by 2002:a05:6102:3711:: with SMTP id s17mr4054757vst.51.1628169167865;
+ Thu, 05 Aug 2021 06:12:47 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: se.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB4804.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ff68c6f-7ba5-477c-818d-08d958122fd4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Aug 2021 13:08:58.3468
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 6e51e1ad-c54b-4b39-b598-0ffe9ae68fef
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: d108aAvQBWe0hdZx/xow9yBm4ByZbHids+sVnC2+lvcWnFTXFIMpbVCePOrTzsOAEpzkGTO/9xN9rvAvT0vemg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6356
-Content-Language: fr-FR
-Content-Type: multipart/alternative;
-	boundary="_000_AM0PR04MB4804A80F5E94384602603C60E2F29AM0PR04MB4804eurp_"
+References: <AM0PR04MB4804A80F5E94384602603C60E2F29@AM0PR04MB4804.eurprd04.prod.outlook.com>
+In-Reply-To: <AM0PR04MB4804A80F5E94384602603C60E2F29@AM0PR04MB4804.eurprd04.prod.outlook.com>
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+Date: Thu, 5 Aug 2021 15:12:36 +0200
+Message-ID: <CANNYZj8wdipE99dqVpDXG+De-AH-tKQ_7mgQerKZJO-YEaFDaQ@mail.gmail.com>
+Subject: Re: [poky] Backport to dunfell question
+To: milan.stevanovic@se.com
+Cc: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="000000000000e28d8a05c8cfaccb"
 
---_000_AM0PR04MB4804A80F5E94384602603C60E2F29AM0PR04MB4804eurp_
-Content-Type: text/plain; charset=UTF-8
+--000000000000e28d8a05c8cfaccb
+Content-Type: text/plain; charset="UTF-8"
+
+Yocto releases are very conservative regarding version updates, so if you
+need a newer systemd for your specific product reasons, you need to do it
+in a private layer.
+
+Alex
+
+On Thu, 5 Aug 2021 at 15:09, Milan STEVANOVIC via lists.yoctoproject.org
+<milan.stevanovic=se.com@lists.yoctoproject.org> wrote:
+
+>
+>
+> Hi all,
+>
+>
+>
+> I hope this isn't inappropriate for the list Current poky dunfell LTS is
+> using systemd stable version 244.5.
+>
+> In same time, master is on 249.1 and hardknott on 247.6
+>
+>
+>
+> Is there a some plan to backport one of these two versions  of systemd to
+> dunfell ?
+>
+> We can create patch for backport to dunfell if this kind of version change
+> is acceptable by dunfell LTS rules.
+>
+>
+>
+> Thanks a lot
+>
+> Milan
+>
+>
+>
+> Milan Stevanovic
+> OS/BSP Architect
+> DIP - Device Intelligence Platform
+> Technology
+> Schneider Electric
+>
+> M +33 (0)6 73 26 20 85
+> E  milan.stevanovic@se.com
+>
+> 160 Avenue des Martyrs
+> 38000 Grenoble
+> France
+>
+>
+>
+>
+> <http://www.schneider-electric.com/b2b/en/campaign/innovation/overview.jsp#xtor=CS4-204-[Display]--->
+>
+>
+>
+> *Please consider the environment before printing this e-mail
+>
+> [image: Blog] <https://www.facebook.com/SchneiderElectric> [image: Blog]
+> <https://www.linkedin.com/company/schneider-electric> [image: Blog]
+> <http://blog.schneider-electric.com/> [image: Blog]
+> <https://www.twitter.com/SchneiderElec> [image: Blog]
+> <https://www.youtube.com/schneidercorporate> [image: Blog]
+> <https://plus.google.com/+schneiderelectric> [image: Blog]
+> <https://instagram.com/schneiderelectric>
+>
+>
+>
+>
+>
+> Internal
+>
+> 
+>
+>
+
+--000000000000e28d8a05c8cfaccb
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+<div dir=3D"ltr"><div>Yocto releases are very conservative regarding versio=
+n updates, so if you need a newer systemd for your specific product reasons=
+, you need to do it in a private layer.</div><div><br></div><div>Alex<br></=
+div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_at=
+tr">On Thu, 5 Aug 2021 at 15:09, Milan STEVANOVIC via <a href=3D"http://lis=
+ts.yoctoproject.org">lists.yoctoproject.org</a> &lt;milan.stevanovic=3D<a h=
+ref=3D"mailto:se.com@lists.yoctoproject.org">se.com@lists.yoctoproject.org<=
+/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
 
-I hope this isn't inappropriate for the list Current poky dunfell LTS is u=
-sing systemd stable version 244.5.
 
-In same time, master is on 249.1 and hardknott on 247.6
 
-Is there a some plan to backport one of these two versions=C2=A0 of system=
-d to dunfell ?
 
-We can create patch for backport to dunfell if this kind of version change=
- is acceptable by dunfell LTS rules.
 
-Thanks a lot
-
-Milan
-
---_000_AM0PR04MB4804A80F5E94384602603C60E2F29AM0PR04MB4804eurp_
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">Hi all,</span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">&nbsp;</span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">I hope this isn't inappropr=
-iate for the list Current poky dunfell LTS is using systemd stable version =
-244.5.</span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">In same time, master is on =
-249.1 and hardknott on 247.6</span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">&nbsp;</span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">Is there a some plan to bac=
-kport one of these two versions&nbsp; of systemd to dunfell ?</span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">We can create patch for bac=
-kport to dunfell if this kind of version change is acceptable by dunfell LT=
-S rules.</span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">&nbsp;</span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">Thanks a lot</span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">Milan</span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">&nbsp;</span></p>
+<div style=3D"overflow-wrap: break-word;" lang=3D"FR">
+<div class=3D"gmail-m_6538793047482836571WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p=
+>
+<p class=3D"gmail-m_6538793047482836571MsoPlainText"><span lang=3D"EN-US">=
+Hi all,<u></u><u></u></span></p>
+<p class=3D"gmail-m_6538793047482836571MsoPlainText"><span lang=3D"EN-US">=
+<u></u>=C2=A0<u></u></span></p>
+<p class=3D"gmail-m_6538793047482836571MsoPlainText"><span lang=3D"EN-US">=
+I hope this isn&#39;t inappropriate for the list Current poky dunfell LTS i=
+s using systemd stable version 244.5.<u></u><u></u></span></p>
+<p class=3D"gmail-m_6538793047482836571MsoPlainText"><span lang=3D"EN-US">=
+In same time, master is on 249.1 and hardknott on 247.6<u></u><u></u></span=
+></p>
+<p class=3D"gmail-m_6538793047482836571MsoPlainText"><span lang=3D"EN-US">=
+<u></u>=C2=A0<u></u></span></p>
+<p class=3D"gmail-m_6538793047482836571MsoPlainText"><span lang=3D"EN-US">=
+Is there a some plan to backport one of these two versions=C2=A0 of systemd=
+ to dunfell ?<u></u><u></u></span></p>
+<p class=3D"gmail-m_6538793047482836571MsoPlainText"><span lang=3D"EN-US">=
+We can create patch for backport to dunfell if this kind of version change =
+is acceptable by dunfell LTS rules.<u></u><u></u></span></p>
+<p class=3D"gmail-m_6538793047482836571MsoPlainText"><span lang=3D"EN-US">=
+<u></u>=C2=A0<u></u></span></p>
+<p class=3D"gmail-m_6538793047482836571MsoPlainText"><span lang=3D"EN-US">=
+Thanks a lot<u></u><u></u></span></p>
+<p class=3D"gmail-m_6538793047482836571MsoPlainText"><span lang=3D"EN-US">=
+Milan<u></u><u></u></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p=
+>
+<table cellspacing=3D"3" cellpadding=3D"0" border=3D"0">
+<tbody>
+<tr>
+<td style=3D"width:195pt;padding:0.75pt" width=3D"260" valign=3D"bottom">
+<p class=3D"MsoNormal" style=3D"margin-top:7.5pt"><span style=3D"font-size=
+:10.5pt;font-family:Consolas;color:rgb(87,176,105)" lang=3D"EN-GB">Milan St=
+evanovic</span><span style=3D"font-size:8pt;font-family:Consolas" lang=3D"E=
+N-GB"><br>
+<span style=3D"color:rgb(98,100,105)">OS/BSP Architect </span><br>
+<span style=3D"color:rgb(98,100,105)">DIP - Device Intelligence Platform <=
+/span><br>
+<span style=3D"color:rgb(98,100,105)">Technology</span><br>
+<span style=3D"color:rgb(98,100,105)">Schneider Electric</span><u></u><u><=
+/u></span></p>
+</td>
+<td style=3D"width:195pt;padding:0.75pt" width=3D"260" valign=3D"bottom">
+<p class=3D"MsoNormal" style=3D"margin-top:7.5pt"><span style=3D"font-size=
+:8pt;font-family:Consolas;color:rgb(87,176,105)" lang=3D"EN-GB">M=C2=A0+33 =
+(0)6 73 26 20 85</span><span style=3D"font-size:8pt;font-family:Consolas" l=
+ang=3D"EN-GB">
+<br>
+<span style=3D"color:rgb(87,176,105)">E=C2=A0=C2=A0</span></span><span sty=
+le=3D"font-size:8pt;font-family:Consolas;color:rgb(98,100,105)"><a href=3D"=
+mailto:milan.stevanovic@se.com" target=3D"_blank"><span style=3D"color:blue=
+" lang=3D"EN-GB">milan.stevanovic@se.com</span></a></span><span style=3D"fo=
+nt-size:8pt;font-family:Consolas" lang=3D"EN-GB"><u></u><u></u></span></p>
+</td>
+<td style=3D"width:135pt;padding:0.75pt" width=3D"180" valign=3D"bottom">
+<p class=3D"MsoNormal" style=3D"margin-top:7.5pt;text-align:right" align=
+=3D"right"><span style=3D"font-size:8pt;font-family:Consolas;color:rgb(98,=
+100,105)">160 Avenue des Martyrs</span><span style=3D"font-size:8pt;font-fa=
+mily:Consolas;color:rgb(98,100,105)"><br>
+38000 Grenoble<br>
+France</span><span style=3D"font-size:8pt;font-family:Consolas"><u></u><u>=
+</u></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Arial&quot;,sans-s=
+erif;display:none" lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
+<table cellspacing=3D"3" cellpadding=3D"0" border=3D"0">
+<tbody>
+<tr>
+<td style=3D"padding:0.75pt">
+<p class=3D"MsoNormal" style=3D"margin-top:3.75pt"><span><a href=3D"http:/=
+/www.schneider-electric.com/b2b/en/campaign/innovation/overview.jsp#xtor=3D=
+CS4-204-[Display]---" target=3D"_blank"><span style=3D"font-size:10.5pt;fon=
+t-family:Consolas;color:blue;text-decoration:none"><img style=3D"width: 7.2=
+916in; height: 0.8333in;" id=3D"gmail-m_6538793047482836571_x0000_i1032" sr=
+c=3D"http://www.apcmedia.com/EmailSignature/images/Banners700x80/Misc/Schne=
+ider_innovation_at_every_level_signature_banner_700x80_ok.jpg" width=3D"700=
+" height=3D"80" border=3D"0"></span></a></span><span style=3D"font-size:10.=
+5pt"><u></u><u></u></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Arial&quot;,sans-s=
+erif;display:none" lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
+<table cellspacing=3D"3" cellpadding=3D"0" border=3D"0">
+<tbody>
+<tr>
+<td style=3D"width:50%;padding:0.75pt" width=3D"50%" valign=3D"top">
+<p class=3D"MsoNormal" style=3D"margin-top:3.75pt"><span style=3D"font-siz=
+e:7pt;font-family:&quot;Arial&quot;,sans-serif;color:rgb(98,100,105)" lang=
+=3D"EN-GB">*Please consider the environment before printing this e-mail</s=
+pan><span style=3D"font-size:10.5pt;font-family:Consolas;color:rgb(98,100,1=
+05)" lang=3D"EN-GB">
+</span><span style=3D"font-size:10.5pt;color:rgb(98,100,105)" lang=3D"EN-G=
+B"><u></u><u></u></span></p>
+</td>
+<td style=3D"width:50%;padding:0.75pt" width=3D"50%" valign=3D"top">
+<p class=3D"MsoNormal" style=3D"margin-top:3.75pt;text-align:right" align=
+=3D"right"><span><a href=3D"https://www.facebook.com/SchneiderElectric" ta=
+rget=3D"_blank"><span style=3D"font-size:10.5pt;font-family:Consolas;color:=
+blue;text-decoration:none"><img style=3D"width: 0.2583in; height: 0.2583in;=
+" id=3D"gmail-m_6538793047482836571_x0000_i1031" src=3D"http://www.apcmedia=
+.com/emailsignature/images/CEO_facebook.png" alt=3D"Blog" width=3D"25" heig=
+ht=3D"25" border=3D"0"></span></a></span><span style=3D"font-size:10.5pt;fo=
+nt-family:Consolas;color:rgb(98,100,105)">=C2=A0</span><span><a href=3D"htt=
+ps://www.linkedin.com/company/schneider-electric" target=3D"_blank"><span s=
+tyle=3D"font-size:10.5pt;font-family:Consolas;color:blue;text-decoration:no=
+ne"><img style=3D"width: 0.2583in; height: 0.2583in;" id=3D"gmail-m_6538793=
+047482836571_x0000_i1030" src=3D"http://www.apcmedia.com/emailsignature/ima=
+ges/CEO_linked-in.png" alt=3D"Blog" width=3D"25" height=3D"25" border=3D"0"=
+></span></a></span><span style=3D"font-size:10.5pt;font-family:Consolas;col=
+or:rgb(98,100,105)">=C2=A0</span><span><a href=3D"http://blog.schneider-ele=
+ctric.com/" target=3D"_blank"><span style=3D"font-size:10.5pt;font-family:C=
+onsolas;color:blue;text-decoration:none"><img style=3D"width: 0.2583in; hei=
+ght: 0.2583in;" id=3D"gmail-m_6538793047482836571_x0000_i1029" src=3D"http:=
+//www.apcmedia.com/emailsignature/images/CEO_Blog.png" alt=3D"Blog" width=
+=3D"25" height=3D"25" border=3D"0"></span></a></span><span style=3D"font-s=
+ize:10.5pt;font-family:Consolas;color:rgb(98,100,105)">=C2=A0</span><span><=
+a href=3D"https://www.twitter.com/SchneiderElec" target=3D"_blank"><span st=
+yle=3D"font-size:10.5pt;font-family:Consolas;color:blue;text-decoration:non=
+e"><img style=3D"width: 0.2583in; height: 0.2583in;" id=3D"gmail-m_65387930=
+47482836571_x0000_i1028" src=3D"http://www.apcmedia.com/emailsignature/imag=
+es/CEO_twitter.png" alt=3D"Blog" width=3D"25" height=3D"25" border=3D"0"></=
+span></a></span><span style=3D"font-size:10.5pt;font-family:Consolas;color:=
+rgb(98,100,105)">=C2=A0</span><span><a href=3D"https://www.youtube.com/schn=
+eidercorporate" target=3D"_blank"><span style=3D"font-size:10.5pt;font-fami=
+ly:Consolas;color:blue;text-decoration:none"><img style=3D"width: 0.2583in;=
+ height: 0.2583in;" id=3D"gmail-m_6538793047482836571_x0000_i1027" src=3D"h=
+ttp://www.apcmedia.com/emailsignature/images/CEO_YouTube.png" alt=3D"Blog" =
+width=3D"25" height=3D"25" border=3D"0"></span></a></span><span style=3D"fo=
+nt-size:10.5pt;font-family:Consolas;color:rgb(98,100,105)">=C2=A0</span><sp=
+an><a href=3D"https://plus.google.com/+schneiderelectric" target=3D"_blank"=
+><span style=3D"font-size:10.5pt;font-family:Consolas;color:blue;text-decor=
+ation:none"><img style=3D"width: 0.2583in; height: 0.2583in;" id=3D"gmail-m=
+_6538793047482836571_x0000_i1026" src=3D"http://www.apcmedia.com/emailsigna=
+ture/images/CEO_Google.png" alt=3D"Blog" width=3D"25" height=3D"25" border=
+=3D"0"></span></a></span><span style=3D"font-size:10.5pt;font-family:Conso=
+las;color:rgb(98,100,105)">=C2=A0</span><span><a href=3D"https://instagram.=
+com/schneiderelectric" target=3D"_blank"><span style=3D"font-size:10.5pt;fo=
+nt-family:Consolas;color:blue;text-decoration:none"><img style=3D"width: 0.=
+2583in; height: 0.2583in;" id=3D"gmail-m_6538793047482836571_x0000_i1025" s=
+rc=3D"http://www.apcmedia.com/emailsignature/images/CEO_Instagram.png" alt=
+=3D"Blog" width=3D"25" height=3D"25" border=3D"0"></span></a></span><span =
+style=3D"font-size:10.5pt;font-family:Consolas;color:rgb(98,100,105)">=C2=
+=A0
+</span><span style=3D"font-size:10.5pt;font-family:Consolas;color:rgb(98,1=
+00,105)"><u></u><u></u></span></p>
+</td>
+</tr>
+<tr>
+<td colspan=3D"2" style=3D"padding:0.75pt" valign=3D"bottom"></td>
+</tr>
+</tbody>
+</table>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p=
+>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p=
+>
+<br>
+<p style=3D"margin:0px" align=3D"Center"><span style=3D"font-size:6pt;font=
+-family:Arial;color:rgb(98,100,105)">Internal</span></p>
+</div>
 </div>
 
---_000_AM0PR04MB4804A80F5E94384602603C60E2F29AM0PR04MB4804eurp_--
+<br>
+<br>
+<br>
+</blockquote></div>
+
+--000000000000e28d8a05c8cfaccb--
