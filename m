@@ -1,233 +1,177 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
- by mx.groups.io with SMTP id smtpd.web08.2164.1629827175331841520
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com (EUR01-HE1-obe.outbound.protection.outlook.com [40.92.65.79])
+ by mx.groups.io with SMTP id smtpd.web08.3325.1629831617731774284
  for <poky@lists.yoctoproject.org>;
- Tue, 24 Aug 2021 10:46:15 -0700
+ Tue, 24 Aug 2021 12:00:19 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20161025 header.b=gKXlGy+P;
- spf=pass (domain: gmail.com, ip: 209.85.208.41, mailfrom: martin.jansa@gmail.com)
-Received: by mail-ed1-f41.google.com with SMTP id g21so32908699edw.4
-        for <poky@lists.yoctoproject.org>; Tue, 24 Aug 2021 10:46:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=85VgJc2ApRxZvXscQW+OIwWVAiI5VBwPOlKcVj9TPYI=;
-        b=gKXlGy+PZilZbT+MkVP/+E7rFa4dIpOvFncrKe+KpWrrFoxNVjsT/Iz2QRxIqUFPsf
-         cnXtKAccLWsG/Eyh5IoK1sTN95Ex5Gt8ufs8mvradTAQI4v9JZf1RaAqwfqxC435qVUG
-         7LN1C3vVt8Rl2Q7mMJa7CrR370yqkih55MJIImW4h76158oHib4WRankIyHu1Piyo7Z6
-         XwluL97SxD/7u3kNqUPr6Mvvb0qHPMoG5EcF+pMH2Gma7iAa/pvVVJ1nQsL6xhbT+LFY
-         MbxXFei0UfeJVh4OVF9Rz4Cazy6PpE48qVfzAetDk0wQa0aaLoSW2Fi9UUZPtio92OQI
-         rxig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=85VgJc2ApRxZvXscQW+OIwWVAiI5VBwPOlKcVj9TPYI=;
-        b=A02+KOOKlMUbSN3dOD2LMOBE27xWKmdPeSJU8UKRnMBdZIRuuTOsJWdDL8sSNBzsO0
-         cFGMmDeFzBav1dmMqwttObEouiPXyH0COioWixxvFK1rdtXsIRB/NvL9xrxbMgxNkCHK
-         iSZ1TQ/d3r3tX07kjlNNAWvpJ6D20YOwWU7AjsYnJj9y9BuBMQLs5R+l/peBftHXO7dE
-         TkAebnXHTMh9PWuWmxtSdV7hCySTLqc4mFgTG19Dfqx4DPPniZywtFe+FfGhoxVpqoVe
-         GnGa5yn5Xngc56WoAjw7N8gmagIgjZluMsMyN8oM3Fj/ssPsE+mzPb0BjcOV3Wq+zJR8
-         FE/A==
-X-Gm-Message-State: AOAM5303kOjboB5rYsJ6M4KCyI9Mc0qPcSZHIUAhbF9AWPcGi5JJ0knj
-	oBgDfQXQvLs2mKdZJGRKqAHtiQsLt0LrUDZPkqY=
-X-Google-Smtp-Source: ABdhPJxZVvl50PnYFpYK17mG9sxAfPzErxssUaU57LjEhH7kYLihBkNOSnWXVivXaCOjJgiHg6vmOTICapsqzrN7Mow=
-X-Received: by 2002:a05:6402:c9:: with SMTP id i9mr43730693edu.76.1629827173761;
- Tue, 24 Aug 2021 10:46:13 -0700 (PDT)
+ dkim=pass header.i=@outlook.com header.s=selector1 header.b=MHAQ6EtR;
+ spf=pass (domain: outlook.com, ip: 40.92.65.79, mailfrom: asfakr@outlook.com)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=by6h/xG2c6VWFwmh5UcCQzJsPtTTRRlAEPEHSFdRUoS0nImTnRK27Wr+K+XFhq245BIhJQyLfH8taLRzJhOH3IKtu6ZDteMURvoCgFSOxtsqH9TOEfT25gr9D9/b4uyxP6ghgWtzbEP/aOya10ESHVT7x94n2XelMQRrfWBxjUd6bCQ55cL5kWVoJMGedAK13ey8yzAbv5fPqCuKFwqw3dg7o0lsTZIiOMhtxQQg1IPLxep63Yy1KqVbpzDIHXuMOyZPSFgcK46qxrPZr8Q1yPNM+JHvDlCiY+ZWqZOqdCvrtnZHkwOpv0PnibwLpjL+BFaozOSrapqWZfvAnDY1cA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xqGgnTDjdxF8i9STy+2q0G1BLUTzGIVEWYX0LYHqTeA=;
+ b=DvVusebTKSI3fnu+Zc6xcaGrAyp9Lse2lq/T/h+1l4UIQa2azcAuHrEyC0laiZ5ch93cbfzohZ1iGAFxMUoUhuG2njKDEvuXewhny4wW1Y33PtLZCTzL1kMJSU2lf0uiNRoD/j8P1G8zezTZ/lFLOdnBQp6y2383r504IG9TaVEEFKeDLOKP+5Ne7Ws1e5T4OZQlodv13DFwY3JmNVI74+2kb9XzetC64vZc+AHpDGbtkMpZNfUSaUCkCUT3x1HDHRRNUVdX//hT/kKaTOsGtG3Qx+merfFBd8pD9xdO0AbIcamT8CzzrHIXwwlXTZ5FOKSyJMMnDZ5FTWH/sXW75A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xqGgnTDjdxF8i9STy+2q0G1BLUTzGIVEWYX0LYHqTeA=;
+ b=MHAQ6EtRqwe44Tb62vJ2V+caQxebbayoCAN7Uz/iF2D02EuHM+16kTXSJ9Z4fjEs70kBYzNxU/bxsc3pp/hGKNWbqYWpHWWT4Gl6YSjsGrNpOR6jRaKzJFr8kFIiA4A0TXfOoY43vgl+uQg6zJTq7gwoyEKhHYOgLSqDXcM0VCgS6QDiHXCQPWWeEp/MBblzkJuYYo0DJHgswC9TMx3JQCDUbZTBUtlrLry2w6p6/uEQP+3x6JcZEeh4BPCfWD1EHCzVd03AeyA0wG798vsK07NTYxaHnEh+prqiAYdnyhHuJu5kW057gIditvlkeS2eOLW+o/a01W8HLLt1kNB4XA==
+Received: from DB7PR08MB3595.eurprd08.prod.outlook.com (2603:10a6:10:40::14)
+ by DB9PR08MB6476.eurprd08.prod.outlook.com (2603:10a6:10:258::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.19; Tue, 24 Aug
+ 2021 19:00:14 +0000
+Received: from DB7PR08MB3595.eurprd08.prod.outlook.com
+ ([fe80::6cc2:10c3:3d56:74ec]) by DB7PR08MB3595.eurprd08.prod.outlook.com
+ ([fe80::6cc2:10c3:3d56:74ec%5]) with mapi id 15.20.4436.025; Tue, 24 Aug 2021
+ 19:00:14 +0000
+From: "Asfak Rahman" <asfakr@outlook.com>
+To: Christopher Larson <kergoth@gmail.com>
+CC: poky <poky@lists.yoctoproject.org>
+Subject: Re: [poky] [PATCH] initscripts: optimize read-only-hook.sh for performance
+Thread-Topic: [poky] [PATCH] initscripts: optimize read-only-hook.sh for
+ performance
+Thread-Index: AQHXmGF+d2Om3tLz4E+9Rj/EW/fru6uBn3OAgAFkCyI=
+Date: Tue, 24 Aug 2021 19:00:14 +0000
+Message-ID: 
+ <DB7PR08MB3595F34330D082CC8A93192BD0C59@DB7PR08MB3595.eurprd08.prod.outlook.com>
+References: 
+ <DB7PR08MB35959836F4FC5178A8713A4AD0C49@DB7PR08MB3595.eurprd08.prod.outlook.com>
+ <CABcZANm-FFUeHecyZ3j=+XAKaSM9zEuBzyUrQeyL2JibDzUpKg@mail.gmail.com>
+In-Reply-To: 
+ <CABcZANm-FFUeHecyZ3j=+XAKaSM9zEuBzyUrQeyL2JibDzUpKg@mail.gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-tmn: [vYo+RuaRZ+49ff/viAEUQve3JPVxOduK]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 934e8bff-ac91-43eb-afda-08d967316804
+x-ms-traffictypediagnostic: DB9PR08MB6476:
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ Lhgj9rRdcn1tBxMSxZf79xRTRq9cDhvadKWSpiSWghqKgSlKgcmawdqNJ4dbziWig5+GT4C5z2wg2NFiBXLDWJ1EN82IctAwiF8xhXfrURA6YbaIecgi82nMBKZjvKAw0pRmQb+Nk37stb7bqNJYyP9gV8I+IUBuxERboZA0G6RePbsUKZQ/j7pJstOgN2fUg2DGrTKndauS2ZxyYx/IfNh5eJhlLGBoOqwPnSjSAslbtbymUjDrrEQFtsSR5DYgr4C5b5D8NniDEIluxA4kSg84KRHep5Op+Lg42tJCyt7poehvj/dBuo1TQ36U6GdvLYabsWrUcjJIl67GOTk8S0jhnN8YWmT0ErY9X+sD5KwidLZzRBFTIG4XQ6DVvLpc8tqI4KhcGf409VlVqiXPjMEcRdJoc61PqDIsd5p079YPo5cxBbjX1nMlKxlclwwD9LnJUgBhqLb+qDWO7dN6W18XnOHYGMHOzaIq+7afyQ8=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ rUXr3cSBnNdDiYt9OziE4QL0Xe/Zmjjseyjo42O9kuyDcPW2gjzywXsgyzq8SAu5nBjHHopX97G9u8OSrwEXOs0p2Ra/KvwVBmoe+H7We8uGBb0sAjcYwFhH1kIeeUZIXq06qxJmX1eCqIlGxAXHQQ==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-References: <CAMRWY0Hp0uUmLOHp9awqECmBr4FZ9tGYwacKbtJ73w+FuFQMhQ@mail.gmail.com>
-In-Reply-To: <CAMRWY0Hp0uUmLOHp9awqECmBr4FZ9tGYwacKbtJ73w+FuFQMhQ@mail.gmail.com>
-From: "Martin Jansa" <Martin.Jansa@gmail.com>
-Date: Tue, 24 Aug 2021 19:46:02 +0200
-Message-ID: <CA+chaQfwFsndczv7vpPZ+ia6r3b4k3_W6=28qzDoenQCUj280A@mail.gmail.com>
-Subject: Re: [poky] pkgconfig-native configure fail
-To: Aaron Brice <aaron.brice@nikolamotor.com>
-Cc: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="000000000000bcc65605ca51b5d0"
-
---000000000000bcc65605ca51b5d0
-Content-Type: text/plain; charset="UTF-8"
-
-See https://bugzilla.yoctoproject.org/show_bug.cgi?id=14519 with an work
-around.
-
-On Tue, Aug 24, 2021 at 7:37 PM Aaron Brice <aaron.brice@nikolamotor.com>
-wrote:
-
-> Upgrading from gatesgarth to latest poky master branch today.  I'm running
-> into an error with pkgconfig-native, where it can't find
-> pthread_create/join when configuring glib:
->
-> | checking for thread implementation... posix
-> | checking thread related cflags... -D_REENTRANT
-> | checking for pthread_create/pthread_join... no
-> | checking for pthread_create/pthread_join in -lpthread... no
-> | checking for pthread_create/pthread_join in -lpthread32... no
-> | checking for pthread_create/pthread_join in -lpthreads... no
-> | checking for pthread_create/pthread_join in -lthread... no
-> | configure: error: I can't find the libraries for the thread
-> implementation
-> |                  posix. Please choose another thread implementation or
-> |                   provide information on your thread implementation.
-> | configure: error: ../../git/glib/configure failed for glib
-> | WARNING:
-> /var/tmp/yocto/work/x86_64-linux/pkgconfig-native/0.29.2+gitAUTOINC+edf8e6f0ea-r0/temp/run.do_configure.107:283
-> exit 1 from 'exit 1'
-> | WARNING: Backtrace (BB generated script):
-> |       #1: bbfatal_log,
-> /var/tmp/yocto/work/x86_64-linux/pkgconfig-native/0.29.2+gitAUTOINC+edf8e6f0ea-r0/temp/run.do_configure.107,
-> line 283
-> |       #2: oe_runconf,
-> /var/tmp/yocto/work/x86_64-linux/pkgconfig-native/0.29.2+gitAUTOINC+edf8e6f0ea-r0/temp/run.do_configure.107,
-> line 259
-> |       #3: autotools_do_configure,
-> /var/tmp/yocto/work/x86_64-linux/pkgconfig-native/0.29.2+gitAUTOINC+edf8e6f0ea-r0/temp/run.do_configure.107,
-> line 229
-> |       #4: do_configure,
-> /var/tmp/yocto/work/x86_64-linux/pkgconfig-native/0.29.2+gitAUTOINC+edf8e6f0ea-r0/temp/run.do_configure.107,
-> line 149
-> |       #5: main,
-> /var/tmp/yocto/work/x86_64-linux/pkgconfig-native/0.29.2+gitAUTOINC+edf8e6f0ea-r0/temp/run.do_configure.107,
-> line 287
-> |
->
-> Building out of an Ubuntu 20.04 docker container that was building
-> gatesgarth ok.  Any ideas why I might be having pthread issues now?
->
-> Thanks,
-> --
->
-> *Aaron Brice*
-> aaron.brice@nikolamotor.com
->
-> [image: Nikola Logo] <https://www.nikolamotor.com>
->
-> *Nikola Corporation* | www.nikolamotor.com <https://nikolamotor.com/>
-> 4141 E Broadway Rd | Phoenix | AZ | 85040
-> <https://goo.gl/maps/bKfEzApeDMErgi4e7>
->
->
-> INFORMATION CONTAINED IN THIS E-MAIL TRANSMISSION IS  CONFIDENTIAL. IF
-> YOU ARE NOT THE INTENDED RECIPIENT, DO NOT READ, DISTRIBUTE OR REPRODUCE
-> THIS TRANSMISSION (INCLUDING ANY ATTACHMENTS). IF YOU HAVE RECEIVED THIS
-> E-MAIL IN ERROR, PLEASE NOTIFY THE SENDER BY E-MAIL REPLY AND THEN DELETE
-> THIS E-MAIL.
->
-> 
->
->
-
---000000000000bcc65605ca51b5d0
-Content-Type: text/html; charset="UTF-8"
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB7PR08MB3595.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 934e8bff-ac91-43eb-afda-08d967316804
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Aug 2021 19:00:14.5042
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6476
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">See=C2=A0<a href=3D"https://bugzilla.yoctoproject.org/show=
-_bug.cgi?id=3D14519">https://bugzilla.yoctoproject.org/show_bug.cgi?id=3D14=
-519</a> with an work around.</div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Tue, Aug 24, 2021 at 7:37 PM Aaron Brice &=
-lt;<a href=3D"mailto:aaron.brice@nikolamotor.com">aaron.brice@nikolamotor.c=
-om</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
-"><div dir=3D"ltr">Upgrading from gatesgarth to latest poky master branch t=
-oday.=C2=A0 I&#39;m running into an error with pkgconfig-native, where it c=
-an&#39;t find pthread_create/join when configuring glib:<div><br></div><div=
->| checking for thread implementation... posix<br>| checking thread related=
- cflags... -D_REENTRANT<br>| checking for pthread_create/pthread_join... no=
-<br>| checking for pthread_create/pthread_join in -lpthread... no<br>| chec=
-king for pthread_create/pthread_join in -lpthread32... no<br>| checking for=
- pthread_create/pthread_join in -lpthreads... no<br>| checking for pthread_=
-create/pthread_join in -lthread... no<br>| configure: error: I can&#39;t fi=
-nd the libraries for the thread implementation<br>| =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0posix. Please choose another threa=
-d implementation or<br>| =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 provide information on your thread implementation.<br>| confi=
-gure: error: ../../git/glib/configure failed for glib<br>| WARNING: /var/tm=
-p/yocto/work/x86_64-linux/pkgconfig-native/0.29.2+gitAUTOINC+edf8e6f0ea-r0/=
-temp/run.do_configure.107:283 exit 1 from &#39;exit 1&#39;<br>| WARNING: Ba=
-cktrace (BB generated script):<br>| =C2=A0 =C2=A0 =C2=A0 #1: bbfatal_log, /=
-var/tmp/yocto/work/x86_64-linux/pkgconfig-native/0.29.2+gitAUTOINC+edf8e6f0=
-ea-r0/temp/run.do_configure.107, line 283<br>| =C2=A0 =C2=A0 =C2=A0 #2: oe_=
-runconf, /var/tmp/yocto/work/x86_64-linux/pkgconfig-native/0.29.2+gitAUTOIN=
-C+edf8e6f0ea-r0/temp/run.do_configure.107, line 259<br>| =C2=A0 =C2=A0 =C2=
-=A0 #3: autotools_do_configure, /var/tmp/yocto/work/x86_64-linux/pkgconfig-=
-native/0.29.2+gitAUTOINC+edf8e6f0ea-r0/temp/run.do_configure.107, line 229<=
-br>| =C2=A0 =C2=A0 =C2=A0 #4: do_configure, /var/tmp/yocto/work/x86_64-linu=
-x/pkgconfig-native/0.29.2+gitAUTOINC+edf8e6f0ea-r0/temp/run.do_configure.10=
-7, line 149<br>| =C2=A0 =C2=A0 =C2=A0 #5: main, /var/tmp/yocto/work/x86_64-=
-linux/pkgconfig-native/0.29.2+gitAUTOINC+edf8e6f0ea-r0/temp/run.do_configur=
-e.107, line 287<br>| <br><div><br></div><div>Building out of an Ubuntu 20.0=
-4 docker container that was building gatesgarth ok.=C2=A0 Any ideas why I m=
-ight be having pthread issues now?</div><div><br></div><div>Thanks,</div>--=
- <br><div dir=3D"ltr"><div style=3D"font-family:arial,helvetica,sans-serif;=
-font-size:small"><br>
-<span style=3D"font-size:13px"><span style=3D"font-family:arial,helvetica,s=
-ans-serif"><strong>Aaron=C2=A0Brice</strong></span></span></div>
+Yes, the new patch does not cover checking '/var'.
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small"><span=
- style=3D"font-size:12px"><em><span style=3D"color:rgb(169,169,169)"><span =
-style=3D"font-family:arial,helvetica,sans-serif"></span></span></em></span>=
-</div>
+In case, /var and /var/lib entries were not found in /proc/mounts, the orig=
+inal logic checks Root directory also.  The Root directory should not be ch=
+ecked as that should be covered by ROOTFS_READ_ONLY variable. May be the ea=
+siest way would be to try to change the access time of /var/lib (ex. touch =
+-a /var/lib) and that will determine if /var/lib is mounted as read-only or=
+ not.
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small"><a hr=
-ef=3D"mailto:aaron.brice@nikolamotor.com" target=3D"_blank"><span style=3D"=
-color:rgb(0,174,255)">aaron.brice@nikolamotor.com</span></a></div>
+I can prepare a new patch if agreed.
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small">=C2=
-=A0</div>
+BR,
+Asfak Rahman
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small"><a hr=
-ef=3D"https://www.nikolamotor.com" target=3D"_blank"><img alt=3D"Nikola Log=
-o" height=3D"58" src=3D"https://storage.googleapis.com/signaturesatori/cust=
-omer-C0270szk7/images/FJzDB.png" width=3D"250"></a></div>
+________________________________________
+From: Christopher Larson <kergoth@gmail.com>
+Sent: Tuesday, August 24, 2021 00:44
+To: Asfak Rahman
+Cc: poky
+Subject: Re: [poky] [PATCH] initscripts: optimize read-only-hook.sh for per=
+formance
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small">=C2=
-=A0</div>
+This looks flawed. The original logic handled cases like '/var' being rw, e=
+tc, whereas the new logic only handles '/var/lib' itself only being writabl=
+e. Are we certain all possible configurations are being handled here?
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small">
-<div>
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small;backgr=
-ound-color:rgb(255,255,255)"><span style=3D"font-size:12px"><span style=3D"=
-color:rgb(204,204,204)"><span style=3D"font-family:arial,helvetica,sans-ser=
-if"><span style=3D"font-family:roboto;color:rgb(0,0,0);background-color:tra=
-nsparent;vertical-align:baseline;white-space:pre-wrap"><b>Nikola Corporatio=
-n</b> | </span></span></span><a href=3D"https://nikolamotor.com/" style=3D"=
-color:rgb(17,85,204)" target=3D"_blank"><span style=3D"font-family:roboto;c=
-olor:rgb(0,174,239);background-color:transparent;vertical-align:baseline;wh=
-ite-space:pre-wrap">www.nikolamotor.com</span></a></span></div>
+On Mon, Aug 23, 2021 at 1:57 PM Asfak Rahman <asfakr@outlook.com<mailto:asf=
+akr@outlook.com>> wrote:
+The current script runs multiple iterations to determine
+if /var/lib is mounted on a writable partition. Optimize
+the script for faster bootup time.
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small;backgr=
-ound-color:rgb(255,255,255)"><span style=3D"font-size:12px"><a href=3D"http=
-s://goo.gl/maps/bKfEzApeDMErgi4e7" style=3D"color:rgb(17,85,204)" target=3D=
-"_blank"><span style=3D"font-family:roboto;color:rgb(0,174,239);background-=
-color:transparent;vertical-align:baseline;white-space:pre-wrap">4141 E Broa=
-dway Rd | Phoenix | AZ | 85040</span></a></span></div>
-</div>
-</div>
+Signed-off-by: Asfak Rahman <asfakr@outlook.com<mailto:asfakr@outlook.com>>
+---
+ .../initscripts-1.0/read-only-rootfs-hook.sh  | 27 ++-----------------
+ 1 file changed, 2 insertions(+), 25 deletions(-)
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small">=C2=
-=A0</div>
+diff --git a/meta/recipes-core/initscripts/initscripts-1.0/read-only-rootfs=
+-hook.sh b/meta/recipes-core/initscripts/initscripts-1.0/read-only-rootfs-h=
+ook.sh
+index bd445ddb07..8c0cf32d0b 100644
+--- a/meta/recipes-core/initscripts/initscripts-1.0/read-only-rootfs-hook.s=
+h
++++ b/meta/recipes-core/initscripts/initscripts-1.0/read-only-rootfs-hook.s=
+h
+@@ -4,31 +4,9 @@
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small">=C2=
-=A0</div>
+ [ "$ROOTFS_READ_ONLY" =3D "no" ] && exit 0
 
-<div style=3D"font-family:arial,helvetica,sans-serif;font-size:small"><span=
- style=3D"color:rgb(153,153,153)"><span style=3D"font-size:12px">I</span><s=
-pan style=3D"font-size:8pt">NFORMATION CONTAINED IN THIS E-MAIL TRANSMISSIO=
-N IS=C2=A0 CONFIDENTIAL. IF YOU ARE NOT THE INTENDED RECIPIENT, DO NOT READ=
-, DISTRIBUTE OR REPRODUCE THIS TRANSMISSION (INCLUDING ANY ATTACHMENTS). IF=
- YOU HAVE RECEIVED THIS E-MAIL IN ERROR, PLEASE NOTIFY THE SENDER BY E-MAIL=
- REPLY AND THEN DELETE THIS E-MAIL. </span></span></div>
-</div><input name=3D"virtru-metadata" type=3D"hidden" value=3D"{&quot;email=
--policy&quot;:{&quot;state&quot;:&quot;closed&quot;,&quot;expirationUnit&qu=
-ot;:&quot;days&quot;,&quot;disableCopyPaste&quot;:false,&quot;disablePrint&=
-quot;:false,&quot;disableForwarding&quot;:false,&quot;enableNoauth&quot;:fa=
-lse,&quot;persistentProtection&quot;:false,&quot;expandedWatermarking&quot;=
-:false,&quot;expires&quot;:false,&quot;isManaged&quot;:false},&quot;attachm=
-ents&quot;:{},&quot;compose-id&quot;:&quot;1&quot;,&quot;compose-window&quo=
-t;:{&quot;secure&quot;:false}}"></div></div>
-<br>
-<br>
-<br>
-</blockquote></div>
+-is_on_read_only_partition () {
+-       DIRECTORY=3D$1
+-       dir=3D`readlink -f $DIRECTORY`
+-       while true; do
+-               if [ ! -d "$dir" ]; then
+-                       echo "ERROR: $dir is not a directory"
+-                       exit 1
+-               else
+-                       for flag in `awk -v dir=3D$dir '{ if ($2 =3D=3D dir=
+) { print "FOUND"; split($4,FLAGS,",") } }; \
+-                               END { for (f in FLAGS) print FLAGS[f] }' < =
+/proc/mounts`; do
+-                               [ "$flag" =3D "FOUND" ] && partition=3D"rea=
+d-write"
+-                               [ "$flag" =3D "ro" ] && { partition=3D"read=
+-only"; break; }
+-                       done
+-                       if [ "$dir" =3D "/" -o -n "$partition" ]; then
+-                               break
+-                       else
+-                               dir=3D`dirname $dir`
+-                       fi
+-               fi
+-       done
+-       [ "$partition" =3D "read-only" ] && echo "yes" || echo "no"
+-}
+-
+ if [ "$1" =3D "start" ] ; then
+-       if [ `is_on_read_only_partition /var/lib` =3D "yes" ]; then
++       # check that /var/lib is not mounted on a writable partition
++       if [ -z "`sed -n '/\/var\/lib .* rw/p' /proc/mounts`" ]; then
+                grep -q "tmpfs /var/volatile" /proc/mounts || mount /var/vo=
+latile
+                mkdir -p /var/volatile/lib
+                mkdir -p /var/volatile/.lib-work
+@@ -40,4 +18,3 @@ if [ "$1" =3D "start" ] ; then
+                fi
+        fi
+ fi
+-
+--
+2.17.1
 
---000000000000bcc65605ca51b5d0--
+
+
+
+
+
+--
+Christopher Larson
+kergoth at gmail dot com
+Founder - BitBake, OpenEmbedded, OpenZaurus
+Senior Software Engineer, Mentor Graphics
