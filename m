@@ -1,29 +1,31 @@
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- by mx.groups.io with SMTP id smtpd.web12.34215.1629999164206739516
+Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
+ by mx.groups.io with SMTP id smtpd.web10.34318.1629999167918164977
  for <poky@lists.yoctoproject.org>;
- Thu, 26 Aug 2021 10:32:45 -0700
+ Thu, 26 Aug 2021 10:32:48 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@axis.com header.s=axis-central1 header.b=lopgDXUL;
- spf=pass (domain: axis.com, ip: 195.60.68.18, mailfrom: peter.kjellerstedt@axis.com)
+ dkim=pass header.i=@axis.com header.s=axis-central1 header.b=HOTB8ZUV;
+ spf=pass (domain: axis.com, ip: 195.60.68.17, mailfrom: peter.kjellerstedt@axis.com)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=axis.com; q=dns/txt; s=axis-central1; t=1629999164;
-  x=1661535164;
-  h=from:to:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=Kh5Vqlbajew1eJka/rQR2VTocQrtD+wMusQ+cUQuRqc=;
-  b=lopgDXULkPe70Try0wn4bQMlTJimY3qKW/v+btAXrCn7OqwJpFq5doKG
-   NBQ0SRwCnZzhfvkwjL9J0IiTejeX4RNkIfDAgToDXzXotlS0E7Ke9gCFX
-   9l/ulAUebJZxaPcM0QfYvXOSXoDTxcSJTzgkehDnLIGUvJFogAm4jSRHJ
-   7RQ4WpWH5cjLPxADLkSzWmWticf0sMW5hYITXrHo/OQxZJFTu6TMgHo5r
-   SabzV8rhPACK8HixKPmGyPmTk4Zs9TY3g7an2NELuUBVcDjWQrXNmOJE3
-   CekfbPg4ANTFB1RocqtE0v9KV1djHxafVLpl5OFWjQC6ep0ysWyvl4RTn
-   Q==;
+  d=axis.com; q=dns/txt; s=axis-central1; t=1629999168;
+  x=1661535168;
+  h=from:to:subject:date:message-id:in-reply-to:references:
+   mime-version:content-transfer-encoding;
+  bh=pwBXj0uQ2LusPr5Y36TbShi5zn+BTNZ+i57pSdyQ3vA=;
+  b=HOTB8ZUV3pUHqt1HWp2URo9dQ7Uq623p8d5aUQAaIB7kjMNVP8Vabfxf
+   qPhCHAGV60QBdMnM4z2j2b7X0ZBWsqoe8lNgcWLIjwznkQyr79pQYZ11n
+   dTRabny349KxHarTD/XXMZgdZhqdJK+E+IAOxKUqGmUvbSYkuPgcrlwbh
+   C/gAUAdeRTrxhNxfYTlbs30F+Q4x57r8/nL9x58JPWe+0SIcxzb1GlVqj
+   4Y4l8HMShcYB2xxBzzlnwE7ihR1uS63fSIlPVCDANurpCbbE6+YHWZK1L
+   d6Lx2YRWTJzScI3WSWog/1nClEvnvCTAYRlCxeGLsaPX6uWWMrba5zGvn
+   A==;
 From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
 To: <poky@lists.yoctoproject.org>
-Subject: [PATCH 1/2] poky-floating-revisions.inc: Use new override syntax for commented vars
-Date: Thu, 26 Aug 2021 19:32:39 +0200
-Message-ID: <20210826173240.2085-1-pkj@axis.com>
+Subject: [PATCH 2/2] local.conf.sample: Use the new override syntax for a commented variable
+Date: Thu, 26 Aug 2021 19:32:40 +0200
+Message-ID: <20210826173240.2085-2-pkj@axis.com>
 X-Mailer: git-send-email 2.21.3
+In-Reply-To: <20210826173240.2085-1-pkj@axis.com>
+References: <20210826173240.2085-1-pkj@axis.com>
 MIME-Version: 1.0
 Return-Path: pkj@axis.com
 Content-Transfer-Encoding: 8bit
@@ -31,27 +33,19 @@ Content-Type: text/plain
 
 Signed-off-by: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
 ---
- .../conf/distro/include/poky-floating-revisions.inc    | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ meta-poky/conf/local.conf.sample | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-poky/conf/distro/include/poky-floating-revisions.inc b/meta-poky/conf/distro/include/poky-floating-revisions.inc
-index 78c9e365ec..6f473de88c 100644
---- a/meta-poky/conf/distro/include/poky-floating-revisions.inc
-+++ b/meta-poky/conf/distro/include/poky-floating-revisions.inc
-@@ -2,11 +2,11 @@
- # Package Versions for cutting edge testing:
- #
+diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
+index f1f6d690fb..75b27167f1 100644
+--- a/meta-poky/conf/local.conf.sample
++++ b/meta-poky/conf/local.conf.sample
+@@ -158,7 +158,7 @@ USER_CLASSES ?= "buildstats"
+ # run tests against any SDK that are built. To enable this uncomment these lines.
+ # See classes/test{image,sdk}.bbclass for further details.
+ #IMAGE_CLASSES += "testimage testsdk"
+-#TESTIMAGE_AUTO_qemuall = "1"
++#TESTIMAGE_AUTO:qemuall = "1"
  
--#SRCREV_pn-opkg-native ?= "${AUTOREV}"
--#SRCREV_pn-opkg-sdk ?= "${AUTOREV}"
--#SRCREV_pn-opkg ?= "${AUTOREV}"
--#SRCREV_pn-opkg-utils-native ?= "${AUTOREV}"
--#SRCREV_pn-opkg-utils ?= "${AUTOREV}"
-+#SRCREV:pn-opkg-native ?= "${AUTOREV}"
-+#SRCREV:pn-opkg-sdk ?= "${AUTOREV}"
-+#SRCREV:pn-opkg ?= "${AUTOREV}"
-+#SRCREV:pn-opkg-utils-native ?= "${AUTOREV}"
-+#SRCREV:pn-opkg-utils ?= "${AUTOREV}"
- SRCREV:pn-gconf-dbus ?= "${AUTOREV}"
- SRCREV:pn-matchbox-common ?= "${AUTOREV}"
- SRCREV:pn-matchbox-config-gtk ?= "${AUTOREV}"
+ #
+ # Interactive shell configuration
