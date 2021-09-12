@@ -1,128 +1,78 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
- by mx.groups.io with SMTP id smtpd.web09.132.1631331760620181240
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+ by mx.groups.io with SMTP id smtpd.web08.14810.1631446015061533977
  for <poky@lists.yoctoproject.org>;
- Fri, 10 Sep 2021 20:42:40 -0700
+ Sun, 12 Sep 2021 04:26:55 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=kotNoQQv;
- spf=pass (domain: gmail.com, ip: 209.85.215.169, mailfrom: jiladahe1997@gmail.com)
-Received: by mail-pg1-f169.google.com with SMTP id q68so3650159pga.9;
-        Fri, 10 Sep 2021 20:42:40 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Tf2HUumq;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.50, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f50.google.com with SMTP id i23so9946583wrb.2
+        for <poky@lists.yoctoproject.org>; Sun, 12 Sep 2021 04:26:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:to:references:from
-         :cc:in-reply-to:content-transfer-encoding;
-        bh=GM38VTq2LjspukAq0gBdC6rnr+aybiqRnRX4gWnHx9A=;
-        b=kotNoQQvYFlymyAvhkjEIg1qbK50snjtFdJ5NJ9NvHEs2p1ABglKO/dZvL7uKHtmQK
-         SOA3DQQCgAH+iJ6v+w/Omi5LG3o8AuiMPe4roGnddkP7zH902fNgR7LEt8090hN8DvdU
-         d8BgkGhDTmKyxh/Qv8K9HrK0rooeRIaPmdZBtbehGUe3yU0R/UJlVwwDX28B1noNclGg
-         oxZ6knZDaNodcKROJLFEXUBP3I9qDyRiKpmyi10CPsQogO5uNjJJQzOeMJqS7f9ZkOPl
-         uBEFQzQ15AlyG0ATXRg205XOqHaTVMs3ZyPk38kLd+KnHQJiY27pC1/Ouz6tSuwk2JNc
-         LWTg==
+        d=linuxfoundation.org; s=google;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=tVL5eRwfiGnTQm8v2dbZVfYEM7hyUa5FUyARcjEePP8=;
+        b=Tf2HUumqWg+jKSfGuawnHxRmDxl2R9htpiGyz5qHfmZ4pe6ehKxgGk+A0NnvgVSd2O
+         RiEz2aqJaEBwJ7nlak12S3osxjHtFN/spSooy7/53nB1mKB4n2sa5Ks0azxdoVNI4Yzc
+         +qrvZTyKZgCY0Uz826jDX+Qulp1JDllp5n5UY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :to:references:from:cc:in-reply-to:content-transfer-encoding;
-        bh=GM38VTq2LjspukAq0gBdC6rnr+aybiqRnRX4gWnHx9A=;
-        b=ycTlhc1WmXUxPl8x+XCcmcKp/7va4Lx0AHBaef4LGnKv2ZehuWPmY3ItUAPiVILBfw
-         ZPjhsRlr4U0J9b3y21Sb27v1sHOAUfrWHJTmcO15MPbofvEUOyBEqFxlg6MSifTGEE4q
-         ckPB3/9FNaG+6rxq3FYIwH0rz9NAFn7Nf4Hcr0vHDhtOt/B4O/0e1+5HvxM7woONJL41
-         o57RP2w56Xzgt2RRZYtx1zfdvqtGvfG4ee1WoL3CfLIovcpqu0xtLks/CRgK+NYlh7jv
-         /dAfo5dVasYgshH+3+Oqns7O9x9SWEaOVwjRb0jq+jqnfMN4jdHJYB/SdPo5/R14hXBF
-         3HpA==
-X-Gm-Message-State: AOAM530DvQg+T5k0pXD8umOb2Y9U0fcSq/+w//VoRXr7ctlXiIacic4a
-	TwzJ6D8Togsobj6SGA+2sLtIHuPMxq+XkcMy
-X-Google-Smtp-Source: ABdhPJwcc2vBiG6KWiu+1vCTc/OtuBvG+jeEzT/a0bVZPZlAzOWNita9GCAgcH+hx7bHvU3JCfpdyQ==
-X-Received: by 2002:a63:dd56:: with SMTP id g22mr864936pgj.38.1631331759728;
-        Fri, 10 Sep 2021 20:42:39 -0700 (PDT)
-Return-Path: <jiladahe1997@gmail.com>
-Received: from [127.0.0.1] (pcd453045.netvigator.com. [203.218.243.45])
-        by smtp.gmail.com with ESMTPSA id v7sm292445pjk.37.2021.09.10.20.42.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 10 Sep 2021 20:42:39 -0700 (PDT)
-Message-ID: <7ba30db0-c7db-b1c0-5243-86d5df789f17@gmail.com>
-Date: Sat, 11 Sep 2021 11:42:44 +0800
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=tVL5eRwfiGnTQm8v2dbZVfYEM7hyUa5FUyARcjEePP8=;
+        b=EUMYuEHEiWXnvepnZx/z3IER3Oa1V0oC+OpPEauELk+byKdA2/5wO9fPy7b0Y42QVd
+         WARpBFKx9cBwGpFp7MdcTDh4Lo3uvO9J7c1mZRhbFet9/WWqiiXEosNlzEyVUe9/8heN
+         NOoFQ4dhplpKygR3eopf2zAffIjWA5d0lZuggdFk69l7xerTkCB8oAnKoW1xdK+RIb+7
+         hL2BflG3Y8MwJQOBm7VPSZ0NJDPo0A5T9AlB9C6Kp1EYv86mH4R0RjPcQErZeXokKTCr
+         U1IzyhLBmxYjtvxxMFpYTezZW5hIi4jFn9BmGUDdCH+MzEVt9uaadfjKY5T0ppqvlZYd
+         Lt3w==
+X-Gm-Message-State: AOAM533AVbelDQz5/oT4MYjDHAtqYjbnKKp6WYqKlcMlY1sT4B4z476R
+	9xOUSGiePkh/0U79W7bmPHiq0eAeKmkCWmlo
+X-Google-Smtp-Source: ABdhPJwz7qYLtaSmJTCq1UoovwOeojRaGnma22KWLvk3DM+rA2zx6ysSd4EPS+OuRXIf/V3ZkwyJXA==
+X-Received: by 2002:a05:6000:1623:: with SMTP id v3mr7302054wrb.288.1631446012569;
+        Sun, 12 Sep 2021 04:26:52 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from hex.int.rpsys.net ([2001:8b0:aba:5f3c:65df:1d9c:d97e:b357])
+        by smtp.gmail.com with ESMTPSA id q10sm3834160wmq.12.2021.09.12.04.26.52
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 12 Sep 2021 04:26:52 -0700 (PDT)
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH] local.conf.sample: Update sstate mirror entry with new hash equivalence setting
+Date: Sun, 12 Sep 2021 12:26:51 +0100
+Message-Id: <20210912112651.1314891-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.1.0
-Subject: Re: [PATCH v2] bitbake/fetch2: Add a new variable 'BB_FETCH_ENV' to export Fetcher env
-To: yocto@lists.yoctoproject.org, bitbake-devel@lists.openembedded.org,
- poky@lists.yoctoproject.org, richard.purdie@linuxfoundation.org
-References: <2021082315183802113213@gmail.com>
- <92b1ba20b320376227c3003c53784de67ae01505.camel@linuxfoundation.org>
-From: "Mingrui Ren" <jiladahe1997@gmail.com>
-Cc: ross.burton@arm.com
-In-Reply-To: <92b1ba20b320376227c3003c53784de67ae01505.camel@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Richard,
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/conf/local.conf.sample | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
+diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
+index 75b27167f1d..7bdbba06b1e 100644
+--- a/meta-poky/conf/local.conf.sample
++++ b/meta-poky/conf/local.conf.sample
+@@ -221,13 +221,15 @@ BB_DISKMON_DIRS ??= "\
+ # Yocto Project SState Mirror
+ #
+ # The Yocto Project has prebuilt artefacts available for its releases, you can enable
+-# use of these by uncommenting the following line. This will mean the build uses
++# use of these by uncommenting the following lines. This will mean the build uses
+ # the network to check for artefacts at the start of builds, which does slow it down
+ # equally, it will also speed up the builds by not having to build things if they are
+ # present in the cache. It assumes you can download something faster than you can build it
+ # which will depend on your network.
++# Note: For this to work you also need hash-equivalence passthrough to the matching server
+ #
+-#SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/2.5/PATH;downloadfilename=PATH"
++#BB_HASHSERVE_UPSTREAM = "typhoon.yocto.io:8687"
++#SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/3.4/PATH;downloadfilename=PATH"
+ 
+ #
+ # Qemu configuration
+-- 
+2.32.0
 
-On 06/09/2021 17:41, Richard Purdie wrote:
-> Hi,
->
-> Thanks for the patch. This isn't ready to be merged yet though as there are some
-> issues.
->
-> On Mon, 2021-08-23 at 15:18 +0800, jiladahe1997@gmail.com wrote:
->>   # CONF_VERSION is increased each time build/conf/ changes incompatibly and is used to
->>   # track the version of this file when it was generated. This can safely be ignored if
->>   # this doesn't mean anything to you.
->> diff --git a/scripts/oe-buildenv-internal b/scripts/oe-buildenv-internal
->> index e0d920f2fc..29cb694790 100755
->> --- a/scripts/oe-buildenv-internal
->> +++ b/scripts/oe-buildenv-internal
->> @@ -111,7 +111,8 @@ HTTPS_PROXY https_proxy FTP_PROXY ftp_proxy FTPS_PROXY ftps_proxy ALL_PROXY \
->>   all_proxy NO_PROXY no_proxy SSH_AGENT_PID SSH_AUTH_SOCK BB_SRCREV_POLICY \
->>   SDKMACHINE BB_NUMBER_THREADS BB_NO_NETWORK PARALLEL_MAKE GIT_PROXY_COMMAND \
->>   SOCKS5_PASSWD SOCKS5_USER SCREENDIR STAMPS_DIR BBPATH_EXTRA BB_SETSCENE_ENFORCE \
->> -BB_LOGCONFIG"
->> +BB_LOGCONFIG HOME PATH GIT_SSH GIT_SSL_CAINFO GIT_SMART_HTTP DBUS_SESSION_BUS_ADDRESS \
->> +P4CONFIG SSL_CERT_FILE AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_DEFAULT_REGION"
->>   
->>   BB_ENV_EXTRAWHITE="$(echo $BB_ENV_EXTRAWHITE $BB_ENV_EXTRAWHITE_OE | tr ' ' '\n' | LC_ALL=C sort --unique | tr '\n' ' ')"
-> I think if you leave BB_ORIGENV handling in place, these latter changes
-> shouldn't be needed?
->
-> If you need to be able to pass extra variables into the fetcher, I think we
-> could/should add API for additions rather than allowing the whole list to be
-> customised. Without stating which problem you're solving, guessing what you
-> really need is hard though. A better description of the issue you're seeing
-> would help a lot.
->
-> Cheers,
->
-> Richard
-
-Thanks for your reply.
-
-The issue I have is that I have to pass additional variables into 
-fetcher. More specifically,
-I'm using a git:// protocol proxy tool, which requires GIT_SOCKS_PROXY 
-variable.
-
-I have made a bit more changes in this patch, I'm trying to make the 
-code'perfect'.
-But as you said, we could also add an API for adding additional 
-variables into fetcher,
-that's safe for back compatibility, but a bit more complicated for 
-furture maintainability.
-Please tell me which one you prefer.
-
-
-By the way, I found two recent commits on this issue:
-  (commit ID)
-348384135272ae7c62a11eeabcc43eddc957811f
-5dce2f3da20a14c0eb5229696561b0c5f6fce54c
-which means the variables used by fetcher may change frequently.
-
-I think it's a good a feature if we could add custom variables into 
-fetcher. For example,
-we could fetch private code by adding username or password, or we could 
-adding custom
-proxy tools.
-
-
-Thanks,
-
-Mingrui Ren
