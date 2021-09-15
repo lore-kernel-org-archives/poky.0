@@ -1,78 +1,73 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
- by mx.groups.io with SMTP id smtpd.web08.14810.1631446015061533977
+Received: from mailout4.zoneedit.com (mailout4.zoneedit.com [64.68.198.64])
+ by mx.groups.io with SMTP id smtpd.web09.11063.1631725712415700632
  for <poky@lists.yoctoproject.org>;
- Sun, 12 Sep 2021 04:26:55 -0700
+ Wed, 15 Sep 2021 10:08:32 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Tf2HUumq;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.50, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f50.google.com with SMTP id i23so9946583wrb.2
-        for <poky@lists.yoctoproject.org>; Sun, 12 Sep 2021 04:26:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=from:to:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=tVL5eRwfiGnTQm8v2dbZVfYEM7hyUa5FUyARcjEePP8=;
-        b=Tf2HUumqWg+jKSfGuawnHxRmDxl2R9htpiGyz5qHfmZ4pe6ehKxgGk+A0NnvgVSd2O
-         RiEz2aqJaEBwJ7nlak12S3osxjHtFN/spSooy7/53nB1mKB4n2sa5Ks0azxdoVNI4Yzc
-         +qrvZTyKZgCY0Uz826jDX+Qulp1JDllp5n5UY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=tVL5eRwfiGnTQm8v2dbZVfYEM7hyUa5FUyARcjEePP8=;
-        b=EUMYuEHEiWXnvepnZx/z3IER3Oa1V0oC+OpPEauELk+byKdA2/5wO9fPy7b0Y42QVd
-         WARpBFKx9cBwGpFp7MdcTDh4Lo3uvO9J7c1mZRhbFet9/WWqiiXEosNlzEyVUe9/8heN
-         NOoFQ4dhplpKygR3eopf2zAffIjWA5d0lZuggdFk69l7xerTkCB8oAnKoW1xdK+RIb+7
-         hL2BflG3Y8MwJQOBm7VPSZ0NJDPo0A5T9AlB9C6Kp1EYv86mH4R0RjPcQErZeXokKTCr
-         U1IzyhLBmxYjtvxxMFpYTezZW5hIi4jFn9BmGUDdCH+MzEVt9uaadfjKY5T0ppqvlZYd
-         Lt3w==
-X-Gm-Message-State: AOAM533AVbelDQz5/oT4MYjDHAtqYjbnKKp6WYqKlcMlY1sT4B4z476R
-	9xOUSGiePkh/0U79W7bmPHiq0eAeKmkCWmlo
-X-Google-Smtp-Source: ABdhPJwz7qYLtaSmJTCq1UoovwOeojRaGnma22KWLvk3DM+rA2zx6ysSd4EPS+OuRXIf/V3ZkwyJXA==
-X-Received: by 2002:a05:6000:1623:: with SMTP id v3mr7302054wrb.288.1631446012569;
-        Sun, 12 Sep 2021 04:26:52 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from hex.int.rpsys.net ([2001:8b0:aba:5f3c:65df:1d9c:d97e:b357])
-        by smtp.gmail.com with ESMTPSA id q10sm3834160wmq.12.2021.09.12.04.26.52
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 12 Sep 2021 04:26:52 -0700 (PDT)
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: poky@lists.yoctoproject.org
-Subject: [PATCH] local.conf.sample: Update sstate mirror entry with new hash equivalence setting
-Date: Sun, 12 Sep 2021 12:26:51 +0100
-Message-Id: <20210912112651.1314891-1-richard.purdie@linuxfoundation.org>
-X-Mailer: git-send-email 2.32.0
+ dkim=missing; spf=none, err=permanent DNS error (domain: denix.org, ip: 64.68.198.64, mailfrom: denis@denix.org)
+Received: from localhost (localhost [127.0.0.1])
+	by mailout4.zoneedit.com (Postfix) with ESMTP id 91AF340C1C;
+	Wed, 15 Sep 2021 17:08:31 +0000 (UTC)
+Received: from mailout4.zoneedit.com ([127.0.0.1])
+	by localhost (zmo14-pco.easydns.vpn [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id X6GBBDhxInYJ; Wed, 15 Sep 2021 17:08:31 +0000 (UTC)
+Received: from mail.denix.org (pool-100-15-86-127.washdc.fios.verizon.net [100.15.86.127])
+	(using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by mailout4.zoneedit.com (Postfix) with ESMTPSA id 7449140A46;
+	Wed, 15 Sep 2021 17:08:30 +0000 (UTC)
+Received: by mail.denix.org (Postfix, from userid 1000)
+	id CD03B174675; Wed, 15 Sep 2021 13:08:29 -0400 (EDT)
+Date: Wed, 15 Sep 2021 13:08:29 -0400
+From: "Denys Dmytriyenko" <denis@denix.org>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: poky@lists.yoctoproject.org
+Subject: Re: [poky] [PATCH] poky: Use SDKPATHINSTALL instead of SDKPATH
+Message-ID: <20210915170829.GG1528@denix.org>
+References: <20210730155049.3368068-1-richard.purdie@linuxfoundation.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210730155049.3368068-1-richard.purdie@linuxfoundation.org>
+User-Agent: Mutt/1.5.20 (2009-06-14)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- meta-poky/conf/local.conf.sample | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Can we get this change backported to Dunfell? Since corresponding OE-Core 
+change got picked up for Dunfell separately and now the default SDK path is 
+different from couple weeks ago...
+https://git.openembedded.org/openembedded-core/commit/?h=dunfell&id=33a5714592bf41a26fcd7e8ff595b45538082431
 
-diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
-index 75b27167f1d..7bdbba06b1e 100644
---- a/meta-poky/conf/local.conf.sample
-+++ b/meta-poky/conf/local.conf.sample
-@@ -221,13 +221,15 @@ BB_DISKMON_DIRS ??= "\
- # Yocto Project SState Mirror
- #
- # The Yocto Project has prebuilt artefacts available for its releases, you can enable
--# use of these by uncommenting the following line. This will mean the build uses
-+# use of these by uncommenting the following lines. This will mean the build uses
- # the network to check for artefacts at the start of builds, which does slow it down
- # equally, it will also speed up the builds by not having to build things if they are
- # present in the cache. It assumes you can download something faster than you can build it
- # which will depend on your network.
-+# Note: For this to work you also need hash-equivalence passthrough to the matching server
- #
--#SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/2.5/PATH;downloadfilename=PATH"
-+#BB_HASHSERVE_UPSTREAM = "typhoon.yocto.io:8687"
-+#SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/3.4/PATH;downloadfilename=PATH"
- 
- #
- # Qemu configuration
+
+On Fri, Jul 30, 2021 at 04:50:49PM +0100, Richard Purdie wrote:
+> SDKPATHINSTALL is the default installation path used for the SDK but is not
+> the path encoded into every SDK binary as the default path. This change
+> allows it to contain things like dates without requiring every nativesdk
+> recipe to rebuild.
+> 
+> Partially fixes [YOCTO #14100]
+> 
+> Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+> ---
+>  meta-poky/conf/distro/poky.conf | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+> index 8ffd805945f..c7c46cd226f 100644
+> --- a/meta-poky/conf/distro/poky.conf
+> +++ b/meta-poky/conf/distro/poky.conf
+> @@ -23,7 +23,7 @@ PREFERRED_VERSION_linux-yocto ?= "5.10%"
+>  PREFERRED_VERSION_linux-yocto-rt ?= "5.10%"
+>  
+>  SDK_NAME = "${DISTRO}-${TCLIBC}-${SDKMACHINE}-${IMAGE_BASENAME}-${TUNE_PKGARCH}-${MACHINE}"
+> -SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
+> +SDKPATHINSTALL = "/opt/${DISTRO}/${SDK_VERSION}"
+>  
+>  DISTRO_EXTRA_RDEPENDS += "${POKY_DEFAULT_EXTRA_RDEPENDS}"
+>  DISTRO_EXTRA_RRECOMMENDS += "${POKY_DEFAULT_EXTRA_RRECOMMENDS}"
+> -- 
+> 2.30.2
+> 
+
 -- 
-2.32.0
-
+Regards,
+Denys Dmytriyenko <denis@denix.org>
+PGP: 0x420902729A92C964 - https://denix.org/0x420902729A92C964
+Fingerprint: 25FC E4A5 8A72 2F69 1186  6D76 4209 0272 9A92 C964
