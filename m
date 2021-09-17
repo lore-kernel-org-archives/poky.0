@@ -1,85 +1,96 @@
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
- by mx.groups.io with SMTP id smtpd.web11.11316.1631727048927242327
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+ by mx.groups.io with SMTP id smtpd.web08.723.1631913611908019997
  for <poky@lists.yoctoproject.org>;
- Wed, 15 Sep 2021 10:30:49 -0700
+ Fri, 17 Sep 2021 14:20:12 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20150623.gappssmtp.com header.s=20150623 header.b=hNPIrDLk;
- spf=softfail (domain: sakoman.com, ip: 209.85.210.47, mailfrom: steve@sakoman.com)
-Received: by mail-ot1-f47.google.com with SMTP id m7-20020a9d4c87000000b0051875f56b95so4570129otf.6
-        for <poky@lists.yoctoproject.org>; Wed, 15 Sep 2021 10:30:48 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=kFheCzjB;
+ spf=pass (domain: gmail.com, ip: 209.85.167.51, mailfrom: jaskij@gmail.com)
+Received: by mail-lf1-f51.google.com with SMTP id z24so11927407lfu.13
+        for <poky@lists.yoctoproject.org>; Fri, 17 Sep 2021 14:20:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20150623.gappssmtp.com; s=20150623;
-        h=from:to:subject:date:message-id:in-reply-to:references:mime-version
-         :content-transfer-encoding;
-        bh=sts9XH2r3ew0UYzEweIWukqta36xl/TEusgIJVpri6E=;
-        b=hNPIrDLkbzKErWrJmj57O925VJvh9lJ3wkJyjQURaWgN0VdFyH+w2IM83LwBgBQqDF
-         8882TLTgmtRRwtN19Gb9Y4o8+qePWPlTuVFfWKveplmk/n5uWvPk4QS8zmjLA2hbtubN
-         dyI7SGv54vsPL7FrIwocHjf4BiRkW7THTSpdL0EGLwUnp3rfrLbtf0xTo9lk6rlcmnLd
-         orT6BYVk5ReeO7yYcxut3LloSyl/cCpCN5U4MiJehXw2GMifMTYzOGKNp2qqNXE7oOm6
-         PugjiFn4rIAEmwaQDLSoHcO8Wc/BwMLMU+2WaDAMwQeLHvVONekr+NHeT8yz+MNFJJn1
-         mS6Q==
+        d=gmail.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=aY4pnT/9KPlhsSvC0GGU2BRFgEzrnzYOazgfORW2Evc=;
+        b=kFheCzjBYjInS45kNmXQZ5z9AV1SSC26vNgUrqEKGrBbfzJDgDsDtLxqFpnuSmBQai
+         UmdcDYb10w6QEm9+Q7Ox682CRo8OdRjAbUyXVKREy9vcEgI6ejrZa+dGeH56Qhi6iN81
+         R7oOauJiNMEwjVjb/nQCF0x1FQ01+mV6Lbodu8wY9ZBIY2+JRBhVr7mcQbw4LxhIdq04
+         2uf0et0BjyCYW8UVHlchZtA1wdFIexK36RLrUyobGo6/Cz2Wjjd0/6irguJPcjHUpglg
+         BUt1c9D/ljLClbtsfvG+ZeB1cUxsYo7Z4iJHGnZ4Qa6YSkKrwZBvDrFNLwPbbc78PXfp
+         jtPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=sts9XH2r3ew0UYzEweIWukqta36xl/TEusgIJVpri6E=;
-        b=RNv3dxibSD1QECPCcQcoQEtYUJf95xaioMnw4vD+VHuVUjFZWczKvnF1FFohR1uNTW
-         sPgze7BoIRNKeEZevrjlWS3RCUlbnSdaZVWLHsHwxkMAe/Kaoj1I6zDNCVXP+kyJ2aRT
-         bdH/lB6cTEj6IxQP98o/BPzTptySXShjJbg7ec9abNHUS84xUcqaxL8ZsOg57XlwVBfe
-         +lmyUXt0MOIIvpt16cT7uUgKvWDfY6QC66MI7Zej6fTHkaTbuK5Dgnn66qaiW1FB6xrW
-         Wmsk0cIwuTxYCOpTs4W1TrU3cU4qPTirlPcYZ/Aaib4MQ2hgcWGzNWE6os5Xsx5t3Ids
-         qoIg==
-X-Gm-Message-State: AOAM531qJ+cW5mLn/5fObUMNzLNXxnrFxRhggZtbY1rbozkh3lj84XR9
-	uQnluoEH/0vXId6OwvXew0iNjtrmGX39GV9WdY9Kww==
-X-Google-Smtp-Source: ABdhPJwlKiTUywoz7qaq8xmymlgpDHvd96vXx4LUZWiAq6ksy30MZDWA7G0A+N4dIMHQ/fCklIm2bw==
-X-Received: by 2002:a9d:7cc3:: with SMTP id r3mr964891otn.345.1631727047521;
-        Wed, 15 Sep 2021 10:30:47 -0700 (PDT)
-Return-Path: <steve@sakoman.com>
-Received: from hexa.router0800d9.com ([172.243.4.16])
-        by smtp.gmail.com with ESMTPSA id z1sm169317ooj.25.2021.09.15.10.30.44
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 15 Sep 2021 10:30:46 -0700 (PDT)
-From: "Steve Sakoman" <steve@sakoman.com>
-To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell] poky: Use SDKPATHINSTALL instead of SDKPATH
-Date: Wed, 15 Sep 2021 07:30:23 -1000
-Message-Id: <f5c43514a8dfe6f2e8385051691fca99b4734ee0.1631726950.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1631726950.git.steve@sakoman.com>
-References: <cover.1631726950.git.steve@sakoman.com>
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=aY4pnT/9KPlhsSvC0GGU2BRFgEzrnzYOazgfORW2Evc=;
+        b=hMu1zDegdFMzlsnzcnOBmUsZpaA3mQguCicEX3Qtl+mUqlZzj1SEwvM3QdlAAFw62w
+         fAAOzRYGXFjXN5xHn19piyxhmWi7ZV5TyNlvTDazj2KhSuTFC+ZXydIa+KnUfBH5v24Z
+         cSx97QJQlejCNpttEo9UV/XrgMAtjkfdxkRuzoPKZsfXC2+JmKAPnelm0BjQEHVFfufW
+         ztwUmYEtgewxIpscyJcWgmwZP/UA8HPcZWOvWMl9blDhH1sGjNPyUjXOOhlNV8+/i+i4
+         F7U+RkSUl9OWM0FGMsNtRdS4j4KmIv+CZBblMkaGIwzjUdkVH4KiZRpax0kBWaMseu6M
+         JCtg==
+X-Gm-Message-State: AOAM533zEsogoAkbiVjPODQNl3Rmv9M5yLuu2miHWlzM2ZJPwAYIUpZ6
+	bg/3vXfm6D//Cww/x6tnQ8PZjU/4VSOuHqiMuptORC4SElk=
+X-Google-Smtp-Source: ABdhPJzYWzz2GDrhVwqLYHWEah7A2FPFzAJePdum+1kDC+atZiyS+trUWp23GhQDeHYPhM/EhhCNmV0CbfFrAkPrw/U=
+X-Received: by 2002:a2e:6f05:: with SMTP id k5mr3757918ljc.17.1631913609402;
+ Fri, 17 Sep 2021 14:20:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: jaskij@gmail.com
+Date: Fri, 17 Sep 2021 23:19:58 +0200
+Message-ID: <CAGRymWVmn2ad+kUqJKpcx=O39UGJ7809bDikC__WMrLjw52TVw@mail.gmail.com>
+Subject: Hard to read error for multiconfig starting with a number
+To: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="000000000000fe1def05cc377e1d"
 
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+--000000000000fe1def05cc377e1d
+Content-Type: text/plain; charset="UTF-8"
 
-SDKPATHINSTALL is the default installation path used for the SDK but is not
-the path encoded into every SDK binary as the default path. This change
-allows it to contain things like dates without requiring every nativesdk
-recipe to rebuild.
+When moving from Dunfell to Hardknott, I got a somewhat cryptic error
+message:
 
-Partially fixes [YOCTO #14100]
+```
+ERROR: Unable to register event handler
+'504sstate_eventhandler_stalesstate':
+Traceback (most recent call last):
+  File "/home/jaskij/yocto/layers/poky/meta/classes/sstate.bbclass", line 1
+    def 504sstate_eventhandler_stalesstate(e):
+```
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-(cherry picked from commit a62175ee581bd05661717f0fb89dad2a297b4034)
-Signed-off-by: Steve Sakoman <steve@sakoman.com>
----
- meta-poky/conf/distro/poky.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+As it turned out, one of my multiconfigs was named "504". Seems like
+there's a function declared with a name starting with my multiconfig name.
+After consulting on Matrix, RP pointed out this patch as the source:
+http://git.yoctoproject.org/cgit.cgi/poky/commit/?id=8b792d4f75b451f9e08fdb13464a0b66c11bc075
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 902861b..5b54df8 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -24,7 +24,7 @@ DISTRO_FEATURES ?= "${DISTRO_FEATURES_DEFAULT} ${POKY_DEFAULT_DISTRO_FEATURES}"
- PREFERRED_VERSION_linux-yocto ?= "5.4%"
- 
- SDK_NAME = "${DISTRO}-${TCLIBC}-${SDKMACHINE}-${IMAGE_BASENAME}-${TUNE_PKGARCH}-${MACHINE}"
--SDKPATH = "/opt/${DISTRO}/${SDK_VERSION}"
-+SDKPATHINSTALL = "/opt/${DISTRO}/${SDK_VERSION}"
- 
- DISTRO_EXTRA_RDEPENDS += " ${POKY_DEFAULT_EXTRA_RDEPENDS}"
- DISTRO_EXTRA_RRECOMMENDS += " ${POKY_DEFAULT_EXTRA_RRECOMMENDS}"
+Preferred behavior would probably be adding a check and returning a
+human-readable error earlier in the process.
+
+Jan
+
 -- 
-2.25.1
+Jan Dorniak
+e-mail:jaskij@gmail.com
 
+--000000000000fe1def05cc377e1d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>When moving from Dunfell to Hardknott, I got a somewh=
+at cryptic error message:</div><div><br></div><div>```</div><div>ERROR: Una=
+ble to register event handler &#39;504sstate_eventhandler_stalesstate&#39;:=
+<br>Traceback (most recent call last):<br>=C2=A0 File &quot;/home/jaskij/yo=
+cto/layers/poky/meta/classes/sstate.bbclass&quot;, line 1<br>=C2=A0 =C2=A0 =
+def 504sstate_eventhandler_stalesstate(e):</div><div>```</div><div><br></di=
+v><div>As it turned out, one of my multiconfigs was named &quot;504&quot;. =
+Seems like there&#39;s a function declared with a name starting with my mul=
+ticonfig name.</div><div>After consulting on Matrix, RP pointed out this pa=
+tch as the source: <a href=3D"http://git.yoctoproject.org/cgit.cgi/poky/com=
+mit/?id=3D8b792d4f75b451f9e08fdb13464a0b66c11bc075">http://git.yoctoproject=
+.org/cgit.cgi/poky/commit/?id=3D8b792d4f75b451f9e08fdb13464a0b66c11bc075</a=
+></div><div><br></div><div>Preferred behavior would probably be adding a ch=
+eck and returning a human-readable error earlier in the process.<br></div><=
+div><br></div><div>Jan<br></div><div><br>-- <br><div dir=3D"ltr" class=3D"g=
+mail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><span s=
+tyle=3D"color:rgb(102,102,102)">Jan Dorniak</span><br style=3D"color:rgb(10=
+2,102,102)"><a style=3D"color:rgb(102,102,102)" href=3D"mailto:e-mail%3Ajas=
+kij@gmail.com" target=3D"_blank">e-mail:jaskij@gmail.com</a><font color=3D"=
+#666666"><br></font><br><div></div></div></div></div></div>
+
+--000000000000fe1def05cc377e1d--
