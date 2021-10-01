@@ -1,326 +1,348 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
- by mx.groups.io with SMTP id smtpd.web09.8502.1633096374423424175
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+ by mx.groups.io with SMTP id smtpd.web11.8798.1633098005370517317
  for <poky@lists.yoctoproject.org>;
- Fri, 01 Oct 2021 06:52:54 -0700
+ Fri, 01 Oct 2021 07:20:05 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=U2WlUCyd;
- spf=pass (domain: gmail.com, ip: 209.85.128.50, mailfrom: jpewhacker@gmail.com)
-Received: by mail-wm1-f50.google.com with SMTP id s24so7293182wmh.4
-        for <poky@lists.yoctoproject.org>; Fri, 01 Oct 2021 06:52:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=L72aIZGsXoGNviDftJLjt/IYhmeL2yUjveMw9+A/xlo=;
-        b=U2WlUCydjWDu+YpgaZ3TUybUD6xzv/GmkXHoicR5D9wB9hxqOHepOGvhMq6W6hay8Q
-         DhUcPe4hG+L1CgmvFsQ87/XBWtXiw6OesHyg+U86PD9MmUkWO/NMvwRN+tOGQwyU9ngM
-         3ZRdg1oPPxMnPaHHcC8sbrdZpMQ084R/roAh6XpauTzqHHC/5SLXWRqPxI9vVfAN+G8R
-         vh6T9GDqFZxTKNPdU8Xw4e9TB6Z7fwrV43WaiR31D5G+Vww0QVD3aOmZdNtfmXMXyO6L
-         xKt1ZEgjf9t149GF139Q5WRh7g+0YXSv0dxZkxmNlug7FoPndov8grrBUIsPPqhUJ7s9
-         oLAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=L72aIZGsXoGNviDftJLjt/IYhmeL2yUjveMw9+A/xlo=;
-        b=c7+/M8t6aXDGbnHw5ZND+uxoZzHcpBxqBrzNbYqkx9wqdH10SHztGOexqfN8nS4TlS
-         fqDttvuR0XAma+5E+KeNZN1o066ojGry2Ui2JLvquKSE5kztRBFncx5A0X2huiDurnH0
-         OGZGCwPVeV2K/a5gK4QUoIc5nqZ2l8wxfnMs8XInDZJ9W+S633igljotQUl4/6FxUBqb
-         p6dHQdXeQrSSjPioJHSGUyDCZc9GLNJNxlH+XyOy3tILwOkyh6uR82gY3P1ca4/9iaOA
-         UJWbZcGMY64yPBIS3o540vzr7mGJux/QrpuGMPnGyWuI2x3fxTHmy7BewCEozh9tL4Mm
-         8wkA==
-X-Gm-Message-State: AOAM531sQm6NLOWvQ6UYKhpIbTDFQS6FHZCLn/QZWCwAlVGW7JxJ5f/e
-	upBz9UpDqvxVay36ncWiDAfKtZe7lcuv5G/uBZc=
-X-Google-Smtp-Source: ABdhPJykvO2tU18rIv1enlnL8GCnsNa1I6txG7UUoSk4mwkrWZweDBHmSWW45YQzGe45Q46g7ECLgmJE4aO2lW5ZXrY=
-X-Received: by 2002:a7b:c442:: with SMTP id l2mr4815780wmi.131.1633096372625;
- Fri, 01 Oct 2021 06:52:52 -0700 (PDT)
-MIME-Version: 1.0
-References: <20211001101118.2526538-1-hkleynhans@fb.com>
-In-Reply-To: <20211001101118.2526538-1-hkleynhans@fb.com>
-From: "Joshua Watt" <JPEWhacker@gmail.com>
-Date: Fri, 1 Oct 2021 08:52:41 -0500
-Message-ID: <CAJdd5GZxSRkBooOQBKRoVO1gkc2Keu8R5QdqwMBuPkX+7jLdTg@mail.gmail.com>
+ dkim=pass header.i=@fb.com header.s=facebook header.b=RggATchV;
+ spf=pass (domain: fb.com, ip: 67.231.145.42, mailfrom: prvs=99084d9215=hkleynhans@fb.com)
+Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1913mAYs018102;
+	Fri, 1 Oct 2021 07:19:58 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com; h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type :
+ mime-version; s=facebook; bh=TZaM+NHyW2gaCy8B/wuRoTxHrFP910dpyo43K66GpOY=;
+ b=RggATchV2CuzsDL7EY6clVmFVfMXJc81G1/ObqWWTxbdQxCE2Kvb0Zr6DheCiTpBWrkp
+ YY60rJhhWHVUxdCL01mEohA2ftYjqFmegtWdZc0Qk7q43dgNKTOJW7X8nIX4McMMsd3P
+ TtIJ5Chs4MobCFBMfdproTKQOXAa+Wwnw7c= 
+Received: from mail.thefacebook.com ([163.114.132.120])
+	by mx0a-00082601.pphosted.com with ESMTP id 3bdh9spxqk-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Fri, 01 Oct 2021 07:19:57 -0700
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com (100.104.98.9) by
+ o365-in.thefacebook.com (100.104.94.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.14; Fri, 1 Oct 2021 07:19:56 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bSoCZDK68cDqsknDjMUVxY9xX829yZ+oqAWXxBtJtSnhoVsRhDp86RFGw6/CYxhSjOvR+0NJqiTMr1Q7zG1aD1305wZqXV7NBU14S1E9HqSUkPl0fY5s5Xks2n1GMIj0TuOnkE4fV307zy9HpCPvhJCn4ObtVx+5qtZ9PefTNgrL9IdmGd8WRNxvxUxQST+AoGM5lErVHDlapqqZnyTEzV/GnH5/Ditpy19a9qo/uIAbKiKV023gWuyb/F87xF5f1NsSaIz8RM/yN66BJzAGfPQYeOncwO4qhvoIc/psmdVOkNK7At38UscCuyUFR3rKdBhVqc0BrBscW+30RiJ3VA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pa37kzTkPogz/zQS9yGsmQQA8Y77gNAqCvU2mtRCdeE=;
+ b=fPd7jbd2N432rDqgNkbbNbu9anB5xdd1V8ybWkhaCklfmRxwf0gM1RyHYITE+eT/WbPK0o1cFzQLO2iWvKvN0Ja8y8PlRwJ+OsJlUDtCB9NQkWxl7FRYP/zBuyL98NjBXRM9jwv716qQ6vbVhh+a7UQznoPpDkHct4kbg9LvkUdMShYXDI4J8ObFOWUVBIU50lpeQdNG+VY/34k0uHkGJ72Mv4pb8Gkb3WHM3A+oh0cArtATLGz7fQ2rvEOPp78F0USy3vsxWwTgY+oBs+NW0WYzB5eRR6Cd/5tnPnqhq8kbE0+Vp0LM5NB2ZHieIyQQR39p3ZL2nWUc/TnQYctw5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fb.com; dmarc=pass action=none header.from=fb.com; dkim=pass
+ header.d=fb.com; arc=none
+Received: from BY5PR15MB3572.namprd15.prod.outlook.com (2603:10b6:a03:1b2::24)
+ by SJ0PR15MB4757.namprd15.prod.outlook.com (2603:10b6:a03:37a::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4566.19; Fri, 1 Oct
+ 2021 14:19:50 +0000
+Received: from BY5PR15MB3572.namprd15.prod.outlook.com
+ ([fe80::8d7a:ed38:88a7:76c5]) by BY5PR15MB3572.namprd15.prod.outlook.com
+ ([fe80::8d7a:ed38:88a7:76c5%4]) with mapi id 15.20.4566.019; Fri, 1 Oct 2021
+ 14:19:50 +0000
+From: "Henry Kleynhans" <hkleynhans@fb.com>
+To: Joshua Watt <jpewhacker@gmail.com>,
+        Richard Purdie
+	<richard.purdie@linuxfoundation.org>
+CC: Peter Kjellerstedt <peter.kjellerstedt@axis.com>,
+        "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>,
+        "Michael van der
+ Westhuizen" <rmikey@fb.com>
 Subject: Re: [poky] [PATCH] sstate: Add ZStandard compressor support
-To: hkleynhans@fb.com
-Cc: poky@lists.yoctoproject.org, rmikey@fb.com
-Content-Type: text/plain; charset="UTF-8"
+Thread-Topic: [poky] [PATCH] sstate: Add ZStandard compressor support
+Thread-Index: AQHXtqyyv6EBIBiq00q2FbDE+sd1UKu+HvKAgAAA2gCAAAfngIAACYIZ
+Date: Fri, 1 Oct 2021 14:19:50 +0000
+Message-ID: <BY5PR15MB35723D96FD6682BF2A593FDBB8AB9@BY5PR15MB3572.namprd15.prod.outlook.com>
+References: <20211001101118.2526538-1-hkleynhans@fb.com>
+ <9e6cc87314854416861d13b5d1ec887c@axis.com>
+ <99fdc768454aa12f73bb863f19e6026dda17f76a.camel@linuxfoundation.org>
+ <CAJdd5GZFWVxUTZXMApYie9QiQTAwxvSiBOeXGQz4oSWt2CQwRg@mail.gmail.com>
+In-Reply-To: <CAJdd5GZFWVxUTZXMApYie9QiQTAwxvSiBOeXGQz4oSWt2CQwRg@mail.gmail.com>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+suggested_attachment_session_id: 3e8272e4-8a54-a7ef-31c5-4f80f641477b
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=fb.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 5c6ce0ca-bb83-4cc0-4858-08d984e687a8
+x-ms-traffictypediagnostic: SJ0PR15MB4757:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <SJ0PR15MB475719D6EBED961A0534F785B8AB9@SJ0PR15MB4757.namprd15.prod.outlook.com>
+x-fb-source: Internal
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Xf326lxSQJCxRmRO0Jl+Hr1VR76b3B6WRg2k0m2uMg/oYAlI6ax55GyffMeH5Wi4u8B6jwkw0MfrgTDL/WBSsH//viC0Hkygz4LeF68NUI5rM/k5ZPPGfesR2VaqhYxGiOFygHutZf6wLsBHDuVpDyE3xwHWwslwQJfS92lpAZeaqTRHRxYqjJKUiopa5/V/KKuGGIrdZ3I9QcdKFhB3MrIKeaXVP46GdH38RYf9NPmt5gysoLfon6+SGc2AjdQDS4SoBQVUeY84AmIJbQV4BSk0VXPazqIwg5NMWZrkBFw+BZX55jLF+aci9HCE2PB26BpunfFg/UAo0OtfYLjy8wMT3eZ18Nq+Y668AnoliN5t/IxulHgyK+q0J1Jx9DfsIQ0CDCZ1DaXinyUNsNKxpA9s3JU8knXuaWuAB1ZnpcXm7Lw3Stag/ZeBAzEwTOB3fLOc3G3KCVDpunNQV5D6vJ2gS8WoaS7W2HXaA2F/2B2qVibXQ3/MYhSZ/J65ghzU2dxDcHpOkNJ/e6DCKtwbAcPaTH7q5NhS87WXPkTM7HBkHpIOak6yUGsKBtVF3ydKx5qXr14gOASvQG/nx0OKjxlfg/h5xIG2djuOeXrCLxokKMVxNxqo6P1JN5xT1xO/ABrspRkVvrVrstaew7PfKxZk2Q+h60x4MG+rQoYCzD8tfy3RWGic0m32O+iM6ibeVjMxjombzPZhY1J+CvAEFXXpvBdTYfknWJmSU1JJ/rsfBx4cdIJ7PV8qdoyCggG1W5gQ8VSZKg5eolk+8jopnXya3iIKdDuLW7EgUNNi6fE=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY5PR15MB3572.namprd15.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(166002)(4326008)(83380400001)(508600001)(66946007)(64756008)(66476007)(2906002)(186003)(966005)(86362001)(91956017)(66556008)(76116006)(38070700005)(7696005)(66446008)(5660300002)(38100700002)(71200400001)(55016002)(122000001)(316002)(19627405001)(9686003)(52536014)(6506007)(8936002)(33656002)(8676002)(53546011)(110136005)(54906003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EdchYarrmRM5ogIbNNYVbqoHXhEm/VTIsJMY7VkVM7afZBwrQpzoA1EX1kv9?=
+ =?us-ascii?Q?DwAx1YHfO8sEXNzmkMs3IVH9iBW60oXppAgzquD6rizlFr3W1J89rU831RoY?=
+ =?us-ascii?Q?hZN5buWLLGd3Hd3C066g8MqDkH+eusmGGlK6Yow0D+JqlYyqgWtm40KEuiEh?=
+ =?us-ascii?Q?BzyXNy5vjX/t5dy3B9fAmjTrLQW31IbRQXw/oHbWBs2wpIq8AhpcoKbtEqnF?=
+ =?us-ascii?Q?pEFoElIncTo+hZEcn9s2YS0ZMywOyVlsCoY1MqeUiTAA/YDeOo+H1Z+uU3qK?=
+ =?us-ascii?Q?SY9jtMDJm4X277ChEKZUIUel8gliXu7f30q0i/dbaZUwlQlJtM78Zjig5qY8?=
+ =?us-ascii?Q?lSTdXNaTBPivnidyXJHb0sL19Z56jmFZgbHSIFptnPu/VX6RwFUns3WTHSSy?=
+ =?us-ascii?Q?VPUM8+U5AjLKAb25qhz5AdahYYW97y9V9hQuIKO5VQoso+jjBVIsbIDe9AfT?=
+ =?us-ascii?Q?RgbX/yOmT/WgWlD1bQbrnPzh61x5kuPEXPCQOJS8BQzhxzlhU3vfJhchSVvF?=
+ =?us-ascii?Q?D+E1rgUDhqYekpzakMbpPviL1aYhKAKqdebEYMiPCnh4HwMu/FRpDgEUMBBU?=
+ =?us-ascii?Q?9CDdEe5FD/yeQhZ3RwgH3ClFexpIUNxMFaZS9iunmhOZ7L4SAu7Vc9XzrQ8t?=
+ =?us-ascii?Q?QqmyhSsxouLElIvd/KT+9rxncbxsqqJbJINBM6JASR+dpnemSs/bRH1EDeEH?=
+ =?us-ascii?Q?Qga8oHJrz7gTILps5R+9PLfzfOoZxIaF5YFb8QGSZb9Pfq8Yztk6BInwR2xs?=
+ =?us-ascii?Q?UBNitd3jPhd6jluhfxdogM8ZE/63fThz2NouihJuTXuiul7kf6sbrjiF/1Ct?=
+ =?us-ascii?Q?7MnPuMJuuRVk6ACRRUcYNmuZsJz8aVzCkfYR5XQByEwB8zyVt0g1z6FHTBiZ?=
+ =?us-ascii?Q?U/h05fvwAeBfONWOCNoSD+rZAIbREfsMycZJfJDWFwh56ND8j62rz3EiQunL?=
+ =?us-ascii?Q?bV+ScnSic2dUEM8lFH6BAiySMKkwnNINigJvB/0DPP1XUmqWGwYvmL4OSUCY?=
+ =?us-ascii?Q?ZvnEZEWk7zzccMhNA4qDZY76GH0qHEJzGmmuX5bVx8EwkqeCD99byVoXRGwA?=
+ =?us-ascii?Q?eGqNThO/OAKCaOmjbGwSHNCUQpDuafepDpxMIcLOh7ghNxBl3zEGtU/beCoG?=
+ =?us-ascii?Q?vBNW5KDd16mLAVUseG02YHlxkV6hyCkgCPAZAxrsg3fmkgplxuVS30sohZXS?=
+ =?us-ascii?Q?SV1kjEzB1jtij/mUw3im2jcL0n/jDuvtKd6bRUnOQqYO46lCetbTlHZCJfjB?=
+ =?us-ascii?Q?eA94tAi2vixZXmHqjJ45wvN8YwZso623fVKi5uCOGTES8HeUwxFvvNZqCIOI?=
+ =?us-ascii?Q?+uylGXkS1oyrvsBveVOKbW2AVtgqdhgaWPBC1kvVfTgB6Q=3D=3D?=
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR15MB3572.namprd15.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c6ce0ca-bb83-4cc0-4858-08d984e687a8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2021 14:19:50.2423
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1XtNqYV9bJ8Fxdg4rvovwMi5xp9e9UYd5ycIvVffP08k9AhZCD/lW+PT9htv3cm7gWS7WCG5Jnw5AXlJUfqvug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR15MB4757
+X-OriginatorOrg: fb.com
+X-Proofpoint-ORIG-GUID: 06KYeBbE34e5VkGsCdMfz1zH-8igZZ6y
+X-Proofpoint-GUID: 06KYeBbE34e5VkGsCdMfz1zH-8igZZ6y
+X-Proofpoint-UnRewURL: 12 URL's were un-rewritten
+MIME-Version: 1.0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-10-01_03,2021-10-01_02,2020-04-07_01
+X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0 suspectscore=0
+ impostorscore=0 bulkscore=0 adultscore=0 priorityscore=1501
+ lowpriorityscore=0 mlxlogscore=999 phishscore=0 clxscore=1011 mlxscore=0
+ spamscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109230001 definitions=main-2110010098
+X-FB-Internal: deliver
+Content-Language: en-GB
+Content-Type: multipart/alternative;
+	boundary="_000_BY5PR15MB35723D96FD6682BF2A593FDBB8AB9BY5PR15MB3572namp_"
 
-On Fri, Oct 1, 2021 at 5:11 AM Henry Kleynhans via
-lists.yoctoproject.org <hkleynhans=fb.com@lists.yoctoproject.org>
-wrote:
->
-> This patch adds support to optionally use the Zstandard compressor for
-> ssate cache files.
->
-> Zstandard compression provides a significant improvement in
-> decompression speed as well as improvement in compression speed and disk
-> usage over the 'tgz' format in use.  Furthermore, its configurable
-> compression level offers a trade-off between time spent compressing
-> sstate cache files and disk space used by those files.  The reduced disk
-> usage also contributes to saving network traffic for those sharing their
-> sstate cache with others.
->
-> Zstandard should therefore be a good choice when:
-> * disk space is at a premium
-> * network speed / resources are limited
-> * the CI server can sstate packages can be created at high compression
-> * less CPU on the build server should be used for sstate decompression
->
-> Signed-off-by: Henry Kleynhans <hkleynhans@fb.com>
-> ---
->  meta/classes/sstate.bbclass        | 49 +++++++++++++++++++++++-------
->  scripts/sstate-cache-management.sh | 40 ++++++++++++------------
->  2 files changed, 58 insertions(+), 31 deletions(-)
->
-> diff --git a/meta/classes/sstate.bbclass b/meta/classes/sstate.bbclass
-> index 92a73114bb..a73d631679 100644
-> --- a/meta/classes/sstate.bbclass
-> +++ b/meta/classes/sstate.bbclass
-> @@ -1,17 +1,30 @@
->  SSTATE_VERSION = "3"
->
-> +SSTATE_USE_ZSTD ?= "0"
-> +SSTATE_ZSTD_CLEVEL ?= "3"
-> +SSTATE_ZSTD_NTHREADS ?= "0"
-> +
->  SSTATE_MANIFESTS ?= "${TMPDIR}/sstate-control"
->  SSTATE_MANFILEPREFIX = "${SSTATE_MANIFESTS}/manifest-${SSTATE_MANMACH}-${PN}"
->
-> -def generate_sstatefn(spec, hash, taskname, siginfo, d):
-> +def generate_sstate_ext(use_zstd, d):
-> +    if use_zstd == "1":
-> +        return "tar.zst"
-> +    return "tgz"
-> +
-> +def generate_sstatefn(spec, hash, taskname, siginfo, use_zstd, d):
->      if taskname is None:
->         return ""
->      extension = ".tgz"
-> +    if use_zstd == "1":
-> +       extension = ".tar.zst"
->      # 8 chars reserved for siginfo
->      limit = 254 - 8
->      if siginfo:
->          limit = 254
->          extension = ".tgz.siginfo"
-> +        if use_zstd == "1":
-> +           extension = ".tar.zst.siginfo"
->      if not hash:
->          hash = "INVALID"
->      fn = spec + hash + "_" + taskname + extension
-> @@ -33,11 +46,12 @@ def generate_sstatefn(spec, hash, taskname, siginfo, d):
->  SSTATE_PKGARCH    = "${PACKAGE_ARCH}"
->  SSTATE_PKGSPEC    = "sstate:${PN}:${PACKAGE_ARCH}${TARGET_VENDOR}-${TARGET_OS}:${PV}:${PR}:${SSTATE_PKGARCH}:${SSTATE_VERSION}:"
->  SSTATE_SWSPEC     = "sstate:${PN}::${PV}:${PR}::${SSTATE_VERSION}:"
-> -SSTATE_PKGNAME    = "${SSTATE_EXTRAPATH}${@generate_sstatefn(d.getVar('SSTATE_PKGSPEC'), d.getVar('BB_UNIHASH'), d.getVar('SSTATE_CURRTASK'), False, d)}"
-> +SSTATE_PKGNAME    = "${SSTATE_EXTRAPATH}${@generate_sstatefn(d.getVar('SSTATE_PKGSPEC'), d.getVar('BB_UNIHASH'), d.getVar('SSTATE_CURRTASK'), False, d.getVar('SSTATE_USE_ZSTD'), d)}"
->  SSTATE_PKG        = "${SSTATE_DIR}/${SSTATE_PKGNAME}"
->  SSTATE_EXTRAPATH   = ""
->  SSTATE_EXTRAPATHWILDCARD = ""
-> -SSTATE_PATHSPEC   = "${SSTATE_DIR}/${SSTATE_EXTRAPATHWILDCARD}*/*/${SSTATE_PKGSPEC}*_${SSTATE_PATH_CURRTASK}.tgz*"
-> +SSTATE_PKG_EXT    = "${@generate_sstate_ext(d.getVar('SSTATE_USE_ZSTD'), d)}"
-> +SSTATE_PATHSPEC   = "${SSTATE_DIR}/${SSTATE_EXTRAPATHWILDCARD}*/*/${SSTATE_PKGSPEC}*_${SSTATE_PATH_CURRTASK}.${SSTATE_PKG_EXT}*"
->
->  # explicitly make PV to depend on evaluated value of PV variable
->  PV[vardepvalue] = "${PV}"
-> @@ -825,12 +839,20 @@ sstate_create_package () {
->         mkdir --mode=0775 -p `dirname ${SSTATE_PKG}`
->         TFILE=`mktemp ${SSTATE_PKG}.XXXXXXXX`
->
-> -       # Use pigz if available
-> -       OPT="-czS"
-> -       if [ -x "$(command -v pigz)" ]; then
-> -               OPT="-I pigz -cS"
-> +       if [ x"${SSTATE_USE_ZSTD}" != x"0" ]; then
-> +               export ZSTD_CLEVEL="${SSTATE_ZSTD_CLEVEL}"
-> +               export ZSTD_NBTHREADS="${SSTATE_ZSTD_NTHREADS}"
-> +               OPT="-I zstd -cS"
+--_000_BY5PR15MB35723D96FD6682BF2A593FDBB8AB9BY5PR15MB3572namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-I'm not sure this is going to work in parallel like we want. I can't
-see any reference to ZSTD_NBTHREADS in my zstd man page, and by
-default zstd is only going to use one core. I think that we probably
-want something like:
+Thank you all for the feedback!  I like the idea of switching completely to=
+ zstd.  I will update the patch accordingly and resubmit.
 
-  OPT="-I 'zstd -T${BB_NUMBER_THREADS}' -cS"
+Kind regards, Henry
+________________________________
+From: Joshua Watt <jpewhacker@gmail.com>
+Sent: 01 October 2021 14:44
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: Peter Kjellerstedt <peter.kjellerstedt@axis.com>; Henry Kleynhans <hkle=
+ynhans@fb.com>; poky@lists.yoctoproject.org <poky@lists.yoctoproject.org>; =
+Michael van der Westhuizen <rmikey@fb.com>
+Subject: Re: [poky] [PATCH] sstate: Add ZStandard compressor support
 
-Also, depending on host compatibility, we may need to use pzstd instead
+On Fri, Oct 1, 2021 at 8:16 AM Richard Purdie
+<richard.purdie@linuxfoundation.org> wrote:
+>
+> On Fri, 2021-10-01 at 13:13 +0000, Peter Kjellerstedt wrote:
+> > > -----Original Message-----
+> > > From: poky@lists.yoctoproject.org <poky@lists.yoctoproject.org> On Be=
+half
+> > > Of Henry Kleynhans via lists.yoctoproject.org
+> > > Sent: den 1 oktober 2021 12:11
+> > > To: poky@lists.yoctoproject.org
+> > > Cc: hkleynhans@fb.com; rmikey@fb.com
+> > > Subject: [poky] [PATCH] sstate: Add ZStandard compressor support
+> > >
+> > > This patch adds support to optionally use the Zstandard compressor fo=
+r
+> > > ssate cache files.
+> > >
+> > > Zstandard compression provides a significant improvement in
+> > > decompression speed as well as improvement in compression speed and d=
+isk
+> > > usage over the 'tgz' format in use.  Furthermore, its configurable
+> > > compression level offers a trade-off between time spent compressing
+> > > sstate cache files and disk space used by those files.  The reduced d=
+isk
+> > > usage also contributes to saving network traffic for those sharing th=
+eir
+> > > sstate cache with others.
+> > >
+> > > Zstandard should therefore be a good choice when:
+> > > * disk space is at a premium
+> > > * network speed / resources are limited
+> > > * the CI server can sstate packages can be created at high compressio=
+n
+> > > * less CPU on the build server should be used for sstate decompressio=
+n
+> > >
+> > > Signed-off-by: Henry Kleynhans <hkleynhans@fb.com>
+> > > ---
+> > >  meta/classes/sstate.bbclass        | 49 +++++++++++++++++++++++-----=
+--
+> > >  scripts/sstate-cache-management.sh | 40 ++++++++++++------------
+> > >  2 files changed, 58 insertions(+), 31 deletions(-)
+> > >
+> > > diff --git a/meta/classes/sstate.bbclass b/meta/classes/sstate.bbclas=
+s
+> > > index 92a73114bb..a73d631679 100644
+> > > --- a/meta/classes/sstate.bbclass
+> > > +++ b/meta/classes/sstate.bbclass
+> > > @@ -1,17 +1,30 @@
+> > >  SSTATE_VERSION =3D "3"
+> > >
+> > > +SSTATE_USE_ZSTD ?=3D "0"
+> > > +SSTATE_ZSTD_CLEVEL ?=3D "3"
+> > > +SSTATE_ZSTD_NTHREADS ?=3D "0"
+> >
+> > Do we really need to make this configurable? Can't we just decide
+> > to use zstd and be done with it?
+>
+> I have to admit I was also wondering that. We started requiring zstd on t=
+he host
+> system so it may just be better to switch over?
 
-  OPT="-I 'pzstd -p${BB_NUMBER_THREADS}' -cS"
+Since zstd is required and a clear winner in compression/decompression
+time, I think requiring it and simplifying the sstate code to only use
+zstd would be fine.
 
-> +       else
-> +               # Use pigz if available
-> +               OPT="-czS"
-> +               if [ -x "$(command -v pigz)" ]; then
-> +                       OPT="-I pigz -cS"
-> +               fi
->         fi
 >
-> +  echo "OPTS=${OPTS}"
-> +
->         # Need to handle empty directories
->         if [ "$(ls -A)" ]; then
->                 set +e
-> @@ -880,7 +902,12 @@ python sstate_report_unihash() {
->  # Will be run from within SSTATE_INSTDIR.
->  #
->  sstate_unpack_package () {
-> -       tar -xvzf ${SSTATE_PKG}
-> +       if [[ "${SSTATE_PKG}" == *.tar.zst ]]; then
-> +               export ZSTD_NBTHREADS="${SSTATE_ZSTD_NTHREADS}"
-> +               tar -I zstd -xvf ${SSTATE_PKG}
+> Cheers,
+>
+> Richard
+>
+>
+>
+>
+>=20
+>
 
-Make sure to specify the number of threads here also
+--_000_BY5PR15MB35723D96FD6682BF2A593FDBB8AB9BY5PR15MB3572namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-> +       else
-> +               tar -xvzf ${SSTATE_PKG}
-> +       fi
->         # update .siginfo atime on local/NFS mirror
->         [ -O ${SSTATE_PKG}.siginfo ] && [ -w ${SSTATE_PKG}.siginfo ] && [ -h ${SSTATE_PKG}.siginfo ] && touch -a ${SSTATE_PKG}.siginfo
->         # Use "! -w ||" to return true for read only files
-> @@ -922,7 +949,7 @@ def sstate_checkhashes(sq_data, d, siginfo=False, currentcount=0, summary=True,
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
->          spec, extrapath, tname = getpathcomponents(tid, d)
->
-> -        sstatefile = d.expand("${SSTATE_DIR}/" + extrapath + generate_sstatefn(spec, gethash(tid), tname, siginfo, d))
-> +        sstatefile = d.expand("${SSTATE_DIR}/" + extrapath + generate_sstatefn(spec, gethash(tid), tname, siginfo, d.getVar('SSTATE_USE_ZSTD'), d))
->
->          if os.path.exists(sstatefile):
->              bb.debug(2, "SState: Found valid sstate file %s" % sstatefile)
-> @@ -1016,11 +1043,11 @@ def sstate_checkhashes(sq_data, d, siginfo=False, currentcount=0, summary=True,
->          evdata = {'missed': [], 'found': []};
->          for tid in missed:
->              spec, extrapath, tname = getpathcomponents(tid, d)
-> -            sstatefile = d.expand(extrapath + generate_sstatefn(spec, gethash(tid), tname, False, d))
-> +            sstatefile = d.expand(extrapath + generate_sstatefn(spec, gethash(tid), tname, siginfo, False, d))
->              evdata['missed'].append((bb.runqueue.fn_from_tid(tid), bb.runqueue.taskname_from_tid(tid), gethash(tid), sstatefile ) )
->          for tid in found:
->              spec, extrapath, tname = getpathcomponents(tid, d)
-> -            sstatefile = d.expand(extrapath + generate_sstatefn(spec, gethash(tid), tname, False, d))
-> +            sstatefile = d.expand(extrapath + generate_sstatefn(spec, gethash(tid), tname, siginfo, False, d))
->              evdata['found'].append((bb.runqueue.fn_from_tid(tid), bb.runqueue.taskname_from_tid(tid), gethash(tid), sstatefile ) )
->          bb.event.fire(bb.event.MetadataEvent("MissedSstate", evdata), d)
->
-> diff --git a/scripts/sstate-cache-management.sh b/scripts/sstate-cache-management.sh
-> index f1706a2229..61c7f9f763 100755
-> --- a/scripts/sstate-cache-management.sh
-> +++ b/scripts/sstate-cache-management.sh
-> @@ -114,7 +114,7 @@ echo_error () {
->  # * Add .done/.siginfo to the remove list
->  # * Add destination of symlink to the remove list
->  #
-> -# $1: output file, others: sstate cache file (.tgz)
-> +# $1: output file, others: sstate cache file (.tgz or .tar.zstd)
->  gen_rmlist (){
->    local rmlist_file="$1"
->    shift
-> @@ -131,13 +131,13 @@ gen_rmlist (){
->                dest="`readlink -e $i`"
->                if [ -n "$dest" ]; then
->                    echo $dest >> $rmlist_file
-> -                  # Remove the .siginfo when .tgz is removed
-> +                  # Remove the .siginfo when .tgz or .tar.zst is removed
->                    if [ -f "$dest.siginfo" ]; then
->                        echo $dest.siginfo >> $rmlist_file
->                    fi
->                fi
->            fi
-> -          # Add the ".tgz.done" and ".siginfo.done" (may exist in the future)
-> +          # Add the ".tgz.done" or ".tar.zst.done" and ".siginfo.done" (may exist in the future)
->            base_fn="${i##/*/}"
->            t_fn="$base_fn.done"
->            s_fn="$base_fn.siginfo.done"
-> @@ -188,10 +188,10 @@ remove_duplicated () {
->    total_files=`find $cache_dir -name 'sstate*' | wc -l`
->    # Save all the sstate files in a file
->    sstate_files_list=`mktemp` || exit 1
-> -  find $cache_dir -name 'sstate:*:*:*:*:*:*:*.tgz*' >$sstate_files_list
-> +  find $cache_dir -name 'sstate:*:*:*:*:*:*:*.tgz*' -o -iname 'sstate:*:*:*:*:*:*:*.tar.zst*' >$sstate_files_list
->
->    echo "Figuring out the suffixes in the sstate cache dir ... "
-> -  sstate_suffixes="`sed 's%.*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^_]*_\([^:]*\)\.tgz.*%\1%g' $sstate_files_list | sort -u`"
-> +  sstate_suffixes="`sed 's%.*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^_]*_\([^:]*\)\.\(tgz\|tar\.\zst\).*%\1%g' $sstate_files_list | sort -u`"
->    echo "Done"
->    echo "The following suffixes have been found in the cache dir:"
->    echo $sstate_suffixes
-> @@ -200,10 +200,10 @@ remove_duplicated () {
->    # Using this SSTATE_PKGSPEC definition it's 6th colon separated field
->    # SSTATE_PKGSPEC    = "sstate:${PN}:${PACKAGE_ARCH}${TARGET_VENDOR}-${TARGET_OS}:${PV}:${PR}:${SSTATE_PKGARCH}:${SSTATE_VERSION}:"
->    for arch in $all_archs; do
-> -      grep -q ".*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:$arch:[^:]*:[^:]*\.tgz$" $sstate_files_list
-> +      grep -q ".*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:$arch:[^:]*:[^:]*\.\(tgz\|tar\.\zst\)$" $sstate_files_list
->        [ $? -eq 0 ] && ava_archs="$ava_archs $arch"
->        # ${builder_arch}_$arch used by toolchain sstate
-> -      grep -q ".*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:${builder_arch}_$arch:[^:]*:[^:]*\.tgz$" $sstate_files_list
-> +      grep -q ".*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:${builder_arch}_$arch:[^:]*:[^:]*\.\(tgz\|tar\.zst\)$" $sstate_files_list
->        [ $? -eq 0 ] && ava_archs="$ava_archs ${builder_arch}_$arch"
->    done
->    echo "Done"
-> @@ -219,13 +219,13 @@ remove_duplicated () {
->            continue
->        fi
->        # Total number of files including .siginfo and .done files
-> -      total_files_suffix=`grep ".*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:_]*_$suffix\.tgz.*" $sstate_files_list | wc -l 2>/dev/null`
-> -      total_tgz_suffix=`grep ".*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:_]*_$suffix\.tgz$" $sstate_files_list | wc -l 2>/dev/null`
-> +      total_files_suffix=`grep ".*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:_]*_$suffix\.\(tgz\|tar\.zst\).*" $sstate_files_list | wc -l 2>/dev/null`
-> +      total_archive_suffix=`grep ".*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:_]*_$suffix\.\(tgz\|tar\.zst\)$" $sstate_files_list | wc -l 2>/dev/null`
->        # Save the file list to a file, some suffix's file may not exist
-> -      grep ".*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:_]*_$suffix\.tgz.*" $sstate_files_list >$list_suffix 2>/dev/null
-> -      local deleted_tgz=0
-> +      grep ".*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:_]*_$suffix\.\(tgz\|tar\.zst\).*" $sstate_files_list >$list_suffix 2>/dev/null
-> +      local deleted_archives=0
->        local deleted_files=0
-> -      for ext in tgz tgz.siginfo tgz.done; do
-> +      for ext in tgz tgz.siginfo tgz.done tar.zst tar.zst.siginfo tar.zst.done; do
->            echo "Figuring out the sstate:xxx_$suffix.$ext ... "
->            # Uniq BPNs
->            file_names=`for arch in $ava_archs ""; do
-> @@ -268,19 +268,19 @@ remove_duplicated () {
->                done
->            done
->        done
-> -      deleted_tgz=`cat $rm_list.* 2>/dev/null | grep ".tgz$" | wc -l`
-> +      deleted_archives=`cat $rm_list.* 2>/dev/null | grep ".\(tgz\|tar\.zst\)$" | wc -l`
->        deleted_files=`cat $rm_list.* 2>/dev/null | wc -l`
->        [ "$deleted_files" -gt 0 -a $debug -gt 0 ] && cat $rm_list.*
-> -      echo "($deleted_tgz out of $total_tgz_suffix .tgz files for $suffix suffix will be removed or $deleted_files out of $total_files_suffix when counting also .siginfo and .done files)"
-> +      echo "($deleted_archives out of $total_archives_suffix .tgz or .tar.zst files for $suffix suffix will be removed or $deleted_files out of $total_files_suffix when counting also .siginfo and .done files)"
->        let total_deleted=$total_deleted+$deleted_files
->    done
-> -  deleted_tgz=0
-> +  deleted_archives=0
->    rm_old_list=$remove_listdir/sstate-old-filenames
-> -  find $cache_dir -name 'sstate-*.tgz' >$rm_old_list
-> -  [ -s "$rm_old_list" ] && deleted_tgz=`cat $rm_old_list | grep ".tgz$" | wc -l`
-> +  find $cache_dir -name 'sstate-*.tgz' -o -name 'sstate-*.tar.zst' >$rm_old_list
-> +  [ -s "$rm_old_list" ] && deleted_archives=`cat $rm_old_list | grep ".\(tgz\|tar\.zst\)$" | wc -l`
->    [ -s "$rm_old_list" ] && deleted_files=`cat $rm_old_list | wc -l`
->    [ -s "$rm_old_list" -a $debug -gt 0 ] && cat $rm_old_list
-> -  echo "($deleted_tgz .tgz files with old sstate-* filenames will be removed or $deleted_files when counting also .siginfo and .done files)"
-> +  echo "($deleted_archives .tgz or .tar.zst files with old sstate-* filenames will be removed or $deleted_files when counting also .siginfo and .done files)"
->    let total_deleted=$total_deleted+$deleted_files
->
->    rm -f $list_suffix
-> @@ -289,7 +289,7 @@ remove_duplicated () {
->        read_confirm
->        if [ "$confirm" = "y" -o "$confirm" = "Y" ]; then
->            for list in `ls $remove_listdir/`; do
-> -              echo "Removing $list.tgz (`cat $remove_listdir/$list | wc -w` files) ... "
-> +              echo "Removing $list archive (`cat $remove_listdir/$list | wc -w` files) ... "
->                # Remove them one by one to avoid the argument list too long error
->                for i in `cat $remove_listdir/$list`; do
->                    rm -f $verbose $i
-> @@ -322,7 +322,7 @@ rm_by_stamps (){
->    find $cache_dir -type f -name 'sstate*' | sort -u -o $cache_list
->
->    echo "Figuring out the suffixes in the sstate cache dir ... "
-> -  local sstate_suffixes="`sed 's%.*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^_]*_\([^:]*\)\.tgz.*%\1%g' $cache_list | sort -u`"
-> +  local sstate_suffixes="`sed 's%.*/sstate:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:[^_]*_\([^:]*\)\.\(tgz\|tar\.zst\).*%\1%g' $cache_list | sort -u`"
->    echo "Done"
->    echo "The following suffixes have been found in the cache dir:"
->    echo $sstate_suffixes
-> --
-> 2.30.2
->
->
-> 
->
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thank you all for the feedback!&nbsp; I like the idea of switching complete=
+ly to zstd.&nbsp; I will update the patch accordingly and resubmit.<br>
+<br>
+Kind regards, Henry</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Joshua Watt &lt;jpewh=
+acker@gmail.com&gt;<br>
+<b>Sent:</b> 01 October 2021 14:44<br>
+<b>To:</b> Richard Purdie &lt;richard.purdie@linuxfoundation.org&gt;<br>
+<b>Cc:</b> Peter Kjellerstedt &lt;peter.kjellerstedt@axis.com&gt;; Henry Kl=
+eynhans &lt;hkleynhans@fb.com&gt;; poky@lists.yoctoproject.org &lt;poky@lis=
+ts.yoctoproject.org&gt;; Michael van der Westhuizen &lt;rmikey@fb.com&gt;<b=
+r>
+<b>Subject:</b> Re: [poky] [PATCH] sstate: Add ZStandard compressor support=
+</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On Fri, Oct 1, 2021 at 8:16 AM Richard Purdie<br>
+&lt;richard.purdie@linuxfoundation.org&gt; wrote:<br>
+&gt;<br>
+&gt; On Fri, 2021-10-01 at 13:13 +0000, Peter Kjellerstedt wrote:<br>
+&gt; &gt; &gt; -----Original Message-----<br>
+&gt; &gt; &gt; From: poky@lists.yoctoproject.org &lt;poky@lists.yoctoprojec=
+t.org&gt; On Behalf<br>
+&gt; &gt; &gt; Of Henry Kleynhans via lists.yoctoproject.org<br>
+&gt; &gt; &gt; Sent: den 1 oktober 2021 12:11<br>
+&gt; &gt; &gt; To: poky@lists.yoctoproject.org<br>
+&gt; &gt; &gt; Cc: hkleynhans@fb.com; rmikey@fb.com<br>
+&gt; &gt; &gt; Subject: [poky] [PATCH] sstate: Add ZStandard compressor sup=
+port<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; This patch adds support to optionally use the Zstandard comp=
+ressor for<br>
+&gt; &gt; &gt; ssate cache files.<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; Zstandard compression provides a significant improvement in<=
+br>
+&gt; &gt; &gt; decompression speed as well as improvement in compression sp=
+eed and disk<br>
+&gt; &gt; &gt; usage over the 'tgz' format in use.&nbsp; Furthermore, its c=
+onfigurable<br>
+&gt; &gt; &gt; compression level offers a trade-off between time spent comp=
+ressing<br>
+&gt; &gt; &gt; sstate cache files and disk space used by those files.&nbsp;=
+ The reduced disk<br>
+&gt; &gt; &gt; usage also contributes to saving network traffic for those s=
+haring their<br>
+&gt; &gt; &gt; sstate cache with others.<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; Zstandard should therefore be a good choice when:<br>
+&gt; &gt; &gt; * disk space is at a premium<br>
+&gt; &gt; &gt; * network speed / resources are limited<br>
+&gt; &gt; &gt; * the CI server can sstate packages can be created at high c=
+ompression<br>
+&gt; &gt; &gt; * less CPU on the build server should be used for sstate dec=
+ompression<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; Signed-off-by: Henry Kleynhans &lt;hkleynhans@fb.com&gt;<br>
+&gt; &gt; &gt; ---<br>
+&gt; &gt; &gt;&nbsp; meta/classes/sstate.bbclass&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; | 49 +++++++++++++++++++++++-------<br>
+&gt; &gt; &gt;&nbsp; scripts/sstate-cache-management.sh | 40 ++++++++++++--=
+----------<br>
+&gt; &gt; &gt;&nbsp; 2 files changed, 58 insertions(+), 31 deletions(-)<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; diff --git a/meta/classes/sstate.bbclass b/meta/classes/ssta=
+te.bbclass<br>
+&gt; &gt; &gt; index 92a73114bb..a73d631679 100644<br>
+&gt; &gt; &gt; --- a/meta/classes/sstate.bbclass<br>
+&gt; &gt; &gt; +++ b/meta/classes/sstate.bbclass<br>
+&gt; &gt; &gt; @@ -1,17 +1,30 @@<br>
+&gt; &gt; &gt;&nbsp; SSTATE_VERSION =3D &quot;3&quot;<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; +SSTATE_USE_ZSTD ?=3D &quot;0&quot;<br>
+&gt; &gt; &gt; +SSTATE_ZSTD_CLEVEL ?=3D &quot;3&quot;<br>
+&gt; &gt; &gt; +SSTATE_ZSTD_NTHREADS ?=3D &quot;0&quot;<br>
+&gt; &gt;<br>
+&gt; &gt; Do we really need to make this configurable? Can't we just decide=
+<br>
+&gt; &gt; to use zstd and be done with it?<br>
+&gt;<br>
+&gt; I have to admit I was also wondering that. We started requiring zstd o=
+n the host<br>
+&gt; system so it may just be better to switch over?<br>
+<br>
+Since zstd is required and a clear winner in compression/decompression<br>
+time, I think requiring it and simplifying the sstate code to only use<br>
+zstd would be fine.<br>
+<br>
+&gt;<br>
+&gt; Cheers,<br>
+&gt;<br>
+&gt; Richard<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt; <br>
+&gt;<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BY5PR15MB35723D96FD6682BF2A593FDBB8AB9BY5PR15MB3572namp_--
