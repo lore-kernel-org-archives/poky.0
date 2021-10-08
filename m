@@ -1,84 +1,78 @@
-Subject: Re: Python3/bluez5 circular dependency problem
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+ by mx.groups.io with SMTP id smtpd.web10.1360.1633728209590829080
+ for <poky@lists.yoctoproject.org>;
+ Fri, 08 Oct 2021 14:23:29 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=EQN9a06/;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.53, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f53.google.com with SMTP id e12so33507491wra.4
+        for <poky@lists.yoctoproject.org>; Fri, 08 Oct 2021 14:23:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=yckl/al7mJAuhOtdY81cUyzLmpF0TTq6WdP/djnlsPg=;
+        b=EQN9a06//bxCXHPzu9jOeq+64poNeyx0wiJFBKJRRk7EDPT4sSFijhwpxYoaxFuCbw
+         QbQUbD1Ykr0bbUCTqYXLeylOpWiLLM5u2LiNgEtRjIPbYAo2PAiZ9tMu4OrL8I+ra6do
+         ECkas2Zl8qJY6GJE5cU3GN9HJoEm6I2Xu5LFI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=yckl/al7mJAuhOtdY81cUyzLmpF0TTq6WdP/djnlsPg=;
+        b=cT4hofAwMXqfPB05hghUtehYz/C0Vs6BdtzfgMg+ubPB8IGBgVtyEUdQs2OiwVxmSM
+         Hy8o1DrVx1gdLNfEgWp220kEyvxmcIOamAlpJKBAwIcRt01aTIC+yznpWQKfsaT13BmK
+         fbM9Qr5CCuKCcw/J/Q/9GKB79xnWQoxEPmdX2/uDTFAoLJ2d+QLlfhGe/Syjg2PG0MQj
+         1C8T2B/3+gwZ3BJSjrnnHCng2hDfIgXZiyxMifRZzRm9rib4YE9rjWWYf9bgGbzIigm8
+         aOKW1xDNzhOJ/36iPrO3M8aXtuTEhHGH6enUwreiEQz/Tg33Jz0fLRoM2klM5kc62On7
+         zkUA==
+X-Gm-Message-State: AOAM5311fxplR716H99IUKgUTgDuuGE8/+hpX+CMcmX+vHE6MUGvgoV8
+	jY8T78i8OXqyoUrmp8HAw2mvsA+xNj7yhg==
+X-Google-Smtp-Source: ABdhPJzFNWRYPYhGEBXqTlkkjPGPCQoPdIdr36Od8yr0W+7/TjBfDTIhrQfGCMNwS9EVdLy0QNqrOQ==
+X-Received: by 2002:a05:600c:1911:: with SMTP id j17mr6003039wmq.149.1633728207344;
+        Fri, 08 Oct 2021 14:23:27 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from hex.int.rpsys.net ([2001:8b0:aba:5f3c:5e9b:24eb:82aa:ef28])
+        by smtp.gmail.com with ESMTPSA id n15sm458208wrg.58.2021.10.08.14.23.26
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 08 Oct 2021 14:23:27 -0700 (PDT)
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
 To: poky@lists.yoctoproject.org
-From: "Sean" <nowlans@ieee.org>
-X-Originating-Location: Smyrna, Georgia, US (76.193.41.204)
-X-Originating-Platform: Linux Chrome 93
-User-Agent: GROUPS.IO Web Poster
+Subject: [PATCH] poky.conf: Update tested distros list with recent changes
+Date: Fri,  8 Oct 2021 22:23:25 +0100
+Message-Id: <20211008212325.2478737-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Date: Tue, 05 Oct 2021 16:20:17 -0700
-References: <27901.1633475296186736388@lists.yoctoproject.org>
-In-Reply-To: <27901.1633475296186736388@lists.yoctoproject.org>
-Message-ID: <16836.1633476017953727544@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="tGbpwPfpG2a9YFWa5fjM"
+Content-Transfer-Encoding: 8bit
 
---tGbpwPfpG2a9YFWa5fjM
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/conf/distro/poky.conf | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-I should have waited for the build to complete before assuming I had fixed =
-the problem. The build failed with this error:
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index b0793de21ce..7336923db88 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -46,15 +46,13 @@ SANITY_TESTED_DISTROS ?= " \
+             ubuntu-16.04 \n \
+             ubuntu-18.04 \n \
+             ubuntu-20.04 \n \
+-            fedora-31 \n \
+-            fedora-32 \n \
+             fedora-33 \n \
++            fedora-34 \n \
+             centos-7 \n \
+             centos-8 \n \
+-            debian-8 \n \
+             debian-9 \n \
+             debian-10 \n \
+-            opensuseleap-15.1 \n \
++            debian-11 \n \
+             opensuseleap-15.2 \n \
+             "
+ # add poky sanity bbclass
+-- 
+2.32.0
 
-```
-
-NOTE: Executing Tasks
-
-ERROR: libical-3.0.7-r0 do_compile: Execution of '/sdata0/openembedded/dunf=
-ell/build/tmp/work/aarch64-galaxy-linux/libical/3.0.7-r0/temp/run.do_compil=
-e.7600' failed with exit code 1:
-
-Package glib-2.0 was not found in the pkg-config search path.
-
-Perhaps you should add the directory containing `glib-2.0.pc'
-
-to the PKG_CONFIG_PATH environment variable
-
-No package 'glib-2.0' found
-
-Package libxml-2.0 was not found in the pkg-config search path.
-
-Perhaps you should add the directory containing `libxml-2.0.pc'
-
-to the PKG_CONFIG_PATH environment variable
-
-No package 'libxml-2.0' found
-
-WARNING: exit code 1 from a shell command
-
-```
-
-I suppose this is due to the pkg-config-native commands looking for those l=
-ibraries even if PACKAGECONFIG[glib] is disabled [1]. I think this is a def=
-ect with the libical recipe.
-
-[1]=C2=A0https://git.yoctoproject.org/cgit/cgit.cgi/poky/tree/meta/recipes-=
-support/libical/libical_3.0.7.bb?h=3Ddunfell#n27
-
---tGbpwPfpG2a9YFWa5fjM
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-<p>I should have waited for the build to complete before assuming I had fix=
-ed the problem. The build failed with this error:</p>
-<p>```</p>
-<p>NOTE: Executing Tasks</p>
-<p>ERROR: libical-3.0.7-r0 do_compile: Execution of '/sdata0/openembedded/d=
-unfell/build/tmp/work/aarch64-galaxy-linux/libical/3.0.7-r0/temp/run.do_com=
-pile.7600' failed with exit code 1:</p>
-<p>Package glib-2.0 was not found in the pkg-config search path.</p>
-<p>Perhaps you should add the directory containing `glib-2.0.pc'</p>
-<p>to the PKG_CONFIG_PATH environment variable</p>
-<p>No package 'glib-2.0' found</p>
-<p>Package libxml-2.0 was not found in the pkg-config search path.</p>
-<p>Perhaps you should add the directory containing `libxml-2.0.pc'</p>
-<p>to the PKG_CONFIG_PATH environment variable</p>
-<p>No package 'libxml-2.0' found</p>
-<p>WARNING: exit code 1 from a shell command</p>
-<p>```</p>
-<p>I suppose this is due to the pkg-config-native commands looking for thos=
-e libraries even if PACKAGECONFIG[glib] is disabled [1]. I think this is a =
-defect with the libical recipe.</p>
-<p>&nbsp;</p>
-<p>[1]&nbsp;https://git.yoctoproject.org/cgit/cgit.cgi/poky/tree/meta/recip=
-es-support/libical/libical_3.0.7.bb?h=3Ddunfell#n27</p>
-
---tGbpwPfpG2a9YFWa5fjM--
