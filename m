@@ -1,87 +1,77 @@
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
- by mx.groups.io with SMTP id smtpd.web11.10388.1634221886602503931
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+ by mx.groups.io with SMTP id smtpd.web10.10095.1634221888962786650
  for <poky@lists.yoctoproject.org>;
- Thu, 14 Oct 2021 07:31:26 -0700
+ Thu, 14 Oct 2021 07:31:29 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@kudzu-us.20210112.gappssmtp.com header.s=20210112 header.b=3WkLdvRe;
- spf=none, err=permanent DNS error (domain: kudzu.us, ip: 209.85.222.177, mailfrom: jdmason@kudzu.us)
-Received: by mail-qk1-f177.google.com with SMTP id ay35so5576345qkb.10
-        for <poky@lists.yoctoproject.org>; Thu, 14 Oct 2021 07:31:26 -0700 (PDT)
+ dkim=pass header.i=@kudzu-us.20210112.gappssmtp.com header.s=20210112 header.b=Crad2oq7;
+ spf=none, err=permanent DNS error (domain: kudzu.us, ip: 209.85.160.172, mailfrom: jdmason@kudzu.us)
+Received: by mail-qt1-f172.google.com with SMTP id c28so5877580qtv.11
+        for <poky@lists.yoctoproject.org>; Thu, 14 Oct 2021 07:31:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=kudzu-us.20210112.gappssmtp.com; s=20210112;
-        h=from:to:subject:date:message-id:mime-version
+        h=from:to:subject:date:message-id:in-reply-to:references:mime-version
          :content-transfer-encoding;
-        bh=NijXklfN3RlaA/lcnOPCGDA6N6LaV/JKdh+MI1MFnPY=;
-        b=3WkLdvReingcK09eAWXBCh+GFQqziqQZzcQpADRe1gqNLEzvuHQ233FCgFtmvbt77k
-         j3tsQY3U91Xig2eChBcpqPGl/x7SW4C2tTsfPCLvbZH5QDYEJX02dMCckjCuTVQ8s3ZM
-         9IBLrl0CNAahABarKS/5QUZc6ngOyi6sHHuXxhaX8M/7BsoihVpsnlp5W3aV9o1sH0VX
-         FpiDs1Pv6LtGoHiLjqJiodpCNURFyoBcoAXYfx6YEi/962/8793gdCs56B2lawsLD3JQ
-         KIrLHWfwaBQVX4o6pwhgez8HQbJXs/jLJaBrud5OY2XvK469vGd0sVyuila4VWRQA4XH
-         8vtQ==
+        bh=RvIpKA6GwDhBC6oO9rM5HnPX/XdBjhIPhQJu/fvFcJw=;
+        b=Crad2oq7xLrwNR3OoojilEdWTMiLHnOJKDGdclnBukpQwPEtnEc00NKVNzJ6UeZln8
+         wTvo+qZNNe4N+NzTqae3S21mdJ3E6qW5jvrobp7JkglK1xazAVIXN1FiZftgK8jPN6ff
+         SmC+kHeNrBFaR3vw45zqzlwWOPdUSHLvnqEIYnhPHpE9TXtzVSDwJ7yI2ahoNXZ8kxyk
+         f9fFImQ1QfG2Y9FJMcUHT8VBk6i+wyi2k0Ew0nkCCy/uc+ESqqOc7Zx6AUo84XK8LR+T
+         s52FGHEGFKqoZHqymER3w3Dh65Kc0Fv8xGK2r0FUv285/aq2RRce7HYQmVwqiiouHZtu
+         lNpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=NijXklfN3RlaA/lcnOPCGDA6N6LaV/JKdh+MI1MFnPY=;
-        b=vCqK/kOlVq2UG7N1gWNCiAruNBEwP3rmULOZaiX4sbe18v997gJeliw/ke90inOkLB
-         xGi999JRgo6FKC+BeYkOOnOcp3QFFeWUSxMF04qbElAmBXKjCzP8Yyapl29oBY8VZElL
-         xgJHryQTKnhxmbgwCsHGCTphrRiYObP39Ey41hrC9uFJbpLkpaSjf6OBuru9T01RtwA/
-         d0awXbeGTfROTrtxaHkyDwtgDyv2/YI3eVQBo00045xnK1i38otrjNY4Okfja6Mf5OWP
-         Skdaf3RPWSM7mPWBE7jD2wVqRFqyIL42utF1rqeUfwMoixIEzp1X4rabL6TQ1cQtaRKL
-         P7mg==
-X-Gm-Message-State: AOAM531oMui3kkcohRQuyiC2Qje1sw8wxee80LNmK8q/dDTGcVCjaFId
-	p348+tE2obSB/8G6WrSxesrihBH1Ig4=
-X-Google-Smtp-Source: ABdhPJwYkLM3UHU0oLourweqVnnWwMeNObnK+m54/mOuuELfd9Tbeu1V9vIpDxcNyLBC5rPjQiuCJg==
-X-Received: by 2002:a37:43d2:: with SMTP id q201mr5020890qka.214.1634221885487;
-        Thu, 14 Oct 2021 07:31:25 -0700 (PDT)
+        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=RvIpKA6GwDhBC6oO9rM5HnPX/XdBjhIPhQJu/fvFcJw=;
+        b=pCgVpRUedRBTZQR0ZG63KHGTz8gcVcJg70TYWv8ptinsOz+IDGOzeCWWcLsqM7T0Gj
+         uzPPexD4muVFmxCKTpvrglGmJc4d5rDZkH038YnyPw1EZoNzuqPHz52AovrNfBRcNBwV
+         1Qprp7/eRM6rUr2wUlV62DXd1ZFME2iBNvbuIFdLqCqemUmzNALQdX6Yi2rAFSFWnWvp
+         fQairdTKDnylAhVRUlAo7xZNyGMNxqGft00FAEki5Gdsb+S80AWYCIbCSf0wcnk/dKDd
+         +LgFFWne+YE3QgB7YQEa848yVU2Y6fVJt5vADj980xG4CJPpQ9NOQvWb2O86j02v6RUt
+         VpPw==
+X-Gm-Message-State: AOAM531xRfIcdCvo/wr1X+94P6nYAFaG+bZ2aSxidnsmUHoq0d/NpjoX
+	zULovWxNhrMrpxwpTCGOw7JMF5Do/+38HA==
+X-Google-Smtp-Source: ABdhPJxhc2KXMJ8FiTURHHMM3VDHMHWYwcTMLs/hTkKxrAxDxMqyvSaqW+bxcfcE1l/tGcU2pTRpqw==
+X-Received: by 2002:a05:622a:394:: with SMTP id j20mr7088317qtx.386.1634221886478;
+        Thu, 14 Oct 2021 07:31:26 -0700 (PDT)
 Return-Path: <jdmason@kudzu.us>
 Received: from localhost ([2605:a601:a650:b700:56:cd4e:1c6:8037])
-        by smtp.gmail.com with ESMTPSA id z30sm1476979qtm.55.2021.10.14.07.31.25
+        by smtp.gmail.com with ESMTPSA id a5sm1395524qtd.52.2021.10.14.07.31.26
         for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 Oct 2021 07:31:25 -0700 (PDT)
+        Thu, 14 Oct 2021 07:31:26 -0700 (PDT)
 From: "Jon Mason" <jdmason@kudzu.us>
 To: poky@lists.yoctoproject.org
-Subject: [PATCH 1/2] beaglebone-yocto: use correct CPU and QB_RNG
-Date: Thu, 14 Oct 2021 10:31:23 -0400
-Message-Id: <20211014143124.13941-1-jdmason@kudzu.us>
+Subject: [PATCH 2/2] genericx86-common.inc: add qemu requirement
+Date: Thu, 14 Oct 2021 10:31:24 -0400
+Message-Id: <20211014143124.13941-2-jdmason@kudzu.us>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20211014143124.13941-1-jdmason@kudzu.us>
+References: <20211014143124.13941-1-jdmason@kudzu.us>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The beagles use the AM3358 SoC, which is an Arm Cortex-A8.  Use that for
-QB_CPU.  Also, use QB_RNG to specify the random number generator device.
-Finally, correct the image deps to get qemu to run.
+Without the necessary fields being populated, genericx86 and
+genericx86-64 fail work with runqemu.  Add qemu.inc to provide these
+fields.
 
 Signed-off-by: Jon Mason <jdmason@kudzu.us>
 ---
- meta-yocto-bsp/conf/machine/beaglebone-yocto.conf | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ meta-yocto-bsp/conf/machine/include/genericx86-common.inc | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-index b3d960a8cd80..06746afa96ae 100644
---- a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-+++ b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-@@ -41,16 +41,16 @@ MACHINE_FEATURES = "usbgadget usbhost vfat alsa"
- IMAGE_BOOT_FILES ?= "u-boot.${UBOOT_SUFFIX} ${SPL_BINARY} ${KERNEL_IMAGETYPE} ${KERNEL_DEVICETREE}"
+diff --git a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+index 4651b37e5d68..9f465d72a9f2 100644
+--- a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
++++ b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
+@@ -1,5 +1,7 @@
+ include conf/machine/include/x86/x86-base.inc
+ require conf/machine/include/x86/qemuboot-x86.inc
++require conf/machine/include/qemu.inc
++
+ MACHINE_FEATURES += "wifi efi pcbios"
  
- # support runqemu
--EXTRA_IMAGEDEPENDS += "qemu-native qemu-helper-native"
-+EXTRA_IMAGEDEPENDS += "qemu-system-native qemu-helper-native:do_addto_recipe_sysroot"
- IMAGE_CLASSES += "qemuboot"
- QB_DEFAULT_FSTYPE = "wic"
- QB_FSINFO = "wic:no-kernel-in-fs"
- QB_KERNEL_ROOT = "/dev/vda2"
- QB_SYSTEM_NAME = "qemu-system-arm"
- QB_MACHINE = "-machine virt"
--QB_CPU = "-cpu cortex-a15"
-+QB_CPU = "-cpu cortex-a8"
- QB_KERNEL_CMDLINE_APPEND = "console=ttyAMA0 systemd.mask=systemd-networkd"
--QB_OPT_APPEND = "-device virtio-rng-device"
-+QB_RNG = "-device virtio-rng-device"
- QB_TAP_OPT = "-netdev tap,id=net0,ifname=@TAP@,script=no,downscript=no"
- QB_NETWORK_DEVICE = "-device virtio-net-device,netdev=net0,mac=@MAC@"
- QB_ROOTFS_OPT = "-drive id=disk0,file=@ROOTFS@,if=none,format=raw -device virtio-blk-device,drive=disk0"
+ PREFERRED_VERSION_linux-yocto ?= "5.14%"
 -- 
 2.20.1
 
