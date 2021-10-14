@@ -1,68 +1,87 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
- by mx.groups.io with SMTP id smtpd.web08.8460.1634213437399952271
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+ by mx.groups.io with SMTP id smtpd.web11.10388.1634221886602503931
  for <poky@lists.yoctoproject.org>;
- Thu, 14 Oct 2021 05:10:37 -0700
+ Thu, 14 Oct 2021 07:31:26 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=MYrSqH2N;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.52, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f52.google.com with SMTP id v17so18719179wrv.9
-        for <poky@lists.yoctoproject.org>; Thu, 14 Oct 2021 05:10:37 -0700 (PDT)
+ dkim=pass header.i=@kudzu-us.20210112.gappssmtp.com header.s=20210112 header.b=3WkLdvRe;
+ spf=none, err=permanent DNS error (domain: kudzu.us, ip: 209.85.222.177, mailfrom: jdmason@kudzu.us)
+Received: by mail-qk1-f177.google.com with SMTP id ay35so5576345qkb.10
+        for <poky@lists.yoctoproject.org>; Thu, 14 Oct 2021 07:31:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
+        d=kudzu-us.20210112.gappssmtp.com; s=20210112;
         h=from:to:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=m59o/GFrltFFVbOgIhfCUnCjQydRcWsf3WUd8vRvHvY=;
-        b=MYrSqH2NTNrTm6Sj1gT6/y7ygPSkAf0EemnP/n9hF3k4sW/czzxzi9mTESpZ7pR5Dm
-         q4SToBPjghwYs1rPvIT681VVPoSsb80DaRWsJMP6U2FKxqF1BBwoV488EmDn4KzrHgGM
-         01Z9O3QrCnhfoZ/pPDqNzgrBeT1ipPdYaX6FM=
+        bh=NijXklfN3RlaA/lcnOPCGDA6N6LaV/JKdh+MI1MFnPY=;
+        b=3WkLdvReingcK09eAWXBCh+GFQqziqQZzcQpADRe1gqNLEzvuHQ233FCgFtmvbt77k
+         j3tsQY3U91Xig2eChBcpqPGl/x7SW4C2tTsfPCLvbZH5QDYEJX02dMCckjCuTVQ8s3ZM
+         9IBLrl0CNAahABarKS/5QUZc6ngOyi6sHHuXxhaX8M/7BsoihVpsnlp5W3aV9o1sH0VX
+         FpiDs1Pv6LtGoHiLjqJiodpCNURFyoBcoAXYfx6YEi/962/8793gdCs56B2lawsLD3JQ
+         KIrLHWfwaBQVX4o6pwhgez8HQbJXs/jLJaBrud5OY2XvK469vGd0sVyuila4VWRQA4XH
+         8vtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=m59o/GFrltFFVbOgIhfCUnCjQydRcWsf3WUd8vRvHvY=;
-        b=8Q/LhQPjkdB3BNM61kjeGDPSimkxZ++nBvx8bN1fXc8ZFkNm9i9EKZzMfsvuHZS8gN
-         RALeoclvX9SDFJ1OnjdYt5Z6qmch//bxKUGPQsCH7/hU/Q+bGHjfLewDX8/rsGHsPgXJ
-         Xxvp/7UqlqcvJ1IfoCrMKUvXuyCb7FuKTr8TW+Lfp25sjMOn7E9Cecw/UlaaxyGINuXU
-         Upfkll7OTnM9ifYj63Jk03dL0MxItKoYNW2GTJRUOCgZgQVb+MaN1efeWrHtLWC6yjRR
-         799NCb4vptdKSVgJLSe+GEpAlYMCgrsMWonOTkbh3Mu0S4ueUeaxrDmLUbZnF8HMY1ME
-         mBOA==
-X-Gm-Message-State: AOAM5338laBg3OuWu3HTJ//Vc06rAsAxc6d3RBnbJH+T3Cp2BHyzccSB
-	fptND2C5HlSgrPRtzC2U4wyRopEJwRfY1w==
-X-Google-Smtp-Source: ABdhPJzQGw9Y+6TCIGQCZ8ISrWpxcA5XRbzhHp1idA/pN1V8T65Wn2VYzElIHaWq1f8+WiYAe1zbRQ==
-X-Received: by 2002:a1c:ac03:: with SMTP id v3mr18891041wme.13.1634213434729;
-        Thu, 14 Oct 2021 05:10:34 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from hex.int.rpsys.net ([2001:8b0:aba:5f3c:eb5c:837c:62b1:b238])
-        by smtp.gmail.com with ESMTPSA id x17sm2225648wrc.51.2021.10.14.05.10.34
+        bh=NijXklfN3RlaA/lcnOPCGDA6N6LaV/JKdh+MI1MFnPY=;
+        b=vCqK/kOlVq2UG7N1gWNCiAruNBEwP3rmULOZaiX4sbe18v997gJeliw/ke90inOkLB
+         xGi999JRgo6FKC+BeYkOOnOcp3QFFeWUSxMF04qbElAmBXKjCzP8Yyapl29oBY8VZElL
+         xgJHryQTKnhxmbgwCsHGCTphrRiYObP39Ey41hrC9uFJbpLkpaSjf6OBuru9T01RtwA/
+         d0awXbeGTfROTrtxaHkyDwtgDyv2/YI3eVQBo00045xnK1i38otrjNY4Okfja6Mf5OWP
+         Skdaf3RPWSM7mPWBE7jD2wVqRFqyIL42utF1rqeUfwMoixIEzp1X4rabL6TQ1cQtaRKL
+         P7mg==
+X-Gm-Message-State: AOAM531oMui3kkcohRQuyiC2Qje1sw8wxee80LNmK8q/dDTGcVCjaFId
+	p348+tE2obSB/8G6WrSxesrihBH1Ig4=
+X-Google-Smtp-Source: ABdhPJwYkLM3UHU0oLourweqVnnWwMeNObnK+m54/mOuuELfd9Tbeu1V9vIpDxcNyLBC5rPjQiuCJg==
+X-Received: by 2002:a37:43d2:: with SMTP id q201mr5020890qka.214.1634221885487;
+        Thu, 14 Oct 2021 07:31:25 -0700 (PDT)
+Return-Path: <jdmason@kudzu.us>
+Received: from localhost ([2605:a601:a650:b700:56:cd4e:1c6:8037])
+        by smtp.gmail.com with ESMTPSA id z30sm1476979qtm.55.2021.10.14.07.31.25
         for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 14 Oct 2021 05:10:34 -0700 (PDT)
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+        Thu, 14 Oct 2021 07:31:25 -0700 (PDT)
+From: "Jon Mason" <jdmason@kudzu.us>
 To: poky@lists.yoctoproject.org
-Subject: [PATCH] poky: Reproducible builds are now the default
-Date: Thu, 14 Oct 2021 13:10:33 +0100
-Message-Id: <20211014121033.2913474-1-richard.purdie@linuxfoundation.org>
-X-Mailer: git-send-email 2.32.0
+Subject: [PATCH 1/2] beaglebone-yocto: use correct CPU and QB_RNG
+Date: Thu, 14 Oct 2021 10:31:23 -0400
+Message-Id: <20211014143124.13941-1-jdmason@kudzu.us>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- meta-poky/conf/distro/poky.conf | 2 --
- 1 file changed, 2 deletions(-)
+The beagles use the AM3358 SoC, which is an Arm Cortex-A8.  Use that for
+QB_CPU.  Also, use QB_RNG to specify the random number generator device.
+Finally, correct the image deps to get qemu to run.
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index da6cc861031..16b3bed1e8a 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -70,7 +70,5 @@ require conf/distro/include/yocto-uninative.inc
- require conf/distro/include/security_flags.inc
- INHERIT += "uninative"
+Signed-off-by: Jon Mason <jdmason@kudzu.us>
+---
+ meta-yocto-bsp/conf/machine/beaglebone-yocto.conf | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
+index b3d960a8cd80..06746afa96ae 100644
+--- a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
++++ b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
+@@ -41,16 +41,16 @@ MACHINE_FEATURES = "usbgadget usbhost vfat alsa"
+ IMAGE_BOOT_FILES ?= "u-boot.${UBOOT_SUFFIX} ${SPL_BINARY} ${KERNEL_IMAGETYPE} ${KERNEL_DEVICETREE}"
  
--INHERIT += "reproducible_build"
--
- BB_SIGNATURE_HANDLER ?= "OEEquivHash"
- BB_HASHSERVE ??= "auto"
+ # support runqemu
+-EXTRA_IMAGEDEPENDS += "qemu-native qemu-helper-native"
++EXTRA_IMAGEDEPENDS += "qemu-system-native qemu-helper-native:do_addto_recipe_sysroot"
+ IMAGE_CLASSES += "qemuboot"
+ QB_DEFAULT_FSTYPE = "wic"
+ QB_FSINFO = "wic:no-kernel-in-fs"
+ QB_KERNEL_ROOT = "/dev/vda2"
+ QB_SYSTEM_NAME = "qemu-system-arm"
+ QB_MACHINE = "-machine virt"
+-QB_CPU = "-cpu cortex-a15"
++QB_CPU = "-cpu cortex-a8"
+ QB_KERNEL_CMDLINE_APPEND = "console=ttyAMA0 systemd.mask=systemd-networkd"
+-QB_OPT_APPEND = "-device virtio-rng-device"
++QB_RNG = "-device virtio-rng-device"
+ QB_TAP_OPT = "-netdev tap,id=net0,ifname=@TAP@,script=no,downscript=no"
+ QB_NETWORK_DEVICE = "-device virtio-net-device,netdev=net0,mac=@MAC@"
+ QB_ROOTFS_OPT = "-drive id=disk0,file=@ROOTFS@,if=none,format=raw -device virtio-blk-device,drive=disk0"
 -- 
-2.32.0
+2.20.1
 
