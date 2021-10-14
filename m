@@ -1,110 +1,68 @@
-Subject: Add systemd to poky-tiny distro
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+ by mx.groups.io with SMTP id smtpd.web08.8460.1634213437399952271
+ for <poky@lists.yoctoproject.org>;
+ Thu, 14 Oct 2021 05:10:37 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=MYrSqH2N;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.52, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f52.google.com with SMTP id v17so18719179wrv.9
+        for <poky@lists.yoctoproject.org>; Thu, 14 Oct 2021 05:10:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=m59o/GFrltFFVbOgIhfCUnCjQydRcWsf3WUd8vRvHvY=;
+        b=MYrSqH2NTNrTm6Sj1gT6/y7ygPSkAf0EemnP/n9hF3k4sW/czzxzi9mTESpZ7pR5Dm
+         q4SToBPjghwYs1rPvIT681VVPoSsb80DaRWsJMP6U2FKxqF1BBwoV488EmDn4KzrHgGM
+         01Z9O3QrCnhfoZ/pPDqNzgrBeT1ipPdYaX6FM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=m59o/GFrltFFVbOgIhfCUnCjQydRcWsf3WUd8vRvHvY=;
+        b=8Q/LhQPjkdB3BNM61kjeGDPSimkxZ++nBvx8bN1fXc8ZFkNm9i9EKZzMfsvuHZS8gN
+         RALeoclvX9SDFJ1OnjdYt5Z6qmch//bxKUGPQsCH7/hU/Q+bGHjfLewDX8/rsGHsPgXJ
+         Xxvp/7UqlqcvJ1IfoCrMKUvXuyCb7FuKTr8TW+Lfp25sjMOn7E9Cecw/UlaaxyGINuXU
+         Upfkll7OTnM9ifYj63Jk03dL0MxItKoYNW2GTJRUOCgZgQVb+MaN1efeWrHtLWC6yjRR
+         799NCb4vptdKSVgJLSe+GEpAlYMCgrsMWonOTkbh3Mu0S4ueUeaxrDmLUbZnF8HMY1ME
+         mBOA==
+X-Gm-Message-State: AOAM5338laBg3OuWu3HTJ//Vc06rAsAxc6d3RBnbJH+T3Cp2BHyzccSB
+	fptND2C5HlSgrPRtzC2U4wyRopEJwRfY1w==
+X-Google-Smtp-Source: ABdhPJzQGw9Y+6TCIGQCZ8ISrWpxcA5XRbzhHp1idA/pN1V8T65Wn2VYzElIHaWq1f8+WiYAe1zbRQ==
+X-Received: by 2002:a1c:ac03:: with SMTP id v3mr18891041wme.13.1634213434729;
+        Thu, 14 Oct 2021 05:10:34 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from hex.int.rpsys.net ([2001:8b0:aba:5f3c:eb5c:837c:62b1:b238])
+        by smtp.gmail.com with ESMTPSA id x17sm2225648wrc.51.2021.10.14.05.10.34
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 14 Oct 2021 05:10:34 -0700 (PDT)
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
 To: poky@lists.yoctoproject.org
-From: "Jacob Avraham" <jacob.avraham@auto-talks.com>
-X-Originating-Location: Ramat Gan, Tel Aviv, IL (62.90.32.217)
-X-Originating-Platform: Windows Chrome 94
-User-Agent: GROUPS.IO Web Poster
+Subject: [PATCH] poky: Reproducible builds are now the default
+Date: Thu, 14 Oct 2021 13:10:33 +0100
+Message-Id: <20211014121033.2913474-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Date: Wed, 13 Oct 2021 03:19:04 -0700
-Message-ID: <Ah8c.1634120344505385680.MDVn@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="QIUxQlwWgqptPvZZtQpW"
+Content-Transfer-Encoding: 8bit
 
---QIUxQlwWgqptPvZZtQpW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/conf/distro/poky.conf | 2 --
+ 1 file changed, 2 deletions(-)
 
-Can systemd be used as the init manager for poky-tiny distro?
-I tried to use this poky-tiny derived distro:
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index da6cc861031..16b3bed1e8a 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -70,7 +70,5 @@ require conf/distro/include/yocto-uninative.inc
+ require conf/distro/include/security_flags.inc
+ INHERIT += "uninative"
+ 
+-INHERIT += "reproducible_build"
+-
+ BB_SIGNATURE_HANDLER ?= "OEEquivHash"
+ BB_HASHSERVE ??= "auto"
+-- 
+2.32.0
 
-#@NAME: poky-tiny-atlk
-#@DESCRIPTION: Based on poky tiny distribution. Limited supported of packag=
-es from poky distro.
-
-require conf/distro/poky-tiny.conf
-
-DISTRO =3D "poky-tiny-atlk"
-TCLIBC =3D "glibc"
-PREFERRED_PROVIDER_virtual/kernel =3D "linux-sta12xx"
-DISTRO_FEATURES_append =3D " systemd "
-DISTRO_FEATURES_remove =3D " wayland "
-DISTRO_FEATURES_BACKFILL_CONSIDERED +=3D "sysvinit"
-
-BUILDCFG_VARS +=3D "GCCVERSION"
-BUILDCFG_VARS +=3D "PREFERRED_PROVIDER_virtual/kernel"
-
-VIRTUAL-RUNTIME_init_manager =3D "systemd"
-VIRTUAL-RUNTIME_initscripts =3D "systemd-compat-units"
-
-DISTRO_FEATURES_LIBC =3D "ipv6 libc-backtrace libc-big-macros libc-bsd libc=
--cxx-tests libc-catgets libc-charsets libc-crypt \
-libc-crypt-ufc libc-db-aliases libc-envz libc-fcvt libc-fmtmsg libc-fstab l=
-ibc-ftraverse \
-libc-getlogin libc-idn libc-inet libc-inet-anl libc-libm libc-locales libc-=
-locale-code \
-libc-memusage libc-nis libc-nsswitch libc-rcmd libc-rtld-debug libc-spawn l=
-ibc-streams libc-sunrpc \
-libc-utmp libc-utmpx libc-wordexp libc-posix-clang-wchar libc-posix-regexp =
-libc-posix-regexp-glibc \
-libc-posix-wchar-io"
-
-But I don't see systemd files added to the image.
-When I add systemd package to my image's=C2=A0PACKAGE_INSTALL variable, I g=
-et the following error:
-ERROR: glibc-locale-2.28-r0 do_package: QA Issue: glibc-locale: Files/direc=
-tories were installed but not shipped in any package:
-<a list of missing locales>
-
-What am I doing wrong?
-Thanks,
-Jacob
-
---QIUxQlwWgqptPvZZtQpW
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-Can systemd be used as the init manager for poky-tiny distro?<br />I tried =
-to use this poky-tiny derived distro:<br /><br />
-<div>#@NAME: poky-tiny-atlk</div>
-<div>#@DESCRIPTION: Based on poky tiny distribution. Limited supported of p=
-ackages from poky distro.</div>
-<div>&nbsp;</div>
-<div>require conf/distro/poky-tiny.conf<br /><br /></div>
-<div>DISTRO =3D "poky-tiny-atlk"</div>
-<div>TCLIBC =3D "glibc"</div>
-<div>PREFERRED_PROVIDER_virtual/kernel =3D "linux-sta12xx"</div>
-<div>DISTRO_FEATURES_append =3D " systemd "</div>
-<div>DISTRO_FEATURES_remove =3D " wayland "</div>
-<div>DISTRO_FEATURES_BACKFILL_CONSIDERED +=3D "sysvinit"</div>
-<div>&nbsp;</div>
-<div>BUILDCFG_VARS +=3D "GCCVERSION"</div>
-<div>BUILDCFG_VARS +=3D "PREFERRED_PROVIDER_virtual/kernel"</div>
-<div>&nbsp;</div>
-<div>VIRTUAL-RUNTIME_init_manager =3D "systemd"</div>
-<div>VIRTUAL-RUNTIME_initscripts =3D "systemd-compat-units"</div>
-<div>&nbsp;</div>
-<div>DISTRO_FEATURES_LIBC =3D "ipv6 libc-backtrace libc-big-macros libc-bsd=
- libc-cxx-tests libc-catgets libc-charsets libc-crypt \</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;libc-crypt-ufc =
-libc-db-aliases libc-envz libc-fcvt libc-fmtmsg libc-fstab libc-ftraverse \=
-</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;libc-getlogin l=
-ibc-idn libc-inet libc-inet-anl libc-libm libc-locales libc-locale-code \</=
-div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;libc-memusage l=
-ibc-nis libc-nsswitch libc-rcmd libc-rtld-debug libc-spawn libc-streams lib=
-c-sunrpc \</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;libc-utmp libc-=
-utmpx libc-wordexp libc-posix-clang-wchar libc-posix-regexp libc-posix-rege=
-xp-glibc \</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;libc-posix-wcha=
-r-io"</div>
-<div><br />But I don't see systemd files added to the image.<br />When I ad=
-d systemd package to my image's&nbsp;PACKAGE_INSTALL variable, I get the fo=
-llowing error:<br />
-<div>ERROR: glibc-locale-2.28-r0 do_package: QA Issue: glibc-locale: Files/=
-directories were installed but not shipped in any package:</div>
-<div>&lt;a list of missing locales&gt;<br /><br />What am I doing wrong?<br=
- />Thanks,<br />Jacob</div>
-</div>
-
---QIUxQlwWgqptPvZZtQpW--
