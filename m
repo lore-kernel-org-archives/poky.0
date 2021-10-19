@@ -1,91 +1,65 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
- by mx.groups.io with SMTP id smtpd.web08.10658.1634654351894443481
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
+ by mx.groups.io with SMTP id smtpd.web10.10816.1634654638075569328
  for <poky@lists.yoctoproject.org>;
- Tue, 19 Oct 2021 07:39:12 -0700
+ Tue, 19 Oct 2021 07:43:58 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@kudzu-us.20210112.gappssmtp.com header.s=20210112 header.b=bJbVXpIp;
- spf=none, err=permanent DNS error (domain: kudzu.us, ip: 209.85.219.41, mailfrom: jdmason@kudzu.us)
-Received: by mail-qv1-f41.google.com with SMTP id d20so66076qvm.8
-        for <poky@lists.yoctoproject.org>; Tue, 19 Oct 2021 07:39:11 -0700 (PDT)
+ dkim=pass header.i=@konsulko.com header.s=google header.b=Ecm55U1l;
+ spf=pass (domain: konsulko.com, ip: 209.85.222.181, mailfrom: trini@konsulko.com)
+Received: by mail-qk1-f181.google.com with SMTP id r15so134994qkp.8
+        for <poky@lists.yoctoproject.org>; Tue, 19 Oct 2021 07:43:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kudzu-us.20210112.gappssmtp.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
-        bh=On/JN3JLiSvrHLp+xreDB+WPBgiJa4JDTEvipIFulng=;
-        b=bJbVXpIpDi++1v5QzPwr4IIgPu4ji9un45sw+ih15ZrgrwOH0zZYRXBf8o+psnOQXN
-         58tsOcEGasr6ogL18EFMISKjPtAJHtm7Y5VrzVt8l/t9JwN48NXB2xYhneD+pmejzqRX
-         WA5sOwW3sDVZmNHhZbFwVgNk11PhgEtLXMRoqWxHail2uDIGW2W4s4z48FzWrpQdSAva
-         beHFF3Np/t5KjMoe9k6YaQfIv78ASiTEHT0qots3LSY5Fk6Lz8163N6W1LAwzIODbhn1
-         SEJiyVWWgvCYKlEJ+RJ9tmZ3BAuC5Utmcp+wkvDiCKVeeuyUkDll3b0qqbe2zjS+1mjx
-         UbJg==
+        d=konsulko.com; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=COllHaKcj8Gxfc+YwsgIitq+/6uR/SsTZyCgS0rsgv4=;
+        b=Ecm55U1lUcWopK9jD8xiSTZimZ6mWRDOVZUPNXTJ90NRBre4q0hTDBs3Kavl/B4/JO
+         ngQoY8FtExrUBYeSOixCDEKD7BPdmOKWgcIarKuqLI9dKVIjMEflwFLYMIoiFFAeKcQr
+         zDA0muVsr8qid4SWpf88hmt/0bWU5MF4P9GhY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to;
-        bh=On/JN3JLiSvrHLp+xreDB+WPBgiJa4JDTEvipIFulng=;
-        b=EEqsV9FDWwwKK3XUKbF9B7Z5G6VvmtIxcKGFgDBEHaNMuccPpX7FibPVebaPD3BjXW
-         oWPZdBJSd6oNDvYtyl0MM3Go9ICQxZT/fN4Tsh/Y9bE2wfu8YN8llU5Fuw9XNXIqdybo
-         EotftRdZLxSs3DASAK/qerUu/dLv5IbtngA+QS7oxz6ZiiDygfHhb+3fqnMFCj7stqMk
-         /LzoVzmYexdo5NQYf/fsmsMVDIooFAEUBQLKF/8OE08793EKnS5shXwGs9U4MzzGSKIx
-         kG98y5ZWO8OM6hwpFi9BHZyNDwkCOL+J5ck6qcmZqnh0/UrPNPPnF72TclhUaMvRGIzR
-         AeMw==
-X-Gm-Message-State: AOAM531kU2/T7kL9KnaOZQ3xH0CaDFDm4H1GjAF8ARx4D4NN/AIL0HG3
-	G7n27JCYM7RQAqFenHhT9uADVFUiKY7lNQsI3BB0UB0O+Cw=
-X-Google-Smtp-Source: ABdhPJxEnAnzlmEe0JtF6961J0L+O74eQLlNl29oN/CK3+1htbY1vcRi2b++nsnqyQgYUUv4guxp9vXTitwDtZQk8Pk=
-X-Received: by 2002:ad4:5006:: with SMTP id s6mr176877qvo.1.1634654350740;
- Tue, 19 Oct 2021 07:39:10 -0700 (PDT)
-MIME-Version: 1.0
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=COllHaKcj8Gxfc+YwsgIitq+/6uR/SsTZyCgS0rsgv4=;
+        b=eEei4L4PaSMDTVdGPl29v4FNI2fmLBg7t+n2DG6UutgfNZOM3ZfyT13hyEaiUgIBIa
+         NmoqS78MXUAPpFT/xxk0w59PPVacxoL4jREuREjIZgJVD6h6PX5qR8zWlPYXKh5ELgs/
+         BmxLJVL74cipFgSOteywOXvwTzMyfWlpu52iW2AhSMBj3qX/Sp/fiYnE8biN/0KHEIf5
+         4urjal5L55KuvJb/Kr5nBg/F3siEa0JWXpuy+Pvm79jyadzM7nU/uKni0gbgijOj/pOT
+         r1hOk6OTQwJ5212MzRMXuwEqYX1ZaphnF9bgSB3Lj4xZzKoZCvKppyYoKQ7Zt38K/vel
+         SFgQ==
+X-Gm-Message-State: AOAM531wQea4GzSvYz1r0KFdZ77QevKDnyIkQKLmgPqz3dtggl22MC1M
+	S0/qRapilvK5+jmYByY6Oh8zj1+KcYM6jg==
+X-Google-Smtp-Source: ABdhPJwk2TutU+QjCQ2JQCnk9qtszVDkj5QeUx18O3ViU7ESmA10Ji3NraZN3hkDzkJUcqDXQpI22A==
+X-Received: by 2002:a37:9703:: with SMTP id z3mr240584qkd.517.1634654637173;
+        Tue, 19 Oct 2021 07:43:57 -0700 (PDT)
+Return-Path: <trini@konsulko.com>
+Received: from bill-the-cat (2603-6081-7b01-cbda-b5ac-d4ae-96e7-5d3d.res6.spectrum.com. [2603:6081:7b01:cbda:b5ac:d4ae:96e7:5d3d])
+        by smtp.gmail.com with ESMTPSA id m28sm7994714qkm.23.2021.10.19.07.43.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 19 Oct 2021 07:43:56 -0700 (PDT)
+Date: Tue, 19 Oct 2021 10:43:55 -0400
+From: "Tom Rini" <trini@konsulko.com>
+To: Jon Mason <jdmason@kudzu.us>
+Cc: poky@lists.yoctoproject.org
+Subject: Re: [poky] [PATCH 1/2] beaglebone-yocto: use correct CPU and QB_RNG
+Message-ID: <20211019144355.GF7964@bill-the-cat>
 References: <20211014143124.13941-1-jdmason@kudzu.us>
-In-Reply-To: <20211014143124.13941-1-jdmason@kudzu.us>
-From: "Jon Mason" <jdmason@kudzu.us>
-Date: Tue, 19 Oct 2021 10:38:57 -0400
-Message-ID: <CAPoiz9y9V0Q2h=_YbMEhV9gRHokcExN+zrtdQD0h=7ZSgDf-kA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] beaglebone-yocto: use correct CPU and QB_RNG
-To: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
+ <CAPoiz9y9V0Q2h=_YbMEhV9gRHokcExN+zrtdQD0h=7ZSgDf-kA@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAPoiz9y9V0Q2h=_YbMEhV9gRHokcExN+zrtdQD0h=7ZSgDf-kA@mail.gmail.com>
+X-Clacks-Overhead: GNU Terry Pratchett
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Please drop this patch.  There is a bug in it.  cortex-a8 doesn't work
-with the virt machine.  Also, it is still lacking the serial settings
-to get it working properly.  I have a patch now that is working, but
-actually waiting for CI to pass before sending it this time.
+On Tue, Oct 19, 2021 at 10:38:57AM -0400, Jon Mason wrote:
 
-Thanks,
-Jon
+> Please drop this patch.  There is a bug in it.  cortex-a8 doesn't work
+> with the virt machine.  Also, it is still lacking the serial settings
+> to get it working properly.  I have a patch now that is working, but
+> actually waiting for CI to pass before sending it this time.
 
-On Thu, Oct 14, 2021 at 10:31 AM Jon Mason <jdmason@kudzu.us> wrote:
->
-> The beagles use the AM3358 SoC, which is an Arm Cortex-A8.  Use that for
-> QB_CPU.  Also, use QB_RNG to specify the random number generator device.
-> Finally, correct the image deps to get qemu to run.
->
-> Signed-off-by: Jon Mason <jdmason@kudzu.us>
-> ---
->  meta-yocto-bsp/conf/machine/beaglebone-yocto.conf | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> index b3d960a8cd80..06746afa96ae 100644
-> --- a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> +++ b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> @@ -41,16 +41,16 @@ MACHINE_FEATURES = "usbgadget usbhost vfat alsa"
->  IMAGE_BOOT_FILES ?= "u-boot.${UBOOT_SUFFIX} ${SPL_BINARY} ${KERNEL_IMAGETYPE} ${KERNEL_DEVICETREE}"
->
->  # support runqemu
-> -EXTRA_IMAGEDEPENDS += "qemu-native qemu-helper-native"
-> +EXTRA_IMAGEDEPENDS += "qemu-system-native qemu-helper-native:do_addto_recipe_sysroot"
->  IMAGE_CLASSES += "qemuboot"
->  QB_DEFAULT_FSTYPE = "wic"
->  QB_FSINFO = "wic:no-kernel-in-fs"
->  QB_KERNEL_ROOT = "/dev/vda2"
->  QB_SYSTEM_NAME = "qemu-system-arm"
->  QB_MACHINE = "-machine virt"
-> -QB_CPU = "-cpu cortex-a15"
-> +QB_CPU = "-cpu cortex-a8"
->  QB_KERNEL_CMDLINE_APPEND = "console=ttyAMA0 systemd.mask=systemd-networkd"
-> -QB_OPT_APPEND = "-device virtio-rng-device"
-> +QB_RNG = "-device virtio-rng-device"
->  QB_TAP_OPT = "-netdev tap,id=net0,ifname=@TAP@,script=no,downscript=no"
->  QB_NETWORK_DEVICE = "-device virtio-net-device,netdev=net0,mac=@MAC@"
->  QB_ROOTFS_OPT = "-drive id=disk0,file=@ROOTFS@,if=none,format=raw -device virtio-blk-device,drive=disk0"
-> --
-> 2.20.1
->
+I guess I'll re-ask, given the rest of the thread.  As this isn't, and
+can't, emulate the beaglebone in QEMU, should we not just drop all of
+these runqemu related options?
+
+-- 
+Tom
