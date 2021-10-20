@@ -1,83 +1,73 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
- by mx.groups.io with SMTP id smtpd.web08.9851.1634744745595560772
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+ by mx.groups.io with SMTP id smtpd.web08.9854.1634744751754185399
  for <poky@lists.yoctoproject.org>;
- Wed, 20 Oct 2021 08:45:45 -0700
+ Wed, 20 Oct 2021 08:45:52 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=r7Tj26v+;
- spf=softfail (domain: sakoman.com, ip: 209.85.216.52, mailfrom: steve@sakoman.com)
-Received: by mail-pj1-f52.google.com with SMTP id pi19-20020a17090b1e5300b0019fdd3557d3so2724248pjb.5
-        for <poky@lists.yoctoproject.org>; Wed, 20 Oct 2021 08:45:45 -0700 (PDT)
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=DbxUOcUt;
+ spf=softfail (domain: sakoman.com, ip: 209.85.210.181, mailfrom: steve@sakoman.com)
+Received: by mail-pf1-f181.google.com with SMTP id v8so3280023pfu.11
+        for <poky@lists.yoctoproject.org>; Wed, 20 Oct 2021 08:45:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=sakoman-com.20210112.gappssmtp.com; s=20210112;
-        h=from:to:subject:date:message-id:mime-version
+        h=from:to:subject:date:message-id:in-reply-to:references:mime-version
          :content-transfer-encoding;
-        bh=JPT4NAQ5/rX+HsI0c80cc3JNnr+DMIuxFeTH/Bd8j04=;
-        b=r7Tj26v+KMJVT07T5IYUDF+ncEiscADU6rZI0RkIgG/fSjBVWY0HmsFCFIZbJe1Qdr
-         HN54+PUZAT/5cDoBj35YDkSwimeOBr71cVcKTS1JPqiPwwcZmlWx/Ib+CLYuQrj5VgrX
-         PrYmn6t9+Nwiag0OtxIu2fW3XjFlXRBlbbxmSKVYByi5hx9bWM+mvR5cde788b/vxYgm
-         au4qCK4CUXxFtLCKZa6NqE7lGuzfSFEKdqQ7TwLNqr+PtqVUp4qlF0Oyc4M68nMuIZfn
-         wGoknco5UH8UTd8jcFdaEqw9lJkA0Cwg1Wax3BKUEW7JnDBBdodnBelHq8H2YwQZMdPx
-         DyKQ==
+        bh=6WRn+d50f2oSVnQztBsmgP8GHmIgLPfL6porVF/X6tM=;
+        b=DbxUOcUtrkCxakEncfPux1wqBCs0jP9UgEgmLjX/CuB0koC3U9CZhVSGwETT7bn9Xl
+         yLptoYBBiUGCcYeAxCsskcQiEFx/OemXUO0C7OQS43KV9Bm8x2uYtJ1/1TvoILNLPSkC
+         2yr8N2SBugHZiJz56iVcNTxQj1l6ieD1TtczBT063XAYh3Po9Nq5IDHO2V/INXM7Nm9O
+         9Bkk0MJCh1OZYnzZO2a1/nluAwwUDcFJDp16wCZT0KX45zMOrEVDlrOCC5Xq9i10k1mh
+         jc7v/eLT8cBsEguZYvhrDQVbUKfbeuxBLZTYBj+QYYPlehyDm3Xfg1K5hmVAqzT9Mr3S
+         +Frw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=JPT4NAQ5/rX+HsI0c80cc3JNnr+DMIuxFeTH/Bd8j04=;
-        b=MyWJWjiympeQ02UDD9sVpBC+qZVqyTX5I8FgW/VhPdhg5B6UB2jDNffWsWaqHIfUTl
-         pgQPmAJX7QoSCDzPFurYb+KR/pBihTFvXckmyN4sjiq8hFheLpe4pCJBWZPT5yL6xncv
-         1n1fWwsG7gbhveekBO8EdPpaBcn+MiEDeQaoRxPBgqtQZMnD3/PnexnLujJQ0G4AA5N8
-         LyBaoLgAzOBGvXxK0QiHXWYz94GMdM5nMgFCtQuXGgbvsPdfnZ6+dgjqkbVnqpfeFqDi
-         jOWUTlZmTE2gpw0xcJ80CVMjXNB4s6rtXheC6yllqjLLiHkL1XC8Ude/a6nwtCE+RlTd
-         HjwQ==
-X-Gm-Message-State: AOAM530F+UpobBDhi3Kcc2TfwjitS77tD8DTpS8095oVXmM4YLkxVHPs
-	OFeZ9lQioC9XXqMPL+7+C9/tN7vma31vVE829VQ=
-X-Google-Smtp-Source: ABdhPJy14LhBjuO/PAbT0NDxjSAepLIMp6LeEtdN/G1d5Pb/9JUc8fuCpSPDK3k9FfRN8hVbilM4OQ==
-X-Received: by 2002:a17:90a:7bc8:: with SMTP id d8mr8173014pjl.128.1634744744289;
-        Wed, 20 Oct 2021 08:45:44 -0700 (PDT)
+        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=6WRn+d50f2oSVnQztBsmgP8GHmIgLPfL6porVF/X6tM=;
+        b=VxTOhqRtRaH2i1W8q5ZFdSfo5jq3gIsR5J6sih5668WKA7dxwX1UdDQcuElP6YVEmo
+         JMNu9EUCjzdiTTVxPDDMjRJzC3EZ6aQuqFZXmizrR8zKQ6pAC/NmvLmCqPpplMZ0gJsI
+         EqotcAMlfPDQ0rsnigt2QzzuAFR5BMjIHfKuGx2e4hLRuugfbcC4WcSBMmz81zblzbjH
+         m4owEjepoWOfIP6zdMC50/nxMeyViCq3i992oTnzDUZZWZbiJH/EdNbS7S1v2xTsoafS
+         w4rw+V0JcS93WVVHAwTEiLWPX0CwfCsRvsxFMQVbtf0gsKSSq+marRDCMlSUoYn7talx
+         547A==
+X-Gm-Message-State: AOAM5336XClrKE2XjbVYfeTpWE3xYurGKZrnXkVJ/SPZ2XOeVKqt7ORY
+	FKRTx0JMf8B9T6PDX4YRDVSKYGxZTMm6PwlZ7R4=
+X-Google-Smtp-Source: ABdhPJxPwG/pIejrZx3PHP2knNhJeZQlh/DYopm5TGFkCqXrBpcsiRpsaUlbdqMYQb4QzzYNVL3Wkw==
+X-Received: by 2002:aa7:9047:0:b0:44b:e142:8b0d with SMTP id n7-20020aa79047000000b0044be1428b0dmr492095pfo.45.1634744750723;
+        Wed, 20 Oct 2021 08:45:50 -0700 (PDT)
 Return-Path: <steve@sakoman.com>
 Received: from hexa.router0800d9.com (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
-        by smtp.gmail.com with ESMTPSA id o72sm2840179pjo.50.2021.10.20.08.45.43
+        by smtp.gmail.com with ESMTPSA id o72sm2840179pjo.50.2021.10.20.08.45.48
         for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 Oct 2021 08:45:43 -0700 (PDT)
+        Wed, 20 Oct 2021 08:45:50 -0700 (PDT)
 From: "Steve Sakoman" <steve@sakoman.com>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell 0/2] Patch review
-Date: Wed, 20 Oct 2021 05:45:29 -1000
-Message-Id: <cover.1634744401.git.steve@sakoman.com>
+Subject: [meta-yocto][dunfell 1/2] poky.conf: Add fedora 34 as a supported distro
+Date: Wed, 20 Oct 2021 05:45:30 -1000
+Message-Id: <44c3049ede99180600c891e98e621f0dc565140d.1634744401.git.steve@sakoman.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1634744401.git.steve@sakoman.com>
+References: <cover.1634744401.git.steve@sakoman.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Please review this set of patches for dunfell and have comments back by end of
-day Friday.
+Signed-off-by: Steve Sakoman <steve@sakoman.com>
+---
+ meta-poky/conf/distro/poky.conf | 1 +
+ 1 file changed, 1 insertion(+)
 
-Passed Fedora 34 testing on autobuilder:
-
-https://autobuilder.yoctoproject.org/typhoon/#/builders/56/builds/1629
-https://autobuilder.yoctoproject.org/typhoon/#/builders/117/builds/261
-
-Passed Debian 11 testing on autobuilder:
-
-https://autobuilder.yoctoproject.org/typhoon/#/builders/56/builds/1630
-https://autobuilder.yoctoproject.org/typhoon/#/builders/117/builds/262
-
-The following changes since commit 7eac76587428202db781f269439ad9d719017289:
-
-  poky: Use SDKPATHINSTALL instead of SDKPATH (2021-09-15 18:34:01 +0100)
-
-are available in the Git repository at:
-
-  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
-  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
-
-Steve Sakoman (2):
-  poky.conf: Add fedora 34 as a supported distro
-  poky.conf: Add debian 11 as a supported distro
-
- meta-poky/conf/distro/poky.conf | 2 ++
- 1 file changed, 2 insertions(+)
-
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 5b54df8..d366922 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -61,6 +61,7 @@ SANITY_TESTED_DISTROS ?= " \
+             fedora-31 \n \
+             fedora-32 \n \
+             fedora-33 \n \
++            fedora-34 \n \
+             centos-7 \n \
+             centos-8 \n \
+             debian-8 \n \
 -- 
 2.25.1
 
