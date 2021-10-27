@@ -1,240 +1,79 @@
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
- by mx.groups.io with SMTP id smtpd.web09.8883.1635323525307291186
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ by mx.groups.io with SMTP id smtpd.web08.8851.1635324141836765560
  for <poky@lists.yoctoproject.org>;
- Wed, 27 Oct 2021 01:32:05 -0700
+ Wed, 27 Oct 2021 01:42:22 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=HyF6A7Q6;
- spf=pass (domain: gmail.com, ip: 209.85.167.52, mailfrom: quaresma.jose@gmail.com)
-Received: by mail-lf1-f52.google.com with SMTP id bi35so4492410lfb.9
-        for <poky@lists.yoctoproject.org>; Wed, 27 Oct 2021 01:32:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=Zau8TeuIpdunNF1lx5rewp0Wu1KeiciJig0/mxDCkSk=;
-        b=HyF6A7Q6+i+HVe8ZTai2ySz/HxitiI58Wq8U10TL4jHSYtMi1i3LTsiNOMfP0kFAjL
-         w7mLr8+y5GkpJKDH5x4Xj5X8C1RJI19bi/h0aQ+XqrClqKrLUqoxhDB6YIRtqgRSRQue
-         DsYV8oqO4tRfDOlmcdJdcOXu0/wcoZ3rgCGRGRYmhLH/y6zaL+8nqkuPVYfhr2Zx2NLn
-         qb90EaI0DP3aMdWfg0NMs55c+31bQDP/+1GR19oef0xRqOOKtLVVTp8N4mG3v5ZOQl5P
-         Q0U6YSymNvt5m+XIRhanrJxJ0hugt1fjy1JMeJEyxgWt+ll14j1jzKrBdX2ZCvazzfVD
-         p0NQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=Zau8TeuIpdunNF1lx5rewp0Wu1KeiciJig0/mxDCkSk=;
-        b=6SSz5mOkWlW5AybHiA95r8C0AfERcuraYHHMZRUHOg1r16bY2drFVyPkN8mHTjDdW/
-         5wy0QuXKq0Z7nrN9jKJ4gR0AHTDfSXU7dZHGLqbopyWSlXtd3BlfsPjac7kz0E0Ox1Ym
-         T6gZ7IQ8zNiIxhAip8AhVxTKl8X49tNsFCTDXPVKkx42h25avNBwHpUTqamzXS5YucA7
-         w1QKBUG8vgiJS+AXKGxyNdsdzsVi+I5OVVGnWUDxcePyPgsUsfRyM2jUmxVzqeEhURck
-         IkJMOTYxkv44P5YVarQFy1Hk+wupvF8Is9GseAJLQpe5VJrJDNgOgH75VIvcfov2cJKd
-         /0Jg==
-X-Gm-Message-State: AOAM531WM9oM2CVYxJuGUvNuCww9fDEvqqB8S/2AsDGBc8qSU0tm0gR6
-	56GRnoJzM9MQ8fVVTfxvGBjGPZQVQ8Rk0ljyNfg=
-X-Google-Smtp-Source: ABdhPJzaVejVBQUw3+bIMe4E/v8004bfv4lfnI4KnIlBHGnS+Er/5D+CHrYFsJkf0LxIJwcbCetV7giWHE/wmEUBImM=
-X-Received: by 2002:a19:6717:: with SMTP id b23mr22763325lfc.95.1635323523386;
- Wed, 27 Oct 2021 01:32:03 -0700 (PDT)
-MIME-Version: 1.0
+ dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=boiCcy4Z;
+ spf=pass (domain: gmx.li, ip: 212.227.17.20, mailfrom: star@gmx.li)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+	s=badeba3b8450; t=1635324139;
+	bh=iHkUNzN+U7RZGoVZHUvlqa6/05ruUfHf4hxAtwU2bnY=;
+	h=X-UI-Sender-Class:Subject:To:References:From:Date:In-Reply-To;
+	b=boiCcy4Z0kjaNNTK5UxhCrZFXFCeRX9m0DKrstcJ0jzwedr299qQOZM0tcMP/aeZ2
+	 dlyEWHItHzIj2hF4LmASiRQ3KM/DgxwOWybBPJNU5ynJVE32dBOaOX050erKcuwmok
+	 vxXBKeW16PlYD7UvtvqMaRrbrtYHv1wSEOSpwjWg=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.3.20] ([46.85.161.156]) by mail.gmx.net (mrgmx105
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1MO9z7-1mHEwM1jFB-00OYyY for
+ <poky@lists.yoctoproject.org>; Wed, 27 Oct 2021 10:42:19 +0200
+Subject: Warning: empty_var_volatile doesn't exist
+To: poky@lists.yoctoproject.org
 References: <CAP2OjchVtRJfFwirrNjJ80VHLEZvMkascBbDvVkbsOfBB5BCjw@mail.gmail.com>
- <CAMKF1soxAHRFgzqwoTJ+xXbcBKBWqR2MwoDciJvw-6Hijw7Gmw@mail.gmail.com> <16B1A23F29F0BE69.10400@lists.yoctoproject.org>
-In-Reply-To: <16B1A23F29F0BE69.10400@lists.yoctoproject.org>
-From: "Jose Quaresma" <quaresma.jose@gmail.com>
-Date: Wed, 27 Oct 2021 09:31:53 +0100
-Message-ID: <CANPvuRnf_q3T4FDrEiG4wSi8jn1wP04pAkgGZp08WdF_CcAdMw@mail.gmail.com>
-Subject: Re: [poky] bitbake core-image-minimal struck at [ Initialising tasks: 44% ]
-To: Jose Quaresma <quaresma.jose@gmail.com>
-Cc: Khem Raj <raj.khem@gmail.com>, Ashish <ashishm@mvista.com>, 
-	poky <poky@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="000000000000b4538a05cf516dea"
-
---000000000000b4538a05cf516dea
-Content-Type: text/plain; charset="UTF-8"
+ <CAMKF1soxAHRFgzqwoTJ+xXbcBKBWqR2MwoDciJvw-6Hijw7Gmw@mail.gmail.com>
+ <CANPvuR=FRqssxM25SAXE7pQw9=1cPOk9yya1sW+JOo-vAJ=xJA@mail.gmail.com>
+From: "Steve" <star@gmx.li>
+Message-ID: <cccb58eb-bdc6-8e74-f0f1-b1f4d17a3344@gmx.li>
+Date: Wed, 27 Oct 2021 10:42:12 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
+MIME-Version: 1.0
+In-Reply-To: <CANPvuR=FRqssxM25SAXE7pQw9=1cPOk9yya1sW+JOo-vAJ=xJA@mail.gmail.com>
+X-Provags-ID: V03:K1:Uo+E5A3JuRcy8Sdpm4jhtpTrVJoiBPzIwnttE7r0PIdvYaALR1M
+ c8MtJ6DGv+1xY1rIo1CaNlxJ1FJv1hG7l/m/ghOINE00P0TSCd8eHyj8AY2UdbBwWHgV9ol
+ Fw51lxsOBUAr92uXbb6CqdCe/DBWeaCmfZQPdVRG811GVxV0MfrC3SoszgBIB7VuLY8pcJh
+ dAHZhMko1QiWSWGmBWjcg==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:zMDPIZ3aPAI=:Ewey6b8jDMNWv9hDYdlIt+
+ fAbG5SlfdPdmQ5O8V83IHvGbXxo9GEwNAShgx/0HVtCTu7D+hN+d8GjHEtBdzKfIOjFH+p0Gj
+ QZc9cymxTdhxbV2KI9dITFslQpgHPftRajlfsKCURgPMGZVJEd9iXrP2oGEUh467sjZMwENYX
+ HZ9Rtj+JY0m1iP7+Og9iwkZX45Z5j0p2HriL4jadTcyjmwOPCmXH7t5MiobrlmqW2r7AdwlW6
+ OSdeQk93uMB/pgNn5hTulP8EDJU8J7Ka0a4awjHTZyA543L3gmVWyyQ9aBw/9vklrrIycFRxg
+ 0qIbTxO2n6u88UTStof8uDKgC170jFF9bfN6tEZr8XjTIBvTS6czapl8mPG0l60/w/wEfYWcc
+ E+e359YkQuOj9ttZKS2ZNAGCEO5BlYo/qgxWdh73GFzIYnOk8KhdLpZ0CVrkdydCHCoIPAVcT
+ JGDLOfnL74mSK4nQXrdA4+CkyVQpBf024Z8K/L93jz39qQ5jHOMvGikUZ8fbqmKqs0TWzGXSh
+ ylre5BZFyeZ2dZPvw1Qk2rvDxn3nrgFlsehJY1Z+kyqqa9RZB9qSdcv5+6f3gT2Ts/90VX7SD
+ fdbzC1IuptbgyUPYVQ3j7qjg1IFyOMRW6gwaHdwkPQz7DlimCHOou3njwcQhzDySqh9fqbjZQ
+ SCt2iBnqCs6XDgB3EASuUpJtD0LNS9BKTgKiP376AR+SalKa81vQHgqVhpZEGMPWJRV3cE/nR
+ DRCbOcWNpIdb/vrF2P9a+UdFWPWZ81XYsWWANgoBOy7H1Gh0th7SUiA/2tWfmFljQGTRGBH7F
+ tOjbaKpATBBhStlIsHH2t3BPvAHe/rq6BRwJgkRon9q0ED6QLM3mQWoSnbyvOT/Eu0XNXwneg
+ njJj25LreMin1FWbNp4vgPf1vEr314z03O23z1n655jAHNvwFPg9DFc3bH/EpKop44fXe/aky
+ 1MNT/ZjO2wDMdna2M4UVMtCgEJerXGaFNoWDxSu3lRkPHTuw+uy6PePkUKJG94/1vlBDUOufq
+ QE6+3DNehy4fX00vfKcNJpvjn73JrlPyS43hMJC4WK/P7jiqDwuvVj0o+RFhHrE+YQ==
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 
-Jose Quaresma via lists.yoctoproject.org <quaresma.jose=3D
-gmail.com@lists.yoctoproject.org> escreveu no dia ter=C3=A7a, 26/10/2021 =
-=C3=A0(s)
-17:42:
+Hello,
 
-> If you are using an upstream hash equivalence server it will deadlock if
-> you have a clean cache dir.
->
->
-Don't consider my last message, it is only true on the master branch and if
-we can't connect the hash equivalence server.
+I would like to remove /etc/timestamp from my rootfs.
+I found it is set by "rootfs_update_timestamp" as part of
+ROOTFS_POSTPROCESS_COMMAND.
+
+I did in my image recipe the following:
+ROOTFS_POSTPROCESS_COMMAND_remove =3D "rootfs_update_timestamp ; "
+
+That seems to work, no /etc/timestamp in image.
+But I get the warning from do_rootfs:
+"Function write_image_test_data  empty_var_volatile doesn't exist"
+
+Did I do something wrong? I am not feeling well to ignore warnings,
+especially as I am a beginner here.
+
+Maybe allow me a second question:
+I need a part of utils-linux, but won't include all the files (due to
+space limitations).
+I guess I need some utils-linux_%.bbappend - but what has to be in there?
+
+Thanks, Arno (in Yocto 3.0 atm)
 
 
-> https://lists.openembedded.org/g/openembedded-core/topic/86362510
->
-> Jose
->
-> Khem Raj <raj.khem@gmail.com> escreveu no dia ter=C3=A7a, 26/10/2021 =C3=
-=A0(s)
-> 16:55:
->
->> On Tue, Oct 26, 2021 at 7:11 AM Ashish <ashishm@mvista.com> wrote:
->> >
->> > Hi All ,
->> > I am trying to get an basic yocto build for qemuarm.
->> > But the build is struck at message INITIALIZING TASK : 44%
->> >
->> > I tried with some other machine name , removing the cache folder etc
->> but the behaviour remians same .
->> >
->> > Any pointers to debug will be helpful .
->>
->> check ps output and see whats executing at this point. I wonder if its
->> stuck parsing some git recipe with autorev or something like that.
->>
->> >
->> > Thanks ,
->> > Ashish
->> >
->> >
->> > [LAP] ~/yocto-build/build-folder : bitbake core-image-minimal
->> > Parsing recipes: 100%
->> |#######################################################################=
-###################|
->> Time: 0:00:57
->> > Parsing of 774 .bb files complete (0 cached, 774 parsed). 1326 targets=
-,
->> 56 skipped, 0 masked, 0 errors.
->> > NOTE: Resolving any missing task queue dependencies
->> >
->> > Build Configuration:
->> > BB_VERSION           =3D "1.46.0"
->> > BUILD_SYS            =3D "x86_64-linux"
->> > NATIVELSBSTRING      =3D "universal"
->> > TARGET_SYS           =3D "aarch64-poky-linux"
->> > MACHINE              =3D "qemuarm64"
->> > DISTRO               =3D "poky"
->> > DISTRO_VERSION       =3D "3.1.11"
->> > TUNE_FEATURES        =3D "aarch64 armv8a crc"
->> > TARGET_FPU           =3D ""
->> > meta
->> > meta-poky
->> > meta-yocto-bsp       =3D
->> "dunfell:78fe96f3edf981285cb9b6a0286e45f44d8b4b21"
->> >
->> > Initialising tasks:  44% |######################################
->> >
->> > --
->> > Thanks ,
->> > Ashish .
->> >
->> >
->>
->>
->>
->>
->
-> --
-> Best regards,
->
-> Jos=C3=A9 Quaresma
->
->=20
->
->
-
---=20
-Best regards,
-
-Jos=C3=A9 Quaresma
-
---000000000000b4538a05cf516dea
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">Jose Quaresma via <a href=3D"http://l=
-ists.yoctoproject.org">lists.yoctoproject.org</a> &lt;quaresma.jose=3D<a hr=
-ef=3D"mailto:gmail.com@lists.yoctoproject.org">gmail.com@lists.yoctoproject=
-.org</a>&gt; escreveu no dia ter=C3=A7a, 26/10/2021 =C3=A0(s) 17:42:<br></d=
-iv><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
-er-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div>=
-If you are using an upstream hash equivalence server it will deadlock if yo=
-u have a clean cache dir.</div><div><br></div></div></blockquote><div><br><=
-/div><div>Don&#39;t consider my last message, it is only true on the master=
- branch and if we can&#39;t connect the hash equivalence server.<br></div><=
-div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
-px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=
-=3D"ltr"><div></div><div><a href=3D"https://lists.openembedded.org/g/openem=
-bedded-core/topic/86362510" target=3D"_blank">https://lists.openembedded.or=
-g/g/openembedded-core/topic/86362510</a><br></div><div><br></div><div>Jose<=
-/div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_a=
-ttr">Khem Raj &lt;<a href=3D"mailto:raj.khem@gmail.com" target=3D"_blank">r=
-aj.khem@gmail.com</a>&gt; escreveu no dia ter=C3=A7a, 26/10/2021 =C3=A0(s) =
-16:55:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
-px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Tue, O=
-ct 26, 2021 at 7:11 AM Ashish &lt;<a href=3D"mailto:ashishm@mvista.com" tar=
-get=3D"_blank">ashishm@mvista.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Hi All ,<br>
-&gt; I am trying to get an basic yocto build for qemuarm.<br>
-&gt; But the build is struck at message INITIALIZING TASK : 44%<br>
-&gt;<br>
-&gt; I tried with some other machine name , removing the cache folder etc b=
-ut the behaviour remians same .<br>
-&gt;<br>
-&gt; Any pointers to debug will be helpful .<br>
-<br>
-check ps output and see whats executing at this point. I wonder if its<br>
-stuck parsing some git recipe with autorev or something like that.<br>
-<br>
-&gt;<br>
-&gt; Thanks ,<br>
-&gt; Ashish<br>
-&gt;<br>
-&gt;<br>
-&gt; [LAP] ~/yocto-build/build-folder : bitbake core-image-minimal<br>
-&gt; Parsing recipes: 100% |###############################################=
-###########################################| Time: 0:00:57<br>
-&gt; Parsing of 774 .bb files complete (0 cached, 774 parsed). 1326 targets=
-, 56 skipped, 0 masked, 0 errors.<br>
-&gt; NOTE: Resolving any missing task queue dependencies<br>
-&gt;<br>
-&gt; Build Configuration:<br>
-&gt; BB_VERSION=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;1.46.0&qu=
-ot;<br>
-&gt; BUILD_SYS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D &quot;x86_64-li=
-nux&quot;<br>
-&gt; NATIVELSBSTRING=C2=A0 =C2=A0 =C2=A0 =3D &quot;universal&quot;<br>
-&gt; TARGET_SYS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;aarch64-p=
-oky-linux&quot;<br>
-&gt; MACHINE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D &quot;qemu=
-arm64&quot;<br>
-&gt; DISTRO=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot=
-;poky&quot;<br>
-&gt; DISTRO_VERSION=C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;3.1.11&quot;<br>
-&gt; TUNE_FEATURES=C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D &quot;aarch64 armv8a crc&=
-quot;<br>
-&gt; TARGET_FPU=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;&quot;<br=
->
-&gt; meta<br>
-&gt; meta-poky<br>
-&gt; meta-yocto-bsp=C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;dunfell:78fe96f3edf=
-981285cb9b6a0286e45f44d8b4b21&quot;<br>
-&gt;<br>
-&gt; Initialising tasks:=C2=A0 44% |######################################<=
-br>
-&gt;<br>
-&gt; --<br>
-&gt; Thanks ,<br>
-&gt; Ashish .<br>
-&gt; <br>
-&gt;<br>
-<br>
-<br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
-><div dir=3D"ltr">Best regards,<div><br>Jos=C3=A9 Quaresma</div></div></div=
->
-<br>
-<br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr">Best regards,<div><br>Jos=C3=A9=
- Quaresma</div></div></div></div>
-
---000000000000b4538a05cf516dea--
