@@ -1,118 +1,73 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
- by mx.groups.io with SMTP id smtpd.web09.29064.1636275221515371369
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+ by mx.groups.io with SMTP id smtpd.web11.1082.1636563953093875704
  for <poky@lists.yoctoproject.org>;
- Sun, 07 Nov 2021 01:53:41 -0700
+ Wed, 10 Nov 2021 09:05:53 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=cQNUEiLf;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.52, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f52.google.com with SMTP id r8so21181223wra.7
-        for <poky@lists.yoctoproject.org>; Sun, 07 Nov 2021 01:53:41 -0700 (PDT)
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=iBO1QEqy;
+ spf=softfail (domain: sakoman.com, ip: 209.85.216.46, mailfrom: steve@sakoman.com)
+Received: by mail-pj1-f46.google.com with SMTP id n15-20020a17090a160f00b001a75089daa3so2387185pja.1
+        for <poky@lists.yoctoproject.org>; Wed, 10 Nov 2021 09:05:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:cc:date:in-reply-to:references
-         :user-agent:mime-version:content-transfer-encoding;
-        bh=Rf45L9GujbFqzd3QFTBEHY1IdjDY8uPo79NXUa4O9CM=;
-        b=cQNUEiLfVMfLmLMzRpALwS1tTMUQBgsWLR+r8oWoPLlGCmQ+6Ojf+Bm5HzMWw1FWLp
-         2nPdCXH8s06i7h8fvnneQWKlG/Foy+4IO7IAoVRVys2WL2WNy/G8bYiMqD4Npbdfm2iB
-         uKsZiPGVBvwJiJCsJu+UxPTYwWwpszF5Bg4H4=
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+         :content-transfer-encoding;
+        bh=rhhe04X3eIBTEaGpjPrlNiB7CdgdcRloTmtMttWP1bI=;
+        b=iBO1QEqyTH+a3lURANCN0pLSABqBOcQ4fQ0PIZ4sdB//NM2CbnnkABRBdmaF42z7Tz
+         gBtowCqI6R7PZYbkPyZWdnkPUaEAx/YpDvYya3kbsnvI/6lPdeHkS5qGRDrG4hu6AiTI
+         9FvXNJvkgBghZ6AzN9bsUH8q56IOmW9JgketNqyI1Rl/4NPM51Xn3swXR6hCkQ//10Qj
+         r8sIPPLqSvhEvkVyYhir4eNyBCRG3IQZ0SmDj+VYmEzflTZTwm5zUKpkgRwNOg2fvKsp
+         qPukVpNDZzdc+b3QqIrgh3sBjjkZkzksuDVlWWsOrLv4zux0iSefys7oUjJLzhkyqCmA
+         fhMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=Rf45L9GujbFqzd3QFTBEHY1IdjDY8uPo79NXUa4O9CM=;
-        b=1HVatYn7Q21xDqugIkpquUfGtghrMnUGp/Drmn1+1i/PjhKD2k7k5/3y3NSuhjfFYI
-         LEILsGmOWTg0vUSKGOZcpWiaHEYCL9ZYDBGdUX7LlLS2iY9FNb6iZaX/f8n/7kOVSNPc
-         JRXwzRvy8G8CfYAqLeXvFHJe+bWVYt9EfhhjPvuuAqrHyHYZ2uasiIrfnr86630fQ6nl
-         pppS9+IZFZbqHinIyvGUKpZ+yrYYqmIXraey8KR3h0ziEOw/PrGVRYiDRFeatk20Wnu8
-         ykuWa7c82K1QoJLxd49/qL1PdAhLrDUbMyLhUmlbOrIbtXZndHrN26k6gb/iJ6Zn/BPf
-         vKUw==
-X-Gm-Message-State: AOAM533JgtjTqGlKDNO33wYsqpJjF+lVbWeJ7GtbTzBTFMgnHm5oJj/A
-	8oUigOvXcx9L2JrCbLGzs6Dyrg==
-X-Google-Smtp-Source: ABdhPJwEq1grzUo1z1uc6C0xOFZlt8Bx0jUCIF4VS812jLHG6eAIksqJhXcM6pWg77Qp+PoRYTKvQQ==
-X-Received: by 2002:a5d:58ed:: with SMTP id f13mr78941713wrd.373.1636275219937;
-        Sun, 07 Nov 2021 01:53:39 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:fdfa:2bc:4272:d318? ([2001:8b0:aba:5f3c:fdfa:2bc:4272:d318])
-        by smtp.gmail.com with ESMTPSA id b14sm9447704wrd.24.2021.11.07.01.53.39
+        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=rhhe04X3eIBTEaGpjPrlNiB7CdgdcRloTmtMttWP1bI=;
+        b=Z+ntx4HPEzUqi79/6r+XpRf2q4EPAglKav6UYrle2VxZiCrUrHvAbf6jamF+2PHtbR
+         3EHbUVjE9x2yqh+XN6ovThCbToFPtTZI8pJ67++0xZuaf8i9jTX+r01QeParGeHMV+qx
+         XPzzROSMi+XykP/nY5vLrOJmflEICVgaZZW1b/OHyc6FbrHC+86sG7KF21S+aUIUMUCA
+         X1FLkKlFWnE7fwDzATmzNuXoIoJf27VTcMS05Gwla1FDB3rgD3s4CHd3VbROOyS744Hu
+         zdJjF6QxqfpAtchcQLNSYmm0JhozC2EkEFFPSqTsI81dwzebvhFROVGBVRx+FFtsvBe1
+         zhyg==
+X-Gm-Message-State: AOAM532ElRBbeNuIp0+NGf3OwjnCCYEj7XdhfJ+NV4Xbcuh4cetWEVZ5
+	lun2BfhQqzQEiGUbc8LW06gHCPkqXwdC1I7eT+Y=
+X-Google-Smtp-Source: ABdhPJw87VVDx7FfYo+S8gy0kgZJYBUCgSfVZX3NaskkGXWukCPswJb7MqDertzmCZysVQvzHiQKpQ==
+X-Received: by 2002:a17:90a:ab17:: with SMTP id m23mr410361pjq.194.1636563951879;
+        Wed, 10 Nov 2021 09:05:51 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
+        by smtp.gmail.com with ESMTPSA id g21sm241947pfc.95.2021.11.10.09.05.50
+        for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Nov 2021 01:53:39 -0700 (PDT)
-Message-ID: <fdc1d88de1d4e08a893ea8efbe25b00f9aadd44d.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH] meson: make https:// wrap source downloads work
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Leif Middelschulte <leif.middelschulte@gmail.com>
-Cc: poky@lists.yoctoproject.org, Leif Middelschulte
-	 <Leif.Middelschulte@klsmartin.com>
-Date: Sun, 07 Nov 2021 08:53:36 +0000
-In-Reply-To: <CANw0+A_93EiyU1cBQVOqm-=sdwBneqjMOCW8BFRXN9cER9oiJw@mail.gmail.com>
-References: <873EB729-5CCC-4B12-B45D-B9D481D38E89@gmail.com>
-	 <daa53f916bec48be39888a64d2c542f712933f73.camel@linuxfoundation.org>
-	 <CANw0+A_93EiyU1cBQVOqm-=sdwBneqjMOCW8BFRXN9cER9oiJw@mail.gmail.com>
-User-Agent: Evolution 3.40.4-1 
+        Wed, 10 Nov 2021 09:05:51 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][dunfell 1/1] poky.conf: Bump version for 3.1.12 release
+Date: Wed, 10 Nov 2021 07:05:41 -1000
+Message-Id: <4f698bef0b2c87fc7643b834e6565de1f5b30e7c.1636563874.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1636563874.git.steve@sakoman.com>
+References: <cover.1636563874.git.steve@sakoman.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sat, 2021-11-06 at 11:13 +0100, Leif Middelschulte wrote:
-> Am Sa., 6. Nov. 2021 um 11:07 Uhr schrieb Richard Purdie
-> <richard.purdie@linuxfoundation.org>:
-> > 
-> > On Sat, 2021-11-06 at 10:47 +0100, Leif Middelschulte wrote:
-> > > Meson would fail to fetch wraps' sources on bare systems (i.e. docker images),
-> > > that only provide little more than the SDK.
-> > > 
-> > > The SDK's SSL directory was not searched, so meson would fail when it tried
-> > > to fetch sources via https, that were specified in wrap files.
-> > > Specifically `urllib` would fail:
-> > > ```
-> > > <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1129)>
-> > > ```
-> > > 
-> > > Caution: this patch depends on the underlying C library (i.e. openssl)
-> > > to consider this environment variable.
-> > > 
-> > > Signed-off-by: Leif Middelschulte <Leif.Middelschulte@klsmartin.com>
-> > > ---
-> > > meta/recipes-devtools/meson/meson/meson-wrapper | 4 ++++
-> > > 1 file changed, 4 insertions(+)
-> > > 
-> > > diff --git a/meta/recipes-devtools/meson/meson/meson-wrapper b/meta/recipes-devtools/meson/meson/meson-wrapper
-> > > index d4b5187f8d..8fafaad975 100755
-> > > --- a/meta/recipes-devtools/meson/meson/meson-wrapper
-> > > +++ b/meta/recipes-devtools/meson/meson/meson-wrapper
-> > > @@ -4,6 +4,10 @@ if [ -z "$OECORE_NATIVE_SYSROOT" ]; then
-> > >     echo "OECORE_NATIVE_SYSROOT not set; are you in a Yocto SDK environment?" >&2
-> > > fi
-> > > 
-> > > +if [ -z "$SSL_CERT_DIR" ]; then
-> > > +    export SSL_CERT_DIR="${OECORE_NATIVE_SYSROOT}/etc/ssl/certs/"
-> > > +fi
-> > > +
-> > > # If these are set to a cross-compile path, meson will get confused and try to
-> > > # use them as native tools. Unset them to prevent this, as all the cross-compile
-> > > # config is already in meson.cross.
-> > 
-> > Why is meson trying to fetch sources? Shouldn't this be happening in do_fetch?
-> This happens outside of bitbake, i.e. when users of the SDK try to
-> build some Meson project that uses "Wraps".
-> Mesons "wraps" allow its users to build software on the spot, if it is
-> missing in the host/target toolchain. See
-> https://mesonbuild.com/Using-the-WrapDB.html
-> 
+Signed-off-by: Steve Sakoman <steve@sakoman.com>
+---
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Ok, this needs to be clearer in the commit message making it clear this is an
-SDK issue with the meson-wrapper, ideally in the shortlog.
-
-I did take a deeper look at the patch and it doesn't apply, the whitespace
-somehow seems damaged as the leading whitespaces on several lines are missing
-and I think there is other damage.
-
-Also, the patch needs to be sent to the openembedded-core list.
-
-Cheers,
-
-Richard
-
-
-
-
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index ed4cbae..bc22b75 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -1,6 +1,6 @@
+ DISTRO = "poky"
+ DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
+-DISTRO_VERSION = "3.1.11"
++DISTRO_VERSION = "3.1.12"
+ DISTRO_CODENAME = "dunfell"
+ SDK_VENDOR = "-pokysdk"
+ SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}', 'snapshot')}"
+-- 
+2.25.1
 
