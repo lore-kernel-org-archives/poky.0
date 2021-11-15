@@ -1,57 +1,73 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
- by mx.groups.io with SMTP id smtpd.web10.20996.1636976393911050682
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+ by mx.groups.io with SMTP id smtpd.web10.21027.1636976634494921054
  for <poky@lists.yoctoproject.org>;
- Mon, 15 Nov 2021 03:39:54 -0800
+ Mon, 15 Nov 2021 03:43:54 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=cW52XSfP;
- spf=pass (domain: gmx.li, ip: 212.227.15.15, mailfrom: star@gmx.li)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
-	s=badeba3b8450; t=1636976392;
-	bh=8oxvxqevcPBFPiZ0h7H8/qQOD6kYq5otTrxu0ack16g=;
-	h=X-UI-Sender-Class:To:From:Subject:Date;
-	b=cW52XSfPD81ngJXmblnnx+43CjFjHc8bM3yCV/y8piWg5E6hjkAFVsOqLG59mm9G2
-	 cid4YajcTOH4kQW1ra9XFoPXks2mNg7udmgU3BHxgTc9ooT39nfcA3HgNn62zlSJms
-	 h99g/oX6unhoAv10sVoZqIZj200lbNa8gOljAIro=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [192.168.3.20] ([84.185.240.74]) by mail.gmx.net (mrgmx004
- [212.227.17.184]) with ESMTPSA (Nemesis) id 1MORAa-1n2U8H3muc-00PtaK for
- <poky@lists.yoctoproject.org>; Mon, 15 Nov 2021 12:39:51 +0100
-To: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-From: "Steve" <star@gmx.li>
-Subject: create separate tarball for /opt or /home partition
-Message-ID: <126011b7-e495-b7cf-fd75-59934c0f0f28@gmx.li>
-Date: Mon, 15 Nov 2021 12:39:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=acqmN6Wl;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.54, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f54.google.com with SMTP id u1so30071697wru.13
+        for <poky@lists.yoctoproject.org>; Mon, 15 Nov 2021 03:43:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:date:in-reply-to:references:user-agent
+         :mime-version:content-transfer-encoding;
+        bh=sB8gF9wNIHKKpBxINGV0ND7z6j+KUv1YDCmrT91Jbig=;
+        b=acqmN6Wluw8wwqdACEJdYVxxMJ6rUwqCuYS5r8G9Eokf5AlKY55xsBqjzwyrWrB+Su
+         lrkY05mZeD60sILEom32xaCJPqzScrKuYWFl1oGwQ6+DIdl2v5GNghX9PDa0DqtBkMbB
+         ID44KnUbv2iPJyu6ueprlUj+bktIhuS1vqo6I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=sB8gF9wNIHKKpBxINGV0ND7z6j+KUv1YDCmrT91Jbig=;
+        b=sUhpJe8jx4C/0DdnSEk7JDPWiA/Z4Xvxs4AIQLNMP4M57rX4lI83W5QvzK57QcwpOj
+         laUgbtlPQGT5Az42XzPaT1+/I4Xhel9NQ1TdxBssQpFbb5MFK0Vrs6aH2M+QvF7EAFGg
+         wDfCRzJX7mP3SshasXyEFSglE/ivaNVCPDqaYxIX+C9s4tOWTz9LJzAmyFqgA0dn22/F
+         McfTVNuaVHRrosf0TXW1W7wiK82Y8pRgF8ZYjbNSI4FeG4WfZel88SDVzqAc+294WkL6
+         yB+9ywU2EMXOYOoddSpYUOzntOyGI5Qdk9n2pLqm9L/9iKaaXFmxrlQ5dsZg54nuxWNk
+         4o9A==
+X-Gm-Message-State: AOAM530KLcjsKQwK4+p0ax2oQQgFOI1QP4cr9QjKnN5F9PmhoFbWL3dZ
+	vQGJBaEJ70G+1jazZb7xHpV8rA==
+X-Google-Smtp-Source: ABdhPJyG9RMXmOcV+wNtpmM4K7C/bs5X/C/LKbAiWPt6dhnB1WV7gAnBoZb2lLWDW2srGdFo4ReJOw==
+X-Received: by 2002:adf:dc52:: with SMTP id m18mr36270088wrj.216.1636976633014;
+        Mon, 15 Nov 2021 03:43:53 -0800 (PST)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from ?IPv6:2001:8b0:aba:5f3c:c4af:9769:123a:c249? ([2001:8b0:aba:5f3c:c4af:9769:123a:c249])
+        by smtp.gmail.com with ESMTPSA id ay21sm844956wmb.7.2021.11.15.03.43.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 15 Nov 2021 03:43:52 -0800 (PST)
+Message-ID: <47b551262b6db0c2771a037aceb257322d17eae7.camel@linuxfoundation.org>
+Subject: Re: [poky] create separate tarball for /opt or /home partition
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Steve <star@gmx.li>, "poky@lists.yoctoproject.org"
+	 <poky@lists.yoctoproject.org>
+Date: Mon, 15 Nov 2021 11:43:49 +0000
+In-Reply-To: <126011b7-e495-b7cf-fd75-59934c0f0f28@gmx.li>
+References: <126011b7-e495-b7cf-fd75-59934c0f0f28@gmx.li>
+User-Agent: Evolution 3.40.4-1 
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:Fl/iqn3rrJ/hbJgb790fE87z7A6LUbzbR1sat96yssYNzBQp27m
- 8tKI9ONN8zhDR5/32+38rC3H6ml0s/g0xnDnuDxzPO+D+hJQBse4kiCxxksObcd1zrgZDh2
- P1W8KEO7EilJzX6DoUBHa1hBXbhzDY/FUuTwknU2a50v+qmKJe6/6FVRslidvCZZvlfUU9L
- dRslXitOFjdeJuzlcVakQ==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:QkaCnoFAXKE=:czDOp20HXccjofIivwVCVx
- ZNPFRNICjdQNBIsxPlu5k+lNauGzcKCJMUkgJRbGdVA1Ll7r8vbYePDRmnBZrQ84pJ3Qqa8O7
- DkSPtrQ4CPr7thvtFbWwGxp8vUytWZa8bD/5ywPDR4PTBgl3fsIfF1/VvTaSMa7u0Q2/DiFql
- w2LpeNw1DjQM6eGvIv/7SZYosEE3h2/Q6csVSDtQunwXbgrG2oJB9eeqIiLYa1XGifdeqaEZ3
- 7C3DpWf8UWONJ9Fo+zx8THxkKfc4uC8JqsXQVJhtVyM7gwrMKiQcZumr/tfBiRerrMiHAjqHY
- cXF96Uq3FNBVY/l5WGFj/ZkGjhNRkUOHl3xzlcnJpqK/QCWoOpK3bFmtPT1WdjpBaqWcf83MF
- R3gFxWclZjdDwW4KdMtzZV1N9ebI95pR8pylnHWKi7EHARQW7WArjJ/4fRsEWxvrtY8RjvNxY
- VuBScIL8IZgOgkUukDwNVOG42nxh/q96SsLiyQyVk+LIv1NnSovfufDpyaSgpyWa76Iiobefr
- y4bg0cd8QggKrig7xNe1Pyo/3Sfy4oYlLaJksQpK8pba/4rPtEiCNoIAsZtEFB4I5ER6Cw0zp
- UCom7bVVqj744FWiIBMGJlI09AxAEhuqS4W3gifWAKYxsXGZDxC1SGPEesuy4QrhZNA5cJpoG
- gpTThGM+TbU8O0Z5i96Z+5VZwaQ4ewOC7MH+imPpoL1WRxI0mxvMCBHOPcrSmt7dQ+vwaVUbQ
- KAOuFFWUtiw1OPGMMF44gIqoJewJusjmgXymNFDRWNYGf2nRjAk56lT3UN+qx+ZQGwY3aU8Ua
- zXktADiM20sVirzuhgFPwoGD8eV+xIk+1bBZvMOzfqwDm0vuc41jKLDgCYDvIbTZ5poh8LdMq
- qcBqMiR4m0suFcyx1IR7L1CQcOEAOltBYovUAcDDL1IBWXESxvdpmcDSVs5ivc7dYmc7iRlHB
- 99bQ+bGjMVha79RWRv0ZcLVcObDHIGlgUaFiSptNJRVY/vUmLp15MWmNvrZcF1ss1GdND3dA6
- 5THY7UGq4i/AgPk+lmJf5aRNabEeLxiI3WdRRwQrghH5X2yUDVVNR2lb+cqc/XzBWQ==
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Can I control Poky/Yocto in a way to create not just a single rootfs but
-lets say 3 tarballs, one for / /opt and /home? And if so - how?
-I know wks can be scripted, but that's not creating the splitted tar.bz2
-(as example), so that seem not the solution.
-Thanks in advance for any helping hint.
-Arno
+On Mon, 2021-11-15 at 12:39 +0100, Steve wrote:
+> Can I control Poky/Yocto in a way to create not just a single rootfs but
+> lets say 3 tarballs, one for / /opt and /home? And if so - how?
+> I know wks can be scripted, but that's not creating the splitted tar.bz2
+> (as example), so that seem not the solution.
+> Thanks in advance for any helping hint.
+
+The output generation functions are customisable so you could replace
+IMAGE_CMD:tar in image_types.bbclass with something which generated three
+different tarballs for example.do_image_tar
+
+If you wanted to do this generically where the system would then do something
+with the three different pieces such as place them into separate partitions that
+is where you start to need something like wic.
+
+So your example is easily changed but your end result might not be, it all
+really depends.
+
+Cheers,
+
+Richard
+
