@@ -1,73 +1,57 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
- by mx.groups.io with SMTP id smtpd.web11.1082.1636563953093875704
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ by mx.groups.io with SMTP id smtpd.web10.20996.1636976393911050682
  for <poky@lists.yoctoproject.org>;
- Wed, 10 Nov 2021 09:05:53 -0800
+ Mon, 15 Nov 2021 03:39:54 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=iBO1QEqy;
- spf=softfail (domain: sakoman.com, ip: 209.85.216.46, mailfrom: steve@sakoman.com)
-Received: by mail-pj1-f46.google.com with SMTP id n15-20020a17090a160f00b001a75089daa3so2387185pja.1
-        for <poky@lists.yoctoproject.org>; Wed, 10 Nov 2021 09:05:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
-        h=from:to:subject:date:message-id:in-reply-to:references:mime-version
-         :content-transfer-encoding;
-        bh=rhhe04X3eIBTEaGpjPrlNiB7CdgdcRloTmtMttWP1bI=;
-        b=iBO1QEqyTH+a3lURANCN0pLSABqBOcQ4fQ0PIZ4sdB//NM2CbnnkABRBdmaF42z7Tz
-         gBtowCqI6R7PZYbkPyZWdnkPUaEAx/YpDvYya3kbsnvI/6lPdeHkS5qGRDrG4hu6AiTI
-         9FvXNJvkgBghZ6AzN9bsUH8q56IOmW9JgketNqyI1Rl/4NPM51Xn3swXR6hCkQ//10Qj
-         r8sIPPLqSvhEvkVyYhir4eNyBCRG3IQZ0SmDj+VYmEzflTZTwm5zUKpkgRwNOg2fvKsp
-         qPukVpNDZzdc+b3QqIrgh3sBjjkZkzksuDVlWWsOrLv4zux0iSefys7oUjJLzhkyqCmA
-         fhMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=rhhe04X3eIBTEaGpjPrlNiB7CdgdcRloTmtMttWP1bI=;
-        b=Z+ntx4HPEzUqi79/6r+XpRf2q4EPAglKav6UYrle2VxZiCrUrHvAbf6jamF+2PHtbR
-         3EHbUVjE9x2yqh+XN6ovThCbToFPtTZI8pJ67++0xZuaf8i9jTX+r01QeParGeHMV+qx
-         XPzzROSMi+XykP/nY5vLrOJmflEICVgaZZW1b/OHyc6FbrHC+86sG7KF21S+aUIUMUCA
-         X1FLkKlFWnE7fwDzATmzNuXoIoJf27VTcMS05Gwla1FDB3rgD3s4CHd3VbROOyS744Hu
-         zdJjF6QxqfpAtchcQLNSYmm0JhozC2EkEFFPSqTsI81dwzebvhFROVGBVRx+FFtsvBe1
-         zhyg==
-X-Gm-Message-State: AOAM532ElRBbeNuIp0+NGf3OwjnCCYEj7XdhfJ+NV4Xbcuh4cetWEVZ5
-	lun2BfhQqzQEiGUbc8LW06gHCPkqXwdC1I7eT+Y=
-X-Google-Smtp-Source: ABdhPJw87VVDx7FfYo+S8gy0kgZJYBUCgSfVZX3NaskkGXWukCPswJb7MqDertzmCZysVQvzHiQKpQ==
-X-Received: by 2002:a17:90a:ab17:: with SMTP id m23mr410361pjq.194.1636563951879;
-        Wed, 10 Nov 2021 09:05:51 -0800 (PST)
-Return-Path: <steve@sakoman.com>
-Received: from hexa.router0800d9.com (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
-        by smtp.gmail.com with ESMTPSA id g21sm241947pfc.95.2021.11.10.09.05.50
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 10 Nov 2021 09:05:51 -0800 (PST)
-From: "Steve Sakoman" <steve@sakoman.com>
-To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell 1/1] poky.conf: Bump version for 3.1.12 release
-Date: Wed, 10 Nov 2021 07:05:41 -1000
-Message-Id: <4f698bef0b2c87fc7643b834e6565de1f5b30e7c.1636563874.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1636563874.git.steve@sakoman.com>
-References: <cover.1636563874.git.steve@sakoman.com>
+ dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=cW52XSfP;
+ spf=pass (domain: gmx.li, ip: 212.227.15.15, mailfrom: star@gmx.li)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+	s=badeba3b8450; t=1636976392;
+	bh=8oxvxqevcPBFPiZ0h7H8/qQOD6kYq5otTrxu0ack16g=;
+	h=X-UI-Sender-Class:To:From:Subject:Date;
+	b=cW52XSfPD81ngJXmblnnx+43CjFjHc8bM3yCV/y8piWg5E6hjkAFVsOqLG59mm9G2
+	 cid4YajcTOH4kQW1ra9XFoPXks2mNg7udmgU3BHxgTc9ooT39nfcA3HgNn62zlSJms
+	 h99g/oX6unhoAv10sVoZqIZj200lbNa8gOljAIro=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.3.20] ([84.185.240.74]) by mail.gmx.net (mrgmx004
+ [212.227.17.184]) with ESMTPSA (Nemesis) id 1MORAa-1n2U8H3muc-00PtaK for
+ <poky@lists.yoctoproject.org>; Mon, 15 Nov 2021 12:39:51 +0100
+To: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+From: "Steve" <star@gmx.li>
+Subject: create separate tarball for /opt or /home partition
+Message-ID: <126011b7-e495-b7cf-fd75-59934c0f0f28@gmx.li>
+Date: Mon, 15 Nov 2021 12:39:51 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Provags-ID: V03:K1:Fl/iqn3rrJ/hbJgb790fE87z7A6LUbzbR1sat96yssYNzBQp27m
+ 8tKI9ONN8zhDR5/32+38rC3H6ml0s/g0xnDnuDxzPO+D+hJQBse4kiCxxksObcd1zrgZDh2
+ P1W8KEO7EilJzX6DoUBHa1hBXbhzDY/FUuTwknU2a50v+qmKJe6/6FVRslidvCZZvlfUU9L
+ dRslXitOFjdeJuzlcVakQ==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:QkaCnoFAXKE=:czDOp20HXccjofIivwVCVx
+ ZNPFRNICjdQNBIsxPlu5k+lNauGzcKCJMUkgJRbGdVA1Ll7r8vbYePDRmnBZrQ84pJ3Qqa8O7
+ DkSPtrQ4CPr7thvtFbWwGxp8vUytWZa8bD/5ywPDR4PTBgl3fsIfF1/VvTaSMa7u0Q2/DiFql
+ w2LpeNw1DjQM6eGvIv/7SZYosEE3h2/Q6csVSDtQunwXbgrG2oJB9eeqIiLYa1XGifdeqaEZ3
+ 7C3DpWf8UWONJ9Fo+zx8THxkKfc4uC8JqsXQVJhtVyM7gwrMKiQcZumr/tfBiRerrMiHAjqHY
+ cXF96Uq3FNBVY/l5WGFj/ZkGjhNRkUOHl3xzlcnJpqK/QCWoOpK3bFmtPT1WdjpBaqWcf83MF
+ R3gFxWclZjdDwW4KdMtzZV1N9ebI95pR8pylnHWKi7EHARQW7WArjJ/4fRsEWxvrtY8RjvNxY
+ VuBScIL8IZgOgkUukDwNVOG42nxh/q96SsLiyQyVk+LIv1NnSovfufDpyaSgpyWa76Iiobefr
+ y4bg0cd8QggKrig7xNe1Pyo/3Sfy4oYlLaJksQpK8pba/4rPtEiCNoIAsZtEFB4I5ER6Cw0zp
+ UCom7bVVqj744FWiIBMGJlI09AxAEhuqS4W3gifWAKYxsXGZDxC1SGPEesuy4QrhZNA5cJpoG
+ gpTThGM+TbU8O0Z5i96Z+5VZwaQ4ewOC7MH+imPpoL1WRxI0mxvMCBHOPcrSmt7dQ+vwaVUbQ
+ KAOuFFWUtiw1OPGMMF44gIqoJewJusjmgXymNFDRWNYGf2nRjAk56lT3UN+qx+ZQGwY3aU8Ua
+ zXktADiM20sVirzuhgFPwoGD8eV+xIk+1bBZvMOzfqwDm0vuc41jKLDgCYDvIbTZ5poh8LdMq
+ qcBqMiR4m0suFcyx1IR7L1CQcOEAOltBYovUAcDDL1IBWXESxvdpmcDSVs5ivc7dYmc7iRlHB
+ 99bQ+bGjMVha79RWRv0ZcLVcObDHIGlgUaFiSptNJRVY/vUmLp15MWmNvrZcF1ss1GdND3dA6
+ 5THY7UGq4i/AgPk+lmJf5aRNabEeLxiI3WdRRwQrghH5X2yUDVVNR2lb+cqc/XzBWQ==
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Steve Sakoman <steve@sakoman.com>
----
- meta-poky/conf/distro/poky.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index ed4cbae..bc22b75 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -1,6 +1,6 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
--DISTRO_VERSION = "3.1.11"
-+DISTRO_VERSION = "3.1.12"
- DISTRO_CODENAME = "dunfell"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}', 'snapshot')}"
--- 
-2.25.1
-
+Can I control Poky/Yocto in a way to create not just a single rootfs but
+lets say 3 tarballs, one for / /opt and /home? And if so - how?
+I know wks can be scripted, but that's not creating the splitted tar.bz2
+(as example), so that seem not the solution.
+Thanks in advance for any helping hint.
+Arno
