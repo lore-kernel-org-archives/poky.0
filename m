@@ -1,103 +1,73 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
- by mx.groups.io with SMTP id smtpd.web09.5781.1639135262823021144
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+ by mx.groups.io with SMTP id smtpd.web11.12433.1639409347071198204
  for <poky@lists.yoctoproject.org>;
- Fri, 10 Dec 2021 03:21:03 -0800
+ Mon, 13 Dec 2021 07:29:07 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=KYeydcD4;
- spf=pass (domain: gmail.com, ip: 209.85.208.44, mailfrom: bewithsathish@gmail.com)
-Received: by mail-ed1-f44.google.com with SMTP id l25so29067042eda.11
-        for <poky@lists.yoctoproject.org>; Fri, 10 Dec 2021 03:21:02 -0800 (PST)
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=hPHUK8DC;
+ spf=softfail (domain: sakoman.com, ip: 209.85.216.45, mailfrom: steve@sakoman.com)
+Received: by mail-pj1-f45.google.com with SMTP id gt5so12125090pjb.1
+        for <poky@lists.yoctoproject.org>; Mon, 13 Dec 2021 07:29:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=LDiKfOInIxA4NAWodBi5POrjQuJpSDn5EsVJ9iW5rg4=;
-        b=KYeydcD451E+4+v7wSoEsLucjSgw9La47E0D+kazNx0Oo0oQtVEcpudPCSE9/rcXUg
-         XVEhcf90M78HG2g4SLwUckYVeH4y3RsN00Edc5j5ND5h1DQR0ZptnHf8ES29ll7Qaqcz
-         rBDrOowCL5gR/HVqVQkpAHuKIlMhcmZlJQ1HwBeDoJpFAZGY0epW7bQXCPoGQQVB2xXW
-         pyWcujuTmDtxUlip2EZZyFBhmp7Ajnkq9AiuUSSw5T7F6yjhKCAhR2c2vVLy50UNmaAM
-         Qejn1IthiesR409japzHsNvMYIkbbPsasC+jMbsVfjAbN9ES8mGA6nQv8XOIwx4dpzxY
-         hIPw==
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+         :content-transfer-encoding;
+        bh=9yAPSYlgnuoc/IueScH2XwwFL4KsHQ6AvEtneBRNvAM=;
+        b=hPHUK8DC+VWU1oDUs/XqlXYrYQAJzunCvVlieYMVDDFKNKjXfMNXLhnW8vrgyDyZ1v
+         u4FkwOPD6LqI2zQMr1BOH4IGqPUNw5UjQN8eO33klaCJqv1uSjpOwO2ic/TMxWBnP6QB
+         ZPVmifmpfdqBDAbENXQtQlrsV20zrlOZrRZsHCNmXVwqM7mvg5JdGd8G0iDNhYBXVLOm
+         wrd0/ixsGdDrjfzDXuevyKZbG0z7VfSDxlc1khCuFMBTdgN9UOgcJWEUWlWLmaODKgaC
+         BsqVmm0vBUsqYYTIY6gJTwKqfPr65NwWLZqE9aGFSXOZVqT8S+YF47JEV/Dvnj+A6bYP
+         WIpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=LDiKfOInIxA4NAWodBi5POrjQuJpSDn5EsVJ9iW5rg4=;
-        b=QzmcprUYZeLmqBx1cO0CsdSxGg70Rkt6E9Y/C1w4ItaGDDOVaMW7psNS9rTthbWSBH
-         9sZkClgCF3OVG1RB1C46wqpli7dvesk2qogxtPZ61czUGjoHVZpWwJ4Pdqh4EP36uHob
-         qtE/SM7SL3Hyad7589/AD/barwUhnX5IjA3uapQChurPRPzBIRVzqfp9X+t/7cVhp1Dt
-         chIFaAJTBXrIbYoZw54IvPnfkCmK3tSvszITu1FBz6xGx+Sqwlidj4VFyRKU5d9UZyeG
-         zZXHSHEWZYix3bwjYwID4HQT9D2mlg3dO5sdcPm2EnfulgnnIt36nH072zLtQHJxI9CO
-         POdA==
-X-Gm-Message-State: AOAM530VxlTbDuxPcmYH7RLkjib/DHdxwSSy6mlxSjcYsrsLAvBkzXjN
-	hJdkOAJbOTW+mfsGr5GhNwNkRd+IMAyKKZxxB+w=
-X-Google-Smtp-Source: ABdhPJz1NSfSdi3eM777eH59dLwoswZy3VXJsTkylwdPxaFiTYLGCDnHgLIuCifwm7DaH+9/RmIU5SYa4r0i1ZxSf24=
-X-Received: by 2002:a05:6402:42d5:: with SMTP id i21mr37977595edc.373.1639135261156;
- Fri, 10 Dec 2021 03:21:01 -0800 (PST)
+        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=9yAPSYlgnuoc/IueScH2XwwFL4KsHQ6AvEtneBRNvAM=;
+        b=VSxY+vAsHXIEuE34MImfMeNkKUcE6Vorbnehf6QpGmNYfkWYgWzFB2fcov3YtH0+gk
+         wr7TL2GMlwKwTjrwxmcHoKmTEDMb3N/Gi6B6W9mGJQqvumEbHedcUaOnAyLg9+pJ8I1m
+         YK82C63N9AnxijjqCDvabGO1eVyNiuUM2kNqZYeTmrH/yTLL06CS3rK/LCKRxInx8J+l
+         lLTeuBtV/xaPmAI4RD7BVuiHzbZH2FjiZd39t7vJG8J3lIb6nEjKSHia2hlakvSrOAIv
+         t2KtbANeMWKM7w+6qmLZVNTkICwRAiysOwKQuuecfgMMdN8kq800zZXErThtKUGV6Lvh
+         4Csw==
+X-Gm-Message-State: AOAM5319Rm8Z7SRqQtXjs1szn9HJtRr5I5pjs5HxgaDMC82ZMqa52zia
+	1N/fXg12+BYytKlnroc17YMfjJnVDbNWDS3V
+X-Google-Smtp-Source: ABdhPJze/3GTU1JTmQbA/Iul+vbc322uEtx2RlDNSa6RtaGk+dVLWhHJS3CHfNl72+DHwJ3meraPmQ==
+X-Received: by 2002:a17:90a:c58d:: with SMTP id l13mr45585593pjt.189.1639409346004;
+        Mon, 13 Dec 2021 07:29:06 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
+        by smtp.gmail.com with ESMTPSA id k1sm13886723pfu.31.2021.12.13.07.29.04
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 13 Dec 2021 07:29:05 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][dunfell 1/1] poky.conf: Bump version for 3.1.13 release
+Date: Mon, 13 Dec 2021 05:28:54 -1000
+Message-Id: <936706806b09a0910ee61ae568a04a92a129057d.1639409288.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1639409288.git.steve@sakoman.com>
+References: <cover.1639409288.git.steve@sakoman.com>
 MIME-Version: 1.0
-References: <CANJvwR9F1Dpw6WUwXm1vV=0V_u51Y7huoAZiBP4YpF56L_peKg@mail.gmail.com>
- <CAAnfSTtpC58iCUGto9-kmf5WDj9SVpwE0PX2HxPMjrtEURhRSg@mail.gmail.com>
-In-Reply-To: <CAAnfSTtpC58iCUGto9-kmf5WDj9SVpwE0PX2HxPMjrtEURhRSg@mail.gmail.com>
-From: "Sathishkumar Duraisamy" <bewithsathish@gmail.com>
-Date: Fri, 10 Dec 2021 16:50:49 +0530
-Message-ID: <CANJvwR8LUY4+Qv4+OodzmWHjTc3BG2ckv=ZdeM+oaZd1H_GKxg@mail.gmail.com>
-Subject: Re: [poky] Linux time is initialized as build time
-To: Ross Burton <ross@burtonini.com>
-Cc: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="000000000000fae8ff05d2c8ea99"
+Content-Transfer-Encoding: 8bit
 
---000000000000fae8ff05d2c8ea99
-Content-Type: text/plain; charset="UTF-8"
+Signed-off-by: Steve Sakoman <steve@sakoman.com>
+---
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Hi Ross,
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index bc22b75..a52fcf1 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -1,6 +1,6 @@
+ DISTRO = "poky"
+ DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
+-DISTRO_VERSION = "3.1.12"
++DISTRO_VERSION = "3.1.13"
+ DISTRO_CODENAME = "dunfell"
+ SDK_VENDOR = "-pokysdk"
+ SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}', 'snapshot')}"
+-- 
+2.25.1
 
-Thank you for your quick reply. I am able to set my preferred time with the
-rootfs_update_timestamp function. And I found
-further the rootfs-postcommands.bbclass with which I can tweak a little
-more.
-
-Thank you,
-Regards,
-Sathishkumar D
-
-On Fri, Dec 10, 2021 at 4:28 PM Ross Burton <ross@burtonini.com> wrote:
-
-> On Fri, 10 Dec 2021 at 09:24, Sathishkumar Duraisamy
-> <bewithsathish@gmail.com> wrote:
-> > The time in the hardware is initialized as build time. How to change
-> this, say set it to 1970/01/01 during yocto build.
->
-> The init scripts do this by reading /etc/timestamp, so remove
-> rootfs_update_timestamp from ROOTFS_POSTPROCESS_COMMAND and
-> /etc/timestamp won't be created.
->
-> Ross
->
-
---000000000000fae8ff05d2c8ea99
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">Hi Ross,<div><br></div><div>Thank you for=
- your quick reply. I am able to set my preferred time with the rootfs_updat=
-e_timestamp function. And I found further=C2=A0the=C2=A0rootfs-postcommands=
-.bbclass with which I can tweak a little more.=C2=A0</div><div><br></div><d=
-iv>Thank you,</div><div>Regards,<br>Sathishkumar D</div></div><br><div clas=
-s=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Dec 10, 202=
-1 at 4:28 PM Ross Burton &lt;<a href=3D"mailto:ross@burtonini.com">ross@bur=
-tonini.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">On Fri, 10 Dec 2021 at 09:24, Sathishkumar Duraisamy<br>
-&lt;<a href=3D"mailto:bewithsathish@gmail.com" target=3D"_blank">bewithsath=
-ish@gmail.com</a>&gt; wrote:<br>
-&gt; The time in the hardware is initialized as build time. How to change t=
-his, say set it to 1970/01/01 during yocto build.<br>
-<br>
-The init scripts do this by reading /etc/timestamp, so remove<br>
-rootfs_update_timestamp from ROOTFS_POSTPROCESS_COMMAND and<br>
-/etc/timestamp won&#39;t be created.<br>
-<br>
-Ross<br>
-</blockquote></div></div>
-
---000000000000fae8ff05d2c8ea99--
