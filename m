@@ -1,76 +1,71 @@
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- by mx.groups.io with SMTP id smtpd.web12.30544.1640246880657467956
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+ by mx.groups.io with SMTP id smtpd.web09.30878.1640250319337320160
  for <poky@lists.yoctoproject.org>;
- Thu, 23 Dec 2021 00:08:02 -0800
+ Thu, 23 Dec 2021 01:05:19 -0800
 Authentication-Results: mx.groups.io;
- dkim=fail reason="unable to parse pub key" header.i=@intel.com header.s=intel header.b=niIj2XiQ;
- spf=pass (domain: intel.com, ip: 134.134.136.126, mailfrom: jay.shen.teoh@intel.com)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1640246881; x=1671782881;
-  h=from:to:subject:date:message-id:in-reply-to:references:
-   mime-version:content-transfer-encoding;
-  bh=nzVBPWTcCCaWFhd0EqyBS12k3/itq7CinVAbzICdD/g=;
-  b=niIj2XiQetj3gYtR7Jj4obXDP5mkvB34z8Xt/yS4x5B52PLpEt3BkKuy
-   yw6uEFGdZUQJFSrDAbaHYkHD2y3DvPygUpru8o2jxS1UhxNngYQ0jf3HG
-   f/wIL798csDuSS+bgFfLnObilSnF0lN2U85zeFrfn/c2818TmIjRmqJb5
-   W7j4BQELAkuWLIN6H2B6mmB39DeEfWtSfs230IhjWVJHhsOJLE4IHKQr2
-   Zsst++C0FHY8H1Svo2/mS3RwfqMt9iYoPbgP5tdW/mLIIR3Z4gZjCyL+g
-   Upens93emjAyqXUkEKNvEknSIQ/Ol2sJzBYHneIWsH4ONWirsDtQ+rVAm
-   Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10206"; a="227625091"
-X-IronPort-AV: E=Sophos;i="5.88,228,1635231600"; 
-   d="scan'208";a="227625091"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Dec 2021 00:07:57 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,228,1635231600"; 
-   d="scan'208";a="550577356"
-Received: from andromeda02.png.intel.com ([10.221.183.11])
-  by orsmga001.jf.intel.com with ESMTP; 23 Dec 2021 00:07:57 -0800
-From: "Teoh, Jay Shen" <jay.shen.teoh@intel.com>
-To: poky@lists.yoctoproject.org
-Subject: [meta-yocto] [PATCH 2/2] linux-yocto/5.14: update genericx86* machines to v5.14.21
-Date: Thu, 23 Dec 2021 16:07:52 +0800
-Message-Id: <20211223080752.71819-2-jay.shen.teoh@intel.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211223080752.71819-1-jay.shen.teoh@intel.com>
-References: <20211223080752.71819-1-jay.shen.teoh@intel.com>
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=DPdjmcQQ;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.43, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f43.google.com with SMTP id w20so1137638wra.9
+        for <poky@lists.yoctoproject.org>; Thu, 23 Dec 2021 01:05:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:cc:date:in-reply-to:references
+         :user-agent:mime-version:content-transfer-encoding;
+        bh=sVb7+q6DTApuX8mTRlUgSe8ujBl1oO3GQa8LoisHKHg=;
+        b=DPdjmcQQi7t4vKI1/dQq36WmVw3EETyNjVFUtp5uaqOurR3/gH4nHC6jK1e7yJCUIY
+         /Nn9W5iyb/dseJhTflad1+ykX+b9kwDcQdIgjZEwd6Y4fHJmNZvoBOgs8R3LDk0iw5rZ
+         PiIRkoNQQkfrHC2Q+0P4wlpEp1E3uI+mu2hWY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+         :references:user-agent:mime-version:content-transfer-encoding;
+        bh=sVb7+q6DTApuX8mTRlUgSe8ujBl1oO3GQa8LoisHKHg=;
+        b=6x0pbuKo44JYQmTo4BsEv0avrMaWV+A/5tA8pWbXECrumgb7KOWDLE0UZocTdnC09D
+         ivZcg7boBiOIeW3NUMTGOnvhVTwBOt6B+M+AUePwcbcSqcegi+ssqkS2aIxPSbeODDLC
+         7ka/vIUFRum0Yxj07yTMLRHnadH3hwXv4PIipf7oKpJLzae6O0XMZkHYYwWImEk9TON2
+         y3YWrVr59MtCP9WsDRbAjO59SAitIJl+gUhWFlGYWS1IbxqhnnQRxfjDZfAo5KC0XXLz
+         5CSCaXzK9wZY5+bbXnyBSrkkKsGErNGXMNMcvyOjTPj7HLIaIzGKRdzxbWABK6MlceS/
+         O7cQ==
+X-Gm-Message-State: AOAM532OcUp8wgPwDZfhuL8ieoJldGfLN2BYgwReZja0UkDvYPuQC4vt
+	akEHQ218M0vLe7wx5Bx6HyNXfA==
+X-Google-Smtp-Source: ABdhPJxD34JArKm3OY9tcXFpA02i5zO1NxAXcxwirwN4WyCSUfZqbQupXqUQIOHg5NQHXPYh2gVIYA==
+X-Received: by 2002:adf:a111:: with SMTP id o17mr1007829wro.526.1640250317943;
+        Thu, 23 Dec 2021 01:05:17 -0800 (PST)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from ?IPv6:2001:8b0:aba:5f3c:1853:9343:6af4:2b3f? ([2001:8b0:aba:5f3c:1853:9343:6af4:2b3f])
+        by smtp.gmail.com with ESMTPSA id g6sm4393535wri.67.2021.12.23.01.05.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Dec 2021 01:05:17 -0800 (PST)
+Message-ID: <6cbc4a5da6e89e2807af922f10823ffc52558466.camel@linuxfoundation.org>
+Subject: Re: [PATCH] meta-yocto-bsp: Introduce the v5.15 bbappend
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Kevin Hao <kexin.hao@windriver.com>, poky@lists.yoctoproject.org
+Cc: Bruce Ashfield <bruce.ashfield@gmail.com>
+Date: Thu, 23 Dec 2021 09:05:15 +0000
+In-Reply-To: <YcEt21DUeGUajmfC@pek-khao-d2>
+References: <20211116001033.463741-1-kexin.hao@windriver.com>
+	 <YcEt21DUeGUajmfC@pek-khao-d2>
+User-Agent: Evolution 3.40.4-1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-From: Teoh Jay Shen <jay.shen.teoh@intel.com>
+On Tue, 2021-12-21 at 09:28 +0800, Kevin Hao wrote:
+> On Tue, Nov 16, 2021 at 08:10:33AM +0800, Kevin Hao wrote:
+> > Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
+> > ---
+> >  .../linux/linux-yocto_5.15.bbappend           | 23 +++++++++++++++++++
+> >  1 file changed, 23 insertions(+)
+> >  create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.15.bbappend
+> 
+> Hi Richard,
+> 
+> Did you miss this patch or have any concerns about it? I don't see it in
+> either master-next or master branches.
 
-Signed-off-by: Teoh Jay Shen <jay.shen.teoh@intel.com>
----
- .../recipes-kernel/linux/linux-yocto_5.14.bbappend        | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Sorry, it just got lost. I've queued it.
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.14.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.14.bbappend
-index 52371ff66a..af4a7392f0 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.14.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.14.bbappend
-@@ -7,8 +7,8 @@ KMACHINE:genericx86 ?= "common-pc"
- KMACHINE:genericx86-64 ?= "common-pc-64"
- KMACHINE:beaglebone-yocto ?= "beaglebone"
- 
--SRCREV_machine:genericx86 ?= "7ae156be3bdbf033839f7f3ec2e9a0ffffb18818"
--SRCREV_machine:genericx86-64 ?= "7ae156be3bdbf033839f7f3ec2e9a0ffffb18818"
-+SRCREV_machine:genericx86 ?= "9d5572038eacda2e2a86e3f743f35ec415319fb4"
-+SRCREV_machine:genericx86-64 ?= "9d5572038eacda2e2a86e3f743f35ec415319fb4"
- SRCREV_machine:edgerouter ?= "7ae156be3bdbf033839f7f3ec2e9a0ffffb18818"
- SRCREV_machine:beaglebone-yocto ?= "7ae156be3bdbf033839f7f3ec2e9a0ffffb18818"
- 
-@@ -17,7 +17,7 @@ COMPATIBLE_MACHINE:genericx86-64 = "genericx86-64"
- COMPATIBLE_MACHINE:edgerouter = "edgerouter"
- COMPATIBLE_MACHINE:beaglebone-yocto = "beaglebone-yocto"
- 
--LINUX_VERSION:genericx86 = "5.14.6"
--LINUX_VERSION:genericx86-64 = "5.14.6"
-+LINUX_VERSION:genericx86 = "5.14.21"
-+LINUX_VERSION:genericx86-64 = "5.14.21"
- LINUX_VERSION:edgerouter = "5.14.6"
- LINUX_VERSION:beaglebone-yocto = "5.14.6"
--- 
-2.33.1
+Cheers,
+
+Richard
 
