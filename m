@@ -1,38 +1,38 @@
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by mx.groups.io with SMTP id smtpd.web10.48104.1640759926831386592
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by mx.groups.io with SMTP id smtpd.web08.60577.1640833196635274479
  for <poky@lists.yoctoproject.org>;
- Tue, 28 Dec 2021 22:38:47 -0800
+ Wed, 29 Dec 2021 18:59:56 -0800
 Authentication-Results: mx.groups.io;
- dkim=fail reason="unable to parse pub key" header.i=@intel.com header.s=intel header.b=XJEe+c61;
- spf=pass (domain: intel.com, ip: 192.55.52.88, mailfrom: jay.shen.teoh@intel.com)
+ dkim=fail reason="unable to parse pub key" header.i=@intel.com header.s=intel header.b=h45hed2A;
+ spf=pass (domain: intel.com, ip: 134.134.136.20, mailfrom: jay.shen.teoh@intel.com)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1640759926; x=1672295926;
+  t=1640833196; x=1672369196;
   h=from:to:subject:date:message-id:mime-version:
    content-transfer-encoding;
   bh=5PtyX+bEMuq83TvXYaMD48eFTLfuBqJLEmlKz/gZqxA=;
-  b=XJEe+c61SK+HO96ATeyH/xt242zXpygYpvimF9JC3Ak5/Eqo8e3J6FNm
-   /ljAylF3PKan8G8Q/zj2zma2CW59dmHwIEGKBm1gwjap7YaTbOpMIlez0
-   sWOJvX8nEODzoaYnkvM+jCOid8/aHCm3vt1AlJy9ELn/JS7BqSnMSRHAQ
-   dbdhnj3beY99gGLEloZgDqt0QoHYvjWl2trpj50vMhrRN7YJdjlieEAKf
-   5BaNWNqpyuYaojMTt2GoMa2P9TOqKhyq9xBGqiflS1I/xXx2u0o/Jw09R
-   ByRuhSSF6V7BfGLAe83Q8HE4TtdB8aD0T33oS4TxZ51gXNL72eaNAR3nV
-   Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10211"; a="265708300"
-X-IronPort-AV: E=Sophos;i="5.88,244,1635231600"; 
-   d="scan'208";a="265708300"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
-  by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Dec 2021 22:38:45 -0800
+  b=h45hed2ApCqKnsXzzimFHMNzyADw3hh3hxC82HDqGsKZTEO1U4D+5tWL
+   nf/c9LW+3i7LyVCo3Xb80FMevf9ynCx8Y6ZtwENd/xR2D4kRSGDKA4x9M
+   TwVbIzKv4EC0zKczGvMx0hc9uvbs1NkPiLFj2G16CkoyahMl4PqrLJHzy
+   HT0L3IpLtOIZbcEYITFbJYN1XiTpYmzfgGPuFIGcYLLe2PI+W9Z6FRdkj
+   KGIuJrg3HjGNbw3uL4UHJvZ7PUe3V2CAsB9zKG0uhqg1ZS9jDF60hX98q
+   O5UFdoLbe+1lNdHhHenOkxwZCYyFxRmm+OM/0NfeFOIW5C0DWHlxCoasy
+   w==;
+X-IronPort-AV: E=McAfee;i="6200,9189,10212"; a="228914823"
+X-IronPort-AV: E=Sophos;i="5.88,247,1635231600"; 
+   d="scan'208";a="228914823"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+  by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Dec 2021 18:59:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,244,1635231600"; 
-   d="scan'208";a="554438186"
+X-IronPort-AV: E=Sophos;i="5.88,247,1635231600"; 
+   d="scan'208";a="572770815"
 Received: from andromeda02.png.intel.com ([10.221.183.11])
-  by orsmga001.jf.intel.com with ESMTP; 28 Dec 2021 22:38:45 -0800
+  by fmsmga008.fm.intel.com with ESMTP; 29 Dec 2021 18:59:54 -0800
 From: "Teoh, Jay Shen" <jay.shen.teoh@intel.com>
 To: poky@lists.yoctoproject.org
-Subject: [dunfell][meta-yocto][PATCH] linux-yocto/5.4: update genericx86* machines to v5.4.158
-Date: Wed, 29 Dec 2021 14:38:42 +0800
-Message-Id: <20211229063842.51540-1-jay.shen.teoh@intel.com>
+Subject: [hardknott][meta-yocto][PATCH 1/2] linux-yocto/5.4: update genericx86* machines to v5.4.158
+Date: Thu, 30 Dec 2021 10:59:51 +0800
+Message-Id: <20211230025952.9532-1-jay.shen.teoh@intel.com>
 X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
