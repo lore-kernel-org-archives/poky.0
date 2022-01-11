@@ -1,84 +1,69 @@
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
- by mx.groups.io with SMTP id smtpd.web12.38718.1641851850605859359
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+ by mx.groups.io with SMTP id smtpd.web11.8201.1641912136146406180
  for <poky@lists.yoctoproject.org>;
- Mon, 10 Jan 2022 13:57:30 -0800
+ Tue, 11 Jan 2022 06:42:16 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=Ul2SeArT;
- spf=pass (domain: gmail.com, ip: 209.85.219.42, mailfrom: vivien.didelot@gmail.com)
-Received: by mail-qv1-f42.google.com with SMTP id t7so4789364qvj.0
-        for <poky@lists.yoctoproject.org>; Mon, 10 Jan 2022 13:57:30 -0800 (PST)
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=1m8mSzcM;
+ spf=softfail (domain: sakoman.com, ip: 209.85.216.48, mailfrom: steve@sakoman.com)
+Received: by mail-pj1-f48.google.com with SMTP id y16-20020a17090a6c9000b001b13ffaa625so5645956pjj.2
+        for <poky@lists.yoctoproject.org>; Tue, 11 Jan 2022 06:42:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=Z3SvCN7eHETo4g0qzx4LRCFcRlvkf0hV5KUOeqsKkUE=;
-        b=Ul2SeArT64n6Cuub7xHrChQOinMXHD0sYZngd6vxZya5HD2IxV/DgjYLWoAhkMW65d
-         Kz9NAK7KOpJbVwIMG+sDpmSR+uCyfWnmFPqUvlpF32z817FHnHh2OXC1gW3wr+dHsqr3
-         E+pxYHhIbyS7eaz6SNihl8HjauOTs9UxHu7Fz2+mPpvlbhJM8Q0JvM71JpxLfSbu8V0O
-         Up4oC5sFPp15H+/+Paq2kL3VcIKdQdam8xuxfT1eIo5Gr4fYL4PNtW42Vz/+q9qBvI1b
-         PpI/QCWvJVcPxJecrNCTkkawnruP10gYPK0tPoDxtoX/yI0SBSm/yGk4jhkyPm/wDd4+
-         ebcQ==
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=oRqtqwO0XBLNoqMoJzk1FuN3jGyi1OhINAL81WLCtas=;
+        b=1m8mSzcM0ouk3XGs8Tlmm90uf1JeraEV79CLuHGzsHNorTEYpnHOqVSQPZ6eLTk2mF
+         72ocCZ3Scw7TJIVrKUdpUjjyMgTnW//naAIOR+aLCQ3oGERRVvyEH85lCWkYvqNJRKTb
+         T3acZmdhOqzKRijf6RdFAmx1Vt8KlLS9+V6SUscn+PG+wbF7t8b3pVO6ZRsm5wJKDrbs
+         1STUXKfuBDAOdpnKyNS4behLUPzKiFlILHikBLPiFpOU7NkjCjZSYBJ2S/TLpPiMldV1
+         eP5m9wzl+hoGj0MhdZFukfL1DVH9ivK2kw3m6O28lC6cJ2u/AQUbSysfDeuDGIKmfZdK
+         8b+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=Z3SvCN7eHETo4g0qzx4LRCFcRlvkf0hV5KUOeqsKkUE=;
-        b=KE+z0WbRlXdDEu74MR9hPtoRbZrcIo6bYIM8Ip8Y8PqrJjEDM16wNKfcaLaTgqos+R
-         wyqRYUh/phgd2HfcSPcrOB2sYAw75Z8ffaPqB2Wu/bczBC/arPYyFz0IZrQqcJG12fNc
-         D868C6vMBRR9/86MoAAdGGCXXCL2gZBv/GDvjLpqCzGASDOIv6+iZfdJgaAFN7esTbwY
-         2ZQyP/udDc5VSti7zSUIXLHf/zaiCZPZ5/5f/qK5o1AknPyFcmPI7SQrhLkTFS7NYzjq
-         3FtknLRayfBuEJ36uWIRYT3wrZi0hUT5Y9y8XaKl8WOrJAbqJDJV4qcNOMeUc1FY7mSc
-         VPVw==
-X-Gm-Message-State: AOAM5332IzVRs85HPVU2NRb+ZUmAMv9zp3JxWkmS5lLk4oKC6Ii6uGdH
-	Umgvexa0jffrKZ6r9zsyvS3XCaOHN0g=
-X-Google-Smtp-Source: ABdhPJxA3Dy34MkXtYAinDJOr9HnXiRlYgRvVyF+CJg7T6WAfdT1WqAf3rcYLN8LnYURAkzlrZlP2A==
-X-Received: by 2002:a05:6214:f65:: with SMTP id iy5mr1446307qvb.40.1641851849637;
-        Mon, 10 Jan 2022 13:57:29 -0800 (PST)
-Return-Path: <vivien.didelot@gmail.com>
-Received: from localhost (bras-base-mtrlpq2848w-grc-41-70-53-240-211.dsl.bell.ca. [70.53.240.211])
-        by smtp.gmail.com with ESMTPSA id m13sm4278448qkk.122.2022.01.10.13.57.29
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=oRqtqwO0XBLNoqMoJzk1FuN3jGyi1OhINAL81WLCtas=;
+        b=OkqFj2hC7chobE7HMBFFels8GPn59J9NQjjYXZellpLWTT9JuPZmnGVdGkH7cSqTMo
+         yxyTKE90k0wzT4qGngKxUCKIW+84hn2sVNc6cL++TEkkTFTaVu/W09Wf2jaM1GbIkwWN
+         ouArE2O5J8Nq+xzkaSqdlep7IFDo3Pig169ff/IBFVXJIHE4p0lWO9fzlpnmR41VV9+1
+         AexEjtoXY5vfY+RbdEQDnCYjiK7ULKuQ2IMeJscXxL1XTeSZBE0WLTskxthJZ+CGN2IK
+         sNguEPyAXUdFkGPxsWIFwC6NNG0pxZQRpwBLy/3Di2JBEA7WDCTJbj3aF29nvJY5SY8+
+         ZnXg==
+X-Gm-Message-State: AOAM533h9UuT/FAgAJxOSB5WEuHB5jVchwESV6Bt2YE0Pu9x7Z2TKosf
+	ngXDlRak7G1lI0u7i6h2ni0XoGHTWx6i3DNEJR0=
+X-Google-Smtp-Source: ABdhPJxFc8/fBOdZGrJcIxE8aSm4jak6xWTz6V//uNbSJig7gX4JKwpY1KEx7DYrGlXGIjsWUw6PkA==
+X-Received: by 2002:a65:6241:: with SMTP id q1mr4324319pgv.98.1641912134982;
+        Tue, 11 Jan 2022 06:42:14 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
+        by smtp.gmail.com with ESMTPSA id a1sm2473888pjs.20.2022.01.11.06.42.13
+        for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Jan 2022 13:57:29 -0800 (PST)
-From: "Vivien Didelot" <vivien.didelot@gmail.com>
-X-Google-Original-From: Vivien Didelot <vdidelot@pbsc.com>
+        Tue, 11 Jan 2022 06:42:14 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
 To: poky@lists.yoctoproject.org
-Cc: Vivien Didelot <vdidelot@pbsc.com>
-Subject: [meta-yocto][PATCH 2/2] beaglebone-yocto: move kernel and dtb to packagegroup-core-boot
-Date: Mon, 10 Jan 2022 11:56:40 -0500
-Message-Id: <20220110165640.2015039-2-vdidelot@pbsc.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220110165640.2015039-1-vdidelot@pbsc.com>
-References: <20220110165640.2015039-1-vdidelot@pbsc.com>
+Subject: [meta-yocto][dunfell 0/1] Pull request (cover letter only)
+Date: Tue, 11 Jan 2022 04:42:05 -1000
+Message-Id: <cover.1641912067.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Appending IMAGE_INSTALL with the kernel and device tree is a bad idea
-because it will bring these packages to every images, like a container
-image or sysroot image to pivot to, where the kernel artifacts are
-not wanted.
+The following changes since commit fab607a8c53b419fa7109394edbf4e2e9d3c8b8a:
 
-Instead use the MACHINE_ESSENTIAL_EXTRA_RDEPENDS which results
-in having the kernel artifacts where they should be, part of
-packagegroup-core-boot.
+  poky.conf: Bump version for 3.1.13 release (2021-12-13 23:28:45 +0000)
 
-Signed-off-by: Vivien Didelot <vdidelot@pbsc.com>
----
- meta-yocto-bsp/conf/machine/beaglebone-yocto.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+are available in the Git repository at:
 
-diff --git a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-index fa3beb7..fdfe08b 100644
---- a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-+++ b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-@@ -17,7 +17,7 @@ include conf/machine/include/arm/armv7a/tune-cortexa8.inc
- IMAGE_FSTYPES += "tar.bz2 jffs2 wic wic.bmap"
- EXTRA_IMAGECMD:jffs2 = "-lnp "
- WKS_FILE ?= "beaglebone-yocto.wks"
--IMAGE_INSTALL:append = " kernel-devicetree kernel-image-zimage"
-+MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "kernel-image kernel-devicetree"
- do_image_wic[depends] += "mtools-native:do_populate_sysroot dosfstools-native:do_populate_sysroot virtual/bootloader:do_deploy"
- 
- SERIAL_CONSOLES ?= "115200;ttyS0 115200;ttyO0 115200;ttyAMA0"
+  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
+  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
+
+Teoh Jay Shen (1):
+  linux-yocto/5.4: update genericx86* machines to v5.4.158
+
+ .../recipes-kernel/linux/linux-yocto_5.4.bbappend         | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
 -- 
-2.34.1
+2.25.1
 
