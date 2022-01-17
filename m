@@ -1,85 +1,64 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
- by mx.groups.io with SMTP id smtpd.web08.4636.1642458322313746143
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+ by mx.groups.io with SMTP id smtpd.web10.4952.1642459844087790184
  for <poky@lists.yoctoproject.org>;
- Mon, 17 Jan 2022 14:25:23 -0800
+ Mon, 17 Jan 2022 14:50:44 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=MekTLm6l;
- spf=softfail (domain: sakoman.com, ip: 209.85.208.47, mailfrom: steve@sakoman.com)
-Received: by mail-ed1-f47.google.com with SMTP id t24so71376367edi.8
-        for <poky@lists.yoctoproject.org>; Mon, 17 Jan 2022 14:25:22 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=BAJ+RNUQ;
+ spf=pass (domain: gmail.com, ip: 209.85.208.52, mailfrom: festevam@gmail.com)
+Received: by mail-ed1-f52.google.com with SMTP id f21so14553959eds.11
+        for <poky@lists.yoctoproject.org>; Mon, 17 Jan 2022 14:50:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        d=gmail.com; s=20210112;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=psDlTuj2yB5TUW3sdQzJW3WWQZqCawpc4nDTBw4s7cA=;
-        b=MekTLm6l6HcSgmzfEhZc+5+IHsO4txFWHEaOxu67ree2FVOwtULZDYxu+DXaL9ug5f
-         Sd4jDD7apfkujxoig5sfhNxjmBBGJiXfZ4CdaHfOw7fstfJA8W+684bBJwNgX3IXMZqL
-         s36WC78b3qB5/6uZOOXzj5otZ/RQcWxBpMjJA+Qc+RqHhvAthpa6L6o17sV30kc3t4zW
-         8KO3QxO5IQZi+ETRvnpl66Ls4/QzrICt6iWZE6cUxffAiCt7A4ba9Iyd885yCES0MLfW
-         cgKDi1wdoVDDskUV4x2JlR/3eFoVl5xwD4du6uIivsxPpJaOnUxyLr+mwhVOE25PE4tM
-         EO9g==
+        bh=RAFI8NzjThaNCQi//7EXhwSYH9dp8gyTyt+dq7D3zRU=;
+        b=BAJ+RNUQJFHW4NJOd5cruvohadvovjdjl6tVC2zN5U31l0AT+ZzikPiQENH+/wEhJV
+         09tLccUAbz1BXEjmTX7GZ7/63Ois4flPfzHfnxLdbqDGdfL5A1LFrUIwEITlkzE61Fh+
+         tCjmiBIHSyYw+iYfP87jpBR9lx5hZij+mJnEoETQ3zyw5/PtnLzrlF3Q3Qh8/D0+uTgS
+         5JlxEH4byalZsduSz/kRZS8iIEVpddDCJs0daTDnohH76mYZ34NPS4QxMkzBX6WGYjUN
+         9DYFL9eDzaqkohw44M7CrSMxGittEX3p78AIJK7KGJ3bY+1PdAQUj/Y2lIJOA6ZPTwkU
+         5RFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=psDlTuj2yB5TUW3sdQzJW3WWQZqCawpc4nDTBw4s7cA=;
-        b=2Hd4ffJz7w4vLQPCN+O3Jk0ZGdYZlcAp9TJQROyCAs92Bvw0kyrbwLNJnw/KMYHFug
-         mq3TRjCrdyddphOuqxBoytsJ7oLE7BWiIApTB8GAgJllHzm+bjECSi9j5AiPbxW3KWN/
-         jq0y7hYKGVYk+1XYiarh56qGiIN2Pv0SMSyTp/nyliCHaE+C3hxOq8TftSXiaF9kAZT9
-         RDDp/0W1xz0FkZmR7L+v7dX9Q7kJTHh7rDkaNRSDHQgH93GeZ8IFoshsCUvJWXTXLluj
-         gOzzdZ9+HxT1+a6WoIeIGyvpE08JW5bUreqb64rY29VRKa/ReCP/Whp+xV2aEPVwsVMa
-         tK9Q==
-X-Gm-Message-State: AOAM533XcF7AAvfu2kSC7B2ujP6FEmD6fNpEhcxpRYGq1PozC1VbX7p2
-	08+NMXlZthbZZhEQLM5lfdlGRidkQYhEL26Om+BtpQ==
-X-Google-Smtp-Source: ABdhPJxGFsvRKE90OSCeCZLLPBJ8yqLtuoR5pGcG7e95A14lpQw5uyo+hnxJy47WGxrajj0Jxhvp1pGatQ7ijT/qj2o=
-X-Received: by 2002:a17:907:1b24:: with SMTP id mp36mr18592878ejc.487.1642458320664;
- Mon, 17 Jan 2022 14:25:20 -0800 (PST)
+        bh=RAFI8NzjThaNCQi//7EXhwSYH9dp8gyTyt+dq7D3zRU=;
+        b=TSSJ8rH5r/eay2Ndftt6J+6kB0WDao3eaiE5PioL2/bFfr2o8Z7mq+UyOZJDrd+mSR
+         Hzxm57bajInqIhWn0TIWIVfMtgi/C+/OK6q4bpLOMkXKzLnKDH9hE+j1InWECs9kzvdb
+         w+B6BgFFjTcF4eO+I5WvLztb58JIc8P7YFLhpo2dgiEXpZtQi+DRsmGhpjhfDDgT6kHg
+         gCQd+ymQ0XJuDbmb0eBnNF/dLUhUdC0DesAirxEMPR1zBzkxZXjvbkgDnQyAX8BcXOCc
+         lSli8wS5WJjYMaSiEM242hZgAh7R0Wrh5e0xgt3XZcg6//pZyHtcmrYp4j4fy9M44U9W
+         19Gg==
+X-Gm-Message-State: AOAM5320z/iEh3wPSb2BUis6Soj0r1TvxltU8hjbZC/Dhj+jp9Y/JFMH
+	oujZw7XA0CoTF0kbmtc6jKJPJUkFn2+9iuk72+4=
+X-Google-Smtp-Source: ABdhPJziF4UHVY1Lpaman+eR5Kv4dpwkKEioiTgKKYzpxNhbiL/22QZhEXvsY1OW+5u00uEXaUbVj27L++0kVTm4GuE=
+X-Received: by 2002:a17:907:60d2:: with SMTP id hv18mr18075333ejc.214.1642459842450;
+ Mon, 17 Jan 2022 14:50:42 -0800 (PST)
 MIME-Version: 1.0
 References: <CAOMZO5AyegXN6him+WVB=9g7RBHsB__5w26pYUg3_Xxy9dK4bw@mail.gmail.com>
-In-Reply-To: <CAOMZO5AyegXN6him+WVB=9g7RBHsB__5w26pYUg3_Xxy9dK4bw@mail.gmail.com>
-From: "Steve Sakoman" <steve@sakoman.com>
-Date: Mon, 17 Jan 2022 12:25:09 -1000
-Message-ID: <CAOSpxdbUot8-mASW+_bQwZbHgWQnnP0iFH11UXRjcszqxzEVww@mail.gmail.com>
+ <CAOSpxdbUot8-mASW+_bQwZbHgWQnnP0iFH11UXRjcszqxzEVww@mail.gmail.com>
+In-Reply-To: <CAOSpxdbUot8-mASW+_bQwZbHgWQnnP0iFH11UXRjcszqxzEVww@mail.gmail.com>
+From: "Fabio Estevam" <festevam@gmail.com>
+Date: Mon, 17 Jan 2022 19:50:31 -0300
+Message-ID: <CAOMZO5AYSZ1XcJRp1E-D_TPai4tGj1biKBM=TS4CJqxvFsC5RA@mail.gmail.com>
 Subject: Re: [poky] poky: request to backport ae219e1f74600 to dunfell
-To: Fabio Estevam <festevam@gmail.com>
+To: Steve Sakoman <steve@sakoman.com>
 Cc: poky@lists.yoctoproject.org, Marek Vasut <marex@denx.de>, alex.kanavin@gmail.com, 
 	Richard Purdie <richard.purdie@linuxfoundation.org>
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Jan 17, 2022 at 9:54 AM Fabio Estevam <festevam@gmail.com> wrote:
->
-> Hi,
->
-> On a host machine with Python 3.10 I am seeing the following error on Dunfell:
->
-> File "/work/festevam/conp_embedded/poky/bitbake/lib/bb/compat.py",
-> line 7, in <module>
->     from collections import MutableMapping, KeysView, ValuesView,
-> ItemsView, OrderedDict
-> ImportError: cannot import name 'MutableMapping' from 'collections'
-> (/usr/lib64/python3.10/collections/__init__.py)
-> 2022-01-17 17:33:36 - ERROR    - Command returned non-zero exit status 1
->
-> Can the commit below:
-> https://git.openembedded.org/bitbake/commit/?id=ae219e1f7460077f4492b31ac91cef4cf9b17277
->
-> be backported to bitbake in poky dunfell, please?
+Hi Steve,
 
-I'm a bit confused, since this patch has already been backported!
+On Mon, Jan 17, 2022 at 7:25 PM Steve Sakoman <steve@sakoman.com> wrote:
 
-https://git.openembedded.org/bitbake/commit/?h=1.46&id=4b66d498eab22eca29c9e3a7fdfa5c6e54055e78
+> I'm a bit confused, since this patch has already been backported!
+>
+> https://git.openembedded.org/bitbake/commit/?h=1.46&id=4b66d498eab22eca29c9e3a7fdfa5c6e54055e78
+>
+> It should be in 3.1.12 and 3.1.13
 
-It should be in 3.1.12 and 3.1.13
+You are right. Just checked out 3.1.13 and the problem is gone.
 
-Steve
+Sorry for the noise!
 
->
-> KeysView, ValuesView, ItemsView, and OrderedDict do not exist in
-> master, so the backport is not so trivial.
->
-> Thanks,
->
-> Fabio Estevam
->
-> 
->
+Thanks a lot
