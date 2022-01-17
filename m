@@ -1,67 +1,129 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
- by mx.groups.io with SMTP id smtpd.web08.2628.1642449262872659182
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+ by mx.groups.io with SMTP id smtpd.web10.2734.1642450067133271801
  for <poky@lists.yoctoproject.org>;
- Mon, 17 Jan 2022 11:54:23 -0800
+ Mon, 17 Jan 2022 12:07:47 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=RG+YPitb;
- spf=pass (domain: gmail.com, ip: 209.85.208.44, mailfrom: festevam@gmail.com)
-Received: by mail-ed1-f44.google.com with SMTP id b13so70300642edn.0
-        for <poky@lists.yoctoproject.org>; Mon, 17 Jan 2022 11:54:22 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=Oj9AYiKa;
+ spf=pass (domain: gmail.com, ip: 209.85.222.42, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-ua1-f42.google.com with SMTP id c36so32452187uae.13
+        for <poky@lists.yoctoproject.org>; Mon, 17 Jan 2022 12:07:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:from:date:message-id:subject:to:cc;
-        bh=fH6dF17OtHCMaRBtmkVHk4ruj0UQYnkLwD0Pb8saoQs=;
-        b=RG+YPitb1Xjx254VcAKpUbZd/oLRdlifIU4yI8w83pzuaZP9t387Wa0d73XdVIrfWp
-         58Fn4F46RiL8jM/X/HNImf2LMORgdJFxtwt7W47Y7LCmI6qP06hvBO1F0osMsjM4YVQu
-         ded8227MgFNEPEguAXHRMXhSf02B4FSE26/ch8FfCa4GdSlzK6typ2BnY9Kb87/Yn5e6
-         ewvVWeykYZu7uJcOY9+pAbqDWtgvvpwvaLjy14ElNScrM8Hw5nZXSA+5WAbPgmxanG4x
-         KQHo0sjSNFdiAUDjHXnEG7Hg0yuzvp8AzZrWGaxxlgrF00zp4bvn2zunPSIH1XBcy9g4
-         jojw==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=twW7Z/p46DMQ9hTc43iILO5yuFRBpkSHAN7uaM2SveI=;
+        b=Oj9AYiKazDeHAhxprB+mLhxh0y51XbDirL+ztzCeApyNpdmjDJHJsOhEqLn6nFwzFB
+         HtuU1MixLLeBW3n8S3cVjpSI8I8w6x5feNqS5rkiU7bQ5H5lw4vc22VtoSCGt4hUySad
+         iyKjr1yv08/oaF/dEdlhRJ5e9Ol2NZ23IIupfqau+McLhUSCkf/JYobV3Mt+RMQs73Xy
+         +wQeDUU2L/9NWDfytDgIb/LXSOh5bKlwKV7lBq+iYCuyzfnTbVKJvtYqVhUjztVCWHRy
+         8127E0mX0KcT8FDlz1KOAdV+quZUxZlYPdhAHKaRYZI94SjNxs5kKy4/vH0ibOGVZKmX
+         49tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-        bh=fH6dF17OtHCMaRBtmkVHk4ruj0UQYnkLwD0Pb8saoQs=;
-        b=3xuiOdl2UYuYJWuC6lVGEsPDo0FMtq066/uQb1+uPaUXTNNnwrfczd/k4tgqXUHmpg
-         BtfP1GR+/GPbBboRKIU4SUAZoMAjp8YHmjUT82d5OPoo+ekGEx4nLr+Y0lm4ktb7R2xj
-         MOFMleFD48yC97n/OY5VTQk0WvVOmL2Wts1BhLVkVTTOlSAPo2s10FX0Md5wJcqRkdK9
-         HKWCbykk2PXTRCb5tlqasuNPE5PQ+ThK2m5z4gTq6hzFAEcxmxwnpyyFJOoRrWbnRwiW
-         TEVbz2oPVy28P6ke6U+h7wYO7GXu/7AqAuO2ZP89VR8im2b0DrP+tKyoY7UJqv8hZZL0
-         9qxg==
-X-Gm-Message-State: AOAM533kOOckVQb+rPpCksnwAV2/x+E9ZmMHKnsUQ/zHnFbjVt2etLVb
-	fXuitckYptdKqvACt008wrb8rhG3BiwaKoCh7Ait7ysfVn3Jhw==
-X-Google-Smtp-Source: ABdhPJz3y/HJECrV/uG2c0WgHVlMcJBOPGVnro7lbquzC1wvKy/EDIi9+doj7D7dSko+5DQvYU2y8wUyZajoIR+6ZoA=
-X-Received: by 2002:a17:906:274f:: with SMTP id a15mr17591561ejd.492.1642449260663;
- Mon, 17 Jan 2022 11:54:20 -0800 (PST)
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=twW7Z/p46DMQ9hTc43iILO5yuFRBpkSHAN7uaM2SveI=;
+        b=G6ylXM9+36pVRn01N3CIUQzBMUsMpCrGra4tyvCS/c/11k+3oA/ff0ODlSO6nK7eDe
+         WPdy9JrEzbCHlAlmNaPSSoWpA/nPbkD57Y3tDdnyWZaS/Z66WQZHMJ68NDxPRoyqCFhh
+         UEAdkHNvzxHaCA/6nQJ+AiPyG+uJRJh3fnAbKEdiqkxh1Q4SajRCLLOwVNRy8Q7G2Df+
+         MRasCAjqr+MCk0EYzA1qXLvN/D6F76eHduK2akn8uOqC6fEAIHSu5ysHQ6kcdPtJsQh8
+         MQP88OPrDfl+5S+V0rpNGIBOxaQWSOu2D0PAt3mCpj5odaUWJS0hJfjSeOs0di1LJAIE
+         ojSQ==
+X-Gm-Message-State: AOAM5310MND44Bp/sFmN0BZ+sDJcc70LFcmPXjvGWaU2RZcT+k8ILGyX
+	I5WmAU4BR8q8y3TKb2LurvQ1RxRzP22Gdz6lbSI=
+X-Google-Smtp-Source: ABdhPJyOCzINf0JbQ7PMtAEpo9lIA1uFUufopVFJ9aG9l9cxgHQH8MXrkL/N7h+sBRkPDAVZcsXsIGhIiPWFwioQCm8=
+X-Received: by 2002:a67:c40e:: with SMTP id c14mr7523626vsk.73.1642450066281;
+ Mon, 17 Jan 2022 12:07:46 -0800 (PST)
 MIME-Version: 1.0
-From: "Fabio Estevam" <festevam@gmail.com>
-Date: Mon, 17 Jan 2022 16:54:10 -0300
-Message-ID: <CAOMZO5AyegXN6him+WVB=9g7RBHsB__5w26pYUg3_Xxy9dK4bw@mail.gmail.com>
-Subject: poky: request to backport ae219e1f74600 to dunfell
-To: poky@lists.yoctoproject.org
-Cc: Marek Vasut <marex@denx.de>, alex.kanavin@gmail.com, 
+References: <CAOMZO5AyegXN6him+WVB=9g7RBHsB__5w26pYUg3_Xxy9dK4bw@mail.gmail.com>
+In-Reply-To: <CAOMZO5AyegXN6him+WVB=9g7RBHsB__5w26pYUg3_Xxy9dK4bw@mail.gmail.com>
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+Date: Mon, 17 Jan 2022 21:07:35 +0100
+Message-ID: <CANNYZj_-9T=aw5CAvw1MH4kC6SJaNSkgsGoxb9-WqF4775NzMw@mail.gmail.com>
+Subject: Re: poky: request to backport ae219e1f74600 to dunfell
+To: Fabio Estevam <festevam@gmail.com>
+Cc: poky@lists.yoctoproject.org, Marek Vasut <marex@denx.de>, 
 	Richard Purdie <richard.purdie@linuxfoundation.org>
+Content-Type: multipart/alternative; boundary="000000000000c3185505d5ccb487"
+
+--000000000000c3185505d5ccb487
 Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+Is the distro on the host machine marked as compatible with dunfell in
+poky.conf?
 
-On a host machine with Python 3.10 I am seeing the following error on Dunfell:
+Alex
 
-File "/work/festevam/conp_embedded/poky/bitbake/lib/bb/compat.py",
-line 7, in <module>
-    from collections import MutableMapping, KeysView, ValuesView,
-ItemsView, OrderedDict
-ImportError: cannot import name 'MutableMapping' from 'collections'
-(/usr/lib64/python3.10/collections/__init__.py)
-2022-01-17 17:33:36 - ERROR    - Command returned non-zero exit status 1
+On Mon, 17 Jan 2022 at 20:54, Fabio Estevam <festevam@gmail.com> wrote:
 
-Can the commit below:
-https://git.openembedded.org/bitbake/commit/?id=ae219e1f7460077f4492b31ac91cef4cf9b17277
+> Hi,
+>
+> On a host machine with Python 3.10 I am seeing the following error on
+> Dunfell:
+>
+> File "/work/festevam/conp_embedded/poky/bitbake/lib/bb/compat.py",
+> line 7, in <module>
+>     from collections import MutableMapping, KeysView, ValuesView,
+> ItemsView, OrderedDict
+> ImportError: cannot import name 'MutableMapping' from 'collections'
+> (/usr/lib64/python3.10/collections/__init__.py)
+> 2022-01-17 17:33:36 - ERROR    - Command returned non-zero exit status 1
+>
+> Can the commit below:
+>
+> https://git.openembedded.org/bitbake/commit/?id=ae219e1f7460077f4492b31ac91cef4cf9b17277
+>
+> be backported to bitbake in poky dunfell, please?
+>
+> KeysView, ValuesView, ItemsView, and OrderedDict do not exist in
+> master, so the backport is not so trivial.
+>
+> Thanks,
+>
+> Fabio Estevam
+>
 
-be backported to bitbake in poky dunfell, please?
+--000000000000c3185505d5ccb487
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-KeysView, ValuesView, ItemsView, and OrderedDict do not exist in
-master, so the backport is not so trivial.
+<div dir=3D"ltr"><div>Is the distro on the host machine marked as compatibl=
+e with dunfell in poky.conf?<br></div><div><br></div><div>Alex<br></div></d=
+iv><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On =
+Mon, 17 Jan 2022 at 20:54, Fabio Estevam &lt;<a href=3D"mailto:festevam@gma=
+il.com">festevam@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gma=
+il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,2=
+04,204);padding-left:1ex">Hi,<br>
+<br>
+On a host machine with Python 3.10 I am seeing the following error on Dunfe=
+ll:<br>
+<br>
+File &quot;/work/festevam/conp_embedded/poky/bitbake/lib/bb/compat.py&quot;=
+,<br>
+line 7, in &lt;module&gt;<br>
+=C2=A0 =C2=A0 from collections import MutableMapping, KeysView, ValuesView,=
+<br>
+ItemsView, OrderedDict<br>
+ImportError: cannot import name &#39;MutableMapping&#39; from &#39;collecti=
+ons&#39;<br>
+(/usr/lib64/python3.10/collections/__init__.py)<br>
+2022-01-17 17:33:36 - ERROR=C2=A0 =C2=A0 - Command returned non-zero exit s=
+tatus 1<br>
+<br>
+Can the commit below:<br>
+<a href=3D"https://git.openembedded.org/bitbake/commit/?id=3Dae219e1f746007=
+7f4492b31ac91cef4cf9b17277" rel=3D"noreferrer" target=3D"_blank">https://gi=
+t.openembedded.org/bitbake/commit/?id=3Dae219e1f7460077f4492b31ac91cef4cf9b=
+17277</a><br>
+<br>
+be backported to bitbake in poky dunfell, please?<br>
+<br>
+KeysView, ValuesView, ItemsView, and OrderedDict do not exist in<br>
+master, so the backport is not so trivial.<br>
+<br>
+Thanks,<br>
+<br>
+Fabio Estevam<br>
+</blockquote></div>
 
-Thanks,
-
-Fabio Estevam
+--000000000000c3185505d5ccb487--
