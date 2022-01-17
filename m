@@ -1,65 +1,56 @@
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
- by mx.groups.io with SMTP id smtpd.web10.2734.1642450067133271801
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+ by mx.groups.io with SMTP id smtpd.web08.4636.1642458322313746143
  for <poky@lists.yoctoproject.org>;
- Mon, 17 Jan 2022 12:07:47 -0800
+ Mon, 17 Jan 2022 14:25:23 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=Oj9AYiKa;
- spf=pass (domain: gmail.com, ip: 209.85.222.42, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-ua1-f42.google.com with SMTP id c36so32452187uae.13
-        for <poky@lists.yoctoproject.org>; Mon, 17 Jan 2022 12:07:47 -0800 (PST)
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=MekTLm6l;
+ spf=softfail (domain: sakoman.com, ip: 209.85.208.47, mailfrom: steve@sakoman.com)
+Received: by mail-ed1-f47.google.com with SMTP id t24so71376367edi.8
+        for <poky@lists.yoctoproject.org>; Mon, 17 Jan 2022 14:25:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
         h=mime-version:references:in-reply-to:from:date:message-id:subject:to
          :cc;
-        bh=twW7Z/p46DMQ9hTc43iILO5yuFRBpkSHAN7uaM2SveI=;
-        b=Oj9AYiKazDeHAhxprB+mLhxh0y51XbDirL+ztzCeApyNpdmjDJHJsOhEqLn6nFwzFB
-         HtuU1MixLLeBW3n8S3cVjpSI8I8w6x5feNqS5rkiU7bQ5H5lw4vc22VtoSCGt4hUySad
-         iyKjr1yv08/oaF/dEdlhRJ5e9Ol2NZ23IIupfqau+McLhUSCkf/JYobV3Mt+RMQs73Xy
-         +wQeDUU2L/9NWDfytDgIb/LXSOh5bKlwKV7lBq+iYCuyzfnTbVKJvtYqVhUjztVCWHRy
-         8127E0mX0KcT8FDlz1KOAdV+quZUxZlYPdhAHKaRYZI94SjNxs5kKy4/vH0ibOGVZKmX
-         49tg==
+        bh=psDlTuj2yB5TUW3sdQzJW3WWQZqCawpc4nDTBw4s7cA=;
+        b=MekTLm6l6HcSgmzfEhZc+5+IHsO4txFWHEaOxu67ree2FVOwtULZDYxu+DXaL9ug5f
+         Sd4jDD7apfkujxoig5sfhNxjmBBGJiXfZ4CdaHfOw7fstfJA8W+684bBJwNgX3IXMZqL
+         s36WC78b3qB5/6uZOOXzj5otZ/RQcWxBpMjJA+Qc+RqHhvAthpa6L6o17sV30kc3t4zW
+         8KO3QxO5IQZi+ETRvnpl66Ls4/QzrICt6iWZE6cUxffAiCt7A4ba9Iyd885yCES0MLfW
+         cgKDi1wdoVDDskUV4x2JlR/3eFoVl5xwD4du6uIivsxPpJaOnUxyLr+mwhVOE25PE4tM
+         EO9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=twW7Z/p46DMQ9hTc43iILO5yuFRBpkSHAN7uaM2SveI=;
-        b=G6ylXM9+36pVRn01N3CIUQzBMUsMpCrGra4tyvCS/c/11k+3oA/ff0ODlSO6nK7eDe
-         WPdy9JrEzbCHlAlmNaPSSoWpA/nPbkD57Y3tDdnyWZaS/Z66WQZHMJ68NDxPRoyqCFhh
-         UEAdkHNvzxHaCA/6nQJ+AiPyG+uJRJh3fnAbKEdiqkxh1Q4SajRCLLOwVNRy8Q7G2Df+
-         MRasCAjqr+MCk0EYzA1qXLvN/D6F76eHduK2akn8uOqC6fEAIHSu5ysHQ6kcdPtJsQh8
-         MQP88OPrDfl+5S+V0rpNGIBOxaQWSOu2D0PAt3mCpj5odaUWJS0hJfjSeOs0di1LJAIE
-         ojSQ==
-X-Gm-Message-State: AOAM5310MND44Bp/sFmN0BZ+sDJcc70LFcmPXjvGWaU2RZcT+k8ILGyX
-	I5WmAU4BR8q8y3TKb2LurvQ1RxRzP22Gdz6lbSI=
-X-Google-Smtp-Source: ABdhPJyOCzINf0JbQ7PMtAEpo9lIA1uFUufopVFJ9aG9l9cxgHQH8MXrkL/N7h+sBRkPDAVZcsXsIGhIiPWFwioQCm8=
-X-Received: by 2002:a67:c40e:: with SMTP id c14mr7523626vsk.73.1642450066281;
- Mon, 17 Jan 2022 12:07:46 -0800 (PST)
+        bh=psDlTuj2yB5TUW3sdQzJW3WWQZqCawpc4nDTBw4s7cA=;
+        b=2Hd4ffJz7w4vLQPCN+O3Jk0ZGdYZlcAp9TJQROyCAs92Bvw0kyrbwLNJnw/KMYHFug
+         mq3TRjCrdyddphOuqxBoytsJ7oLE7BWiIApTB8GAgJllHzm+bjECSi9j5AiPbxW3KWN/
+         jq0y7hYKGVYk+1XYiarh56qGiIN2Pv0SMSyTp/nyliCHaE+C3hxOq8TftSXiaF9kAZT9
+         RDDp/0W1xz0FkZmR7L+v7dX9Q7kJTHh7rDkaNRSDHQgH93GeZ8IFoshsCUvJWXTXLluj
+         gOzzdZ9+HxT1+a6WoIeIGyvpE08JW5bUreqb64rY29VRKa/ReCP/Whp+xV2aEPVwsVMa
+         tK9Q==
+X-Gm-Message-State: AOAM533XcF7AAvfu2kSC7B2ujP6FEmD6fNpEhcxpRYGq1PozC1VbX7p2
+	08+NMXlZthbZZhEQLM5lfdlGRidkQYhEL26Om+BtpQ==
+X-Google-Smtp-Source: ABdhPJxGFsvRKE90OSCeCZLLPBJ8yqLtuoR5pGcG7e95A14lpQw5uyo+hnxJy47WGxrajj0Jxhvp1pGatQ7ijT/qj2o=
+X-Received: by 2002:a17:907:1b24:: with SMTP id mp36mr18592878ejc.487.1642458320664;
+ Mon, 17 Jan 2022 14:25:20 -0800 (PST)
 MIME-Version: 1.0
 References: <CAOMZO5AyegXN6him+WVB=9g7RBHsB__5w26pYUg3_Xxy9dK4bw@mail.gmail.com>
 In-Reply-To: <CAOMZO5AyegXN6him+WVB=9g7RBHsB__5w26pYUg3_Xxy9dK4bw@mail.gmail.com>
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-Date: Mon, 17 Jan 2022 21:07:35 +0100
-Message-ID: <CANNYZj_-9T=aw5CAvw1MH4kC6SJaNSkgsGoxb9-WqF4775NzMw@mail.gmail.com>
-Subject: Re: poky: request to backport ae219e1f74600 to dunfell
+From: "Steve Sakoman" <steve@sakoman.com>
+Date: Mon, 17 Jan 2022 12:25:09 -1000
+Message-ID: <CAOSpxdbUot8-mASW+_bQwZbHgWQnnP0iFH11UXRjcszqxzEVww@mail.gmail.com>
+Subject: Re: [poky] poky: request to backport ae219e1f74600 to dunfell
 To: Fabio Estevam <festevam@gmail.com>
-Cc: poky@lists.yoctoproject.org, Marek Vasut <marex@denx.de>, 
+Cc: poky@lists.yoctoproject.org, Marek Vasut <marex@denx.de>, alex.kanavin@gmail.com, 
 	Richard Purdie <richard.purdie@linuxfoundation.org>
-Content-Type: multipart/alternative; boundary="000000000000c3185505d5ccb487"
-
---000000000000c3185505d5ccb487
 Content-Type: text/plain; charset="UTF-8"
 
-Is the distro on the host machine marked as compatible with dunfell in
-poky.conf?
-
-Alex
-
-On Mon, 17 Jan 2022 at 20:54, Fabio Estevam <festevam@gmail.com> wrote:
-
+On Mon, Jan 17, 2022 at 9:54 AM Fabio Estevam <festevam@gmail.com> wrote:
+>
 > Hi,
 >
-> On a host machine with Python 3.10 I am seeing the following error on
-> Dunfell:
+> On a host machine with Python 3.10 I am seeing the following error on Dunfell:
 >
 > File "/work/festevam/conp_embedded/poky/bitbake/lib/bb/compat.py",
 > line 7, in <module>
@@ -70,10 +61,18 @@ On Mon, 17 Jan 2022 at 20:54, Fabio Estevam <festevam@gmail.com> wrote:
 > 2022-01-17 17:33:36 - ERROR    - Command returned non-zero exit status 1
 >
 > Can the commit below:
->
 > https://git.openembedded.org/bitbake/commit/?id=ae219e1f7460077f4492b31ac91cef4cf9b17277
 >
 > be backported to bitbake in poky dunfell, please?
+
+I'm a bit confused, since this patch has already been backported!
+
+https://git.openembedded.org/bitbake/commit/?h=1.46&id=4b66d498eab22eca29c9e3a7fdfa5c6e54055e78
+
+It should be in 3.1.12 and 3.1.13
+
+Steve
+
 >
 > KeysView, ValuesView, ItemsView, and OrderedDict do not exist in
 > master, so the backport is not so trivial.
@@ -82,48 +81,5 @@ On Mon, 17 Jan 2022 at 20:54, Fabio Estevam <festevam@gmail.com> wrote:
 >
 > Fabio Estevam
 >
-
---000000000000c3185505d5ccb487
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Is the distro on the host machine marked as compatibl=
-e with dunfell in poky.conf?<br></div><div><br></div><div>Alex<br></div></d=
-iv><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On =
-Mon, 17 Jan 2022 at 20:54, Fabio Estevam &lt;<a href=3D"mailto:festevam@gma=
-il.com">festevam@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gma=
-il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,2=
-04,204);padding-left:1ex">Hi,<br>
-<br>
-On a host machine with Python 3.10 I am seeing the following error on Dunfe=
-ll:<br>
-<br>
-File &quot;/work/festevam/conp_embedded/poky/bitbake/lib/bb/compat.py&quot;=
-,<br>
-line 7, in &lt;module&gt;<br>
-=C2=A0 =C2=A0 from collections import MutableMapping, KeysView, ValuesView,=
-<br>
-ItemsView, OrderedDict<br>
-ImportError: cannot import name &#39;MutableMapping&#39; from &#39;collecti=
-ons&#39;<br>
-(/usr/lib64/python3.10/collections/__init__.py)<br>
-2022-01-17 17:33:36 - ERROR=C2=A0 =C2=A0 - Command returned non-zero exit s=
-tatus 1<br>
-<br>
-Can the commit below:<br>
-<a href=3D"https://git.openembedded.org/bitbake/commit/?id=3Dae219e1f746007=
-7f4492b31ac91cef4cf9b17277" rel=3D"noreferrer" target=3D"_blank">https://gi=
-t.openembedded.org/bitbake/commit/?id=3Dae219e1f7460077f4492b31ac91cef4cf9b=
-17277</a><br>
-<br>
-be backported to bitbake in poky dunfell, please?<br>
-<br>
-KeysView, ValuesView, ItemsView, and OrderedDict do not exist in<br>
-master, so the backport is not so trivial.<br>
-<br>
-Thanks,<br>
-<br>
-Fabio Estevam<br>
-</blockquote></div>
-
---000000000000c3185505d5ccb487--
+> 
+>
