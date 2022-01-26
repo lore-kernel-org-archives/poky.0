@@ -1,95 +1,172 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
- by mx.groups.io with SMTP id smtpd.web12.70.1643045929854279372
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+ by mx.groups.io with SMTP id smtpd.web12.9314.1643179150195956180
  for <poky@lists.yoctoproject.org>;
- Mon, 24 Jan 2022 09:38:49 -0800
+ Tue, 25 Jan 2022 22:39:10 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=AZ5Of/da;
- spf=pass (domain: gmail.com, ip: 209.85.215.180, mailfrom: raj.khem@gmail.com)
-Received: by mail-pg1-f180.google.com with SMTP id t32so15994689pgm.7
-        for <poky@lists.yoctoproject.org>; Mon, 24 Jan 2022 09:38:49 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=mxOQYa3T;
+ spf=pass (domain: gmail.com, ip: 209.85.222.173, mailfrom: aehs29@gmail.com)
+Received: by mail-qk1-f173.google.com with SMTP id h2so27414117qkp.10
+        for <poky@lists.yoctoproject.org>; Tue, 25 Jan 2022 22:39:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :references:from:organization:in-reply-to:content-transfer-encoding;
-        bh=EWkfZyWp/XlWMPuUlqBXDhOItVBnwy5Y07ABLPrHkFo=;
-        b=AZ5Of/da534FzO1XX83EhDSFKZ+gqAk+s7PjB9zTjFHMRorj/frR3MQHkVJE0RGXQv
-         nRocfFloLB0+5+kFnzOr8/H6firEL9wKkWcOAlM+4EZEgs5rCstTNxb8CWl51qHMtJq/
-         7xXkbQifvX8EGzIfg9+o6s9oLwfCOmtz1f4IysILOZE8z3yTciNLO4pXcV1HBUfNo/Nu
-         X9UYw0eHzLa1dA+5/Hw2tk13YEErM5yE74SgTQzBUe1q+qmDSsU1SpxBo/7YBoC8aPOW
-         Lw5vz8ex/NeSkPCvawEiScvl9R7ZUHWQrFGxCbLOKOglE2ozXk2Z97JIHZkJiPrx55g6
-         PHzg==
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=MXAxoHwQg6fJU8ZSiqPhdy7fN35HFguWdT2hhbPGx7I=;
+        b=mxOQYa3TlH1FUlPsyUJt3cOWe3jxF9Dn/vD4qjvl3P86/aDjlQ/cDL2LxrbYllUYC/
+         mJ8X5GfSvnBESai2QNq4L7sZrQ5DqMNCnzVsjMF6bA/Q7aC5qVED5yLkOI4q51IQC3p4
+         J6PJ+SC3MQ1DxCdbwCT/qm6VktfUMUvPgWRq7DMGPuQ0kbvWrIebEtDJw3GWujI9Qpdd
+         +4G1pD0mVKIRMk6iOc+/YX739B3Roodz7idxebgY+k+AnZemYiAQqi/oPtch5bT6KEe/
+         PIfSoGPteO4ZRBymBIKaUG3YQeKTok5Msl4u/eoW8KRO1TqYyH/Coz9fCFOp5Gi/ZKXy
+         PUyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:from:organization:in-reply-to
-         :content-transfer-encoding;
-        bh=EWkfZyWp/XlWMPuUlqBXDhOItVBnwy5Y07ABLPrHkFo=;
-        b=BI6Yv1eC/Doql3wG6m30t7zjhOzXmK23vGKPjP0KSjE4Naz2XNE244KTWq7z2v1x2N
-         gNOJGeP1e0JtU+bsVLBVkrEMxdi5ucfeHzk5xlY5LcIVPa5Xq/wcrzlZQegn7Hryjpdv
-         a4bLFXdnyDJ3S8Y2Or5kXKs/VaKvq04pHsIQBoNsM2VlEVn6wSQJazwLJ+TS+DJPnHx2
-         cb/+5qqhtpi2O0KHGWOQrPe3kWaqWOaZMiNdzyPD0/AHWbu50wGPTYqmj1VI46FfAEWb
-         99TiRv7EcxTKKOZlfMDs1vW+bmWiNCQkjnL43ooLKojRobCt7meljVEJn9YX03TBaHaJ
-         8i6g==
-X-Gm-Message-State: AOAM533g27GfVGjg0CzqwfziXvBXmbFzlrFHAJhuBohArsuxkDgtiMoi
-	NgUtLXWz0erRqXNMMjT6Lmk=
-X-Google-Smtp-Source: ABdhPJzYhjUr4btdFWyP6rN4mwPMOP83sHWxmFSXL8s4q7VI/VhLTjjZ4o39chNd7tKvUXrIODezQQ==
-X-Received: by 2002:a05:6a00:168b:b0:4a8:d88:9cd with SMTP id k11-20020a056a00168b00b004a80d8809cdmr14886310pfc.11.1643045929142;
-        Mon, 24 Jan 2022 09:38:49 -0800 (PST)
-Return-Path: <raj.khem@gmail.com>
-Received: from ?IPV6:2601:646:9200:a0f0:a59d:646:7c4d:1d03? ([2601:646:9200:a0f0:a59d:646:7c4d:1d03])
-        by smtp.gmail.com with ESMTPSA id p42sm15920073pfw.71.2022.01.24.09.38.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 24 Jan 2022 09:38:48 -0800 (PST)
-Message-ID: <3b9952fe-1469-08de-a279-c57fdea2ec45@gmail.com>
-Date: Mon, 24 Jan 2022 09:38:47 -0800
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=MXAxoHwQg6fJU8ZSiqPhdy7fN35HFguWdT2hhbPGx7I=;
+        b=YZKYxD5HyrdGJpguULjMSbZ/kcH/m2iA2o1xZ/WfH72ANrRzfxOwy79F+9GoOtOdVH
+         uYeh/ozBB1bBNcbvMZdHvrrpg2lxoSlIgdI95ZYXs8jnGj+j4S1gCUbc0NL4ulHAEUzj
+         BKYtIVY3fpJjwmtuSr5c4QJyeSZy7kHyXjNJdZx+9br94oiC6NIL5TTlmO7Qn/hnCIy8
+         aVoOOcHJORJKaNDRlk5z3FklBO6BTKe2JBCDYcjqHGrgYG2RTEVXSxSwbcrFaM4BV+Y6
+         MzbGOSO+G1zbZQc6z7kg9yPCWruMGXyCeqwanoB/PIGSVkM1ZH62pbspgq3Sy+ofidoD
+         gKjg==
+X-Gm-Message-State: AOAM531ZCLvKhBI+4BHooTVVCtlDV1IybIglnm4yIlv2xUVZXQPULBCl
+	BlFrR1f8GpdKWQ3NBcgKzZz6RvNJpuXop6qjwGo=
+X-Google-Smtp-Source: ABdhPJygimy+KJ99BWFlU1sgWHTWTmv04t9DxYatUcnsuq13ASXaumylpm5LThE8Q2t+3gQNR1COD0JETgT40Jdc8mU=
+X-Received: by 2002:a05:620a:4003:: with SMTP id h3mr3922559qko.396.1643179149287;
+ Tue, 25 Jan 2022 22:39:09 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.5.0
+References: <20220122223317.1626304-1-alhe@linux.microsoft.com> <3b9952fe-1469-08de-a279-c57fdea2ec45@gmail.com>
+In-Reply-To: <3b9952fe-1469-08de-a279-c57fdea2ec45@gmail.com>
+From: "Alejandro Hernandez Samaniego" <alejandro@enedino.org>
+Date: Wed, 26 Jan 2022 06:38:58 +0000
+Message-ID: <CAHMutraAeKXoYvLvemeoO4g0hr6-fz_Lb1ymhxQ0VQQJk5-D1w@mail.gmail.com>
 Subject: Re: [poky] [PATCH 1/1] busybox: Add shell arithmetic to work with poky-tiny
-To: Alejandro Hernandez Samaniego <alhe@linux.microsoft.com>,
- poky@lists.yoctoproject.org
-References: <20220122223317.1626304-1-alhe@linux.microsoft.com>
-From: "Khem Raj" <raj.khem@gmail.com>
-Organization: HIMVIS LLC
-In-Reply-To: <20220122223317.1626304-1-alhe@linux.microsoft.com>
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: Khem Raj <raj.khem@gmail.com>
+Cc: Alejandro Hernandez Samaniego <alhe@linux.microsoft.com>, poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="0000000000007ee5ca05d676759c"
+
+--0000000000007ee5ca05d676759c
+Content-Type: text/plain; charset="UTF-8"
+
+On Mon, 24 Jan 2022 at 17:38, Khem Raj <raj.khem@gmail.com> wrote:
+
+>
+>
+> On 1/22/22 2:33 PM, Alejandro Hernandez Samaniego wrote:
+> > Fix error when trying to boot core-image-tiny-initramfs:
+> >
+> > /init: line 144: syntax error: support for $((arith)) is disabled
+> > Kernel panic - not syncing: Attempted to kill init!
+> >
+> > [YOCTO #14702]
+> >
+> > Signed-off-by: Alejandro Enedino Hernandez Samaniego <
+> alhe@linux.microsoft.com>
+> > ---
+> >   meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig
+> b/meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig
+> > index b0fb88a0c1..6e9faa4119 100644
+> > --- a/meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig
+> > +++ b/meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig
+> > @@ -1160,7 +1160,7 @@ CONFIG_CTTYHACK=y
+> >   #
+> >   # Options common to all shells
+> >   #
+> > -# CONFIG_FEATURE_SH_MATH is not set
+> > +CONFIG_FEATURE_SH_MATH=y
+>
+>
+> Hey Khem,
+This adds 12KB to the compiled binary (less than 1%) and does not reflect
+on the installed binary size, its required both by the tiny-init and the
+initramfs-framework which throws the same error.
+
+Alejandro
 
 
 
-On 1/22/22 2:33 PM, Alejandro Hernandez Samaniego wrote:
-> Fix error when trying to boot core-image-tiny-initramfs:
+> how much does it add to binary size ?
+>
+> >   # CONFIG_FEATURE_SH_MATH_64 is not set
+> >   # CONFIG_FEATURE_SH_MATH_BASE is not set
+> >   CONFIG_FEATURE_SH_EXTRA_QUIET=y
+> >
+> >
+> >
+> >
+> >
+>
 > 
-> /init: line 144: syntax error: support for $((arith)) is disabled
-> Kernel panic - not syncing: Attempted to kill init!
-> 
-> [YOCTO #14702]
-> 
-> Signed-off-by: Alejandro Enedino Hernandez Samaniego <alhe@linux.microsoft.com>
-> ---
->   meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig b/meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig
-> index b0fb88a0c1..6e9faa4119 100644
-> --- a/meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig
-> +++ b/meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig
-> @@ -1160,7 +1160,7 @@ CONFIG_CTTYHACK=y
->   #
->   # Options common to all shells
->   #
-> -# CONFIG_FEATURE_SH_MATH is not set
-> +CONFIG_FEATURE_SH_MATH=y
+>
+>
 
+--0000000000007ee5ca05d676759c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-how much does it add to binary size ?
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
+t-family:arial,sans-serif;font-size:small"></div></div><br><div class=3D"gm=
+ail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, 24 Jan 2022 at 17:=
+38, Khem Raj &lt;<a href=3D"mailto:raj.khem@gmail.com">raj.khem@gmail.com</=
+a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><b=
+r>
+<br>
+On 1/22/22 2:33 PM, Alejandro Hernandez Samaniego wrote:<br>
+&gt; Fix error when trying to boot core-image-tiny-initramfs:<br>
+&gt; <br>
+&gt; /init: line 144: syntax error: support for $((arith)) is disabled<br>
+&gt; Kernel panic - not syncing: Attempted to kill init!<br>
+&gt; <br>
+&gt; [YOCTO #14702]<br>
+&gt; <br>
+&gt; Signed-off-by: Alejandro Enedino Hernandez Samaniego &lt;<a href=3D"ma=
+ilto:alhe@linux.microsoft.com" target=3D"_blank">alhe@linux.microsoft.com</=
+a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig=
+ | 2 +-<br>
+&gt;=C2=A0 =C2=A01 file changed, 1 insertion(+), 1 deletion(-)<br>
+&gt; <br>
+&gt; diff --git a/meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfi=
+g b/meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig<br>
+&gt; index b0fb88a0c1..6e9faa4119 100644<br>
+&gt; --- a/meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig<br>
+&gt; +++ b/meta-poky/recipes-core/busybox/busybox/poky-tiny/defconfig<br>
+&gt; @@ -1160,7 +1160,7 @@ CONFIG_CTTYHACK=3Dy<br>
+&gt;=C2=A0 =C2=A0#<br>
+&gt;=C2=A0 =C2=A0# Options common to all shells<br>
+&gt;=C2=A0 =C2=A0#<br>
+&gt; -# CONFIG_FEATURE_SH_MATH is not set<br>
+&gt; +CONFIG_FEATURE_SH_MATH=3Dy<br>
+<br>
+<br></blockquote><div><div class=3D"gmail_default" style=3D"font-family:ari=
+al,sans-serif;font-size:small">Hey Khem,</div><div class=3D"gmail_default" =
+style=3D"font-family:arial,sans-serif;font-size:small">This adds 12KB to th=
+e compiled binary (less than 1%) and does not reflect on the installed bina=
+ry size, its required both by the tiny-init and the initramfs-framework whi=
+ch throws the same error.</div><div class=3D"gmail_default" style=3D"font-f=
+amily:arial,sans-serif;font-size:small"><br></div><div class=3D"gmail_defau=
+lt" style=3D"font-family:arial,sans-serif;font-size:small">Alejandro</div><=
+br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin=
+:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
+>
+how much does it add to binary size ?<br>
+<br>
+&gt;=C2=A0 =C2=A0# CONFIG_FEATURE_SH_MATH_64 is not set<br>
+&gt;=C2=A0 =C2=A0# CONFIG_FEATURE_SH_MATH_BASE is not set<br>
+&gt;=C2=A0 =C2=A0CONFIG_FEATURE_SH_EXTRA_QUIET=3Dy<br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+<br>
+<br>
+<br>
+</blockquote></div></div>
 
->   # CONFIG_FEATURE_SH_MATH_64 is not set
->   # CONFIG_FEATURE_SH_MATH_BASE is not set
->   CONFIG_FEATURE_SH_EXTRA_QUIET=y
-> 
-> 
-> 
-> 
-> 
+--0000000000007ee5ca05d676759c--
