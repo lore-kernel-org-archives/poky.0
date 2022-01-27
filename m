@@ -1,92 +1,92 @@
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [217.70.183.194])
- by mx.groups.io with SMTP id smtpd.web11.371.1643299867046813109
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ by mx.groups.io with SMTP id smtpd.web10.4185.1643318179510775103
  for <poky@lists.yoctoproject.org>;
- Thu, 27 Jan 2022 08:11:07 -0800
+ Thu, 27 Jan 2022 13:16:20 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@bootlin.com header.s=gm1 header.b=C3KB5VPr;
- spf=pass (domain: bootlin.com, ip: 217.70.183.194, mailfrom: michael.opdenacker@bootlin.com)
-Received: (Authenticated sender: michael.opdenacker@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPSA id 60C2840006;
-	Thu, 27 Jan 2022 16:11:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1643299864;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l1lGSlOH/YnSq5/FKPzAMQgYKg0qz5dF+TmTWxT5LdI=;
-	b=C3KB5VPrA4X2fGYR32sWw4Y2z8XHHWQf3Un7EX3hc/kVrr3ZC6WMMONDh9k17ZyebkNlMf
-	fGrN43e7KWUitIeUtOh9xnTiue2War+erPgM4j8sYUfrfLtO+aXOk1v3c0KmVFVBlEBoIZ
-	q8mStcnaVgDvTWp3iz/XyhuEQW4bXUVv/9983WWzYBx8qHdwOjlMeN2egVO4zbHtppf1Sk
-	VvKDBCv1e1g6mDAjFpAR7YCkPKZ2qZs2Pylg7799QXXpd7cVnc522Fp+j3Ztjw3qVta5mS
-	+Vz02n9QeJuiLVPFwq7FWjkm7XRnsDM707LGswz7Z0x0vFN7whYQzybfiCZZlQ==
-Message-ID: <451aaa24-ee59-e040-ded7-370d2188c599@bootlin.com>
-Date: Thu, 27 Jan 2022 17:11:03 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
+ dkim=pass header.i=@axis.com header.s=axis-central1 header.b=R7CbwU7l;
+ spf=pass (domain: axis.com, ip: 195.60.68.18, mailfrom: peter.kjellerstedt@axis.com)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=axis.com; q=dns/txt; s=axis-central1; t=1643318180;
+  x=1674854180;
+  h=from:to:subject:date:message-id:references:in-reply-to:
+   content-transfer-encoding:mime-version;
+  bh=UhYPBzDb+eZih+qyTpwNqVAhDAjMNWaS+9rmHdRcJaA=;
+  b=R7CbwU7luNBZfG2VDRMTVXsqO+WEAxdXZGYyheI/oJXhrCxZQoWD8Q+s
+   Eu1xjJjA4o8jV6SHyq0bxj1sVYez7JFdkhkzG9sJNlWdEvVWm1Wrp880u
+   +KGkL7WNEdR0Zb84y0zGyH9lEwCFrnUUoUJdWgOrWCA/pD2MCyTQLEqFP
+   m8MadDmMq0OnNgH4FbXWlXfU50PfylFGxrK/wPhvEMQKjmLyI/gKkCW08
+   /rCyHykSyTfMnU/Pnpwgy8O5pY4/uO4B4VabeB64whhwTu6HZCvmRsbJL
+   kHy/pMLogUKeBhigg/3bxgshP0w3I1Cy6ijDbC58+nBd46Ju6g+fOFVXz
+   g==;
+From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
+To: Michael Opdenacker <michael.opdenacker@bootlin.com>,
+	"poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
 Subject: Re: [poky] [PATCH v2] local.conf.sample: use https instead of http for SSTATE_MIRRORS
-To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>,
- "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+Thread-Topic: [poky] [PATCH v2] local.conf.sample: use https instead of http
+ for SSTATE_MIRRORS
+Thread-Index: AQHYEqG3OAxfMLYiEEWXa4fEl5Lnu6x1KKQwgAHSS4CAAGMzoA==
+Date: Thu, 27 Jan 2022 21:16:16 +0000
+Message-ID: <868601cd1bb648ce87122f097639a23b@axis.com>
 References: <16CDCBDE8210E458.21331@lists.yoctoproject.org>
  <20220126104429.1062137-1-michael.opdenacker@bootlin.com>
  <bd6c8c51ff8748f593aec471a1382fd7@axis.com>
-From: "Michael Opdenacker" <michael.opdenacker@bootlin.com>
-Organization: Bootlin
-In-Reply-To: <bd6c8c51ff8748f593aec471a1382fd7@axis.com>
+ <451aaa24-ee59-e040-ded7-370d2188c599@bootlin.com>
+In-Reply-To: <451aaa24-ee59-e040-ded7-370d2188c599@bootlin.com>
+Accept-Language: en-US, sv-SE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.0.5.60]
+MIME-Version: 1.0
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hi Peter,
-
-Thank you very much for the review!
-
-On 1/26/22 12:24, Peter Kjellerstedt wrote:
->> -----Original Message-----
->> From: poky@lists.yoctoproject.org <poky@lists.yoctoproject.org> On Behalf Of Michael Opdenacker
->> Sent: den 26 januari 2022 11:44
->> To: poky@lists.yoctoproject.org
->> Cc: Michael Opdenacker <michael.opdenacker@bootlin.com>
->> Subject: [poky] [PATCH v2] local.conf.sample: use https instead of http for SSTATE_MIRRORS
->>
->> Both http and https work, but we should get fewer questions
->> with https
->>
->> Signed-off-by: Michael Opdenacker <michael.opdenacker@bootlin.com>
->> ---
->>  meta-poky/conf/local.conf.sample | 6 +++---
->>  1 file changed, 3 insertions(+), 3 deletions(-)
->>
->> diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
->> index 7bdbba0..3100eb1 100644
->> --- a/meta-poky/conf/local.conf.sample
->> +++ b/meta-poky/conf/local.conf.sample
->> @@ -206,7 +206,7 @@ BB_DISKMON_DIRS ??= "\
->>  # used to accelerate build time. This variable can be used to configure the system
->>  # to search other mirror locations for these objects before it builds the data itself.
->>  #
->> -# This can be a filesystem directory, or a remote url such as http or ftp. These
->> +# This can be a filesystem directory, or a remote url such as https or ftp. These
->>  # would contain the sstate-cache results from previous builds (possibly from other
->>  # machines). This variable works like fetcher MIRRORS/PREMIRRORS and points to the
->>  # cache locations to check for the shared objects.
->> @@ -214,7 +214,7 @@ BB_DISKMON_DIRS ??= "\
->>  # at the end as shown in the examples below. This will be substituted with the
->>  # correct path within the directory structure.
->>  #SSTATE_MIRRORS ?= "\
->> -#file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
->> +#file://.* https://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
-> While there, you may as well remove the "\n".
-
-
-Good idea. We already did that in other places.
-However, shouldn't it be a separate commit? I can read Quentin's lips ;-)
-Cheers
-Michael.
-
--- 
-Michael Opdenacker, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBNaWNoYWVsIE9wZGVuYWNrZXIg
+PG1pY2hhZWwub3BkZW5hY2tlckBib290bGluLmNvbT4NCj4gU2VudDogZGVuIDI3IGphbnVhcmkg
+MjAyMiAxNzoxMQ0KPiBUbzogUGV0ZXIgS2plbGxlcnN0ZWR0IDxwZXRlci5ramVsbGVyc3RlZHRA
+YXhpcy5jb20+Ow0KPiBwb2t5QGxpc3RzLnlvY3RvcHJvamVjdC5vcmcNCj4gU3ViamVjdDogUmU6
+IFtwb2t5XSBbUEFUQ0ggdjJdIGxvY2FsLmNvbmYuc2FtcGxlOiB1c2UgaHR0cHMgaW5zdGVhZCBv
+Zg0KPiBodHRwIGZvciBTU1RBVEVfTUlSUk9SUw0KPiANCj4gSGkgUGV0ZXIsDQo+IA0KPiBUaGFu
+ayB5b3UgdmVyeSBtdWNoIGZvciB0aGUgcmV2aWV3IQ0KPiANCj4gT24gMS8yNi8yMiAxMjoyNCwg
+UGV0ZXIgS2plbGxlcnN0ZWR0IHdyb3RlOg0KPiA+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0t
+LQ0KPiA+PiBGcm9tOiBwb2t5QGxpc3RzLnlvY3RvcHJvamVjdC5vcmcgPHBva3lAbGlzdHMueW9j
+dG9wcm9qZWN0Lm9yZz4gT24gQmVoYWxmIE9mIE1pY2hhZWwgT3BkZW5hY2tlcg0KPiA+PiBTZW50
+OiBkZW4gMjYgamFudWFyaSAyMDIyIDExOjQ0DQo+ID4+IFRvOiBwb2t5QGxpc3RzLnlvY3RvcHJv
+amVjdC5vcmcNCj4gPj4gQ2M6IE1pY2hhZWwgT3BkZW5hY2tlciA8bWljaGFlbC5vcGRlbmFja2Vy
+QGJvb3RsaW4uY29tPg0KPiA+PiBTdWJqZWN0OiBbcG9reV0gW1BBVENIIHYyXSBsb2NhbC5jb25m
+LnNhbXBsZTogdXNlIGh0dHBzIGluc3RlYWQgb2YgaHR0cCBmb3IgU1NUQVRFX01JUlJPUlMNCj4g
+Pj4NCj4gPj4gQm90aCBodHRwIGFuZCBodHRwcyB3b3JrLCBidXQgd2Ugc2hvdWxkIGdldCBmZXdl
+ciBxdWVzdGlvbnMNCj4gPj4gd2l0aCBodHRwcw0KPiA+Pg0KPiA+PiBTaWduZWQtb2ZmLWJ5OiBN
+aWNoYWVsIE9wZGVuYWNrZXIgPG1pY2hhZWwub3BkZW5hY2tlckBib290bGluLmNvbT4NCj4gPj4g
+LS0tDQo+ID4+ICBtZXRhLXBva3kvY29uZi9sb2NhbC5jb25mLnNhbXBsZSB8IDYgKysrLS0tDQo+
+ID4+ICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPiA+
+Pg0KPiA+PiBkaWZmIC0tZ2l0IGEvbWV0YS1wb2t5L2NvbmYvbG9jYWwuY29uZi5zYW1wbGUgYi9t
+ZXRhLXBva3kvY29uZi9sb2NhbC5jb25mLnNhbXBsZQ0KPiA+PiBpbmRleCA3YmRiYmEwLi4zMTAw
+ZWIxIDEwMDY0NA0KPiA+PiAtLS0gYS9tZXRhLXBva3kvY29uZi9sb2NhbC5jb25mLnNhbXBsZQ0K
+PiA+PiArKysgYi9tZXRhLXBva3kvY29uZi9sb2NhbC5jb25mLnNhbXBsZQ0KPiA+PiBAQCAtMjA2
+LDcgKzIwNiw3IEBAIEJCX0RJU0tNT05fRElSUyA/Pz0gIlwNCj4gPj4gICMgdXNlZCB0byBhY2Nl
+bGVyYXRlIGJ1aWxkIHRpbWUuIFRoaXMgdmFyaWFibGUgY2FuIGJlIHVzZWQgdG8gY29uZmlndXJl
+IHRoZSBzeXN0ZW0NCj4gPj4gICMgdG8gc2VhcmNoIG90aGVyIG1pcnJvciBsb2NhdGlvbnMgZm9y
+IHRoZXNlIG9iamVjdHMgYmVmb3JlIGl0IGJ1aWxkcyB0aGUgZGF0YSBpdHNlbGYuDQo+ID4+ICAj
+DQo+ID4+IC0jIFRoaXMgY2FuIGJlIGEgZmlsZXN5c3RlbSBkaXJlY3RvcnksIG9yIGEgcmVtb3Rl
+IHVybCBzdWNoIGFzIGh0dHAgb3IgZnRwLiBUaGVzZQ0KPiA+PiArIyBUaGlzIGNhbiBiZSBhIGZp
+bGVzeXN0ZW0gZGlyZWN0b3J5LCBvciBhIHJlbW90ZSB1cmwgc3VjaCBhcyBodHRwcyBvciBmdHAu
+IFRoZXNlDQo+ID4+ICAjIHdvdWxkIGNvbnRhaW4gdGhlIHNzdGF0ZS1jYWNoZSByZXN1bHRzIGZy
+b20gcHJldmlvdXMgYnVpbGRzIChwb3NzaWJseSBmcm9tIG90aGVyDQo+ID4+ICAjIG1hY2hpbmVz
+KS4gVGhpcyB2YXJpYWJsZSB3b3JrcyBsaWtlIGZldGNoZXIgTUlSUk9SUy9QUkVNSVJST1JTIGFu
+ZCBwb2ludHMgdG8gdGhlDQo+ID4+ICAjIGNhY2hlIGxvY2F0aW9ucyB0byBjaGVjayBmb3IgdGhl
+IHNoYXJlZCBvYmplY3RzLg0KPiA+PiBAQCAtMjE0LDcgKzIxNCw3IEBAIEJCX0RJU0tNT05fRElS
+UyA/Pz0gIlwNCj4gPj4gICMgYXQgdGhlIGVuZCBhcyBzaG93biBpbiB0aGUgZXhhbXBsZXMgYmVs
+b3cuIFRoaXMgd2lsbCBiZSBzdWJzdGl0dXRlZCB3aXRoIHRoZQ0KPiA+PiAgIyBjb3JyZWN0IHBh
+dGggd2l0aGluIHRoZSBkaXJlY3Rvcnkgc3RydWN0dXJlLg0KPiA+PiAgI1NTVEFURV9NSVJST1JT
+ID89ICJcDQo+ID4+IC0jZmlsZTovLy4qIGh0dHA6Ly9zb21lc2VydmVyLnRsZC9zaGFyZS9zc3Rh
+dGUvUEFUSDtkb3dubG9hZGZpbGVuYW1lPVBBVEggXG4gXA0KPiA+PiArI2ZpbGU6Ly8uKiBodHRw
+czovL3NvbWVzZXJ2ZXIudGxkL3NoYXJlL3NzdGF0ZS9QQVRIO2Rvd25sb2FkZmlsZW5hbWU9UEFU
+SCBcbiBcDQo+ID4NCj4gPiBXaGlsZSB0aGVyZSwgeW91IG1heSBhcyB3ZWxsIHJlbW92ZSB0aGUg
+IlxuIi4NCj4gDQo+IEdvb2QgaWRlYS4gV2UgYWxyZWFkeSBkaWQgdGhhdCBpbiBvdGhlciBwbGFj
+ZXMuDQo+IEhvd2V2ZXIsIHNob3VsZG4ndCBpdCBiZSBhIHNlcGFyYXRlIGNvbW1pdD8gSSBjYW4g
+cmVhZCBRdWVudGluJ3MgbGlwcyA7LSkNCg0KVHJ1ZS4gVGhlcmUgYXJlIGEgY291cGxlIG9mIG90
+aGVyIHBsYWNlcyB0aGF0IGNhbiBiZSB1cGRhdGVkIGFzIHdlbGwuIA0KSSdsbCBzZW5kIGEgcGF0
+Y2guDQoNCj4gQ2hlZXJzDQo+IE1pY2hhZWwuDQo+IA0KPiAtLQ0KPiBNaWNoYWVsIE9wZGVuYWNr
+ZXIsIEJvb3RsaW4NCj4gRW1iZWRkZWQgTGludXggYW5kIEtlcm5lbCBlbmdpbmVlcmluZw0KPiBo
+dHRwczovL2Jvb3RsaW4uY29tDQoNCi8vUGV0ZXINCg0K
