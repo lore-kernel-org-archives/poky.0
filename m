@@ -1,110 +1,87 @@
-Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
- by mx.groups.io with SMTP id smtpd.web11.11500.1643196273305127698
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+ by mx.groups.io with SMTP id smtpd.web09.23317.1643252414580141362
  for <poky@lists.yoctoproject.org>;
- Wed, 26 Jan 2022 03:24:34 -0800
+ Wed, 26 Jan 2022 19:00:14 -0800
 Authentication-Results: mx.groups.io;
- dkim=fail reason="signature has expired" header.i=@axis.com header.s=axis-central1 header.b=UHL7tT0J;
- spf=pass (domain: axis.com, ip: 195.60.68.17, mailfrom: peter.kjellerstedt@axis.com)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=P9JzIeVa;
+ spf=pass (domain: gmail.com, ip: 209.85.222.174, mailfrom: jeanbouch418@gmail.com)
+Received: by mail-qk1-f174.google.com with SMTP id q189so1429832qkf.10
+        for <poky@lists.yoctoproject.org>; Wed, 26 Jan 2022 19:00:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=axis.com; q=dns/txt; s=axis-central1; t=1643196273;
-  x=1674732273;
-  h=from:to:subject:date:message-id:references:in-reply-to:
-   content-transfer-encoding:mime-version;
-  bh=7cbBibWVXXyrl0cQXl3gCGT8ApB/sgOktrM1wkgmK6w=;
-  b=UHL7tT0JSNOURHe+L2BiVg5UXsv+W7cjxdLmjZ9XFqodr5noJCQdApfd
-   nv+ThB4qWF+7B9xuohKqTwPHNzhPq5ss3GnNSiQKwH1ufeFrviQI0r8Tl
-   I1/mpj7TF5aGXocITJi3DHsmQeyM4PDqo6eFFS2+Sj3c9BsqZnOFEwGkc
-   naSfvAw9MjCbOIeBTQbKtpx2/7+AmYcfoFx+g6zth0Cwy0suERrfTawyW
-   UvtSOuPi/sE4dz5zLndbuaOxDCJ+jIeSLyN7ShNZsnPK86kB3lZaq7s/k
-   OFpIYObIeWCy6FODt9hLMEr7b43wPYEUZjSFUIMb333wtGjuXO7Cblihh
-   w==;
-From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
-To: Michael Opdenacker <michael.opdenacker@bootlin.com>,
-	"poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-Subject: Re: [poky] [PATCH v2] local.conf.sample: use https instead of http for SSTATE_MIRRORS
-Thread-Topic: [poky] [PATCH v2] local.conf.sample: use https instead of http
- for SSTATE_MIRRORS
-Thread-Index: AQHYEqG3OAxfMLYiEEWXa4fEl5Lnu6x1KKQw
-Date: Wed, 26 Jan 2022 11:24:30 +0000
-Message-ID: <bd6c8c51ff8748f593aec471a1382fd7@axis.com>
-References: <16CDCBDE8210E458.21331@lists.yoctoproject.org>
- <20220126104429.1062137-1-michael.opdenacker@bootlin.com>
-In-Reply-To: <20220126104429.1062137-1-michael.opdenacker@bootlin.com>
-Accept-Language: en-US, sv-SE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.0.5.60]
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=obYaVCWN3/noy/rlohmVRXYimwKNriEipSCdhPRs/ds=;
+        b=P9JzIeVadH6YCVWjInrWuSp/2eIPLVFWl1VkhX8HfTfIL3+jNd9b2adba7kco4Ug0z
+         4aVXl88r7du3NKBGuYsH2JERUj3lPC0JQCub7lDiiDdp2IJu9qDygh3xwdzANyF8DoDc
+         ZhSGj4uaelSh4h5stYIl0Wqi/ENK1OMD/ubV8ja/Np7VSfTeJZE4MVLBj+T4HsiUA1cF
+         p9nkeygvxd7jxIpCtJz6gH2X/2tE+kLy7uNc4J7lORjlEZIBmnJ89Cjg94dVioqnHBjK
+         qFDLQwNrwozjzUwo3VW22WYhH5q2xBW7/RwNkau6mQGlB0klyUockhFO99X6IRRiFLxB
+         ohCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=obYaVCWN3/noy/rlohmVRXYimwKNriEipSCdhPRs/ds=;
+        b=6ZzjTw9cTbd2V5+389wQqD8Wt0blOoe3X1t9MqPEoePZPRU4DUmyH7KAlwfUYIiAIz
+         Em/k6Tf11M3OcZjcuNorrnhyLVnLYESSAYIaKW6RtnBNmVBYgZmZT7tR0Stdt3BkbIJV
+         XmpSCm4J0oGLuqZkRHBAWqQFBPX8vWVFpEWjAA6bg7bZlkt/k6Wzs+1Jc6lrrM2vJ0mS
+         QJ0XDlNTHH62UO86/aHYPNSS2sCAaJH2KWRRbKql8EGRT0nL/FG8GIzaBQ5RKy4tP10g
+         3oomOa5FGYTWITeRMn3xMd4PmeqfvM4JFgb70i6296k159ctZcIeF9xG0tPSWAmbcnAd
+         aQcQ==
+X-Gm-Message-State: AOAM5305UmO21sKgJAb0s5zEt/FYU3BT2fNohoylmuwdKXKP4vNXz2Ku
+	y56LAG7sAZy6ZKBkMHnf7cFyycqYSW0=
+X-Google-Smtp-Source: ABdhPJzZoEcafw7pPD+55Xr+O5PIyJvdygfNdJZjL4DvEKc68Jdt/ZcZ+sayzPbGdksSltMxLDDVyw==
+X-Received: by 2002:a05:620a:d93:: with SMTP id q19mr1304979qkl.427.1643252413489;
+        Wed, 26 Jan 2022 19:00:13 -0800 (PST)
+Return-Path: <jeanbouch418@gmail.com>
+Received: from jb.GENETEC.COM ([68.67.62.2])
+        by smtp.gmail.com with ESMTPSA id o18sm716956qkp.122.2022.01.26.19.00.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Jan 2022 19:00:12 -0800 (PST)
+From: "jbouchard" <jeanbouch418@gmail.com>
+To: poky@lists.yoctoproject.org
+Cc: jbouchard <jbouchard@genetec.com>,
+	Jean Bouchard <jeanbouch418@gmail.com>
+Subject: [meta-yocto][dunfell 1/1] Update the linux kernel to 5.4.172 for genericx86
+Date: Wed, 26 Jan 2022 22:06:36 -0500
+Message-Id: <20220127030636.3186815-1-jeanbouch418@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-> -----Original Message-----
-> From: poky@lists.yoctoproject.org <poky@lists.yoctoproject.org> On Behalf=
- Of Michael Opdenacker
-> Sent: den 26 januari 2022 11:44
-> To: poky@lists.yoctoproject.org
-> Cc: Michael Opdenacker <michael.opdenacker@bootlin.com>
-> Subject: [poky] [PATCH v2] local.conf.sample: use https instead of http f=
-or SSTATE_MIRRORS
->=20
-> Both http and https work, but we should get fewer questions
-> with https
->=20
-> Signed-off-by: Michael Opdenacker <michael.opdenacker@bootlin.com>
-> ---
->  meta-poky/conf/local.conf.sample | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf=
-.sample
-> index 7bdbba0..3100eb1 100644
-> --- a/meta-poky/conf/local.conf.sample
-> +++ b/meta-poky/conf/local.conf.sample
-> @@ -206,7 +206,7 @@ BB_DISKMON_DIRS ??=3D "\
->  # used to accelerate build time. This variable can be used to configure =
-the system
->  # to search other mirror locations for these objects before it builds th=
-e data itself.
->  #
-> -# This can be a filesystem directory, or a remote url such as http or ft=
-p. These
-> +# This can be a filesystem directory, or a remote url such as https or f=
-tp. These
->  # would contain the sstate-cache results from previous builds (possibly =
-from other
->  # machines). This variable works like fetcher MIRRORS/PREMIRRORS and poi=
-nts to the
->  # cache locations to check for the shared objects.
-> @@ -214,7 +214,7 @@ BB_DISKMON_DIRS ??=3D "\
->  # at the end as shown in the examples below. This will be substituted wi=
-th the
->  # correct path within the directory structure.
->  #SSTATE_MIRRORS ?=3D "\
-> -#file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=3DPA=
-TH \n \
-> +#file://.* https://someserver.tld/share/sstate/PATH;downloadfilename=3DP=
-ATH \n \
+From: jbouchard <jbouchard@genetec.com>
 
-While there, you may as well remove the "\n".
+Signed-off-by: Jean Bouchard <jeanbouch418@gmail.com>
+---
+ .../recipes-kernel/linux/linux-yocto_5.4.bbappend         | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
->  #file://.* file:///some/local/dir/sstate/PATH"
->=20
->  #
-> @@ -229,7 +229,7 @@ BB_DISKMON_DIRS ??=3D "\
->  # Note: For this to work you also need hash-equivalence passthrough to t=
-he matching server
->  #
->  #BB_HASHSERVE_UPSTREAM =3D "typhoon.yocto.io:8687"
-> -#SSTATE_MIRRORS ?=3D "file://.* http://sstate.yoctoproject.org/3.4/PATH;=
-downloadfilename=3DPATH"
-> +#SSTATE_MIRRORS ?=3D "file://.* https://sstate.yoctoproject.org/3.4/PATH=
-;downloadfilename=3DPATH"
->=20
->  #
->  # Qemu configuration
-> --
-> 2.25.1
-
-//Peter
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
+index cd059c06c4..dcfc2baf82 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
+@@ -7,8 +7,8 @@ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ KMACHINE_beaglebone-yocto ?= "beaglebone"
+ 
+-SRCREV_machine_genericx86 ?= "76404f1ae59698b6a446dba29c885ca78c69c330"
+-SRCREV_machine_genericx86-64 ?= "76404f1ae59698b6a446dba29c885ca78c69c330"
++SRCREV_machine_genericx86 ?= "b7f70762d1584a2b66e056412fd39ad6f6344c89"
++SRCREV_machine_genericx86-64 ?= "b7f70762d1584a2b66e056412fd39ad6f6344c89"
+ SRCREV_machine_edgerouter ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
+ SRCREV_machine_beaglebone-yocto ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
+ 
+@@ -17,7 +17,7 @@ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
+ 
+-LINUX_VERSION_genericx86 = "5.4.158"
+-LINUX_VERSION_genericx86-64 = "5.4.158"
++LINUX_VERSION_genericx86 = "5.4.172"
++LINUX_VERSION_genericx86-64 = "5.4.172"
+ LINUX_VERSION_edgerouter = "5.4.58"
+ LINUX_VERSION_beaglebone-yocto = "5.4.58"
+-- 
+2.25.1
 
