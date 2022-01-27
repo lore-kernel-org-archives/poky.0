@@ -1,87 +1,92 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
- by mx.groups.io with SMTP id smtpd.web08.27725.1643288375316261179
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [217.70.183.194])
+ by mx.groups.io with SMTP id smtpd.web11.371.1643299867046813109
  for <poky@lists.yoctoproject.org>;
- Thu, 27 Jan 2022 04:59:35 -0800
+ Thu, 27 Jan 2022 08:11:07 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=apvNXKPo;
- spf=pass (domain: gmail.com, ip: 209.85.160.178, mailfrom: jeanbouch418@gmail.com)
-Received: by mail-qt1-f178.google.com with SMTP id k14so2333837qtq.10
-        for <poky@lists.yoctoproject.org>; Thu, 27 Jan 2022 04:59:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=eKUfDpQVCQ3u41eB998sAiXxXzYQQeGWKFXJ3bXKIzM=;
-        b=apvNXKPo9ZhfCbiAWLq6h9pJ20H0L9KWLDAvkA1JAAm32dQ1gfMcl4Da8FfaurNzJf
-         hkU8YKpYHLt4TRfR/HsJ9MJcXAuhHwcIbnWozNuiTQenrbiI3wFbZOWaxjZpCx0e3Xhc
-         MT4FXin519w9JtNbu6SvLFUWxXDxwIGo11U5sHDCzop7u+cg4Q8QXJY/Jw/aiUXCVGn1
-         y8B47xSlPHQjTDI9ylzkZvBeWIiHrNxnNKGxj7D5FC+drYTPVk+yMN97qzpAkFB0VgHy
-         nmt5E7cYOCfK2CxEveC6e09tw26c7aviAGJ0LLfAUlXs9wgxXLz/NN1S/Gi1cXaL8vY6
-         j1nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=eKUfDpQVCQ3u41eB998sAiXxXzYQQeGWKFXJ3bXKIzM=;
-        b=EQ8hDpZuuQ1+JVGgZfgUeZ39YWyKfbHhTLcFiGKlnk1GZnLZi4XkIKBmx0gikD3HJl
-         zN1g4AqhZnnQu8xVh8LqDS8zm6099n+lrXDQ5dD2RYAhfYRD8Wtk4NNl/f0tOAjHiGBu
-         Pm+DXf37Nyp6gt6c7Feqq4jG9wEaKd/SFXpqgV/laFKThrMk6VVSNkMQc9eXEcOP7d6P
-         9WLJeL6Q0O00TIaKzOufYEBi0VYofQeq6ShdjNt8boOypjDyG27SLaQV+dF+/qeCPIdu
-         xq3yFg+fp3G9KjmqGcNZG46JHqqwunIa1Uk7YrcKgYYYykMq7hsI575/vqc+Us77PG1w
-         aZ8w==
-X-Gm-Message-State: AOAM533WcruUK/5ubeEOKATsx37YkOIZMUOWupuY1JSuxW7R2S2S9Gn2
-	hncZbN9kko70NrECAcoTT9Tufb+FP6I=
-X-Google-Smtp-Source: ABdhPJyEWWuDz5r0bVdhYAzwx/HQyqm4jLZvr4T5d0zabKTnmInGTNVjTduHZEIeUSrFjC6qLoN6nA==
-X-Received: by 2002:a05:622a:130e:: with SMTP id v14mr2438663qtk.587.1643288373638;
-        Thu, 27 Jan 2022 04:59:33 -0800 (PST)
-Return-Path: <jeanbouch418@gmail.com>
-Received: from jb.GENETEC.COM ([68.67.62.2])
-        by smtp.gmail.com with ESMTPSA id m4sm1423176qkp.117.2022.01.27.04.59.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Jan 2022 04:59:33 -0800 (PST)
-From: "jbouchard" <jeanbouch418@gmail.com>
-To: poky@lists.yoctoproject.org
-Cc: jbouchard <jbouchard@genetec.com>,
-	Jean Bouchard <jeanbouch418@gmail.com>
-Subject: [meta-yocto][dunfell V2] Update the linux kernel to 5.4.172 for genericx86
-Date: Thu, 27 Jan 2022 08:06:10 -0500
-Message-Id: <20220127130610.3236399-1-jeanbouch418@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass header.i=@bootlin.com header.s=gm1 header.b=C3KB5VPr;
+ spf=pass (domain: bootlin.com, ip: 217.70.183.194, mailfrom: michael.opdenacker@bootlin.com)
+Received: (Authenticated sender: michael.opdenacker@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPSA id 60C2840006;
+	Thu, 27 Jan 2022 16:11:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1643299864;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l1lGSlOH/YnSq5/FKPzAMQgYKg0qz5dF+TmTWxT5LdI=;
+	b=C3KB5VPrA4X2fGYR32sWw4Y2z8XHHWQf3Un7EX3hc/kVrr3ZC6WMMONDh9k17ZyebkNlMf
+	fGrN43e7KWUitIeUtOh9xnTiue2War+erPgM4j8sYUfrfLtO+aXOk1v3c0KmVFVBlEBoIZ
+	q8mStcnaVgDvTWp3iz/XyhuEQW4bXUVv/9983WWzYBx8qHdwOjlMeN2egVO4zbHtppf1Sk
+	VvKDBCv1e1g6mDAjFpAR7YCkPKZ2qZs2Pylg7799QXXpd7cVnc522Fp+j3Ztjw3qVta5mS
+	+Vz02n9QeJuiLVPFwq7FWjkm7XRnsDM707LGswz7Z0x0vFN7whYQzybfiCZZlQ==
+Message-ID: <451aaa24-ee59-e040-ded7-370d2188c599@bootlin.com>
+Date: Thu, 27 Jan 2022 17:11:03 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [poky] [PATCH v2] local.conf.sample: use https instead of http for SSTATE_MIRRORS
+To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>,
+ "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+References: <16CDCBDE8210E458.21331@lists.yoctoproject.org>
+ <20220126104429.1062137-1-michael.opdenacker@bootlin.com>
+ <bd6c8c51ff8748f593aec471a1382fd7@axis.com>
+From: "Michael Opdenacker" <michael.opdenacker@bootlin.com>
+Organization: Bootlin
+In-Reply-To: <bd6c8c51ff8748f593aec471a1382fd7@axis.com>
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: jbouchard <jbouchard@genetec.com>
+Hi Peter,
 
-Signed-off-by: Jean Bouchard <jeanbouch418@gmail.com>
----
- .../recipes-kernel/linux/linux-yocto_5.4.bbappend         | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Thank you very much for the review!
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
-index cd059c06c4..07f8993eb1 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
-@@ -7,8 +7,8 @@ KMACHINE_genericx86 ?= "common-pc"
- KMACHINE_genericx86-64 ?= "common-pc-64"
- KMACHINE_beaglebone-yocto ?= "beaglebone"
- 
--SRCREV_machine_genericx86 ?= "76404f1ae59698b6a446dba29c885ca78c69c330"
--SRCREV_machine_genericx86-64 ?= "76404f1ae59698b6a446dba29c885ca78c69c330"
-+SRCREV_machine_genericx86 ?= "c6b015510134942076c0e111e56357656acf3dd5"
-+SRCREV_machine_genericx86-64 ?= "c6b015510134942076c0e111e56357656acf3dd5"
- SRCREV_machine_edgerouter ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
- SRCREV_machine_beaglebone-yocto ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
- 
-@@ -17,7 +17,7 @@ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
- COMPATIBLE_MACHINE_edgerouter = "edgerouter"
- COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
- 
--LINUX_VERSION_genericx86 = "5.4.158"
--LINUX_VERSION_genericx86-64 = "5.4.158"
-+LINUX_VERSION_genericx86 = "5.4.172"
-+LINUX_VERSION_genericx86-64 = "5.4.172"
- LINUX_VERSION_edgerouter = "5.4.58"
- LINUX_VERSION_beaglebone-yocto = "5.4.58"
+On 1/26/22 12:24, Peter Kjellerstedt wrote:
+>> -----Original Message-----
+>> From: poky@lists.yoctoproject.org <poky@lists.yoctoproject.org> On Behalf Of Michael Opdenacker
+>> Sent: den 26 januari 2022 11:44
+>> To: poky@lists.yoctoproject.org
+>> Cc: Michael Opdenacker <michael.opdenacker@bootlin.com>
+>> Subject: [poky] [PATCH v2] local.conf.sample: use https instead of http for SSTATE_MIRRORS
+>>
+>> Both http and https work, but we should get fewer questions
+>> with https
+>>
+>> Signed-off-by: Michael Opdenacker <michael.opdenacker@bootlin.com>
+>> ---
+>>  meta-poky/conf/local.conf.sample | 6 +++---
+>>  1 file changed, 3 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
+>> index 7bdbba0..3100eb1 100644
+>> --- a/meta-poky/conf/local.conf.sample
+>> +++ b/meta-poky/conf/local.conf.sample
+>> @@ -206,7 +206,7 @@ BB_DISKMON_DIRS ??= "\
+>>  # used to accelerate build time. This variable can be used to configure the system
+>>  # to search other mirror locations for these objects before it builds the data itself.
+>>  #
+>> -# This can be a filesystem directory, or a remote url such as http or ftp. These
+>> +# This can be a filesystem directory, or a remote url such as https or ftp. These
+>>  # would contain the sstate-cache results from previous builds (possibly from other
+>>  # machines). This variable works like fetcher MIRRORS/PREMIRRORS and points to the
+>>  # cache locations to check for the shared objects.
+>> @@ -214,7 +214,7 @@ BB_DISKMON_DIRS ??= "\
+>>  # at the end as shown in the examples below. This will be substituted with the
+>>  # correct path within the directory structure.
+>>  #SSTATE_MIRRORS ?= "\
+>> -#file://.* http://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
+>> +#file://.* https://someserver.tld/share/sstate/PATH;downloadfilename=PATH \n \
+> While there, you may as well remove the "\n".
+
+
+Good idea. We already did that in other places.
+However, shouldn't it be a separate commit? I can read Quentin's lips ;-)
+Cheers
+Michael.
+
 -- 
-2.25.1
+Michael Opdenacker, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
