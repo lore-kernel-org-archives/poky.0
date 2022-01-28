@@ -1,58 +1,93 @@
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by mx.groups.io with SMTP id smtpd.web08.7181.1643378731690502184
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ by mx.groups.io with SMTP id smtpd.web11.779.1643397498606381125
  for <poky@lists.yoctoproject.org>;
- Fri, 28 Jan 2022 06:05:32 -0800
+ Fri, 28 Jan 2022 11:18:19 -0800
 Authentication-Results: mx.groups.io;
- dkim=fail reason="unable to parse pub key" header.i=@intel.com header.s=intel header.b=FjcNjSfN;
- spf=pass (domain: intel.com, ip: 134.134.136.31, mailfrom: anuj.mittal@intel.com)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1643378731; x=1674914731;
-  h=from:to:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=72aBBpEpprtxDrqRVsVNrUGpjbN8+35ql3vqKcXum/g=;
-  b=FjcNjSfNdENDDlmb/5uDh1Gpkyncg8yTDHROCH2G79bb0VrrMa9JddNV
-   ui6Sc1KJvprVZCDR3CqK0mh0RrXiTFuQEyzAqcI5T3J8ccV1Xn1TD7frC
-   bZN8aABuHAE9kvrLHAICWSkAoDF2Yr3xHFbZ+C3ImOBKgIkaYXfTx9j64
-   B4i7D3T/xSvFlYdE0/ZrSG3qhStrOqlcGPS+51qb7Y13INdOQxYapCXW+
-   +1fLsoLmfPpIGJDLFjpfVFjwNWHnZVljhS25avHskJ58/W+QCqmwyBuWB
-   rrp2I7HdWqJIkDnnYso0nsSWk5Sgo+3aBIbPBilRqkFJtVvUYJA0A2hBA
-   Q==;
-X-IronPort-AV: E=McAfee;i="6200,9189,10240"; a="307839859"
-X-IronPort-AV: E=Sophos;i="5.88,324,1635231600"; 
-   d="scan'208";a="307839859"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-  by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jan 2022 06:05:30 -0800
-X-IronPort-AV: E=Sophos;i="5.88,324,1635231600"; 
-   d="scan'208";a="770117573"
-Received: from zbinaunx-mobl.gar.corp.intel.com (HELO anmitta2-mobl3.intel.com) ([10.215.226.205])
-  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jan 2022 06:05:28 -0800
-From: "Anuj Mittal" <anuj.mittal@intel.com>
-To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][hardknott][PATCH] poky.conf: add debian11 to supported distros
-Date: Fri, 28 Jan 2022 22:05:16 +0800
-Message-Id: <20220128140516.6490-1-anuj.mittal@intel.com>
-X-Mailer: git-send-email 2.34.1
+ dkim=pass header.i=@axis.com header.s=axis-central1 header.b=gU9DNZ3U;
+ spf=pass (domain: axis.com, ip: 195.60.68.18, mailfrom: peter.kjellerstedt@axis.com)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=axis.com; q=dns/txt; s=axis-central1; t=1643397499;
+  x=1674933499;
+  h=from:to:subject:date:message-id:references:in-reply-to:
+   content-transfer-encoding:mime-version;
+  bh=2qiDqQU+akEnGLEpl3iXqABHPvWAXrt6ziDQoTXpp34=;
+  b=gU9DNZ3UO2dLRrVf/T0sngXQlLq6Y3Ta9RsSg4/jiucyeZSBd50teHe2
+   jygBvKQGErfXliwwxe2LLRuIDSJUOK6HFlFekRZZJtN0sFFTkq0MqIa5v
+   CD2CWR4vCgGHEMVxotY07j+IDgkJir0O4xuIC/kFkSQltDtSj80+NJy3V
+   Zp3YVNCneuOsu6gXVZf7UHNlvEAecDiJcCnrpJO0oN/RBTMQhuVniXpCY
+   5WQj8GJaqXla2vM0yzlVJErGAy54vP6LoqbqzH6rxNQSoGsi+RUyUJRAi
+   V61CMyNXfzmd45wNOafSufXXx2bIFfShMnLq8Bbbcb7lE0zavsKeKWpVc
+   w==;
+From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
+To: Robert Tiemann <rtie@gmx.de>, "poky@lists.yoctoproject.org"
+	<poky@lists.yoctoproject.org>
+Subject: Re: [poky] Building a package of one version for target, and another version for native
+Thread-Topic: [poky] Building a package of one version for target, and another
+ version for native
+Thread-Index: AQHYFDPF7USkICxbb0OyHf5F7xssd6x4xUkw
+Date: Fri, 28 Jan 2022 19:18:15 +0000
+Message-ID: <25dd33b72a0f4bfca614d3d3db72809e@axis.com>
+References: <3d282d2e-113e-fed8-17d0-5873f6f2e281@gmx.de>
+In-Reply-To: <3d282d2e-113e-fed8-17d0-5873f6f2e281@gmx.de>
+Accept-Language: en-US, sv-SE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.0.5.60]
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Return-Path: peter.kjellerstedt@axis.com
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Anuj Mittal <anuj.mittal@intel.com>
----
- meta-poky/conf/distro/poky.conf | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 1b4389f..d12908c 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -55,6 +55,7 @@ SANITY_TESTED_DISTROS ?= " \
-             debian-8 \n \
-             debian-9 \n \
-             debian-10 \n \
-+            debian-11 \n \
-             opensuseleap-15.1 \n \
-             opensuseleap-15.2 \n \
-             "
--- 
-2.34.1
-
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBwb2t5QGxpc3RzLnlvY3RvcHJv
+amVjdC5vcmcgPHBva3lAbGlzdHMueW9jdG9wcm9qZWN0Lm9yZz4gT24gQmVoYWxmDQo+IE9mIFJv
+YmVydCBUaWVtYW5uDQo+IFNlbnQ6IGRlbiAyOCBqYW51YXJpIDIwMjIgMTE6NDMNCj4gVG86IHBv
+a3lAbGlzdHMueW9jdG9wcm9qZWN0Lm9yZw0KPiBTdWJqZWN0OiBbcG9reV0gQnVpbGRpbmcgYSBw
+YWNrYWdlIG9mIG9uZSB2ZXJzaW9uIGZvciB0YXJnZXQsIGFuZCBhbm90aGVyDQo+IHZlcnNpb24g
+Zm9yIG5hdGl2ZQ0KPiANCj4gSGkhDQo+IA0KPiBJcyBpdCBwb3NzaWJsZSB0byBidWlsZCBwYWNr
+YWdlcyBzbyB0aGF0IHRoZSB2ZXJzaW9ucyBmb3IgbmF0aXZlIGFuZA0KPiB0YXJnZXQgYnVpbGRz
+IGFyZSBkaWZmZXJlbnQgKHVzaW5nIGR1bmZlbGwgaGVyZSk/DQo+IA0KPiBNeSBnb2FsIGlzIHRv
+IHVzZSBnbnV0bHMgYW5kIG5ldHRsZSBpbiB0aGUgdmVyc2lvbiBhcyBzaGlwcGVkIHdpdGgNCj4g
+ZHVuZmVsbCAoMy42LjEyIGFuZCAzLjUuMSwgcmVzcGVjdGl2ZWx5KSBmb3IgdGhlIG5hdGl2ZSB0
+b29sIGNoYWluLA0KPiBidXQgYSBtb3JlIHJlY2VudCB2ZXJzaW9uIGZvciB0aGUgdGFyZ2V0LiBT
+aW1wbHkgdXBncmFkaW5nIHRoZSB2ZXJzaW9uDQo+IGZvciBib3RoLCBuYXRpdmUgYW5kIHRhcmdl
+dCwgd29ya3MsIGJ1dCB0aGVuIGFsbCBSUE0gcGFja2FnZXMgZ2V0DQo+IHJlYnVpbHQgKG5vdCB0
+YWtlbiBmcm9tIHNzdGF0ZSksIGFuZCB0aGlzIGlzIGEgcHJvYmxlbSBmb3IgbWUuDQo+IA0KPiBT
+bywgSSBoYXZlIGFkZGVkIHJlY2lwZXMgZm9yIHVwZ3JhZGVkIHZlcnNpb25zIG9mIGdudXRscyBh
+bmQgbmV0dGxlIHRvDQo+IG15IG93biBsYXllciwgYW5kIGluIG15IGxheWVyJ3MgZGlzdHJvIGNv
+bmZpZ3VyYXRpb24gSSB0cmllZA0KPiANCj4gUFJFRkVSUkVEX1ZFUlNJT05fZ251dGxzLW5hdGl2
+ZSA9ICIzLjYuMTIiDQo+IFBSRUZFUlJFRF9WRVJTSU9OX25ldHRsZS1uYXRpdmUgPSAiMy41LjEi
+DQoNClRoYXQncyB0aGUgY29ycmVjdCBmb3JtYXQuIE5vdCBzdXJlIHdoeSBpdCBkb2Vzbid0IHdv
+cmsgdGhvdWdoLiANCkl0IG1pZ2h0IGhhdmUgdG8gZG8gd2l0aCBob3cgQkJDTEFTU0VYVEVORCB3
+b3Jrcy4NCg0KPiANCj4gYW5kDQo+IA0KPiBQUkVGRVJSRURfVkVSU0lPTl9wbi1nbnV0bHMtbmF0
+aXZlID0gIjMuNi4xMiINCj4gUFJFRkVSUkVEX1ZFUlNJT05fcG4tbmV0dGxlLW5hdGl2ZSA9ICIz
+LjUuMSINCj4gDQo+IGFuZCBhbHNvDQo+IA0KPiBQUkVGRVJSRURfVkVSU0lPTl9nbnV0bHMtbmF0
+aXZlX2ZvcmNldmFyaWFibGUgPSAiMy42LjEyIg0KPiBQUkVGRVJSRURfVkVSU0lPTl9uZXR0bGUt
+bmF0aXZlX2ZvcmNldmFyaWFibGUgPSAiMy41LjEiDQo+IA0KPiBhbmQNCj4gDQo+IFBSRUZFUlJF
+RF9WRVJTSU9OX3BuLWdudXRscy1uYXRpdmVfZm9yY2V2YXJpYWJsZSA9ICIzLjYuMTIiDQo+IFBS
+RUZFUlJFRF9WRVJTSU9OX3BuLW5ldHRsZS1uYXRpdmVfZm9yY2V2YXJpYWJsZSA9ICIzLjUuMSIN
+Cj4gDQo+IGJ1dCBhbGwgb2YgdGhlc2Ugc2VlbSB0byBnZXQgaWdub3JlZC4gSSBhbHdheXMgZW5k
+IHVwIHdpdGggdGhlIG1vcmUNCj4gcmVjZW50IHZlcnNpb25zIGZvciB0aGUgbmF0aXZlIGJ1aWxk
+cy4NCj4gDQo+IFdoYXQgaXMgaXQgd2hhdCBJIGFtIG1pc3NpbmcgaGVyZT8NCj4gDQo+IENoZWVy
+cywNCj4gUm9iZXJ0CQ0KDQpPbmUgc29sdXRpb24gaXMgdG8gYWxzbyBjb3B5IHRoZSBnbnV0bHNf
+My42LjEyLmJiIHJlY2lwZSB0byANCnlvdXIgb3duIGxheWVyIGFuZCByZW5hbWUgaXQgdG8gZ251
+dGxzLW5hdGl2ZV8zLjYuMTIuYmIgYW5kIA0KYWRkIGFuIGluaGVyaXQgb2YgbmF0aXZlIHRvIGl0
+Lg0KDQpBbm90aGVyIHNvbHV0aW9uIGlzIHRvIGluc3RlYWQgdXNlIGEgYmJhcHBlbmQuIEl0IHNo
+b3VsZCBiZSANCmEgdmVyc2lvbmVkIGJiYXBlbmQsIGkuZS4sIGdudXRsc18zLjYuMTIuYmJhcHBl
+bmQgc28gaW4gY2FzZSANCnlvdSBvciBzb21lb25lIGVsc2UgZGVjaWRlIHRvIHVwZ3JhZGUgdG8g
+YSBuZXdlciB2ZXJzaW9uIG9mIA0KRHVuZmVsbCAod2hpY2ggaGFzIGEgbmV3ZXIgdmVyc2lvbiBv
+ZiBnbnV0bHMpLCB5b3Ugd2lsbCBnZXQgDQphIGJ1aWxkIGVycm9yIGFuZCBrbm93IHlvdSBoYXZl
+IHRvIHRha2UgY2FyZSBvZiBpdC4gU29tZXRoaW5nIA0KbGlrZSB0aGlzIHNob3VsZCBkbyBpdDoN
+Cg0KUFZfY2xhc3MtdGFyZ2V0ID0gIjMuNi4xNCINCg0KU1JDX1VSSV9hcHBlbmRfY2xhc3MtdGFy
+Z2V0ID0gIiBcDQogICAgZmlsZTovLzAwMDEtTW9kaWVkLXRoZS1saWNlbnNlLXRvLUdQTHYyLjEt
+dG8ta2VlcC13aXRoLUxJQ0VOU0UtZi5wYXRjaCBcDQogICAgZmlsZTovL0NWRS0yMDIwLTI0NjU5
+LnBhdGNoIFwNCiAgICBmaWxlOi8vQ1ZFLTIwMjEtMjAyMzEucGF0Y2ggXA0KICAgIGZpbGU6Ly9D
+VkUtMjAyMS0yMDIzMi5wYXRjaCBcDQoiDQoNCk1ENVNVTSA9ICJhMjM5MDBmMTQ5ODBhNDY3YmRj
+ZTNhMGZkMzFkZmExOCINCk1ENVNVTV9jbGFzcy10YXJnZXQgPSAiLi4uIg0KU1JDX1VSSVttZDVz
+dW1dID0gIiR7TUQ1U1VNfSINClNIQTI1NlNVTSA9ICJiZmFjZjE2ZTM0Mjk0OWZmZDk3N2E5MjMy
+NTU2MDkyYzQ3MTY0YmQyNmUxNjY3MzZjZjM0NTlhODcwNTA2YzRiIg0KU0hBMjU2U1VNX2NsYXNz
+LXRhcmdldCA9ICIuLi4iDQpTUkNfVVJJW3NoYTI1NnN1bV0gPSAiJHtTSEEyNTZTVU19Ig0KDQph
+bmQgYW55IG90aGVyIGFkYXB0YXRpb25zIHRoYXQgYXJlIG5lZWRlZCB0byBjYXRlciB0byBkaWZm
+ZXJlbmNlcyANCmJldHdlZW4gdGhlIHR3byByZWNpcGUgdmVyc2lvbnMuIFRoZSBwYXRjaGVzIHlv
+dSBjYW4gcGljayB1cCBmcm9tIA0KZHVuZmVsbC0yMy4wLjkgb3IgbGF0ZXIuDQoNCi8vUGV0ZXIN
+Cg0K
