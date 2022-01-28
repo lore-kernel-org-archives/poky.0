@@ -1,92 +1,90 @@
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- by mx.groups.io with SMTP id smtpd.web10.4185.1643318179510775103
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ by mx.groups.io with SMTP id smtpd.web12.5628.1643366553248014894
  for <poky@lists.yoctoproject.org>;
- Thu, 27 Jan 2022 13:16:20 -0800
+ Fri, 28 Jan 2022 02:42:34 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@axis.com header.s=axis-central1 header.b=R7CbwU7l;
- spf=pass (domain: axis.com, ip: 195.60.68.18, mailfrom: peter.kjellerstedt@axis.com)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=axis.com; q=dns/txt; s=axis-central1; t=1643318180;
-  x=1674854180;
-  h=from:to:subject:date:message-id:references:in-reply-to:
-   content-transfer-encoding:mime-version;
-  bh=UhYPBzDb+eZih+qyTpwNqVAhDAjMNWaS+9rmHdRcJaA=;
-  b=R7CbwU7luNBZfG2VDRMTVXsqO+WEAxdXZGYyheI/oJXhrCxZQoWD8Q+s
-   Eu1xjJjA4o8jV6SHyq0bxj1sVYez7JFdkhkzG9sJNlWdEvVWm1Wrp880u
-   +KGkL7WNEdR0Zb84y0zGyH9lEwCFrnUUoUJdWgOrWCA/pD2MCyTQLEqFP
-   m8MadDmMq0OnNgH4FbXWlXfU50PfylFGxrK/wPhvEMQKjmLyI/gKkCW08
-   /rCyHykSyTfMnU/Pnpwgy8O5pY4/uO4B4VabeB64whhwTu6HZCvmRsbJL
-   kHy/pMLogUKeBhigg/3bxgshP0w3I1Cy6ijDbC58+nBd46Ju6g+fOFVXz
-   g==;
-From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
-To: Michael Opdenacker <michael.opdenacker@bootlin.com>,
-	"poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-Subject: Re: [poky] [PATCH v2] local.conf.sample: use https instead of http for SSTATE_MIRRORS
-Thread-Topic: [poky] [PATCH v2] local.conf.sample: use https instead of http
- for SSTATE_MIRRORS
-Thread-Index: AQHYEqG3OAxfMLYiEEWXa4fEl5Lnu6x1KKQwgAHSS4CAAGMzoA==
-Date: Thu, 27 Jan 2022 21:16:16 +0000
-Message-ID: <868601cd1bb648ce87122f097639a23b@axis.com>
-References: <16CDCBDE8210E458.21331@lists.yoctoproject.org>
- <20220126104429.1062137-1-michael.opdenacker@bootlin.com>
- <bd6c8c51ff8748f593aec471a1382fd7@axis.com>
- <451aaa24-ee59-e040-ded7-370d2188c599@bootlin.com>
-In-Reply-To: <451aaa24-ee59-e040-ded7-370d2188c599@bootlin.com>
-Accept-Language: en-US, sv-SE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.0.5.60]
+ dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=f7ayp8fI;
+ spf=pass (domain: gmx.de, ip: 212.227.15.15, mailfrom: rtie@gmx.de)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+	s=badeba3b8450; t=1643366551;
+	bh=ayF+VR3mVK6pGdg7XX04kruWJ4F2DBQDBnD1hVVBICg=;
+	h=X-UI-Sender-Class:Date:To:From:Subject;
+	b=f7ayp8fIZX1TTPacrFzt0tD5HdXBNtY0k1zkwvZZ8UUiRJ0CixUJNzU3JlUTR9BGu
+	 Sb6MYpbKUOPhmRT7ldiYTyFNE/at/7ab2S08px5C8zRVDdESanqRFw3RUTZFi7HxpZ
+	 jez46Eu208N9MpUw+J8Z1825N1bIkkYGSqE9+v8U=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.69.2] ([46.83.190.224]) by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MacSe-1mfhmv0ouo-00c7Tw for
+ <poky@lists.yoctoproject.org>; Fri, 28 Jan 2022 11:42:31 +0100
+Message-ID: <3d282d2e-113e-fed8-17d0-5873f6f2e281@gmx.de>
+Date: Fri, 28 Jan 2022 11:42:30 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
+To: poky@lists.yoctoproject.org
+From: "Robert Tiemann" <rtie@gmx.de>
+Subject: Building a package of one version for target, and another version for native
+X-Provags-ID: V03:K1:+VbBC01Glwm74vlvqW9vV0TxMpAN1PUzdzXVx7s6QK2+U9W7v+8
+ hxhgOi4dgaSPcX3X1ibyKazjerhwwIRBuQfO17vZJcw2QMcNlGxtNpGh+q04BIbU8P7Yddq
+ 8KouSpx0WnWSyY4QQInHsxwoYuXBJLPPau+fX7VVweSxGM6ZA+J032ypKO8Z+wyIp2vYsjw
+ eEg54T4XZ7iyd7o56KJPA==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:SOG/4SNCnjw=:TliAxBfDCQy93dR3EB4L0y
+ eOZuNP8vywtjDbQZC/iYDUGOlmy8rjIOemE83fw2xrZeWASgW4HUoKCf2g+m4sKm0B525g8+z
+ N4Xf9pcrdHIQTUAwJ8++b+4QOj0nWQyCrsf27+FkA5Txjm3Lb5dlz5bU+MJx9nnn1p9L24QDR
+ 0Dhx+4LycG+0vJtgGzJnfMfHH99mf2n2/eBdkNrsV/cmjVAKssyTnIHqXC0MbO5BUdI1/kjaR
+ 3eCTIQYdlaoQMmdSasxB3fKhhRTrMvqUhUqXxbFiC6bjI086AMRIsdUG9HpLcF7ayraoCa7Wx
+ Az3uCh+Ku583ZRc6ihaEXtmSClWd0+B3AgMhAEgOozCGpr2Msy8AzblIZr1SeeMmNQspy0P64
+ mhF1iIq69xRDR/lG+eQR2R6b0ZAKDKYtwlUBfXbmChjLW9OvvNep5k0gAT7+kOiu6bTMOG4Ey
+ oEmuWAra+dsazTK0CB1rNJ0344qao6/aqJ2qgu5z9cr51w1dToJik6d+K9bOok2rJFqQVgE6N
+ Hb7bP0g429C+Tfu6CX7F/jVzsfmZlkZLjYgStJMXVsRBwaBLWwuN3xWheHX0nGFzb4+E+6/On
+ yq8+WEgquYiIxj7fw1woyD/bu1j2sRKMuu7wgwj4z3bcJXbOTg5LDTl86mftTJmv4rkCnFysc
+ o7xdl/YfK9yktQ25xUYT6l7FhMV8Uzv35Jc264dxXiqINqb0PCRJQfCdLuGQSdJaLrLP1XweR
+ Zum9Olxwt5LvSEvrWgynt8u4lY8ZoH8TC6h7/eZi4hlIjB816EVDfJc64ijClAM0xHsWxdEF9
+ N+h4BfdP0wi6zwnmU0MCBHtfgOt68DhMigjYJc7+7y8Zwg7wD6fYb2yoqpczyj2CGpp0RrtIn
+ s0VtcLHuPJR+GrrZ8mprcanOYFEpk153z8+SNH9/89p5+S5YIBI6GNYPShlFP0/D5KK/GlJkX
+ l6nfQvycbEWUQIBKk2RCQcBcFrYSW2rUYDbEpzNmGxkqOn49pSP0nryDP274eaCsJS0oMej+k
+ qc0cbMd3Ek2GkJeH5Q9K87bHh6RI6raA2Qj0kqoEbdaWIF+pFTDNgz/2gpAfIqrLmw==
 Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBNaWNoYWVsIE9wZGVuYWNrZXIg
-PG1pY2hhZWwub3BkZW5hY2tlckBib290bGluLmNvbT4NCj4gU2VudDogZGVuIDI3IGphbnVhcmkg
-MjAyMiAxNzoxMQ0KPiBUbzogUGV0ZXIgS2plbGxlcnN0ZWR0IDxwZXRlci5ramVsbGVyc3RlZHRA
-YXhpcy5jb20+Ow0KPiBwb2t5QGxpc3RzLnlvY3RvcHJvamVjdC5vcmcNCj4gU3ViamVjdDogUmU6
-IFtwb2t5XSBbUEFUQ0ggdjJdIGxvY2FsLmNvbmYuc2FtcGxlOiB1c2UgaHR0cHMgaW5zdGVhZCBv
-Zg0KPiBodHRwIGZvciBTU1RBVEVfTUlSUk9SUw0KPiANCj4gSGkgUGV0ZXIsDQo+IA0KPiBUaGFu
-ayB5b3UgdmVyeSBtdWNoIGZvciB0aGUgcmV2aWV3IQ0KPiANCj4gT24gMS8yNi8yMiAxMjoyNCwg
-UGV0ZXIgS2plbGxlcnN0ZWR0IHdyb3RlOg0KPiA+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0t
-LQ0KPiA+PiBGcm9tOiBwb2t5QGxpc3RzLnlvY3RvcHJvamVjdC5vcmcgPHBva3lAbGlzdHMueW9j
-dG9wcm9qZWN0Lm9yZz4gT24gQmVoYWxmIE9mIE1pY2hhZWwgT3BkZW5hY2tlcg0KPiA+PiBTZW50
-OiBkZW4gMjYgamFudWFyaSAyMDIyIDExOjQ0DQo+ID4+IFRvOiBwb2t5QGxpc3RzLnlvY3RvcHJv
-amVjdC5vcmcNCj4gPj4gQ2M6IE1pY2hhZWwgT3BkZW5hY2tlciA8bWljaGFlbC5vcGRlbmFja2Vy
-QGJvb3RsaW4uY29tPg0KPiA+PiBTdWJqZWN0OiBbcG9reV0gW1BBVENIIHYyXSBsb2NhbC5jb25m
-LnNhbXBsZTogdXNlIGh0dHBzIGluc3RlYWQgb2YgaHR0cCBmb3IgU1NUQVRFX01JUlJPUlMNCj4g
-Pj4NCj4gPj4gQm90aCBodHRwIGFuZCBodHRwcyB3b3JrLCBidXQgd2Ugc2hvdWxkIGdldCBmZXdl
-ciBxdWVzdGlvbnMNCj4gPj4gd2l0aCBodHRwcw0KPiA+Pg0KPiA+PiBTaWduZWQtb2ZmLWJ5OiBN
-aWNoYWVsIE9wZGVuYWNrZXIgPG1pY2hhZWwub3BkZW5hY2tlckBib290bGluLmNvbT4NCj4gPj4g
-LS0tDQo+ID4+ICBtZXRhLXBva3kvY29uZi9sb2NhbC5jb25mLnNhbXBsZSB8IDYgKysrLS0tDQo+
-ID4+ICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPiA+
-Pg0KPiA+PiBkaWZmIC0tZ2l0IGEvbWV0YS1wb2t5L2NvbmYvbG9jYWwuY29uZi5zYW1wbGUgYi9t
-ZXRhLXBva3kvY29uZi9sb2NhbC5jb25mLnNhbXBsZQ0KPiA+PiBpbmRleCA3YmRiYmEwLi4zMTAw
-ZWIxIDEwMDY0NA0KPiA+PiAtLS0gYS9tZXRhLXBva3kvY29uZi9sb2NhbC5jb25mLnNhbXBsZQ0K
-PiA+PiArKysgYi9tZXRhLXBva3kvY29uZi9sb2NhbC5jb25mLnNhbXBsZQ0KPiA+PiBAQCAtMjA2
-LDcgKzIwNiw3IEBAIEJCX0RJU0tNT05fRElSUyA/Pz0gIlwNCj4gPj4gICMgdXNlZCB0byBhY2Nl
-bGVyYXRlIGJ1aWxkIHRpbWUuIFRoaXMgdmFyaWFibGUgY2FuIGJlIHVzZWQgdG8gY29uZmlndXJl
-IHRoZSBzeXN0ZW0NCj4gPj4gICMgdG8gc2VhcmNoIG90aGVyIG1pcnJvciBsb2NhdGlvbnMgZm9y
-IHRoZXNlIG9iamVjdHMgYmVmb3JlIGl0IGJ1aWxkcyB0aGUgZGF0YSBpdHNlbGYuDQo+ID4+ICAj
-DQo+ID4+IC0jIFRoaXMgY2FuIGJlIGEgZmlsZXN5c3RlbSBkaXJlY3RvcnksIG9yIGEgcmVtb3Rl
-IHVybCBzdWNoIGFzIGh0dHAgb3IgZnRwLiBUaGVzZQ0KPiA+PiArIyBUaGlzIGNhbiBiZSBhIGZp
-bGVzeXN0ZW0gZGlyZWN0b3J5LCBvciBhIHJlbW90ZSB1cmwgc3VjaCBhcyBodHRwcyBvciBmdHAu
-IFRoZXNlDQo+ID4+ICAjIHdvdWxkIGNvbnRhaW4gdGhlIHNzdGF0ZS1jYWNoZSByZXN1bHRzIGZy
-b20gcHJldmlvdXMgYnVpbGRzIChwb3NzaWJseSBmcm9tIG90aGVyDQo+ID4+ICAjIG1hY2hpbmVz
-KS4gVGhpcyB2YXJpYWJsZSB3b3JrcyBsaWtlIGZldGNoZXIgTUlSUk9SUy9QUkVNSVJST1JTIGFu
-ZCBwb2ludHMgdG8gdGhlDQo+ID4+ICAjIGNhY2hlIGxvY2F0aW9ucyB0byBjaGVjayBmb3IgdGhl
-IHNoYXJlZCBvYmplY3RzLg0KPiA+PiBAQCAtMjE0LDcgKzIxNCw3IEBAIEJCX0RJU0tNT05fRElS
-UyA/Pz0gIlwNCj4gPj4gICMgYXQgdGhlIGVuZCBhcyBzaG93biBpbiB0aGUgZXhhbXBsZXMgYmVs
-b3cuIFRoaXMgd2lsbCBiZSBzdWJzdGl0dXRlZCB3aXRoIHRoZQ0KPiA+PiAgIyBjb3JyZWN0IHBh
-dGggd2l0aGluIHRoZSBkaXJlY3Rvcnkgc3RydWN0dXJlLg0KPiA+PiAgI1NTVEFURV9NSVJST1JT
-ID89ICJcDQo+ID4+IC0jZmlsZTovLy4qIGh0dHA6Ly9zb21lc2VydmVyLnRsZC9zaGFyZS9zc3Rh
-dGUvUEFUSDtkb3dubG9hZGZpbGVuYW1lPVBBVEggXG4gXA0KPiA+PiArI2ZpbGU6Ly8uKiBodHRw
-czovL3NvbWVzZXJ2ZXIudGxkL3NoYXJlL3NzdGF0ZS9QQVRIO2Rvd25sb2FkZmlsZW5hbWU9UEFU
-SCBcbiBcDQo+ID4NCj4gPiBXaGlsZSB0aGVyZSwgeW91IG1heSBhcyB3ZWxsIHJlbW92ZSB0aGUg
-IlxuIi4NCj4gDQo+IEdvb2QgaWRlYS4gV2UgYWxyZWFkeSBkaWQgdGhhdCBpbiBvdGhlciBwbGFj
-ZXMuDQo+IEhvd2V2ZXIsIHNob3VsZG4ndCBpdCBiZSBhIHNlcGFyYXRlIGNvbW1pdD8gSSBjYW4g
-cmVhZCBRdWVudGluJ3MgbGlwcyA7LSkNCg0KVHJ1ZS4gVGhlcmUgYXJlIGEgY291cGxlIG9mIG90
-aGVyIHBsYWNlcyB0aGF0IGNhbiBiZSB1cGRhdGVkIGFzIHdlbGwuIA0KSSdsbCBzZW5kIGEgcGF0
-Y2guDQoNCj4gQ2hlZXJzDQo+IE1pY2hhZWwuDQo+IA0KPiAtLQ0KPiBNaWNoYWVsIE9wZGVuYWNr
-ZXIsIEJvb3RsaW4NCj4gRW1iZWRkZWQgTGludXggYW5kIEtlcm5lbCBlbmdpbmVlcmluZw0KPiBo
-dHRwczovL2Jvb3RsaW4uY29tDQoNCi8vUGV0ZXINCg0K
+Hi!
+
+Is it possible to build packages so that the versions for native and
+target builds are different (using dunfell here)?
+
+My goal is to use gnutls and nettle in the version as shipped with
+dunfell (3.6.12 and 3.5.1, respectively) for the native tool chain,
+but a more recent version for the target. Simply upgrading the version
+for both, native and target, works, but then all RPM packages get
+rebuilt (not taken from sstate), and this is a problem for me.
+
+So, I have added recipes for upgraded versions of gnutls and nettle to
+my own layer, and in my layer's distro configuration I tried
+
+PREFERRED_VERSION_gnutls-native = "3.6.12"
+PREFERRED_VERSION_nettle-native = "3.5.1"
+
+and
+
+PREFERRED_VERSION_pn-gnutls-native = "3.6.12"
+PREFERRED_VERSION_pn-nettle-native = "3.5.1"
+
+and also
+
+PREFERRED_VERSION_gnutls-native_forcevariable = "3.6.12"
+PREFERRED_VERSION_nettle-native_forcevariable = "3.5.1"
+
+and
+
+PREFERRED_VERSION_pn-gnutls-native_forcevariable = "3.6.12"
+PREFERRED_VERSION_pn-nettle-native_forcevariable = "3.5.1"
+
+but all of these seem to get ignored. I always end up with the more
+recent versions for the native builds.
+
+What is it what I am missing here?
+
+Cheers,
+Robert
