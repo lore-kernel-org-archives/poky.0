@@ -1,28 +1,26 @@
-Subject: Using KSize.py
+Subject: Re: [meta-yocto][dunfell V2] Update the linux kernel to 5.4.172 for genericx86
 To: poky@lists.yoctoproject.org
-From: michaelb.miner@gmail.com
-X-Originating-Location: Winnipeg, Manitoba, CA (24.109.199.30)
-X-Originating-Platform: Windows Chrome 97
+From: "jbouchard" <jeanbouch418@gmail.com>
+X-Originating-Location: Québec, Quebec, CA (24.200.136.125)
+X-Originating-Platform: Mac Chrome 97
 User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Date: Mon, 31 Jan 2022 12:46:53 -0800
-Message-ID: <9NU7.1643662013735166560.m5GS@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="3rIYM3L2I89AfvkpFIC0"
+Date: Mon, 31 Jan 2022 16:03:58 -0800
+References: <20220127130610.3236399-1-jeanbouch418@gmail.com>
+In-Reply-To: <20220127130610.3236399-1-jeanbouch418@gmail.com>
+Message-ID: <10591.1643673838206570800@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="caaqloPJBr05zfaYDhNH"
 
---3rIYM3L2I89AfvkpFIC0
+--caaqloPJBr05zfaYDhNH
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-The folder I run bitbake from is called build-fb. I am trying to use ksize.=
-py. When I run it I get all 0's. What folder do I run this from?
+This a version of a previous patch did I mess the reply ?
 
---3rIYM3L2I89AfvkpFIC0
+--caaqloPJBr05zfaYDhNH
 Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-<span style=3D"color: #22231f; font-family: 'Source Sans Pro', Helvetica, s=
-ans-serif; font-size: 15.12px; white-space: pre-wrap;">The folder I run bit=
-bake from is called build-fb. I am trying to use ksize.py. When I run it I =
-get all 0's. What folder do I run this from?</span>
+This a version of a previous patch did I mess the reply ?
 
---3rIYM3L2I89AfvkpFIC0--
+--caaqloPJBr05zfaYDhNH--
