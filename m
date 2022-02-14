@@ -1,123 +1,110 @@
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (EUR05-VI1-obe.outbound.protection.outlook.com [40.107.21.126])
- by mx.groups.io with SMTP id smtpd.web10.31381.1644825881298737832
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+ by mx.groups.io with SMTP id smtpd.web08.37579.1644859044373176295
  for <poky@lists.yoctoproject.org>;
- Mon, 14 Feb 2022 00:04:45 -0800
+ Mon, 14 Feb 2022 09:17:24 -0800
 Authentication-Results: mx.groups.io;
- dkim=fail reason="body hash did not verify" header.i=@arrigroup.onmicrosoft.com header.s=selector1-arrigroup-onmicrosoft-com header.b=V00Y+Ddg;
- spf=pass (domain: arri.de, ip: 40.107.21.126, mailfrom: ceggers@arri.de)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dv4xE8LOkPNWgqfAgH4cGHgynGQrwE0xJ3lHW0Gl7Xow/Z5u6mjikzJ8ENFXPzDTebq9/tdhQpyHZ4FyMYyvQGLzbETVbqnpbhxPA6dvEtp534vnMosOu85RzBrj5VBAfPwPjjzAEKebGPwQoXOn+FgtInvAWYWlWpZ6Dx1yPjyXUQgtQKdJjOhq/LjU2vhOLl+yNFGUuzU5DObmdVYq/rHX49vk150TQrvl7gsDjtK8INntGMfqZEV2Sp6YWIejMilRQxy/UoPQfioILitZQMgwKnMMjQ9K9TMci2VrShwYEWSN9MYUAoNzdE+GDWjM9VgT+Jj+OggZjVLX8OCvbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eDru0rWG4m8JgAksfMJ65IZLWpd/7Z19ZYL9AOI84ZE=;
- b=kKLzoAoN6hxIWjVdaPzTQhjeSpA1CwLq/muezWjOP6ylk3LZXx9u56oyDtmoUoZZgA6ARAv+lPkafn5qVJbQb/JHnGf0wBU37iHguxenrBylVIswhQ2HF5ADJsq2SaBauDKHqBcyRYLQdwrcU/rqotwnnYhG9UZ9tWYdtkce3JYwCLeLgLn1BB0T8tqwShIq+17Z6OxEmDCZR7flGsXMwkvmDaHI+nrr0r1EFSor0j6hNNT6uoL4zvKacSX/aw14U1wkHJfwWNkICkqWYsqoFKhnirbgqZmDyxI8d7Uvms8qeObyjIHHevTO5NTjRH/9yWgPUNwcFGtlmS4FyTBhJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 217.111.95.7) smtp.rcpttodomain=lists.yoctoproject.org smtp.mailfrom=arri.de;
- dmarc=none action=none header.from=arri.de; dkim=none (message not signed);
- arc=none
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=VUx/OWMZ;
+ spf=pass (domain: gmail.com, ip: 209.85.222.176, mailfrom: raj.khem@gmail.com)
+Received: by mail-qk1-f176.google.com with SMTP id o10so15003237qkg.0
+        for <poky@lists.yoctoproject.org>; Mon, 14 Feb 2022 09:17:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=arrigroup.onmicrosoft.com; s=selector1-arrigroup-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eDru0rWG4m8JgAksfMJ65IZLWpd/7Z19ZYL9AOI84ZE=;
- b=V00Y+Ddg5St1BJr7rUVrxCJYJxIzRIAvZ3gkiHF047emRf4q04CPATeKrxWy4ZBBlyJV2uJOFDRng1Dnw2j6f2/LfZENEa45qdDzt0p/8DSvOM0QSViKnT6wLXE9BHwXmDMVXprHabGe4o+b7GkUTG9zPEqYswsUOnQvDbdwTrQ=
-Received: from OL1P279CA0015.NORP279.PROD.OUTLOOK.COM (2603:10a6:e10:12::20)
- by DBAPR07MB6744.eurprd07.prod.outlook.com (2603:10a6:10:193::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.8; Mon, 14 Feb
- 2022 08:04:38 +0000
-Received: from HE1EUR02FT004.eop-EUR02.prod.protection.outlook.com
- (2603:10a6:e10:12:cafe::b1) by OL1P279CA0015.outlook.office365.com
- (2603:10a6:e10:12::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11 via Frontend
- Transport; Mon, 14 Feb 2022 08:04:37 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 217.111.95.7)
- smtp.mailfrom=arri.de; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arri.de;
-Received-SPF: Fail (protection.outlook.com: domain of arri.de does not
- designate 217.111.95.7 as permitted sender) receiver=protection.outlook.com;
- client-ip=217.111.95.7; helo=mta.arri.de;
-Received: from mta.arri.de (217.111.95.7) by
- HE1EUR02FT004.mail.protection.outlook.com (10.152.10.83) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4975.11 via Frontend Transport; Mon, 14 Feb 2022 08:04:37 +0000
-Received: from MucEx01.arri.de (10.10.18.25) by MucEx01.arri.de (10.10.18.25)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.7; Mon, 14 Feb
- 2022 08:59:17 +0100
-Received: from CASHUB3.arri.de (192.168.100.104) by MucEx01.arri.de
- (10.10.18.25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2375.7 via Frontend
- Transport; Mon, 14 Feb 2022 08:59:17 +0100
-Received: from dhcp-192-168-0-28.wgnetz.xx.de (192.168.54.144) by mta.arri.de
- (192.168.100.104) with Microsoft SMTP Server (TLS) id 14.3.498.0; Mon, 14 Feb
- 2022 08:59:17 +0100
-From: "Christian Eggers" <ceggers@arri.de>
-To: <poky@lists.yoctoproject.org>
-CC: Christian Eggers <ceggers@arri.de>
-Subject: [PATCH] gcsections: add nativesdk-cairo to exclude list
-Date: Mon, 14 Feb 2022 08:58:59 +0100
-Message-ID: <20220214075859.8593-1-ceggers@arri.de>
-X-Mailer: git-send-email 2.34.1
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=G/VZdDlmscwtd7ybPvEvR2w8fgI2/JwZQpxQrNsAmjU=;
+        b=VUx/OWMZpUnewhb7E1ZuAhrBmsVkqx5/hr9cTyWMi7qafsQNEW4XFoz5CG/z/457/I
+         nnji3foip13zjgsGOWRinxStjfBEgnsth3zkFWc/7CGfEY7kyA2OPlCZrXWDwK4fxExd
+         00Jnd63q+Drk7P2CgupeE3UB5v97KUIqgRiIxRIj1/MEFgi3Qd2d9dIqNt1LjH5vhwCx
+         iZ94BEbfcD2q5gy3jjdEzhXf3f2ivwwGUfGfWyhL+uDl5QTpQF91v1xXCm7uUqTmK577
+         25h5FNYdvYfDmkSxdR3WQjDvSJtoZP170mSfN/X7/tguCcg42Xj+DzYRvLdw8EApEJO/
+         uwIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=G/VZdDlmscwtd7ybPvEvR2w8fgI2/JwZQpxQrNsAmjU=;
+        b=1ZyRThxRm5hx6ssWsOH0c1ObEfIVpwohwYbm4ntRhqvnqFhArHfTusf7VYRUz6NJWc
+         etdwTPL7sXFtmq2uPZ4Ueb6kpr4KT1WAt5Gm7Zc6KE9JcY5ZY2vM1whDcsKdZ/sKi6a9
+         vY6JpQmkc8RBjCxSMZLo9cnmQSXGGquNJs9qs1L7BOOkN9DGJJN/ZLS9ohJegBJyEqYy
+         lAW+sOfLWveLqvnZ2ReuW7QnI42C4zVSqwWFNry91zuPaH2lUSXHucmaO+Zk0H+Nd7yp
+         CRIV2j2QuAU0naG6j484SL5VkhqIvQr7PVpc70K8/Pl88yqWfGGHzec6SehEz+NHMXgo
+         AYyg==
+X-Gm-Message-State: AOAM530EvXcNwU0jkYKcP0fJQl3MmlZpRC1/nsfeI4XDOF+Z2oXvNjCg
+	oGyBiVhPJdtCajSLFV0DdNoe6Du+ob8rj0IFwH7RaU6NeNMHkQ==
+X-Google-Smtp-Source: ABdhPJztNAcz+zeo0kx50z6GW9sIERl8HkgdryiKeyfS7fFNtY3DAF0WyMxUc91ER+afELjnDn7eRWzoqNWIJQpIMVM=
+X-Received: by 2002:a37:63cf:: with SMTP id x198mr437568qkb.72.1644859043246;
+ Mon, 14 Feb 2022 09:17:23 -0800 (PST)
 MIME-Version: 1.0
-Return-Path: CEggers@arri.de
-X-Originating-IP: [192.168.54.144]
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1641cffe-7e8f-4b76-4fe6-08d9ef90a504
-X-MS-TrafficTypeDiagnostic: DBAPR07MB6744:EE_
-X-Microsoft-Antispam-PRVS: 
-	<DBAPR07MB67449DA24E6AA98B1807044FBF339@DBAPR07MB6744.eurprd07.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1013;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	me98SKLM01AoGnoTLjPmdRqzRyhFHzHnP+Egvzf8hSs9awaqGZGnP2X5V14hLk6xzEVDxcYxzOx7fDygMjttVzkR5bvGDG0ZkAZcYa76uhfSNy4J5SnMx0E5Wkvh3g9woHnZ4bfDSz62qElQTZY/45hcRhJRY5uY2lHvh0u8y74fcgyuGvLVL91RiRyxOVujOA/kKAIl9ED4KweKFx9lFmN0vDQGedLmnSVRWffDYu0GVPssNHXLd13Q79JeyEFCcFjzW1+Bp4j28H86bSSgf70opT08ogjGMFEztR6iOlPrlhW9/lqX1Gvh6uc9VIb9l4OglHUquNMR86HnF5q/GDRwdBxmzIMUAUkFkJWzIWfFGeBvwkrzjl5he3+xSfeEJHEuK4zfv7Wcib4pYWB+4fo9WPpCwq+nKojfWfunrE+rGNKZ9K4EUy8ZmWQi/1v2H8FRVzDn2CWRuBdxvwHXoG7ueDY3VmRXFvGbUssyJepMIPMsRRTns5oKqLpcC3RlG6HdIj3H/anLeok9ZtGbr4nTmQ7XwihsfV1g9gMORBF2GiBn3BRcQa0f7+odJYrazm2SoLp8y75FHEv3js7+X67OKY1csfcqRWNFc214VktEtEENDDeHw4T+DkvArWd/2cTcUbJ09GvuTOJ2zg6f1eXMgmwLI4KMODQK82WaSaIcLW1majOZY0zFoj0RR92Ng5iUlGf18PaekO/DMvovbw==
-X-Forefront-Antispam-Report: 
-	CIP:217.111.95.7;CTRY:DE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mta.arri.de;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(6666004)(2906002)(86362001)(83380400001)(82310400004)(5660300002)(8936002)(8676002)(47076005)(40460700003)(508600001)(36860700001)(36756003)(356005)(6916009)(81166007)(4326008)(316002)(70586007)(70206006)(186003)(1076003)(16526019)(26005)(426003)(336012)(107886003)(2616005)(36900700001);DIR:OUT;SFP:1102;
-X-OriginatorOrg: arri.de
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2022 08:04:37.1724
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1641cffe-7e8f-4b76-4fe6-08d9ef90a504
-X-MS-Exchange-CrossTenant-Id: e6a73a5a-614d-4c51-b3e3-53b660a9433a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e6a73a5a-614d-4c51-b3e3-53b660a9433a;Ip=[217.111.95.7];Helo=[mta.arri.de]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	HE1EUR02FT004.eop-EUR02.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR07MB6744
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
+References: <20220214075859.8593-1-ceggers@arri.de>
+In-Reply-To: <20220214075859.8593-1-ceggers@arri.de>
+From: "Khem Raj" <raj.khem@gmail.com>
+Date: Mon, 14 Feb 2022 09:16:57 -0800
+Message-ID: <CAMKF1sqQuKTh36TrtRXwaQv7XJm9ONa8ScC0R9Ro697SvrsruQ@mail.gmail.com>
+Subject: Re: [poky] [PATCH] gcsections: add nativesdk-cairo to exclude list
+To: Christian Eggers <ceggers@arri.de>
+Cc: poky <poky@lists.yoctoproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-configure fails with the following error if gcsections is active during
-build of nativesdk-cairo:
+On Mon, Feb 14, 2022 at 12:04 AM Christian Eggers <ceggers@arri.de> wrote:
+>
+> configure fails with the following error if gcsections is active during
+> build of nativesdk-cairo:
+>
+> | checking whether float word ordering is bigendian... unknown
+> | configure: error:
+> |
+> | Unknown float word ordering. You need to manually preset
+> | ax_cv_c_float_words_bigendian=no (or yes) according to your system.
+>
 
-| checking whether float word ordering is bigendian... unknown
-| configure: error:
-|
-| Unknown float word ordering. You need to manually preset
-| ax_cv_c_float_words_bigendian=3Dno (or yes) according to your system.
+hmm, this perhaps is a bug in the native toolchain you have
+whichever compiler toolchain is being used to compile nativesdk-cairo
+see if you can compile and find the string in resulting binary
 
-Signed-off-by: Christian Eggers <ceggers@arri.de>
----
- meta-poky/conf/distro/include/gcsections.inc | 2 ++
- 1 file changed, 2 insertions(+)
+% cat a.c
+double d __attribute__((used)) =
+90904234967036810337470478905505011476211692735615632014797120844053488865816695273723469097858056257517020191247487429516932130503560650002327564517570778480236724525140520121371739201496540132640109977779420565776568942592.0;
+int main() { return 0; }
 
-diff --git a/meta-poky/conf/distro/include/gcsections.inc b/meta-poky/conf/=
-distro/include/gcsections.inc
-index 886a005b341d..a1f8651ae9c3 100644
---- a/meta-poky/conf/distro/include/gcsections.inc
-+++ b/meta-poky/conf/distro/include/gcsections.inc
-@@ -16,6 +16,8 @@ LDFLAGS_SECTION_REMOVAL:pn-grub =3D ""
- # SDK packages with build problems using sections
- CFLAGS_SECTION_REMOVAL:pn-nativesdk-glibc =3D ""
- LDFLAGS_SECTION_REMOVAL:pn-nativesdk-glibc =3D ""
-+CFLAGS_SECTION_REMOVAL:pn-nativesdk-cairo =3D ""
-+LDFLAGS_SECTION_REMOVAL:pn-nativesdk-cairo =3D ""
- CFLAGS_SECTION_REMOVAL:pn-nativesdk-mingw-w64-runtime =3D ""
- LDFLAGS_SECTION_REMOVAL:pn-nativesdk-mingw-w64-runtime =3D ""
- CFLAGS_SECTION_REMOVAL:pn-nativesdk-perl =3D ""
---=20
-2.34.1
+% gcc a.c -O2 -g -grecord-gcc-switches -pipe -Wall
+-Werror=format-security -Wp,-D_FORTIFY_SOURCE=2
+-Wp,-D_GLIBCXX_ASSERTIONS  -fstack-protector-strong -m64
+-mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection
+-fcf-protection -fdata-sections -ffunction-sections -flto=auto
+-flto-partition=none | strings a.out | grep seesnoon
 
+if it prints out
+seesnoonGCC: (GNU) ....
+
+then the test is fine. If it does not then there is something wrong there.
+
+I have done this test on gcc 11.1.0 and clang 13.0.1 on my archlinux
+host and it worked all ok.
+
+
+
+
+> Signed-off-by: Christian Eggers <ceggers@arri.de>
+> ---
+>  meta-poky/conf/distro/include/gcsections.inc | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/meta-poky/conf/distro/include/gcsections.inc b/meta-poky/conf/distro/include/gcsections.inc
+> index 886a005b341d..a1f8651ae9c3 100644
+> --- a/meta-poky/conf/distro/include/gcsections.inc
+> +++ b/meta-poky/conf/distro/include/gcsections.inc
+> @@ -16,6 +16,8 @@ LDFLAGS_SECTION_REMOVAL:pn-grub = ""
+>  # SDK packages with build problems using sections
+>  CFLAGS_SECTION_REMOVAL:pn-nativesdk-glibc = ""
+>  LDFLAGS_SECTION_REMOVAL:pn-nativesdk-glibc = ""
+> +CFLAGS_SECTION_REMOVAL:pn-nativesdk-cairo = ""
+> +LDFLAGS_SECTION_REMOVAL:pn-nativesdk-cairo = ""
+>  CFLAGS_SECTION_REMOVAL:pn-nativesdk-mingw-w64-runtime = ""
+>  LDFLAGS_SECTION_REMOVAL:pn-nativesdk-mingw-w64-runtime = ""
+>  CFLAGS_SECTION_REMOVAL:pn-nativesdk-perl = ""
+> --
+> 2.34.1
+>
+>
+> 
+>
