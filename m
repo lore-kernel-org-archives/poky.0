@@ -1,98 +1,86 @@
 Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
- by mx.groups.io with SMTP id smtpd.web08.8379.1646749781413920655
+ by mx.groups.io with SMTP id smtpd.web12.8675.1646749784890766549
  for <poky@lists.yoctoproject.org>;
- Tue, 08 Mar 2022 06:29:41 -0800
+ Tue, 08 Mar 2022 06:29:45 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=CO/dKJ09;
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=S6ggAH40;
  spf=softfail (domain: sakoman.com, ip: 209.85.216.52, mailfrom: steve@sakoman.com)
-Received: by mail-pj1-f52.google.com with SMTP id b8so17321938pjb.4
-        for <poky@lists.yoctoproject.org>; Tue, 08 Mar 2022 06:29:41 -0800 (PST)
+Received: by mail-pj1-f52.google.com with SMTP id p3-20020a17090a680300b001bbfb9d760eso2373156pjj.2
+        for <poky@lists.yoctoproject.org>; Tue, 08 Mar 2022 06:29:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=sakoman-com.20210112.gappssmtp.com; s=20210112;
-        h=from:to:subject:date:message-id:mime-version
+        h=from:to:subject:date:message-id:in-reply-to:references:mime-version
          :content-transfer-encoding;
-        bh=F7dNllbX+L/RYzBkc3LlhiER31HXFLYV8Ud+i4VmN4c=;
-        b=CO/dKJ09A0EsosvKnr28014j21hL/HK358rhPXPDvSl/rHcJiP4TP3pybIwqACSc4G
-         unQM/eCNhg+8x8ayHwkxjIV+OXCb17h3/OnGjATFb9DZp7+UlJNjHn2dB0zJ0tgeGBIX
-         FzXKMwaqkuw24O4Eb6dGGT7XgN08hJTtKazRey+hsRsq4yRGisagT+VKgcZoVuLepHd4
-         S7uErr4e9NvPrc0ukAKyqFR5rV8IC/hNRn91WZZA+lTBZC23aBD5osPZzzQPBZ6XHz0Q
-         QEgRv6/7kTjGS141kLMyl1Yn12O612dmNtIhkDX04n3JQlTMjPSBvRCgF+fLpxUAkYqD
-         PJsQ==
+        bh=z1TgmGJlw7hQU9x3Nf/k7HOrS5ySKNzbIrYCbqSYK9k=;
+        b=S6ggAH40w1P7DCgcmO8kL9cCkAJjwrlYRQmsBlJBQQ1/PDnvlFHOn/36Tnt/7B4q6X
+         RCSiz3BoXijszq9UEx84ogy3D3/wCE31/XiG909s4WRK4cglTH8X9y3veyVptlcY8NtC
+         bEg75AVvnB/7DoL+D8+qTuJzVblAelemsdwqrOog8eI1zhbOwKwx3lw3AKF42zEdEQaE
+         tNFwr++/E0RYP+TnjSnZpJEf5OY57qp7PPoBWeXzWivcBgeaR8z8+RZzRT9u0a1W8Gld
+         haTzFaYzwkkJ+vwGkXL0qoPdihgllFixeMDUy3Ei7T6kGaQKh5ptIqfastgMxUNyMmLl
+         SI2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=F7dNllbX+L/RYzBkc3LlhiER31HXFLYV8Ud+i4VmN4c=;
-        b=JMIScXk6bO9T9lG9WQehlcsMSLreSgZo3R2LS3lD1AmEIPLoKCVtaXbpGnN2aBsJvt
-         jVBDT4ym+3f/KM+3kf8k1/iI3TraSeatgLkAdpVhjm8HhSNPLtCPHSr/RzKg4IFjoisG
-         EI5lc9FYDSMVl1v3pdC6Qd+ee8B35LnveTlNWPtLpRq8g+Rq7cZJsJsUj0v8z8ZRs8Si
-         9A3Np3XIfb4AkNfn12VCW2sgUkiuTkXbwxd0GGDojvBMbHKCTHW+YlxXRb5SKtzDQb+Z
-         lMAPdpAWvz7KG6JqNPP0evttydSwYM3wxsB61aYAvRfGsTkwdaJokpA8C2vNDUolWaqx
-         2EiQ==
-X-Gm-Message-State: AOAM533rzwPN0XGXuEkIGu55M3iIU6YhoZxqDj2YYuxmHkceCuf0lDt2
-	2YB3CRea/6zawrr3sF+P31w2VqvfTOPBdA9VYVM=
-X-Google-Smtp-Source: ABdhPJxiPNh2L8ZTOdE0v/muaHNY3PkE04hbWr/InlAYD3xWa1qiWsqTVfUEUEMAYfWjxK3/QqUyNg==
-X-Received: by 2002:a17:90b:17ca:b0:1bf:6188:cc00 with SMTP id me10-20020a17090b17ca00b001bf6188cc00mr5069702pjb.2.1646749780273;
-        Tue, 08 Mar 2022 06:29:40 -0800 (PST)
+        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=z1TgmGJlw7hQU9x3Nf/k7HOrS5ySKNzbIrYCbqSYK9k=;
+        b=KdfSdAGSOsUV3cBd2HzrYHLxbwXdaYlrAxKF308v4XhJJqbnq/Z9PSB3xCFDhzPTeW
+         safA/XkBMxH6ZLzk8ZGjDAokcl/aRKS56AGsHv0FXdyeJLpPec4pGp2iTUgKfrDsFvLU
+         mNFKHPuN2GGyVd5kurS9ai83qzI0GuqNQ1yB+G5AMP146dGiJcj/NijZcVnblXbntnSw
+         HCrKR7ALZBUz0kEYo1jywi+Xjvv7f07FnC03dkX35b1KrW2M+ZUWYurTdl2pdxuy5Ooh
+         RtvvTPj26LriM4nILYppe+q8GW6weTy/BQuLAjn/TyFr1Xa740tL2Uf/7AORd4rNctsx
+         1S/w==
+X-Gm-Message-State: AOAM532YCGepEEykJRcetgNpe7NlrCWJSfS4BhWZT3PAl1aovOEMLvZn
+	DevxYdnI11Hz49Kbu03FxTE7f4pVIqjSFmF9aMU=
+X-Google-Smtp-Source: ABdhPJzWs3jG6pVoDukI5XpoMqArkq94y/nksfPURKklHOQ1oCpO0tb/DhWxR6dpy3LKQfApPJX8PQ==
+X-Received: by 2002:a17:90a:5995:b0:1bc:be7f:f5a1 with SMTP id l21-20020a17090a599500b001bcbe7ff5a1mr5049382pji.84.1646749783934;
+        Tue, 08 Mar 2022 06:29:43 -0800 (PST)
 Return-Path: <steve@sakoman.com>
 Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
-        by smtp.gmail.com with ESMTPSA id x190-20020a6286c7000000b004f6bf60b958sm15286829pfd.125.2022.03.08.06.29.39
+        by smtp.gmail.com with ESMTPSA id x190-20020a6286c7000000b004f6bf60b958sm15286829pfd.125.2022.03.08.06.29.42
         for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Mar 2022 06:29:39 -0800 (PST)
+        Tue, 08 Mar 2022 06:29:43 -0800 (PST)
 From: "Steve Sakoman" <steve@sakoman.com>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell 0/3] Patch review
-Date: Tue,  8 Mar 2022 04:29:24 -1000
-Message-Id: <cover.1646749124.git.steve@sakoman.com>
+Subject: [meta-yocto][dunfell 1/3] linux-yocto: update genericx86* to v5.4.178
+Date: Tue,  8 Mar 2022 04:29:25 -1000
+Message-Id: <e6cb7cf8a4a3221aea9abc2ab7a7e11586d32a68.1646749124.git.steve@sakoman.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1646749124.git.steve@sakoman.com>
+References: <cover.1646749124.git.steve@sakoman.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Please review this set of patches for dunfell and have comments back by end
-of day Thursday.
-
-Passed a-full on autobuilder:
-
-https://autobuilder.yoctoproject.org/typhoon/#/builders/83/builds/3335
-
-In addition to testing a-full builds with all new distros enabled over the
-past couple of months, I ran these addional tests on each of the 3 newly
-supported distros (AlmaLinux 8.5, Fedora 35, and openSUSE 15.3)
-
-oe-selftest
-
-https://autobuilder.yoctoproject.org/typhoon/#/builders/79/builds/3262
-https://autobuilder.yoctoproject.org/typhoon/#/builders/56/builds/1783
-https://autobuilder.yoctoproject.org/typhoon/#/builders/86/builds/3232
-
-reproducible
-
-https://autobuilder.yoctoproject.org/typhoon/#/builders/117/builds/466
-https://autobuilder.yoctoproject.org/typhoon/#/builders/117/builds/467
-https://autobuilder.yoctoproject.org/typhoon/#/builders/117/builds/463
-
-
-The following changes since commit 8124e73de7fd319d96cdb6f556d6b1943fbe41e3:
-
-  poky.conf: Bump version for 3.1.14 release (2022-01-27 16:15:55 +0000)
-
-are available in the Git repository at:
-
-  git://git.yoctoproject.org/meta-yocto contrib/dunfell-next
-  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
-
-Lee Chee Yang (1):
-  poky.conf: update tested distros
-
-Steve Sakoman (2):
-  linux-yocto: update genericx86* to v5.4.178
-  poky.conf: Bump version for 3.1.15 release
-
- meta-poky/conf/distro/poky.conf                           | 5 ++++-
+Signed-off-by: Steve Sakoman <steve@sakoman.com>
+---
  .../recipes-kernel/linux/linux-yocto_5.4.bbappend         | 8 ++++----
- 2 files changed, 8 insertions(+), 5 deletions(-)
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
+index cd059c0..b2824cb 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.4.bbappend
+@@ -7,8 +7,8 @@ KMACHINE_genericx86 ?= "common-pc"
+ KMACHINE_genericx86-64 ?= "common-pc-64"
+ KMACHINE_beaglebone-yocto ?= "beaglebone"
+ 
+-SRCREV_machine_genericx86 ?= "76404f1ae59698b6a446dba29c885ca78c69c330"
+-SRCREV_machine_genericx86-64 ?= "76404f1ae59698b6a446dba29c885ca78c69c330"
++SRCREV_machine_genericx86 ?= "e2020dbe2ccaef50d7e8f37a5bf08c68a006a064"
++SRCREV_machine_genericx86-64 ?= "e2020dbe2ccaef50d7e8f37a5bf08c68a006a064"
+ SRCREV_machine_edgerouter ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
+ SRCREV_machine_beaglebone-yocto ?= "706efec4c1e270ec5dda92275898cd465dfdc7dd"
+ 
+@@ -17,7 +17,7 @@ COMPATIBLE_MACHINE_genericx86-64 = "genericx86-64"
+ COMPATIBLE_MACHINE_edgerouter = "edgerouter"
+ COMPATIBLE_MACHINE_beaglebone-yocto = "beaglebone-yocto"
+ 
+-LINUX_VERSION_genericx86 = "5.4.158"
+-LINUX_VERSION_genericx86-64 = "5.4.158"
++LINUX_VERSION_genericx86 = "5.4.178"
++LINUX_VERSION_genericx86-64 = "5.4.178"
+ LINUX_VERSION_edgerouter = "5.4.58"
+ LINUX_VERSION_beaglebone-yocto = "5.4.58"
 -- 
 2.25.1
 
