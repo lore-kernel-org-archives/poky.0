@@ -1,110 +1,125 @@
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com (NAM10-MW2-obe.outbound.protection.outlook.com [40.107.94.53])
- by mx.groups.io with SMTP id smtpd.web10.9427.1648043326666354059
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com (NAM10-MW2-obe.outbound.protection.outlook.com [40.107.94.85])
+ by mx.groups.io with SMTP id smtpd.web10.9578.1648044062975177983
  for <poky@lists.yoctoproject.org>;
- Wed, 23 Mar 2022 06:48:47 -0700
+ Wed, 23 Mar 2022 07:01:03 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@foresysinc.onmicrosoft.com header.s=selector2-foresysinc-onmicrosoft-com header.b=Is9pu0e5;
- spf=pass (domain: foresys.com, ip: 40.107.94.53, mailfrom: john.lemonovich@foresys.com)
+ dkim=pass header.i=@foresysinc.onmicrosoft.com header.s=selector2-foresysinc-onmicrosoft-com header.b=OHeXy6Er;
+ spf=pass (domain: foresys.com, ip: 40.107.94.85, mailfrom: john.lemonovich@foresys.com)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WAegmzoZ2FD/GQq5DQ1wo92ppLActs1KThgBWIoQYcN0dWKhivcZ3GJTfXpPOQZX4YWhlEFKAGczqqGRctmdiBcAjZVRuRudZZYNYfupNIlpbDrG+nJhqdvXIK9tXfN3PCUZvdLt0S+bwOI+pplIv1o5lmNqVfTDD1ui3Ac8SMiBYx8c1/lRL+hJ7jxGa/+yEVZxZpI7mXNbjPAcSCxTsjNPBzlmmh89R9hCQ7WgmzGNe4JMjvx3RVKLkxtgsry/S+LGoK7xYpvCKd/4MqieHeb/ugrMisA5G8Ka+qgO2yIvSpNfqDLQy2aLT/ok9Fb1bmnBwRKMLnhI09e4ucOFUg==
+ b=A5gj22l2dD0xRDKhYO/ndGOmMlsGkeiomXyhzzVNmXci6DVtEsw5PWXOSyGw/GtW1zTwp84uEF1+TGXLlnAcJh5/gpD3qZNutMWXKC0Uee7MPeReX5wj/zH8e21Djvr/16WQpWB3kI7aqoAi9MXCV8VgS2oOPBumqICFaRaEIJL71JsOA/idTchZdM3687Wbq8qF9EIfTJ1lbNodRpIzPrFnLyomWenpPlLowasKm6hrNjcZ4swHJb34jBpN+oEjjyCgJB2dd84fZ50Qd9U6MN3Y9lyi40SUFHkr8ypEqNlUVent81L27myopGCy/srNAsx/2Ehc6m88rm93A67xFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+CPSOoLT/ufoAaBLeFTsUxnfJLtRUvdby5uvDW2YMEI=;
- b=DS1uD/1yTkxV9jeCpsl5gfAHBdJ/Cfx9+123TqN3PBEUwRfj3ZFV/77XMooR1iTFJ+oxhGpMwhGoVxQvu8ujbC8DKiHTBZTzKGuhTA6Z/M+lzgYO5M4Nc7KXH9Wf2WShdpcDSBfqbwK0BqZsVyAEH3BT54LFTxrcqIWtWh3TRrjtY97liU0yEbHNsyU0lTa2C2IAVJRMgbleB7ytdZ4++i4s56A0njhxEreu0RPkwk1tbD/653GxfXBGEGmPVAgkj4n4wgUHMCqq+ktgEMVQvsSr9+7nZ4lerNGnZlz8APHbkbq3AT9uAGxyaOHEKT2n5TdZ7I79EzkDkCxWtoAmxw==
+ bh=6Ic95JR5gsWBVuBKSHRUSfK8eqhrSG8/3vhgZnG1Lrs=;
+ b=ak2WyVL28OF0k+7qRBH02PKWwSfsnxB6WV/mF2e3IAV65QAO+h3tmDiGfXIfFFcMrIB7H4Jk/VWsv4Kv00mJDGjFO6DjJ6D7JzuI0Nsyr3Xd9nLDV9Cha4Qe2dS6ua+eh5jQ/OvP46if0cz8brdw6io8qkKdakNB2Q5wyXetGMdhpIZBJhjd/XZ1z1mYUe6uxlLBW+bOsplqhXAB08xBYeG05Mi4pEGA+QZNmzOFN55AqmDUlEnRbAcCqzrYhtx08Cb8TOSUuCK1lGFt1ZaxE5msDnkvSpQD2W9oT1QW5oPqvJRWp4ZOIqpL7Ddp4c6Nbvu4T+Au7pkg2oRH8R+Awg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=foresys.com; dmarc=pass action=none header.from=foresys.com;
  dkim=pass header.d=foresys.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=Foresysinc.onmicrosoft.com; s=selector2-Foresysinc-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+CPSOoLT/ufoAaBLeFTsUxnfJLtRUvdby5uvDW2YMEI=;
- b=Is9pu0e5CzTv05taNvJYTDSWXzGH8hDwikzbx5deuMmeYebHCT94CACsBg4z6Gr9C1PTgBdA9PhjtaPTsA6B4BnvK1sdt6Vx4DSPr9CKql0OhT5+Ihv8ht9zpArFXtmGOeQhAL5b8eIcGx+3qWWAzqEhYJ9LKpUxH/vdeEeGUWw=
+ bh=6Ic95JR5gsWBVuBKSHRUSfK8eqhrSG8/3vhgZnG1Lrs=;
+ b=OHeXy6EriGacC3hk1Ut9ku9NzIdzL02joElwqEBfLUQJvsQYSHsjsstajdDav+jpBtoWqbXckwNIcO3WOHykrgkBihcEnnVO6637oOOduu/DbMYQw5fT5Hk4bGvbYumIRzBQ3ZNyw+Oyo1kZvJiJJkcU9xOmmpaX79Xtd3sU+lc=
 Received: from MN2PR11MB3887.namprd11.prod.outlook.com (2603:10b6:208:156::14)
- by DM6PR11MB4091.namprd11.prod.outlook.com (2603:10b6:5:197::32) with
+ by DM6PR11MB4689.namprd11.prod.outlook.com (2603:10b6:5:2a0::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.21; Wed, 23 Mar
- 2022 13:48:43 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5081.18; Wed, 23 Mar
+ 2022 14:01:00 +0000
 Received: from MN2PR11MB3887.namprd11.prod.outlook.com
  ([fe80::6c07:33c5:5a87:4b30]) by MN2PR11MB3887.namprd11.prod.outlook.com
  ([fe80::6c07:33c5:5a87:4b30%4]) with mapi id 15.20.5081.023; Wed, 23 Mar 2022
- 13:48:43 +0000
+ 14:01:00 +0000
 From: "John Lemonovich" <john.lemonovich@foresys.com>
-To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>, Alexandre Belloni
+To: John Lemonovich <john.lemonovich@foresys.com>, Peter Kjellerstedt
+	<peter.kjellerstedt@axis.com>, Alexandre Belloni
 	<alexandre.belloni@bootlin.com>
 CC: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
 Subject: Re: [poky] ERROR: core-image-minimal-1.0-r0 do_rootfs: Could not invoke dnf
 Thread-Topic: [poky] ERROR: core-image-minimal-1.0-r0 do_rootfs: Could not
  invoke dnf
-Thread-Index: Adg+BWxnSx0rHyT7Q0WLXKcK19eJQwADCyeAAAFe63AAIinxgAAGn/SA
-Date: Wed, 23 Mar 2022 13:48:43 +0000
+Thread-Index: Adg+BWxnSx0rHyT7Q0WLXKcK19eJQwADCyeAAAFe63AAIinxgAAGn/SAAACxFqA=
+Date: Wed, 23 Mar 2022 14:01:00 +0000
 Message-ID: 
- <MN2PR11MB38875A380747F4B810F125EFE1189@MN2PR11MB3887.namprd11.prod.outlook.com>
+ <MN2PR11MB3887199D7EB82A8E32438CAAE1189@MN2PR11MB3887.namprd11.prod.outlook.com>
 References: 
  <MN2PR11MB38872A8ACCBBF121A1D4441BE1179@MN2PR11MB3887.namprd11.prod.outlook.com>
  <YjoGJ/R4BV0gTa9N@piout.net>
  <MN2PR11MB3887035BDA3DE294BDEEB125E1179@MN2PR11MB3887.namprd11.prod.outlook.com>
  <35f50637a06a4488a8872bc8ead24821@axis.com>
-In-Reply-To: <35f50637a06a4488a8872bc8ead24821@axis.com>
+ <16DF06ACABF4E6A1.29582@lists.yoctoproject.org>
+In-Reply-To: <16DF06ACABF4E6A1.29582@lists.yoctoproject.org>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=foresys.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 02f12838-b0f1-4ab7-02e6-08da0cd3d848
-x-ms-traffictypediagnostic: DM6PR11MB4091:EE_
+x-ms-office365-filtering-correlation-id: 11ea050e-137e-4832-3aee-08da0cd58fd9
+x-ms-traffictypediagnostic: DM6PR11MB4689:EE_
 x-microsoft-antispam-prvs: 
- <DM6PR11MB4091A5347362118FDC703D26E1189@DM6PR11MB4091.namprd11.prod.outlook.com>
+ <DM6PR11MB46894D371839A82EAE90A2D0E1189@DM6PR11MB4689.namprd11.prod.outlook.com>
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- 8achLQQzRjBTvmeE6LC049ykh3cLQ+IWZIn3O/1kntQVK2EPgCSgf/OVPI8JBxpnhwEVJ4WdlAjTnOS2JpmbK83M1nRcMuEgZVXjFqdOwlTEba95gcQx04VAifI2JJ+j5s+srxDD1wMiSS6EPpVPp75VGbhzEeEQPKHl4klJLOrHHH/5jTuRtTJChGWA0yUut9HdnogfrK7O4VTSF1zjGDRvjnszeN0XNdGFd7Cyd2FwCw6bv+e0Z3dJ+WvijgsFNH9PhL+tCkQic66W1Ggt/0GNrqK2ws4bAsdX4I5yQb5XRVH6xXV1ztuzD6zKovQpnxszmYv3Cu4fAyojo7chAokr5IHFyOSYrmXZtX+qi7NstSsXahleHk3XHO+j4bMjZMTnMw87KVhORTLORXaQfGKfSqigiHoSlS/0yhduNjahUKIIr4zSkH4c5CUOTx/0LKvC546ZFVJzW1zRHZ01QOrm8LUX1awGS2GUcN0V2uX0IhcMcGEYa2e1yBrQYV1pyY00giF0TnfXLMKLVJaj2IPS+3wDyj/8XOJfYT1KOKdW4+ypVCQ+mzSnjVvH4KSuHB+amgSUT64kPUWUqTHVoXz3xnjeTY9XlKapEbl+DM9lR+YISFOjc998EImdzjpk4gE4KYXa+HHaqqM6Envc29eNXGaKFiI+lDsikilcKo3chyvjRYIeIy9DG1F53y2rzTFwXhBYok+7n/1Jhc3MlQ==
+ SAaO16VKKmCFgsszKQwTuho8hA0z9pwM9GV2ztGShL9IOPqIgFdqMP3XvW6+nnEnMbMtbdtAIW1HHAlAn1Y9/rtOh2Z7gtvzsGKaqlEEZFI880VGQyCSGDhoppWa4abXpOrRQPdACUhM8rAkqPKXrWXb0BhrJt6TIOPJttIrKSCQ81cXt3a4Iirpo324Tp+3dLPA5O06TessZfOh7fal1RQXdsUuoGmo2yGrPsJBRFxIfAn6xFMalr77u6JcSUcrRLUzj+8TSxmslqWcsCrYHP5EFyJW9UEI+zayfNOFynMQAxswJIy784wI04zQitiy3EE+yavrjDujj6qsoqDiJF//goSvW6nLAjLZgJhll8iWDZP7iF9+q2FEEsj/Q3lQEyIpkU5L2br0ED+2P/IVfSAMJxD2HmwDOP9nsfOZEpot7A7KG9LFF2nfIHHfjACMdJwtQ0M+FbkuM+7d4W/gPkbsOimadU0EMJjtl6n9AWKVNKcle+ZZdS9cMs/Vlq0F5IyluCXtj60m/UnVv8Ng+/QEQzJGnia1ENV4+FHJX5lI26mD2RVi/kFdeNs0dlkPLqtg+U1hLg/PWR6IoXWAcKk7JVHqeGM9zr+4cCdPrKhi/Yehm5yV/1qbaKGUE8YecPf/TmnBgSTFmxJHimn+60AIHAA+6Uf0M+UVSZh7biedzyPJ7lvgm3ifFDWLFq5cKUkjTBM7FYZ0qcwoMRDrqA==
 x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR11MB3887.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(376002)(39830400003)(366004)(136003)(346002)(396003)(2906002)(44832011)(38070700005)(55016003)(316002)(86362001)(33656002)(38100700002)(71200400001)(122000001)(508600001)(26005)(186003)(9686003)(7696005)(83380400001)(53546011)(6506007)(8676002)(66556008)(66476007)(76116006)(64756008)(66946007)(66446008)(4326008)(8936002)(52536014)(5660300002)(110136005);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR11MB3887.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(83380400001)(26005)(55016003)(186003)(122000001)(33656002)(2906002)(44832011)(6506007)(110136005)(508600001)(52536014)(5660300002)(9686003)(8936002)(8676002)(66476007)(71200400001)(66946007)(64756008)(66446008)(66556008)(76116006)(4326008)(316002)(7696005)(38070700005)(38100700002)(53546011)(86362001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?us-ascii?Q?qB1iJ644anCaABT8L3b38f1CakJTpzw4TnieA9NjyBG6CwCiIDRNPq4kKROR?=
- =?us-ascii?Q?GOqhMM3I5/G8y9Dum8nMxq0GsuauxVYaerT0CGe3s9L4s6PMemKQS7w1uHON?=
- =?us-ascii?Q?glA1iEhthBdkEPPVOI7T7DwTGkXdg1NSaAU+K/BtCjAOGuPf9EdunUptC4+j?=
- =?us-ascii?Q?wHhE2PkVVavAA2iG260xGB2rf6JB0ixbyJR0tlBmDN7zwyXgSINw54lHH86+?=
- =?us-ascii?Q?cVpg0jFxxgXSmE2ekZ2OXUylhxQNdx3vd95Mf9EW5fNcpOGPc/ZjllgnxnAL?=
- =?us-ascii?Q?RymDmcqlbEeXOaY+3MlnvBxpehTJPFSzcCk0MJ4FhZt9+oGz3fhtF3Jb/w4p?=
- =?us-ascii?Q?R6/8tpP7J92k/asa7gv4yaX7mm4coP5bbq6vU/hohwOhMvvHiI0y9dnfZ3Mx?=
- =?us-ascii?Q?LWXRwvS95+Fs37eYG4oQOH1CG6Wfs1G4pNSrPXYEkcssss873CdHLJ/mQ/ke?=
- =?us-ascii?Q?R/3ZNd5MfaTwrtEq2OK0aespjQ+f/Rr0eniTl+BcJpkkj3mo9XFzCOjK3rKS?=
- =?us-ascii?Q?i6KG91X7AXTdFcxLirlRVvADMmFFVvuPxg3A6tqm9Ga0dSZy0wlIpQ+Q2RUU?=
- =?us-ascii?Q?r7RD8ZS0g7MWRtQYGqDRSh/B4KmHeN34rc+akF/SL1yBTWvgs/Yc70bzn6kb?=
- =?us-ascii?Q?k6ez76CGbyk+MH2fvsDg22XhgnjrpxdZZ7E/8UHDEhqEhLoyV8aQJ5Gw57iq?=
- =?us-ascii?Q?KJatAk9Mz7H0c0d+efXfy6FpdNdoURjpKAogOxEl1XzXzImIqtNyCyLea2Yw?=
- =?us-ascii?Q?N05f5R5HTueyUZz09miJx8DhzTQtC2/yuhOWbLutKRIZ0fYvSb3VMpHMozzt?=
- =?us-ascii?Q?Rp7OZToPn1axiHAvplPhcOfvlBCG+gvgpv3bsWKUb4v0zx1cGKaBB6V1q3zZ?=
- =?us-ascii?Q?wfjLtYjOOAhl9VQIg4lfXJPdU/UGrgDLRwgcKAv03ALGB6GddNeXHPEuZQb2?=
- =?us-ascii?Q?rwLyeddcC+eFC/8UYpOZFybzFC/HtKxhSAerydDfzM9qnaOZ4iTfngtjweZd?=
- =?us-ascii?Q?mJskmp7wji+0Vdorwq/v8YzmNTzAO/x5VB06cjfxBvx9eK9/CoLShlHChxY9?=
- =?us-ascii?Q?roddqwIE0V72tDQx8ToxCdWjOjFi+48gWYPDutwIC5qH93SFF/dSHxh2xvWC?=
- =?us-ascii?Q?tavB+VyyjH/X+HBKmtMQWL9/PLvQbHFq9dkRJ6HhsTPeLI0i4mmGaKUOPfES?=
- =?us-ascii?Q?8PL0yBIkeYkv+IgLubGb7eqaG8V8sSHhGYvIkhUZSxPw/2Zp7ggI5N8x84QB?=
- =?us-ascii?Q?+zBGLiANFz4DwIj29fqJGZnEX/mzwyhDgVXdrcQutYppch+MxJP2cjBH07hz?=
- =?us-ascii?Q?5bN2Yg6VMF9RSZ5p6HhRg7O0U/i9oHQNZptgSq8FgVVGuUZBKE2m01eX3dMA?=
- =?us-ascii?Q?VmvakmOcAogqxLFO4Eoj1kStnXl5pUPZSlAZMLpo6+3siiXIJ0j5nMbiusEK?=
- =?us-ascii?Q?qd9eZWpXoKXYtcBqbJpUAnyTPYZrtEO4mbOXsn1mGElHTkcj3XPZlg=3D=3D?=
+ =?us-ascii?Q?lAOTYpVJz53zEyqjTkfWnJ8FJ6A6IG0hzWfQSDwj0G8sAyunwnT/1IItLE1x?=
+ =?us-ascii?Q?Y97h9eK6MhfbuhOjqaHJXdXgXw49xUTQgdKqU+ZvZfDiqD36oiysJgOj76kN?=
+ =?us-ascii?Q?nWR9QCWCqefhPc6Z0RVvcAn7Rc/F4bdGSjSNTnslS1Rx6qN0NzRFkJTWKvS8?=
+ =?us-ascii?Q?0NGTaQN/+vbFuk6nlO69Jv02CIB2P9g/kgDQp5mvG3IP7dkWOeGG3RQ72uZz?=
+ =?us-ascii?Q?+bTKkkrDQbrupEp9rwhZEIFmhTTlsfCuL0mVXpFjLD3oQRiEOKZwrH0ZeyhF?=
+ =?us-ascii?Q?Ezagg0b+CZjX6+johwHsexSPHzeq1h8VRDFIBJFEO650XFeJDbXwVy/mQiz4?=
+ =?us-ascii?Q?J3vLGQmsqHKSQjTACpdgIoQ2V5Bh84Ras/mOR4uogP0V5O1rTpVle/TnsZWp?=
+ =?us-ascii?Q?dtldvfs/2Yw7PItykrWmgGvLyH7sda98+fA+D301yu2pWdumbkO3D/Iugqe3?=
+ =?us-ascii?Q?GSv9y9SfzbDbmvDXhFHFayfoLC5NMZQdjfj3qpJBOoPD1+OOEP5hEwWAjBll?=
+ =?us-ascii?Q?VATg+QTjSV53jb8/79p9nR6OXGpj4VJ4sDcu8xIU/0YMGVfMjdbTaT6rZaM+?=
+ =?us-ascii?Q?7XqDRQKDYAp9/gN2si9ib/WXqCZ3zQ7Wxo2QWuwvxofWAJXQ5BANe3rpXh9p?=
+ =?us-ascii?Q?+k2oPTV7U2tt4hsoY1FOQyTCkrLWDI7sqFp6iVCHOyCS6G9ELqY21tmrNTCY?=
+ =?us-ascii?Q?urH2R6GCPw4YfjQ8eVl0AIoOYI4ZWnYoqoN1AUmsrtyOSz4QFHkZ/Pgk4MUx?=
+ =?us-ascii?Q?CrzZoZgwW8C7Iws+yf2iPrhgx/cy/2Q2KiQ9yHnCECUZj+A55AHcVUSvHfMn?=
+ =?us-ascii?Q?HkesGnnbVHzpY9VXvQI+kqOREo4TLQ8RiHIYZnhPu9VNbLkJOnvf8GOiZtCo?=
+ =?us-ascii?Q?ImT4wxIhl2zH5L9LjfyJnMrCp/nSeeIwbtHOUTzeDdBk+1ZAhh42ymXvbyWb?=
+ =?us-ascii?Q?Sd2GWwbv811SKY+ysLJo+lTLSs35n0gZWUfR7mkmjWH1Bk/I80qxGpEbv8z8?=
+ =?us-ascii?Q?lhsxycTiegG1O0SysYc8o9XOxhWfe6fLhuAVT+NC+Zdy411SqeFYiTTW1vKD?=
+ =?us-ascii?Q?WWbtl69a5oHM5Hzioir6A9FLBQepIq7ZE6ubFqqm+rNCzslPGkqriuPitS5T?=
+ =?us-ascii?Q?GfGXkyo/I8w3E5mKjgr05dC85j9eq5M+oGyAAVb+M55ZgsbyMm36N1u4ujR4?=
+ =?us-ascii?Q?ZHc7QRt5eIOg95zTvo6cxnBb6MRWQt1e0OhPLU7X5YShAI8DPQ/CGZjzZC7y?=
+ =?us-ascii?Q?3DW5hKCcRJBjubCGeN+w8a3+Ipy+lBgu+GQ3NleiPQjw97d5VmFoIoA+BzuZ?=
+ =?us-ascii?Q?cE0B99wm0uilDz0moMTLyjm8rhnSHPhKsmi+nmXw+6gw0yhRU/7GVstvY9+e?=
+ =?us-ascii?Q?gogv2X5iceRjFsD4jyeHc9UPBuEboYO9WyjTMhV3Ao193mRCnZklizi3/A22?=
+ =?us-ascii?Q?/JEPxfPeab/aztjxQVg/rUsLabPZkbwOu00Rj7yiC5mYs+CuFipmMw=3D=3D?=
 MIME-Version: 1.0
 X-OriginatorOrg: foresys.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR11MB3887.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02f12838-b0f1-4ab7-02e6-08da0cd3d848
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2022 13:48:43.1952
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11ea050e-137e-4832-3aee-08da0cd58fd9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2022 14:01:00.6354
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 1490b116-3c42-45c3-abd4-2137a151eb3e
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6DIaboEw5FLZ9EbdCo4dCTy8PcoWo9KYWUnEQjTaZ35XtmbCdFoMkX1zuKvkrTlyeOv8yloVNQTb+oOIeMaqajDTZi1hASFrYD9iKFrDxeY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4091
+X-MS-Exchange-CrossTenant-userprincipalname: Whg9wz35MHFCCyYgdxaXmcIUakDKtjO1DVO35Bh7dCkPDQ5Z924yK6hJIMbkYpQaQ24Cl2PppAr/TUrOBZixJSLA6bT+nSIi/dDYUJaCDMk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4689
 Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Or... is it the different permissions on the /var/lib directory itself ? =20
+
+
+-----Original Message-----
+From: poky@lists.yoctoproject.org <poky@lists.yoctoproject.org> On Behalf O=
+f John Lemonovich via lists.yoctoproject.org
+Sent: Wednesday, March 23, 2022 9:49 AM
+To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>; Alexandre Belloni <al=
+exandre.belloni@bootlin.com>
+Cc: poky@lists.yoctoproject.org
+Subject: Re: [poky] ERROR: core-image-minimal-1.0-r0 do_rootfs: Could not i=
+nvoke dnf
 
 Hi Peter,
 
@@ -134,7 +149,7 @@ John
 
 
 -----Original Message-----
-From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>=20
+From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
 Sent: Wednesday, March 23, 2022 6:21 AM
 To: John Lemonovich <john.lemonovich@foresys.com>; Alexandre Belloni <alexa=
 ndre.belloni@bootlin.com>
@@ -170,7 +185,7 @@ nvoke dnf
 > Running transaction test
 > Error: Transaction test error:
 >   file /var/lib conflicts between attempted installs of=20
-> initscripts-1.0-r155.cortexa9t2hf_neon and=20
+> initscripts-1.0-r155.cortexa9t2hf_neon and
 > base-files-3.0.14-r89.arria10
 
 This means that the two packages are trying to create /var/lib differently.=
