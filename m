@@ -1,101 +1,97 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
- by mx.groups.io with SMTP id smtpd.web12.10639.1648049263507055509
- for <poky@lists.yoctoproject.org>;
- Wed, 23 Mar 2022 08:27:43 -0700
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
+ by mx.groups.io with SMTP id smtpd.web12.4059.1648076631508545062
+ for <Poky@lists.yoctoproject.org>;
+ Wed, 23 Mar 2022 16:03:51 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=e5grRnba;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.42, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f42.google.com with SMTP id p26-20020a05600c1d9a00b0038ccbff1951so119843wms.1
-        for <poky@lists.yoctoproject.org>; Wed, 23 Mar 2022 08:27:43 -0700 (PDT)
+ dkim=pass header.i=@nikolamotor-com.20210112.gappssmtp.com header.s=20210112 header.b=TxM5HtSJ;
+ spf=pass (domain: nikolamotor.com, ip: 209.85.217.44, mailfrom: russ.dill@nikolamotor.com)
+Received: by mail-vs1-f44.google.com with SMTP id a127so3119870vsa.3
+        for <Poky@lists.yoctoproject.org>; Wed, 23 Mar 2022 16:03:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:cc:date:in-reply-to:references
-         :user-agent:mime-version:content-transfer-encoding;
-        bh=CT7AAgX1DPuSQrNXgaPqKluUCS9S/we6wFLosdK/fKw=;
-        b=e5grRnba5x0bBznDYk91YNstbR4U7aAb+SqiPbTvZL+XfcchDTn46wSuhbKHznLNKt
-         qkug/JlI9ixtrWljfI/DWAVnYLuOFI/dt6NOagCjwn1rxPQDL4dGI1z+8FSHZldp94ks
-         E1wbSAtmysiL6QTBCElId6txABX+0SqjoxU3k=
+        d=nikolamotor-com.20210112.gappssmtp.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=0Vz4MuCjV5aphRJATGmoxDs0LfVrjQUrmvTio0R/PSA=;
+        b=TxM5HtSJ117rrU3H+t/HliBCX8qjjWbL4LRkxqciuaVZfZVJP5XykL5GlPTSFLReaJ
+         rj9HZ1wrwYkMUhNEwHfAnqgT2U24G2c+Mj5N5y+lIbQErA+826v+5HVQn5iII+fL/pJK
+         17Lm95KOFE26rnkwF/v8yYWuVw95uRxrTfTakcfyyNkJuaN5lIIPZ/+1oMoB242Ky5bG
+         N4mQ76yRhGnKUYqXtLf8zFlt51XXJCcu+flFIvMSr0oR1C5FoRdREr8FiEtcNsNrZptX
+         0qFbQL9sVK54fRvIOpUFje4JFz78nZxZMkRV9jO2h2soOl1Mcl8AIhwJZOu8Ii+HEnRL
+         aopw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
-         :references:user-agent:mime-version:content-transfer-encoding;
-        bh=CT7AAgX1DPuSQrNXgaPqKluUCS9S/we6wFLosdK/fKw=;
-        b=GJmMffZvg3RLfrZU7xIOKuKkUr85V2D1+cvY76aCOM51kGPM0DBXZzQAueIuKYdPdr
-         584eftPT4Ui2xjZ+jy+DbwIEyoDwdZ6Bdebuu+gMsPT5e+FjVuaFvnptFwy9RdYA1SOI
-         S05TxHGpXUvNYbSn4QNN2w870vn173DkfWIuTwcFQsrbvtMQ4EaCUrODcM7P/ucaK1mu
-         wVsThD9PQP2hKMGaDf7HNB27Ct8+e7CuIqgC79wAgpublgrxnTUN+UzXSed4yH91oNMN
-         OJfscEs172vW2wgFS1e4Zr/uhdXOAufyYcXEjpYwA8qtNoN3B655RDDJlc5znPwA4oX1
-         LgqA==
-X-Gm-Message-State: AOAM533kIfArlSHwbQUNwOR5l+FV+n56whPBaNpXfGwqrYYLj5/wpgN/
-	iVO5B4HLTi77IHAqXWRSRmgJOQ==
-X-Google-Smtp-Source: ABdhPJwvCKJKUPlmuMsoWPf2xBMMBNVGtqkI6zbZw7KN8FPBigk/uRcTI0ApUVXKQz3tbxCBVcFiWQ==
-X-Received: by 2002:a05:600c:4e11:b0:38c:bd19:e72c with SMTP id b17-20020a05600c4e1100b0038cbd19e72cmr7808040wmq.174.1648049261890;
-        Wed, 23 Mar 2022 08:27:41 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:aaba:716e:9c38:ad87? ([2001:8b0:aba:5f3c:aaba:716e:9c38:ad87])
-        by smtp.gmail.com with ESMTPSA id i9-20020a5d5849000000b002058631cfacsm147795wrf.61.2022.03.23.08.27.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Mar 2022 08:27:41 -0700 (PDT)
-Message-ID: <26ddeba3dc4efc62da2ecc762de5ca0ea7f48ba0.camel@linuxfoundation.org>
-Subject: Re: [poky] git lfs support
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Steve Sakoman <steve@sakoman.com>
-Cc: Jon Richardson <jon.richardson@generac.com>, 
-	"poky@lists.yoctoproject.org"
-	 <poky@lists.yoctoproject.org>
-Date: Wed, 23 Mar 2022 15:27:38 +0000
-In-Reply-To: <CAOSpxdYPvur2-4Nb8cpVOP0Zb6KhD+02+MgAKPPUcKgkjg1V0g@mail.gmail.com>
-References: 
-	<MW4PR15MB447343CF64A820024D3AF8D69C189@MW4PR15MB4473.namprd15.prod.outlook.com>
-	 <96d2ead58457f34b4c2651cc0cbbb015eac0fcd6.camel@linuxfoundation.org>
-	 <CAOSpxdYPvur2-4Nb8cpVOP0Zb6KhD+02+MgAKPPUcKgkjg1V0g@mail.gmail.com>
-User-Agent: Evolution 3.40.4-1ubuntu2 
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=0Vz4MuCjV5aphRJATGmoxDs0LfVrjQUrmvTio0R/PSA=;
+        b=H0hmyj7S9hbMD+128L0pIedoSP3VQfNNdOoYM3oUKT3ghafxRSpF9llgrYMaErarFw
+         g9W93DYDOJ5ebBgF82NQnAr0f8gmGIbwsR4jD8LfGxqslJkTEpqdZgqaYuGGwcz48Y2v
+         9ClZqkD7J93BAjaw+b/tiErRcJE+xZEi2AmeOZnEgulwNNQxfvjH6CgBk0E2VwvmnP1k
+         x3gX6Tq97LlBiyL4A0r3xFkqiVpmyoZRv1ZEEk7M6yJjtv4MF6i6bw0UTJR1aVpFmJls
+         OJUyiI8kTry//vpfN2/V3/yicrGWFGI6e+HoLcvbinbRupI2FVY21XprXC70bFih9QMB
+         UUNw==
+X-Gm-Message-State: AOAM530hY13Y3dP6DFEl6zdBR5lBXi4dfZ4JukGT3RuagxJHyaNuRpvU
+	igPMezajmW3tXjkpEPKBV/Cajroe/l4c7e+bsuyb6urg30f8dWaTSoZhN4+EbNeh58wdFd/L1hr
+	x/RzBzGJ0ByY5JtbwoQTt5DPq9RDWY34912e+7L4apUMZoD/C/7r9bw/L1fTijiLzDMshLJYgCi
+	0M7v39cjFQcdYTgXy75BCbxvYD1tzyKmLMS+1oe4N8mBQ8foBR0Bq8zMbEcg==
+X-Google-Smtp-Source: ABdhPJzd4O6s3s877k3w920B/rWs951FMMEwsbYsWO+dFIvLU5akX83HygNICgqMubqe/Yy78xI8Dd+V2wk8oEYL8gA=
+X-Received: by 2002:a67:ee93:0:b0:320:7e6d:e088 with SMTP id
+ n19-20020a67ee93000000b003207e6de088mr1136717vsp.1.1648076629979; Wed, 23 Mar
+ 2022 16:03:49 -0700 (PDT)
 MIME-Version: 1.0
+From: russ.dill@nikolamotor.com
+Date: Wed, 23 Mar 2022 16:03:39 -0700
+Message-ID: <CA+05MtrFZG5QCZob=6CTzagTFu1QaB5MBSokghNEqNU1AUCV5g@mail.gmail.com>
+Subject: [PATCH] poky/package: Prevent perform_packagecopy from removing /sysroot-only
+To: Poky@lists.yoctoproject.org
+Cc: Diego Sueiro <diego.sueiro@arm.com>
+X-CLOUD-SEC-AV-Info: nikolamotor2,google_mail,monitor
+X-CLOUD-SEC-AV-Sent: true
+X-Gm-Spam: 0
+X-Gm-Phishy: 0
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
 
-On Wed, 2022-03-23 at 05:09 -1000, Steve Sakoman wrote:
-> On Wed, Mar 23, 2022 at 1:00 AM Richard Purdie
-> <richard.purdie@linuxfoundation.org> wrote:
-> > 
-> > On Wed, 2022-03-23 at 00:54 +0000, Jon Richardson wrote:
-> > > Hi,
-> > > 
-> > > I added lfs=1 to my SRC_URI that uses a git repo. I see code for supporting lfs,
-> > > but I don't see a git-lfs checkout being called. Does yocto not support lfs?
-> > > I'll have to had a postfunc to do the git-lfs fetch otherwise the files aren't
-> > > checkout out properly. What is the purpose of lfs=1 in SRC_URI? It even checks
-> > > for the existence of git-lfs yet doesn't use it anywhere that I can see.
-> > > 
-> > > I'm using dunfell (52b59e884110b2d48ad83438eef1fed7a28f01cf).
-> > 
-> > This could be a bug in dunfell, does:
-> > 
-> > https://git.yoctoproject.org/poky/commit/?id=45c02843d181b5f1872ad30f4d847c395233a676
-> > 
-> > help fix the issue?
-> 
-> The above commit is already in dunfell:
-> 
-> https://git.yoctoproject.org/poky/commit/bitbake/lib/bb/fetch2/git.py?h=dunfell&id=977b7268bf4fd425cb86d4a57500350c9b829162
-> 
-> As well as a follow-on patch to fix an issue with the above patch:
-> 
-> https://git.yoctoproject.org/poky/commit/bitbake/lib/bb/fetch2/git.py?h=dunfell&id=34597b96d94cd4d7aae38c394181df7bebec4171
+The files in /sysroot-only are intended to make it into the
+recipes sysroot output, but not into the package. However, if
+do_package is run before do_populate_sysroot, the files are
+removed.
 
-Sorry Steve, for some reason I thought they were missing.
+Use a smaller hammer to avoid copying the files into the package so
+they are still around when do_populate_sysroot runs.
 
-In that case the lfs parameter in the SRC_URI should work. Note that the
-checkout would happen in do_unpack as the files are moved to the workdir, not in
-do_fetch.
+Signed-off-by: Russ Dill <russ.dill@nikolamotor.com>
+---
+ meta/classes/package.bbclass | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-Jon: As you can see, there is code there to do this so I'm not sure what is
-wrong I'm afraid. We do even have tests in lib/bb/tests/fetch.py to test lfs is
-working...
+diff --git a/meta/classes/package.bbclass b/meta/classes/package.bbclass
+index 985dfacd09..c0e9b4dbca 100644
+--- a/meta/classes/package.bbclass
++++ b/meta/classes/package.bbclass
+@@ -428,7 +428,6 @@ def splitstaticdebuginfo(file, dvar,
+debugstaticdir, debugstaticlibdir, debugsta
+     # return a mapping of files:debugsources
 
-Cheers,
+     import stat
+-    import shutil
 
-Richard
+     src = file[len(dvar):]
+     dest = debugstaticlibdir + os.path.dirname(src) + debugstaticdir
++ "/" + os.path.basename(src) + debugstaticappend
+@@ -811,15 +810,10 @@ python perform_packagecopy () {
+     dest = d.getVar('D')
+     dvar = d.getVar('PKGD')
 
+-    # Remove ${D}/sysroot-only if present
+-    sysroot_only = os.path.join(dest, 'sysroot-only')
+-    if cpath.exists(sysroot_only) and cpath.isdir(sysroot_only):
+-        shutil.rmtree(sysroot_only)
+-
+     # Start by package population by taking a copy of the installed
+     # files to operate on
+     # Preserve sparse files and hard links
+-    cmd = 'tar -cf - -C %s -p -S . | tar -xf - -C %s' % (dest, dvar)
++    cmd = 'tar --exclude=./sysroot-only -cf - -C %s -p -S . | tar -xf
+- -C %s' % (dest, dvar)
+     subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
 
-
+     # replace RPATHs for the nativesdk binaries, to make them relocatable
+--
+2.25.1
