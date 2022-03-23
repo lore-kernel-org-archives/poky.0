@@ -1,163 +1,79 @@
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- by mx.groups.io with SMTP id smtpd.web10.10057.1648046457905105413
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+ by mx.groups.io with SMTP id smtpd.web10.10463.1648048201238827052
  for <poky@lists.yoctoproject.org>;
- Wed, 23 Mar 2022 07:40:58 -0700
+ Wed, 23 Mar 2022 08:10:01 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@axis.com header.s=axis-central1 header.b=f6VVNulw;
- spf=pass (domain: axis.com, ip: 195.60.68.18, mailfrom: peter.kjellerstedt@axis.com)
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=CQhYG07Q;
+ spf=softfail (domain: sakoman.com, ip: 209.85.218.41, mailfrom: steve@sakoman.com)
+Received: by mail-ej1-f41.google.com with SMTP id a8so3439192ejc.8
+        for <poky@lists.yoctoproject.org>; Wed, 23 Mar 2022 08:10:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=axis.com; q=dns/txt; s=axis-central1; t=1648046458;
-  x=1679582458;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=TDlShl/feXX/rKORqe1vRA17iHbdnaK4qePqrCU5Sv8=;
-  b=f6VVNulw2YYsnjLQQ3pydN0ZWk46ArmR8DjHhMjHgd7kSC0MQRjWbO1a
-   jQi2NjCpuA9MjxeHD60x0Ybz/jhG8tJ4ESSK+nRznd+hwI4+JJAsHS0Ek
-   WcM+r0OErLZF4wTa0BvgGHzO2zzlgbVwjNL3mh9qkba80UBqhgdBeu5wb
-   /TckcRQI6p17pznPczt8Rk/Q0ju+2yJxYa+1OIMUESSwkW+SwoeVeEOk5
-   cuzfa3VMNAOPUGQxIK7OUkLvEcVV2aaBTnCjlftPZ7F/MD3pn2ZnbJdx8
-   OqeFwKE1nM1vJFBPdDZsxYG2PA9WQ+hQmVMpUBRjqriLcFm7rjo2rOQJH
-   Q==;
-From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
-To: John Lemonovich <john.lemonovich@foresys.com>, Alexandre Belloni
-	<alexandre.belloni@bootlin.com>
-CC: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-Subject: Re: [poky] ERROR: core-image-minimal-1.0-r0 do_rootfs: Could not invoke dnf
-Thread-Topic: [poky] ERROR: core-image-minimal-1.0-r0 do_rootfs: Could not
- invoke dnf
-Thread-Index: Adg+BWxnSx0rHyT7Q0WLXKcK19eJQwADCyeAAAFe63AAIinxgAAGn/SAAACxFqAAAXP+MA==
-Date: Wed, 23 Mar 2022 14:40:54 +0000
-Message-ID: <10ee9efc9517420ea1107e175506dde9@axis.com>
-References: <MN2PR11MB38872A8ACCBBF121A1D4441BE1179@MN2PR11MB3887.namprd11.prod.outlook.com>
- <YjoGJ/R4BV0gTa9N@piout.net>
- <MN2PR11MB3887035BDA3DE294BDEEB125E1179@MN2PR11MB3887.namprd11.prod.outlook.com>
- <35f50637a06a4488a8872bc8ead24821@axis.com>
- <16DF06ACABF4E6A1.29582@lists.yoctoproject.org>
- <MN2PR11MB3887199D7EB82A8E32438CAAE1189@MN2PR11MB3887.namprd11.prod.outlook.com>
-In-Reply-To: <MN2PR11MB3887199D7EB82A8E32438CAAE1189@MN2PR11MB3887.namprd11.prod.outlook.com>
-Accept-Language: en-US, sv-SE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.0.5.60]
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=bcT1X60FIKfG4d+RyplhQXWSAwzgiHSoARENr+bSkQs=;
+        b=CQhYG07QkEuSefy+dLn4Nu+C3GifMWQkFgcXAqBB4ryqQeMt/n9yo2mpN4w5Y8WiOx
+         Pzs1TNx44EHo2nBMUUHbeZetYQXXyPWGCRiV/6SWoUFP8tMqCqvnYs/QWdqzLupm2tQA
+         vI95JP8t1WFKcgbRChTOVFlz4fKHKRi6PtQ3e6jrYVMz0RFnup9bA6mC8Wbsz1ZKOBYU
+         bE8aV5rxXEysgNymEKoXUh4ZjK88Bb7eMcOlTB6PPYs1IjsuUBOLXvVvidD7jSMp8dh7
+         KdANhjfycJfEj8weg4gYCMnFQ2UsbvRi7R4k62Sg8eO6995fv4l+tA+cZtCnF5UHsqPC
+         vjwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=bcT1X60FIKfG4d+RyplhQXWSAwzgiHSoARENr+bSkQs=;
+        b=y2uE4RFkJAS7jRjUXIJxPy3nu5EdAXehILA4Uflmsv4Z7+8dV0oPbaaAnM6AaY2tUU
+         tyKrhwIYJAN7CbYVIaMRXB5zQMRPpTbpfGp3X68bsi2cEcQFsLRwCbbJR28fQNE36DEa
+         AJopgI/Xr/5SspXDnABYQmxS7VmPlrw30ihuHPTIR1fEA+GUgznyPB04+GBXwT9wpCfz
+         l1+4jLRmh0T5hX+nDOqis6+BUfHPo/iRpUfIHgKDzuu7GW5w+acqjuGc/5NwsUyhNGDO
+         HB2BmetJMWzUzs3jKOPrEZyimvF0EEiimPed+PY4giSM1M0umlSA8g93zzwCMZ4EbRKg
+         jlfw==
+X-Gm-Message-State: AOAM531TQvMA8Yi7TqTpWO9GXf+cyUO7YsDUzA3AdW5160eaib5iy4mu
+	A3G24BpjReW/0XIKrsYqsPZgLufph9QTFoNBIrfEqg==
+X-Google-Smtp-Source: ABdhPJyVCQpYZQ56tpDAExqv+wE2eqlhoGEZgQDOFnsCtD/QBxfLgClAsCCwqXzviwW2iHRIz522vx+98vOxlD3M2zw=
+X-Received: by 2002:a17:907:1c0a:b0:6da:7ac4:5349 with SMTP id
+ nc10-20020a1709071c0a00b006da7ac45349mr457602ejc.596.1648048199342; Wed, 23
+ Mar 2022 08:09:59 -0700 (PDT)
 MIME-Version: 1.0
-Return-Path: peter.kjellerstedt@axis.com
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+References: <MW4PR15MB447343CF64A820024D3AF8D69C189@MW4PR15MB4473.namprd15.prod.outlook.com>
+ <96d2ead58457f34b4c2651cc0cbbb015eac0fcd6.camel@linuxfoundation.org>
+In-Reply-To: <96d2ead58457f34b4c2651cc0cbbb015eac0fcd6.camel@linuxfoundation.org>
+From: "Steve Sakoman" <steve@sakoman.com>
+Date: Wed, 23 Mar 2022 05:09:48 -1000
+Message-ID: <CAOSpxdYPvur2-4Nb8cpVOP0Zb6KhD+02+MgAKPPUcKgkjg1V0g@mail.gmail.com>
+Subject: Re: [poky] git lfs support
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: Jon Richardson <jon.richardson@generac.com>, 
+	"poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-> -----Original Message-----
-> From: John Lemonovich <john.lemonovich@foresys.com>
-> Sent: den 23 mars 2022 15:01
-> To: John Lemonovich <john.lemonovich@foresys.com>; Peter Kjellerstedt
-> <peter.kjellerstedt@axis.com>; Alexandre Belloni
-> <alexandre.belloni@bootlin.com>
-> Cc: poky@lists.yoctoproject.org
-> Subject: RE: [poky] ERROR: core-image-minimal-1.0-r0 do_rootfs: Could not
-> invoke dnf
->=20
-> Or... is it the different permissions on the /var/lib directory itself ?
-
-Yes, it is. Everything about a directory must match for dnf/rpm to=20
-allow it to be created by multiple packages.
-
-In this case it seems the initscripts package you use has the wrong=20
-permissions for /var/lib as it shall be 0755, not 0750. AFAICT, the=20
-recipe in meta has created /var/lib with mode 0755 since the creation=20
-of /var/lib/urandom was introduced in 2012 so it must be something in=20
-one of your layers that change the behavior of the initscripts package.
-
-//Peter
-
-> -----Original Message-----
-> From: poky@lists.yoctoproject.org <poky@lists.yoctoproject.org> On Behalf
-> Of John Lemonovich via lists.yoctoproject.org
-> Sent: Wednesday, March 23, 2022 9:49 AM
-> To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>; Alexandre Belloni
-> <alexandre.belloni@bootlin.com>
-> Cc: poky@lists.yoctoproject.org
-> Subject: Re: [poky] ERROR: core-image-minimal-1.0-r0 do_rootfs: Could not
-> invoke dnf
->=20
-> Hi Peter,
->=20
-> Thanks for the reply.  I looked at it and here is the difference.  Is it =
-a
-> problem that each one needs a different subdirectory within /var/lib/ ?
->=20
-> From  tmp/deploy/rpm/cortexa9t2hf_neon/initscripts-1.0-r155.cortexa9t2hf_=
-neon.rpm :
-> drwxr-x---    2 root    root                        0 Apr  5  2011 /var/l=
-ib
-> drwxr-xr-x    2 root    root                        0 Apr  5  2011 /var/l=
-ib/urandom
->=20
-> From  tmp/deploy/rpm/arria10/base-files-3.0.14-r89.arria10.rpm:
-> drwxr-xr-x    2 root    root                        0 Apr  5  2011 /var/l=
-ib
-> drwxr-xr-x    2 root    root                        0 Apr  5  2011 /var/l=
-ib/misc
->=20
->=20
-> I'm not sure what's causing the problem with the configuration - the step=
-s
-> to create the rootfs are given from Intel/Rocketboards and I would presum=
-e
-> worked at some point.  However, I will say that it's more common than not
-> for a given set of build commands/steps  to NOT work by default without
-> problems...
->=20
-> Thanks,
-> John
->=20
->=20
-> -----Original Message-----
-> From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
-> Sent: Wednesday, March 23, 2022 6:21 AM
-> To: John Lemonovich <john.lemonovich@foresys.com>; Alexandre Belloni
-> <alexandre.belloni@bootlin.com>
-> Cc: poky@lists.yoctoproject.org
-> Subject: RE: [poky] ERROR: core-image-minimal-1.0-r0 do_rootfs: Could not
-> invoke dnf
->=20
-> > -----Original Message-----
-> > From: poky@lists.yoctoproject.org <poky@lists.yoctoproject.org> On
-> > Behalf Of John Lemonovich
-> > Sent: den 22 mars 2022 19:04
-> > To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> > Cc: poky@lists.yoctoproject.org
-> > Subject: Re: [poky] ERROR: core-image-minimal-1.0-r0 do_rootfs: Could
-> > not invoke dnf
+On Wed, Mar 23, 2022 at 1:00 AM Richard Purdie
+<richard.purdie@linuxfoundation.org> wrote:
+>
+> On Wed, 2022-03-23 at 00:54 +0000, Jon Richardson wrote:
+> > Hi,
 > >
-> > Thank you for the reply.  My apologies, here is the rest:
->=20
-> [cut]
->=20
-> > Transaction Summary
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > Install  25 Packages
+> > I added lfs=1 to my SRC_URI that uses a git repo. I see code for supporting lfs,
+> > but I don't see a git-lfs checkout being called. Does yocto not support lfs?
+> > I'll have to had a postfunc to do the git-lfs fetch otherwise the files aren't
+> > checkout out properly. What is the purpose of lfs=1 in SRC_URI? It even checks
+> > for the existence of git-lfs yet doesn't use it anywhere that I can see.
 > >
-> > Total size: 2.0 M
-> > Installed size: 3.8 M
-> > Downloading Packages:
-> > Running transaction check
-> > Transaction check succeeded.
-> > Running transaction test
-> > Error: Transaction test error:
-> >   file /var/lib conflicts between attempted installs of
-> > initscripts-1.0-r155.cortexa9t2hf_neon and
-> > base-files-3.0.14-r89.arria10
->=20
-> This means that the two packages are trying to create /var/lib
-> differently.
-> If you run `rpm -qilvp <path to respective rpm file>`, you should be able
-> to tell what the difference is. The rpm files can be found in
-> "tmp/deploy/rpm/".
->=20
-> Then you will have to determine what causes this difference in your
-> configuration, because they do not differ in a standard poky build.
->=20
-> //Peter
+> > I'm using dunfell (52b59e884110b2d48ad83438eef1fed7a28f01cf).
+>
+> This could be a bug in dunfell, does:
+>
+> https://git.yoctoproject.org/poky/commit/?id=45c02843d181b5f1872ad30f4d847c395233a676
+>
+> help fix the issue?
 
+The above commit is already in dunfell:
+
+https://git.yoctoproject.org/poky/commit/bitbake/lib/bb/fetch2/git.py?h=dunfell&id=977b7268bf4fd425cb86d4a57500350c9b829162
+
+As well as a follow-on patch to fix an issue with the above patch:
+
+https://git.yoctoproject.org/poky/commit/bitbake/lib/bb/fetch2/git.py?h=dunfell&id=34597b96d94cd4d7aae38c394181df7bebec4171
+
+Steve
