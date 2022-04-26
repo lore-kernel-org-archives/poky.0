@@ -1,73 +1,61 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by mx.groups.io with SMTP id smtpd.web12.32090.1650904433253673256
+Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [217.70.183.201])
+ by mx.groups.io with SMTP id smtpd.web11.654.1651008096989121064
  for <poky@lists.yoctoproject.org>;
- Mon, 25 Apr 2022 09:33:53 -0700
+ Tue, 26 Apr 2022 14:21:37 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: arm.com, ip: 217.140.110.172, mailfrom: ross.burton@arm.com)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1715D1FB
-	for <poky@lists.yoctoproject.org>; Mon, 25 Apr 2022 09:33:52 -0700 (PDT)
-Received: from oss-tx204.lab.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B8B593F774
-	for <poky@lists.yoctoproject.org>; Mon, 25 Apr 2022 09:33:51 -0700 (PDT)
-From: "Ross Burton" <ross.burton@arm.com>
+ dkim=pass header.i=@bootlin.com header.s=gm1 header.b=dIqzjSTN;
+ spf=pass (domain: bootlin.com, ip: 217.70.183.201, mailfrom: michael.opdenacker@bootlin.com)
+Received: (Authenticated sender: michael.opdenacker@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPSA id 9B5DE1BF205;
+	Tue, 26 Apr 2022 21:21:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1651008094;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Cih6Za7PViN63jh19A/VbN0z7FUxFnRSnxEmk0qjac4=;
+	b=dIqzjSTNMve4WvoXXX5PETCNrA3rPcTrTPAN+HF+tazpZK3eqzkiGPIs+oa1Y0VLjpjuRH
+	A4YOy2ehh7ivCuHni22YfcpGKvRKsxTZ7CWf+maZJ9/NgaDTqpzzLiINwh6H6MBNVUqj2T
+	6S9MeK3Q2Jo8kpEeRcnosh6yOsNoFyWDCn6HTR4+UZNeqAvDU4Gr07PjWul233arHeb71T
+	3Yz1pDnI5GxCA+blpOTVrt+Aojn/E9s3f+7aWRRCd4iRElpcv4chVH6xHcjmUVURp7FBDM
+	nYpzZuWpQoC9TRUhmTz7JASPhH+ZL+cwtwxVC5J7AqrvzX2DnPbtfX5kKESDQw==
+From: "Michael Opdenacker" <michael.opdenacker@bootlin.com>
 To: poky@lists.yoctoproject.org
-Subject: [PATCH] poky.conf: set PACKAGE_CLASSES explicitly to package_rpm
-Date: Mon, 25 Apr 2022 17:33:47 +0100
-Message-Id: <20220425163347.1517336-1-ross.burton@arm.com>
+Cc: Michael Opdenacker <michael.opdenacker@bootlin.com>
+Subject: [PATCH] meta-poky: update conf-notes.txt
+Date: Tue, 26 Apr 2022 23:21:18 +0200
+Message-Id: <20220426212118.196989-1-michael.opdenacker@bootlin.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Currently, defaultsetup.conf defaults PACKAGE_CLASSES to ipkg, and Poky's
-local.conf.template defaults it to rpm.  So in theory Poky uses RPM, but
-only if you actually use the local.conf.template: use Poky but write
-your own minimal local.conf and you get ipkg being used.
+From: Michael Opdenacker <michael.opdenacker@bootlin.com>
 
-Resolve this by explicitly setting PACKAGE_CLASSES in poky.conf, and
-commentting out the assignment in local.conf.sample.  Users with
-existing local.conf files won't notice a change of behaviour, and users
-who write their own minimal local.conf will get the behaviour that is
-expected, that is RPMs.
+Now suggesting to run 'runqemu qemux86-64',
+aligning with conf-notes.txt in openembedded-core
 
-Signed-off-by: Ross Burton <ross.burton@arm.com>
+'runqemu qemux86' doesn't work any more.
+The "Quick Build" documentation has already been updated
+but not this message that we get when sourcing "oe-init-build-env"
+
+Signed-off-by: Michael Opdenacker <michael.opdenacker@bootlin.com>
 ---
- meta-poky/conf/distro/poky.conf  | 2 ++
- meta-poky/conf/local.conf.sample | 4 ++--
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ meta-poky/conf/conf-notes.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky=
-.conf
-index a42e1d4ebb..b4c64c495f 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -30,6 +30,8 @@ DISTRO_EXTRA_RRECOMMENDS +=3D "${POKY_DEFAULT_EXTRA_RRE=
-COMMENDS}"
-=20
- TCLIBCAPPEND =3D ""
-=20
-+PACKAGE_CLASSES ?=3D "package_rpm"
-+
- SANITY_TESTED_DISTROS ?=3D " \
-             poky-3.3 \n \
-             poky-3.4 \n \
-diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf=
-.sample
-index d92aa0ef87..4d2fa516fe 100644
---- a/meta-poky/conf/local.conf.sample
-+++ b/meta-poky/conf/local.conf.sample
-@@ -104,8 +104,8 @@ DISTRO ?=3D "poky"
- #  - 'package_ipk' for ipk files are used by opkg (a debian style embedd=
-ed package manager)
- #  - 'package_rpm' for rpm style packages
- # E.g.: PACKAGE_CLASSES ?=3D "package_rpm package_deb package_ipk"
--# We default to rpm:
--PACKAGE_CLASSES ?=3D "package_rpm"
-+# OE-Core defaults to ipkg, whilst Poky defaults to rpm:
-+# PACKAGE_CLASSES ?=3D "package_rpm"
-=20
- #
- # SDK target architecture
---=20
+diff --git a/meta-poky/conf/conf-notes.txt b/meta-poky/conf/conf-notes.txt
+index 084cc98..cfd1f19 100644
+--- a/meta-poky/conf/conf-notes.txt
++++ b/meta-poky/conf/conf-notes.txt
+@@ -11,7 +11,7 @@ Common targets are:
+     meta-toolchain
+     meta-ide-support
+ 
+-You can also run generated qemu images with a command like 'runqemu qemux86'
++You can also run generated qemu images with a command like 'runqemu qemux86-64'.
+ 
+ Other commonly useful commands are:
+  - 'devtool' and 'recipetool' handle common recipe tasks
+-- 
 2.25.1
 
