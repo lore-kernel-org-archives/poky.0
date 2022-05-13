@@ -1,74 +1,119 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
- by mx.groups.io with SMTP id smtpd.web10.6538.1652437364583204731
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+ by mx.groups.io with SMTP id smtpd.web08.6741.1652438969980685857
  for <poky@lists.yoctoproject.org>;
- Fri, 13 May 2022 03:22:44 -0700
+ Fri, 13 May 2022 03:49:30 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=c20rlFmd;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.54, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f54.google.com with SMTP id c190-20020a1c35c7000000b0038e37907b5bso6690385wma.0
-        for <poky@lists.yoctoproject.org>; Fri, 13 May 2022 03:22:44 -0700 (PDT)
+ dkim=pass header.i=@google.com header.s=20210112 header.b=adyrMG1P;
+ spf=pass (domain: google.com, ip: 209.85.128.172, mailfrom: jackwa@google.com)
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-2feb8eac315so8269997b3.3
+        for <poky@lists.yoctoproject.org>; Fri, 13 May 2022 03:49:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:cc:date:in-reply-to:references
-         :content-transfer-encoding:user-agent:mime-version;
-        bh=epCAp8KCPVY1mcbGao25gOA7KFMMWHB1XxBildIrIZs=;
-        b=c20rlFmd6VneURwEv1LcsK6wRL/D6PQ0uueNRQjhAUruPIWTZnw6Gr7VvUgKOh9AVq
-         vv3J2kM3ha802Ho5EfxeqxCu8FmWCsacx2D1OdnjIZztScSaFeg5a7HyW1uG8KIOmX7d
-         CGiy6eNvlQqDceJfJnd7lr/YX9V+y5mgNp5QM=
+        d=google.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=ufa6u3CK3d81cuLqJkEqn+jbGujUt5krV70Zt0FjC7o=;
+        b=adyrMG1PrfEROkXSa+pM636+r0AiJL5O61cKnBxYfkQVp1IYXTuMB4oDKdOHRG//xj
+         0Pqp8/dlSlXFxhb9Cmoi04FWYlNPyjOKMOjWfs0XRhi1z+hhFhVIEl1S9g0kCna7pmnY
+         opyPnC1KiceT9GidVRl5L56DiDG2wkRBnKJE3qhFt5Lg/72aj8Oguq3U5nLlEPnxEDjH
+         w9/K+R0HfuDfz78JKnkTFE+Ij4QywV3bb0QTKllzIRaRd26XCZVCNkIezt2BpoqCFegF
+         r8SQW8N/ssrC9lwe/qO4/TMUKgn5tRSfria1mCWfSmdM4sMwmdfahoVrNTugezYf1hrK
+         Ly0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
-         :references:content-transfer-encoding:user-agent:mime-version;
-        bh=epCAp8KCPVY1mcbGao25gOA7KFMMWHB1XxBildIrIZs=;
-        b=Ez2PNWWz1wYYEWQPue69uk8CRfF6mq441v9d5v4JoEND7SYlqd984TTae3EWsAVDhk
-         t3OrvYf1J5Ud0kguQJZBdXFTlmArVihAwPdhrUCy4mZu/ePvAqmVMwXWzboj2B7y6j/I
-         t0ivhx3tRb3CPmic+v71/KGgyosPa3RJQ7KSb0SEzt2AaZvvwLZ2q8L1PvLP7Af6CHwK
-         loAyA8zGpllWcus8ZOhWobGZ7ZpOgU9U6v14pbEtBIR7+biv0yDOluk8EHqWDPRYxbLM
-         umKBbixzNN9o9Eo7Exc1KtsFOkWFSumZ3kDIg4WzZy5Fj2iJyqF5YXDu1o1qIY+gh4L7
-         W5aA==
-X-Gm-Message-State: AOAM531Wf4o8x/FwTeJSyED32fefFz4/ss7GFQF0t6/o2HmMtGb854AS
-	mIeZpKKcqVWEiqR92XR3LRYQrg==
-X-Google-Smtp-Source: ABdhPJwuIlaXeSpAlQxnq1qLN4jov8hR1FglS4UZ2C7DQtXzRn0/ORWAq5t2O48+VKAz63gh5rm2Dg==
-X-Received: by 2002:a7b:c4c8:0:b0:394:26c5:b79e with SMTP id g8-20020a7bc4c8000000b0039426c5b79emr3980672wmk.15.1652437362788;
-        Fri, 13 May 2022 03:22:42 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:a1e1:9ec5:5b27:abc8? ([2001:8b0:aba:5f3c:a1e1:9ec5:5b27:abc8])
-        by smtp.gmail.com with ESMTPSA id p26-20020adfa21a000000b0020c61af5e1fsm1746759wra.51.2022.05.13.03.22.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 May 2022 03:22:42 -0700 (PDT)
-Message-ID: <8e823cb8afde58dffeb4e79bcc2e3d04997def7f.camel@linuxfoundation.org>
-Subject: Re: [poky] [PULL][PATCH 0/1] Do setuid before git operations
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: "Jack (Szu-Chieh) Wang" <jackwa@google.com>, Steve Sakoman
-	 <steve@sakoman.com>
-Cc: poky@lists.yoctoproject.org, Ryan O'Leary <ryanoleary@google.com>
-Date: Fri, 13 May 2022 11:22:41 +0100
-In-Reply-To: <CAGv+sjGDFDRnNXHWsxAe1PJh+msS-mogN3ojDsG3-TaaYgN-YA@mail.gmail.com>
-References: <cover.1652432972.git.jackwa@google.com>
-	 <0feb67b5ab444dc14b5b37f1eae761543f531079.camel@linuxfoundation.org>
-	 <CAGv+sjGDFDRnNXHWsxAe1PJh+msS-mogN3ojDsG3-TaaYgN-YA@mail.gmail.com>
-User-Agent: Evolution 3.44.0-1ubuntu1 
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=ufa6u3CK3d81cuLqJkEqn+jbGujUt5krV70Zt0FjC7o=;
+        b=Z4OmKbpd+VrDRmf0t43Jg374rsPryvTEfQhWjbVX7cqo0gXwP9e8sjcKT7z5DyOhXh
+         BR/Iu9dP+vjVHsrewuSw+2CG2cosEGpxH5qJHWfaWhVam8/k9eYsgqST96zS6jDvJnq3
+         MB9QNj6nIJYEnFKq0Howaj+GbK/GN1FDDg7tX5H//OU4uQC7Rl5Q774sClUFuzfFuxzA
+         t/4DAW7YLg5F2ryrTUK7Vv2sguY6d9AJkZooYYkH1fVwEokv9bkZjLnJ4flAegdg3Ez6
+         MyxzYKK0wCQ9W4NTyV74LaplW788LDcwqF6aS0wcDLsE/wY9x3V6SMUrKTblUfaM2xxd
+         vUew==
+X-Gm-Message-State: AOAM533nxs1NMhl+8r0svF6amdgK5PX6bwHxd0qstIrhsFH9Xd1Gu4DQ
+	dll4eLaC83v5cqRJTG3Pkb6Dcok+2opt50fSC+EHZQ==
+X-Google-Smtp-Source: ABdhPJzj5xnTz4XWA9DuthTrwmyunN94c/utwrnTtuFaVrJjaluWRoneF8RuTRog3TsVsUM1NaIOOCfgnMxFtebZYCU=
+X-Received: by 2002:a81:4cd7:0:b0:2ec:888:24c2 with SMTP id
+ z206-20020a814cd7000000b002ec088824c2mr5045335ywa.114.1652438969026; Fri, 13
+ May 2022 03:49:29 -0700 (PDT)
 MIME-Version: 1.0
+References: <cover.1652432972.git.jackwa@google.com> <0feb67b5ab444dc14b5b37f1eae761543f531079.camel@linuxfoundation.org>
+ <CAGv+sjGDFDRnNXHWsxAe1PJh+msS-mogN3ojDsG3-TaaYgN-YA@mail.gmail.com> <8e823cb8afde58dffeb4e79bcc2e3d04997def7f.camel@linuxfoundation.org>
+In-Reply-To: <8e823cb8afde58dffeb4e79bcc2e3d04997def7f.camel@linuxfoundation.org>
+From: "Jack (Szu-Chieh) Wang" <jackwa@google.com>
+Date: Fri, 13 May 2022 18:48:53 +0800
+Message-ID: <CAGv+sjGVoHQ_eK1aPk6FBkzFUvzgxUbm5gpN-LgrFoCkyYNcag@mail.gmail.com>
+Subject: Re: [poky] [PULL][PATCH 0/1] Do setuid before git operations
+To: richard.purdie@linuxfoundation.org
+Cc: Steve Sakoman <steve@sakoman.com>, poky@lists.yoctoproject.org, 
+	"Ryan O'Leary" <ryanoleary@google.com>
+Content-Type: multipart/alternative; boundary="000000000000c3685f05dee26dd8"
+
+--000000000000c3685f05dee26dd8
 Content-Type: text/plain; charset="UTF-8"
+
+I see, thanks a lot for your help and your efforts.
+
+Sincerely,
+Jack
+
+
+On Fri, May 13, 2022 at 6:22 PM <richard.purdie@linuxfoundation.org> wrote:
+
+> On Fri, 2022-05-13 at 18:19 +0800, Jack (Szu-Chieh) Wang wrote:
+> > Hi Richard,
+> >
+> > Thanks for your prompt reply.
+> > We're using the dunfell branch and the git issues remain.
+> > I see the patch is only on master not on dunfell, is this correct?
+>
+> We have a backport policy which means we fix on master, then fixes
+> cascade to the stable maintained releases. There is a review request
+> out here:
+>
+>
+> http://cgit.openembedded.org/openembedded-core-contrib/log/?h=stable/dunfell-next
+>
+> which includes the patches and should hopefully merge in the next few
+> days.
+>
+> Cheers,
+>
+> Richard
+>
+
+--000000000000c3685f05dee26dd8
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2022-05-13 at 18:19 +0800, Jack (Szu-Chieh) Wang wrote:
-> Hi Richard,
->=20
-> Thanks for your prompt reply.
-> We're using the dunfell branch and the git issues remain.
-> I see the patch is only on master not on dunfell, is this correct?
+<div dir=3D"ltr"><div>I see, thanks a lot for your help and your efforts.</=
+div><br clear=3D"all"><div><div dir=3D"ltr" class=3D"gmail_signature" data-=
+smartmail=3D"gmail_signature"><div dir=3D"ltr">Sincerely,<div>Jack</div></d=
+iv></div></div><br></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" cl=
+ass=3D"gmail_attr">On Fri, May 13, 2022 at 6:22 PM &lt;<a href=3D"mailto:ri=
+chard.purdie@linuxfoundation.org">richard.purdie@linuxfoundation.org</a>&gt=
+; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Fri,=
+ 2022-05-13 at 18:19 +0800, Jack (Szu-Chieh) Wang wrote:<br>
+&gt; Hi Richard,<br>
+&gt; <br>
+&gt; Thanks for your prompt reply.<br>
+&gt; We&#39;re using the dunfell branch and the git issues remain.<br>
+&gt; I see the patch is only on master not on dunfell, is this correct?<br>
+<br>
+We have a backport policy which means we fix on master, then fixes<br>
+cascade to the stable maintained releases. There is a review request<br>
+out here:<br>
+<br>
+<a href=3D"http://cgit.openembedded.org/openembedded-core-contrib/log/?h=3D=
+stable/dunfell-next" rel=3D"noreferrer" target=3D"_blank">http://cgit.opene=
+mbedded.org/openembedded-core-contrib/log/?h=3Dstable/dunfell-next</a><br>
+<br>
+which includes the patches and should hopefully merge in the next few<br>
+days.<br>
+<br>
+Cheers,<br>
+<br>
+Richard<br>
+</blockquote></div>
 
-We have a backport policy which means we fix on master, then fixes
-cascade to the stable maintained releases. There is a review request
-out here:
-
-http://cgit.openembedded.org/openembedded-core-contrib/log/?h=3Dstable/dunf=
-ell-next
-
-which includes the patches and should hopefully merge in the next few
-days.
-
-Cheers,
-
-Richard
+--000000000000c3685f05dee26dd8--
