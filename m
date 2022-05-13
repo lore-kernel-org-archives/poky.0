@@ -1,76 +1,141 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
- by mx.groups.io with SMTP id smtpd.web11.6586.1652436853503997627
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
+ by mx.groups.io with SMTP id smtpd.web12.6627.1652437183456685478
  for <poky@lists.yoctoproject.org>;
- Fri, 13 May 2022 03:14:13 -0700
+ Fri, 13 May 2022 03:19:43 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=PCceBl1X;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.43, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f43.google.com with SMTP id m2-20020a1ca302000000b003943bc63f98so4474424wme.4
-        for <poky@lists.yoctoproject.org>; Fri, 13 May 2022 03:14:13 -0700 (PDT)
+ dkim=pass header.i=@google.com header.s=20210112 header.b=Vf+8vhG5;
+ spf=pass (domain: google.com, ip: 209.85.128.173, mailfrom: jackwa@google.com)
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-2f7bb893309so85026397b3.12
+        for <poky@lists.yoctoproject.org>; Fri, 13 May 2022 03:19:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=message-id:subject:from:to:cc:date:in-reply-to:references
-         :content-transfer-encoding:user-agent:mime-version;
-        bh=gxWyCjTPhxDXcwwz5VjmbetvqOKaxiT8pP3f4La2trA=;
-        b=PCceBl1XlX6kRnAb6mH6BM7gfNy3d1ADpQ1tx3qfHs06UYjIqVJvFisY8zjbufm2K9
-         8bc71RVQveGES7gjOHiBp4fo56WCe9ScOUlKe7pEQuRdT1xUBD0h4g0ra5rgwhA8NX8u
-         vM+jMAw9bGey64lbKGAfFMNeDAAvWKuNx1CEM=
+        d=google.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=f+A9xCjp41sDO3Oh19xmqFJY1e3eAU/cBKRy+AosfLo=;
+        b=Vf+8vhG5rA7MxLpHjjNMSOBeT0Ik7m/+b9Rfz7GAMyLpnGrWyeXJw/zmDzn3w5Mj3q
+         0P6Z19dhArNKxtbVzFEWt2O5UnJJCbysgXARspI2TVEBh6Ll1JLho6Iz91n4zUeEDVDi
+         JUFspYTD1AwiynUTQZad/cEmkPd1eXQe3UcAPwou9nmtS55+KpNmU3SyZekxMf33YC3E
+         srWNIyX9LrvTBLqlc9Ld6E+Zdwba2ABOeUlpoTud/LIHx6TPsq1xYpitWVvmFWsDq3Bx
+         LZtL2n7s2FgP/5Byy0E4eteHjWwF6JnMj/HSURkLLcs9oA6u++DE9vcKPtvlsGm7qdih
+         226Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
-         :references:content-transfer-encoding:user-agent:mime-version;
-        bh=gxWyCjTPhxDXcwwz5VjmbetvqOKaxiT8pP3f4La2trA=;
-        b=lDInss19I+lpQva2YTcCkDUwngfSMjKVTbc+22GEUTt+N8gzwpl7SCe0rwcRmYzevH
-         KhEXzhxOAsF6pb1O43GL+awtNY7EWt5eyX1ahx/TVGkV+0seodd/OAdVdmFwS9s0D0yI
-         J4nk3mS93bGYGyo3l0GUyMkmABnCYtuS3QnKk4Zhiy4kTh7g5tFlXCeO2DAtYhD4zqlj
-         SZaMV3TYB0VczKAVQJWO0RU4bg/CB0gFRWeZBEmVe3JtP2035DR4KQnFbeqetVpT3Yl7
-         zOnp6XlFsik8u4OxDz0zW+tx65voC5PBkEc4iqLTDL3tEKTIBX/IL92v58E0/t0XasH1
-         tZ8g==
-X-Gm-Message-State: AOAM533GCAKSKbjUiOC0SkbSYIciH57u8P220wyABsEaxDbrk6LOely9
-	O09tkNu1JEN0vBaPP3VBP6J6hQ==
-X-Google-Smtp-Source: ABdhPJwb6red3DZuSJL2TEgtF4pFHbIlVfKTeP7lUhKDbZcVnUigY9d+4STkZgTUvQT2d51aI2xF0Q==
-X-Received: by 2002:a05:600c:19cf:b0:394:96c4:8959 with SMTP id u15-20020a05600c19cf00b0039496c48959mr14703601wmq.9.1652436851905;
-        Fri, 13 May 2022 03:14:11 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:a1e1:9ec5:5b27:abc8? ([2001:8b0:aba:5f3c:a1e1:9ec5:5b27:abc8])
-        by smtp.gmail.com with ESMTPSA id o25-20020adfa119000000b0020c5253d8c3sm1755247wro.15.2022.05.13.03.14.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 May 2022 03:14:11 -0700 (PDT)
-Message-ID: <0feb67b5ab444dc14b5b37f1eae761543f531079.camel@linuxfoundation.org>
-Subject: Re: [poky] [PULL][PATCH 0/1] Do setuid before git operations
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: jackwa@google.com, poky@lists.yoctoproject.org
-Cc: ryanoleary@google.com
-Date: Fri, 13 May 2022 11:14:09 +0100
-In-Reply-To: <cover.1652432972.git.jackwa@google.com>
-References: <cover.1652432972.git.jackwa@google.com>
-User-Agent: Evolution 3.44.0-1ubuntu1 
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=f+A9xCjp41sDO3Oh19xmqFJY1e3eAU/cBKRy+AosfLo=;
+        b=cvujxiptH9+WOJU60BpXZrv2AtEjFw7NXOoX5Y/HWM6ovihrFXGtZNMn4ZCn5WPp3R
+         uynHMV11H7GMzWG9jzRMN7bpen7CG7Dfv43CNce0Iq9P1iyPosSBLQfuDQqBytj5UH6a
+         M5ftx+eK8UJ68Kd5eyeuO/v22VUGoqYO1V6+q5uSQclXAvMdJhWbeve0ts3hm2lCayBg
+         Fu/kMMHhNmD0OY5Lzd26Go+QG+sKiJHgU7ARcxk6KZl3U1czrKIRa1WASyr/1m2w1Eg8
+         hXM2NyrKZmR8FxEhNUmdCKiDQCNZ9cbB9yvhPIR6JlrZahtCHgZGWDl3qqlkURmQ2j48
+         U8Eg==
+X-Gm-Message-State: AOAM530huBUP0+N/b1e+A/0ljmtt352J2KT4YnZCkNVrd7O7FqVgfo9o
+	/zAQwgdf9fjGBMQ73BfWkRgTzSvT0Pf0O0XxSyHZPw==
+X-Google-Smtp-Source: ABdhPJwFL7AQxcOG7tTGoAYYa3F9KPeMN38yUMxikMQr2cMF9NAq75346wuhcp+VPvzK+NaFbbNSFOX3JVp5aRFhUHs=
+X-Received: by 2002:a81:7e0a:0:b0:2ec:e0ab:d19c with SMTP id
+ o10-20020a817e0a000000b002ece0abd19cmr4773238ywn.465.1652437182503; Fri, 13
+ May 2022 03:19:42 -0700 (PDT)
 MIME-Version: 1.0
+References: <cover.1652432972.git.jackwa@google.com> <0feb67b5ab444dc14b5b37f1eae761543f531079.camel@linuxfoundation.org>
+In-Reply-To: <0feb67b5ab444dc14b5b37f1eae761543f531079.camel@linuxfoundation.org>
+From: "Jack (Szu-Chieh) Wang" <jackwa@google.com>
+Date: Fri, 13 May 2022 18:19:06 +0800
+Message-ID: <CAGv+sjGDFDRnNXHWsxAe1PJh+msS-mogN3ojDsG3-TaaYgN-YA@mail.gmail.com>
+Subject: Re: [poky] [PULL][PATCH 0/1] Do setuid before git operations
+To: richard.purdie@linuxfoundation.org
+Cc: poky@lists.yoctoproject.org, "Ryan O'Leary" <ryanoleary@google.com>
+Content-Type: multipart/alternative; boundary="000000000000474d7205dee203bd"
+
+--000000000000474d7205dee203bd
 Content-Type: text/plain; charset="UTF-8"
+
+Hi Richard,
+
+Thanks for your prompt reply.
+We're using the dunfell branch and the git issues remain.
+I see the patch is only on master not on dunfell, is this correct?
+
+Sincerely,
+Jack
+
+
+On Fri, May 13, 2022 at 6:14 PM <richard.purdie@linuxfoundation.org> wrote:
+
+> On Fri, 2022-05-13 at 10:03 +0000, Jack (Szu-Chieh) Wang via
+> lists.yoctoproject.org wrote:
+> > From: "Jack (Szu-Chieh) Wang" <jackwa@google.com>
+> >
+> > /etc/build information missing is because the new git thinks it's
+> > unsafe to do git operations if the directory has a different uid from
+> > the executing process'. However, there are still cases that we are
+> > building the image with a different uid, making git reporting false
+> > alarms. This patch identifies the cases by attempting to setuid to the
+> > owner of the git directory and if this works, it should be the
+> > expected git repo thus safe to do git operations.
+>
+> This should have been fixed in master or in the process of being fixed
+> on the stable branches by the git wrapper we've recently merged?
+>
+>
+> https://git.yoctoproject.org/poky/commit/?id=4d7383aefb391a5a998454c70feb96127951ca0a
+>
+> and several other related commits.
+>
+> Which release are you seeing that with?
+>
+> Cheers,
+>
+> Richard
+>
+
+--000000000000474d7205dee203bd
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2022-05-13 at 10:03 +0000, Jack (Szu-Chieh) Wang via
-lists.yoctoproject.org wrote:
-> From: "Jack (Szu-Chieh) Wang" <jackwa@google.com>
->=20
-> /etc/build information missing is because the new git thinks it's
-> unsafe to do git operations if the directory has a different uid from
-> the executing process'. However, there are still cases that we are
-> building the image with a different uid, making git reporting false
-> alarms. This patch identifies the cases by attempting to setuid to the
-> owner of the git directory and if this works, it should be the
-> expected git repo thus safe to do git operations.
+<div dir=3D"ltr">Hi Richard,<div><br></div><div>Thanks for your prompt repl=
+y.</div><div>We&#39;re using the dunfell branch and the git issues remain.<=
+br></div><div>I see the patch is only on master not on dunfell, is this cor=
+rect?</div><div><br clear=3D"all"><div><div dir=3D"ltr" class=3D"gmail_sign=
+ature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr">Sincerely,<div>J=
+ack</div></div></div></div><br></div></div><br><div class=3D"gmail_quote"><=
+div dir=3D"ltr" class=3D"gmail_attr">On Fri, May 13, 2022 at 6:14 PM &lt;<a=
+ href=3D"mailto:richard.purdie@linuxfoundation.org">richard.purdie@linuxfou=
+ndation.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">On Fri, 2022-05-13 at 10:03 +0000, Jack (Szu-Chieh) Wang via<br>
+<a href=3D"http://lists.yoctoproject.org" rel=3D"noreferrer" target=3D"_bla=
+nk">lists.yoctoproject.org</a> wrote:<br>
+&gt; From: &quot;Jack (Szu-Chieh) Wang&quot; &lt;<a href=3D"mailto:jackwa@g=
+oogle.com" target=3D"_blank">jackwa@google.com</a>&gt;<br>
+&gt; <br>
+&gt; /etc/build information missing is because the new git thinks it&#39;s<=
+br>
+&gt; unsafe to do git operations if the directory has a different uid from<=
+br>
+&gt; the executing process&#39;. However, there are still cases that we are=
+<br>
+&gt; building the image with a different uid, making git reporting false<br=
+>
+&gt; alarms. This patch identifies the cases by attempting to setuid to the=
+<br>
+&gt; owner of the git directory and if this works, it should be the<br>
+&gt; expected git repo thus safe to do git operations.<br>
+<br>
+This should have been fixed in master or in the process of being fixed<br>
+on the stable branches by the git wrapper we&#39;ve recently merged?<br>
+<br>
+<a href=3D"https://git.yoctoproject.org/poky/commit/?id=3D4d7383aefb391a5a9=
+98454c70feb96127951ca0a" rel=3D"noreferrer" target=3D"_blank">https://git.y=
+octoproject.org/poky/commit/?id=3D4d7383aefb391a5a998454c70feb96127951ca0a<=
+/a><br>
+<br>
+and several other related commits.<br>
+<br>
+Which release are you seeing that with?<br>
+<br>
+Cheers,<br>
+<br>
+Richard<br>
+</blockquote></div>
 
-This should have been fixed in master or in the process of being fixed
-on the stable branches by the git wrapper we've recently merged?
-
-https://git.yoctoproject.org/poky/commit/?id=3D4d7383aefb391a5a998454c70feb=
-96127951ca0a
-
-and several other related commits.
-
-Which release are you seeing that with?
-
-Cheers,
-
-Richard
+--000000000000474d7205dee203bd--
