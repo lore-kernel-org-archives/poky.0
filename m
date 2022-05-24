@@ -1,73 +1,113 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
- by mx.groups.io with SMTP id smtpd.web08.7624.1652893650512776982
+Received: from mail-il1-f171.google.com (mail-il1-f171.google.com [209.85.166.171])
+ by mx.groups.io with SMTP id smtpd.web09.14996.1653426206920900110
  for <poky@lists.yoctoproject.org>;
- Wed, 18 May 2022 10:07:30 -0700
+ Tue, 24 May 2022 14:03:27 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=Td7p72pN;
- spf=pass (domain: gmail.com, ip: 209.85.219.41, mailfrom: raj.khem@gmail.com)
-Received: by mail-qv1-f41.google.com with SMTP id l1so1996642qvh.1
-        for <poky@lists.yoctoproject.org>; Wed, 18 May 2022 10:07:30 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=KWDEnSQL;
+ spf=pass (domain: gmail.com, ip: 209.85.166.171, mailfrom: rustyhowell@gmail.com)
+Received: by mail-il1-f171.google.com with SMTP id z16so6471285ilp.5
+        for <poky@lists.yoctoproject.org>; Tue, 24 May 2022 14:03:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=UueprRkH9RezKVuDdyjFP1J91dBr9fbic4cvkYIGMY8=;
-        b=Td7p72pNcqiMMH4PfZjPsKFWtmabsiEmoXNRWl18kRw3rr1LvUYb/6EOvjUgH4BtyP
-         7GTd4ZN05KAksDOmmh2QwhXLwyxB1mVSLjOxlZIe9TRvpvM00UWbOC4LdUVxkgd/a7fz
-         NkY7whNOycNhQJhNTxgfK9wK8cE1IUrW78qkMVGEoqebf2IWkYg8n5sXRpSY9m5xrIv1
-         TvefAhuBj/ldK/fIhDfatJkMWWlTgBFlVgTeCGWrVkUPc7qs73mvM/0ep8gUD12Kgj1o
-         A7a7LTdKj7FZpyTFeAz9aY/3GjnCFfuT0935Hd9oXn6aR4WpjiHsVH44id8a2MQzemIo
-         UYgg==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=kLsSdBL545NirxJ8HzhHxUhTztLNdda/d8t72oYvvEM=;
+        b=KWDEnSQLW7qZnIaM5fmmuDlPqiOTyyG4LRuJ5EaU+hgoYunCIa8Yl0PwfcQG0y0dQx
+         hkuq+fcf4Ox/MTdr5c47BpVr0SoD/fzYigR6N22lFB0KSl8MUvy0FoUUt+YVZeN5dpUp
+         AjpV6xHILDopo73wPs4PrLx2PJPgdAhGw2l+V44ARUvfg3rQVOtcKLo+Bcg5ME5AEwoK
+         6EHXF2KN6kCcg/iGvqqB2krvIa1acqYBN3aoym2Z8gUK5G+H1bY45mhsw3aZUHzYWnPB
+         XUxam8zWrMSUslcsXXUlRRX4/G6yTY9bru1SmXCrYWiUYv7zRtvllepe2V1GwIXWfVJm
+         uNXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=UueprRkH9RezKVuDdyjFP1J91dBr9fbic4cvkYIGMY8=;
-        b=0cJt4AtSFPlc4ZPk+N7CXNd6tBr1libqPTh48qlqjF8e6amnFIbLj8aOow/pg8NdZS
-         X9/srKsghsb6iM56AGm8w6cSJxI7I1vlpyca0cwdFtYWCK4EBimHRKuzcsDvblaBvvHn
-         b3Hu4bXBEzYLDFUVku9Lq/+S5pSyeaMtdXFBs/TEqZhf+PTE5+5f9LlZVEnaA5WrR5GU
-         UhGHICCsM7ugaVJqJ2yEQdli10D1MsopI1nqPzgYP3EVaroVh9fLiui8UYz6Iz/dupQ3
-         Qj+rByjizgpxeleC0V9QTGYot3DoXRq0aSAhxFy4sMDbjhF3T0REIYI6LzBvDS05LJMf
-         fIEg==
-X-Gm-Message-State: AOAM530b+26tUqGOvnum1dLrJ7c0m1/k1TEp02ghbmgcCsW+1mU2Anvk
-	ZTxvcaIuJ+fDjYqDJB8lhqz4FWB1/JsuSgD26nt6aLeuElU=
-X-Google-Smtp-Source: ABdhPJwNkssC8u2z7ZcgEClJd2MdjDqrZhACjdu455ozFc6sVk4ugXZxb0ndBOX6KekuuFbm+SLNNLb32jMw4B7ChQg=
-X-Received: by 2002:a05:6214:21aa:b0:461:b0d9:b265 with SMTP id
- t10-20020a05621421aa00b00461b0d9b265mr524993qvc.110.1652893649583; Wed, 18
- May 2022 10:07:29 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=kLsSdBL545NirxJ8HzhHxUhTztLNdda/d8t72oYvvEM=;
+        b=v/ScWY2OhPS917ZjfYl7g9ZnoaoGqzdj141pzPErjoP1qEKnNmevq5xcuA/60+CiVe
+         iIQD11zg9MKXp8FwzeqsvumK9yAXmiXfuulY8ta2X+D4EgzmMuCaHe/L2PnmCwtHnQrk
+         Tj4KzUED5sWmrSR0d483fOI8sq84D+Q0mOuwT9DiovpCUke0oeVlw3EhjBzGoZZfRsjT
+         UpjLNdxsWq4+NeQzWL9N6pgI3m2HAG5MMR8NIAMLgf5iSZDHVzq8AmoSvrlyDPSiZBw2
+         OCB2XVeQC7/wGYC/Jt6+MgXRcnroD+wjkS4QFh3LLlQqIfIDVSXhRt5eKh16IP378Ng7
+         qdvw==
+X-Gm-Message-State: AOAM533FlSuO7FD7W1ZDf0Qqeoi3zjl+eVqFBV2+gl7GKa3DldLhNhiq
+	5lg7SzbhTAPFL0uyA8QzEgluGLBoJQU=
+X-Google-Smtp-Source: ABdhPJz8UFdI35TPAuYop27TJFWaHqauXUg3GPCDWcKKvJfaSsvSLVI5R+28KCHqTKd/T+2r+8d+FQ==
+X-Received: by 2002:a05:6e02:1608:b0:2d1:b86c:5b6b with SMTP id t8-20020a056e02160800b002d1b86c5b6bmr4999228ilu.304.1653426205961;
+        Tue, 24 May 2022 14:03:25 -0700 (PDT)
+Return-Path: <rustyhowell@gmail.com>
+Received: from sirius.control4.com ([2605:a601:a937:b200:d4cd:35b1:7dde:3eed])
+        by smtp.gmail.com with ESMTPSA id f16-20020a056602039000b0065a47e16f50sm3852322iov.34.2022.05.24.14.03.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 May 2022 14:03:24 -0700 (PDT)
+From: "Rusty Howell" <rustyhowell@gmail.com>
+To: poky@lists.yoctoproject.org
+Cc: Rusty Howell <rhowell@control4.com>,
+	Rusty Howell <rustyhowell@gmail.com>
+Subject: [PATCH] oe-depends-dot: Handle new format for task-depends.dot
+Date: Tue, 24 May 2022 15:02:40 -0600
+Message-Id: <20220524210240.3223272-1-rustyhowell@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <CAMKF1spQTZVKKW8=ntd1--7A7g_uGE=k4fVEih5nYmBN85XrMw@mail.gmail.com>
- <13088.1652892457753604005@lists.yoctoproject.org>
-In-Reply-To: <13088.1652892457753604005@lists.yoctoproject.org>
-From: "Khem Raj" <raj.khem@gmail.com>
-Date: Wed, 18 May 2022 10:07:03 -0700
-Message-ID: <CAMKF1spb8Q2ovrOF_-V0-A5SozYstciZUot+Wy4yBONZv1fwQA@mail.gmail.com>
-Subject: Re: [poky] Need suggestion to handle COMBINED_FEATURES variable.
-To: Rahul Chauhan <rahulchauhankitps@gmail.com>
-Cc: poky <poky@lists.yoctoproject.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-COMBINED_FEATURE gives you intersection of distro and machine
-features, so if a feature is not in both of them
-then it wont show up in COMBINED_FEATURES, so as long as you remove it
-from DISTRO_FEATURES you might be ok
+From: Rusty Howell <rhowell@control4.com>
 
-On Wed, May 18, 2022 at 9:47 AM Rahul Chauhan
-<rahulchauhankitps@gmail.com> wrote:
->
-> Is there any risk, If  I remove it from DISTRO_FEATURES not MACHINE_FEATURES.
->
-> Actually I am using same machine file for multi devices but each device has separate distro.
-> and singe image file for all the devices.
->
-> So in my case i can use DISTRO_FEATURES_remove from distro file.
-> but if modifying machine.conf file then all other device will impact.
->
-> so in this case, is there any way to handle COMBINED_FEATURE.
->
-> Your comment will very helpful for us.
->
-> Thanks  Again
-> Rahul Chauhan
-> 
->
+The .dot file created by `bitbake -g` changed formats a while ago, which
+broke oe-depends-dot.
+
+Also add some useful examples to the --help output.
+
+Signed-off-by: Rusty Howell <rustyhowell@gmail.com>
+---
+ scripts/oe-depends-dot | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/scripts/oe-depends-dot b/scripts/oe-depends-dot
+index 5eb3e12769..1c2d51c6ec 100755
+--- a/scripts/oe-depends-dot
++++ b/scripts/oe-depends-dot
+@@ -15,7 +15,7 @@ class Dot(object):
+     def __init__(self):
+         parser = argparse.ArgumentParser(
+             description="Analyse recipe-depends.dot generated by bitbake -g",
+-            epilog="Use %(prog)s --help to get help")
++            formatter_class=argparse.RawDescriptionHelpFormatter)
+         parser.add_argument("dotfile",
+             help = "Specify the dotfile", nargs = 1, action='store', default='')
+         parser.add_argument("-k", "--key",
+@@ -32,6 +32,21 @@ class Dot(object):
+                     " For example, A->B, B->C, A->C, then A->C can be removed.",
+             action="store_true", default=False)
+ 
++        parser.epilog = """
++Examples:
++First generate the .dot file:
++    bitbake -g core-image-minimal
++
++To find out why a package is being built:
++    %(prog)s -k <package> -w ./task-depends.dot
++
++To find out what a package depends on:
++    %(prog)s -k <package> -d ./task-depends.dot
++
++Reduce the .dot file packages only, no tasks:
++    %(prog)s -r ./task-depends.dot
++"""
++
+         self.args = parser.parse_args()
+ 
+         if len(sys.argv) != 3 and len(sys.argv) < 5:
+@@ -99,6 +114,10 @@ class Dot(object):
+                 if key == "meta-world-pkgdata":
+                     continue
+                 dep = m.group(2)
++                key = key.split('.')[0]
++                dep = dep.split('.')[0]
++                if key == dep:
++                    continue
+                 if key in depends:
+                     if not key in depends[key]:
+                         depends[key].add(dep)
+-- 
+2.25.1
+
