@@ -1,113 +1,64 @@
-Received: from mail-il1-f171.google.com (mail-il1-f171.google.com [209.85.166.171])
- by mx.groups.io with SMTP id smtpd.web09.14996.1653426206920900110
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net [217.70.183.199])
+ by mx.groups.io with SMTP id smtpd.web09.4431.1653468349778990693
  for <poky@lists.yoctoproject.org>;
- Tue, 24 May 2022 14:03:27 -0700
+ Wed, 25 May 2022 01:45:50 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=KWDEnSQL;
- spf=pass (domain: gmail.com, ip: 209.85.166.171, mailfrom: rustyhowell@gmail.com)
-Received: by mail-il1-f171.google.com with SMTP id z16so6471285ilp.5
-        for <poky@lists.yoctoproject.org>; Tue, 24 May 2022 14:03:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=kLsSdBL545NirxJ8HzhHxUhTztLNdda/d8t72oYvvEM=;
-        b=KWDEnSQLW7qZnIaM5fmmuDlPqiOTyyG4LRuJ5EaU+hgoYunCIa8Yl0PwfcQG0y0dQx
-         hkuq+fcf4Ox/MTdr5c47BpVr0SoD/fzYigR6N22lFB0KSl8MUvy0FoUUt+YVZeN5dpUp
-         AjpV6xHILDopo73wPs4PrLx2PJPgdAhGw2l+V44ARUvfg3rQVOtcKLo+Bcg5ME5AEwoK
-         6EHXF2KN6kCcg/iGvqqB2krvIa1acqYBN3aoym2Z8gUK5G+H1bY45mhsw3aZUHzYWnPB
-         XUxam8zWrMSUslcsXXUlRRX4/G6yTY9bru1SmXCrYWiUYv7zRtvllepe2V1GwIXWfVJm
-         uNXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=kLsSdBL545NirxJ8HzhHxUhTztLNdda/d8t72oYvvEM=;
-        b=v/ScWY2OhPS917ZjfYl7g9ZnoaoGqzdj141pzPErjoP1qEKnNmevq5xcuA/60+CiVe
-         iIQD11zg9MKXp8FwzeqsvumK9yAXmiXfuulY8ta2X+D4EgzmMuCaHe/L2PnmCwtHnQrk
-         Tj4KzUED5sWmrSR0d483fOI8sq84D+Q0mOuwT9DiovpCUke0oeVlw3EhjBzGoZZfRsjT
-         UpjLNdxsWq4+NeQzWL9N6pgI3m2HAG5MMR8NIAMLgf5iSZDHVzq8AmoSvrlyDPSiZBw2
-         OCB2XVeQC7/wGYC/Jt6+MgXRcnroD+wjkS4QFh3LLlQqIfIDVSXhRt5eKh16IP378Ng7
-         qdvw==
-X-Gm-Message-State: AOAM533FlSuO7FD7W1ZDf0Qqeoi3zjl+eVqFBV2+gl7GKa3DldLhNhiq
-	5lg7SzbhTAPFL0uyA8QzEgluGLBoJQU=
-X-Google-Smtp-Source: ABdhPJz8UFdI35TPAuYop27TJFWaHqauXUg3GPCDWcKKvJfaSsvSLVI5R+28KCHqTKd/T+2r+8d+FQ==
-X-Received: by 2002:a05:6e02:1608:b0:2d1:b86c:5b6b with SMTP id t8-20020a056e02160800b002d1b86c5b6bmr4999228ilu.304.1653426205961;
-        Tue, 24 May 2022 14:03:25 -0700 (PDT)
-Return-Path: <rustyhowell@gmail.com>
-Received: from sirius.control4.com ([2605:a601:a937:b200:d4cd:35b1:7dde:3eed])
-        by smtp.gmail.com with ESMTPSA id f16-20020a056602039000b0065a47e16f50sm3852322iov.34.2022.05.24.14.03.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 24 May 2022 14:03:24 -0700 (PDT)
-From: "Rusty Howell" <rustyhowell@gmail.com>
-To: poky@lists.yoctoproject.org
-Cc: Rusty Howell <rhowell@control4.com>,
-	Rusty Howell <rustyhowell@gmail.com>
-Subject: [PATCH] oe-depends-dot: Handle new format for task-depends.dot
-Date: Tue, 24 May 2022 15:02:40 -0600
-Message-Id: <20220524210240.3223272-1-rustyhowell@gmail.com>
-X-Mailer: git-send-email 2.25.1
+ dkim=pass header.i=@bootlin.com header.s=gm1 header.b=VXOEkyiX;
+ spf=pass (domain: bootlin.com, ip: 217.70.183.199, mailfrom: luca.ceresoli@bootlin.com)
+Received: (Authenticated sender: luca.ceresoli@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPSA id 62C05FF803;
+	Wed, 25 May 2022 08:45:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1653468348;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Zj/bKCldPW6Lwsxs9+k/Z6DZGPOCmvYux6B3SbEG8Ns=;
+	b=VXOEkyiXD56QZpiCD/ylIFVWUx4Blss4YNoSgkaCQjbuAtz2qNdxcUT+2coN+lVv/ghflh
+	eou6ya2qfIkWG0uDRDmKQdAewbloIR5/ay2Ehi3vE7mc3C8GvGDQwXCwlpvAtBx80kxE9j
+	apxyL+E9TxInrLcbiE2mn4WhaQlEhWC42e7itXdUnGC5PN8f+w1BfqSUhONlDj9OjOT5eO
+	44UHtQnmFHoIgKpzoLAm87d7AxtFvQuPh4qcD3ZIue3IZvhQvJOksO7Wb7epUHIXLE0qv3
+	rdQuY1OtAF9HvPGM05zcXbixO5Zh/2U68cvfMLFAxiTYEub9gbAHStX0Bkb9gw==
+Date: Wed, 25 May 2022 10:45:46 +0200
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+To: "Rusty Howell" <rustyhowell@gmail.com>
+Cc: poky@lists.yoctoproject.org, Rusty Howell <rhowell@control4.com>
+Subject: Re: [poky] [PATCH] oe-depends-dot: Handle new format for task-depends.dot
+Message-ID: <20220525104546.4d4ebfef@melee>
+In-Reply-To: <20220524210240.3223272-1-rustyhowell@gmail.com>
+References: <20220524210240.3223272-1-rustyhowell@gmail.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Rusty Howell <rhowell@control4.com>
+Hi Rusty,
 
-The .dot file created by `bitbake -g` changed formats a while ago, which
-broke oe-depends-dot.
+Il giorno Tue, 24 May 2022 15:02:40 -0600
+"Rusty Howell" <rustyhowell@gmail.com> ha scritto:
 
-Also add some useful examples to the --help output.
+> From: Rusty Howell <rhowell@control4.com>
+> 
+> The .dot file created by `bitbake -g` changed formats a while ago, which
+> broke oe-depends-dot.
+> 
+> Also add some useful examples to the --help output.
+> 
+> Signed-off-by: Rusty Howell <rustyhowell@gmail.com>
+> ---
+>  scripts/oe-depends-dot | 21 ++++++++++++++++++++-
 
-Signed-off-by: Rusty Howell <rustyhowell@gmail.com>
----
- scripts/oe-depends-dot | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+Thanks for you rpatch. However it should be sent to the oe-core
+mailing list, as described in README.poky.md.
 
-diff --git a/scripts/oe-depends-dot b/scripts/oe-depends-dot
-index 5eb3e12769..1c2d51c6ec 100755
---- a/scripts/oe-depends-dot
-+++ b/scripts/oe-depends-dot
-@@ -15,7 +15,7 @@ class Dot(object):
-     def __init__(self):
-         parser = argparse.ArgumentParser(
-             description="Analyse recipe-depends.dot generated by bitbake -g",
--            epilog="Use %(prog)s --help to get help")
-+            formatter_class=argparse.RawDescriptionHelpFormatter)
-         parser.add_argument("dotfile",
-             help = "Specify the dotfile", nargs = 1, action='store', default='')
-         parser.add_argument("-k", "--key",
-@@ -32,6 +32,21 @@ class Dot(object):
-                     " For example, A->B, B->C, A->C, then A->C can be removed.",
-             action="store_true", default=False)
- 
-+        parser.epilog = """
-+Examples:
-+First generate the .dot file:
-+    bitbake -g core-image-minimal
-+
-+To find out why a package is being built:
-+    %(prog)s -k <package> -w ./task-depends.dot
-+
-+To find out what a package depends on:
-+    %(prog)s -k <package> -d ./task-depends.dot
-+
-+Reduce the .dot file packages only, no tasks:
-+    %(prog)s -r ./task-depends.dot
-+"""
-+
-         self.args = parser.parse_args()
- 
-         if len(sys.argv) != 3 and len(sys.argv) < 5:
-@@ -99,6 +114,10 @@ class Dot(object):
-                 if key == "meta-world-pkgdata":
-                     continue
-                 dep = m.group(2)
-+                key = key.split('.')[0]
-+                dep = dep.split('.')[0]
-+                if key == dep:
-+                    continue
-                 if key in depends:
-                     if not key in depends[key]:
-                         depends[key].add(dep)
+No need to resend it I'm taking for testing on the appropriate
+repository, but please keep this in mind in case you send other patches
+in the future.
+
+Kind regards.
 -- 
-2.25.1
-
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
