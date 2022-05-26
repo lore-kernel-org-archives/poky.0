@@ -1,64 +1,68 @@
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net [217.70.183.199])
- by mx.groups.io with SMTP id smtpd.web09.4431.1653468349778990693
- for <poky@lists.yoctoproject.org>;
- Wed, 25 May 2022 01:45:50 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@bootlin.com header.s=gm1 header.b=VXOEkyiX;
- spf=pass (domain: bootlin.com, ip: 217.70.183.199, mailfrom: luca.ceresoli@bootlin.com)
-Received: (Authenticated sender: luca.ceresoli@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPSA id 62C05FF803;
-	Wed, 25 May 2022 08:45:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1653468348;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Zj/bKCldPW6Lwsxs9+k/Z6DZGPOCmvYux6B3SbEG8Ns=;
-	b=VXOEkyiXD56QZpiCD/ylIFVWUx4Blss4YNoSgkaCQjbuAtz2qNdxcUT+2coN+lVv/ghflh
-	eou6ya2qfIkWG0uDRDmKQdAewbloIR5/ay2Ehi3vE7mc3C8GvGDQwXCwlpvAtBx80kxE9j
-	apxyL+E9TxInrLcbiE2mn4WhaQlEhWC42e7itXdUnGC5PN8f+w1BfqSUhONlDj9OjOT5eO
-	44UHtQnmFHoIgKpzoLAm87d7AxtFvQuPh4qcD3ZIue3IZvhQvJOksO7Wb7epUHIXLE0qv3
-	rdQuY1OtAF9HvPGM05zcXbixO5Zh/2U68cvfMLFAxiTYEub9gbAHStX0Bkb9gw==
-Date: Wed, 25 May 2022 10:45:46 +0200
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-To: "Rusty Howell" <rustyhowell@gmail.com>
-Cc: poky@lists.yoctoproject.org, Rusty Howell <rhowell@control4.com>
-Subject: Re: [poky] [PATCH] oe-depends-dot: Handle new format for task-depends.dot
-Message-ID: <20220525104546.4d4ebfef@melee>
-In-Reply-To: <20220524210240.3223272-1-rustyhowell@gmail.com>
-References: <20220524210240.3223272-1-rustyhowell@gmail.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+Subject: grub config does not match kernel image name after apt upgrade
+To: poky@lists.yoctoproject.org
+From: "Daniel Squires" <dan@engineeredarts.co.uk>
+X-Originating-Location: Letchworth Garden City, England, GB (86.16.192.236)
+X-Originating-Platform: Linux Chrome 100
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Date: Thu, 26 May 2022 01:50:42 -0700
+Message-ID: <J0hn.1653555042033123311.4KcT@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="hUSJTUHzOABycRYtSyhI"
 
-Hi Rusty,
+--hUSJTUHzOABycRYtSyhI
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Il giorno Tue, 24 May 2022 15:02:40 -0600
-"Rusty Howell" <rustyhowell@gmail.com> ha scritto:
+In our custom x86 image, it runs fine after initial deploy, but if we then =
+apt update && apt upgrade and receive a new kernel the installed kernel nam=
+e does not match that in the grub configuration and thus boot fails if not =
+manually corrected. I don't know if this is a mis-configuration in our buil=
+d or a bug upstream. any ideas?
 
-> From: Rusty Howell <rhowell@control4.com>
-> 
-> The .dot file created by `bitbake -g` changed formats a while ago, which
-> broke oe-depends-dot.
-> 
-> Also add some useful examples to the --help output.
-> 
-> Signed-off-by: Rusty Howell <rustyhowell@gmail.com>
-> ---
->  scripts/oe-depends-dot | 21 ++++++++++++++++++++-
+yocto:~$ cat /boot/EFI/BOOT/grub.cfg
+serial --unit=3D0 --speed=3D115200 --word=3D8 --parity=3Dno --stop=3D1
+default=3Dboot
+timeout=3D5
+menuentry 'boot'{
+linux /bzImage root=3DPARTUUID=3D52cb2dd8-ef93-4f4a-8135-1e3326f181ac rootw=
+ait rootfstype=3Dext4 console=3DttyS0,115200 console=3Dtty0
+}
 
-Thanks for you rpatch. However it should be sent to the oe-core
-mailing list, as described in README.poky.md.
+yocto:/boot$ ls -lht
+-rwxr-xr-x =C2=A0=C2=A0=C2=A01 root =C2=A0=C2=A0=C2=A0=C2=A0root =C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A09.1M Apr 28 13:26 bzImage-5.15.36-yocto-st=
+andard
+-rwxr-xr-x =C2=A0=C2=A0=C2=A01 root =C2=A0=C2=A0=C2=A0=C2=A0root =C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A09.1M Feb 15 14:19 bzImage-5.15.22-yocto-st=
+andard
+drwxr-xr-x =C2=A0=C2=A0=C2=A03 root =C2=A0=C2=A0=C2=A0=C2=A0root =C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A02.0K Apr =C2=A05 =C2=A02011 EFI
 
-No need to resend it I'm taking for testing on the appropriate
-repository, but please keep this in mind in case you send other patches
-in the future.
+--hUSJTUHzOABycRYtSyhI
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Kind regards.
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+In our custom x86 image, it runs fine after initial deploy, but if we then =
+apt update &amp;&amp; apt upgrade and receive a new kernel the installed ke=
+rnel name does not match that in the grub configuration and thus boot fails=
+ if not manually corrected. I don't know if this is a mis-configuration in =
+our build or a bug upstream. any ideas?<br /><br />
+<div>
+<div><span style=3D"font-family: monospace;"><span style=3D"color: #000000;=
+">yocto:~$ cat /boot/EFI/BOOT/grub.cfg &nbsp;</span><br />serial --unit=3D0=
+ --speed=3D115200 --word=3D8 --parity=3Dno --stop=3D1 <br />default=3Dboot =
+<br />timeout=3D5 <br />menuentry 'boot'{ <br />linux /bzImage root=3DPARTU=
+UID=3D52cb2dd8-ef93-4f4a-8135-1e3326f181ac rootwait rootfstype=3Dext4 conso=
+le=3DttyS0,115200 console=3Dtty0 <br />}<br /><br /></span><span style=3D"f=
+ont-family: monospace;"><span style=3D"color: #000000;">yocto:/boot$ ls -lh=
+t </span><br />-rwxr-xr-x &nbsp;&nbsp;&nbsp;1 root &nbsp;&nbsp;&nbsp;&nbsp;=
+root &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.1M Apr 28 13:26 bzImage-5.=
+15.36-yocto-standard <br />-rwxr-xr-x &nbsp;&nbsp;&nbsp;1 root &nbsp;&nbsp;=
+&nbsp;&nbsp;root &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9.1M Feb 15 14:1=
+9 bzImage-5.15.22-yocto-standard <br />drwxr-xr-x &nbsp;&nbsp;&nbsp;3 root =
+&nbsp;&nbsp;&nbsp;&nbsp;root &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.0K=
+ Apr &nbsp;5 &nbsp;2011 EFI<br /><br /></span><span style=3D"font-family: m=
+onospace;"><br /></span></div>
+</div>
+
+--hUSJTUHzOABycRYtSyhI--
