@@ -1,101 +1,81 @@
-Received: from mout.web.de (mout.web.de [212.227.17.12])
- by mx.groups.io with SMTP id smtpd.web10.18901.1654422295738654935
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+ by mx.groups.io with SMTP id smtpd.web08.19393.1654425692693151821
  for <poky@lists.yoctoproject.org>;
- Sun, 05 Jun 2022 02:44:56 -0700
+ Sun, 05 Jun 2022 03:41:33 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=GQByZU3m;
- spf=pass (domain: web.de, ip: 212.227.17.12, mailfrom: patchesthomas.vie@web.de)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
-	s=dbaedf251592; t=1654422293;
-	bh=U98mtVlGC/FachovcVIbp1wcoBlSN5LB2kkcRvxjG30=;
-	h=X-UI-Sender-Class:Date:Subject:References:To:From:In-Reply-To;
-	b=GQByZU3mAa5osHIJyVZkC74D4aa8T7QpZs1Rd1auZ3SlgdXv1i4otZuKGoFWPP6B2
-	 OACSLAZXgq1rc9sr2IcITZk25VSCkPfzd0S6kly8PxDakD17TEhNbPOHuv1CqL4CRT
-	 npLtfP7GfjRjDDlPlOaZp7H0+M8vpPFgRIw1PEYo=
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.178.47] ([93.239.123.46]) by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MlsKH-1nYJV82J5n-00j0cB for
- <poky@lists.yoctoproject.org>; Sun, 05 Jun 2022 11:44:53 +0200
-Message-ID: <4ba98903-a53c-8b8f-3b20-e2823794609b@web.de>
-Date: Sun, 5 Jun 2022 11:44:53 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
- Thunderbird/91.9.0
-Subject: [PATCH]Make linux-libc-headers.inc compatible with 4.14
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=AomfIUo3;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.47, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f47.google.com with SMTP id l126-20020a1c2584000000b0039c1a10507fso641283wml.1
+        for <poky@lists.yoctoproject.org>; Sun, 05 Jun 2022 03:41:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=message-id:subject:from:to:date:in-reply-to:references
+         :content-transfer-encoding:user-agent:mime-version;
+        bh=/m1poLEk67KuiR67bPPudkEcuAEJM+JE5PAc9tV95Tg=;
+        b=AomfIUo3A1hqTiIJofOxF8ojSFflvZC09ISKpGUMeO+OtU3ml0+bsW8Fs1jef5RTDS
+         1/vum4e+t3YGP8tbAGbuJLVrQ+eO0pFwg8J1G9KBLcggMPrLzNiYQtquS3Qjrj7OKKtF
+         U3DfrH6+pL70fZIv7bNzBf2iVlmceUmlrd30k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+         :references:content-transfer-encoding:user-agent:mime-version;
+        bh=/m1poLEk67KuiR67bPPudkEcuAEJM+JE5PAc9tV95Tg=;
+        b=5uIqFi88J4+ORFMRTfPaXo9RzJfyoQIBdU6CGlEgfRaUSDkVAnJIbSBzJ83mpJ+2Fp
+         pgD1n+fUAi6wStBmOSoZkmLHMC5UC6J9Smv9YwbRIj8yDfDvlPLxlhg5oTSqiD42EGiW
+         iWqVyT79+Y9kfmTZGAEgDzdBGS/4CLjaJnVn2J9rTpavREGfiUtTdDd25Zu41jlSPPF0
+         a2zMXln8XVKUYi7rYXFM3YS9FDuW1w9ytY0hh+zTJ6Aeus8SJXGwYnONfhMnnCUP7Hwh
+         XjiJSiSdlzgGsG2fic3A+jRkLu0NnBXNktYqg0AKGqmboY5c9qahnO9IvdSFwMU1yXwR
+         b9Cw==
+X-Gm-Message-State: AOAM531EcnUc9ibYHuN9wgl3ZBZTfsxB9lt1Lb+8Sl8NLU3LeiTXwF9X
+	MV/VmOgk8aRf2j0DowAN62L30A==
+X-Google-Smtp-Source: ABdhPJyAu5c3ltfqaQ7yMSvqpwd9ks6q6ivSZoraLdZEXHKop6fmZNGhMLlGZG6TImreedDgqfQTSA==
+X-Received: by 2002:a05:600c:3496:b0:39c:1c19:987d with SMTP id a22-20020a05600c349600b0039c1c19987dmr17302462wmq.135.1654425691156;
+        Sun, 05 Jun 2022 03:41:31 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from ?IPv6:2001:8b0:aba:5f3c:1a6f:63e8:c3d9:1249? ([2001:8b0:aba:5f3c:1a6f:63e8:c3d9:1249])
+        by smtp.gmail.com with ESMTPSA id l13-20020a05600c4f0d00b0039c3055a63dsm12024668wmq.36.2022.06.05.03.41.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 05 Jun 2022 03:41:30 -0700 (PDT)
+Message-ID: <bacff555c7e4124201eba4a0ba7c5473c28c4b8c.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH]Make linux-libc-headers.inc compatible with 4.14
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Thomas Viehweger <patchesThomas.Vie@web.de>, poky@lists.yoctoproject.org
+Date: Sun, 05 Jun 2022 11:41:29 +0100
+In-Reply-To: <4ba98903-a53c-8b8f-3b20-e2823794609b@web.de>
 References: <49f6643a-fe07-af5b-00aa-dc7d48320e55@web.de>
-To: poky@lists.yoctoproject.org
-From: "Thomas Viehweger" <patchesThomas.Vie@web.de>
-In-Reply-To: <49f6643a-fe07-af5b-00aa-dc7d48320e55@web.de>
-X-Forwarded-Message-Id: <49f6643a-fe07-af5b-00aa-dc7d48320e55@web.de>
-X-Provags-ID: V03:K1:uaur4cyw+ql7rIQDRv2zx/SvI5wrPfagnDqOm/yHP+1rjf6HFv5
- XqyFMA0b+Xr/vJDNVvTxRYPNP3m1w971ecLzZM+af32DevTKVBncmiZgj1Cy3IX9X8IVJB1
- t4TZRDuofmBixPcsqULc/gdzec+QD+L1FHLjbqO4C4xC3+Ef4s+gK3aYV0XwCdPnSCOYKzG
- ++WANl94mDGiX5kYFcEEA==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:NI3Fatx+tfo=:l+ZS1/6MSvWRvGCYDwpdPG
- SN9H3mwEAESGkhWo/rF8S6jgwxRaZZ2BEJKjvaW8z+bb7pJ7+H80pIYyFRrpQE9h6TFvnm+Sg
- qcSseCkyYPS9+alaiW8fmusIzPKIVBQq6gB8ToFkU3E9e39CAAiIt1G3rKJZp0UFwif9HsRTk
- MnPoiXx3xTvTyZpVmBtEvYuaGrdlE+WePEOAXXEUYWlvQ5y4q1MgTK6d8slLxGwLOZvNWakh4
- lZTKtAQ7XsunfFmSYLKWEWV6jDFp5hhqFG1+FzBnEB/rYKmf5fw8bLgigddf9pzJ5JdcI7/Dl
- vyldlAji/U7L/+d5+aDN6lNVMYVoa3sjGEDSkgdQ9vDtLLyTewzX4Kj155aV1ezljbHqrar/R
- BABGUiXDzR3KtCE5D/nEHHvLQWh62YbkzvB1C9tz/tLIAr7EFlKpM/6CwpKFXp5lGQwSqtKfH
- Hdwyj3VpKIojN5TWFOD8IQbA4YyGd3sEhulB00yxJ5JXpbylXi0lrLZJpkG0AjEN/zg5xMTI/
- yQOgKt1QPfx6oNy4DFQ60hftEnsCvz/Mb+/nNynyfJGzM23igcHXw2PnXXFuhP0xBnTRGcrvl
- yVDhv19FWG1ZflDnziA6YmZjqmtGwxlTijU50GyPw0kg8KfJNqENjdwwNBmncXb0PELzXN20e
- yr8CzAxLKeeYB0B/nhc7Tfb6jowYw9kMb8dwhNLXklHo+/Sc3m+35xum2aGiIfVq5EXF1tpE6
- qOGfs49ypzu1XpAxYbOVuTOIgSOZK+OeQ1/4+VoMnSm8fE0wDNstoosykMJYTZEIBYwe6CBR2
- uwTk0kU/CLX5/b+HDxry9TI8qBHA6doukINPUpAUyIl3s/roN40A8gAJn6Z4n8X2yAjfPrcC2
- As2ZzdJGdXU2TCFG5FEhubJYdMDXrbiftTapak6B6Dbp0evFCadVAwW7LMHUYLiqdzD8WNUp1
- HgVFAathiGsHGcQl6pGpFi6iX3GWRFJYb6Na/YQJF05XB+vXz18UqMRClvccHpEq0Z2vfv6vp
- mBAqAcOvmkgUj6l5nDtVRibM8xIToQmSlJpBEmdHdVd7L9nahtXC+q0zVmjNDuK2fSpPmoDoi
- hbI47G5nuNAS992Jg/BMUJ+keZQVc8uyMfgaCmwKyF4oPdUDrtGOyhF6w==
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+	 <4ba98903-a53c-8b8f-3b20-e2823794609b@web.de>
+User-Agent: Evolution 3.44.1-0ubuntu1 
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-QWZ0ZXIgY3JlYXRpbmcgYSAuYmJhcHBlbmQgZmlsZSB3aGljaCBzZXRzIExpbnV4LTQuMTQgYXMg
-c291cmNlDQoNCkkgZ290IHRoZSBmb2xsb3dpbmcgZXJyb3I6DQoNCkVSUk9SOiBsaW51eC1saWJj
-LWhlYWRlcnMtNC4xNC1yMCBkb19pbnN0YWxsOiBvZV9tdWx0aWxpYl9oZWFkZXI6DQogwqBVbmFi
-bGUgdG8gZmluZCBoZWFkZXIgYXNtL2JwZl9wZXJmX2V2ZW50LmguDQoNClRoaXMgaXMgYmVjYXVz
-ZSA0LjE1IGlzIHRoZSBmaXJzdCB2ZXJzaW9uIHdoaWNoIGluY2x1ZGVzIHRoaXMgaGVhZGVyLg0K
-DQpIZXJlIGlzIGEgcGF0Y2ggd2ljaCBtYWtlcyBpdCBwb3NzaWJsZSB0byB1c2UgdmVyc2lvbnMg
-NC4wLi40LjE0Lg0KVmVyc2lvbnMgYmVsb3cgNC4wIGFyZSBzdGlsbCBicm9rZW4gZm9yIHRoZSBh
-cm0gYXJjaGl0ZWN0dXJlcy4NCg0KU2lnbmVkLW9mZi1ieTogVGhvbWFzIFZpZWh3ZWdlciA8cGF0
-Y2hlc1Rob21hcy5WaWVAd2ViLmRlPg0KDQotLS0NCiDCoC4uLi9saW51eC1saWJjLWhlYWRlcnMv
-bGludXgtbGliYy1oZWFkZXJzLmluY8KgwqDCoMKgwqDCoMKgIHwgMTIgKysrKysrKystLS0tDQog
-wqAxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQ0KDQpkaWZm
-IC0tZ2l0IA0KYS9tZXRhL3JlY2lwZXMta2VybmVsL2xpbnV4LWxpYmMtaGVhZGVycy9saW51eC1s
-aWJjLWhlYWRlcnMuaW5jIA0KYi9tZXRhL3JlY2lwZXMta2VybmVsL2xpbnV4LWxpYmMtaGVhZGVy
-cy9saW51eC1saWJjLWhlYWRlcnMuaW5jDQppbmRleCA0N2YwOTk1MmRlLi40MWVlMDM0ZGQ5IDEw
-MDY0NA0KLS0tIGEvbWV0YS9yZWNpcGVzLWtlcm5lbC9saW51eC1saWJjLWhlYWRlcnMvbGludXgt
-bGliYy1oZWFkZXJzLmluYw0KKysrIGIvbWV0YS9yZWNpcGVzLWtlcm5lbC9saW51eC1saWJjLWhl
-YWRlcnMvbGludXgtbGliYy1oZWFkZXJzLmluYw0KQEAgLTg5LDE1ICs4OSwxOSBAQCBkb19pbnN0
-YWxsOmFwcGVuZDphcm1lYiAoKSB7DQoNCiDCoGRvX2luc3RhbGxfYXJtbXVsdGlsaWIgKCkgew0K
-IMKgwqDCoMKgwqDCoMKgIGlmIFsgJHtNQUpfVkVSfSAtZ3QgNSBdOyB0aGVuDQotwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBBUk1fS1ZNX0hFQURFUj0iIg0KK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgQVJNX0VYVFJBX0hFQURFUj0iYXNtL2JwZl9wZXJmX2V2ZW50LmgiDQogwqDC
-oMKgwqDCoMKgwqAgZWxzZQ0KIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiBbICR7
-TUFKX1ZFUn0gLWVxIDUgXSAmJiBbICR7TUlOX1ZFUn0gLWdlIDggXTsgdGhlbg0KLcKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFSTV9LVk1fSEVBREVSPSIiDQor
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQVJNX0VYVFJBX0hF
-QURFUj0iYXNtL2JwZl9wZXJmX2V2ZW50LmgiDQogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIGVsc2UNCi3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBB
-Uk1fS1ZNX0hFQURFUj0iYXNtL2t2bS5oIg0KK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGlmIFsgJHtNQUpfVkVSfSAtZXEgNCBdICYmIFsgJHtNSU5fVkVSfSAt
-Z2UgMTUgDQpdOyB0aGVuDQorwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFSTV9FWFRSQV9IRUFERVI9ImFzbS9rdm0uaCANCmFzbS9i
-cGZfcGVyZl9ldmVudC5oIg0KK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIGVsc2UNCivCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgQVJNX0VYVFJBX0hFQURFUj0iYXNtL2t2bS5oIg0KK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZpDQogwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGZpDQogwqDCoMKgwqDCoMKgwqAgZmkNCi3CoMKgwqDCoMKgwqAgb2Vf
-bXVsdGlsaWJfaGVhZGVyIGFzbS9hdXh2ZWMuaCBhc20vYml0c3BlcmxvbmcuaCANCmFzbS9ieXRl
-b3JkZXIuaCBhc20vZmNudGwuaCBhc20vaHdjYXAuaCBhc20vaW9jdGxzLmggJEFSTV9LVk1fSEVB
-REVSIA0KYXNtL2t2bV9wYXJhLmggYXNtL21tYW4uaCBhc20vcGFyYW0uaCBhc20vcGVyZl9yZWdz
-LmggYXNtL2JwZl9wZXJmX2V2ZW50LmgNCivCoMKgwqDCoMKgwqAgb2VfbXVsdGlsaWJfaGVhZGVy
-IGFzbS9hdXh2ZWMuaCBhc20vYml0c3BlcmxvbmcuaCANCmFzbS9ieXRlb3JkZXIuaCBhc20vZmNu
-dGwuaCBhc20vaHdjYXAuaCBhc20vaW9jdGxzLmggJEFSTV9FWFRSQV9IRUFERVIgDQphc20va3Zt
-X3BhcmEuaCBhc20vbW1hbi5oIGFzbS9wYXJhbS5oIGFzbS9wZXJmX3JlZ3MuaA0KIMKgwqDCoMKg
-wqDCoMKgIG9lX211bHRpbGliX2hlYWRlciBhc20vcG9zaXhfdHlwZXMuaCBhc20vcHRyYWNlLmgg
-YXNtL3NldHVwLmjCoCANCmFzbS9zaWdjb250ZXh0LmggYXNtL3NpZ2luZm8uaCBhc20vc2lnbmFs
-LmggYXNtL3N0YXQuaMKgIGFzbS9zdGF0ZnMuaCANCmFzbS9zd2FiLmjCoCBhc20vdHlwZXMuaCBh
-c20vdW5pc3RkLmgNCiDCoH0NCg0KLS0gDQoyLjM1LjENCg0K
+On Sun, 2022-06-05 at 11:44 +0200, Thomas Viehweger wrote:
+> After creating a .bbappend file which sets Linux-4.14 as source
+>=20
+> I got the following error:
+>=20
+> ERROR: linux-libc-headers-4.14-r0 do_install: oe_multilib_header:
+>  =C2=A0Unable to find header asm/bpf_perf_event.h.
+>=20
+> This is because 4.15 is the first version which includes this header.
+>=20
+> Here is a patch wich makes it possible to use versions 4.0..4.14.
+> Versions below 4.0 are still broken for the arm architectures.
+>=20
+> Signed-off-by: Thomas Viehweger <patchesThomas.Vie@web.de>
+
+Patches for OE-Core need to go to the openembedded-core mailing list.
+That said, I'm not accepting this patch.
+
+You should be able to use the most recent linux-libc-headers even with
+an older kernel. I don't understand this desire people have to use lots
+of different versions of it but we're not doing it. We do not want a
+different userspace per kernel.
+
+There is a warning in the recipe about it and I'm not taking patches
+like this unless someone explains a really good reason why the
+userspace needs to be built with an older set of headers.
+
+Cheers,
+
+Richard
