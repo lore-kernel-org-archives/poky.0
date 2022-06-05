@@ -1,217 +1,101 @@
-Subject: Need suggestion on custom package group implementation.
-To: poky@lists.yoctoproject.org
-From: "Rahul Chauhan" <rahulchauhankitps@gmail.com>
-X-Originating-Location: Melbourne, Victoria, AU (155.190.53.4)
-X-Originating-Platform: Windows Chrome 102
-User-Agent: GROUPS.IO Web Poster
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+ by mx.groups.io with SMTP id smtpd.web10.18901.1654422295738654935
+ for <poky@lists.yoctoproject.org>;
+ Sun, 05 Jun 2022 02:44:56 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@web.de header.s=dbaedf251592 header.b=GQByZU3m;
+ spf=pass (domain: web.de, ip: 212.227.17.12, mailfrom: patchesthomas.vie@web.de)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
+	s=dbaedf251592; t=1654422293;
+	bh=U98mtVlGC/FachovcVIbp1wcoBlSN5LB2kkcRvxjG30=;
+	h=X-UI-Sender-Class:Date:Subject:References:To:From:In-Reply-To;
+	b=GQByZU3mAa5osHIJyVZkC74D4aa8T7QpZs1Rd1auZ3SlgdXv1i4otZuKGoFWPP6B2
+	 OACSLAZXgq1rc9sr2IcITZk25VSCkPfzd0S6kly8PxDakD17TEhNbPOHuv1CqL4CRT
+	 npLtfP7GfjRjDDlPlOaZp7H0+M8vpPFgRIw1PEYo=
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.178.47] ([93.239.123.46]) by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MlsKH-1nYJV82J5n-00j0cB for
+ <poky@lists.yoctoproject.org>; Sun, 05 Jun 2022 11:44:53 +0200
+Message-ID: <4ba98903-a53c-8b8f-3b20-e2823794609b@web.de>
+Date: Sun, 5 Jun 2022 11:44:53 +0200
 MIME-Version: 1.0
-Date: Sun, 05 Jun 2022 01:02:31 -0700
-Message-ID: <4i9B.1654416151222112903.Tccj@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="KwxV26mHFcCEkF7Hy0JX"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+Subject: [PATCH]Make linux-libc-headers.inc compatible with 4.14
+References: <49f6643a-fe07-af5b-00aa-dc7d48320e55@web.de>
+To: poky@lists.yoctoproject.org
+From: "Thomas Viehweger" <patchesThomas.Vie@web.de>
+In-Reply-To: <49f6643a-fe07-af5b-00aa-dc7d48320e55@web.de>
+X-Forwarded-Message-Id: <49f6643a-fe07-af5b-00aa-dc7d48320e55@web.de>
+X-Provags-ID: V03:K1:uaur4cyw+ql7rIQDRv2zx/SvI5wrPfagnDqOm/yHP+1rjf6HFv5
+ XqyFMA0b+Xr/vJDNVvTxRYPNP3m1w971ecLzZM+af32DevTKVBncmiZgj1Cy3IX9X8IVJB1
+ t4TZRDuofmBixPcsqULc/gdzec+QD+L1FHLjbqO4C4xC3+Ef4s+gK3aYV0XwCdPnSCOYKzG
+ ++WANl94mDGiX5kYFcEEA==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:NI3Fatx+tfo=:l+ZS1/6MSvWRvGCYDwpdPG
+ SN9H3mwEAESGkhWo/rF8S6jgwxRaZZ2BEJKjvaW8z+bb7pJ7+H80pIYyFRrpQE9h6TFvnm+Sg
+ qcSseCkyYPS9+alaiW8fmusIzPKIVBQq6gB8ToFkU3E9e39CAAiIt1G3rKJZp0UFwif9HsRTk
+ MnPoiXx3xTvTyZpVmBtEvYuaGrdlE+WePEOAXXEUYWlvQ5y4q1MgTK6d8slLxGwLOZvNWakh4
+ lZTKtAQ7XsunfFmSYLKWEWV6jDFp5hhqFG1+FzBnEB/rYKmf5fw8bLgigddf9pzJ5JdcI7/Dl
+ vyldlAji/U7L/+d5+aDN6lNVMYVoa3sjGEDSkgdQ9vDtLLyTewzX4Kj155aV1ezljbHqrar/R
+ BABGUiXDzR3KtCE5D/nEHHvLQWh62YbkzvB1C9tz/tLIAr7EFlKpM/6CwpKFXp5lGQwSqtKfH
+ Hdwyj3VpKIojN5TWFOD8IQbA4YyGd3sEhulB00yxJ5JXpbylXi0lrLZJpkG0AjEN/zg5xMTI/
+ yQOgKt1QPfx6oNy4DFQ60hftEnsCvz/Mb+/nNynyfJGzM23igcHXw2PnXXFuhP0xBnTRGcrvl
+ yVDhv19FWG1ZflDnziA6YmZjqmtGwxlTijU50GyPw0kg8KfJNqENjdwwNBmncXb0PELzXN20e
+ yr8CzAxLKeeYB0B/nhc7Tfb6jowYw9kMb8dwhNLXklHo+/Sc3m+35xum2aGiIfVq5EXF1tpE6
+ qOGfs49ypzu1XpAxYbOVuTOIgSOZK+OeQ1/4+VoMnSm8fE0wDNstoosykMJYTZEIBYwe6CBR2
+ uwTk0kU/CLX5/b+HDxry9TI8qBHA6doukINPUpAUyIl3s/roN40A8gAJn6Z4n8X2yAjfPrcC2
+ As2ZzdJGdXU2TCFG5FEhubJYdMDXrbiftTapak6B6Dbp0evFCadVAwW7LMHUYLiqdzD8WNUp1
+ HgVFAathiGsHGcQl6pGpFi6iX3GWRFJYb6Na/YQJF05XB+vXz18UqMRClvccHpEq0Z2vfv6vp
+ mBAqAcOvmkgUj6l5nDtVRibM8xIToQmSlJpBEmdHdVd7L9nahtXC+q0zVmjNDuK2fSpPmoDoi
+ hbI47G5nuNAS992Jg/BMUJ+keZQVc8uyMfgaCmwKyF4oPdUDrtGOyhF6w==
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
---KwxV26mHFcCEkF7Hy0JX
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Team
-
-I need your suggestion on below implementation.
-
-packagegroup-protocol-base.bb
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-RDEPENDS_${PN}-protocol-base =3D "\
-package1 \
-package2 \
-"
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-packagegroup-custom-base.bb
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-DESCRIPTION =3D "Custom base package group"
-LICENSE =3D "MIT"
-LIC_FILES_CHKSUM =3D "file://${COMMON_LICENSE_DIR}/MIT;md5=3D0aaabfe698e0bc=
-f8506ecda2f7b4f302"
-
-PR =3D "r0"
-
-PACKAGE_ARCH =3D "${MACHINE_ARCH}"
-
-inherit packagegroup
-
-PROVIDES =3D "${PACKAGES}"
-
-PACKAGES +=3D " \
-${@bb.utils.contains("DISTRO_FEATURES", "distro-feature-protocolA", "${PN}-=
-protocolA", "", d)} \
-${@bb.utils.contains("DISTRO_FEATURES", "distro-feature-protocolB", "${PN}-=
-protocolB", "", d)} \
-....
-....
-"
-
-RDEPENDS_${PN} =3D "\
-${@bb.utils.contains("DISTRO_FEATURES", "distro-feature-protocolA", "${PN}-=
-protocolA", "", d)} \
-${@bb.utils.contains("DISTRO_FEATURES", "distro-feature-protocolB", "${PN}-=
-protocolB", "", d)} \
-....
-....
-"
-
-RDEPENDS_${PN}-protocolA =3D "\
-packagegroup-protocol-base \
-package-3 \
-"
-
-RDEPENDS_${PN}-protocolB =3D "\
-packagegroup-protocol-base \
-package-4 \
-"
-
-.....
-.....
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-custom-image.bb
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-....
-....
-
-IMAGE_INSTALL_append =3D " \
-packagegroup-custom-base \
-"
-....
-....
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-bitbake custom-image
-
-there is some common package which is required for both protocolA and Proto=
-colB.
-So i included packagegroup-protocol-base in both RDEPENDS.
-
-But suppose if a devce using both protocolA and ProtocolB.
-in that case there will be a duplication of "packagegroup-protocol-base" bu=
-t i am not facing any build issue.
-
-can anyone please explain me why this behavior?
-Is it problematic during runtime on target ?
-Is there any problem during packaging ?
-Is it correct implementation or any suggestion will helpful for me.
-
-Thanks & Regards
-Rahul Kumar
-
---KwxV26mHFcCEkF7Hy0JX
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div>Hi Team&nbsp;<br /><br />I need your suggestion on below implementatio=
-n.<br /><br /></div>
-<div>packagegroup-protocol-base.bb</div>
-<div>=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div>
-<div>RDEPENDS_${PN}-protocol-base =3D "\</div>
-<div>package1 \</div>
-<div>package2 \</div>
-<div>"</div>
-<div>=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div>
-<div>&nbsp;</div>
-<div>packagegroup-custom-base.bb</div>
-<div>=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div>
-<div>DESCRIPTION =3D "Custom base package group"</div>
-<div>LICENSE =3D "MIT"</div>
-<div>LIC_FILES_CHKSUM =3D "file://${COMMON_LICENSE_DIR}/MIT;md5=3D0aaabfe69=
-8e0bcf8506ecda2f7b4f302"</div>
-<div>&nbsp;</div>
-<div>PR =3D "r0"</div>
-<div>&nbsp;</div>
-<div>PACKAGE_ARCH =3D "${MACHINE_ARCH}"</div>
-<div>&nbsp;</div>
-<div>inherit packagegroup</div>
-<div>&nbsp;</div>
-<div>PROVIDES =3D "${PACKAGES}"</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>PACKAGES +=3D " \</div>
-<div>&nbsp; &nbsp; ${@bb.utils.contains("DISTRO_FEATURES", "distro-feature-=
-protocolA", "${PN}-protocolA", "", d)} \</div>
-<div>&nbsp; &nbsp; ${@bb.utils.contains("DISTRO_FEATURES", "distro-feature-=
-protocolB", "${PN}-protocolB", "", d)} \</div>
-<div>&nbsp; &nbsp; ....</div>
-<div>&nbsp; &nbsp; ....</div>
-<div>"</div>
-<div>&nbsp;</div>
-<div>RDEPENDS_${PN} =3D "\</div>
-<div>&nbsp; &nbsp; ${@bb.utils.contains("DISTRO_FEATURES", "distro-feature-=
-protocolA", "${PN}-protocolA", "", d)} \</div>
-<div>&nbsp; &nbsp; ${@bb.utils.contains("DISTRO_FEATURES", "distro-feature-=
-protocolB", "${PN}-protocolB", "", d)} \</div>
-<div>&nbsp; &nbsp; ....</div>
-<div>&nbsp; &nbsp; ....</div>
-<div>"</div>
-<div>&nbsp;</div>
-<div>RDEPENDS_${PN}-protocolA =3D "\</div>
-<div>packagegroup-protocol-base \</div>
-<div>package-3 \</div>
-<div>"</div>
-<div>&nbsp;</div>
-<div>RDEPENDS_${PN}-protocolB =3D "\</div>
-<div>packagegroup-protocol-base \</div>
-<div>package-4 \</div>
-<div>"</div>
-<div>&nbsp;</div>
-<div>.....</div>
-<div>.....</div>
-<div>&nbsp;</div>
-<div>=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>custom-image.bb</div>
-<div>=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div>
-<div>&nbsp;</div>
-<div>....</div>
-<div>....</div>
-<div>&nbsp;</div>
-<div>IMAGE_INSTALL_append =3D " \</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; packagegroup-custom-base \</div>
-<div>"</div>
-<div>....</div>
-<div>....</div>
-<div>&nbsp;</div>
-<div>=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div>
-<div>&nbsp;</div>
-<div>bitbake custom-image&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>there is some common package which is required for both protocolA and =
-ProtocolB.</div>
-<div>So i included packagegroup-protocol-base in both RDEPENDS.</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>But suppose if a devce using both protocolA and ProtocolB.</div>
-<div>in that case there will be a duplication of "packagegroup-protocol-bas=
-e" but i am not facing any build issue.</div>
-<div>&nbsp;</div>
-<div>can anyone please explain me why this behavior?<br />Is it problematic=
- during runtime on target ?<br />Is there any problem during packaging ?</d=
-iv>
-<div>Is it correct implementation or any suggestion will helpful for me.<br=
- /><br />Thanks &amp; Regards<br />Rahul Kumar</div>
-<div>&nbsp;</div>
-
---KwxV26mHFcCEkF7Hy0JX--
+QWZ0ZXIgY3JlYXRpbmcgYSAuYmJhcHBlbmQgZmlsZSB3aGljaCBzZXRzIExpbnV4LTQuMTQgYXMg
+c291cmNlDQoNCkkgZ290IHRoZSBmb2xsb3dpbmcgZXJyb3I6DQoNCkVSUk9SOiBsaW51eC1saWJj
+LWhlYWRlcnMtNC4xNC1yMCBkb19pbnN0YWxsOiBvZV9tdWx0aWxpYl9oZWFkZXI6DQogwqBVbmFi
+bGUgdG8gZmluZCBoZWFkZXIgYXNtL2JwZl9wZXJmX2V2ZW50LmguDQoNClRoaXMgaXMgYmVjYXVz
+ZSA0LjE1IGlzIHRoZSBmaXJzdCB2ZXJzaW9uIHdoaWNoIGluY2x1ZGVzIHRoaXMgaGVhZGVyLg0K
+DQpIZXJlIGlzIGEgcGF0Y2ggd2ljaCBtYWtlcyBpdCBwb3NzaWJsZSB0byB1c2UgdmVyc2lvbnMg
+NC4wLi40LjE0Lg0KVmVyc2lvbnMgYmVsb3cgNC4wIGFyZSBzdGlsbCBicm9rZW4gZm9yIHRoZSBh
+cm0gYXJjaGl0ZWN0dXJlcy4NCg0KU2lnbmVkLW9mZi1ieTogVGhvbWFzIFZpZWh3ZWdlciA8cGF0
+Y2hlc1Rob21hcy5WaWVAd2ViLmRlPg0KDQotLS0NCiDCoC4uLi9saW51eC1saWJjLWhlYWRlcnMv
+bGludXgtbGliYy1oZWFkZXJzLmluY8KgwqDCoMKgwqDCoMKgIHwgMTIgKysrKysrKystLS0tDQog
+wqAxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQ0KDQpkaWZm
+IC0tZ2l0IA0KYS9tZXRhL3JlY2lwZXMta2VybmVsL2xpbnV4LWxpYmMtaGVhZGVycy9saW51eC1s
+aWJjLWhlYWRlcnMuaW5jIA0KYi9tZXRhL3JlY2lwZXMta2VybmVsL2xpbnV4LWxpYmMtaGVhZGVy
+cy9saW51eC1saWJjLWhlYWRlcnMuaW5jDQppbmRleCA0N2YwOTk1MmRlLi40MWVlMDM0ZGQ5IDEw
+MDY0NA0KLS0tIGEvbWV0YS9yZWNpcGVzLWtlcm5lbC9saW51eC1saWJjLWhlYWRlcnMvbGludXgt
+bGliYy1oZWFkZXJzLmluYw0KKysrIGIvbWV0YS9yZWNpcGVzLWtlcm5lbC9saW51eC1saWJjLWhl
+YWRlcnMvbGludXgtbGliYy1oZWFkZXJzLmluYw0KQEAgLTg5LDE1ICs4OSwxOSBAQCBkb19pbnN0
+YWxsOmFwcGVuZDphcm1lYiAoKSB7DQoNCiDCoGRvX2luc3RhbGxfYXJtbXVsdGlsaWIgKCkgew0K
+IMKgwqDCoMKgwqDCoMKgIGlmIFsgJHtNQUpfVkVSfSAtZ3QgNSBdOyB0aGVuDQotwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBBUk1fS1ZNX0hFQURFUj0iIg0KK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgQVJNX0VYVFJBX0hFQURFUj0iYXNtL2JwZl9wZXJmX2V2ZW50LmgiDQogwqDC
+oMKgwqDCoMKgwqAgZWxzZQ0KIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiBbICR7
+TUFKX1ZFUn0gLWVxIDUgXSAmJiBbICR7TUlOX1ZFUn0gLWdlIDggXTsgdGhlbg0KLcKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFSTV9LVk1fSEVBREVSPSIiDQor
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQVJNX0VYVFJBX0hF
+QURFUj0iYXNtL2JwZl9wZXJmX2V2ZW50LmgiDQogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGVsc2UNCi3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBB
+Uk1fS1ZNX0hFQURFUj0iYXNtL2t2bS5oIg0KK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGlmIFsgJHtNQUpfVkVSfSAtZXEgNCBdICYmIFsgJHtNSU5fVkVSfSAt
+Z2UgMTUgDQpdOyB0aGVuDQorwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFSTV9FWFRSQV9IRUFERVI9ImFzbS9rdm0uaCANCmFzbS9i
+cGZfcGVyZl9ldmVudC5oIg0KK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIGVsc2UNCivCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgQVJNX0VYVFJBX0hFQURFUj0iYXNtL2t2bS5oIg0KK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZpDQogwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGZpDQogwqDCoMKgwqDCoMKgwqAgZmkNCi3CoMKgwqDCoMKgwqAgb2Vf
+bXVsdGlsaWJfaGVhZGVyIGFzbS9hdXh2ZWMuaCBhc20vYml0c3BlcmxvbmcuaCANCmFzbS9ieXRl
+b3JkZXIuaCBhc20vZmNudGwuaCBhc20vaHdjYXAuaCBhc20vaW9jdGxzLmggJEFSTV9LVk1fSEVB
+REVSIA0KYXNtL2t2bV9wYXJhLmggYXNtL21tYW4uaCBhc20vcGFyYW0uaCBhc20vcGVyZl9yZWdz
+LmggYXNtL2JwZl9wZXJmX2V2ZW50LmgNCivCoMKgwqDCoMKgwqAgb2VfbXVsdGlsaWJfaGVhZGVy
+IGFzbS9hdXh2ZWMuaCBhc20vYml0c3BlcmxvbmcuaCANCmFzbS9ieXRlb3JkZXIuaCBhc20vZmNu
+dGwuaCBhc20vaHdjYXAuaCBhc20vaW9jdGxzLmggJEFSTV9FWFRSQV9IRUFERVIgDQphc20va3Zt
+X3BhcmEuaCBhc20vbW1hbi5oIGFzbS9wYXJhbS5oIGFzbS9wZXJmX3JlZ3MuaA0KIMKgwqDCoMKg
+wqDCoMKgIG9lX211bHRpbGliX2hlYWRlciBhc20vcG9zaXhfdHlwZXMuaCBhc20vcHRyYWNlLmgg
+YXNtL3NldHVwLmjCoCANCmFzbS9zaWdjb250ZXh0LmggYXNtL3NpZ2luZm8uaCBhc20vc2lnbmFs
+LmggYXNtL3N0YXQuaMKgIGFzbS9zdGF0ZnMuaCANCmFzbS9zd2FiLmjCoCBhc20vdHlwZXMuaCBh
+c20vdW5pc3RkLmgNCiDCoH0NCg0KLS0gDQoyLjM1LjENCg0K
