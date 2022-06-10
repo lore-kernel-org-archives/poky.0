@@ -1,55 +1,39 @@
-Subject: Re: Suggestion on custom Package group implementation.
+Subject: Re: [PATCH] [honister][PATCH]weston-init: when x11 is enabled set xwayland=true
 To: poky@lists.yoctoproject.org
-From: "Rahul Chauhan" <rahulchauhankitps@gmail.com>
-X-Originating-Location: Melbourne, Victoria, AU (155.190.53.4)
-X-Originating-Platform: Windows Chrome 102
+From: =?UTF-8?B?U8O8c2VucywgU2ViYXN0aWFu?= <Sebastian.Suesens@baslerweb.com>
+X-Originating-Location: Malente, Schleswig-Holstein, DE (84.140.255.212)
+X-Originating-Platform: Linux Chrome 101
 User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Date: Wed, 08 Jun 2022 05:41:22 -0700
-References: <956b207bd0ebe84c2a74a6c729622082c6993374.camel@linuxfoundation.org>
-In-Reply-To: <956b207bd0ebe84c2a74a6c729622082c6993374.camel@linuxfoundation.org>
-Message-ID: <29553.1654692082082342491@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="jJJXSedb9T6K4xQ9vI7d"
+Date: Thu, 09 Jun 2022 23:27:36 -0700
+References: <CANNYZj-ubKi15iLszdohnTdOxsRgFdZUGi1=pr0-4F_H3kTPXw@mail.gmail.com>
+In-Reply-To: <CANNYZj-ubKi15iLszdohnTdOxsRgFdZUGi1=pr0-4F_H3kTPXw@mail.gmail.com>
+Message-ID: <5369.1654842456837423289@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="HozOhExrFhiyJKL9ta5l"
 
---jJJXSedb9T6K4xQ9vI7d
+--HozOhExrFhiyJKL9ta5l
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Richard,
+Hello Alex,
 
-Thanks for your Response.
+how shall I test xwayland support?
 
-I verified that all the ipk are generated for all below packagegroups
-packagegroup-protocol-base-protocolA
-packagegroup-protocol-base-protocolB
-packagegroup-custom-base .
+My proposal is to install xterm on the image and test the return value.
 
-So I am confused here, how package feed is affecting.
-can you please point us=C2=A0 some more details.
+What does you think?
+Perhaps you have a better idea.
 
-what is the ideal way to handle such kind of case.
+Regards,
+Sebastian
 
-Thanks & Regards
-Rahul Kumar
-
---jJJXSedb9T6K4xQ9vI7d
+--HozOhExrFhiyJKL9ta5l
 Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div>Hi Richard,<br /><br />Thanks for your Response.</div>
-<div>&nbsp;</div>
-<div>I verified that all the ipk are generated for all below packagegroups<=
-/div>
-<div>&nbsp;packagegroup-protocol-base-protocolA&nbsp;</div>
-<div>&nbsp;packagegroup-protocol-base-protocolB&nbsp;</div>
-<div>&nbsp;packagegroup-custom-base .</div>
-<div>&nbsp;</div>
-<div>So I am confused here, how package feed is affecting.</div>
-<div>can you please point us&nbsp; some more details.</div>
-<div>&nbsp;</div>
-<div>what is the ideal way to handle such kind of case.</div>
-<div>&nbsp;</div>
-<div>Thanks &amp; Regards</div>
-<div>Rahul Kumar</div>
+Hello Alex,<br /><br />how shall I test xwayland support?<br /><br />My pro=
+posal is to install xterm on the image and test the return value.<br /><br =
+/>What does you think?<br />Perhaps you have a better idea.<br /><br />Rega=
+rds,<br />Sebastian
 
---jJJXSedb9T6K4xQ9vI7d--
+--HozOhExrFhiyJKL9ta5l--
