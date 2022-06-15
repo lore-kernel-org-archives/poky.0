@@ -1,144 +1,69 @@
-Received: from smtp.hosts.co.uk (smtp.hosts.co.uk [85.233.160.19])
- by mx.groups.io with SMTP id smtpd.web12.3818.1655112603900446388
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+ by mx.groups.io with SMTP id smtpd.web11.6678.1655309350831048013
  for <poky@lists.yoctoproject.org>;
- Mon, 13 Jun 2022 02:30:04 -0700
+ Wed, 15 Jun 2022 09:09:11 -0700
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: arkver.com, ip: 85.233.160.19, mailfrom: ian.dev@arkver.com)
-Received: from [78.32.143.231] (helo=[192.168.19.10])
-	by smtp.hosts.co.uk with esmtpa (Exim)
-	(envelope-from <ian.dev@arkver.com>)
-	id 1o0gOX-0004NV-8x;
-	Mon, 13 Jun 2022 10:30:02 +0100
-Message-ID: <6605ef49-cf02-4bda-0cc7-f77160be7873@arkver.com>
-Date: Mon, 13 Jun 2022 10:29:57 +0100
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=E7QijSiQ;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.50, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f50.google.com with SMTP id m39-20020a05600c3b2700b0039c511ebbacso1419197wms.3
+        for <poky@lists.yoctoproject.org>; Wed, 15 Jun 2022 09:09:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=HC4UwFPWTuAAWskn44PwjkSIj7rUTph2SJSwvUAd2jw=;
+        b=E7QijSiQq3ovHh/PYBY84oGIlSVyOYuveUJBlY2pxWbMxMIS3gAqKplK5HprGWQJYy
+         AWLUiDJihkQ7gr8BKi9BsiYVZJK3xHjjppdGCrDYt2XVRs16POVT3474HWE8n+o2HPGr
+         euj4uNqwzqbniSAQr7Z+EKTu74IEcah/EW1IQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=HC4UwFPWTuAAWskn44PwjkSIj7rUTph2SJSwvUAd2jw=;
+        b=QvyvnjTI3TEqZZQbyjkwCjqoWOmhAVMNUype1Do52AJZvZOvdIr+hvuGTUBghLz/8E
+         6Tg7aWCwskehXsO3boGIMVUHdpMjs16PLyIQbNN48mEGL2d5+c8O6X8qX/KqIAjjp7Hu
+         BsbSeHQYk1PJ9BhgRLB50Dbb0sRYet7oiSVQDpLW9gxhOcHxDcokK+vjeUxt0nr3/WRu
+         CIsLtFrfiWkNP4Tbe3b0MZw3pF3wXyTSd6ORuG44J4k9jnXVTvdEyh7lJQjudux4esxa
+         jhsApkyZIMkgd6JROIvJ+6LPNnhFC88D9SEiEcD76ZpG011mJjVYGaANcJ3YVTyKQYbV
+         Lz2Q==
+X-Gm-Message-State: AOAM532/NpsdaU6zw38nAykqEo28VIg891pjDOjIpfU3AfBRlm/jkr3u
+	L4IIP4FumLaVo+ZPs2OXf0ve3bC8Wki8tQ==
+X-Google-Smtp-Source: ABdhPJwOfg0CA3i9mysr0Hs8A9dS+hOxC5LQxbVFrMHL+bFXZqpXFWfGbNoY5HWe/L9UPN83Db5VOQ==
+X-Received: by 2002:a05:600c:19cf:b0:39c:88a0:c66e with SMTP id u15-20020a05600c19cf00b0039c88a0c66emr10720532wmq.37.1655309348798;
+        Wed, 15 Jun 2022 09:09:08 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:5217:2b74:ee57:d3bc])
+        by smtp.gmail.com with ESMTPSA id k7-20020a7bc407000000b0039c693a54ecsm3951527wmi.23.2022.06.15.09.09.06
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jun 2022 09:09:07 -0700 (PDT)
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH] local.conf.sample: Update sstate url to new 'all' path
+Date: Wed, 15 Jun 2022 17:09:06 +0100
+Message-Id: <20220615160906.99560-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-Subject: Re: [poky] [PATCH] [honister] elfutils: Fix null pointer dereference with upstream patch.
-To: Anuj Mittal <anuj.mittal@intel.com>,
- "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-References: <41b44b09b021a586723372c6ab8a5c12bb2f06ee.1655111663.git.ian.dev@arkver.com>
- <7d4c8c9b27d9f9c0b1f7564b897d471566c322ee.camel@intel.com>
-From: "Ian Jamison" <ian.dev@arkver.com>
-In-Reply-To: <7d4c8c9b27d9f9c0b1f7564b897d471566c322ee.camel@intel.com>
-Content-Language: en-GB
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 13/06/2022 10:20, Anuj Mittal wrote:
-> On Mon, 2022-06-13 at 10:14 +0100, Ian Jamison wrote:
->> Compilation with recent gcc flags a null pointer dereference warning
->> which is promoted to an error and causes failure to build.
->>
->> Fixed in upstream patch by Mark Wielaard:
->> 3d9f1288: [PATCH] elflint.c: Don't dereference databits if bad
->> This patch is included in 0.186 release but not in 0.185.
->>
->> Patchfile here has the Changelog blob removed to allow it to apply.
-> honister branch is no longer maintained. This page has more information
-> on supported branches:
->
-> https://wiki.yoctoproject.org/wiki/Releases
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/conf/local.conf.sample | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks for the info Anuj. On IRC yesterday Ross suggested I submit the 
-patch, but never mind. EOL is EOL.
+diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
+index 4d2fa516fe1..493227470b7 100644
+--- a/meta-poky/conf/local.conf.sample
++++ b/meta-poky/conf/local.conf.sample
+@@ -230,7 +230,7 @@ BB_DISKMON_DIRS ??= "\
+ # Note: For this to work you also need hash-equivalence passthrough to the matching server
+ #
+ #BB_HASHSERVE_UPSTREAM = "typhoon.yocto.io:8687"
+-#SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/4.0/PATH;downloadfilename=PATH"
++#SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
+ 
+ #
+ # Qemu configuration
+-- 
+2.34.1
 
-Since IMX/Freescale latest release is based on honister I'll just have 
-to keep this as a local patch then.
-
-Regards,
-Ian
-
->
-> Thanks,
->
-> Anuj
->
->> Signed-off-by: Ian Jamison <ian.dev@arkver.com>
->> ---
->>   .../elfutils/elfutils_0.185.bb                |  1 +
->>   ...001-dont-dereference-databits-if-bad.patch | 39
->> +++++++++++++++++++
->>   2 files changed, 40 insertions(+)
->>   create mode 100644 meta/recipes-devtools/elfutils/files/0001-dont-
->> dereference-databits-if-bad.patch
->>
->> diff --git a/meta/recipes-devtools/elfutils/elfutils_0.185.bb
->> b/meta/recipes-devtools/elfutils/elfutils_0.185.bb
->> index f4769e3632..64a5038ed3 100644
->> --- a/meta/recipes-devtools/elfutils/elfutils_0.185.bb
->> +++ b/meta/recipes-devtools/elfutils/elfutils_0.185.bb
->> @@ -23,6 +23,7 @@ SRC_URI =
->> "https://sourceware.org/elfutils/ftp/${PV}/${BP}.tar.bz2 \
->>             
->> file://0001-tests-Makefile.am-compile-test_nlist-with-standard-C.patch
->>   \
->>             
->> file://0001-debuginfod-debuginfod-client.c-correct-string-format.patch
->>   \
->>              file://glibc-2.34-fix.patch \
->> +           file://0001-dont-dereference-databits-if-bad.patch \
->>              "
->>   SRC_URI:append:libc-musl = " \
->>              file://0002-musl-libs.patch \
->> diff --git a/meta/recipes-devtools/elfutils/files/0001-dont-
->> dereference-databits-if-bad.patch b/meta/recipes-
->> devtools/elfutils/files/0001-dont-dereference-databits-if-bad.patch
->> new file mode 100644
->> index 0000000000..d80c7acad8
->> --- /dev/null
->> +++ b/meta/recipes-devtools/elfutils/files/0001-dont-dereference-
->> databits-if-bad.patch
->> @@ -0,0 +1,39 @@
->> +From 3d9f12883d0c131bd4ab6045e1f60d3fe6d150ea Mon Sep 17 00:00:00
->> 2001
->> +From: Mark Wielaard <mark@klomp.org>
->> +Date: Wed, 6 Oct 2021 23:37:42 +0200
->> +Subject: [PATCH] elflint.c: Don't dereference databits if bad
->> +
->> +elflint.c: In function 'check_sections':
->> +elflint.c:4105:48: error: null pointer dereference [-Werror=null-
->> dereference]
->> +4105 |                                  idx < databits->d_size && !
->> bad;
->> +     |                                        ~~~~~~~~^~~~~~~~
->> +
->> +Fix this by testing for ! bad first.
->> +
->> +Reported-by: Jan-Benedict Glaw <jbglaw@lug-owl.de>
->> +Signed-off-by: Mark Wielaard <mark@klomp.org>
->> +---
->> +
->> +NB: Upstream patch with Changelog blob removed since it doesn't
->> apply cleanly.
->> +    Diffstat below is the original.
->> +
->> + src/ChangeLog | 4 ++++
->> + src/elflint.c | 2 +-
->> + 2 files changed, 5 insertions(+), 1 deletion(-)
->> +
->> +diff --git a/src/elflint.c b/src/elflint.c
->> +index 1ce756847..ef7725ce7 100644
->> +--- a/src/elflint.c
->> ++++ b/src/elflint.c
->> +@@ -4102,7 +4102,7 @@ section [%2zu] '%s' has type NOBITS but is
->> read from the file in segment of prog
->> +                           bad = (databits == NULL
->> +                                  || databits->d_size != shdr-
->>> sh_size);
->> +                           for (size_t idx = 0;
->> +-                               idx < databits->d_size && ! bad;
->> ++                               ! bad && idx < databits->d_size;
->> +                                idx++)
->> +                             bad = ((char *) databits->d_buf)[idx]
->> != 0;
->> +
->> +--
->> +2.31.1
->> +
->>
->>
->>
->
-> 
->
