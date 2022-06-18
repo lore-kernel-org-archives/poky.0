@@ -1,71 +1,101 @@
-Received: from mx.artzilla.ru (mx.artzilla.ru [45.12.4.101])
- by mx.groups.io with SMTP id smtpd.web08.27503.1655450008612227386
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+ by mx.groups.io with SMTP id smtpd.web11.6528.1655529790024081383
  for <poky@lists.yoctoproject.org>;
- Fri, 17 Jun 2022 00:13:29 -0700
+ Fri, 17 Jun 2022 22:23:10 -0700
 Authentication-Results: mx.groups.io;
- dkim=fail reason="body hash did not verify" header.i=@illumium.org header.s=mail header.b=IyTN/XwM;
- spf=pass (domain: illumium.org, ip: 45.12.4.101, mailfrom: kayo@illumium.org)
-From: "K." <kayo@illumium.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=illumium.org; s=mail;
-	t=1655450004; bh=ooy68Sw62196Ej84Gcm83J+1cloMHfboyCM8n8tzT2g=;
-	h=From:To:Cc:Subject:Date;
-	b=IyTN/XwMY4L0xi1EtLPseQ+Ofa5tN94FXNB91BZSBbHWmAYZsSsNdkHsoadsGsTmk
-	 cjeOfRzFkv8cI9mZzTgrpYa4bB27iN2X1Fbt4Wn3O8ZiugcegyD57YsRchgOBWBUZa
-	 79ZGNaQlbi8sCwlYrey92gRYtP5w29D/U61s141k=
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=D7SOdnwq;
+ spf=pass (domain: gmail.com, ip: 209.85.128.54, mailfrom: fede.evol@gmail.com)
+Received: by mail-wm1-f54.google.com with SMTP id j5-20020a05600c1c0500b0039c5dbbfa48so5234881wms.5
+        for <poky@lists.yoctoproject.org>; Fri, 17 Jun 2022 22:23:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=sender:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=5YSKHF1CEBbWC0HDxnFtpucmlUsDBhf/dWmAo8zQpSM=;
+        b=D7SOdnwqj7sFq1dOdgcvnJl/EwYQy0Mr24RAKYwSSKn8QA7GlJ5P9ZIYddznQ5WRut
+         Yh8XdDGLGosW9J2d1gfmiyIeAEKzDH7d4NyHDM48Q62CTl9uME6c817BWfiny9SmgIJR
+         vQcCuN8cHDljPNiAYD/2OGiPAh5atEscIFCcATq1+Ofht+X5ooejv7tXeKXVxJL1NCSQ
+         gm5rYgPzg/dju4NZz/VUXoGGry3IPC53eW26i2ZyxAdVlTMB4vvwo0puTCUxHDNhiwoI
+         OH5tz6UC7KBPymW7RV2zdtveKlBfmLkcIdO/cXXnCtZg5NL3k9dorL/TNMtRI/laA/P8
+         MB4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+         :mime-version:content-transfer-encoding;
+        bh=5YSKHF1CEBbWC0HDxnFtpucmlUsDBhf/dWmAo8zQpSM=;
+        b=Cxm/WW7/7qG848SRh+ZSlE7k2qSEGJGpimcGUVKnHTXMp4/f1Sk//KX3On5FnIJU7e
+         StsyVe3p/arjY107vjs2dN+BcgR8faHeD2COoSPWXUopbio+vn89qERP80gM/6WVsHJV
+         rZLkoN47aj7eZmOjSxKFKSuecuhXGNZs///NoaLF7FDGYtpEdH81l/FCgQ6B4jJrSd4h
+         V9LPbadCsRmFyeTBq7VPAUZKQmdl87KKZ4TEeEhXmTfgGCkb6lI38WI2pzczBgTxdqfR
+         tAEXR/Zn6l2jKwBN2gnMfMjfXFBPevO7U4a2zv/U0r5QcvwRVqAuYaE6jj1Ge02s6Ehh
+         2jew==
+X-Gm-Message-State: AJIora8N8cbzQq8RbUidNmVnwQiaiYm/9p5fsvKfyonVt/iTdHcQZbaq
+	tPljb9UvxNOJELkpdQiD6jkEwvTaH+0KCQ==
+X-Google-Smtp-Source: AGRyM1siOYmkRArlKcjxXC79AYdKitDcNgMQX2AjUw+gM7IvCWYysy87beN2clMzJOYG+CniP9t55Q==
+X-Received: by 2002:a1c:4604:0:b0:39c:4769:3bb7 with SMTP id t4-20020a1c4604000000b0039c47693bb7mr13632629wma.115.1655529788491;
+        Fri, 17 Jun 2022 22:23:08 -0700 (PDT)
+Return-Path: <fede.evol@gmail.com>
+Received: from interzone.fritz.box ([2a02:2455:e62:5a00:cd58:9e10:e01f:52a7])
+        by smtp.gmail.com with ESMTPSA id f21-20020a5d58f5000000b002185c6dc5b1sm7599980wrd.108.2022.06.17.22.23.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 17 Jun 2022 22:23:07 -0700 (PDT)
+Sender: Federico Pellegrin <fede.evol@gmail.com>
+From: fede.evol@gmail.com
 To: poky@lists.yoctoproject.org
-Cc: K <kayo@illumium.org>
-Subject: [PATCH] perl: Fix perms to avoid patch fails
-Date: Fri, 17 Jun 2022 12:13:14 +0500
-Message-Id: <20220617071314.3362109-1-kayo@illumium.org>
+Cc: Federico Pellegrin <fede@evolware.org>
+Subject: [poky][PATCH] signing-keys: add RDEPENDS to signing-keys from specific provider
+Date: Sat, 18 Jun 2022 07:23:05 +0200
+Message-Id: <20220618052305.304352-1-fede@evolware.org>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Fix missing write permissions to avoid problems with applying patches in =
-particular on compressed filesystems:
+Specific provider (ie. RPM or IPK) does "provide" just itself as a
+package to the system. This will cause the "-dev" package, which
+refers to the generic signing-keys and not the provider specific,
+to miss the dependency.
 
-ERROR: perl-5.34.1-r0 do_patch: Applying patch '0001-Somehow-this-module-=
-breaks-through-the-perl-wrapper-.patch' on target directory '/home/kayo/d=
-evel/elpitech/poc/openbmc/build/evb-ast2600/tmp/work/armv7ahf-vfpv4d16-op=
-enbmc-linux-gnueabi/perl/5.34.1-r0/perl-5.34.1'
-CmdError('quilt --quiltrc /home/kayo/devel/elpitech/poc/openbmc/build/evb=
--ast2600/tmp/work/armv7ahf-vfpv4d16-openbmc-linux-gnueabi/perl/5.34.1-r0/=
-recipe-sysroot-native/etc/quiltrc push', 0, 'stdout: Applying patch 0001-=
-Somehow-this-module-breaks-through-the-perl-wrapper-.patch
-File cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm is read-only; trying=
- to patch anyway
-patching file cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
-Hunk #1 succeeded at 1147 (offset 37 lines).
-Hunk #2 succeeded at 2086 (offset 77 lines).
-patch: setting attribute btrfs.compression for btrfs.compression: Permiss=
-ion denied
-Patch 0001-Somehow-this-module-breaks-through-the-perl-wrapper-.patch doe=
-s not apply (enforce with -f)
+Error case (RPM) when populating sdk:
 
-Signed-off-by: K <kayo@illumium.org>
+Error:
+ Problem: conflicting requests
+  - nothing provides signing-keys = 1.0-r0 needed by signing-keys-dev-1.0-r0.noarch
+(try to add '--skip-broken' to skip uninstallable packages)
+
+Examining signing-keys-rpm packages in PROVIDES we have indeed:
+signing-keys-rpm = 1.0-r0
+
+But in signing-keys-dev: in REQUIRES:
+signing-keys-1.0-r0
+
+This MR will fix the situation bringing the specific provider
+PROVIDES to include also the generic package (RPM example):
+signing-keys
+signing-keys-rpm = 1.0-r0
+
+Likely another way could be also to change the requirement for
+dev or just allow empty packages as well.
+
+Signed-off-by: Federico Pellegrin <fede@evolware.org>
 ---
- meta/recipes-devtools/perl/perl_5.36.0.bb | 7 +++++++
- 1 file changed, 7 insertions(+)
+ meta/recipes-core/meta/signing-keys.bb | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/meta/recipes-devtools/perl/perl_5.36.0.bb b/meta/recipes-dev=
-tools/perl/perl_5.36.0.bb
-index 4456cdbcfb..6374717ab0 100644
---- a/meta/recipes-devtools/perl/perl_5.36.0.bb
-+++ b/meta/recipes-devtools/perl/perl_5.36.0.bb
-@@ -45,6 +45,13 @@ PACKAGECONFIG[gdbm] =3D ",-Ui_gdbm,gdbm"
- # Don't generate comments in enc2xs output files. They are not reproduci=
-ble
- export ENC2XS_NO_COMMENTS =3D "1"
-=20
-+# Fix missing write permissions to avoid troubles
-+# with applying patches on compressed filesystems
-+do_fix_perms() {
-+    find ${S} -type f ! -perm -u=3Dw -exec chmod u+w {} \;
-+}
-+addtask do_fix_perms after do_unpack before do_patch
+diff --git a/meta/recipes-core/meta/signing-keys.bb b/meta/recipes-core/meta/signing-keys.bb
+index 03463f95f56..d0602cf82af 100644
+--- a/meta/recipes-core/meta/signing-keys.bb
++++ b/meta/recipes-core/meta/signing-keys.bb
+@@ -18,6 +18,10 @@ FILES:${PN}-rpm = "${sysconfdir}/pki/rpm-gpg"
+ FILES:${PN}-ipk = "${sysconfdir}/pki/ipk-gpg"
+ FILES:${PN}-packagefeed = "${sysconfdir}/pki/packagefeed-gpg"
+ 
++RPROVIDES:${PN}-rpm += "${PN}"
++RPROVIDES:${PN}-ipk += "${PN}"
++RPROVIDES:${PN}-packagefeed += "${PN}"
 +
- do_configure:prepend() {
-     cp -rfp ${STAGING_DATADIR_NATIVE}/perl-cross/* ${S}
- }
---=20
-2.36.0
+ python do_get_public_keys () {
+     from oe.gpg_sign import get_signer
+ 
+-- 
+2.35.3
 
