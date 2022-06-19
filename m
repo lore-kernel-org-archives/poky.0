@@ -1,101 +1,116 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
- by mx.groups.io with SMTP id smtpd.web11.6528.1655529790024081383
+Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
+ by mx.groups.io with SMTP id smtpd.web12.18658.1655643996038740797
  for <poky@lists.yoctoproject.org>;
- Fri, 17 Jun 2022 22:23:10 -0700
+ Sun, 19 Jun 2022 06:06:37 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=D7SOdnwq;
- spf=pass (domain: gmail.com, ip: 209.85.128.54, mailfrom: fede.evol@gmail.com)
-Received: by mail-wm1-f54.google.com with SMTP id j5-20020a05600c1c0500b0039c5dbbfa48so5234881wms.5
-        for <poky@lists.yoctoproject.org>; Fri, 17 Jun 2022 22:23:09 -0700 (PDT)
+ dkim=pass header.i=@axis.com header.s=axis-central1 header.b=h0x6GelE;
+ spf=pass (domain: axis.com, ip: 195.60.68.17, mailfrom: peter.kjellerstedt@axis.com)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=sender:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=5YSKHF1CEBbWC0HDxnFtpucmlUsDBhf/dWmAo8zQpSM=;
-        b=D7SOdnwqj7sFq1dOdgcvnJl/EwYQy0Mr24RAKYwSSKn8QA7GlJ5P9ZIYddznQ5WRut
-         Yh8XdDGLGosW9J2d1gfmiyIeAEKzDH7d4NyHDM48Q62CTl9uME6c817BWfiny9SmgIJR
-         vQcCuN8cHDljPNiAYD/2OGiPAh5atEscIFCcATq1+Ofht+X5ooejv7tXeKXVxJL1NCSQ
-         gm5rYgPzg/dju4NZz/VUXoGGry3IPC53eW26i2ZyxAdVlTMB4vvwo0puTCUxHDNhiwoI
-         OH5tz6UC7KBPymW7RV2zdtveKlBfmLkcIdO/cXXnCtZg5NL3k9dorL/TNMtRI/laA/P8
-         MB4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
-         :mime-version:content-transfer-encoding;
-        bh=5YSKHF1CEBbWC0HDxnFtpucmlUsDBhf/dWmAo8zQpSM=;
-        b=Cxm/WW7/7qG848SRh+ZSlE7k2qSEGJGpimcGUVKnHTXMp4/f1Sk//KX3On5FnIJU7e
-         StsyVe3p/arjY107vjs2dN+BcgR8faHeD2COoSPWXUopbio+vn89qERP80gM/6WVsHJV
-         rZLkoN47aj7eZmOjSxKFKSuecuhXGNZs///NoaLF7FDGYtpEdH81l/FCgQ6B4jJrSd4h
-         V9LPbadCsRmFyeTBq7VPAUZKQmdl87KKZ4TEeEhXmTfgGCkb6lI38WI2pzczBgTxdqfR
-         tAEXR/Zn6l2jKwBN2gnMfMjfXFBPevO7U4a2zv/U0r5QcvwRVqAuYaE6jj1Ge02s6Ehh
-         2jew==
-X-Gm-Message-State: AJIora8N8cbzQq8RbUidNmVnwQiaiYm/9p5fsvKfyonVt/iTdHcQZbaq
-	tPljb9UvxNOJELkpdQiD6jkEwvTaH+0KCQ==
-X-Google-Smtp-Source: AGRyM1siOYmkRArlKcjxXC79AYdKitDcNgMQX2AjUw+gM7IvCWYysy87beN2clMzJOYG+CniP9t55Q==
-X-Received: by 2002:a1c:4604:0:b0:39c:4769:3bb7 with SMTP id t4-20020a1c4604000000b0039c47693bb7mr13632629wma.115.1655529788491;
-        Fri, 17 Jun 2022 22:23:08 -0700 (PDT)
-Return-Path: <fede.evol@gmail.com>
-Received: from interzone.fritz.box ([2a02:2455:e62:5a00:cd58:9e10:e01f:52a7])
-        by smtp.gmail.com with ESMTPSA id f21-20020a5d58f5000000b002185c6dc5b1sm7599980wrd.108.2022.06.17.22.23.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Jun 2022 22:23:07 -0700 (PDT)
-Sender: Federico Pellegrin <fede.evol@gmail.com>
-From: fede.evol@gmail.com
-To: poky@lists.yoctoproject.org
-Cc: Federico Pellegrin <fede@evolware.org>
-Subject: [poky][PATCH] signing-keys: add RDEPENDS to signing-keys from specific provider
-Date: Sat, 18 Jun 2022 07:23:05 +0200
-Message-Id: <20220618052305.304352-1-fede@evolware.org>
-X-Mailer: git-send-email 2.35.3
+  d=axis.com; q=dns/txt; s=axis-central1; t=1655643996;
+  x=1687179996;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=zXYGKk+MOaDxbrand7df02YiVTUdtS4IGedPuSCPk6U=;
+  b=h0x6GelEGS+ERYaXEYMP0hN3F0NzKpapjiBv5Fmo3qSe6lS4he3nNV62
+   StXIl+vtiFzX2oM0F/oaK/YsGRU048j1zB3x5huqD/X8JsQd8bZF1Wh/e
+   0JzZnHhXZ5jIiMorHYWPw3obiE1gfKYVsxWZyAYD48DWjxX3RgNy9G3aJ
+   kjuy7IkLSMH/F2uYIZw8gWqqNewsg1EtVG561SVMV/GOM7zvFREkdccoJ
+   cGU/xG6hucWRIBXk14MO6pq/yWFtGUiL6e9PhTdSpS/xDOF0t/jtAQSJP
+   kQv02l0HsoVemOMp1DKEvorVxIPyS853svnF4Twpp81Cw6VLSxkwqBxQy
+   w==;
+From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
+To: Federico Pellegrin <fede.evol@gmail.com>, "poky@lists.yoctoproject.org"
+	<poky@lists.yoctoproject.org>
+CC: Federico Pellegrin <fede@evolware.org>
+Subject: Re: [poky][PATCH] signing-keys: add RDEPENDS to signing-keys from specific provider
+Thread-Topic: [poky][PATCH] signing-keys: add RDEPENDS to signing-keys from
+ specific provider
+Thread-Index: AQHYgtOCSsuU+rTzsUm4ngGHrkuFIa1Wsflw
+Date: Sun, 19 Jun 2022 13:06:33 +0000
+Message-ID: <dd08964309c24d7985a45c774710c13b@axis.com>
+References: <20220618052305.304352-1-fede@evolware.org>
+In-Reply-To: <20220618052305.304352-1-fede@evolware.org>
+Accept-Language: en-US, sv-SE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.0.5.60]
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Specific provider (ie. RPM or IPK) does "provide" just itself as a
-package to the system. This will cause the "-dev" package, which
-refers to the generic signing-keys and not the provider specific,
-to miss the dependency.
+> -----Original Message-----
+> From: poky@lists.yoctoproject.org <poky@lists.yoctoproject.org> On Behalf
+> Of Federico Pellegrin
+> Sent: den 18 juni 2022 07:23
+> To: poky@lists.yoctoproject.org
+> Cc: Federico Pellegrin <fede@evolware.org>
+> Subject: [poky][PATCH] signing-keys: add RDEPENDS to signing-keys from
+> specific provider
 
-Error case (RPM) when populating sdk:
+Poky is made up of multiple repositories. Patches for meta should go to the=
+=20
+openembedded-core@lists.openembedded.org mailing list (this is documented=20
+in README.md).
 
-Error:
- Problem: conflicting requests
-  - nothing provides signing-keys = 1.0-r0 needed by signing-keys-dev-1.0-r0.noarch
-(try to add '--skip-broken' to skip uninstallable packages)
+>=20
+> Specific provider (ie. RPM or IPK) does "provide" just itself as a
+> package to the system. This will cause the "-dev" package, which
+> refers to the generic signing-keys and not the provider specific,
+> to miss the dependency.
+>=20
+> Error case (RPM) when populating sdk:
+>=20
+> Error:
+>  Problem: conflicting requests
+>   - nothing provides signing-keys =3D 1.0-r0 needed by signing-keys-dev-1=
+.0-
+> r0.noarch
+> (try to add '--skip-broken' to skip uninstallable packages)
+>=20
+> Examining signing-keys-rpm packages in PROVIDES we have indeed:
+> signing-keys-rpm =3D 1.0-r0
+>=20
+> But in signing-keys-dev: in REQUIRES:
+> signing-keys-1.0-r0
+>=20
+> This MR will fix the situation bringing the specific provider
+> PROVIDES to include also the generic package (RPM example):
+> signing-keys
+> signing-keys-rpm =3D 1.0-r0
+>=20
+> Likely another way could be also to change the requirement for
+> dev or just allow empty packages as well.
+>=20
+> Signed-off-by: Federico Pellegrin <fede@evolware.org>
+> ---
+>  meta/recipes-core/meta/signing-keys.bb | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/meta/recipes-core/meta/signing-keys.bb b/meta/recipes-
+> core/meta/signing-keys.bb
+> index 03463f95f56..d0602cf82af 100644
+> --- a/meta/recipes-core/meta/signing-keys.bb
+> +++ b/meta/recipes-core/meta/signing-keys.bb
+> @@ -18,6 +18,10 @@ FILES:${PN}-rpm =3D "${sysconfdir}/pki/rpm-gpg"
+>  FILES:${PN}-ipk =3D "${sysconfdir}/pki/ipk-gpg"
+>  FILES:${PN}-packagefeed =3D "${sysconfdir}/pki/packagefeed-gpg"
+>=20
+> +RPROVIDES:${PN}-rpm +=3D "${PN}"
+> +RPROVIDES:${PN}-ipk +=3D "${PN}"
+> +RPROVIDES:${PN}-packagefeed +=3D "${PN}"
 
-Examining signing-keys-rpm packages in PROVIDES we have indeed:
-signing-keys-rpm = 1.0-r0
+This is incorrect. The correct thing to do is to instead remove the=20
+dependency from ${PN}-dev on ${PN}, i.e.:
 
-But in signing-keys-dev: in REQUIRES:
-signing-keys-1.0-r0
+RDEPENDS:${PN}-dev =3D ""
 
-This MR will fix the situation bringing the specific provider
-PROVIDES to include also the generic package (RPM example):
-signing-keys
-signing-keys-rpm = 1.0-r0
+> +
+>  python do_get_public_keys () {
+>      from oe.gpg_sign import get_signer
+>=20
+> --
+> 2.35.3
 
-Likely another way could be also to change the requirement for
-dev or just allow empty packages as well.
-
-Signed-off-by: Federico Pellegrin <fede@evolware.org>
----
- meta/recipes-core/meta/signing-keys.bb | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/meta/recipes-core/meta/signing-keys.bb b/meta/recipes-core/meta/signing-keys.bb
-index 03463f95f56..d0602cf82af 100644
---- a/meta/recipes-core/meta/signing-keys.bb
-+++ b/meta/recipes-core/meta/signing-keys.bb
-@@ -18,6 +18,10 @@ FILES:${PN}-rpm = "${sysconfdir}/pki/rpm-gpg"
- FILES:${PN}-ipk = "${sysconfdir}/pki/ipk-gpg"
- FILES:${PN}-packagefeed = "${sysconfdir}/pki/packagefeed-gpg"
- 
-+RPROVIDES:${PN}-rpm += "${PN}"
-+RPROVIDES:${PN}-ipk += "${PN}"
-+RPROVIDES:${PN}-packagefeed += "${PN}"
-+
- python do_get_public_keys () {
-     from oe.gpg_sign import get_signer
- 
--- 
-2.35.3
+//Peter
 
