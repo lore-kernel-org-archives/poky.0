@@ -1,106 +1,74 @@
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
- by mx.groups.io with SMTP id smtpd.web10.19664.1655651647148995940
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+ by mx.groups.io with SMTP id smtpd.web12.45117.1655826441956094504
  for <poky@lists.yoctoproject.org>;
- Sun, 19 Jun 2022 08:14:07 -0700
+ Tue, 21 Jun 2022 08:47:22 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=TLS9QjJN;
- spf=pass (domain: gmail.com, ip: 209.85.167.52, mailfrom: fede.evol@gmail.com)
-Received: by mail-lf1-f52.google.com with SMTP id g4so1252508lfv.9
-        for <poky@lists.yoctoproject.org>; Sun, 19 Jun 2022 08:14:06 -0700 (PDT)
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=R0zzD4wh;
+ spf=softfail (domain: sakoman.com, ip: 209.85.216.52, mailfrom: steve@sakoman.com)
+Received: by mail-pj1-f52.google.com with SMTP id p3-20020a17090a428300b001ec865eb4a2so8942500pjg.3
+        for <poky@lists.yoctoproject.org>; Tue, 21 Jun 2022 08:47:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=GVFaNu3TzitUKWUyTHolozCi92C4LwOzUbNGKQlrVHc=;
-        b=TLS9QjJNmkjp+R5NOULrR5zZo1kT5DD9kV05RMnks2ydgJs+FBdfOsAjgP1jcNMQzS
-         QGNHHXRb66Gg3+VutJ8L9qiTuh+ch9dgojUNbm7wd2HUlggAg18wPXsuq6FmN8JQKjGA
-         nZNwE0F+H0WVHm97oFZnwfrWNr50FiN5QwBshRgDH9661jpihQuUmu2YveVzBy65/wjJ
-         vN8YD7kHfRKR7V4EPyofqCbwZzKWlgZd+GJ6Xs03UtNieoJFr3zyVod4+/aY2Hyn1oEH
-         lugFiYWkHSKQo74/5TMcSQlhnFBgNoIe2G7/ofGvYEhrVLVM+363W9pbCh5PekBWFFO3
-         IifA==
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+         :content-transfer-encoding;
+        bh=ypgxBlq+uhjugvI2uNhQ6c4V+pQcO8WzndSb6WSvYXI=;
+        b=R0zzD4whav5CBDu3xO+xyuaizrTPIfiofEfOH6OQtR2W3Elktgkj7OtqdUH7+HFaeS
+         isKasb0LVkvO4Do/v4ijsljSMd2A9b1FY56C7+KGzuGPxgU9HB4dLF+av2LM0JCwGN82
+         v9bU1cCMeTpolvUVAB6ZvHHFsUu295ZqY28wsHeUq1+T27hTiTo1MAv/kyQirdbKDQnN
+         29cxKuGa2bn1ip4VBHObKvMryEg+PSlPOLKFY/LdQI+kZl0cd+Spxg0C7JjS8c5hnzPu
+         nbxcwvTJe7hbbLRD95gipZl5hVqmkYnhp6zk+guFjwrL2/UFPS2YcEGlfTL9gBH0C/RI
+         5hhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=GVFaNu3TzitUKWUyTHolozCi92C4LwOzUbNGKQlrVHc=;
-        b=NwSYfW2etdFj7Cww/w3jybUb8ePxY0tIfft/Htbnb9kjx9Iyt+vhAIZ3aa6KxqifUy
-         MTPmx8yu1Qotjgw/NJjxUQGYKu/JINyB9vPvIHPOaTVcYuOt2dxVUSR9zlIaRBkXNZQd
-         W+da29M781KzBw8oh9TQMvty4vVkQQ1eKl9EHCdvU7doE65e0cQagmHXoHVEoNsjvs7w
-         2QnbgXKqqem/azm1GJY9MU3nLOkcDLmazMzWEpNedbfJp2F8ONSCRrKJYjdss6UkJLpI
-         KHj+eVy/I/aHoBXlbKXgeAS6cphYQFH5u7/ZsJL8l4Yn4wtohzokhSq8W/6fcVxBgRDB
-         kHxA==
-X-Gm-Message-State: AJIora/ZFTTsaDbSLtGFLI81a+YOmAP9+DvyGU66sE6G/mR1hMbnhGOt
-	gw/3DjHUqwzBOgNVJtKH6Wfldlu0f3tRWBEz5xQ=
-X-Google-Smtp-Source: AGRyM1thR5yHSHGHFi461+rD3ZsFtKilN2w85Ilhf6C/HtRD/Ft1GlMbi8RQtHpdwfNtxl9OvFOGXTBmptmPssVBkfw=
-X-Received: by 2002:a05:6512:1508:b0:47f:46c4:82db with SMTP id
- bq8-20020a056512150800b0047f46c482dbmr10025605lfb.56.1655651645303; Sun, 19
- Jun 2022 08:14:05 -0700 (PDT)
+        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=ypgxBlq+uhjugvI2uNhQ6c4V+pQcO8WzndSb6WSvYXI=;
+        b=UokZipx1W5zP9c7vqbyfIcuKueNbp5ROCGy2LZkJ26tNsl0KEfVp9jevdERadEzLz2
+         nddymoaIDFmJZNoEpFFQyACuWxBvBOz3Cy4tvU5pgKqSnkq8b6fonYtIngRR77zvWYo2
+         WXObUA4QANJuihI9xUJj7tyV4Ds7n9iyzYAMamspI4ITAB8S88r+jbpMppCxP5qIMImH
+         XHXPf8FPFUWl+S/dCA376jSXSRJSH3qUUIAZQ2C+3/qzgHyIqPzCtfIYoCDvuic9eNT6
+         vkVv2T6JeYl5iYBDdBhyiQfRoo8v3NWnx/oHG7kK2VvnIrtiYw+MnYrRAkUu2de9dz+H
+         bAhw==
+X-Gm-Message-State: AJIora8m3bv89eqBAI2QhHgZBtNWi2n+TdMQ9lM0T9AEuVOiI/G9XzJ3
+	6vZ1YNJLXNPyaiSV4aGGU3e6VzeoYJAmaoAS
+X-Google-Smtp-Source: AGRyM1tvYthm144wWKVz0RPg0rE2mMofh3wyEvkKnD5vuqLRQBA8BNPogBSLA5CgAunxT+1rbcSz7g==
+X-Received: by 2002:a17:90b:3ec9:b0:1e8:6ab9:a47 with SMTP id rm9-20020a17090b3ec900b001e86ab90a47mr33306329pjb.60.1655826440759;
+        Tue, 21 Jun 2022 08:47:20 -0700 (PDT)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
+        by smtp.gmail.com with ESMTPSA id e7-20020a17090a9a8700b001eab99a42efsm8337513pjp.31.2022.06.21.08.47.19
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 21 Jun 2022 08:47:20 -0700 (PDT)
+From: "Steve Sakoman" <steve@sakoman.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][kirkstone] poky.conf: bump version for 4.0.2
+Date: Tue, 21 Jun 2022 05:47:12 -1000
+Message-Id: <9ca11116da66a3a0be3199303dabd40def77838e.1655826349.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1655826349.git.steve@sakoman.com>
+References: <cover.1655826349.git.steve@sakoman.com>
 MIME-Version: 1.0
-References: <20220618052305.304352-1-fede@evolware.org> <dd08964309c24d7985a45c774710c13b@axis.com>
-In-Reply-To: <dd08964309c24d7985a45c774710c13b@axis.com>
-From: "Federico Pellegrin" <fede.evol@gmail.com>
-Date: Sun, 19 Jun 2022 17:13:54 +0200
-Message-ID: <CAM6O0ZiOE-SgaKHyc_cA_TUYHgHbiBLh9M4vaR=VHO-c_azg=A@mail.gmail.com>
-Subject: Re: [poky][PATCH] signing-keys: add RDEPENDS to signing-keys from specific provider
-To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
-Cc: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="00000000000030b0a905e1ce70ca"
+Content-Transfer-Encoding: 8bit
 
---00000000000030b0a905e1ce70ca
-Content-Type: text/plain; charset="UTF-8"
+Signed-off-by: Steve Sakoman <steve@sakoman.com>
+---
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Hi Peter,
-Many thanks for your feedback!
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 4d969b9..0cea4ce 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -1,7 +1,7 @@
+ DISTRO = "poky"
+ DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
+ #DISTRO_VERSION = "3.4+snapshot-${METADATA_REVISION}"
+-DISTRO_VERSION = "4.0.1"
++DISTRO_VERSION = "4.0.2"
+ DISTRO_CODENAME = "kirkstone"
+ SDK_VENDOR = "-pokysdk"
+ SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADATA_REVISION}', 'snapshot')}"
+-- 
+2.25.1
 
-Il giorno dom 19 giu 2022 alle ore 15:06 Peter Kjellerstedt <
-peter.kjellerstedt@axis.com> ha scritto:
-
-> > +RPROVIDES:${PN}-rpm += "${PN}"
-> > +RPROVIDES:${PN}-ipk += "${PN}"
-> > +RPROVIDES:${PN}-packagefeed += "${PN}"
->
-> This is incorrect. The correct thing to do is to instead remove the
-> dependency from ${PN}-dev on ${PN}, i.e.:
->
-> RDEPENDS:${PN}-dev = ""
->
->
-Thanks for the correction. Indeed as per commit comment I was a bit unsure
-which way would be correct (or better).
-
-I'll send now (hopefully to the right address!) a v2 of the patch. I've
-tried your better solution locally and works of course very fine.
-
-Thanks again and a v2 in a few moments,
-
-Cheers,
-Federico
-
---00000000000030b0a905e1ce70ca
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div><br></div><div>Hi Peter,<br></div></=
-div><div>Many thanks for your feedback!<br></div><div><br></div><div class=
-=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Il giorno dom 19 giu=
- 2022 alle ore 15:06 Peter Kjellerstedt &lt;<a href=3D"mailto:peter.kjeller=
-stedt@axis.com">peter.kjellerstedt@axis.com</a>&gt; ha scritto:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">&gt; +RPROVIDES:${PN}-rpm +=
-=3D &quot;${PN}&quot;<br>
-&gt; +RPROVIDES:${PN}-ipk +=3D &quot;${PN}&quot;<br>
-&gt; +RPROVIDES:${PN}-packagefeed +=3D &quot;${PN}&quot;<br>
-<br>
-This is incorrect. The correct thing to do is to instead remove the <br>
-dependency from ${PN}-dev on ${PN}, i.e.:<br>
-<br>
-RDEPENDS:${PN}-dev =3D &quot;&quot;<br>
-<br></blockquote><div><br></div><div>Thanks for the correction. Indeed as p=
-er commit comment I was a bit unsure which way would be correct (or better)=
-.</div><div><br></div><div>I&#39;ll send now (hopefully to the right addres=
-s!) a v2 of the patch. I&#39;ve tried your better solution locally and work=
-s of course very fine.</div><div><br></div><div>Thanks again and a v2 in a =
-few moments,</div><div><br></div><div>Cheers,</div><div>Federico</div><br><=
-/div></div>
-
---00000000000030b0a905e1ce70ca--
