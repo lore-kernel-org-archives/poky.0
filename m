@@ -1,75 +1,85 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
- by mx.groups.io with SMTP id smtpd.web10.54054.1658324348567806421
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+ by mx.groups.io with SMTP id smtpd.web10.56404.1658334246449634818
  for <poky@lists.yoctoproject.org>;
- Wed, 20 Jul 2022 06:39:08 -0700
+ Wed, 20 Jul 2022 09:24:06 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=HxNHr1is;
- spf=pass (domain: gmail.com, ip: 209.85.221.49, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-wr1-f49.google.com with SMTP id b26so26191590wrc.2
-        for <poky@lists.yoctoproject.org>; Wed, 20 Jul 2022 06:39:08 -0700 (PDT)
+ dkim=pass header.i=@snapchat.com header.s=google header.b=iqEDTFBU;
+ spf=pass (domain: snapchat.com, ip: 209.85.222.182, mailfrom: ecordonnier@snapchat.com)
+Received: by mail-qk1-f182.google.com with SMTP id o1so14028252qkg.9
+        for <poky@lists.yoctoproject.org>; Wed, 20 Jul 2022 09:24:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=odGB/tePTYxN6sSP89oTS1R/3zKaHsyRZ+jRGsP4G4U=;
-        b=HxNHr1ish0BsuWxQegLFgVEIDocC17H0sDOTT6CT5CJceGmScLDlWSrOyJRv1PWUsA
-         Ws6zI/FxjVHZmIHjohhcW9JfpnSc9FeSynNcgz9fyuNaiMTGNu/e5IF9F1/ObzDad1gN
-         7h9rjcnlCqS+GV9/Pdwa79aUR9Tlti3uNVbsZDeRksSLBL4Yeqoom/gP1UPRonh/l8Ws
-         XsXxEFmVC+hzwul62/c7GOosD82qNEVkAV0mrFVJIZ3tONe6koE8ng4Kx7vopcdbFB0T
-         1wIp10OP1vuWX39xP1zQjX5smrb+uakt89eRt7GP0MUJM6WIInI6udzySdPxjNHPVGlt
-         1UWg==
+        d=snapchat.com; s=google;
+        h=mime-version:from:date:message-id:subject:to;
+        bh=9CJgom1h7cUNHrCVO7NiDRGygc5Fru08owrKqFiqyZU=;
+        b=iqEDTFBUUUh//2pyzx4whushm8G+BeOAJQuYRglNGNN82Nb1I1LRmWe0K/fdaSWnGM
+         +l2x1OBCz9ZZoA1sp8QhPb+oxpeuNjVSPr+/ACVahyOohD0DOQLM6pKIBhmvhWEBlsDp
+         LlC/cotHmlsHUtM6Ur3c9Y2oBDOEv6Z67fHMw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=odGB/tePTYxN6sSP89oTS1R/3zKaHsyRZ+jRGsP4G4U=;
-        b=w4yskfLZFk/acYXF0m6JbFwtmV5G4fIgdTUpCInevGovqMCFNkNp/Mdi59YLpfATHJ
-         ukzQ7DNIESlneVVQOKW55skkl01NawSafmeDybfdTjC7L51gWB4DtY3Hk9b/rH4O4vto
-         Vgrqz6Usp39ROgO/wYAQF/2n04J2g3Dggt5s5Qj6AWo8iohfjs9E/xAow8pA8UTDya91
-         pjkmMo4R52mvM5izgKzLBp2jKEgv5yC+pb0jLbCHeEHMHKgc3cqcwoHWJ10+tPpGfQ+9
-         n5uTWet1Sjp2JJ7Do8ZImEDbFKaLPugKcxMy0BDLEwqsiJVSCTJpLHarUKFqxG67OAQY
-         wXHw==
-X-Gm-Message-State: AJIora/O52Rv+ulM25BD2Cmqe3b877V3p48ZUGwzTdvW9ILYjXJcARzl
-	UiWNWUh6he9s+iM4qB+c/HyyGcqNAv0=
-X-Google-Smtp-Source: AGRyM1vnT6iuVRraQgg8OY5xAzrnEqU42xz/riTC2Y9sFoHk66OVj6dCKN3H3UMtriD+qXFTWvuoNA==
-X-Received: by 2002:a05:6000:1a50:b0:21d:bac3:54ee with SMTP id t16-20020a0560001a5000b0021dbac354eemr29870493wry.182.1658324346752;
-        Wed, 20 Jul 2022 06:39:06 -0700 (PDT)
-Return-Path: <alex.kanavin@gmail.com>
-Received: from Zen2.lab.linutronix.de. (drugstore.linutronix.de. [80.153.143.164])
-        by smtp.gmail.com with ESMTPSA id r9-20020a05600c2c4900b003a02cbf862esm2477636wmg.13.2022.07.20.06.39.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 20 Jul 2022 06:39:06 -0700 (PDT)
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-X-Google-Original-From: Alexander Kanavin <alex@linutronix.de>
-To: poky@lists.yoctoproject.org
-Cc: Alexander Kanavin <alex@linutronix.de>
-Subject: [PATCH] poky-floating-revisions.inc: remove xf86-input-keyboard entry
-Date: Wed, 20 Jul 2022 15:39:01 +0200
-Message-Id: <20220720133901.3433336-1-alex@linutronix.de>
-X-Mailer: git-send-email 2.30.2
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+        bh=9CJgom1h7cUNHrCVO7NiDRGygc5Fru08owrKqFiqyZU=;
+        b=TzZy9dvFqM3dbL9EIJIghoDmN+PKrXkYDNC/JXDeGlcNfbD/nnv+7VCS8rx3L7YuSq
+         NEoPEmHXDyxZ7gH4vW+BodEx29UFieLqay42vt8zcRO/JPNYbIWQQLj1AWg2OsoNmD1b
+         a5ijiLkRvEDV0O/bQ4qLjehcJI9WUeLKwXnlvnTsioPScN3DB7HVavWmYNHAu8+Rzpnv
+         RUbAkYOXrFcHLBvGDYzikWa6Szs3NuCKGYQXXLzka8ePVX9U6B5ukV2X1tl71Oso/CNt
+         anHa0zS+sPOvy9R4nIkxhGILl54K/hOBlAlBhVu3kypgWwXDlCiEXRkSeAAWmZbjPc0j
+         wDdw==
+X-Gm-Message-State: AJIora9eO9dbGJ0U9LaWia80yaJYoWkj9sVagAq5ge5aX/NxEpIXGhKL
+	fVlS2yNLmIJM5AGjvkSDzE1gBUqeo5hCLm2Z/+1MytroX9+jGwim
+X-Google-Smtp-Source: AGRyM1sFD+BQme0btd5XcehOWxJBfptX/UqbXfQcdETLby5E4F7hnkDmbIHcHg0mdZeOLTdnT6QzBmL3q+seb2qy/TY=
+X-Received: by 2002:a05:620a:744:b0:6b5:e442:21de with SMTP id
+ i4-20020a05620a074400b006b5e44221demr11790387qki.411.1658334245301; Wed, 20
+ Jul 2022 09:24:05 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: ecordonnier@snapchat.com
+Date: Wed, 20 Jul 2022 18:23:54 +0200
+Message-ID: <CAHUKmYYuZWb3+jTqB9n54iR5hCNXgOLMizQONLxpPF403fEZ7A@mail.gmail.com>
+Subject: Bitbake recipe for uutils-coreutils
+To: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="0000000000009c5a5605e43f0772"
 
-The recipe has been removed from core.
+--0000000000009c5a5605e43f0772
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Alexander Kanavin <alex@linutronix.de>
----
- meta-poky/conf/distro/include/poky-floating-revisions.inc | 2 --
- 1 file changed, 2 deletions(-)
+Hello,
+I am writing a bitbake recipe for uutils-coreutils, which is a rewrite in
+rust of GNU coreutils ( https://github.com/uutils/coreutils ). This project
+uses an MIT license.
 
-diff --git a/meta-poky/conf/distro/include/poky-floating-revisions.inc b/meta-poky/conf/distro/include/poky-floating-revisions.inc
-index 6f473de88c..0cc4e005b9 100644
---- a/meta-poky/conf/distro/include/poky-floating-revisions.inc
-+++ b/meta-poky/conf/distro/include/poky-floating-revisions.inc
-@@ -43,8 +43,6 @@ SRCREV:pn-xf86-input-evdev = "${AUTOREV}"
- #PREFERRED_VERSION_xf86-input-evdev ?= "2.0.4"
- SRCREV:pn-xf86-input-mouse = "${AUTOREV}"
- #PREFERRED_VERSION_xf86-input-mouse ?= "1.3.0+git%"
--SRCREV:pn-xf86-input-keyboard = "${AUTOREV}"
--#PREFERRED_VERSION_xf86-input-keyboard ?= "1.3.1+git%"
- SRCREV:pn-xf86-input-synaptics = "${AUTOREV}"
- #PREFERRED_VERSION_xf86-input-synaptics ?= "0.15.2+git%"
- 
--- 
-2.30.2
+I want to upstream this recipe, however I am not sure whether poky or
+meta-openembedded would be the better option. Currently, uutils-coreutils
+is still in development, and does not yet provide stty. Also, some
+test-cases from the GNU coreutils test-suite are still failing, but it is
+already in a "working" state.
 
+In order to replace coreutils in the poky image, I used the "PROVIDE"
+mechanism in the uutils-coreutils recipe:
+PROVIDES = "coreutils"
+RPROVIDES:${PN} = "coreutils"
+
+What do you recommend? Sending patches to meta-openembedded or rather to
+poky / poky-contrib?
+
+Thanks,
+Etienne Cordonnier
+
+--0000000000009c5a5605e43f0772
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hello,<div>I am writing a bitbake recipe for uutils-coreut=
+ils, which is a rewrite in rust of GNU coreutils (=C2=A0<a href=3D"https://=
+github.com/uutils/coreutils" target=3D"_blank">https://github.com/uutils/co=
+reutils</a>=C2=A0). This project uses an MIT license.<br><br>I want to upst=
+ream this recipe, however I am not sure whether poky or meta-openembedded w=
+ould be the better option. Currently, uutils-coreutils is still in developm=
+ent, and does not yet provide stty. Also, some test-cases from the GNU core=
+utils test-suite are still failing,=C2=A0but it is already in a &quot;worki=
+ng&quot; state.<br><br>In order to replace coreutils in the poky image, I u=
+sed the &quot;PROVIDE&quot; mechanism in the uutils-coreutils recipe:</div>=
+<div>PROVIDES =3D &quot;coreutils&quot;<br>RPROVIDES:${PN} =3D &quot;coreut=
+ils&quot;<br><br>What do you recommend? Sending patches to meta-openembedde=
+d or rather to poky / poky-contrib?<br><br>Thanks,<br>Etienne Cordonnier</d=
+iv></div>
+
+--0000000000009c5a5605e43f0772--
