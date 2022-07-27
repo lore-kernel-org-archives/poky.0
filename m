@@ -1,105 +1,56 @@
-Subject: [kirkstone ] Need help on poky build
-To: poky@lists.yoctoproject.org
-From: "Rahul Chauhan" <rahulchauhankitps@gmail.com>
-X-Originating-Location: Melbourne, Victoria, AU (155.190.53.6)
-X-Originating-Platform: Windows Chrome 103
-User-Agent: GROUPS.IO Web Poster
+Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net [217.70.183.197])
+ by mx.groups.io with SMTP id smtpd.web11.18577.1658920845739603442
+ for <poky@lists.yoctoproject.org>;
+ Wed, 27 Jul 2022 04:20:46 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@bootlin.com header.s=gm1 header.b=HszR0X7G;
+ spf=pass (domain: bootlin.com, ip: 217.70.183.197, mailfrom: luca.ceresoli@bootlin.com)
+Received: from booty (unknown [77.244.183.192])
+	(Authenticated sender: luca.ceresoli@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPSA id 0F74C1C0004;
+	Wed, 27 Jul 2022 11:20:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1658920843;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BKWgoD4z5kokxPD23ff8OK1CkT3YdndYGzfHBhvpfTw=;
+	b=HszR0X7GesNtl4czhWpox9lG736aFzIUSuVNO2RoWZda4YzprT2Dn2vRo199OFRYjZlX6m
+	tFD57OWTNN6OmTkAPwlaKsMhFaEjI4oEzFhup+rYhtOn9ICLlH+Y2Bd587zJjyjvbkHC/L
+	sjX6mjC7iCR0aJAxsYlMnv2ANxxU6erSwBLesZNK7UKMGqY55+hzDqi+ff5/EYXtIBqKed
+	F2BxhZYvJCZ63e/tLgLIPVHjQSlu26W0u/SMZZI58R4mjPxA/0bWohXKyGqUOgk6yCRLrE
+	xK/xDMayrPS0fRQWHE+C54Vu0VdXW5wK/KjG0VENFaq/QyOPDy+3yzXceK7Y9w==
+Date: Wed, 27 Jul 2022 13:20:41 +0200
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+To: "Armin Kuster" <akuster808@gmail.com>
+Cc: poky@lists.yoctoproject.org, Armin Kuster <akuste808r@gmail.com>
+Subject: Re: [poky] [meta-poky][PATCH] poky.conf: remove EOL and Cento7 hosts
+Message-ID: <20220727132041.6b3afe97@booty>
+In-Reply-To: <20220726190627.785536-1-akuster808@gmail.com>
+References: <20220726190627.785536-1-akuster808@gmail.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Date: Wed, 27 Jul 2022 02:03:33 -0700
-Message-ID: <J1HS.1658912613254135896.mk3h@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="84T0LicvLrRKRybb31RV"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
---84T0LicvLrRKRybb31RV
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Armin,
 
-Hi Team,
+On Tue, 26 Jul 2022 12:06:27 -0700
+"Armin Kuster" <akuster808@gmail.com> wrote:
 
-I am trying to build python3 in poky (kirkstone branch)
+> Centos7 is no longer in the AB
+> Centos8 has been EOL'd - replaced by Alma8
+> Debian9 has been EOL'd  - June, 2022
+> Ubuntu 16.04 has been EOL'd - April 20th, 2021
+> 
+> Signed-off-by: Armin Kuster <akuste808r@gmail.com>
 
-but getting below error.
+I took this patch in my testing branch with a small typo fixed in the
+subject (Cento7 -> Centos7).
 
-I checked there is some python changes in kirkstone reease
-https://docs.yoctoproject.org/migration-guides/migration-4.0.html#python-ch=
-anges
-
-But don't have much idea.
-
-can any one please guide me to fix this error.
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
-ERROR: python3-native-3.10.4-r0 do_install: ExecutionError(' /home/rahul/ki=
-rkstone/poky/build/tmp/work/x86_64-linux/python3-native/3.10.4-r0/temp/run.=
-do_install.3686780', 1, None, None)
-ERROR: Logfile of failure stored in: /home/rahul/kirkstone/poky/build/tmp/w=
-ork/x86_64-linux/python3-native/3.10.4-r0/temp/log.do_install.3686780
-Log data follows:
-| DEBUG: Executing python function autotools_aclocals
-| DEBUG: SITE files ['endian-little', 'common-linux', 'common-glibc', 'bit-=
-64', 'x86_64-linux', 'common']
-| DEBUG: Python function autotools_aclocals finished
-| DEBUG: Executing shell function do_install
-| Failed to build these modules:
-| _hashlib=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 _ssl
-| WARNING: exit code 1 from a shell command.
-ERROR: Task (virtual:native:/home/rahul/kirkstone/poky/meta/recipes-devtool=
-s/python/python3_3.10.4.bb:do_install) failed with exit code '1'
-NOTE: Tasks Summary: Attempted 857 tasks of which 850 didn't need to be rer=
-un and 1 failed.
-NOTE: Writing buildhistory
-NOTE: Writing buildhistory took: 2 seconds
-
-Summary: 1 task failed:
-virtual:native:/home/rahul/kirkstone/poky/meta/recipes-devtools/python/pyth=
-on3_3.10.4.bb:do_install
-Summary: There was 1 WARNING message.
-Summary: There was 1 ERROR message, returning a non-zero exit code.
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
---84T0LicvLrRKRybb31RV
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div>Hi Team,<br /><br />I am trying to build python3 in poky (kirkstone br=
-anch)<br /><br />but getting below error.&nbsp;<br /><br />I checked there =
-is some python changes in kirkstone reease&nbsp;<br /><a href=3D"https://do=
-cs.yoctoproject.org/migration-guides/migration-4.0.html#python-changes" tar=
-get=3D"_blank" rel=3D"noopener">https://docs.yoctoproject.org/migration-gui=
-des/migration-4.0.html#python-changes</a><br /><br />But don't have much id=
-ea.<br /><br />can any one please guide me to fix this error.<br /><br />=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D<br />ERROR: python3-native-3.10.4-r0 do_install: ExecutionError(' /home=
-/rahul/kirkstone/poky/build/tmp/work/x86_64-linux/python3-native/3.10.4-r0/=
-temp/run.do_install.3686780', 1, None, None)</div>
-<div>ERROR: Logfile of failure stored in: /home/rahul/kirkstone/poky/build/=
-tmp/work/x86_64-linux/python3-native/3.10.4-r0/temp/log.do_install.3686780<=
-/div>
-<div>Log data follows:</div>
-<div>| DEBUG: Executing python function autotools_aclocals</div>
-<div>| DEBUG: SITE files ['endian-little', 'common-linux', 'common-glibc', =
-'bit-64', 'x86_64-linux', 'common']</div>
-<div>| DEBUG: Python function autotools_aclocals finished</div>
-<div>| DEBUG: Executing shell function do_install</div>
-<div>| Failed to build these modules:</div>
-<div>| _hashlib&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; _ssl</div>
-<div>| WARNING: exit code 1 from a shell command.</div>
-<div>ERROR: Task (virtual:native:/home/rahul/kirkstone/poky/meta/recipes-de=
-vtools/python/python3_3.10.4.bb:do_install) failed with exit code '1'</div>
-<div>NOTE: Tasks Summary: Attempted 857 tasks of which 850 didn't need to b=
-e rerun and 1 failed.</div>
-<div>NOTE: Writing buildhistory</div>
-<div>NOTE: Writing buildhistory took: 2 seconds</div>
-<div>&nbsp;</div>
-<div>Summary: 1 task failed:</div>
-<div>&nbsp; virtual:native:/home/rahul/kirkstone/poky/meta/recipes-devtools=
-/python/python3_3.10.4.bb:do_install</div>
-<div>Summary: There was 1 WARNING message.</div>
-<div>Summary: There was 1 ERROR message, returning a non-zero exit code.<br=
- />=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D</div>
-
---84T0LicvLrRKRybb31RV--
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
