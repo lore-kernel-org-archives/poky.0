@@ -1,397 +1,73 @@
-Subject: Devtool fails if SRCREV is set to autorev #bitbake #poky #devtool
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+ by mx.groups.io with SMTP id smtpd.web10.44704.1660842649766574523
+ for <poky@lists.yoctoproject.org>;
+ Thu, 18 Aug 2022 10:10:49 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=xRzJ7Dhw;
+ spf=softfail (domain: sakoman.com, ip: 209.85.216.49, mailfrom: steve@sakoman.com)
+Received: by mail-pj1-f49.google.com with SMTP id w11-20020a17090a380b00b001f73f75a1feso5326972pjb.2
+        for <poky@lists.yoctoproject.org>; Thu, 18 Aug 2022 10:10:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc;
+        bh=ZgVpzjUEa8gvRTVk/q8mQER1oLyGEi7zeZsAaISfjKQ=;
+        b=xRzJ7DhwWU/FjWzesD+xUSgGql8F+vfBIRvrh726ppRXs3YP6/TfQJGygC44aHd7+K
+         hCOi6ALnDAgL/Pj6PYUK0LyE2w8pSOviswjfK3yd4iiMiQxQ1SWgNeySOa6DqnnDMYMF
+         6HQkT6Gk6KcwWzRy8L5FmA8iLJG+fS6+KMAgAELSdAdS7OZkdABfnXMHn3sXGyLtXpNv
+         yBgjT5XSgWNP7IokVGDZSN1kyP+kV2MJIgE/VbFdsFi9/ir4YlikgYm2QSRu8jUWd10x
+         dGfEsUCYYN9M3A8WO25keQLbuY/yamVnElLC+N3e3dNgmqwmdJ+DgKRlsRsV634fqA71
+         /RiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc;
+        bh=ZgVpzjUEa8gvRTVk/q8mQER1oLyGEi7zeZsAaISfjKQ=;
+        b=ps7QJE87RZB7LROaXeoAH0JMqGTJZW3j1oENdbKCdvBEoX7QsTmZeJFeRGs/qKVmzG
+         d0IHrL7Bw+c/X3kaMZsOgR7fnmHg/17fwsvCzyzu9G02DgSFJN3y4L4HJmrDGiTNv/2z
+         I6PeAr824S3jPIjiXrsVh240SMhXFVhzGzRIHh3yR0C/Rs/A0PPPXMEKmYmeeRk4Xdef
+         lPMeZd6ymWuIuYWmupT0eq6Qh1MDRHHw4Ju/0b5vj3a3clCCBwuGFrwnbBrsrHKs+7Z8
+         riOuLZUUYknoP92Iql14gWJv8p/mSdwKIj0mpJEu2+vlg/HaUkMH9ZWi7qzHcpKBAYZU
+         VeAw==
+X-Gm-Message-State: ACgBeo0Ua3l/eTvA5oFn0oSlj4wYBRa5SWDenuB8d4oKP+1lNTVo4XUe
+	TdJTYAZxif4k2THAv0d5MoTPoVB1/52kIToM
+X-Google-Smtp-Source: AA6agR59HfdXMrvLfzssCei4jjrXZJ45aBWFsXcfpBX6J6dR3t0Ts/GP1TyERe+YC7o+u+tX/Gs2JA==
+X-Received: by 2002:a17:90a:2b0f:b0:1fa:d73f:ce92 with SMTP id x15-20020a17090a2b0f00b001fad73fce92mr1899870pjc.60.1660842648653;
+        Thu, 18 Aug 2022 10:10:48 -0700 (PDT)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
+        by smtp.gmail.com with ESMTPSA id h2-20020a63c002000000b0040cb1f55391sm1546692pgg.2.2022.08.18.10.10.47
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 18 Aug 2022 10:10:47 -0700 (PDT)
+From: "Steve Sakoman" <steve@sakoman.com>
 To: poky@lists.yoctoproject.org
-From: shibi.cbe@gmail.com
-X-Originating-Location: Mumbai, Maharashtra, IN (52.95.75.18)
-X-Originating-Platform: Mac Chrome 104
-User-Agent: GROUPS.IO Web Poster
+Subject: [meta-yocto][dunfell] poky.conf: bump version for 3.1.19 release
+Date: Thu, 18 Aug 2022 07:10:40 -1000
+Message-Id: <d705a0199028a58a8bdd07978c9caea7a49b6041.1660842577.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1660842577.git.steve@sakoman.com>
+References: <cover.1660842577.git.steve@sakoman.com>
 MIME-Version: 1.0
-Date: Wed, 17 Aug 2022 22:23:36 -0700
-Message-ID: <R93r.1660800216510497774.hkf3@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="FrqeLssMRaq2Dw8yDklq"
+Content-Transfer-Encoding: 8bit
 
---FrqeLssMRaq2Dw8yDklq
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Steve Sakoman <steve@sakoman.com>
+---
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Hello Everyone
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index ecf4813..eefd37f 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -1,6 +1,6 @@
+ DISTRO = "poky"
+ DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
+-DISTRO_VERSION = "3.1.18"
++DISTRO_VERSION = "3.1.19"
+ DISTRO_CODENAME = "dunfell"
+ SDK_VENDOR = "-pokysdk"
+ SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}', 'snapshot')}"
+-- 
+2.25.1
 
-We perform yocto build and do devtool modify for one of package it works
-if we perform devtool modify for another package without resetting the prev=
-iously modified package we are getting below error in modified package duri=
-ng parsing bb step
-
-*recipefile:*
-
-SRC_URI=3D"git://git.com/pkg/linux;branch=3Dmulberry-5.10;protocol=3Dssh;na=
-me=3Dlinux;destsuffix=3Dgit
-
-SRCREV =3D "${AUTOREV}"
-
-PV =3D "5.10+git${SRCPV}"
-
-Yocto version: Kirkstone
-BB_SRCREV_POLICY =3D "clear"
-
-*Error:*
-
-ERROR: /local/home/test/workspace/poky/../sources/meta-mulberry/recipes-ker=
-nel/linux/linux_5.10.bb: Error executing a python function in <code>:=C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| ETA:=C2=A0 --:--:--
-
-The stack trace of python calls that resulted in this exception/failure was=
-:
-File: '<code>', lineno: 21, function: <module>
-
-0017:__anon_56__local_home_test_workspace_poky_meta_classes_kernel_fitimage=
-_bbclass(d)
-
-0018:__anon_795__local_home_test_workspace_poky_meta_classes_kernel_fitimag=
-e_bbclass(d)
-
-0019:__anon_7__local_home_test_workspace_poky_meta_classes_kernel_devicetre=
-e_bbclass(d)
-
-0020:__anon_717__local_home_test_workspace_poky_meta_classes_kernel_yocto_b=
-bclass(d)
-
-*** 0021:__anon_145__local_home_test_workspace_poky_meta_classes_externalsr=
-c_bbclass(d)
-
-File: '/local/home/shibikri/mulberry_workspace/poky/meta/classes/externalsr=
-c.bbclass', lineno: 66, function: __anon_145__local_home_test_workspace_pok=
-y_meta_classes_externalsrc_bbclass
-0062:=C2=A0 =C2=A0 =C2=A0 =C2=A0 else:
-0063:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 d.setVar('B', '${WORKDIR}/${=
-BPN}-${PV}/')
-0064:
-0065:=C2=A0 =C2=A0 =C2=A0 =C2=A0 local_srcuri =3D []
-*** 0066:=C2=A0 =C2=A0 =C2=A0 =C2=A0 fetch =3D bb.fetch2.Fetch((d.getVar('S=
-RC_URI') or '').split(), d)
-0067:=C2=A0 =C2=A0 =C2=A0 =C2=A0 for url in fetch.urls:
-0068:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 url_data =3D fetch.ud[url]
-0069:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 parm =3D url_data.parm
-0070:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (url_data.type =3D=3D 'fi=
-le' or
-File: '/local/home/test/workspace/poky/bitbake/lib/bb/fetch2/__init__.py', =
-lineno: 1680, function: __init__
-1676:
-1677:=C2=A0 =C2=A0 =C2=A0 =C2=A0 for url in urls:
-1678:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if url not in self.ud:
-1679:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 try:
-*** 1680:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 self.ud[url] =3D FetchData(url, d, localonly)
-1681:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 except NonLoca=
-lMethod:
-1682:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-if localonly:
-1683:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 self.ud[url] =3D None
-1684:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 pass
-File: '/local/home/test/workspace/poky/bitbake/lib/bb/fetch2/__init__.py', =
-lineno: 1317, function: __init__
-1313:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 logger.warning('Consider upd=
-ating %s recipe to use "protocol" not "proto" in SRC_URI.', d.getVar('PN'))
-1314:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 self.parm["protocol"] =3D se=
-lf.parm.get("proto", None)
-1315:
-1316:=C2=A0 =C2=A0 =C2=A0 =C2=A0 if hasattr(self.method, "urldata_init"):
-*** 1317:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 self.method.urldata_init=
-(self, d)
-1318:
-1319:=C2=A0 =C2=A0 =C2=A0 =C2=A0 if "localpath" in self.parm:
-1320:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 # if user sets localpath for=
- file, use it instead.\
-1321:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 self.localpath =3D self.parm=
-["localpath"]
-File: '/local/home/shibikri/test/workspace/poky/bitbake/lib/bb/fetch2/git.p=
-y', lineno: 249, function: urldata_init
-0245:=C2=A0 =C2=A0 =C2=A0 =C2=A0 write_tarballs =3D d.getVar("BB_GENERATE_M=
-IRROR_TARBALLS") or "0"
-0246:=C2=A0 =C2=A0 =C2=A0 =C2=A0 ud.write_tarballs =3D write_tarballs !=3D =
-"0" or ud.rebaseable
-0247:=C2=A0 =C2=A0 =C2=A0 =C2=A0 ud.write_shallow_tarballs =3D (d.getVar("B=
-B_GENERATE_SHALLOW_TARBALLS") or write_tarballs) !=3D "0"
-0248:
-*** 0249:=C2=A0 =C2=A0 =C2=A0 =C2=A0 ud.setup_revisions(d)
-0250:
-0251:=C2=A0 =C2=A0 =C2=A0 =C2=A0 for name in ud.names:
-0252:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 # Ensure anything that doesn=
-'t look like a sha256 checksum/revision is translated into one
-0253:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if not ud.revisions[name] or=
- len(ud.revisions[name]) !=3D 40=C2=A0 or (False in [c in "abcdef0123456789=
-" for c in ud.revisions[name]]):
-File: '/local/home/test/workspace/poky/bitbake/lib/bb/fetch2/__init__.py', =
-lineno: 1347, function: setup_revisions
-1343:
-1344:=C2=A0 =C2=A0 def setup_revisions(self, d):
-1345:=C2=A0 =C2=A0 =C2=A0 =C2=A0 self.revisions =3D {}
-1346:=C2=A0 =C2=A0 =C2=A0 =C2=A0 for name in self.names:
-*** 1347:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 self.revisions[name] =3D=
- srcrev_internal_helper(self, d, name)
-1348:
-1349:=C2=A0 =C2=A0 =C2=A0 =C2=A0 # add compatibility code for non name spec=
-ified case
-1350:=C2=A0 =C2=A0 =C2=A0 =C2=A0 if len(self.names) =3D=3D 1:
-1351:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 self.revision =3D self.revis=
-ions[self.names[0]]
-File: '/local/home/test/workspace/poky/bitbake/lib/bb/fetch2/__init__.py', =
-lineno: 1212, function: srcrev_internal_helper
-1208:
-1209:=C2=A0 =C2=A0 if srcrev =3D=3D "INVALID" or not srcrev:
-1210:=C2=A0 =C2=A0 =C2=A0 =C2=A0 raise FetchError("Please set a valid SRCRE=
-V for url %s (possible key names are %s, or use a ;rev=3DX URL parameter)" =
-% (str(attempts), ud.url), ud.url)
-1211:=C2=A0 =C2=A0 if srcrev =3D=3D "AUTOINC":
-*** 1212:=C2=A0 =C2=A0 =C2=A0 =C2=A0 srcrev =3D ud.method.latest_revision(u=
-d, d, name)
-1213:
-1214:=C2=A0 =C2=A0 return srcrev
-1215:
-1216:def get_checksum_file_list(d):
-File: '/local/home/test/workspace/poky/bitbake/lib/bb/fetch2/__init__.py', =
-lineno: 1624, function: latest_revision
-1620:=C2=A0 =C2=A0 =C2=A0 =C2=A0 key =3D self.generate_revision_key(ud, d, =
-name)
-1621:=C2=A0 =C2=A0 =C2=A0 =C2=A0 try:
-1622:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return revs[key]
-1623:=C2=A0 =C2=A0 =C2=A0 =C2=A0 except KeyError:
-*** 1624:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 revs[key] =3D rev =3D se=
-lf._latest_revision(ud, d, name)
-1625:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return rev
-1626:
-1627:=C2=A0 =C2=A0 def sortable_revision(self, ud, d, name):
-1628:=C2=A0 =C2=A0 =C2=A0 =C2=A0 latest_rev =3D self._build_revision(ud, d,=
- name)
-File: '/local/home/test/workspace/poky/bitbake/lib/bb/fetch2/git.py', linen=
-o: 734, function: _latest_revision
-0730:=C2=A0 =C2=A0 =C2=A0 =C2=A0 """
-0731:=C2=A0 =C2=A0 =C2=A0 =C2=A0 Compute the HEAD revision for the url
-0732:=C2=A0 =C2=A0 =C2=A0 =C2=A0 """
-0733:=C2=A0 =C2=A0 =C2=A0 =C2=A0 if not d.getVar("__BBSEENSRCREV"):
-*** 0734:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 raise bb.fetch2.FetchErr=
-or("Recipe uses a floating tag/branch without a fixed SRCREV yet doesn't ca=
-ll bb.fetch2.get_srcrev() (use SRCPV in PV for OE).")
-0735:
-0736:=C2=A0 =C2=A0 =C2=A0 =C2=A0 # Ensure we mark as not cached
-0737:=C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.fetch2.get_autorev(d)
-0738:
-Exception: bb.fetch2.FetchError: Fetcher failure: Recipe uses a floating ta=
-g/branch without a fixed SRCREV yet doesn't call bb.fetch2.get_srcrev() (us=
-e SRCPV in PV for OE).
-ERROR: Parsing halted due to errors, see error messages above
-
---FrqeLssMRaq2Dw8yDklq
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<div>Hello Everyone</div>
-<div><br />We perform yocto build and do devtool modify for one of package =
-it works</div>
-<div>if we perform devtool modify for another package without resetting the=
- previously modified package we are getting below error in modified package=
- during parsing bb step&nbsp;</div>
-<div>&nbsp;</div>
-<div><span style=3D"text-decoration: underline;"><strong>recipefile:</stron=
-g></span></div>
-<div>&nbsp;</div>
-<div>SRC_URI=3D"git://git.com/pkg/linux;branch=3Dmulberry-5.10;protocol=3Ds=
-sh;name=3Dlinux;destsuffix=3Dgit</div>
-<div>&nbsp;</div>
-<div>SRCREV =3D "${AUTOREV}"</div>
-<div>&nbsp;</div>
-<div>PV =3D "5.10+git${SRCPV}"</div>
-<div>&nbsp;</div>
-<div>Yocto version: Kirkstone</div>
-<div>BB_SRCREV_POLICY =3D "clear"</div>
-<div>&nbsp;</div>
-<div><span style=3D"text-decoration: underline;"><strong>Error:</strong></s=
-pan></div>
-<div>&nbsp;</div>
-<div>ERROR: /local/home/test/workspace/poky/../sources/meta-mulberry/recipe=
-s-kernel/linux/linux_5.10.bb: Error executing a python function in &lt;code=
-&gt;:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| ETA:&nbsp; --:--:--</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>The stack trace of python calls that resulted in this exception/failur=
-e was:</div>
-<div>File: '&lt;code&gt;', lineno: 21, function: &lt;module&gt;</div>
-<div>&nbsp;</div>
-<div>&nbsp; &nbsp; &nbsp;0017:__anon_56__local_home_test_workspace_poky_met=
-a_classes_kernel_fitimage_bbclass(d)</div>
-<div>&nbsp;</div>
-<div>&nbsp; &nbsp; &nbsp;0018:__anon_795__local_home_test_workspace_poky_me=
-ta_classes_kernel_fitimage_bbclass(d)</div>
-<div>&nbsp;</div>
-<div>&nbsp; &nbsp; &nbsp;0019:__anon_7__local_home_test_workspace_poky_meta=
-_classes_kernel_devicetree_bbclass(d)</div>
-<div>&nbsp;</div>
-<div>&nbsp; &nbsp; &nbsp;0020:__anon_717__local_home_test_workspace_poky_me=
-ta_classes_kernel_yocto_bbclass(d)</div>
-<div>&nbsp;</div>
-<div>&nbsp;*** 0021:__anon_145__local_home_test_workspace_poky_meta_classes=
-_externalsrc_bbclass(d)</div>
-<div>&nbsp;</div>
-<div>File: '/local/home/shibikri/mulberry_workspace/poky/meta/classes/exter=
-nalsrc.bbclass', lineno: 66, function: __anon_145__local_home_test_workspac=
-e_poky_meta_classes_externalsrc_bbclass</div>
-<div>&nbsp; &nbsp; &nbsp;0062:&nbsp; &nbsp; &nbsp; &nbsp; else:</div>
-<div>&nbsp; &nbsp; &nbsp;0063:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d.s=
-etVar('B', '${WORKDIR}/${BPN}-${PV}/')</div>
-<div>&nbsp; &nbsp; &nbsp;0064:</div>
-<div>&nbsp; &nbsp; &nbsp;0065:&nbsp; &nbsp; &nbsp; &nbsp; local_srcuri =3D =
-[]</div>
-<div>&nbsp;*** 0066:&nbsp; &nbsp; &nbsp; &nbsp; fetch =3D bb.fetch2.Fetch((=
-d.getVar('SRC_URI') or '').split(), d)</div>
-<div>&nbsp; &nbsp; &nbsp;0067:&nbsp; &nbsp; &nbsp; &nbsp; for url in fetch.=
-urls:</div>
-<div>&nbsp; &nbsp; &nbsp;0068:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; url=
-_data =3D fetch.ud[url]</div>
-<div>&nbsp; &nbsp; &nbsp;0069:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; par=
-m =3D url_data.parm</div>
-<div>&nbsp; &nbsp; &nbsp;0070:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if =
-(url_data.type =3D=3D 'file' or</div>
-<div>File: '/local/home/test/workspace/poky/bitbake/lib/bb/fetch2/__init__.=
-py', lineno: 1680, function: __init__</div>
-<div>&nbsp; &nbsp; &nbsp;1676:</div>
-<div>&nbsp; &nbsp; &nbsp;1677:&nbsp; &nbsp; &nbsp; &nbsp; for url in urls:<=
-/div>
-<div>&nbsp; &nbsp; &nbsp;1678:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if =
-url not in self.ud:</div>
-<div>&nbsp; &nbsp; &nbsp;1679:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; try:</div>
-<div>&nbsp;*** 1680:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; self.ud[url] =3D FetchData(url, d, localonly)</div>
-<div>&nbsp; &nbsp; &nbsp;1681:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; except NonLocalMethod:</div>
-<div>&nbsp; &nbsp; &nbsp;1682:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; if localonly:</div>
-<div>&nbsp; &nbsp; &nbsp;1683:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self.ud[url] =3D None</div>
-<div>&nbsp; &nbsp; &nbsp;1684:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pass</div>
-<div>File: '/local/home/test/workspace/poky/bitbake/lib/bb/fetch2/__init__.=
-py', lineno: 1317, function: __init__</div>
-<div>&nbsp; &nbsp; &nbsp;1313:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; log=
-ger.warning('Consider updating %s recipe to use "protocol" not "proto" in S=
-RC_URI.', d.getVar('PN'))</div>
-<div>&nbsp; &nbsp; &nbsp;1314:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; sel=
-f.parm["protocol"] =3D self.parm.get("proto", None)</div>
-<div>&nbsp; &nbsp; &nbsp;1315:</div>
-<div>&nbsp; &nbsp; &nbsp;1316:&nbsp; &nbsp; &nbsp; &nbsp; if hasattr(self.m=
-ethod, "urldata_init"):</div>
-<div>&nbsp;*** 1317:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self.method.u=
-rldata_init(self, d)</div>
-<div>&nbsp; &nbsp; &nbsp;1318:</div>
-<div>&nbsp; &nbsp; &nbsp;1319:&nbsp; &nbsp; &nbsp; &nbsp; if "localpath" in=
- self.parm:</div>
-<div>&nbsp; &nbsp; &nbsp;1320:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # i=
-f user sets localpath for file, use it instead.\</div>
-<div>&nbsp; &nbsp; &nbsp;1321:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; sel=
-f.localpath =3D self.parm["localpath"]</div>
-<div>File: '/local/home/shibikri/test/workspace/poky/bitbake/lib/bb/fetch2/=
-git.py', lineno: 249, function: urldata_init</div>
-<div>&nbsp; &nbsp; &nbsp;0245:&nbsp; &nbsp; &nbsp; &nbsp; write_tarballs =
-=3D d.getVar("BB_GENERATE_MIRROR_TARBALLS") or "0"</div>
-<div>&nbsp; &nbsp; &nbsp;0246:&nbsp; &nbsp; &nbsp; &nbsp; ud.write_tarballs=
- =3D write_tarballs !=3D "0" or ud.rebaseable</div>
-<div>&nbsp; &nbsp; &nbsp;0247:&nbsp; &nbsp; &nbsp; &nbsp; ud.write_shallow_=
-tarballs =3D (d.getVar("BB_GENERATE_SHALLOW_TARBALLS") or write_tarballs) !=
-=3D "0"</div>
-<div>&nbsp; &nbsp; &nbsp;0248:</div>
-<div>&nbsp;*** 0249:&nbsp; &nbsp; &nbsp; &nbsp; ud.setup_revisions(d)</div>
-<div>&nbsp; &nbsp; &nbsp;0250:</div>
-<div>&nbsp; &nbsp; &nbsp;0251:&nbsp; &nbsp; &nbsp; &nbsp; for name in ud.na=
-mes:</div>
-<div>&nbsp; &nbsp; &nbsp;0252:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # E=
-nsure anything that doesn't look like a sha256 checksum/revision is transla=
-ted into one</div>
-<div>&nbsp; &nbsp; &nbsp;0253:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if =
-not ud.revisions[name] or len(ud.revisions[name]) !=3D 40&nbsp; or (False i=
-n [c in "abcdef0123456789" for c in ud.revisions[name]]):</div>
-<div>File: '/local/home/test/workspace/poky/bitbake/lib/bb/fetch2/__init__.=
-py', lineno: 1347, function: setup_revisions</div>
-<div>&nbsp; &nbsp; &nbsp;1343:</div>
-<div>&nbsp; &nbsp; &nbsp;1344:&nbsp; &nbsp; def setup_revisions(self, d):</=
-div>
-<div>&nbsp; &nbsp; &nbsp;1345:&nbsp; &nbsp; &nbsp; &nbsp; self.revisions =
-=3D {}</div>
-<div>&nbsp; &nbsp; &nbsp;1346:&nbsp; &nbsp; &nbsp; &nbsp; for name in self.=
-names:</div>
-<div>&nbsp;*** 1347:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; self.revision=
-s[name] =3D srcrev_internal_helper(self, d, name)</div>
-<div>&nbsp; &nbsp; &nbsp;1348:</div>
-<div>&nbsp; &nbsp; &nbsp;1349:&nbsp; &nbsp; &nbsp; &nbsp; # add compatibili=
-ty code for non name specified case</div>
-<div>&nbsp; &nbsp; &nbsp;1350:&nbsp; &nbsp; &nbsp; &nbsp; if len(self.names=
-) =3D=3D 1:</div>
-<div>&nbsp; &nbsp; &nbsp;1351:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; sel=
-f.revision =3D self.revisions[self.names[0]]</div>
-<div>File: '/local/home/test/workspace/poky/bitbake/lib/bb/fetch2/__init__.=
-py', lineno: 1212, function: srcrev_internal_helper</div>
-<div>&nbsp; &nbsp; &nbsp;1208:</div>
-<div>&nbsp; &nbsp; &nbsp;1209:&nbsp; &nbsp; if srcrev =3D=3D "INVALID" or n=
-ot srcrev:</div>
-<div>&nbsp; &nbsp; &nbsp;1210:&nbsp; &nbsp; &nbsp; &nbsp; raise FetchError(=
-"Please set a valid SRCREV for url %s (possible key names are %s, or use a =
-;rev=3DX URL parameter)" % (str(attempts), ud.url), ud.url)</div>
-<div>&nbsp; &nbsp; &nbsp;1211:&nbsp; &nbsp; if srcrev =3D=3D "AUTOINC":</di=
-v>
-<div>&nbsp;*** 1212:&nbsp; &nbsp; &nbsp; &nbsp; srcrev =3D ud.method.latest=
-_revision(ud, d, name)</div>
-<div>&nbsp; &nbsp; &nbsp;1213:</div>
-<div>&nbsp; &nbsp; &nbsp;1214:&nbsp; &nbsp; return srcrev</div>
-<div>&nbsp; &nbsp; &nbsp;1215:</div>
-<div>&nbsp; &nbsp; &nbsp;1216:def get_checksum_file_list(d):</div>
-<div>File: '/local/home/test/workspace/poky/bitbake/lib/bb/fetch2/__init__.=
-py', lineno: 1624, function: latest_revision</div>
-<div>&nbsp; &nbsp; &nbsp;1620:&nbsp; &nbsp; &nbsp; &nbsp; key =3D self.gene=
-rate_revision_key(ud, d, name)</div>
-<div>&nbsp; &nbsp; &nbsp;1621:&nbsp; &nbsp; &nbsp; &nbsp; try:</div>
-<div>&nbsp; &nbsp; &nbsp;1622:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ret=
-urn revs[key]</div>
-<div>&nbsp; &nbsp; &nbsp;1623:&nbsp; &nbsp; &nbsp; &nbsp; except KeyError:<=
-/div>
-<div>&nbsp;*** 1624:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; revs[key] =3D=
- rev =3D self._latest_revision(ud, d, name)</div>
-<div>&nbsp; &nbsp; &nbsp;1625:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ret=
-urn rev</div>
-<div>&nbsp; &nbsp; &nbsp;1626:</div>
-<div>&nbsp; &nbsp; &nbsp;1627:&nbsp; &nbsp; def sortable_revision(self, ud,=
- d, name):</div>
-<div>&nbsp; &nbsp; &nbsp;1628:&nbsp; &nbsp; &nbsp; &nbsp; latest_rev =3D se=
-lf._build_revision(ud, d, name)</div>
-<div>File: '/local/home/test/workspace/poky/bitbake/lib/bb/fetch2/git.py', =
-lineno: 734, function: _latest_revision</div>
-<div>&nbsp; &nbsp; &nbsp;0730:&nbsp; &nbsp; &nbsp; &nbsp; """</div>
-<div>&nbsp; &nbsp; &nbsp;0731:&nbsp; &nbsp; &nbsp; &nbsp; Compute the HEAD =
-revision for the url</div>
-<div>&nbsp; &nbsp; &nbsp;0732:&nbsp; &nbsp; &nbsp; &nbsp; """</div>
-<div>&nbsp; &nbsp; &nbsp;0733:&nbsp; &nbsp; &nbsp; &nbsp; if not d.getVar("=
-__BBSEENSRCREV"):</div>
-<div>&nbsp;*** 0734:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; raise bb.fetc=
-h2.FetchError("Recipe uses a floating tag/branch without a fixed SRCREV yet=
- doesn't call bb.fetch2.get_srcrev() (use SRCPV in PV for OE).")</div>
-<div>&nbsp; &nbsp; &nbsp;0735:</div>
-<div>&nbsp; &nbsp; &nbsp;0736:&nbsp; &nbsp; &nbsp; &nbsp; # Ensure we mark =
-as not cached</div>
-<div>&nbsp; &nbsp; &nbsp;0737:&nbsp; &nbsp; &nbsp; &nbsp; bb.fetch2.get_aut=
-orev(d)</div>
-<div>&nbsp; &nbsp; &nbsp;0738:</div>
-<div>Exception: bb.fetch2.FetchError: Fetcher failure: Recipe uses a floati=
-ng tag/branch without a fixed SRCREV yet doesn't call bb.fetch2.get_srcrev(=
-) (use SRCPV in PV for OE).</div>
-<div>ERROR: Parsing halted due to errors, see error messages above</div>
-
---FrqeLssMRaq2Dw8yDklq--
