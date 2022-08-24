@@ -1,65 +1,101 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
- by mx.groups.io with SMTP id smtpd.web10.10341.1661345243307042161
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+ by mx.groups.io with SMTP id smtpd.web09.10721.1661346992418871773
  for <poky@lists.yoctoproject.org>;
- Wed, 24 Aug 2022 05:47:23 -0700
+ Wed, 24 Aug 2022 06:16:32 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Sok1UMsk;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.51, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f51.google.com with SMTP id j26so8733185wms.0
-        for <poky@lists.yoctoproject.org>; Wed, 24 Aug 2022 05:47:23 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=bseNATlA;
+ spf=pass (domain: gmail.com, ip: 209.85.128.47, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-wm1-f47.google.com with SMTP id h204-20020a1c21d5000000b003a5b467c3abso899926wmh.5
+        for <poky@lists.yoctoproject.org>; Wed, 24 Aug 2022 06:16:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc;
-        bh=MsNJzAtTxf3CGnXNqAdQhUhjmC2CtfW+BY8SXlKSyuw=;
-        b=Sok1UMskBUOC8JsXjwqNch2wg/nfAdPphGHPs2Cd8V0W5ETXQUfpWagcP0HFHR8CIR
-         bars22dYlhKBxcPEum+p6trqUIa6ORSQujX460kBRgzJLjMO9XqtG2SjdRq9Ifxr5pgS
-         zK1leu7AO2DKrNi0AhSCnVAumJqUq4Gewoq3w=
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc;
+        bh=RksNTmTqlH9fKD3UP+dbfHBSZo4hndVnu41YsUiHwLQ=;
+        b=bseNATlAw5e6qE5Cqe442RI0zh78nWE8t3m8zxh7WG8f0ppGjwNlLPHuuPXWXDNZYs
+         yNBY7wtSG1kQGqVDDHXu/1cchW3HEuxg7cWRp+3ilZIYnDT5CDL5Uq/nRfBlUZTWZ2CK
+         bLoR3vy3zjeBMknOSDqQRbtokKAwrPLp0PwkAoBzmWYQeYho5NJr5YuyF/kaeyH9lcvS
+         JTArR1rNTQ1vNsEZQk+82MTNZhQ7CqZziuYt+nryq+IGCutQzNpfHH80ApxtImXSCOgd
+         jPzKJPRyAcuGC8cFnTG72/TaiLy63mC2liKkEysrzfbzWIxXRaktdRW60vVFZV4k6v2t
+         8ERw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc;
-        bh=MsNJzAtTxf3CGnXNqAdQhUhjmC2CtfW+BY8SXlKSyuw=;
-        b=qwpSxoGIg4s3s4NTDY5kBw6yoywAcLWXYomRDmFa3hzqzuMuzDeASnTkH8MVuFyniy
-         zy0dKN+hh/mcR4DUcb8H3wHa1RzhwvYRBjGkZpi4JkyiyKShm4Mi3EA7eiL9oyHx1mtf
-         tW+YyT9fxE9v6iAaDOtvS39neNXMYfJdMl47nDL6HfbyEyjTMk/DiNlxD1y0u1InGCWo
-         yphVBt5unuyJ2pW19aFYJuGYZu/irsXCOv6O9k5C+Jr0iaw+1bzCSMS0cBYCvRNTCpLx
-         yoYOwFZkCoE3dJ6M7aQg07OyLXI/L85qN0e4+ow2g/A6h/RbVKfauK3n4Gec9lUJCX2h
-         90hg==
-X-Gm-Message-State: ACgBeo1IhIVFaHF6VCtyfnA6W2j5ldXsEk/3gwA635XeMJhjTfaxPRku
-	XdP2eIVLVwfRCh2+Nff3WjK2Yw==
-X-Google-Smtp-Source: AA6agR4TpooNxWA2LuKrvsOl/8H7Sd3vDWutHIS0lyT0bHJQ2DFLSsacsK9xxttasXCVOPsebArgjQ==
-X-Received: by 2002:a7b:ce05:0:b0:3a5:c069:25b3 with SMTP id m5-20020a7bce05000000b003a5c06925b3mr5211373wmc.87.1661345241557;
-        Wed, 24 Aug 2022 05:47:21 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:4e4:9da0:6de0:5e33? ([2001:8b0:aba:5f3c:4e4:9da0:6de0:5e33])
-        by smtp.gmail.com with ESMTPSA id p13-20020a05600c358d00b003a607e395ebsm2859617wmq.9.2022.08.24.05.47.20
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc;
+        bh=RksNTmTqlH9fKD3UP+dbfHBSZo4hndVnu41YsUiHwLQ=;
+        b=m/IVML2BW6qXc6lL3y+kKJSeUWOpkUIvaxiXRNlozQMTs1/yQGuZHR6svCr/Ll+e4v
+         NoThnudgIekUa/234xRV76AgbVJ0ajC+89LSI1XFMOs6hB0hxxKlGulgp+B1MvD4DwLw
+         xplGRURGihFwH9Z02eHCg5Yztc5bD3ThnG9qPenZccjbgVEXmL696D4bR+IwVGso6owi
+         94lAV1tfUF/uXKxEZquKS71FZh4CGB6WNpYersNCTO4v7M1eyIcfilLOzkTjWcpslM5G
+         R3tfwFW4gWqlmi7cEmsfPFuc+GgeuJ9aibVVjJgprB9ROso742XsuL0bD9UiNkiHFYOa
+         A/FQ==
+X-Gm-Message-State: ACgBeo1FM1AtHd6eTkjC/Staf64a5gusbyM70ugqipGdK/kmSNGMy0bC
+	M4h6guErFFtJOGNOaWGYBJWDxJPh7ec=
+X-Google-Smtp-Source: AA6agR5m+OvwPRw/zIUhu4neWrXwTvYExno96Pz/N9IAK7T+ktBBK6i26DwDmBEatPbg5sculGNJBg==
+X-Received: by 2002:a05:600c:4fc2:b0:3a5:c491:5ee1 with SMTP id o2-20020a05600c4fc200b003a5c4915ee1mr5119189wmq.62.1661346990722;
+        Wed, 24 Aug 2022 06:16:30 -0700 (PDT)
+Return-Path: <alex.kanavin@gmail.com>
+Received: from Zen2.lab.linutronix.de. (drugstore.linutronix.de. [80.153.143.164])
+        by smtp.gmail.com with ESMTPSA id p6-20020a1c5446000000b003a500b612fcsm1865854wmi.12.2022.08.24.06.16.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 24 Aug 2022 05:47:21 -0700 (PDT)
-Message-ID: <f6f7427e0296aceb01ec8c4722b23e2df17a0db5.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH] conf: remove a copy of default configuration template
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Alexander Kanavin <alex.kanavin@gmail.com>, poky@lists.yoctoproject.org
+        Wed, 24 Aug 2022 06:16:30 -0700 (PDT)
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+X-Google-Original-From: Alexander Kanavin <alex@linutronix.de>
+To: poky@lists.yoctoproject.org
 Cc: Alexander Kanavin <alex@linutronix.de>
-Date: Wed, 24 Aug 2022 13:47:20 +0100
-In-Reply-To: <20220824124256.3549307-1-alex@linutronix.de>
-References: <20220824124256.3549307-1-alex@linutronix.de>
-User-Agent: Evolution 3.44.1-0ubuntu1 
+Subject: [PATCH] meta-poky/conf: move default templates to conf/templates/default/
+Date: Wed, 24 Aug 2022 15:16:26 +0200
+Message-Id: <20220824131626.3567996-1-alex@linutronix.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2022-08-24 at 14:42 +0200, Alexander Kanavin wrote:
-> I'm not sure what was the original reason to move the template
-> from meta into meta-poky, but as the template is now expected to be
-> in conf/templates/default, let's clean this up at the same time.
->=20
-> Signed-off-by: Alexander Kanavin <alex@linutronix.de>
+This follows the changes in oe-core, where templates are expected
+to be under conf/templates.
 
-It defaults to DISTRO =3D "poky" which you can't do in OE-Core. The two
-are subtly different.
+Signed-off-by: Alexander Kanavin <alex@linutronix.de>
+---
+ .templateconf                                                   | 2 +-
+ meta-poky/conf/{ => templates/default}/bblayers.conf.sample     | 0
+ meta-poky/conf/{ => templates/default}/conf-notes.txt           | 0
+ meta-poky/conf/{ => templates/default}/local.conf.sample        | 0
+ .../conf/{ => templates/default}/local.conf.sample.extended     | 0
+ meta-poky/conf/{ => templates/default}/site.conf.sample         | 0
+ 6 files changed, 1 insertion(+), 1 deletion(-)
+ rename meta-poky/conf/{ => templates/default}/bblayers.conf.sample (100%)
+ rename meta-poky/conf/{ => templates/default}/conf-notes.txt (100%)
+ rename meta-poky/conf/{ => templates/default}/local.conf.sample (100%)
+ rename meta-poky/conf/{ => templates/default}/local.conf.sample.extended (100%)
+ rename meta-poky/conf/{ => templates/default}/site.conf.sample (100%)
 
-Cheers,
+diff --git a/.templateconf b/.templateconf
+index 0fe6f82..faf0348 100644
+--- a/.templateconf
++++ b/.templateconf
+@@ -1,2 +1,2 @@
+ # Template settings
+-TEMPLATECONF=${TEMPLATECONF:-meta-poky/conf}
++TEMPLATECONF=${TEMPLATECONF:-meta-poky/conf/templates/default}
+diff --git a/meta-poky/conf/bblayers.conf.sample b/meta-poky/conf/templates/default/bblayers.conf.sample
+similarity index 100%
+rename from meta-poky/conf/bblayers.conf.sample
+rename to meta-poky/conf/templates/default/bblayers.conf.sample
+diff --git a/meta-poky/conf/conf-notes.txt b/meta-poky/conf/templates/default/conf-notes.txt
+similarity index 100%
+rename from meta-poky/conf/conf-notes.txt
+rename to meta-poky/conf/templates/default/conf-notes.txt
+diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/templates/default/local.conf.sample
+similarity index 100%
+rename from meta-poky/conf/local.conf.sample
+rename to meta-poky/conf/templates/default/local.conf.sample
+diff --git a/meta-poky/conf/local.conf.sample.extended b/meta-poky/conf/templates/default/local.conf.sample.extended
+similarity index 100%
+rename from meta-poky/conf/local.conf.sample.extended
+rename to meta-poky/conf/templates/default/local.conf.sample.extended
+diff --git a/meta-poky/conf/site.conf.sample b/meta-poky/conf/templates/default/site.conf.sample
+similarity index 100%
+rename from meta-poky/conf/site.conf.sample
+rename to meta-poky/conf/templates/default/site.conf.sample
+-- 
+2.30.2
 
-Richard
