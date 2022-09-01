@@ -1,78 +1,136 @@
-Received: from smtp1.axis.com (smtp1.axis.com [195.60.68.17])
- by mx.groups.io with SMTP id smtpd.web09.12116.1662038686596455491
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+ by mx.groups.io with SMTP id smtpd.web11.13335.1662044212011957276
  for <poky@lists.yoctoproject.org>;
- Thu, 01 Sep 2022 06:24:47 -0700
+ Thu, 01 Sep 2022 07:56:52 -0700
 Authentication-Results: mx.groups.io;
- dkim=fail reason="signature has expired" header.i=@axis.com header.s=axis-central1 header.b=XaGe0PuK;
- spf=pass (domain: axis.com, ip: 195.60.68.17, mailfrom: peter.kjellerstedt@axis.com)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=IQbewVwe;
+ spf=pass (domain: gmail.com, ip: 209.85.167.49, mailfrom: adimhatre303@gmail.com)
+Received: by mail-lf1-f49.google.com with SMTP id w8so15745877lft.12
+        for <poky@lists.yoctoproject.org>; Thu, 01 Sep 2022 07:56:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=axis.com; q=dns/txt; s=axis-central1; t=1662038686;
-  x=1693574686;
-  h=from:to:subject:date:message-id:references:in-reply-to:
-   content-transfer-encoding:mime-version;
-  bh=nWUH5maL47sgZOHYsYlOLScG1Nyg4YEtK93iJzRF1AI=;
-  b=XaGe0PuKKfsfNEVtcWWsrRwRttHhvbtPvur1EEPpDW9vzuBrmONfbXBe
-   AVDIQaAVmd0TTw2wLB1js6vNC7FxsuJoT8aQmP9QSieesRL8vIaD5Ilgn
-   ah5/TXBli0rTIxprgnXWchf7M7Q061fl2QS0SU5Ad6cr4xLnbnahwbiHZ
-   y7sIvmToG5O92Iag+HDh5X37QfBPdgleXjF87c0YLHNSd1CiUGk2xWouY
-   VJ2ETnMBpOKkuH0IByGKpKBXG3ydiPgns2qXPMYwogqkzuGoAsNe1y74h
-   vB1AoMA+fShxnTnQsxlt16z4sji6/ERIy+/kdudsDPtesvOb+Pw3PIa43
-   g==;
-From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
-To: Steve <star@gmx.li>, "poky@lists.yoctoproject.org"
-	<poky@lists.yoctoproject.org>
-Subject: Re: [poky] Patch a kernel module out of tree / pathes?
-Thread-Topic: [poky] Patch a kernel module out of tree / pathes?
-Thread-Index: AQHYvTxgB5KimOS3vkKVJ2BXNCulva3KjuwA
-Date: Thu, 1 Sep 2022 13:24:44 +0000
-Message-ID: <ba94777b32584116bb1416b00482c87d@axis.com>
-References: <08603763-e89e-f89c-aaf6-dcd6c168a002@gmx.li>
-In-Reply-To: <08603763-e89e-f89c-aaf6-dcd6c168a002@gmx.li>
-Accept-Language: en-US, sv-SE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.0.5.60]
+        d=gmail.com; s=20210112;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date;
+        bh=Q1pZrW1wkKFBeS3+mB2SSNUPU4KKIp8g42ACjnlBe5o=;
+        b=IQbewVwej8WtLhF2PynRgOxXQTuaPZfQB4dgpwzZUkQdHnaZKuAftti4nlbnPSzMgz
+         gTEklQ8OZnYfp4r6OnHKjNiqBMvD3pihPEJnB5GQzuN5/Z/FH5h5zzW46Ffc4uC/Zoxh
+         Ge22dFjI1E2iAmp54aSZVlUgvVYof9YNnWg2DTCSHsSgt3CVfsF2fzszYilxCn1C013C
+         sRuQFh19FSC3CR2kTKf7jE2HpdIe0o7/w86N2yoOpxgI/PFt9WzrysKFEfVpCieQrGJY
+         aej+Z9hJ8C/tAbzOsv6Qjfew1cn9EWBHmRZeijShXVxL4QV8e3l1HNFCgOja1PeoXx3z
+         OEQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date;
+        bh=Q1pZrW1wkKFBeS3+mB2SSNUPU4KKIp8g42ACjnlBe5o=;
+        b=D8kNdWtxigh2V+5TeFFX93Dpo3XiqkIy/CSNTx9voW8WrhUfnNbl8hafA80M7bHr5x
+         dSyzs1f9Q7b9qv8uuzE8V8LgLCWqiovbZC0PGYwY1rqUydQQhmIvkaIGz+Qreb3XWCKL
+         mgIjdf542UdG6Q3ZLopwRyhBBCeHLEEGEHCSxCNcgc/GzM086QE0dmJiWBiI60UQm5jo
+         R6uKCD9W3EWW3wgYGmEDFIyLpiBsODXXxbiwlJepmXBC97ZM09vB3SN5EnlSvule/6r9
+         tZMVoxxP6VSRYYO+MuL9HSkUv/5rrz60HwCnjQBAvqZQYHBf/KwN1Wl40xXos94pG4Km
+         V00g==
+X-Gm-Message-State: ACgBeo2RmqrmYKtg1vMo0DfPiZPsYbsLJtZK9QImX3HL2kN/xvrGUXe3
+	vu3RwyFUGgIgjkt1+vPlV3Hp5LPjLAjY/9VTxtekXFLoFAJMfE6JFrU=
+X-Google-Smtp-Source: AA6agR4QcSzX/4g9E6DZPbmolJV3ajPI9wlUAbsVFvrJVMPaAlLvyCa339XEY5c/HB1UFxpscHvxE1Mhfiz7iTiuXSs=
+X-Received: by 2002:a05:6512:2386:b0:494:66a5:8018 with SMTP id
+ c6-20020a056512238600b0049466a58018mr6710517lfv.96.1662044209749; Thu, 01 Sep
+ 2022 07:56:49 -0700 (PDT)
 MIME-Version: 1.0
-Return-Path: peter.kjellerstedt@axis.com
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: "Adinath Mhatre" <adimhatre303@gmail.com>
+Date: Thu, 1 Sep 2022 20:26:38 +0530
+Message-ID: <CAGB4t6XXRUOqH3879RMA1J6Zt4Ne9cELfXRnmfW4Wk4Aw37NjA@mail.gmail.com>
+Subject: Dunfell Kernel modules debug info
+To: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="000000000000b9204a05e79ed25b"
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBwb2t5QGxpc3RzLnlvY3RvcHJv
-amVjdC5vcmcgPHBva3lAbGlzdHMueW9jdG9wcm9qZWN0Lm9yZz4gT24gQmVoYWxmDQo+IE9mIFN0
-ZXZlDQo+IFNlbnQ6IGRlbiAzMSBhdWd1c3RpIDIwMjIgMTU6MjANCj4gVG86IHBva3lAbGlzdHMu
-eW9jdG9wcm9qZWN0Lm9yZw0KPiBTdWJqZWN0OiBbcG9reV0gUGF0Y2ggYSBrZXJuZWwgbW9kdWxl
-IG91dCBvZiB0cmVlIC8gcGF0aGVzPw0KPiANCj4gSGksIHN0cmFuZ2UgcHJvYmxlbSBoZXJlLiBB
-IHJlY2lwZSBvZiBhIHZlbmRvciAoc28gbm90IG1pbmUpIGJ1aWxkcyBhDQo+IGtlcm5lbCBtb2R1
-bGUgb3V0IG9mIHRyZWUgdmlhIFlvY3RvDQo+IEkgbmVlZCB0byBwYXRjaCB0aGF0IG1vZHVsZSwg
-YnV0IEkgZ2V0IGVycm9yIG1lc3NhZ2VzLg0KPiANCj4gZGVmYXVsdCAiUyIgaXM6DQo+IFMgPSAi
-JFdPUktESVIvZ2l0L2RpcjEvZGlyMiINCj4gDQo+IFRoZSBwYXRjaCBoYXMgdG8gYmUgYXBwbGll
-ZCB0byBnaXQNCj4gDQo+IFRoZSBwYXRjaCBpcyBvbmx5IGFwcGxpZWQgaWYgbXkgYmJhcHBlbmQg
-ZmlsZSBnZXRzIHRoaXMgbGluZToNCj4gUyA9ICIkV09SS0RJUi9naXQiDQoNCllvdSBoYXZlIGEg
-Y291cGxlIG9mIG9wdGlvbnMsIGRlcGVuZGluZyBvbiB0aGUgcGF0Y2ggZmlsZToNCg0KKiBJZiBh
-bGwgdGhlIGNoYW5nZXMgaW4gdGhlIHBhdGNoIGlzIGNvbnRhaW5lZCB3aXRoaW4gZGlyMS9kaXIy
-LCB0aGVuIA0KICB5b3UgY2FuIGFkZCBzdHJpcGxldmVsPTMgdG8gdGhlIFVSSSBmb3IgdGhlIHBh
-dGNoLCBlLmcuLCBzb21ldGhpbmcgDQogIGxpa2U6DQoNCiAgICBTUkNfVVJJICs9ICJmaWxlOi8v
-bXktY2hhbmdlcy5wYXRjaDtzdHJpcGxldmVsPTMiDQoNCiogT3RoZXJ3aXNlIHlvdSBjYW4gYWRk
-IHBhdGNoZGlyPS4uLy4uIHRvIHRoZSBVUkksIGUuZy46DQoNCiAgICBTUkNfVVJJICs9ICJmaWxl
-Oi8vbXktY2hhbmdlcy5wYXRjaDtwYXRjaGRpcj0uLi8uLiINCg0KKiBPciwgaWYgYWxsIGVsc2Ug
-ZmFpbHMsIHlvdSBjYW4gb3ZlcnJpZGUgUyBmb3IgdGhlIHBhdGNoIHRhc2s6DQoNCiAgICBTOnRh
-c2stcGF0Y2ggPSAiJFdPUktESVIvZ2l0Ig0KDQpUaGUgbGFzdCBvcHRpb24gYWZmZWN0cyBhbGwg
-cGF0Y2hlcywgc28gaWYgdGhlcmUgYWxyZWFkeSBhcmUgb3RoZXIgDQpwYXRjaGVzLCBpdCBpcyBu
-b3QgcmVjb21tZW5kZWQuDQoNCj4gDQo+IEJ1dCBpbiB0aGlzIGNhc2UgY29tcGlsYXRpb24gZ29l
-cyB3cm9uZywgd2hpY2ggaXMgY2xlYXIgYXMgdGhlcmUgaXMgbm8NCj4gTWFrZWZpbGUgaW4gdGhl
-IG5ldyAiUyIuDQo+IA0KPiBCdXQgaWYgSSBsZWF2ZSBpdCBhcyBpdCBpcywgdGhlIHBhdGNoIHdp
-bGwgbm90IGFwcGxpZWQuIEl0IGNvbXBsYWlucw0KPiBhYm91dCBub3QgZmluZCB0aGUgZmlsZSB0
-byBwYXRjaC4NCj4gDQo+IFNvIEkgbW9kaWZpZWQgbXkgcGF0Y2hmaWxlIHRvIGJlIHJlbGF0aXZl
-IHRvIHRoZSBsb2NhdGlvbiBvZiB3aGVyZSB0aGUNCj4gcGF0Y2ggZmlsZSBpcyBjb3BpZWQgb3Ig
-cmVsYXRpdmUgdG8gIlMiLiBJbiB0aGUgbGF0ZXIgY2FzZSBpdCBtZWFucyBJDQo+IGhhdmUgdG8g
-c3RhcnQgd2l0aCAuLi8uLi8gLg0KPiBCdXQgbm9uIG9mIHRoZSB0ZXN0cyB3b3JrZWQuDQo+IA0K
-PiBIb3cgY2FuIEkgYXQgbGVhc3QgZmluZCBvdXQgd2hhdCBpcyB0aGUgcGF0aCB3aGlsZSBwYXRj
-aGluZz8NCj4gDQo+IElmIHlvdSBtYXkgSSBhc2sgd2h5IHRvIGRvbid0IHVzZSB0aGUgZGV2dG9v
-bD8gSSBkaWQsIGJ1dCBmb3Igc29tZQ0KPiBzdHJhbmdlIHJlYXNvbiBpdCBkb2Vzbid0IGNyZWF0
-ZSBhIHJlY2lwZSBpbiB0aGUgbGF5ZXIgSSB3YW50Lg0KPiBCVFc6IElzIGl0IHJpZ2h0IHRvIGRv
-ICJkZXZ0b29sIHVwZGF0ZS1yZWNpcGUgLWEgPmFic29sdXRlIHBhdGggb2YNCj4gbGF5ZXI8IHJl
-Y2lwZSA/DQo+IEkgd291bGQgZXhwZWN0IHRvIGdpdmUgYSByZWxhdGl2ZSBuYW1lIGxpa2UgIm1l
-dGEtbXlsYXllciINCj4gDQo+IEhvcGUgc29tZW9uZSBjYW4gZ2l2ZSBtZSBhIGhpbnQsIHNwZW5k
-aW5nIGFscmVhZHkgYSBkYXkgd2l0aCB0aGF0Lg0KPiANCj4gVGhhbmtzIGZvciB5b3VyIGF0dGVu
-dGlvbi4NCg0KLy9QZXRlcg0KDQo=
+--000000000000b9204a05e79ed25b
+Content-Type: text/plain; charset="UTF-8"
+
+Hi,
+
+
+
+Recently I have upgraded from Yocto Warrior to Dunfell, in which I observe
+a major file size increase in /lib/modules.
+
+
+
+After debugging found out, in dunfell by default Kernel modules are getting
+built with debug_info, which results in file size increase.
+
+
+
+For Dunfell
+
+$file demo.ko
+
+demo.ko: ELF 32-bit LSB relocatable, ARM, EABI5 version 1 (SYSV),
+BuildID[sha1]=cb8a24d71c5cf4b87ccac5416e2e716e119a285a, with debug_info,
+not stripped
+
+
+
+For Warrior
+
+$file demo.ko
+
+demo.ko: ELF 32-bit LSB relocatable, ARM, EABI5 version 1 (SYSV),
+BuildID[sha1]=6e4de309f358f27105285428a43dd74ee1ae665d, not stripped
+
+
+
+According to default Yocto behavior, debug info should not be included
+unless we specify "INHIBIT_PACKAGE_DEBUG_SPLIT".
+
+
+
+
+
+
+Regards,
+
+Adinath Mhatre
+
+--000000000000b9204a05e79ed25b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;=
+font-family:Calibri,sans-serif">Hi,</p><p class=3D"MsoNormal" style=3D"marg=
+in:0in;font-size:11pt;font-family:Calibri,sans-serif">=C2=A0</p><p class=3D=
+"MsoNormal" style=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-ser=
+if">Recently I have upgraded from Yocto Warrior to Dunfell, in which I obse=
+rve a major file size increase in /lib/modules.</p><p class=3D"MsoNormal" s=
+tyle=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-serif">=C2=A0</p=
+><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;font-family:Cali=
+bri,sans-serif">After debugging found out, in dunfell by default Kernel mod=
+ules are getting built with debug_info, which results in file size increase=
+.</p><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;font-family:=
+Calibri,sans-serif">=C2=A0</p><p class=3D"MsoNormal" style=3D"margin:0in;fo=
+nt-size:11pt;font-family:Calibri,sans-serif">For Dunfell</p><p class=3D"Mso=
+Normal" style=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-serif">=
+$file demo.ko</p><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;=
+font-family:Calibri,sans-serif">demo.ko: ELF 32-bit LSB relocatable, ARM, E=
+ABI5 version 1 (SYSV), BuildID[sha1]=3Dcb8a24d71c5cf4b87ccac5416e2e716e119a=
+285a, with debug_info, not stripped</p><p class=3D"MsoNormal" style=3D"marg=
+in:0in;font-size:11pt;font-family:Calibri,sans-serif">=C2=A0</p><p class=3D=
+"MsoNormal" style=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-ser=
+if">For Warrior</p><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11p=
+t;font-family:Calibri,sans-serif">$file demo.ko</p><p class=3D"MsoNormal" s=
+tyle=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-serif">demo.ko: =
+ELF 32-bit LSB relocatable, ARM, EABI5 version 1 (SYSV), BuildID[sha1]=3D6e=
+4de309f358f27105285428a43dd74ee1ae665d, not stripped</p><p class=3D"MsoNorm=
+al" style=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-serif">=C2=
+=A0</p><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;font-famil=
+y:Calibri,sans-serif">According to default Yocto behavior, debug info shoul=
+d not be included unless we specify &quot;INHIBIT_PACKAGE_DEBUG_SPLIT&quot;=
+.</p><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;font-family:=
+Calibri,sans-serif">=C2=A0</p><p class=3D"MsoNormal" style=3D"margin:0in;fo=
+nt-size:11pt;font-family:Calibri,sans-serif"><a name=3D"m_60660683485564847=
+64__MailAutoSig">=C2=A0</a></p><p class=3D"MsoNormal" style=3D"margin:0in;f=
+ont-size:11pt;font-family:Calibri,sans-serif"><br></p><p class=3D"MsoNormal=
+" style=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-serif">Regard=
+s,</p><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;font-family=
+:Calibri,sans-serif">Adinath Mhatre</p></div>
+
+--000000000000b9204a05e79ed25b--
