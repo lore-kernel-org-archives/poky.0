@@ -1,136 +1,135 @@
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
- by mx.groups.io with SMTP id smtpd.web11.13335.1662044212011957276
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+ by mx.groups.io with SMTP id smtpd.web11.5181.1662116984123037809
  for <poky@lists.yoctoproject.org>;
- Thu, 01 Sep 2022 07:56:52 -0700
+ Fri, 02 Sep 2022 04:09:44 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=IQbewVwe;
- spf=pass (domain: gmail.com, ip: 209.85.167.49, mailfrom: adimhatre303@gmail.com)
-Received: by mail-lf1-f49.google.com with SMTP id w8so15745877lft.12
-        for <poky@lists.yoctoproject.org>; Thu, 01 Sep 2022 07:56:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date;
-        bh=Q1pZrW1wkKFBeS3+mB2SSNUPU4KKIp8g42ACjnlBe5o=;
-        b=IQbewVwej8WtLhF2PynRgOxXQTuaPZfQB4dgpwzZUkQdHnaZKuAftti4nlbnPSzMgz
-         gTEklQ8OZnYfp4r6OnHKjNiqBMvD3pihPEJnB5GQzuN5/Z/FH5h5zzW46Ffc4uC/Zoxh
-         Ge22dFjI1E2iAmp54aSZVlUgvVYof9YNnWg2DTCSHsSgt3CVfsF2fzszYilxCn1C013C
-         sRuQFh19FSC3CR2kTKf7jE2HpdIe0o7/w86N2yoOpxgI/PFt9WzrysKFEfVpCieQrGJY
-         aej+Z9hJ8C/tAbzOsv6Qjfew1cn9EWBHmRZeijShXVxL4QV8e3l1HNFCgOja1PeoXx3z
-         OEQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date;
-        bh=Q1pZrW1wkKFBeS3+mB2SSNUPU4KKIp8g42ACjnlBe5o=;
-        b=D8kNdWtxigh2V+5TeFFX93Dpo3XiqkIy/CSNTx9voW8WrhUfnNbl8hafA80M7bHr5x
-         dSyzs1f9Q7b9qv8uuzE8V8LgLCWqiovbZC0PGYwY1rqUydQQhmIvkaIGz+Qreb3XWCKL
-         mgIjdf542UdG6Q3ZLopwRyhBBCeHLEEGEHCSxCNcgc/GzM086QE0dmJiWBiI60UQm5jo
-         R6uKCD9W3EWW3wgYGmEDFIyLpiBsODXXxbiwlJepmXBC97ZM09vB3SN5EnlSvule/6r9
-         tZMVoxxP6VSRYYO+MuL9HSkUv/5rrz60HwCnjQBAvqZQYHBf/KwN1Wl40xXos94pG4Km
-         V00g==
-X-Gm-Message-State: ACgBeo2RmqrmYKtg1vMo0DfPiZPsYbsLJtZK9QImX3HL2kN/xvrGUXe3
-	vu3RwyFUGgIgjkt1+vPlV3Hp5LPjLAjY/9VTxtekXFLoFAJMfE6JFrU=
-X-Google-Smtp-Source: AA6agR4QcSzX/4g9E6DZPbmolJV3ajPI9wlUAbsVFvrJVMPaAlLvyCa339XEY5c/HB1UFxpscHvxE1Mhfiz7iTiuXSs=
-X-Received: by 2002:a05:6512:2386:b0:494:66a5:8018 with SMTP id
- c6-20020a056512238600b0049466a58018mr6710517lfv.96.1662044209749; Thu, 01 Sep
- 2022 07:56:49 -0700 (PDT)
+ dkim=pass header.i=@gmx.net header.s=badeba3b8450 header.b=jY1Z5H9L;
+ spf=pass (domain: gmx.li, ip: 212.227.15.18, mailfrom: star@gmx.li)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+	s=badeba3b8450; t=1662116982;
+	bh=33Mh/awVKPDhXWmcycQB9ZVwFFOmvChEfavzFkUKyYg=;
+	h=X-UI-Sender-Class:Date:Subject:To:References:From:In-Reply-To;
+	b=jY1Z5H9Laz4P3rn5aE/iInLzxfPQJ4VBjRZb2teHm44nd7sVLnSbqcUc0gfhkHGnq
+	 m0jA3VPZ0AZiW2MxUB7OlUb4cPXfhjDqkmPU7AJV+bTUnFn7U8c+1h3mLlVBaQWlWU
+	 n8qK/qXvSBIBnPcWbM3g3RUYseG0EDUJaOURW1Yo=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.3.20] ([84.185.255.62]) by mail.gmx.net (mrgmx005
+ [212.227.17.184]) with ESMTPSA (Nemesis) id 1MHoRA-1oa6Pw1Jf4-00EuS7 for
+ <poky@lists.yoctoproject.org>; Fri, 02 Sep 2022 13:09:42 +0200
+Message-ID: <1bdd4564-9850-41d6-6122-a8a8a8f5b56a@gmx.li>
+Date: Fri, 2 Sep 2022 13:09:41 +0200
 MIME-Version: 1.0
-From: "Adinath Mhatre" <adimhatre303@gmail.com>
-Date: Thu, 1 Sep 2022 20:26:38 +0530
-Message-ID: <CAGB4t6XXRUOqH3879RMA1J6Zt4Ne9cELfXRnmfW4Wk4Aw37NjA@mail.gmail.com>
-Subject: Dunfell Kernel modules debug info
-To: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="000000000000b9204a05e79ed25b"
-
---000000000000b9204a05e79ed25b
-Content-Type: text/plain; charset="UTF-8"
-
-Hi,
-
-
-
-Recently I have upgraded from Yocto Warrior to Dunfell, in which I observe
-a major file size increase in /lib/modules.
-
-
-
-After debugging found out, in dunfell by default Kernel modules are getting
-built with debug_info, which results in file size increase.
-
-
-
-For Dunfell
-
-$file demo.ko
-
-demo.ko: ELF 32-bit LSB relocatable, ARM, EABI5 version 1 (SYSV),
-BuildID[sha1]=cb8a24d71c5cf4b87ccac5416e2e716e119a285a, with debug_info,
-not stripped
-
-
-
-For Warrior
-
-$file demo.ko
-
-demo.ko: ELF 32-bit LSB relocatable, ARM, EABI5 version 1 (SYSV),
-BuildID[sha1]=6e4de309f358f27105285428a43dd74ee1ae665d, not stripped
-
-
-
-According to default Yocto behavior, debug info should not be included
-unless we specify "INHIBIT_PACKAGE_DEBUG_SPLIT".
-
-
-
-
-
-
-Regards,
-
-Adinath Mhatre
-
---000000000000b9204a05e79ed25b
-Content-Type: text/html; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [poky] Patch a kernel module out of tree / pathes?
+To: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+References: <08603763-e89e-f89c-aaf6-dcd6c168a002@gmx.li>
+ <ba94777b32584116bb1416b00482c87d@axis.com>
+From: "Steve" <star@gmx.li>
+In-Reply-To: <ba94777b32584116bb1416b00482c87d@axis.com>
+X-Provags-ID: V03:K1:j8V27hTL5+RPXAsp+Cw1WRB9fzZiDoc42IfSC3W79zCqxxDkyIi
+ dWtgGFe4dlf+3TzM4azF+ofiSiSPLWjBkK5ks8G193oRiGHttSl1y/RX3xnjj8fE1wWjxMj
+ JL8YujI4JKN8DY0ONrceV76ogN5cJZRJsEVUgaK33XxSsuGt4yLH/fsdvrYBtlPuEIhUOi8
+ CZO1wesEFKJQcRqwHd0dA==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:wMEtGFHpzhw=:2LZZ+4g3Ca0PBAfO8mOstM
+ BgDP6bktQZjHDZbfyM1PsNRCjGpry5uJrXU4fuMEcrwL6Y1DJqGiW96aF5dwxOGdwrf8ptdQc
+ S5wTpLkykB+spKFDzzZrGXoftWxe3hR2KD1+TpsoGnJmkEk0aBkZOoPZROt+oB8+Cvjbwo/iS
+ scR5hjZGrrQF2ta8NpO5K7/JakqwI3KecwLQziksVDlO9POvFsxAmOy/oX4pm6HMa8FVjExNZ
+ qLhGvh3c5cVcxnEKoDH4bnZIpPLwqcuwkXy8XZmvBmjU1nnes9CM0N26Hdi8/WLd6DfgBjyDD
+ fHapbCjENI1s3vndKWE7ESuf9e6Em0GjUA9YygbqausH7C/b9ReYAYdGVcCLZ5sP3AnvMMEf1
+ 0E7mfKzv6ya49PnzK7kUncVARTDdVeZ3Up25AtbDWxUGnbsIAu+opENx6JMiWi0oqLN+KLprr
+ Itm1FPyGWEE2keXh6Ajl1ZCrn+6HYb/vd9KKT2BoF1ZZ7btA8+9mUmXfuAe6AtFcmSKylCDcr
+ uyf1jW2NosCdKBDUg4yIz2HGShCiBVdu4ECyePVPdKyZS1uyEkcZqSDSuOHOKFaNkv4M3FsLc
+ Z3aLmNxvaeTMn3Zo5i8Sq2cg80VUAEUDidAWF3KhrLUG3YEjbxyWc2Dp6I/M1kzb7Ks9f0rzO
+ vqkUfZgKlMNnNr3NN2P6XRVEsYDd5SEIW5+/mmDwv/mRSxWi3ozqUyjE012ixQs5Uxip9eu6h
+ hgChekow4x7C/z1NstEK4FI5wfN3CnEaZFBugXMKYwbPnT/egTHkqgcmgxgQXX3mUvpwtvRgP
+ K3V6NsXczC3BewDIwjIJfKWWOFmJ7zeFmA34ytIFOqM+pOu8yjyke5ZwGvF948bWI/vY6x9wd
+ 9DYIfHnqbRufDHxktsmtWMCjN8eZzjaYxxPC6ATRd0oEtAJ+X4LblNC9VihnceWDs2LMERBOR
+ cbuK9qlx1FmNIjPRbhDhld3P+4iBJqGAK0mmZVCGsdjAEDBsaY6DDW3FN3bD67TtzjMTHB0hD
+ ELzjoweUYN69MhCR7Co1D2ObzTyh0joUEIWUf//0d226hpM5Oyd7M8QCBoRiNBy4meVaHoZNM
+ H5Yz9FOlAIvy0hTuq9qNP5iIK3slNgjxJQS1iJdSYtrm4pgFBt5R7wqGC/ItNIvXXbpErxRz7
+ V0Az8=
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;=
-font-family:Calibri,sans-serif">Hi,</p><p class=3D"MsoNormal" style=3D"marg=
-in:0in;font-size:11pt;font-family:Calibri,sans-serif">=C2=A0</p><p class=3D=
-"MsoNormal" style=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-ser=
-if">Recently I have upgraded from Yocto Warrior to Dunfell, in which I obse=
-rve a major file size increase in /lib/modules.</p><p class=3D"MsoNormal" s=
-tyle=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-serif">=C2=A0</p=
-><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;font-family:Cali=
-bri,sans-serif">After debugging found out, in dunfell by default Kernel mod=
-ules are getting built with debug_info, which results in file size increase=
-.</p><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;font-family:=
-Calibri,sans-serif">=C2=A0</p><p class=3D"MsoNormal" style=3D"margin:0in;fo=
-nt-size:11pt;font-family:Calibri,sans-serif">For Dunfell</p><p class=3D"Mso=
-Normal" style=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-serif">=
-$file demo.ko</p><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;=
-font-family:Calibri,sans-serif">demo.ko: ELF 32-bit LSB relocatable, ARM, E=
-ABI5 version 1 (SYSV), BuildID[sha1]=3Dcb8a24d71c5cf4b87ccac5416e2e716e119a=
-285a, with debug_info, not stripped</p><p class=3D"MsoNormal" style=3D"marg=
-in:0in;font-size:11pt;font-family:Calibri,sans-serif">=C2=A0</p><p class=3D=
-"MsoNormal" style=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-ser=
-if">For Warrior</p><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11p=
-t;font-family:Calibri,sans-serif">$file demo.ko</p><p class=3D"MsoNormal" s=
-tyle=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-serif">demo.ko: =
-ELF 32-bit LSB relocatable, ARM, EABI5 version 1 (SYSV), BuildID[sha1]=3D6e=
-4de309f358f27105285428a43dd74ee1ae665d, not stripped</p><p class=3D"MsoNorm=
-al" style=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-serif">=C2=
-=A0</p><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;font-famil=
-y:Calibri,sans-serif">According to default Yocto behavior, debug info shoul=
-d not be included unless we specify &quot;INHIBIT_PACKAGE_DEBUG_SPLIT&quot;=
-.</p><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;font-family:=
-Calibri,sans-serif">=C2=A0</p><p class=3D"MsoNormal" style=3D"margin:0in;fo=
-nt-size:11pt;font-family:Calibri,sans-serif"><a name=3D"m_60660683485564847=
-64__MailAutoSig">=C2=A0</a></p><p class=3D"MsoNormal" style=3D"margin:0in;f=
-ont-size:11pt;font-family:Calibri,sans-serif"><br></p><p class=3D"MsoNormal=
-" style=3D"margin:0in;font-size:11pt;font-family:Calibri,sans-serif">Regard=
-s,</p><p class=3D"MsoNormal" style=3D"margin:0in;font-size:11pt;font-family=
-:Calibri,sans-serif">Adinath Mhatre</p></div>
+Am 01.09.22 um 15:24 schrieb Peter Kjellerstedt:
+>> -----Original Message-----
+>> From: poky@lists.yoctoproject.org <poky@lists.yoctoproject.org> On Beha=
+lf
+>> Of Steve
+>> Sent: den 31 augusti 2022 15:20
+>> To: poky@lists.yoctoproject.org
+>> Subject: [poky] Patch a kernel module out of tree / pathes?
+>>
+>> Hi, strange problem here. A recipe of a vendor (so not mine) builds a
+>> kernel module out of tree via Yocto
+>> I need to patch that module, but I get error messages.
+>>
+>> default "S" is:
+>> S =3D "$WORKDIR/git/dir1/dir2"
+>>
+>> The patch has to be applied to git
+>>
+>> The patch is only applied if my bbappend file gets this line:
+>> S =3D "$WORKDIR/git"
+>
+> You have a couple of options, depending on the patch file:
+>
+> * If all the changes in the patch is contained within dir1/dir2, then
+>    you can add striplevel=3D3 to the URI for the patch, e.g., something
+>    like:
+>
+>      SRC_URI +=3D "file://my-changes.patch;striplevel=3D3"
+>
+> * Otherwise you can add patchdir=3D../.. to the URI, e.g.:
+>
+>      SRC_URI +=3D "file://my-changes.patch;patchdir=3D../.."
+>
+> * Or, if all else fails, you can override S for the patch task:
+>
+>      S:task-patch =3D "$WORKDIR/git"
+>
+> The last option affects all patches, so if there already are other
+> patches, it is not recommended.
+>
+>>
+>> But in this case compilation goes wrong, which is clear as there is no
+>> Makefile in the new "S".
+>>
+>> But if I leave it as it is, the patch will not applied. It complains
+>> about not find the file to patch.
+>>
+>> So I modified my patchfile to be relative to the location of where the
+>> patch file is copied or relative to "S". In the later case it means I
+>> have to start with ../../ .
+>> But non of the tests worked.
+>>
+>> How can I at least find out what is the path while patching?
+>>
+>> If you may I ask why to don't use the devtool? I did, but for some
+>> strange reason it doesn't create a recipe in the layer I want.
+>> BTW: Is it right to do "devtool update-recipe -a >absolute path of
+>> layer< recipe ?
+>> I would expect to give a relative name like "meta-mylayer"
+>>
+>> Hope someone can give me a hint, spending already a day with that.
+>>
+>> Thanks for your attention.
+>
+> //Peter
+>
 
---000000000000b9204a05e79ed25b--
+Thanks Peter,
+it's quite amazing what you can get tweaked here!
+I am wondering - would I have a chance to find that by myself (in the
+manual)? Once I know that keyword I found it in SRC_URI section...
+I did even find another option, wondering about the "quilt" message. I
+didn't know quilt before.
+But git as a patch tool always starts down at git tree.
+So I found that replace the patchtool by git helps with adding
+"PATCHTOOL =3D "git" to my bbappend file.
+Maybe that is useful for someone else too.
+//Arno
+
