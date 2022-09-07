@@ -1,75 +1,73 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
- by mx.groups.io with SMTP id smtpd.web12.25123.1662386469851958170
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+ by mx.groups.io with SMTP id smtpd.web09.6361.1662548749880834501
  for <poky@lists.yoctoproject.org>;
- Mon, 05 Sep 2022 07:01:10 -0700
+ Wed, 07 Sep 2022 04:05:50 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=a2y993Yx;
- spf=softfail (domain: sakoman.com, ip: 209.85.218.51, mailfrom: steve@sakoman.com)
-Received: by mail-ej1-f51.google.com with SMTP id bj12so17243601ejb.13
-        for <poky@lists.yoctoproject.org>; Mon, 05 Sep 2022 07:01:09 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=B3d+JBHo;
+ spf=pass (domain: gmail.com, ip: 209.85.128.51, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-wm1-f51.google.com with SMTP id s23so8536240wmj.4
+        for <poky@lists.yoctoproject.org>; Wed, 07 Sep 2022 04:05:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date;
-        bh=dnSke7akhY8VM3WYYiyrmu+r8H01eY4s8Wj9hWNjIso=;
-        b=a2y993Yx6wdYNrl7OW7sxWg2KC1mqiQlWAtRE3uz0DlFDXuAEmsCzNabnvDPQzoTfD
-         X5hL8hj43ug35ZQJZXnqDZ/BMtlU8kFIB5zUNXsEJJ3yL7F+qMZrscoCKgNOVitRRlHj
-         Z533ZYqYHjoWJt2zFbScIZluwkyh+A77J8O+AWJ94SCRleZTztEWP6DSqvOqjp2mgSns
-         TGiBQ/hU+C7THq06Yi0/wDjMdODKH1ha5zdPzRT3xSlcdEDF7MG+uP269ahM2btGlPkF
-         Cmc3TTCRu5tBTVjvJnG69Bf6E3We9CjcqML69wVPFvAIgZ03fyc7D1BL6YE4jwbdgxUN
-         YdJQ==
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date;
+        bh=HLdslObI2/Y7yRNp5iDWEluDr8C+44LY3HzNJTIMLH8=;
+        b=B3d+JBHoY81WQsRC2Rim7BlMNwSDZr+yEMOHbc4z3ufgUgX9Qc3NYPoDpnPVWsg9XY
+         g+UeDjiuV9ufbOoKdtnNx6jZaGIPJ7TL58MLdpH8Pt5CmdSSkcDxKTcPy5swt+MVff/2
+         WG1L1yxV9OFr8ooCxIy1XsxOwMwrVnIw4H4/A5GJDP/POzSkLtWa7Me2LW9HuRLd6xDq
+         zTj4V96VbS9lhkHTZLboii+lA+/31Zw4KmqXiTpwqLyYFHduIsURxCSGg3A4EazzT4E/
+         d90Ptp3i1rh3Tb+L1xob9p5YWipwVxNlxESLYShp0Czap4k7IuyYvv/p1W+46+xQsqE0
+         QqdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=dnSke7akhY8VM3WYYiyrmu+r8H01eY4s8Wj9hWNjIso=;
-        b=4B4XQt+lXzTGIXUHVcnyYuUIiKhLeYHm8hqh37+Dg/VmcEBiMljZWv0b/NSktpqrvG
-         WQ7KgGrFzU8ll6TF0WlznLRjR6nJWyAeB9QsjTXaKSEGVkiaHN1UpHAv8s9gspjl5+57
-         5zLOdINzzkjt8r7WTl+Q+S3EC6+QGVxZ0Nrxqg9E5ZeHDcaiELLorgG7tLaFiNZH/XCi
-         s1IKU1sHhNWHs9LiDpdutQaHjtfwGKEaazOL4Sj03Gdtl4lxffpcGA7zIZPEEA9z0cj8
-         IMXhXHBAbdCFOqWuxp8OQFjbH8eXtXiOn3ibUz5J3J6flkahbqHoL3km4OJ2+VHPaECn
-         x4jA==
-X-Gm-Message-State: ACgBeo1AVM6gncT3KAS9PNeEg+Ta4dbws3F6AwgI4HDov/uN91AF2D9/
-	qUsTz7AnA5uo/kl4LiVGS0VY9Lxs2ip4yHEOdnaRkA==
-X-Google-Smtp-Source: AA6agR5K1dalDK7woFFm47F5w+sdYHWaDulUeZjs+nXapCNBb8+MspNs/zCnb9Cp30WmVVIWs+hwtppLZccF6HYvvkU=
-X-Received: by 2002:a17:906:8c7:b0:730:c1a9:e187 with SMTP id
- o7-20020a17090608c700b00730c1a9e187mr35980263eje.55.1662386468183; Mon, 05
- Sep 2022 07:01:08 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date;
+        bh=HLdslObI2/Y7yRNp5iDWEluDr8C+44LY3HzNJTIMLH8=;
+        b=PiNb0OTdbPOU9vfXzpc4S5wyOf/xQ4IefvTENOdD3qyApEzNtyAdt8pjdyhv17lQHS
+         X1dofwqB3RjBUDRLKlhJKXfH8+SKCcP/iUR6RGefN8umny3Ps/y2m7UtzO2cXwPL1PL+
+         fiYt8oVkSOvmKOCqmYXhwkDH5W4nrLlgf7RHxTMbs6USWwwJDtjI/c7vjTM1wEdRoZu1
+         nUVuaBm98taCLHwxyIX5e3WtikXqCwP2ZqqGRzYd4NjeoHz37aM3ZweYpvfhihZOLOg/
+         V3t0/ShtUBEINsc1sdFckW99GPlKfW/jZNVKcH49JpErWdoFIRsezf9uxqmKD3Z1UELn
+         K/HQ==
+X-Gm-Message-State: ACgBeo0VjyfeXZcG4I5fassm21wI18R9wL05JUSKJzPL0pRlowyGODsF
+	GTvuP3yP7cXqYSagG81vOXL+j0eFDcQ=
+X-Google-Smtp-Source: AA6agR4Xmd+AjQ4Z4sAVJ2XNZIa0bk1lUHRxoyb+FKNTlznLNC4P4p/8smUR5yBSQWYYmWEBLaD6Ag==
+X-Received: by 2002:a1c:a383:0:b0:3a5:af21:1ef0 with SMTP id m125-20020a1ca383000000b003a5af211ef0mr1596174wme.123.1662548748024;
+        Wed, 07 Sep 2022 04:05:48 -0700 (PDT)
+Return-Path: <alex.kanavin@gmail.com>
+Received: from Zen2.lab.linutronix.de. (drugstore.linutronix.de. [80.153.143.164])
+        by smtp.gmail.com with ESMTPSA id a6-20020a056000050600b0021e519eba9bsm16807838wrf.42.2022.09.07.04.05.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Sep 2022 04:05:47 -0700 (PDT)
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+X-Google-Original-From: Alexander Kanavin <alex@linutronix.de>
+To: poky@lists.yoctoproject.org
+Cc: Alexander Kanavin <alex@linutronix.de>
+Subject: [PATCH] local.conf.sample: correct the location of public hashserv
+Date: Wed,  7 Sep 2022 13:05:39 +0200
+Message-Id: <20220907110539.1190114-1-alex@linutronix.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <170B7F7B378D7825.6839@lists.yoctoproject.org> <0f6b522f173e36ce48d7c6a941794b7da133029d.camel@intel.com>
-In-Reply-To: <0f6b522f173e36ce48d7c6a941794b7da133029d.camel@intel.com>
-From: "Steve Sakoman" <steve@sakoman.com>
-Date: Mon, 5 Sep 2022 04:00:56 -1000
-Message-ID: <CAOSpxdauV3+TzZoTDfGyF0zriw7Xz9_pZYuYxE5_2pC82jzFTg@mail.gmail.com>
-Subject: Re: [poky] [meta-yocto][master][kirkstone][PATCH] poky.conf: add ubuntu-22.04 to tested distros
-To: Anuj Mittal <anuj.mittal@intel.com>
-Cc: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 4, 2022 at 11:03 PM Anuj Mittal <anuj.mittal@intel.com> wrote:
->
-> Hi Steve,
->
-> On Mon, 2022-08-15 at 18:57 +0800, Anuj Mittal wrote:
-> > Signed-off-by: Anuj Mittal <anuj.mittal@intel.com>
-> > ---
-> >  meta-poky/conf/distro/poky.conf | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/meta-poky/conf/distro/poky.conf b/meta-
-> > poky/conf/distro/poky.conf
-> > index 769b69c..856c885 100644
-> > --- a/meta-poky/conf/distro/poky.conf
-> > +++ b/meta-poky/conf/distro/poky.conf
-> > @@ -38,6 +38,7 @@ SANITY_TESTED_DISTROS ?= " \
-> >              ubuntu-18.04 \n \
-> >              ubuntu-20.04 \n \
-> >              ubuntu-21.10 \n \
-> > +            ubuntu-22.04 \n \
->
-> Can this please pick this for kirkstone?
+Signed-off-by: Alexander Kanavin <alex@linutronix.de>
+---
+ meta-poky/conf/templates/default/local.conf.sample | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Yes, I've got this queued for the 4.04 kirkstone release (as well as
-an update to yocto-docs)
+diff --git a/meta-poky/conf/templates/default/local.conf.sample b/meta-poky/conf/templates/default/local.conf.sample
+index b96dc908f4..7be423ffed 100644
+--- a/meta-poky/conf/templates/default/local.conf.sample
++++ b/meta-poky/conf/templates/default/local.conf.sample
+@@ -234,7 +234,7 @@ BB_DISKMON_DIRS ??= "\
+ # which will depend on your network.
+ # Note: For this to work you also need hash-equivalence passthrough to the matching server
+ #
+-#BB_HASHSERVE_UPSTREAM = "typhoon.yocto.io:8687"
++#BB_HASHSERVE_UPSTREAM = "hashserv.yocto.io:8687"
+ #SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
+ 
+ #
+-- 
+2.30.2
 
-Steve
