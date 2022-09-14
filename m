@@ -1,75 +1,77 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
- by mx.groups.io with SMTP id smtpd.web10.6217.1663082590035009728
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
+ by mx.groups.io with SMTP id smtpd.web12.6133.1663160978074615913
  for <poky@lists.yoctoproject.org>;
- Tue, 13 Sep 2022 08:23:10 -0700
+ Wed, 14 Sep 2022 06:09:38 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=6pOhI6sx;
- spf=softfail (domain: sakoman.com, ip: 209.85.216.48, mailfrom: steve@sakoman.com)
-Received: by mail-pj1-f48.google.com with SMTP id p1-20020a17090a2d8100b0020040a3f75eso11674569pjd.4
-        for <poky@lists.yoctoproject.org>; Tue, 13 Sep 2022 08:23:09 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=mNUOMkNo;
+ spf=pass (domain: gmail.com, ip: 209.85.160.54, mailfrom: festevam@gmail.com)
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-1280590722dso40826196fac.1
+        for <poky@lists.yoctoproject.org>; Wed, 14 Sep 2022 06:09:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date;
-        bh=wM0nB09s6oFqAxA2x6yZ95mF0A8FxUGsyiVANijPFwY=;
-        b=6pOhI6sx6Y6padxd5mxnohthTWH6zRruvhFv65QQNlHYxdutkGtS7JOlPT00W2mce4
-         OLBVfEn9PoEASD0dJXNkV0nWX9qLd2a8ICO+f/pVtS9lSa+Ihwr22ZGOUEiGgZShsWTg
-         BRbiewC7l/8HyPxLriVPA4zpTkyU316AjpWGQnialtdNupuC775XZNUSc7hxYFfEzeWo
-         UbtgUl9IWmfK3JbcutUeHJIknr8coot8b211MqDKzIpYJEKI+XRpy4m8N02HT1rARBcn
-         XRN+5Y6P4mnvN/CpTWERGRF6aScojuwh5ocACzCSPTXhX6UGmsPR0SLfDHDsle5OHrit
-         mF+A==
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date;
+        bh=gPG15wHKbSpq18Mlfyune5YxEs+WTT+uDm/v3+lMXCY=;
+        b=mNUOMkNod0a9DsGkNlWnp+49/K7MowfuNSoi3PcuPbmk32j5T22YBysuCJZoEJevvn
+         ZjQCQDfEg8VrtS24/1cMTriwh25ql2O6jTYwvj+dZUXvtzRlQp0Id94G9RheX5rmh+05
+         tmMCXvArvrwD36vE53XqJzegZw6XSWTFGJxjFZYF/ZvCLU5jWDvwHFOfu3GNqrSLy3xF
+         Db1xLoXZGDTlRs/50WEIUtu8AGnbg9yu6Ke3XP2EEB1uev+MIx0EJg9cF0Wd79sNeJXN
+         nYSKmOk/K651lKAMQSjItpV/JiLWWGb9B3Gt4dT+8LMwuq3kzOjVD1FcgA72QBqBCFY/
+         gy3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
-         :subject:date;
-        bh=wM0nB09s6oFqAxA2x6yZ95mF0A8FxUGsyiVANijPFwY=;
-        b=osH5UomrOXEUvhPCv72zkqI0MZCcTUWI32WDoE5+2EHLA/AWA5KanqHrN7gOdQi60K
-         06nQPyX7WD1Nwo1I1vDddHLdadGOvAEx6xEloLu6cS87BqrKwUvtkrru9eGtTlRzw9I2
-         nTFv9ZlRsmuWN9d38BG5ipDeQZX6H9UYKjIDXu8PTFGfc3Qsmi218HEuAIZPIyzdcSrG
-         A3zy7MIv0KAJJIHdWMUEBIp7n2BOkv4hJ9TKe67dKAenGcWT4np84Ixch5lxbS+181l8
-         gDTWm+WiN/otRf3r1P19hz09cc42RvLi6saqCTatMquRTan/GZKP3Sq4CivYrkZqMKZg
-         criA==
-X-Gm-Message-State: ACgBeo1SyQUXmFC3zFs1ztl9bBx3h4YOlUUFlt3xm90ysL/tMOXMQiJU
-	rgTuIcqNZ5Wqc9G3ECVDghMfJbc/KYJzIVbs
-X-Google-Smtp-Source: AA6agR6c5egP9mHnjN9bXRX2LdPuOrpL4qlnZ6UpeQvVafMe9CdBdGgaH8335jUSBE+H4xTF/aDt9g==
-X-Received: by 2002:a17:902:8f81:b0:178:1276:59e6 with SMTP id z1-20020a1709028f8100b00178127659e6mr19623512plo.94.1663082589098;
-        Tue, 13 Sep 2022 08:23:09 -0700 (PDT)
-Return-Path: <steve@sakoman.com>
-Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
-        by smtp.gmail.com with ESMTPSA id u7-20020a170902e5c700b001782977fbcdsm6097358plf.206.2022.09.13.08.23.07
-        for <poky@lists.yoctoproject.org>
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date;
+        bh=gPG15wHKbSpq18Mlfyune5YxEs+WTT+uDm/v3+lMXCY=;
+        b=I/Ysr+amcRcsTJSNWjjIU/H14fPki7x1hefz+IXdHqiP4tri6gL3IeD6EmzrYZTx99
+         +L5/HqcL9Y4vFu3GK3BNmB5gP2aSPekcTds9uL8H1ADzLXK6EEzWkEsSqPIWiKCfOKLV
+         vOfE2Lymp8msgJbm8+OeYGDoSMi1+vNIz8uNi1MM32BxaAPo/OvYGG3HGamO9mzsniDo
+         tqbLzZ/qMb0eY+IOKsAxS3GxvasGeiqqpTMVupjxj5/ocAKKKFUlMafDHRBt+2UT73ZV
+         4do3jMXbQ+aiK72QskJnorfIW9bA0d8LaKGQ9/gDu+zKd0MPvfW9K48ALt6+2VB1F8dD
+         5fug==
+X-Gm-Message-State: ACgBeo2epQtDL+zD4k0q+zdE8Jz3mkpBXoT8m15iFlYRNzYDDiZUBF/I
+	3RgERDkAX29uH4GBiQfUaLfbHFba/+UTxw==
+X-Google-Smtp-Source: AA6agR4x6bLwlyJpHgbz3CSVZ5Pvg/VM6/R8SzgnDjnkUOSqvDXlCr3uI9gS+QoJyGP62DMvihhjiw==
+X-Received: by 2002:a05:6870:e2ce:b0:127:47e9:2bb1 with SMTP id w14-20020a056870e2ce00b0012747e92bb1mr2159895oad.273.1663160977077;
+        Wed, 14 Sep 2022 06:09:37 -0700 (PDT)
+Return-Path: <festevam@gmail.com>
+Received: from localhost.localdomain ([2804:14c:485:4b69:3fd6:85d:75e3:d8b4])
+        by smtp.gmail.com with ESMTPSA id cg18-20020a056830631200b0065818e6fbdasm265347otb.24.2022.09.14.06.09.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Sep 2022 08:23:08 -0700 (PDT)
-From: "Steve Sakoman" <steve@sakoman.com>
+        Wed, 14 Sep 2022 06:09:36 -0700 (PDT)
+From: "Fabio Estevam" <festevam@gmail.com>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][kirkstone 2/2] poky.conf: bump version for 4.0.4
-Date: Tue, 13 Sep 2022 05:22:50 -1000
-Message-Id: <ca9c465e37b693ab768ee8e21a929d1c18956e98.1663082471.git.steve@sakoman.com>
+Cc: Fabio Estevam <festevam@gmail.com>
+Subject: [poky][PATCH] README.hardware.md: Fix the tftp example
+Date: Wed, 14 Sep 2022 10:09:22 -0300
+Message-Id: <20220914130922.573194-1-festevam@gmail.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1663082471.git.steve@sakoman.com>
-References: <cover.1663082471.git.steve@sakoman.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Steve Sakoman <steve@sakoman.com>
+There is a double 'tftp' command in the example for loading
+vmlinux via tftp command in U-Boot.
+
+Fix it by removing the extra occurrence.
+
+Signed-off-by: Fabio Estevam <festevam@gmail.com>
 ---
- meta-poky/conf/distro/poky.conf | 2 +-
+ meta-yocto-bsp/README.hardware.md | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index ff47fdd..5b9e5d7 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -1,7 +1,7 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
- #DISTRO_VERSION = "3.4+snapshot-${METADATA_REVISION}"
--DISTRO_VERSION = "4.0.3"
-+DISTRO_VERSION = "4.0.4"
- DISTRO_CODENAME = "kirkstone"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADATA_REVISION}', 'snapshot')}"
+diff --git a/meta-yocto-bsp/README.hardware.md b/meta-yocto-bsp/README.hardware.md
+index 9151d641d5b7..44dbb35b930c 100644
+--- a/meta-yocto-bsp/README.hardware.md
++++ b/meta-yocto-bsp/README.hardware.md
+@@ -203,7 +203,7 @@ Load the kernel, and boot the system as follows:
+ 
+  5. Download the kernel and boot:
+ 
+- => tftp tftp $loadaddr vmlinux
++ => tftp $loadaddr vmlinux
+  => bootoctlinux $loadaddr coremask=0x3 root=/dev/nfs rw nfsroot=<nfsroot ip>:<rootfs path> ip=<board ip>:<server ip>:<gateway ip>:<netmask>:edgerouter:eth0:off mtdparts=phys_mapped_flash:512k(boot0),512k(boot1),64k@3072k(eeprom)
+ 
+ --- Booting from USB disk ---
 -- 
 2.25.1
 
