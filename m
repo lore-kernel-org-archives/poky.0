@@ -1,77 +1,73 @@
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
- by mx.groups.io with SMTP id smtpd.web12.6133.1663160978074615913
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+ by mx.groups.io with SMTP id smtpd.web12.7836.1663234158787978245
  for <poky@lists.yoctoproject.org>;
- Wed, 14 Sep 2022 06:09:38 -0700
+ Thu, 15 Sep 2022 02:29:19 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=mNUOMkNo;
- spf=pass (domain: gmail.com, ip: 209.85.160.54, mailfrom: festevam@gmail.com)
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-1280590722dso40826196fac.1
-        for <poky@lists.yoctoproject.org>; Wed, 14 Sep 2022 06:09:37 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=GpalMchc;
+ spf=pass (domain: gmail.com, ip: 209.85.221.54, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-wr1-f54.google.com with SMTP id bo13so13373647wrb.1
+        for <poky@lists.yoctoproject.org>; Thu, 15 Sep 2022 02:29:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date;
-        bh=gPG15wHKbSpq18Mlfyune5YxEs+WTT+uDm/v3+lMXCY=;
-        b=mNUOMkNod0a9DsGkNlWnp+49/K7MowfuNSoi3PcuPbmk32j5T22YBysuCJZoEJevvn
-         ZjQCQDfEg8VrtS24/1cMTriwh25ql2O6jTYwvj+dZUXvtzRlQp0Id94G9RheX5rmh+05
-         tmMCXvArvrwD36vE53XqJzegZw6XSWTFGJxjFZYF/ZvCLU5jWDvwHFOfu3GNqrSLy3xF
-         Db1xLoXZGDTlRs/50WEIUtu8AGnbg9yu6Ke3XP2EEB1uev+MIx0EJg9cF0Wd79sNeJXN
-         nYSKmOk/K651lKAMQSjItpV/JiLWWGb9B3Gt4dT+8LMwuq3kzOjVD1FcgA72QBqBCFY/
-         gy3Q==
+        bh=HLdslObI2/Y7yRNp5iDWEluDr8C+44LY3HzNJTIMLH8=;
+        b=GpalMchcGtdUrrNrbZh+eu839lt3hoVzPT07gP0HbDAeQo8VANcAhyJ3BtqY3OJUf8
+         vLTGujo/k2rThCzhq8JHbtBuwZX1UFjQiPiZNpCqB4qgFWR4OFtz5BEgglUcqTCo7L0s
+         PnBi1psH+60gN6VI/L9XQVsb/xfX6xi1vW0bo2HzgPo4JElU73fChjKXF05vuc8O3dcI
+         67i2Eq88b1u7AKJP9+M8t9yD0ZEmFWjLJLrJVatC9n8hJH5XbVPIWsR0zNfPMYex/oWs
+         z83Jn1B53IUDlPXR2d0P10k/o801cYQKRDHqbM1KwG2AbI4Tb6J9bpAvMRb8wVkINgxz
+         BnMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date;
-        bh=gPG15wHKbSpq18Mlfyune5YxEs+WTT+uDm/v3+lMXCY=;
-        b=I/Ysr+amcRcsTJSNWjjIU/H14fPki7x1hefz+IXdHqiP4tri6gL3IeD6EmzrYZTx99
-         +L5/HqcL9Y4vFu3GK3BNmB5gP2aSPekcTds9uL8H1ADzLXK6EEzWkEsSqPIWiKCfOKLV
-         vOfE2Lymp8msgJbm8+OeYGDoSMi1+vNIz8uNi1MM32BxaAPo/OvYGG3HGamO9mzsniDo
-         tqbLzZ/qMb0eY+IOKsAxS3GxvasGeiqqpTMVupjxj5/ocAKKKFUlMafDHRBt+2UT73ZV
-         4do3jMXbQ+aiK72QskJnorfIW9bA0d8LaKGQ9/gDu+zKd0MPvfW9K48ALt6+2VB1F8dD
-         5fug==
-X-Gm-Message-State: ACgBeo2epQtDL+zD4k0q+zdE8Jz3mkpBXoT8m15iFlYRNzYDDiZUBF/I
-	3RgERDkAX29uH4GBiQfUaLfbHFba/+UTxw==
-X-Google-Smtp-Source: AA6agR4x6bLwlyJpHgbz3CSVZ5Pvg/VM6/R8SzgnDjnkUOSqvDXlCr3uI9gS+QoJyGP62DMvihhjiw==
-X-Received: by 2002:a05:6870:e2ce:b0:127:47e9:2bb1 with SMTP id w14-20020a056870e2ce00b0012747e92bb1mr2159895oad.273.1663160977077;
-        Wed, 14 Sep 2022 06:09:37 -0700 (PDT)
-Return-Path: <festevam@gmail.com>
-Received: from localhost.localdomain ([2804:14c:485:4b69:3fd6:85d:75e3:d8b4])
-        by smtp.gmail.com with ESMTPSA id cg18-20020a056830631200b0065818e6fbdasm265347otb.24.2022.09.14.06.09.35
+        bh=HLdslObI2/Y7yRNp5iDWEluDr8C+44LY3HzNJTIMLH8=;
+        b=H5PkvBTBFSPdxnhcakR9T65p2I9mg28k3N+oBPBFdQ5C4psj9CRHVe280zAfCfsWYP
+         BkDaIPHOQMceGDQpcRJ7QchD+vD8+gbXnY4+o7gcJUgUbG/2mMZK5LCgf3dkSaMfwY1E
+         S/K3ZZqg+uJFFWIsT6TflyGY7yJOaM5PK6SenmLV7LUW+CiAiFw4zolrxGOM5D/zOl3E
+         6U4FnI86U8naCQCDkiKIWOkx9oZ5OWeYk18GqopS60J6jkc+cal0gcYhTqF0sq4Cg668
+         Ba774xsyUbsVa4ChMryfc6sAACO7487ppGoj3jETbqbmTK6aHcO9noUG3sjkIjx30ugm
+         iV3A==
+X-Gm-Message-State: ACgBeo2ZRzRJAbhDTIL8VaGkTxQzlknqvK+5ohv6MWf4jgpTWTmqNDBP
+	/JIkieWrarMPB3eGJmnVv0oWn/2f5fPL7w==
+X-Google-Smtp-Source: AA6agR5vwJgm9rgZMGqgEPvEq4NFpe9/RCeTG2UgI69pqs8a8Dq0HxhKGdJmUY19bIELfG/tt4NT0w==
+X-Received: by 2002:adf:a3c2:0:b0:228:64c2:6c5c with SMTP id m2-20020adfa3c2000000b0022864c26c5cmr24189519wrb.674.1663234157048;
+        Thu, 15 Sep 2022 02:29:17 -0700 (PDT)
+Return-Path: <alex.kanavin@gmail.com>
+Received: from Zen2.lab.linutronix.de. (drugstore.linutronix.de. [80.153.143.164])
+        by smtp.gmail.com with ESMTPSA id r17-20020a05600c425100b003a62400724bsm2291033wmm.0.2022.09.15.02.29.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Sep 2022 06:09:36 -0700 (PDT)
-From: "Fabio Estevam" <festevam@gmail.com>
+        Thu, 15 Sep 2022 02:29:16 -0700 (PDT)
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+X-Google-Original-From: Alexander Kanavin <alex@linutronix.de>
 To: poky@lists.yoctoproject.org
-Cc: Fabio Estevam <festevam@gmail.com>
-Subject: [poky][PATCH] README.hardware.md: Fix the tftp example
-Date: Wed, 14 Sep 2022 10:09:22 -0300
-Message-Id: <20220914130922.573194-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.25.1
+Cc: Alexander Kanavin <alex@linutronix.de>
+Subject: [PATCH] local.conf.sample: correct the location of public hashserv
+Date: Thu, 15 Sep 2022 11:29:13 +0200
+Message-Id: <20220915092913.3252441-1-alex@linutronix.de>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There is a double 'tftp' command in the example for loading
-vmlinux via tftp command in U-Boot.
-
-Fix it by removing the extra occurrence.
-
-Signed-off-by: Fabio Estevam <festevam@gmail.com>
+Signed-off-by: Alexander Kanavin <alex@linutronix.de>
 ---
- meta-yocto-bsp/README.hardware.md | 2 +-
+ meta-poky/conf/templates/default/local.conf.sample | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/README.hardware.md b/meta-yocto-bsp/README.hardware.md
-index 9151d641d5b7..44dbb35b930c 100644
---- a/meta-yocto-bsp/README.hardware.md
-+++ b/meta-yocto-bsp/README.hardware.md
-@@ -203,7 +203,7 @@ Load the kernel, and boot the system as follows:
+diff --git a/meta-poky/conf/templates/default/local.conf.sample b/meta-poky/conf/templates/default/local.conf.sample
+index b96dc908f4..7be423ffed 100644
+--- a/meta-poky/conf/templates/default/local.conf.sample
++++ b/meta-poky/conf/templates/default/local.conf.sample
+@@ -234,7 +234,7 @@ BB_DISKMON_DIRS ??= "\
+ # which will depend on your network.
+ # Note: For this to work you also need hash-equivalence passthrough to the matching server
+ #
+-#BB_HASHSERVE_UPSTREAM = "typhoon.yocto.io:8687"
++#BB_HASHSERVE_UPSTREAM = "hashserv.yocto.io:8687"
+ #SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
  
-  5. Download the kernel and boot:
- 
-- => tftp tftp $loadaddr vmlinux
-+ => tftp $loadaddr vmlinux
-  => bootoctlinux $loadaddr coremask=0x3 root=/dev/nfs rw nfsroot=<nfsroot ip>:<rootfs path> ip=<board ip>:<server ip>:<gateway ip>:<netmask>:edgerouter:eth0:off mtdparts=phys_mapped_flash:512k(boot0),512k(boot1),64k@3072k(eeprom)
- 
- --- Booting from USB disk ---
+ #
 -- 
-2.25.1
+2.30.2
 
