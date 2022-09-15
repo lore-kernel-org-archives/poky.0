@@ -1,73 +1,75 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
- by mx.groups.io with SMTP id smtpd.web12.7836.1663234158787978245
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+ by mx.groups.io with SMTP id smtpd.web09.16236.1663277154089868926
  for <poky@lists.yoctoproject.org>;
- Thu, 15 Sep 2022 02:29:19 -0700
+ Thu, 15 Sep 2022 14:25:54 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=GpalMchc;
- spf=pass (domain: gmail.com, ip: 209.85.221.54, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-wr1-f54.google.com with SMTP id bo13so13373647wrb.1
-        for <poky@lists.yoctoproject.org>; Thu, 15 Sep 2022 02:29:18 -0700 (PDT)
+ dkim=pass header.i=@waymo.com header.s=20210112 header.b=XV/wJnjp;
+ spf=pass (domain: google.com, ip: 209.85.219.54, mailfrom: jcreedon@google.com)
+Received: by mail-qv1-f54.google.com with SMTP id l14so6788150qvq.8
+        for <poky@lists.yoctoproject.org>; Thu, 15 Sep 2022 14:25:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date;
-        bh=HLdslObI2/Y7yRNp5iDWEluDr8C+44LY3HzNJTIMLH8=;
-        b=GpalMchcGtdUrrNrbZh+eu839lt3hoVzPT07gP0HbDAeQo8VANcAhyJ3BtqY3OJUf8
-         vLTGujo/k2rThCzhq8JHbtBuwZX1UFjQiPiZNpCqB4qgFWR4OFtz5BEgglUcqTCo7L0s
-         PnBi1psH+60gN6VI/L9XQVsb/xfX6xi1vW0bo2HzgPo4JElU73fChjKXF05vuc8O3dcI
-         67i2Eq88b1u7AKJP9+M8t9yD0ZEmFWjLJLrJVatC9n8hJH5XbVPIWsR0zNfPMYex/oWs
-         z83Jn1B53IUDlPXR2d0P10k/o801cYQKRDHqbM1KwG2AbI4Tb6J9bpAvMRb8wVkINgxz
-         BnMw==
+        d=waymo.com; s=20210112;
+        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
+         :subject:date;
+        bh=nMxTd3WqbrFS55Ps6gyZZTHTN2O3J6Pn9lxs4IiL0Ew=;
+        b=XV/wJnjpLuZyQD6AyACJgBTQMlFL1z2td4mlugmaVo9nsBzGqZnbN4xE+ZeFgTfTHI
+         UYk5ONpbdE62mrcP+tR5IhI8eVTZHgyrx1oOKKeiyyL9xn+ewGQtor0BeyreAPm5Ajx4
+         a+rJ+2Ksh1D8TJbpkmhH+CvApikdUG/j6y8Dr87hDTnaoMGnkbwh4QE5YnW93Dc5HdW6
+         3N5o6uqDEymIp92XhG3qpqYoPUbPWXVuHXGd0DhXF7eUvzQR4v/f9JTeXjN7LeYTYdQ7
+         QNcjqm3gS1a1wRqoxIaZWKg6hgmaASS9MLcldYhGBRPWymqb/ar/GVDd6hKl+WsedSCY
+         hG2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date;
-        bh=HLdslObI2/Y7yRNp5iDWEluDr8C+44LY3HzNJTIMLH8=;
-        b=H5PkvBTBFSPdxnhcakR9T65p2I9mg28k3N+oBPBFdQ5C4psj9CRHVe280zAfCfsWYP
-         BkDaIPHOQMceGDQpcRJ7QchD+vD8+gbXnY4+o7gcJUgUbG/2mMZK5LCgf3dkSaMfwY1E
-         S/K3ZZqg+uJFFWIsT6TflyGY7yJOaM5PK6SenmLV7LUW+CiAiFw4zolrxGOM5D/zOl3E
-         6U4FnI86U8naCQCDkiKIWOkx9oZ5OWeYk18GqopS60J6jkc+cal0gcYhTqF0sq4Cg668
-         Ba774xsyUbsVa4ChMryfc6sAACO7487ppGoj3jETbqbmTK6aHcO9noUG3sjkIjx30ugm
-         iV3A==
-X-Gm-Message-State: ACgBeo2ZRzRJAbhDTIL8VaGkTxQzlknqvK+5ohv6MWf4jgpTWTmqNDBP
-	/JIkieWrarMPB3eGJmnVv0oWn/2f5fPL7w==
-X-Google-Smtp-Source: AA6agR5vwJgm9rgZMGqgEPvEq4NFpe9/RCeTG2UgI69pqs8a8Dq0HxhKGdJmUY19bIELfG/tt4NT0w==
-X-Received: by 2002:adf:a3c2:0:b0:228:64c2:6c5c with SMTP id m2-20020adfa3c2000000b0022864c26c5cmr24189519wrb.674.1663234157048;
-        Thu, 15 Sep 2022 02:29:17 -0700 (PDT)
-Return-Path: <alex.kanavin@gmail.com>
-Received: from Zen2.lab.linutronix.de. (drugstore.linutronix.de. [80.153.143.164])
-        by smtp.gmail.com with ESMTPSA id r17-20020a05600c425100b003a62400724bsm2291033wmm.0.2022.09.15.02.29.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Sep 2022 02:29:16 -0700 (PDT)
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-X-Google-Original-From: Alexander Kanavin <alex@linutronix.de>
-To: poky@lists.yoctoproject.org
-Cc: Alexander Kanavin <alex@linutronix.de>
-Subject: [PATCH] local.conf.sample: correct the location of public hashserv
-Date: Thu, 15 Sep 2022 11:29:13 +0200
-Message-Id: <20220915092913.3252441-1-alex@linutronix.de>
-X-Mailer: git-send-email 2.30.2
+        h=to:subject:message-id:date:from:reply-to:mime-version
+         :x-gm-message-state:from:to:cc:subject:date;
+        bh=nMxTd3WqbrFS55Ps6gyZZTHTN2O3J6Pn9lxs4IiL0Ew=;
+        b=INVK90NjAl2DvRUIn9+yyLFHBkasAjjXG+9aVrL0eG7j27TaNE2idwHOAg/LiSp9/l
+         Wo26ZYZnjLkzRGGg1TdvUrbCbZkzWCDSKXnI+sjF05Kpx+0f4zS771yPO9H/IuYWHS6I
+         817nmh42HYj0Y+G6zedk6qr2GDPrI4sYHCct17uFqmadXMpmxHdoOho+23BtEu2l9dUy
+         r22zu1Kd2eADIXZNsYtBvHI72SW3HPfzmrTOQFNblWji2NaY8pGw9rTnce+7h2zk2U+r
+         85i/Y2yyCz7RIYpENh6UfspvfyrsUcXSBzOiEgcdKkC5NiZ9soIn+VqyepUlhueFHgIu
+         cqEA==
+X-Gm-Message-State: ACrzQf2pJ6UAeMxyfSBxp0onoA7N6U7K8jd1n60CQwtOxW1+E8ibEHGh
+	L4aiuI/8u/Feavx1XbmCZ8gQfMXwXaowzofM/LcUr8eCgdAcew==
+X-Google-Smtp-Source: AMsMyM4FrH/9tKmLeDu7nwwrV1EAOrptaoSGcIfUug+1IetBJcdAj+vy5trUoBwHq5D0c3ANrcDbk/GNCETiHCEZuv0=
+X-Received: by 2002:a0c:f5c4:0:b0:4a7:f6cb:9e39 with SMTP id
+ q4-20020a0cf5c4000000b004a7f6cb9e39mr1892475qvm.9.1663277153009; Thu, 15 Sep
+ 2022 14:25:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Reply-To: jcreedon@waymo.com
+From: "Jacob Creedon" <jcreedon@waymo.com>
+Date: Thu, 15 Sep 2022 14:25:42 -0700
+Message-ID: <CAEZLVp62cB9iaft34MZaV6ZRKh22K1Pv4oKtATB+p2b1p_T_dA@mail.gmail.com>
+Subject: [PATCH] externalsrc: remove submodule--helper list call
+To: poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Alexander Kanavin <alex@linutronix.de>
+This removes a call to an undocumented and now deprecated subcommand of
+submodule--helper and replaces it with a supported command that gives an
+equivalent list.
+
+Signed-off-by: Jacob Creedon <jcreedon@google.com>
 ---
- meta-poky/conf/templates/default/local.conf.sample | 2 +-
+ meta/classes/externalsrc.bbclass | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-poky/conf/templates/default/local.conf.sample b/meta-poky/conf/templates/default/local.conf.sample
-index b96dc908f4..7be423ffed 100644
---- a/meta-poky/conf/templates/default/local.conf.sample
-+++ b/meta-poky/conf/templates/default/local.conf.sample
-@@ -234,7 +234,7 @@ BB_DISKMON_DIRS ??= "\
- # which will depend on your network.
- # Note: For this to work you also need hash-equivalence passthrough to the matching server
- #
--#BB_HASHSERVE_UPSTREAM = "typhoon.yocto.io:8687"
-+#BB_HASHSERVE_UPSTREAM = "hashserv.yocto.io:8687"
- #SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
- 
- #
--- 
-2.30.2
-
+diff --git a/meta/classes/externalsrc.bbclass b/meta/classes/externalsrc.bbclass
+index 3d6b80bee2..0401c75fa9 100644
+--- a/meta/classes/externalsrc.bbclass
++++ b/meta/classes/externalsrc.bbclass
+@@ -217,7 +217,7 @@ def srctree_hash_files(d, srcdir=None):
+             env['GIT_INDEX_FILE'] = tmp_index.name
+             subprocess.check_output(['git', 'add', '-A', '.'],
+cwd=s_dir, env=env)
+             git_sha1 = subprocess.check_output(['git', 'write-tree'],
+cwd=s_dir, env=env).decode("utf-8")
+-            submodule_helper = subprocess.check_output(['git',
+'submodule--helper', 'list'], cwd=s_dir, env=env).decode("utf-8")
++            submodule_helper = subprocess.check_output(['git',
+'submodule', '--quiet', 'foreach', 'echo $sm_path'], cwd=s_dir,
+env=env).decode("utf-8")
+             for line in submodule_helper.splitlines():
+                 module_dir = os.path.join(s_dir, line.rsplit(maxsplit=1)[1])
+                 if os.path.isdir(module_dir):
+--
+2.37.3
