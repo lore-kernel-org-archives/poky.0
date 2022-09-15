@@ -1,75 +1,72 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
- by mx.groups.io with SMTP id smtpd.web09.16236.1663277154089868926
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ by mx.groups.io with SMTP id smtpd.web12.16099.1663278350676398532
  for <poky@lists.yoctoproject.org>;
- Thu, 15 Sep 2022 14:25:54 -0700
+ Thu, 15 Sep 2022 14:45:51 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@waymo.com header.s=20210112 header.b=XV/wJnjp;
- spf=pass (domain: google.com, ip: 209.85.219.54, mailfrom: jcreedon@google.com)
-Received: by mail-qv1-f54.google.com with SMTP id l14so6788150qvq.8
-        for <poky@lists.yoctoproject.org>; Thu, 15 Sep 2022 14:25:53 -0700 (PDT)
+ dkim=fail reason="signature has expired" header.i=@axis.com header.s=axis-central1 header.b=X/o3WnmJ;
+ spf=pass (domain: axis.com, ip: 195.60.68.18, mailfrom: peter.kjellerstedt@axis.com)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=waymo.com; s=20210112;
-        h=to:subject:message-id:date:from:reply-to:mime-version:from:to:cc
-         :subject:date;
-        bh=nMxTd3WqbrFS55Ps6gyZZTHTN2O3J6Pn9lxs4IiL0Ew=;
-        b=XV/wJnjpLuZyQD6AyACJgBTQMlFL1z2td4mlugmaVo9nsBzGqZnbN4xE+ZeFgTfTHI
-         UYk5ONpbdE62mrcP+tR5IhI8eVTZHgyrx1oOKKeiyyL9xn+ewGQtor0BeyreAPm5Ajx4
-         a+rJ+2Ksh1D8TJbpkmhH+CvApikdUG/j6y8Dr87hDTnaoMGnkbwh4QE5YnW93Dc5HdW6
-         3N5o6uqDEymIp92XhG3qpqYoPUbPWXVuHXGd0DhXF7eUvzQR4v/f9JTeXjN7LeYTYdQ7
-         QNcjqm3gS1a1wRqoxIaZWKg6hgmaASS9MLcldYhGBRPWymqb/ar/GVDd6hKl+WsedSCY
-         hG2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=to:subject:message-id:date:from:reply-to:mime-version
-         :x-gm-message-state:from:to:cc:subject:date;
-        bh=nMxTd3WqbrFS55Ps6gyZZTHTN2O3J6Pn9lxs4IiL0Ew=;
-        b=INVK90NjAl2DvRUIn9+yyLFHBkasAjjXG+9aVrL0eG7j27TaNE2idwHOAg/LiSp9/l
-         Wo26ZYZnjLkzRGGg1TdvUrbCbZkzWCDSKXnI+sjF05Kpx+0f4zS771yPO9H/IuYWHS6I
-         817nmh42HYj0Y+G6zedk6qr2GDPrI4sYHCct17uFqmadXMpmxHdoOho+23BtEu2l9dUy
-         r22zu1Kd2eADIXZNsYtBvHI72SW3HPfzmrTOQFNblWji2NaY8pGw9rTnce+7h2zk2U+r
-         85i/Y2yyCz7RIYpENh6UfspvfyrsUcXSBzOiEgcdKkC5NiZ9soIn+VqyepUlhueFHgIu
-         cqEA==
-X-Gm-Message-State: ACrzQf2pJ6UAeMxyfSBxp0onoA7N6U7K8jd1n60CQwtOxW1+E8ibEHGh
-	L4aiuI/8u/Feavx1XbmCZ8gQfMXwXaowzofM/LcUr8eCgdAcew==
-X-Google-Smtp-Source: AMsMyM4FrH/9tKmLeDu7nwwrV1EAOrptaoSGcIfUug+1IetBJcdAj+vy5trUoBwHq5D0c3ANrcDbk/GNCETiHCEZuv0=
-X-Received: by 2002:a0c:f5c4:0:b0:4a7:f6cb:9e39 with SMTP id
- q4-20020a0cf5c4000000b004a7f6cb9e39mr1892475qvm.9.1663277153009; Thu, 15 Sep
- 2022 14:25:53 -0700 (PDT)
+  d=axis.com; q=dns/txt; s=axis-central1; t=1663278350;
+  x=1694814350;
+  h=from:to:subject:date:message-id:references:in-reply-to:
+   content-transfer-encoding:mime-version;
+  bh=hs0xX1n8N+zoyC3BqGTQBxpKY8cG778V1PJtI/xNE70=;
+  b=X/o3WnmJ4k/6lcwtRI8C2ASNV32k/UFbpsNQUja333pXJnxx0RQlqawk
+   nFzUwAgDCF9WYA2D4yU2uthT1UbnqTfmUku+QOSiNeAitKbxKceHS9sKa
+   heNujsnqqcG92/BcIljpDn3AXnvCIVzu35GaofMiB0c/c1sBMcpRnpmyU
+   Hezzqqy21kJq43eNT/jQbXt0u6Jj1cWcoR4apU/XerD+0ER3Jeqbxnip/
+   FW8GKjTWgJRtzXTHqtJtUQc9t/ILC7jz1sC0aJP/4jzV5mMduyGRYskpv
+   eZ5IgE+3N9FnDi9WRzUrnWMmr+ghfATkgNKntZU9+qvNPxf3JBv1V5GZe
+   A==;
+From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
+To: "jcreedon@waymo.com" <jcreedon@waymo.com>, "poky@lists.yoctoproject.org"
+	<poky@lists.yoctoproject.org>
+Subject: Re: [poky] [PATCH] externalsrc: remove submodule--helper list call
+Thread-Topic: [poky] [PATCH] externalsrc: remove submodule--helper list call
+Thread-Index: AQHYyUm/oQF4NoK+5kGIRU2KHB6uh63hBSrg
+Date: Thu, 15 Sep 2022 21:45:48 +0000
+Message-ID: <7e1368ddf19045b2b22ccb51dd645d86@axis.com>
+References: <CAEZLVp62cB9iaft34MZaV6ZRKh22K1Pv4oKtATB+p2b1p_T_dA@mail.gmail.com>
+In-Reply-To: <CAEZLVp62cB9iaft34MZaV6ZRKh22K1Pv4oKtATB+p2b1p_T_dA@mail.gmail.com>
+Accept-Language: en-US, sv-SE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.0.5.60]
 MIME-Version: 1.0
-Reply-To: jcreedon@waymo.com
-From: "Jacob Creedon" <jcreedon@waymo.com>
-Date: Thu, 15 Sep 2022 14:25:42 -0700
-Message-ID: <CAEZLVp62cB9iaft34MZaV6ZRKh22K1Pv4oKtATB+p2b1p_T_dA@mail.gmail.com>
-Subject: [PATCH] externalsrc: remove submodule--helper list call
-To: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-This removes a call to an undocumented and now deprecated subcommand of
-submodule--helper and replaces it with a supported command that gives an
-equivalent list.
-
-Signed-off-by: Jacob Creedon <jcreedon@google.com>
----
- meta/classes/externalsrc.bbclass | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/meta/classes/externalsrc.bbclass b/meta/classes/externalsrc.bbclass
-index 3d6b80bee2..0401c75fa9 100644
---- a/meta/classes/externalsrc.bbclass
-+++ b/meta/classes/externalsrc.bbclass
-@@ -217,7 +217,7 @@ def srctree_hash_files(d, srcdir=None):
-             env['GIT_INDEX_FILE'] = tmp_index.name
-             subprocess.check_output(['git', 'add', '-A', '.'],
-cwd=s_dir, env=env)
-             git_sha1 = subprocess.check_output(['git', 'write-tree'],
-cwd=s_dir, env=env).decode("utf-8")
--            submodule_helper = subprocess.check_output(['git',
-'submodule--helper', 'list'], cwd=s_dir, env=env).decode("utf-8")
-+            submodule_helper = subprocess.check_output(['git',
-'submodule', '--quiet', 'foreach', 'echo $sm_path'], cwd=s_dir,
-env=env).decode("utf-8")
-             for line in submodule_helper.splitlines():
-                 module_dir = os.path.join(s_dir, line.rsplit(maxsplit=1)[1])
-                 if os.path.isdir(module_dir):
---
-2.37.3
+VGhpcyBwYXRjaCBzaG91bGQgYmUgc2VudCB0byBvcGVuZW1iZWRkZWQtY29yZUBsaXN0cy5vcGVu
+ZW1iZWRkZWQub3JnIGluc3RlYWQuDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4g
+RnJvbTogcG9reUBsaXN0cy55b2N0b3Byb2plY3Qub3JnIDxwb2t5QGxpc3RzLnlvY3RvcHJvamVj
+dC5vcmc+IE9uIEJlaGFsZiBPZiBKYWNvYiBDcmVlZG9uDQo+IFNlbnQ6IGRlbiAxNSBzZXB0ZW1i
+ZXIgMjAyMiAyMjoyNg0KPiBUbzogcG9reUBsaXN0cy55b2N0b3Byb2plY3Qub3JnDQo+IFN1Ympl
+Y3Q6IFtwb2t5XSBbUEFUQ0hdIGV4dGVybmFsc3JjOiByZW1vdmUgc3VibW9kdWxlLS1oZWxwZXIg
+bGlzdCBjYWxsDQo+IA0KPiBUaGlzIHJlbW92ZXMgYSBjYWxsIHRvIGFuIHVuZG9jdW1lbnRlZCBh
+bmQgbm93IGRlcHJlY2F0ZWQgc3ViY29tbWFuZCBvZg0KPiBzdWJtb2R1bGUtLWhlbHBlciBhbmQg
+cmVwbGFjZXMgaXQgd2l0aCBhIHN1cHBvcnRlZCBjb21tYW5kIHRoYXQgZ2l2ZXMgYW4NCg0KSSB3
+b3VsZCBjaGFuZ2UgInN1Ym1vZHVsZS0taGVscGVyIiB0byAiZ2l0IHN1Ym1vZHVsZS0taGVscGVy
+IiB0byBtYWtlIGl0IA0KY2xlYXIgdGhhdCB5b3UgYXJlIHRhbGtpbmcgYWJvdXQgYSBnaXQgc3Vi
+Y29tbWFuZC4NCg0KLy9QZXRlcg0KDQo+IGVxdWl2YWxlbnQgbGlzdC4NCj4gDQo+IFNpZ25lZC1v
+ZmYtYnk6IEphY29iIENyZWVkb24gPGpjcmVlZG9uQGdvb2dsZS5jb20+DQo+IC0tLQ0KPiAgbWV0
+YS9jbGFzc2VzL2V4dGVybmFsc3JjLmJiY2xhc3MgfCAyICstDQo+ICAxIGZpbGUgY2hhbmdlZCwg
+MSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9tZXRhL2Ns
+YXNzZXMvZXh0ZXJuYWxzcmMuYmJjbGFzcyBiL21ldGEvY2xhc3Nlcy9leHRlcm5hbHNyYy5iYmNs
+YXNzDQo+IGluZGV4IDNkNmI4MGJlZTIuLjA0MDFjNzVmYTkgMTAwNjQ0DQo+IC0tLSBhL21ldGEv
+Y2xhc3Nlcy9leHRlcm5hbHNyYy5iYmNsYXNzDQo+ICsrKyBiL21ldGEvY2xhc3Nlcy9leHRlcm5h
+bHNyYy5iYmNsYXNzDQo+IEBAIC0yMTcsNyArMjE3LDcgQEAgZGVmIHNyY3RyZWVfaGFzaF9maWxl
+cyhkLCBzcmNkaXI9Tm9uZSk6DQo+ICAgICAgICAgICAgICBlbnZbJ0dJVF9JTkRFWF9GSUxFJ10g
+PSB0bXBfaW5kZXgubmFtZQ0KPiAgICAgICAgICAgICAgc3VicHJvY2Vzcy5jaGVja19vdXRwdXQo
+WydnaXQnLCAnYWRkJywgJy1BJywgJy4nXSwgY3dkPXNfZGlyLCBlbnY9ZW52KQ0KPiAgICAgICAg
+ICAgICAgZ2l0X3NoYTEgPSBzdWJwcm9jZXNzLmNoZWNrX291dHB1dChbJ2dpdCcsICd3cml0ZS10
+cmVlJ10sIGN3ZD1zX2RpciwgZW52PWVudikuZGVjb2RlKCJ1dGYtOCIpDQo+IC0gICAgICAgICAg
+ICBzdWJtb2R1bGVfaGVscGVyID0gc3VicHJvY2Vzcy5jaGVja19vdXRwdXQoWydnaXQnLCAnc3Vi
+bW9kdWxlLS1oZWxwZXInLCAnbGlzdCddLCBjd2Q9c19kaXIsIGVudj1lbnYpLmRlY29kZSgidXRm
+LTgiKQ0KPiArICAgICAgICAgICAgc3VibW9kdWxlX2hlbHBlciA9IHN1YnByb2Nlc3MuY2hlY2tf
+b3V0cHV0KFsnZ2l0JywgJ3N1Ym1vZHVsZScsICctLXF1aWV0JywgJ2ZvcmVhY2gnLCAnZWNobyAk
+c21fcGF0aCddLCBjd2Q9c19kaXIsIGVudj1lbnYpLmRlY29kZSgidXRmLTgiKQ0KPiAgICAgICAg
+ICAgICAgZm9yIGxpbmUgaW4gc3VibW9kdWxlX2hlbHBlci5zcGxpdGxpbmVzKCk6DQo+ICAgICAg
+ICAgICAgICAgICAgbW9kdWxlX2RpciA9IG9zLnBhdGguam9pbihzX2RpciwgbGluZS5yc3BsaXQo
+bWF4c3BsaXQ9MSlbMV0pDQo+ICAgICAgICAgICAgICAgICAgaWYgb3MucGF0aC5pc2Rpcihtb2R1
+bGVfZGlyKToNCj4gLS0NCj4gMi4zNy4zDQo=
