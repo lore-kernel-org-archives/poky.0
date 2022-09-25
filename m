@@ -1,83 +1,83 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
- by mx.groups.io with SMTP id smtpd.web12.19001.1664124253488860828
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net [217.70.183.200])
+ by mx.groups.io with SMTP id smtpd.web12.19927.1664129709535508593
  for <poky@lists.yoctoproject.org>;
- Sun, 25 Sep 2022 09:44:13 -0700
+ Sun, 25 Sep 2022 11:15:10 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=JAkvMrJn;
- spf=pass (domain: gmail.com, ip: 209.85.167.42, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-lf1-f42.google.com with SMTP id w8so7426911lft.12
-        for <poky@lists.yoctoproject.org>; Sun, 25 Sep 2022 09:44:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date;
-        bh=7MOyNWYYi2khlbSRh7DwbGvQQUPG90hbejhStKnOw8I=;
-        b=JAkvMrJn2UEodoP3eHTFDLKPfAQnYcRR4zlORvd15vnCxtw612yOsrReOA9Rynu65F
-         2ebozOYs5MAnylDnIRaiYXYSXYs3hbXVLDVCwjyAV8n5gjeXPbrpvicuE5eklAkSdntP
-         YAvHx+04ioZGhp2SzmcIArABHMuwSvPZyDbukoROgM48Z4TXq0/HuZ+f9DjcAhqWdlUn
-         OSYWXxsw/Dc2JsAPIS46dFCIJwGYmnmBocUnY5OvjqSjXsU2MaLeQgn9lh6mJFko5nut
-         6BWA1WTmUgorXOS40lXOIqTMrpbZkD1csvh+SFl5aOr5e5FyDvzRpx/SuRPzdGa+pguW
-         8E/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date;
-        bh=7MOyNWYYi2khlbSRh7DwbGvQQUPG90hbejhStKnOw8I=;
-        b=mv1rFEZ0Est4K1pUJeUQ808+GaSOXmLJkTceWisJm8RBxNbPjqhLBu7XJviBoBum6h
-         VyT3ra1znDFrdTC6knHNKLMtDIzvlHP55xWCw2Ww/KXrY2qAXAdcyljeH4sGQOEnAcPx
-         LhlU7vjB1gnFgc0bYpG2IBH7jcGQb9DAY96aO91/nLfLziJ7xTXRLDrnxqRXw40fGcWv
-         2UFsNsMxiDqd/cNFbaiTQKPb85jkhUkSmhAtnp2fTZBxnulHtgVfHO2rC4+c8mBgJy5c
-         5R40NdoIKxfEqIdYlK3F/CfOkfzbLRoLxkwhHL/hWRXwJ0xvx4Pk41hBmfHiJSY3WjOL
-         Wzxg==
-X-Gm-Message-State: ACrzQf1DO+blvxrWbArJXgMwu4ZD/xm6gCJ73oeP8KjZR6R+O7pAni/4
-	XUS5qnmyneghyn6CEaVxGj6IxE3cxFTJPocfyUs=
-X-Google-Smtp-Source: AMsMyM7L4DRc9+d44LitjkZnaZy8JgmBEbbUOjjtfLkvq5vKO6f0Zq9TlX8KbGpD4C+8THalP2L4xFPPZOc8cfkapZQ=
-X-Received: by 2002:a05:6512:1283:b0:499:d0a3:3ca8 with SMTP id
- u3-20020a056512128300b00499d0a33ca8mr6963405lfs.665.1664124251702; Sun, 25
- Sep 2022 09:44:11 -0700 (PDT)
-MIME-Version: 1.0
-References: <1714FEA7DD011F1F.28744@lists.yoctoproject.org>
-In-Reply-To: <1714FEA7DD011F1F.28744@lists.yoctoproject.org>
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-Date: Sun, 25 Sep 2022 18:44:00 +0200
-Message-ID: <CANNYZj8GM+JZVnr0hwEmuC6chc7M84r1z0snL97k6kFzxz8aXg@mail.gmail.com>
-Subject: Re: [poky] [PATCH] local.conf.sample: correct the location of public hashserv
+ dkim=pass header.i=@bootlin.com header.s=gm1 header.b=XXbOA9P1;
+ spf=pass (domain: bootlin.com, ip: 217.70.183.200, mailfrom: alexandre.belloni@bootlin.com)
+Received: (Authenticated sender: alexandre.belloni@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPSA id 78C2A20003;
+	Sun, 25 Sep 2022 18:15:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1664129707;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=29lYXhZZVy/C8sCg0PHm0Mjh2Epv4E7X47X/Lg/9ICQ=;
+	b=XXbOA9P12lVuQcJlZfTfd/ws0R00uQtzx9muOjA5i0eUQ7e3twqAPoCpGy5wzsS5ZI9dfe
+	kSHjbqLR/WC41Rp0iavcLtTIZXBuMHcA2Lbpf3iiBU0/gTBJqeZFTX7iqOSHywxHW0v19x
+	c/0nR6Xeg2Lj03YMegDbYSRyDQlnDnr/O2Wx5BxtMnuvDm8pJy5OpUv9/mcuAHi5h5KO5j
+	qcGKOd/W+Sk7WrVWQA0PxyQo4w4ZHSShD86qz0BT9pXHAn/ojgTvK0Pa8EMMJerioVacId
+	t+GYRp2iuI5IOl6u2o7fV9iQlyMrNmAaJpfjCergUfp86P3wCmp6X6ZiMmXlOw==
+Date: Sun, 25 Sep 2022 20:15:06 +0200
+From: "Alexandre Belloni" <alexandre.belloni@bootlin.com>
 To: Alexander Kanavin <alex.kanavin@gmail.com>
-Cc: poky@lists.yoctoproject.org, Alexander Kanavin <alex@linutronix.de>, 
-	Richard Purdie <richard.purdie@linuxfoundation.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
+Cc: poky@lists.yoctoproject.org, Alexander Kanavin <alex@linutronix.de>,
+	Richard Purdie <richard.purdie@linuxfoundation.org>
+Subject: Re: [poky] [PATCH] local.conf.sample: correct the location of public hashserv
+Message-ID: <YzCaqtunI25C6eJC@mail.local>
+References: <1714FEA7DD011F1F.28744@lists.yoctoproject.org>
+ <CANNYZj8GM+JZVnr0hwEmuC6chc7M84r1z0snL97k6kFzxz8aXg@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CANNYZj8GM+JZVnr0hwEmuC6chc7M84r1z0snL97k6kFzxz8aXg@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Has this patch reached you? I'm not sure why it's not appearing in
-test branches after several weeks.
-
-Alex
-
-On Thu, 15 Sept 2022 at 11:29, Alexander Kanavin via
-lists.yoctoproject.org <alex.kanavin=gmail.com@lists.yoctoproject.org>
-wrote:
->
-> Signed-off-by: Alexander Kanavin <alex@linutronix.de>
-> ---
->  meta-poky/conf/templates/default/local.conf.sample | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/meta-poky/conf/templates/default/local.conf.sample b/meta-poky/conf/templates/default/local.conf.sample
-> index b96dc908f4..7be423ffed 100644
-> --- a/meta-poky/conf/templates/default/local.conf.sample
-> +++ b/meta-poky/conf/templates/default/local.conf.sample
-> @@ -234,7 +234,7 @@ BB_DISKMON_DIRS ??= "\
->  # which will depend on your network.
->  # Note: For this to work you also need hash-equivalence passthrough to the matching server
->  #
-> -#BB_HASHSERVE_UPSTREAM = "typhoon.yocto.io:8687"
-> +#BB_HASHSERVE_UPSTREAM = "hashserv.yocto.io:8687"
->  #SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
->
->  #
-> --
-> 2.30.2
->
->
+On 25/09/2022 18:44:00+0200, Alexander Kanavin wrote:
+> Has this patch reached you? I'm not sure why it's not appearing in
+> test branches after several weeks.
 > 
->
+
+Your patch from the 7th of September was applied on the same day so this
+one doesn't apply ;)
+
+> Alex
+> 
+> On Thu, 15 Sept 2022 at 11:29, Alexander Kanavin via
+> lists.yoctoproject.org <alex.kanavin=gmail.com@lists.yoctoproject.org>
+> wrote:
+> >
+> > Signed-off-by: Alexander Kanavin <alex@linutronix.de>
+> > ---
+> >  meta-poky/conf/templates/default/local.conf.sample | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/meta-poky/conf/templates/default/local.conf.sample b/meta-poky/conf/templates/default/local.conf.sample
+> > index b96dc908f4..7be423ffed 100644
+> > --- a/meta-poky/conf/templates/default/local.conf.sample
+> > +++ b/meta-poky/conf/templates/default/local.conf.sample
+> > @@ -234,7 +234,7 @@ BB_DISKMON_DIRS ??= "\
+> >  # which will depend on your network.
+> >  # Note: For this to work you also need hash-equivalence passthrough to the matching server
+> >  #
+> > -#BB_HASHSERVE_UPSTREAM = "typhoon.yocto.io:8687"
+> > +#BB_HASHSERVE_UPSTREAM = "hashserv.yocto.io:8687"
+> >  #SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
+> >
+> >  #
+> > --
+> > 2.30.2
+> >
+> >
+> > 
+> >
+
+> 
+> 
+> 
+
+
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
