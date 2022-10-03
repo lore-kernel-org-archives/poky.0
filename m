@@ -1,78 +1,74 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
- by mx.groups.io with SMTP id smtpd.web09.12791.1664468924754405206
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+ by mx.groups.io with SMTP id smtpd.web09.1357.1664810855975033579
  for <poky@lists.yoctoproject.org>;
- Thu, 29 Sep 2022 09:28:45 -0700
+ Mon, 03 Oct 2022 08:27:36 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=CwZa7s80;
- spf=pass (domain: gmail.com, ip: 209.85.221.48, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-wr1-f48.google.com with SMTP id x18so3026247wrm.7
-        for <poky@lists.yoctoproject.org>; Thu, 29 Sep 2022 09:28:44 -0700 (PDT)
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=tOogSCKJ;
+ spf=softfail (domain: sakoman.com, ip: 209.85.215.176, mailfrom: steve@sakoman.com)
+Received: by mail-pg1-f176.google.com with SMTP id 78so9932129pgb.13
+        for <poky@lists.yoctoproject.org>; Mon, 03 Oct 2022 08:27:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date;
-        bh=eWzk3i/+CgY2OLD9U6kRGVeYv2fqBD9IvUXJmtKM0A8=;
-        b=CwZa7s802zLjdMOLpNpkrbRjJOW6TJKsh7O1icRaoOIzmDiAYfgsbk7Jd+d12F+Yrn
-         V+k2nOyW8qsXl579u4gwLyNb5Udy7r+qDBPV14e7wXdFgc9Oc+ZJiwnnxm7Tw/jpZmoS
-         eCX7Ppm0F6+DbpDP0kbvZGUNfvuk9TIpcq47II7h72KPQUxSt9ABYFHai8faYP67ciE8
-         ynJ0DlNd8igYRrfOvfVyzy5gGvWPTnesuOGYgwBsmp9Ajj/2gnPUF6UkboaQDmiASKi5
-         9bJYQTP+UNG64w19Qov2pTa3CFt8Qk6lDENc3S5rTNHw6RcB8ChoeuZXiaC6sJxw5P+s
-         9wgA==
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date;
+        bh=SNaBYYAHwntpfvo5t6KanRB4KPRjJVvFVVKvEETn83g=;
+        b=tOogSCKJrlBZJ7JlVAvEGsxN6lj9DfkZHM/AEF5jgPZnQQQX/NVrsDdPPeHfZNjhdI
+         r1B0xRVWc1b12vcy43NKEUXjkIBV91ZfaUD7xv5Oum6GT4UxRmG3i9bXM84SvNUjZv9V
+         lo2FMV/YtFLBnQiCqqDx3VxBHKXupJ0292aUwcFiHKjw2SiY/lhMpdKkjqI8phL0t9jx
+         0Vw1T5E6drlb93RjXYNCSPT/RcJ1f3taZtXnmMyjU45W8Dy/Bvy7/CkR8WphazDcsjum
+         UDkscc1qyyZMCVZ4iTAfpA33YQrA6HxdpYouNVGKLpfwpUpLpHQGSPR6Hg4qmcHqpH7h
+         XTRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date;
-        bh=eWzk3i/+CgY2OLD9U6kRGVeYv2fqBD9IvUXJmtKM0A8=;
-        b=2Q6aLlajFcW+nVNvPG1Z1vqIsx31bz4YJ/hgzSB7XUAWG4vrGKmy7qcpiPCra8GsD9
-         HuZaAQiBwrP6SOuKpm7QgY/PZWw98SLbDvD+C1DhzXvtb6S8adj18VJB/CfU9XrMthte
-         eA+39+Im/KIvpzQSdd5YtjqWGH3IIpfS8MODhfqgnxyi+5fH7kpTpqYks7hzRT4JmKmB
-         q2pJw81KSTQAGvbigWbisqq/x7jTUUR5d/bxCiM7yUXt4ivZmDzs1C03fqXbnIZcXhSY
-         5Wu7JcOrvbgIyS6ohujtHw2bG/09yciAVHJQ/+ycAuOJDQriSFYL6pdoY6ROCMeAp34e
-         wpFg==
-X-Gm-Message-State: ACrzQf36F7/aQdZ+MA+eheaF8bUQJefYvbYpjekXPNhKbJ3TuEudjfwn
-	IPXf2/oGsqCcuSAIBf8wEOwBvZtraRg=
-X-Google-Smtp-Source: AMsMyM7VpVgXDeYWTqHVPGHTruElM7R4SUx+z2+BAGHYzK9iav1O3tiDJ+EXJAOaAV+0BT60ytSXSg==
-X-Received: by 2002:a05:6000:1a8e:b0:22a:f55a:94d6 with SMTP id f14-20020a0560001a8e00b0022af55a94d6mr2901609wry.606.1664468923087;
-        Thu, 29 Sep 2022 09:28:43 -0700 (PDT)
-Return-Path: <alex.kanavin@gmail.com>
-Received: from Zen2.lab.linutronix.de. (drugstore.linutronix.de. [80.153.143.164])
-        by smtp.gmail.com with ESMTPSA id q6-20020adff506000000b0022a839d053csm6997149wro.98.2022.09.29.09.28.41
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+         :subject:date;
+        bh=SNaBYYAHwntpfvo5t6KanRB4KPRjJVvFVVKvEETn83g=;
+        b=6LC6KJm+gLShQexsHCdojYGtxE9gD1gXxLt1rdSm2LVvkOZFfDWe5kdvCtC47mGUdw
+         Buj3j8SvAkmA3SBGfYmcLGcSz/Dr49ywn2QWbXzsUaulIhwijiAkIz80+nNVikhoclj9
+         NiUBeVuTQKQPM/R2psz9wS8XNk7mKmMieHnYTEB9Ot38Ao92+bF9ydyW0vz4ZMAWoGF5
+         nof0wxHoCfKx06D3KkED1e6o80YfhsqggvyaAmRSlON1Fu/U1bBnzxZ+gBVizFmi5smQ
+         c2F48qz+afqVh5C2IIcghGEsG59EB1OmT5ZJYW8ZVV6Ti7nmFymj9/V2LO7aMFfbRq7b
+         kSeg==
+X-Gm-Message-State: ACrzQf06gNNod8rJsy7Q7MR3VcIYWVUibJGR06gwC6U+tCFJK7E4bgVI
+	i+9RaEbMPw0uH8r0kja4q/ntFWASgD7qG5Lh
+X-Google-Smtp-Source: AMsMyM4rmGid8m6yXdjO+iGmpIsl/JbG/SnJX1l4OI/UuUdSVzhYIxKDU8g0EGzvhRYUzfRJ5VxFlw==
+X-Received: by 2002:a65:5688:0:b0:3c2:1015:988e with SMTP id v8-20020a655688000000b003c21015988emr19281950pgs.280.1664810854743;
+        Mon, 03 Oct 2022 08:27:34 -0700 (PDT)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
+        by smtp.gmail.com with ESMTPSA id e9-20020aa79809000000b00561ab290f45sm658061pfl.215.2022.10.03.08.27.33
+        for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Sep 2022 09:28:42 -0700 (PDT)
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-X-Google-Original-From: Alexander Kanavin <alex@linutronix.de>
+        Mon, 03 Oct 2022 08:27:34 -0700 (PDT)
+From: "Steve Sakoman" <steve@sakoman.com>
 To: poky@lists.yoctoproject.org
-Cc: Alexander Kanavin <alex.kanavin@gmail.com>,
-	Alexander Kanavin <alex@linutronix.de>,
-	Richard Purdie <richard.purdie@linuxfoundation.org>
-Subject: [kirkstone][PATCH] local.conf.sample: correct the location of public hashserv
-Date: Thu, 29 Sep 2022 18:28:32 +0200
-Message-Id: <20220929162832.2291580-1-alex@linutronix.de>
-X-Mailer: git-send-email 2.30.2
+Subject: [meta-yocto][dunfell 1/1] poky.conf: bump version for 3.1.20 release
+Date: Mon,  3 Oct 2022 05:27:24 -1000
+Message-Id: <d7f53461428ba22de7e92f47f9380cf8e3c2f775.1664810751.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1664810751.git.steve@sakoman.com>
+References: <cover.1664810751.git.steve@sakoman.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-
-Signed-off-by: Alexander Kanavin <alex@linutronix.de>
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+Signed-off-by: Steve Sakoman <steve@sakoman.com>
 ---
- meta-poky/conf/local.conf.sample | 2 +-
+ meta-poky/conf/distro/poky.conf | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
-index ae9c87f4b2..ef491d43bf 100644
---- a/meta-poky/conf/local.conf.sample
-+++ b/meta-poky/conf/local.conf.sample
-@@ -229,7 +229,7 @@ BB_DISKMON_DIRS ??= "\
- # which will depend on your network.
- # Note: For this to work you also need hash-equivalence passthrough to the matching server
- #
--#BB_HASHSERVE_UPSTREAM = "typhoon.yocto.io:8687"
-+#BB_HASHSERVE_UPSTREAM = "hashserv.yocto.io:8687"
- #SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
- 
- #
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index eefd37f..ffea526 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -1,6 +1,6 @@
+ DISTRO = "poky"
+ DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
+-DISTRO_VERSION = "3.1.19"
++DISTRO_VERSION = "3.1.20"
+ DISTRO_CODENAME = "dunfell"
+ SDK_VENDOR = "-pokysdk"
+ SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}', 'snapshot')}"
 -- 
-2.30.2
+2.25.1
 
