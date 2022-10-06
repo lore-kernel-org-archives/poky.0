@@ -1,74 +1,105 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
- by mx.groups.io with SMTP id smtpd.web09.1357.1664810855975033579
+Received: from mail.schwermer.no (mail.schwermer.no [49.12.228.226])
+ by mx.groups.io with SMTP id smtpd.web08.3343.1665044427547319874
  for <poky@lists.yoctoproject.org>;
- Mon, 03 Oct 2022 08:27:36 -0700
+ Thu, 06 Oct 2022 01:20:29 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=tOogSCKJ;
- spf=softfail (domain: sakoman.com, ip: 209.85.215.176, mailfrom: steve@sakoman.com)
-Received: by mail-pg1-f176.google.com with SMTP id 78so9932129pgb.13
-        for <poky@lists.yoctoproject.org>; Mon, 03 Oct 2022 08:27:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date;
-        bh=SNaBYYAHwntpfvo5t6KanRB4KPRjJVvFVVKvEETn83g=;
-        b=tOogSCKJrlBZJ7JlVAvEGsxN6lj9DfkZHM/AEF5jgPZnQQQX/NVrsDdPPeHfZNjhdI
-         r1B0xRVWc1b12vcy43NKEUXjkIBV91ZfaUD7xv5Oum6GT4UxRmG3i9bXM84SvNUjZv9V
-         lo2FMV/YtFLBnQiCqqDx3VxBHKXupJ0292aUwcFiHKjw2SiY/lhMpdKkjqI8phL0t9jx
-         0Vw1T5E6drlb93RjXYNCSPT/RcJ1f3taZtXnmMyjU45W8Dy/Bvy7/CkR8WphazDcsjum
-         UDkscc1qyyZMCVZ4iTAfpA33YQrA6HxdpYouNVGKLpfwpUpLpHQGSPR6Hg4qmcHqpH7h
-         XTRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
-         :subject:date;
-        bh=SNaBYYAHwntpfvo5t6KanRB4KPRjJVvFVVKvEETn83g=;
-        b=6LC6KJm+gLShQexsHCdojYGtxE9gD1gXxLt1rdSm2LVvkOZFfDWe5kdvCtC47mGUdw
-         Buj3j8SvAkmA3SBGfYmcLGcSz/Dr49ywn2QWbXzsUaulIhwijiAkIz80+nNVikhoclj9
-         NiUBeVuTQKQPM/R2psz9wS8XNk7mKmMieHnYTEB9Ot38Ao92+bF9ydyW0vz4ZMAWoGF5
-         nof0wxHoCfKx06D3KkED1e6o80YfhsqggvyaAmRSlON1Fu/U1bBnzxZ+gBVizFmi5smQ
-         c2F48qz+afqVh5C2IIcghGEsG59EB1OmT5ZJYW8ZVV6Ti7nmFymj9/V2LO7aMFfbRq7b
-         kSeg==
-X-Gm-Message-State: ACrzQf06gNNod8rJsy7Q7MR3VcIYWVUibJGR06gwC6U+tCFJK7E4bgVI
-	i+9RaEbMPw0uH8r0kja4q/ntFWASgD7qG5Lh
-X-Google-Smtp-Source: AMsMyM4rmGid8m6yXdjO+iGmpIsl/JbG/SnJX1l4OI/UuUdSVzhYIxKDU8g0EGzvhRYUzfRJ5VxFlw==
-X-Received: by 2002:a65:5688:0:b0:3c2:1015:988e with SMTP id v8-20020a655688000000b003c21015988emr19281950pgs.280.1664810854743;
-        Mon, 03 Oct 2022 08:27:34 -0700 (PDT)
-Return-Path: <steve@sakoman.com>
-Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
-        by smtp.gmail.com with ESMTPSA id e9-20020aa79809000000b00561ab290f45sm658061pfl.215.2022.10.03.08.27.33
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Oct 2022 08:27:34 -0700 (PDT)
-From: "Steve Sakoman" <steve@sakoman.com>
+ dkim=fail reason="body hash did not verify" header.i=@svenschwermer.de header.s=mail header.b=S7TeBrWr;
+ spf=pass (domain: svenschwermer.de, ip: 49.12.228.226, mailfrom: sven@svenschwermer.de)
+X-Virus-Scanned: Yes
+From: "Sven" <sven@svenschwermer.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=svenschwermer.de;
+	s=mail; t=1665044423;
+	bh=/5GcMv2pUy51UnZLycvn6/wH56IJPyUwVtxQFugwUoQ=;
+	h=From:To:Cc:Subject;
+	b=S7TeBrWrzOWmPB926Uofjh63R2MXHWuA72t8qfjzqtD+dCULDPTmzaOFrevfCpwxt
+	 5piyvNaZDA5HCE6lofog3LGMmSs6sNR+vqyYo0JQx+3D8uSOQ2TB8ObSs54yhRyWcg
+	 lCH/G6Ot5hl3TUgM4BBSABh8u8TV6mDEYy47vRh6PYWPKtYdCudHfDzSnqDQdiigOv
+	 KArD4b9x5KTa2MB+azWAayTvgaxOOnMDwFhYu0saJi467a1B0RKqel/6meDOUrijGl
+	 dqQYL3qrR/oiSWNH6PInfJMREqwJz3Waf6v6eS4W7PAvdt8QXFXlCYRk23/BIxtabn
+	 7VjRHX7QKtZOQ==
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell 1/1] poky.conf: bump version for 3.1.20 release
-Date: Mon,  3 Oct 2022 05:27:24 -1000
-Message-Id: <d7f53461428ba22de7e92f47f9380cf8e3c2f775.1664810751.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1664810751.git.steve@sakoman.com>
-References: <cover.1664810751.git.steve@sakoman.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Cc: John Edward Broadbent <jebr@google.com>,
+	Carson Labrado <clabrado@google.com>,
+	Richard Purdie <richard.purdie@linuxfoundation.org>
+Subject: [PATCH] externalsrc: git submodule--helper list unsupported
+Date: Thu,  6 Oct 2022 10:20:00 +0200
+Message-Id: <20221006082000.60867-1-sven@svenschwermer.de>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Steve Sakoman <steve@sakoman.com>
+From: John Edward Broadbent <jebr@google.com>
+
+Git has removed support for "git submodule--helper list".
+https://github.com/git/git/commit/31955475d1c283120d5d84247eb3fd55d9f5fdd=
+9
+
+This change provides an alternate method for gathering the submodules
+information.
+
+Tested:
+Build recipes with and without submodules
+
+(From OE-Core rev: 6d9364e5f3535954f65cbbc694ee7933ac1d664f)
+
+Signed-off-by: Carson Labrado <clabrado@google.com>
+Signed-off-by: John Edward Broadbent <jebr@google.com>
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+(cherry picked from commit 0533edac277080e1bd130c14df0cbac61ba01a0c)
 ---
- meta-poky/conf/distro/poky.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index eefd37f..ffea526 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -1,6 +1,6 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
--DISTRO_VERSION = "3.1.19"
-+DISTRO_VERSION = "3.1.20"
- DISTRO_CODENAME = "dunfell"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}', 'snapshot')}"
--- 
-2.25.1
+Notes:
+    With git 2.38.0 externalsrc does not work anymore. I hope, we can
+    backport this fix to stable branches as well.
+
+ meta/classes/externalsrc.bbclass | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
+
+diff --git a/meta/classes/externalsrc.bbclass b/meta/classes/externalsrc.=
+bbclass
+index 0e0a3ae89c..291fcf5653 100644
+--- a/meta/classes/externalsrc.bbclass
++++ b/meta/classes/externalsrc.bbclass
+@@ -225,15 +225,16 @@ def srctree_hash_files(d, srcdir=3DNone):
+             env['GIT_INDEX_FILE'] =3D tmp_index.name
+             subprocess.check_output(['git', 'add', '-A', '.'], cwd=3Ds_d=
+ir, env=3Denv)
+             git_sha1 =3D subprocess.check_output(['git', 'write-tree'], =
+cwd=3Ds_dir, env=3Denv).decode("utf-8")
+-            submodule_helper =3D subprocess.check_output(['git', 'submod=
+ule--helper', 'list'], cwd=3Ds_dir, env=3Denv).decode("utf-8")
+-            for line in submodule_helper.splitlines():
+-                module_dir =3D os.path.join(s_dir, line.rsplit(maxsplit=3D=
+1)[1])
+-                if os.path.isdir(module_dir):
+-                    proc =3D subprocess.Popen(['git', 'add', '-A', '.'],=
+ cwd=3Dmodule_dir, env=3Denv, stdout=3Dsubprocess.DEVNULL, stderr=3Dsubpr=
+ocess.DEVNULL)
+-                    proc.communicate()
+-                    proc =3D subprocess.Popen(['git', 'write-tree'], cwd=
+=3Dmodule_dir, env=3Denv, stdout=3Dsubprocess.PIPE, stderr=3Dsubprocess.D=
+EVNULL)
+-                    stdout, _ =3D proc.communicate()
+-                    git_sha1 +=3D stdout.decode("utf-8")
++            if os.path.exists(".gitmodules"):
++                submodule_helper =3D subprocess.check_output(["git", "co=
+nfig", "--file", ".gitmodules", "--get-regexp", "path"], cwd=3Ds_dir, env=
+=3Denv).decode("utf-8")
++                for line in submodule_helper.splitlines():
++                    module_dir =3D os.path.join(s_dir, line.rsplit(maxsp=
+lit=3D1)[1])
++                    if os.path.isdir(module_dir):
++                        proc =3D subprocess.Popen(['git', 'add', '-A', '=
+.'], cwd=3Dmodule_dir, env=3Denv, stdout=3Dsubprocess.DEVNULL, stderr=3Ds=
+ubprocess.DEVNULL)
++                        proc.communicate()
++                        proc =3D subprocess.Popen(['git', 'write-tree'],=
+ cwd=3Dmodule_dir, env=3Denv, stdout=3Dsubprocess.PIPE, stderr=3Dsubproce=
+ss.DEVNULL)
++                        stdout, _ =3D proc.communicate()
++                        git_sha1 +=3D stdout.decode("utf-8")
+             sha1 =3D hashlib.sha1(git_sha1.encode("utf-8")).hexdigest()
+         with open(oe_hash_file, 'w') as fobj:
+             fobj.write(sha1)
+--=20
+2.37.3
 
