@@ -1,69 +1,75 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
- by mx.groups.io with SMTP id smtpd.web11.8058.1665418743395046217
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+ by mx.groups.io with SMTP id smtpd.web10.32673.1665946882897557494
  for <poky@lists.yoctoproject.org>;
- Mon, 10 Oct 2022 09:19:03 -0700
+ Sun, 16 Oct 2022 12:01:23 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=ebIVqOpY;
- spf=softfail (domain: sakoman.com, ip: 209.85.216.53, mailfrom: steve@sakoman.com)
-Received: by mail-pj1-f53.google.com with SMTP id t12-20020a17090a3b4c00b0020b04251529so10698999pjf.5
-        for <poky@lists.yoctoproject.org>; Mon, 10 Oct 2022 09:19:03 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=lTdPAic5;
+ spf=pass (domain: gmail.com, ip: 209.85.160.53, mailfrom: festevam@gmail.com)
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-1322d768ba7so11324169fac.5
+        for <poky@lists.yoctoproject.org>; Sun, 16 Oct 2022 12:01:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=PCVrPtwuTGEjX30yhz64vkspeIIglqj+rn9FQruouzE=;
-        b=ebIVqOpYq05C6WythqBaTDd0Io7+ayEikISlCmrWNEHsG9zQBlXtUUh0XMxGZocAtI
-         +Trgwo1yLVi3RfCdGhHyl8iGc0MX6HnxTojEIGYtP48fic53T+hiJKNa+PaG0rz/dXXK
-         JDJMaiQhEHWI4mt7exx9KHdRv9BxjOFNuN4n798wOphUBOxUIVo7T4WFQOmqtk0U0tJi
-         yZ/eq/U5Ws0b56o4/Fryq0hvncwXmg/90gj3ArIWNWWgDJ/Ng+thvQxQ5zau5v7bHETj
-         KiUFdS10c+0vO/1hDfhlUhUDwpHkR8CHoWtkeJaTWUDHsI68UcJ6EwhVxTCyWZMVznKM
-         HYTw==
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=T2MouWZowhJMhnY2lXwiLJJ73z8gy7Wf5SRlLuPJng0=;
+        b=lTdPAic5ot9xtEEgMG8ZxMuLpK3sEIUVk+noUvNa+UvquRWqc5OFdtKSXP8Cp/qRcf
+         K1i+NKXCkvMTbAwflpTa02frY9in5GY/CiHSZeZdv250MhULfFU8egDnXd5gto3h3eV1
+         xrW6BVJ87pJf6sBCuS6lxIo75BzkCAV3aOtcdMz1y2Dli3Fbx2Rtpv4pcbWtuGZDyHpR
+         GgFZiGUvjvobbiEO5DtKposaAT6+yo0cvabCAIEtv82GPIJex7dQRU3+L/8ZlB0d2654
+         rq8P3N2oFAl03+TJo56rRR+zB+c0jwFjV5S2B6oBPz/PGtsKIFnEr88k8ygDXkGt4xlm
+         b1SA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PCVrPtwuTGEjX30yhz64vkspeIIglqj+rn9FQruouzE=;
-        b=YxQpcE5+UyzhpgDSyvI7q1LvglkxR4ahT584Be464B6CWy6T0NYpa3a0QM7iSz/BAr
-         Pi/DBXmIU465e6J1bgiu1ZGx7GZ3dR1jqf5YvaeesP12Rgsfuwx5Sg6n4GARefnxkinD
-         rYUcTPwkSOiHmFGhPTOijls06TVtXcWCcbERvqR1w4S/Om9KH0VAJ+caUnP9COse7lK5
-         5nCskTvOT9Se2mT6Vqu7wEGdQvwkXEDZzWqeHNozZ+FSpVTjwHirM2aeyGCWeSBcnLrG
-         ZAm3me7eQLrF1zzASFJgN5GtUuh+5Okiz9388K+mqsz+f2E2RlwklCq7UiU2YMlKCsDF
-         sAOA==
-X-Gm-Message-State: ACrzQf2IXGhq8vTr546FArItTOAK8LK+lhb+ZwtMGN3Qrgz4DuR045sJ
-	7RFGvEmXaKmPloSz4hs26iK736y9bzcaEhhl
-X-Google-Smtp-Source: AMsMyM4n/xYTETFeSw9fOCl5byqjasmWjSYtj6rWRKsH0uVwzIv7h/W7dm0cd4Fw9W+1dJghwGlEBQ==
-X-Received: by 2002:a17:902:f60b:b0:178:6a49:d4e3 with SMTP id n11-20020a170902f60b00b001786a49d4e3mr20243545plg.75.1665418742251;
-        Mon, 10 Oct 2022 09:19:02 -0700 (PDT)
-Return-Path: <steve@sakoman.com>
-Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
-        by smtp.gmail.com with ESMTPSA id q3-20020a17090aa00300b0020af2411721sm6184108pjp.34.2022.10.10.09.19.01
-        for <poky@lists.yoctoproject.org>
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=T2MouWZowhJMhnY2lXwiLJJ73z8gy7Wf5SRlLuPJng0=;
+        b=tL59DkR2xi5vGFCA1LInvZrz5TxGuAr/jfL7+vtsLEEqpHmV4SgmYwMSQU019q+QiL
+         9RcFOh5Nc7DhNG/W1Xyr9A8i6YOBOvepx9WABDOoA35UM2CFCYv5V5eWqK525ibbPMnc
+         gGEf3b2fLVOZCy4LUqYuQ7gKVjZbq+TwClcZC2I3tx0YPZSRZdsT79RZ9pL44R67/X0x
+         /RUGyUttRalKC0PjkeLovJ+wiEunaqFoItu7R+FfIx7NidS/BsU2dBeE3LFyZz8pMVS5
+         zn2ENX1eojDC0GpBykF7syh00KQRtSTwdBBgWkJOCqC7nfT/+SyWLrf5LxznLdkX+u/U
+         dDIQ==
+X-Gm-Message-State: ACrzQf20tcK+2EZ5YoJdwwn0RSZ3HeGuW8SOqZlsKdpy7ed5NYyO27I5
+	bSEsWyA3P3QC7csBJTMAaJQq+RKKQ7Q=
+X-Google-Smtp-Source: AMsMyM4nxMYCnRwpczqB3a2czoIrxes8w1TiIMqRuVock75b87uA7UfFp4Vr58Yma7l5BhbCQTDxGg==
+X-Received: by 2002:a05:6870:524b:b0:132:fe86:4be9 with SMTP id o11-20020a056870524b00b00132fe864be9mr4053645oai.102.1665946881898;
+        Sun, 16 Oct 2022 12:01:21 -0700 (PDT)
+Return-Path: <festevam@gmail.com>
+Received: from localhost.localdomain ([2804:14c:485:4b69:df5b:95c7:e46e:6f46])
+        by smtp.gmail.com with ESMTPSA id 88-20020a9d02e1000000b00661c43eec5dsm3903720otl.30.2022.10.16.12.01.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Oct 2022 09:19:01 -0700 (PDT)
-From: "Steve Sakoman" <steve@sakoman.com>
+        Sun, 16 Oct 2022 12:01:21 -0700 (PDT)
+From: "Fabio Estevam" <festevam@gmail.com>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][kirkstone 0/1] Pull request (cover letter only)
-Date: Mon, 10 Oct 2022 06:18:53 -1000
-Message-Id: <cover.1665418691.git.steve@sakoman.com>
+Cc: Fabio Estevam <festevam@gmail.com>
+Subject: [poky][PATCH] go-mod.bbclass: Remove repeated word
+Date: Sun, 16 Oct 2022 16:01:16 -0300
+Message-Id: <20221016190116.3238532-1-festevam@gmail.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The following changes since commit ca9c465e37b693ab768ee8e21a929d1c18956e98:
+The word 'the' appears repeatedly. Remove one occurrence.
 
-  poky.conf: bump version for 4.0.4 (2022-09-09 06:51:02 -1000)
-
-are available in the Git repository at:
-
-  https://git.yoctoproject.org/meta-yocto contrib/kirkstone-next
-  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/kirkstone-next
-
-Alexander Kanavin (1):
-  local.conf.sample: correct the location of public hashserv
-
- meta-poky/conf/local.conf.sample | 2 +-
+Signed-off-by: Fabio Estevam <festevam@gmail.com>
+---
+ meta/classes-recipe/go-mod.bbclass | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/meta/classes-recipe/go-mod.bbclass b/meta/classes-recipe/go-mod.bbclass
+index 927746a338be..61571596bcfa 100644
+--- a/meta/classes-recipe/go-mod.bbclass
++++ b/meta/classes-recipe/go-mod.bbclass
+@@ -6,7 +6,7 @@
+ 
+ # Handle Go Modules support
+ #
+-# When using Go Modules, the the current working directory MUST be at or below
++# When using Go Modules, the current working directory MUST be at or below
+ # the location of the 'go.mod' file when the go tool is used, and there is no
+ # way to tell it to look elsewhere.  It will automatically look upwards for the
+ # file, but not downwards.
 -- 
 2.25.1
 
