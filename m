@@ -1,76 +1,88 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
- by mx.groups.io with SMTP id smtpd.web09.3977.1668004365172545313
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+ by mx.groups.io with SMTP id smtpd.web12.8126.1668444409995278873
  for <poky@lists.yoctoproject.org>;
- Wed, 09 Nov 2022 06:32:45 -0800
+ Mon, 14 Nov 2022 08:46:50 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=t78VtUVG;
- spf=softfail (domain: sakoman.com, ip: 209.85.214.169, mailfrom: steve@sakoman.com)
-Received: by mail-pl1-f169.google.com with SMTP id y4so17264726plb.2
-        for <poky@lists.yoctoproject.org>; Wed, 09 Nov 2022 06:32:45 -0800 (PST)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=LOOzyQru;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.46, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f46.google.com with SMTP id 129-20020a1c0287000000b003cfe48519a6so1417123wmc.0
+        for <poky@lists.yoctoproject.org>; Mon, 14 Nov 2022 08:46:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=5xubNE9rhekrRmTsxPpelme+Yl4DeBdSM8EB2CAnjCc=;
-        b=t78VtUVGgmIzJ4/497t19UmfO54xPw9GYYDNDKF2er4j4lrUk/MMH7IR27oTLn1aXN
-         /6tWttv51GN3gznaIhzFmRWst06P+Ul7XckzYPfZXPeKVBLFxppAtt6dklftF/RAj8tx
-         eiw68paZUykgwld06Wn4ADIPz4whREgMZPH3Fj++t17YdgVFiJG4MR7azT9VXOOGEfBu
-         ZMtjKfFZ2msQ4r242ZxFa/0DnkUS0TCzPYXKLUabhdGCc1tqcFIWKVcb3FwtTjldGlpF
-         ypgHwNOIprVwHLXb0u+tk0cAxfsR1UF8pKqh+p39GiD98Xd6kw2txFezidzH1ZdpL5Tz
-         oyAw==
+        d=linuxfoundation.org; s=google;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QsD7s7Neo61YLU274Pkeamt2ZiZl/pzcPehtYbtFy48=;
+        b=LOOzyQruUJobWgLz/lpWhyStLB6Pubf2Q9ZGAtFtLjEUjW46I1V4cbmpcywDzek/lc
+         z4Us5E5ghCcCEIyZbtDL55VPqkuDIJ4vJK5RjH8TFvI/GuocwFG/ncAxS9nITeFWNqhW
+         BmLBCoNn0zWQM3xzK/9dBoO+sRQpn/2UlitS0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=5xubNE9rhekrRmTsxPpelme+Yl4DeBdSM8EB2CAnjCc=;
-        b=tMYOJlMcUV9f+LLe4SDLC3YYbZDpiEOmhxxw7YAJxNHQGSim8InckLSZCjFYmYPWpo
-         yjW0YUcUezhUe75Qd4XgIrH/bu9tyM5GzJ72xv9X/mv1EbY83G093Qxax8Zv5o99br0F
-         akxwGwkmiyo8WA/wPQlgD59+nnshKZ06WkqTTdmXKWRcZPtIlMRmnF3pFaeufrRysXlJ
-         W9K75LjtPbmRajqd6EjX5gYDQaVlclMsCgtRYe+dNQ8fjfQCAfRSSkclKxH4q4RoXswa
-         ih6ND4FyDobrVtIT5wyeI4Q8sLVS9+aUnsSDaPIHGCYD8TMPeeK6K457isUZ056Uhr66
-         SSmA==
-X-Gm-Message-State: ACrzQf2pHQ2zlHGcJZNbZWQunYDmW28A+71lcW+2sWxwV0FbkBJAa/72
-	aXf+ugD0a+eOaJiyqLyTYDf/p5N7ABH2jM9j
-X-Google-Smtp-Source: AMsMyM4Ohw298nnFsHAZQ9INw2v7JClDl3Fb4lFHzrg+aGbkEAIPQNAO6MSEnvh1o7pWr6KKOrIlog==
-X-Received: by 2002:a17:902:be18:b0:178:b9c9:97b8 with SMTP id r24-20020a170902be1800b00178b9c997b8mr59562737pls.38.1668004364135;
-        Wed, 09 Nov 2022 06:32:44 -0800 (PST)
-Return-Path: <steve@sakoman.com>
-Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
-        by smtp.gmail.com with ESMTPSA id b9-20020a1709027e0900b00187033cc287sm9090427plm.190.2022.11.09.06.32.43
-        for <poky@lists.yoctoproject.org>
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=QsD7s7Neo61YLU274Pkeamt2ZiZl/pzcPehtYbtFy48=;
+        b=Lbmr3H/NXGs8sj8q/f2WgCjzQUlA1rRv8ZUVLZuc2SXVMkBSPgaWPkhPyKWmxvi36a
+         OmXK0SRTdprHjpBzDRkaAvzgpBHuBRdtxGRSltwmUVPmmhC8yWsGyxwySXAhYeou2NY0
+         eF+Kq44t5eUsQDtYzLD/dmNfrAEuH3uyf+Ukr2xGkGeJKeQqWunnglhxSWu7oLSF+1G5
+         PDG+TKflKkvxVZ/uO24dURkGEz1M4S5deIosJ8lBuoubFQnIULSz1A7BZssjJBJOr+dS
+         lfinqrmIBcbDGZjg1eovXTVnzOE3D5x3q9mzcJOq6hT0SA7CaKRltxAHkPqvp0HEEc3y
+         6bPw==
+X-Gm-Message-State: ANoB5pmwoVh0LN9XrNpDQ1d9VQ4chWy8aE34XMpcT5UDJC77zrAv9SBs
+	wksyCMxhuDPGqQajncSJ4cWgdA==
+X-Google-Smtp-Source: AA0mqf5fPvC9XQ0EkZuDOxvN10OOZ7npqGmR9BJgEq1imncN/QShrcACUxYbpXX3TEVSB/m7+0KYng==
+X-Received: by 2002:a05:600c:2287:b0:3cf:931c:3cfa with SMTP id 7-20020a05600c228700b003cf931c3cfamr8528811wmf.203.1668444408319;
+        Mon, 14 Nov 2022 08:46:48 -0800 (PST)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from ?IPv6:2001:8b0:aba:5f3c:aa29:f8ea:3483:371a? ([2001:8b0:aba:5f3c:aa29:f8ea:3483:371a])
+        by smtp.gmail.com with ESMTPSA id cy6-20020a056000400600b002416ecb8c33sm9868347wrb.105.2022.11.14.08.46.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Nov 2022 06:32:43 -0800 (PST)
-From: "Steve Sakoman" <steve@sakoman.com>
-To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][langdale 1/1] poky.conf: bump version for 4.1.1
-Date: Wed,  9 Nov 2022 04:32:39 -1000
-Message-Id: <8f371cb5e18808b6f29e78566d3440282cf4d17e.1668004294.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1668004294.git.steve@sakoman.com>
-References: <cover.1668004294.git.steve@sakoman.com>
+        Mon, 14 Nov 2022 08:46:47 -0800 (PST)
+Message-ID: <8ebb3cc8e3beba7b8b2bd12a1fd58a6198b3793b.camel@linuxfoundation.org>
+Subject: Re: [linux-yocto] Removing DISTRO_FEATURES from a specific machine type
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Pintu Agarwal <pintu.ping@gmail.com>, yocto@lists.yoctoproject.org, 
+	linux-yocto@lists.yoctoproject.org, poky@lists.yoctoproject.org, 
+	bitbake-devel@lists.openembedded.org
+Date: Mon, 14 Nov 2022 16:46:45 +0000
+In-Reply-To: <CAOuPNLgEs7Obni8kOqgznv_mLW8JQ4cF0CUS8jaV6AXEhw6aOg@mail.gmail.com>
+References: 
+	<CAOuPNLh1+LhxH8yuQprUntwjibAP_iuwF7tXnHjfhAZhLCCG-A@mail.gmail.com>
+	 <CAOuPNLgEs7Obni8kOqgznv_mLW8JQ4cF0CUS8jaV6AXEhw6aOg@mail.gmail.com>
+User-Agent: Evolution 3.44.4-0ubuntu1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Steve Sakoman <steve@sakoman.com>
----
- meta-poky/conf/distro/poky.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Mon, 2022-11-14 at 22:05 +0530, Pintu Agarwal wrote:
+> Hi,
+>=20
+> This question is related to Yocto Dunfell specifically.
+>=20
+> I have certain distro features defined (by default) in our distro
+> include/conf file.
+> These distro features are required for certain machines and should not
+> be enabled for only one machine.
+> For example, we have a distro feature such as "nand-squashfs".
+> So, in our distro.inc file we are including like this:
+> DISTRO_FEATURES_append =3D " nand-squashfs"
+>=20
+> Since this distro.inc file is shared across 2-3 machines, this feature
+> will be available to all.
+> But we don't want to include it in the "xyz" machine.
+>=20
+> So, can I do like this:
+> DISTRO_FEATURES_append =3D " nand-squashfs"
+> DISTRO_FEATURES_remove_xyz =3D " nand-squashfs"
+>=20
+> If there is some other better way please suggest.
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 3e90766..be7d9f9 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -1,7 +1,7 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
- #DISTRO_VERSION = "4.1+snapshot-${METADATA_REVISION}"
--DISTRO_VERSION = "4.1"
-+DISTRO_VERSION = "4.1.1"
- DISTRO_CODENAME = "langdale"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADATA_REVISION}', 'snapshot')}"
--- 
-2.25.1
+Have you looked at COMBINED_FEATURES?
+
+This allows you to only enable something if it is in both
+DISTRO_FEATURES and MACHINE_FEATURES.
+
+Cheers,
+
+Richard
 
