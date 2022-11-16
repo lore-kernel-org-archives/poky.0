@@ -1,168 +1,127 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
- by mx.groups.io with SMTP id smtpd.web12.8137.1668444453148922828
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by mx.groups.io with SMTP id smtpd.web10.9484.1668616753644818982
  for <poky@lists.yoctoproject.org>;
- Mon, 14 Nov 2022 08:47:33 -0800
+ Wed, 16 Nov 2022 08:39:14 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=Hc4J5WW1;
- spf=pass (domain: gmail.com, ip: 209.85.167.45, mailfrom: quaresma.jose@gmail.com)
-Received: by mail-lf1-f45.google.com with SMTP id p8so20214278lfu.11;
-        Mon, 14 Nov 2022 08:47:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=QbP/t7kgxLpLeYhxyrzoh7dljXmXm6gD1nzpRKiupzU=;
-        b=Hc4J5WW1wsCEB+hm/NkscA5WiRQvdTQLIy4vrKk3luGAmblGhQvaM7gtW8zPMtB30m
-         6h+w8uYRK5f/RhcOWB5cNFaVrbzUuYYQngRIlzt4K89Zy4JnB2rkZLWjzc0VUWCbiDfh
-         mQDizvCnbo5SN/K7PCkIkycvOXywnZ6/ieHyVL7WCl/ap4hWrPu/BBp331GV9pFSt6QK
-         vZrJXtLmKrJXF0YO4CjWbAF4KysSnxTCB3YPOX58yyWsKbFQIvojg1PDo1s0tG338bcO
-         eKG835cGV6lzChblkZ7cb5gJD8vWiZD2zdN0yNniSgHDikEIuHLFQRw9IeJdDmMhwIA/
-         Z5AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QbP/t7kgxLpLeYhxyrzoh7dljXmXm6gD1nzpRKiupzU=;
-        b=S2vCjlr2agWplcOTZa2vNku0TafBtLZDPStXp+J3S2UPKpzqoVnKFlLVAOq07thO8M
-         0L8B9cZVTMTKjMCDODL8qXJNXDRkt9Q1InYjfNaFOHjbSnsV9ifOT3SjB7HCJSsAr9oH
-         wfJZwp/fq3t4frxT2yCXu+W5hlVnszRmhUencmYiyNR4H+zhnti/VYpU3bjGAEFxoQ8M
-         DfHHmuqXPhAmdtTUlhtmURTSCGC0YHA0FbRxV3EG7O/igyQmMtPIaJZgG+UTW02eI8Q1
-         uqaWqhzm/5rPGyCUqwichwck7bxSllgM98BZUWPYPbomRfwljYFGUWci0DDb0s/63lds
-         PjNQ==
-X-Gm-Message-State: ANoB5pldbRHnfcAbu6528vT50sqyv/2Qrb+P1jAkYOPd5NnEUT4JM2JU
-	dJ+ZgekH7kxbGTKFAFH+WFymY5Io4/9yUXVxXc0=
-X-Google-Smtp-Source: AA0mqf5WwuquMPMgxErHn6xKHJ6YgJmSPYDvrxolPFRlmPrYQLNCkg38neYg/bIDNFklk3Rvo6MEcbykITzB8xc5gcY=
-X-Received: by 2002:a05:6512:b82:b0:4a2:2af6:98e5 with SMTP id
- b2-20020a0565120b8200b004a22af698e5mr4302571lfv.5.1668444451002; Mon, 14 Nov
- 2022 08:47:31 -0800 (PST)
+ dkim=pass header.i=@gmx.li header.s=s31663417 header.b=tAsSv3Eh;
+ spf=pass (domain: gmx.li, ip: 212.227.17.22, mailfrom: star@gmx.li)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.li; s=s31663417;
+	t=1668616751; bh=D3YIDrR0ZTGJNGdrgRrrFYHBcP6IC8AheqWja6R1r+w=;
+	h=X-UI-Sender-Class:Date:Subject:To:References:From:In-Reply-To;
+	b=tAsSv3Eh6hFcV7SG0Btm2xy76fLeWLXrKAaPwxR1oJUF01HIxYTM+mzHAcBBTXpDI
+	 SLeHg+rMrFjega1wFY7I6IMFCQpE6oQ6nX3PTn0ZccbL+tnVlefxH/TQmr3pX/X6eb
+	 0WUIItkhbYW8sULvMEwh2q4or9jmoavXmWGVciFY2N82P/NY/QUvU10RnunDWxQVSN
+	 /Yi3yFdCW+Zr50KyZC65Lq/n2N0hMwUuwpLwrYSmJriy7vGnFslY6SPISQ4QHlpm65
+	 7F2lv5SfxX/wsTEvkYpBPM8gU2vXawZFe8apL0PQgAQUZSqUVF3y2w+R5bjU1uaPD5
+	 muQcO9xlZl/qw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.3.20] ([84.185.242.13]) by mail.gmx.net (mrgmx104
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1N17UQ-1p78qr3LVi-012Yl7 for
+ <poky@lists.yoctoproject.org>; Wed, 16 Nov 2022 17:39:11 +0100
+Message-ID: <61e5b4c7-9f15-1ea2-49d6-8b484bc9a461@gmx.li>
+Date: Wed, 16 Nov 2022 17:39:10 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Subject: [poky] Replace a (not working) download by adding a local file as mirror?
+To: poky@lists.yoctoproject.org
 References: <CAOuPNLh1+LhxH8yuQprUntwjibAP_iuwF7tXnHjfhAZhLCCG-A@mail.gmail.com>
  <CAOuPNLgEs7Obni8kOqgznv_mLW8JQ4cF0CUS8jaV6AXEhw6aOg@mail.gmail.com>
-In-Reply-To: <CAOuPNLgEs7Obni8kOqgznv_mLW8JQ4cF0CUS8jaV6AXEhw6aOg@mail.gmail.com>
-From: "Jose Quaresma" <quaresma.jose@gmail.com>
-Date: Mon, 14 Nov 2022 16:47:19 +0000
-Message-ID: <CANPvuR=RT3YBSBmRHNtoeCMST2DJ3Wqq7fzh6jj2C1oxUxR0EA@mail.gmail.com>
-Subject: Re: [linux-yocto] Removing DISTRO_FEATURES from a specific machine type
-To: Pintu Agarwal <pintu.ping@gmail.com>
-Cc: yocto@lists.yoctoproject.org, linux-yocto@lists.yoctoproject.org, 
-	poky@lists.yoctoproject.org, bitbake-devel@lists.openembedded.org
-Content-Type: multipart/alternative; boundary="000000000000d45f1d05ed70fe75"
-
---000000000000d45f1d05ed70fe75
-Content-Type: text/plain; charset="UTF-8"
+ <CANPvuR=RT3YBSBmRHNtoeCMST2DJ3Wqq7fzh6jj2C1oxUxR0EA@mail.gmail.com>
+From: "Steve" <star@gmx.li>
+In-Reply-To: <CANPvuR=RT3YBSBmRHNtoeCMST2DJ3Wqq7fzh6jj2C1oxUxR0EA@mail.gmail.com>
+X-Provags-ID: V03:K1:72QhxjUzOpGNrx+01HOopFT15uxASLNxhsl+FS/VAv4+TBvssce
+ +h44vQrbcgHF1TAFOUq7NMp4TrrRoNNgnYRhDJ+qhhbbZh0zvr0YaSD2CgYwmrINmNzuUfP
+ i7W/0ebwBNr1yfdymMBdAefB1ivFV1u8bDZC2fvN7kTEIkQGHwmjZ4rSilPIVXn76kViLIo
+ iAOPRAC4WPEMCjRAZiJBw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:WHWp480imso=;b9bwxOWQU4JSbyluKqkWzMZFx/C
+ V91c/98p6uDQHJ2lxfMLxe8cugWTIg9+K9zWLz9vOdTYgjbDXbEt/pJtdK7cSaRcZOs5XAFyn
+ SvE8K15VqUGiTWaTfQsT8+lzVZxRwK2TBF7x1WCru+UZT6Ov24sj0PYg+AKzMIFdcJeWBjaJc
+ Set5qBXc8eb9SJAjrZHjwDVcj+l5IaQE0n1gz7lOhsnn77l30Okk3Y46YLXhnVbD6Xjlc/Kee
+ LpErH6STXyT4UAa9MY0cKjBM80zRXMeIDebCX50aTfQR5IvqmZZea+vu/2Y/0IqqqRlXXEbG1
+ LdmQgfFJQfCxX1jzqhWNBIlR+K03QxRifwBTT1IWyJk1Bv3s+ef/e+QVOKBRn1Bnpk+FMQuXx
+ xN01K31fAw8aUnrTS/e/v1JkSG2W/XbaXLo3ak1WC1VyrjHbmgtw9fKydTmJaS/XvP/6nxrCh
+ DFqSbG+ipRTb1hv20/uQcV85ZqAhc+76sy+oCTRWhslLJg6VoRcxN0AUwletDKh6i4p6ci78o
+ afMJcgINiRYrmBJzUUVeZkcJmX504ggs6Hc9owZXBthRq0ia212sU9SbL2wwqBK5msiGzdEt7
+ N1pPZCvryse77pkkti0OF89F45JZoxpjPasoDqIk/A3llC6Gmzohk2Qe8ZV/a+owsLMMrVSwI
+ 9UlTtcwu2HeyexN1yvDwH3QbB2X4MsZLJIvpFcE+fO2yY34KFFx25qcOkOuqWEtWQwjGZYNA1
+ Aq7NLh2YtBFnng2fdQ+AX8le8IiyUW1e/UqAkrogtBclGA4tMyfzG7sAMPzBUdSdH9IQTpBrV
+ cM4hbmV+GCzsRvlSSFICFwI8bMaLoAq+5sWQNKRyxik6r0zAfdW8v317Jmt8VObKbFlODLj9E
+ O/Wm2NAzIuTY287osigidDnvJSkuG4YWq0qLr9H+vp/fVVC1aIyhd63rL7SiXiT9c0oQs5n/M
+ 0PjE1S7gZaC2Llj35iFzsSDv+lg=
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-Hi Pintu,
+Hi, maybe someone can help, although my problem occurs outside poky but
+in Yocto general. But I think solution might be same.
+I do have a problem with a download (see below the exact failure). I am
+messing around with that for quite a while and couldn't find a solution.
+I am wondering if I can put this file in a recipe as a local file:
 
-Pintu Agarwal <pintu.ping@gmail.com> escreveu no dia segunda, 14/11/2022
-=C3=A0(s) 16:35:
+FILESEXTRAPATH:prepend :=3D "${THISDIR}/files/:"
 
-> Hi,
->
-> This question is related to Yocto Dunfell specifically.
->
-> I have certain distro features defined (by default) in our distro
-> include/conf file.
-> These distro features are required for certain machines and should not
-> be enabled for only one machine.
->
+after download that file externally in browser (that works)
+Not sure will that work or do I have to add a real local mirror?
 
-For such cases Yocto have the COMBINED_FEATURES that can be more apropriate
-https://docs.yoctoproject.org/3.1.20/ref-manual/ref-variables.html#term-COM=
-BINED_FEATURES
 
-But if the future is only used in some machine maybe the MACHINE_FEATURES
-is more apropriate
-https://docs.yoctoproject.org/3.1.20/ref-manual/ref-variables.html#term-MAC=
-HINE_FEATURES
+That happens while building tensorflow:
+I don't find a solution to fix. No problem to download that file:
+https://mirror.bazel.build/openjdk/azul-zulu11.50.19-ca-jdk11.0.12/zulu11.=
+50.19-ca-jdk11.0.12-linux_x64.tar.gz
+in my browser.
+I found some hints to the certification error but nothing helped.
+I am running a VM Ubuntu 20.04.
 
-In a perfect world the the DISTRO_FEATURES should be independent of the
-bsp/machine used
-https://docs.yoctoproject.org/3.1.20/ref-manual/ref-variables.html#term-DIS=
-TRO_FEATURES
 
-Jose
-
-For example, we have a distro feature such as "nand-squashfs".
-> So, in our distro.inc file we are including like this:
-> DISTRO_FEATURES_append =3D " nand-squashfs"
->
-> Since this distro.inc file is shared across 2-3 machines, this feature
-> will be available to all.
-> But we don't want to include it in the "xyz" machine.
->
-> So, can I do like this:
-> DISTRO_FEATURES_append =3D " nand-squashfs"
-> DISTRO_FEATURES_remove_xyz =3D " nand-squashfs"
->
-> If there is some other better way please suggest.
->
-> Thanks,
-> Pintu
->
->=20
->
->
-
---=20
-Best regards,
-
-Jos=C3=A9 Quaresma
-
---000000000000d45f1d05ed70fe75
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">Hi=C2=A0Pintu,</div><br><div class=3D"gma=
-il_quote"><div dir=3D"ltr" class=3D"gmail_attr">Pintu Agarwal &lt;<a href=
-=3D"mailto:pintu.ping@gmail.com">pintu.ping@gmail.com</a>&gt; escreveu no d=
-ia segunda, 14/11/2022 =C3=A0(s) 16:35:<br></div><blockquote class=3D"gmail=
-_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
-,204);padding-left:1ex">Hi,<br>
-<br>
-This question is related to Yocto Dunfell specifically.<br>
-<br>
-I have certain distro features defined (by default) in our distro<br>
-include/conf file.<br>
-These distro features are required for certain machines and should not<br>
-be enabled for only one machine.<br></blockquote><div><br>For such cases Yo=
-cto have the COMBINED_FEATURES that can be more apropriate<br><a href=3D"ht=
-tps://docs.yoctoproject.org/3.1.20/ref-manual/ref-variables.html#term-COMBI=
-NED_FEATURES">https://docs.yoctoproject.org/3.1.20/ref-manual/ref-variables=
-.html#term-COMBINED_FEATURES</a><br><br>But if the future is only used in s=
-ome machine maybe the=C2=A0MACHINE_FEATURES is more apropriate<br><a href=
-=3D"https://docs.yoctoproject.org/3.1.20/ref-manual/ref-variables.html#term=
--MACHINE_FEATURES">https://docs.yoctoproject.org/3.1.20/ref-manual/ref-vari=
-ables.html#term-MACHINE_FEATURES</a><br><br>In a perfect world the the DIST=
-RO_FEATURES=C2=A0should be independent of the bsp/machine used<br><a href=
-=3D"https://docs.yoctoproject.org/3.1.20/ref-manual/ref-variables.html#term=
--DISTRO_FEATURES">https://docs.yoctoproject.org/3.1.20/ref-manual/ref-varia=
-bles.html#term-DISTRO_FEATURES</a><br><br>Jose</div><div><br></div><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
- solid rgb(204,204,204);padding-left:1ex">
-For example, we have a distro feature such as &quot;nand-squashfs&quot;.<br=
->
-So, in our distro.inc file we are including like this:<br>
-DISTRO_FEATURES_append =3D &quot; nand-squashfs&quot;<br>
-<br>
-Since this distro.inc file is shared across 2-3 machines, this feature<br>
-will be available to all.<br>
-But we don&#39;t want to include it in the &quot;xyz&quot; machine.<br>
-<br>
-So, can I do like this:<br>
-DISTRO_FEATURES_append =3D &quot; nand-squashfs&quot;<br>
-DISTRO_FEATURES_remove_xyz =3D &quot; nand-squashfs&quot;<br>
-<br>
-If there is some other better way please suggest.<br>
-<br>
-Thanks,<br>
-Pintu<br>
-<br>
-<br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr">Best regards,<div><br>Jos=C3=A9=
- Quaresma</div></div></div></div>
-
---000000000000d45f1d05ed70fe75--
+|     Fetching @remotejdk11_linux; fetching 13s
+| INFO: Repository remotejdk11_linux instantiated at:
+|   /DEFAULT.WORKSPACE.SUFFIX:41:6: in <toplevel>
+|
+/home/user/y/yocto40/my_visor/bazel/bazel_5ULmqVIS/out/external/bazel_tool=
+s/tools/build_defs/repo/utils.bzl:233:18:
+in maybe
+|
+/home/user/y/yocto40/my_visor/bazel/bazel_5ULmqVIS/out/external/bazel_tool=
+s/tools/jdk/remote_java_repository.bzl:48:17:
+in remote_java_repository
+| Repository rule http_archive defined at:
+|
+/home/user/y/yocto40/my_visor/bazel/bazel_5ULmqVIS/out/external/bazel_tool=
+s/tools/build_defs/repo/http.bzl:353:31:
+in <toplevel>
+| Analyzing: target //src:bazel_nojdk (367 packages loaded, 9300 targets
+configu\
+| red)
+|     Fetching @remotejdk11_linux; fetching 13s
+| WARNING: Download from
+https://mirror.bazel.build/openjdk/azul-zulu11.50.19-ca-jdk11.0.12/zulu11.=
+50.19-ca-jdk11.0.12-linux_x64.tar.gz
+failed: class javax.net.ssl.SSLHandshakeException PKIX path building
+failed: sun.security.provider.certpath.SunCertPathBuilderException:
+unable to find valid certification path to requested target
+| Analyzing: target //src:bazel_nojdk (367 packages loaded, 9300 targets
+configu\
+| red)
+| ERROR: An error occurred during the fetch of repository
+'remotejdk11_linux':
+|    Traceback (most recent call last):
+|        File
+"/home/user/y/yocto40/my_visor/bazel/bazel_5ULmqVIS/out/external/bazel_too=
+ls/tools/build_defs/repo/http.bzl",
+line 100, column 45, in _http_archive_impl
+|                download_info =3D ctx.download_and_extract(
+| Error in download_and_extract: java.io.IOException: Error downloading
+[https://mirror.bazel.build/openjdk/azul-zulu11.50.19-ca-jdk11.0.12/zulu11=
+.50.19-ca-jdk11.0.12-linux_x64.tar.gz]
+to
+/home/user/y/yocto40/my_visor/bazel/bazel_5ULmqVIS/out/external/remotejdk1=
+1_linux/temp2967262093456757762/zulu11.50.19-ca-jdk11.0.12-linux_x64.tar.g=
+z:
+PKIX path building failed:
+sun.security.provider.certpath.SunCertPathBuilderException: unable to
+find valid certification path to requested target
+| Analyzing: target //src:bazel_nojdk (367 packages loaded, 9300 targets
+configu\
+| red)
