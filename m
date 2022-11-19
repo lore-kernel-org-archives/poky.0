@@ -1,87 +1,75 @@
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
- by mx.groups.io with SMTP id smtpd.web11.3356.1668801216014245896
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+ by mx.groups.io with SMTP id smtpd.web10.26466.1668880432104822305
  for <poky@lists.yoctoproject.org>;
- Fri, 18 Nov 2022 11:53:36 -0800
+ Sat, 19 Nov 2022 09:53:52 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=dZ8ZgLDJ;
- spf=pass (domain: gmail.com, ip: 209.85.160.51, mailfrom: raj.khem@gmail.com)
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-1322d768ba7so7164730fac.5
-        for <poky@lists.yoctoproject.org>; Fri, 18 Nov 2022 11:53:35 -0800 (PST)
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=B9cQNuq8;
+ spf=softfail (domain: sakoman.com, ip: 209.85.214.179, mailfrom: steve@sakoman.com)
+Received: by mail-pl1-f179.google.com with SMTP id v17so7218626plo.1
+        for <poky@lists.yoctoproject.org>; Sat, 19 Nov 2022 09:53:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=h61hflADUgA9msiXadnJZuFqhmOO9ZBRhUf4U3Vib3s=;
-        b=dZ8ZgLDJF1yyrt2jo5877ePXWqoEKG2AF/s5rpZYSwFiv3OB99Zn7kG2EJOzo1mqJj
-         gEOWqIfT9fpy5hfymlvudot/knevioINwRZWQn+PKCpd6fzkUkEIre228V/IvqU/+nek
-         K3JpnqfTy2c8kQbQ/UIxWuFs43NHG9fx9gXd9TnZupQRNmdomX0bnta4Z4UFO338yjTU
-         J6OJVIRQpCd+3E8MQYh5jHhkqOVQ+pwl38+lZV4XaG+jDMhXzApCUjyLOLe3x4cs0qs0
-         dWJ1VG2jdr0X12R9x9MfNlEew+mp4qJ1GdHBtTElUt85KKc21P3yiRJcL3x1KcPT/Mk/
-         rncg==
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=C6q8ZocVHnJ9isuQ2PDeEZlRgEdV8AugD5PfgrpJUjc=;
+        b=B9cQNuq8vKvc8S+DFk1DmNvf/ceqDSZFgP3yaQsWy06TWxgIyZ5/BdW1cDD8M11/Qx
+         tXSqmZfX5hVkAT/KELwe8Kh1KFUifZKnjS5LUalY9O1LmkXZfsur4q1sVaMF5MAkXarc
+         2BvFzGdPYs13+5X/Gkien6fGVbctIK/0CGN/yievr6wBuRuC9yqDKZApeymgv0G2x9iJ
+         sSavPHs6BooMcR2aYOxUNfOzEAetd/mKxpRv8CKO72dRPozvy9iQfti6MCviwH1wCTGb
+         vr+Q1nM6i4KDk2UMZx724vC+sP/uyqtrR7eIfdb8aVtwQ6fsUKiNzsarUJ5Yxpi5xIfE
+         VagA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=h61hflADUgA9msiXadnJZuFqhmOO9ZBRhUf4U3Vib3s=;
-        b=LZf3ZOCOVWvMhJSBSIfKLOl0YF6GqRLU0N6QZDxLZL8yTFinSMI2casiJby3UDynUy
-         3mEf/cK0TNbQ10G4kbHwpNh166Blb9PZZCjxEduH4CxP3f8mCth7oOhvJCmemBg9IhwE
-         3bcQgGlqV/94fZDrUmOpZuNBhkYd2VzJERF5z8kz1kIeEMCDnVidqsSnANvwiJs+xJV9
-         BLDeotPSjMlfAf5lQ3pj/wjbq/i7fsrilX23/3ATeEAUgUbVe4ZiPvVlDCCEjUOjRDfL
-         +bvmsRvvmiz6JKydXtGzMlpfD9LoYaH9ykIqnhxshExSIIcFDnUnBDiBXgj0nXag0+fX
-         Osug==
-X-Gm-Message-State: ANoB5pkyVZ1rMJ5rizg30dNvhOm/UxYINJA/r4Wmr7LhlvWCgwfKF7lR
-	GPId7bfh90BXPEg1XodkQ/LQNUuVSkzKSRwbAk4=
-X-Google-Smtp-Source: AA0mqf6cUU6Im7YMyKmv7CxfDrnalSjbDDXYd2hJHvVgi/k3zad2vto/VtmpHHmejYPuRm4DBES4IIgYIJbCVrM+jf8=
-X-Received: by 2002:a05:6870:1784:b0:13b:1e05:a73d with SMTP id
- r4-20020a056870178400b0013b1e05a73dmr7836522oae.55.1668801215041; Fri, 18 Nov
- 2022 11:53:35 -0800 (PST)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=C6q8ZocVHnJ9isuQ2PDeEZlRgEdV8AugD5PfgrpJUjc=;
+        b=cgDzdkd+bSzPwhLlgwvtGWcP8zr2AzYvoD0GxeYTHwbjpXEKPGZqIEiidk+JnR0arZ
+         f+9C3Bew4ZJu6AUL5u893AUk0IVE7LeXDdmutWaJO/qUwrJa/5E8dsi/zE1ngywS0+aY
+         dfYrvF4RlTbEUjDOOxJ5LgqRX9v9blbVRqwGUQ2mHMYs6OwOSjhKjSucYU37s2U7H93J
+         D3HST+x5OLdnwHr56pWfLOV5lKUyMw81PrJAdsL2/eaF91qQ8YAdX+csO7BkL1uwvtGb
+         YPUBuaaqsVSqY5RFq+vhaOD5ZN9klcFvgblbVpWXe8vh52aCL1IEBzUhQCvYYJcYyJ3J
+         HDmA==
+X-Gm-Message-State: ANoB5plR4/4XLqWbsXbmBJybd9BniL2f/kaxbgUXLsxT841N0vWuoRUJ
+	CurkO7modaCUWuTs1zejQeRLA0/RPzI1KSAA9Pk=
+X-Google-Smtp-Source: AA0mqf5pxA+uLqBsnlw4PX4PnBXIraouKNMVagsrjvpsapCbOWzqQABVxqu6nnkaVPg2UAQfNi1NmA==
+X-Received: by 2002:a17:902:bc43:b0:189:1e5:8424 with SMTP id t3-20020a170902bc4300b0018901e58424mr4594498plz.156.1668880430884;
+        Sat, 19 Nov 2022 09:53:50 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
+        by smtp.gmail.com with ESMTPSA id t20-20020a17090a951400b001fb1de10a4dsm4356966pjo.33.2022.11.19.09.53.49
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Nov 2022 09:53:50 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][dunfell] poky.conf: bump version for 3.1.21
+Date: Sat, 19 Nov 2022 07:53:43 -1000
+Message-Id: <3b52f313b2b835c57e2ddca8ccf3ea05954d5b73.1668880367.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1668880367.git.steve@sakoman.com>
+References: <cover.1668880367.git.steve@sakoman.com>
 MIME-Version: 1.0
-References: <CAOuPNLh1+LhxH8yuQprUntwjibAP_iuwF7tXnHjfhAZhLCCG-A@mail.gmail.com>
- <CAOuPNLgEs7Obni8kOqgznv_mLW8JQ4cF0CUS8jaV6AXEhw6aOg@mail.gmail.com>
- <CANPvuR=RT3YBSBmRHNtoeCMST2DJ3Wqq7fzh6jj2C1oxUxR0EA@mail.gmail.com>
- <61e5b4c7-9f15-1ea2-49d6-8b484bc9a461@gmx.li> <4f229954ab406f98ef0589105779539ba562295f.camel@linuxfoundation.org>
- <17282032224EB050.28573@lists.yoctoproject.org> <8ef5d68d-0383-4291-f235-089267a66358@gmx.li>
-In-Reply-To: <8ef5d68d-0383-4291-f235-089267a66358@gmx.li>
-From: "Khem Raj" <raj.khem@gmail.com>
-Date: Fri, 18 Nov 2022 11:53:09 -0800
-Message-ID: <CAMKF1spwh_U1x-h6ntOOaiUrCtt9w6PNPK2JKyHb8YThXeP-Jg@mail.gmail.com>
-Subject: Re: [poky] gcc 11.3 bug (gcc bugzilla 101723) on armv7
-To: Steve <star@gmx.li>
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 17, 2022 at 10:27 PM Steve <star@gmx.li> wrote:
->
-> Hi,
->
-> I found that GCC 11.3 that is part of latest kirkstone 4.0.5 has a
-> problem building tensorflow-lite. (git.yoctoproject.org/meta-tensorflow)
->
-> Problem is similar as described here:
-> https://github.com/google/XNNPACK/issues/2003
->
-> There are options set to compile ( -march=armv8.2-a+dotprod
-> -mfpu=neon-fp-armv8) that doesn't match to the processor (armv7)
->
-> Following this issue
-> and points to  patch in
-> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101723
->
-> Which is related to gcc 9. But couldn't it be that it is not fixed in
-> 11.3 too?
+Signed-off-by: Steve Sakoman <steve@sakoman.com>
+---
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Its in gcc11 as well see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=101723#c5
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index ffea526..8c324c0 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -1,6 +1,6 @@
+ DISTRO = "poky"
+ DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
+-DISTRO_VERSION = "3.1.20"
++DISTRO_VERSION = "3.1.21"
+ DISTRO_CODENAME = "dunfell"
+ SDK_VENDOR = "-pokysdk"
+ SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}', 'snapshot')}"
+-- 
+2.25.1
 
->
-> How is able to fix it or probably better ask: what can I do to get it
-> working? Honestly, I don't understand much of it.
-
-are you seeing it on yocto master ?
-
->
-> Best regards, Steve
->
->
-> 
->
