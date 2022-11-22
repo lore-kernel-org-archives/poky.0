@@ -1,106 +1,69 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
- by mx.groups.io with SMTP id smtpd.web10.41375.1669044606581626956
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+ by mx.groups.io with SMTP id smtpd.web10.6797.1669158786924173798
  for <poky@lists.yoctoproject.org>;
- Mon, 21 Nov 2022 07:30:07 -0800
+ Tue, 22 Nov 2022 15:13:07 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmx.li header.s=s31663417 header.b=pAE98hl6;
- spf=pass (domain: gmx.li, ip: 212.227.15.15, mailfrom: star@gmx.li)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.li; s=s31663417;
-	t=1669044604; bh=f1qc1HWohcapVbyKWORHtLje7OoSOUlXdlpV9ZmxThE=;
-	h=X-UI-Sender-Class:Date:Subject:To:References:From:In-Reply-To;
-	b=pAE98hl6RPaQCr9JuSNscUcBHa+qCLZOFLXqsx2xKVR9tdUkXSr+BVJR1d6rlq0YO
-	 PxOc/9P+nZdjxvKYt8L144wUL7MwhPL5zZoxpCAgi9fWvV/0Hs6YMha+F0xZKYOvNV
-	 z+NZSH3zr6gvV8yoLaSF8YBadRtCIBIYcGDCoD03132SGhqzbuPuvjuoaPd4skf/fn
-	 J7wUe6wpahIWRWF5VLGw4F0mrYBZciepwH2qIkIBemh0qu3GCi1ATFzW1aBlP8Puai
-	 SomqZBOajRLuVAW+A5IAzxjfUKbFLsq9d7GUV4WVQ6gFdiLnp1vYOsCWW/1YVXvCMm
-	 XRLF7SP9H+D8w==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.3.20] ([84.185.242.13]) by mail.gmx.net (mrgmx005
- [212.227.17.184]) with ESMTPSA (Nemesis) id 1N6bk4-1ozpuE20je-0183OG for
- <poky@lists.yoctoproject.org>; Mon, 21 Nov 2022 16:30:04 +0100
-Message-ID: <3709403d-9030-7100-2899-fca493ae5857@gmx.li>
-Date: Mon, 21 Nov 2022 16:30:03 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [poky] gcc 11.3 bug (gcc bugzilla 101723) on armv7
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=D/W+PQgi;
+ spf=softfail (domain: sakoman.com, ip: 209.85.216.46, mailfrom: steve@sakoman.com)
+Received: by mail-pj1-f46.google.com with SMTP id k5so14463858pjo.5
+        for <poky@lists.yoctoproject.org>; Tue, 22 Nov 2022 15:13:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=HAT90LrFOsJgnAUaUw8qLyJ0EJJ08zVzwQpuwY/+dkU=;
+        b=D/W+PQgiyeWcxz/jFYq2XD5+nNnLGzAeMbB22urUUVZrEBPwGPpLCxxoBNjQBqCyO+
+         ESbOX26+GZR4lZK82yBEXXX+UpSX1oxBUdkMGVMnY1HmMO0SXxFLQyjBlBHbfSRwnz9x
+         Uj9LCDwLpcsyBrIkKqV+Wn+IBF1Yh51o9trLuH15oHaJPzf+FTeCkq/r8QRRGFC8n+Yt
+         5L/7TOT2E124POs2nCQfagFyNRZSYkE938kCoXmueNc5CjrEvMJwm0z6UnyggIHHwQnD
+         VZd/4nZROfD2x5wydDbIatfKLJTpiGAcIvdm5peZWXKl6G/qu4ZEvg8wWP97Ui2ew31Q
+         33vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=HAT90LrFOsJgnAUaUw8qLyJ0EJJ08zVzwQpuwY/+dkU=;
+        b=P5QCpE6fJhhHBFTQDvkfvj2MLbPEUd33qc8pquMPUjDoFtZEe91V0XFOF2XMDjOvBf
+         2sKMK8WpQZL97zGpoJ5WdPwXv72IwFoaI6ZGopMhSANwZRpFRK/WoHqhqp1zYb4PACap
+         JOgaB/8nzRfxJ2SL5QRJwLwxKjeo2Dc3rsWE9OxH3/gS10foYHA0dxWfNuGDte4mAapn
+         NXIm8O2sIQCwQMWTpQ5WoH7kHokRa3QbLRJSmvtp/CKxFbjmQKX7TAmoOX/l5EHa/HsB
+         Bo7/AdgcUQ+9e7AvY3GwRFDz+GH+6KL6QM6qAIe1Dm7UMKWVSsDIKfJQEvLF28aJmMLv
+         XuMQ==
+X-Gm-Message-State: ANoB5plwXLBaT09XYGLBUH80JiG2c/Kjm+8UerVRqRysBXQi/LPCL834
+	xmggRDg2aRxnkV3bbmy92tX1vdcFObdSqbXqTow=
+X-Google-Smtp-Source: AA0mqf6o0gF/Yh8qbUf8be2Xlapfia97RTdErecuS8H/bX8UTDxDGGe+vQ3ViSJXFAtMPng7SQxVAw==
+X-Received: by 2002:a17:90a:f82:b0:218:a672:79b9 with SMTP id 2-20020a17090a0f8200b00218a67279b9mr14730359pjz.175.1669158785867;
+        Tue, 22 Nov 2022 15:13:05 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
+        by smtp.gmail.com with ESMTPSA id b29-20020aa7951d000000b00561382a5a25sm11263586pfp.26.2022.11.22.15.13.04
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Nov 2022 15:13:05 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
 To: poky@lists.yoctoproject.org
-References: <CAOuPNLh1+LhxH8yuQprUntwjibAP_iuwF7tXnHjfhAZhLCCG-A@mail.gmail.com>
- <CAOuPNLgEs7Obni8kOqgznv_mLW8JQ4cF0CUS8jaV6AXEhw6aOg@mail.gmail.com>
- <CANPvuR=RT3YBSBmRHNtoeCMST2DJ3Wqq7fzh6jj2C1oxUxR0EA@mail.gmail.com>
- <61e5b4c7-9f15-1ea2-49d6-8b484bc9a461@gmx.li>
- <4f229954ab406f98ef0589105779539ba562295f.camel@linuxfoundation.org>
- <17282032224EB050.28573@lists.yoctoproject.org>
- <8ef5d68d-0383-4291-f235-089267a66358@gmx.li>
- <CAMKF1spwh_U1x-h6ntOOaiUrCtt9w6PNPK2JKyHb8YThXeP-Jg@mail.gmail.com>
- <17295986615369AA.25787@lists.yoctoproject.org>
-From: "Steve" <star@gmx.li>
-In-Reply-To: <17295986615369AA.25787@lists.yoctoproject.org>
-X-Provags-ID: V03:K1:B3V36qseD6h4rneZ7y4RP8fyZr3pznEzz06J+YH9uK0tgx8C+8p
- 8KoH6Fq/UY2SQEWSK3uU+KC0wtN9x8R3qoaG4vFmzxh6DIUvwcz5USEbIaxEwhTANfZdHJJ
- xnBfR3lDmUhqiPVzIdYUE2yGIprEIWGQXXzOBc9TAUCAGVE2TKJtBs8bSDgDmB+kYauTBwo
- VRCaeyJWgsH3HXvnZytqA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:wFxxNF8ADU8=;CzOTdcNCKQLYtgIQ6Ec2jK40wiT
- RVYxOVl6XhzrED0gqClEKZdnlePsnuxoKnrJZwvQCX1ep0nRn2BqsI8QrwXtcg3mrB0NwwA0F
- MceCs6jxKEx971kDOV5pVZ6HR4dUUboscnmCakd6rVseWlyNlosMWn6ZAH254s8wu+R8b19Tw
- 7pgOGDGCQyy+iVmzN68UEWL4YZLg5n3QuQTnucqEg6kdBJDZ9s2tgFJSajSdPXwPnM4wL15AT
- RETN8Hc8JHOu0qzNTPBZKQRoD+4YIAQULQC9bT/WaVWi6Xp1sKY4JBte5BpHxUQAj0B8YKq1a
- o/yc9A9dN9Go4b3mjLsis0PFuD0rYQPdAtRZWzszR9dq5ImqIe3Mmo1PBI8orJzQIXTBhs5dS
- 3lHfdReniNDoxjSpNabvW5QJEkOIKNXUIKDrln+FXMonfI/nNpYP6tiVOPQLUespvxhk+s+Ka
- qvQ+jRQZ0G0o5K8S+qlWqGxB4zhvXA8lx9nTMvCmMyJKXLV8tNfsEjGR0aMKV+Niug9+4veuT
- jUyEKAuVZXPQGzYEe0WTcq9mxvabU+gOPUdd0R5KJDSnGWvmwTscRe7LdhdA2Ic9KRvQXDosY
- M0Lm1a8KfJwf1DcQNyuomBtcqTTjdeREezZN9dTbhbgRY90/o+uBSexL5WQqDtNkXeYQcKjdo
- vkjxl+0qdXUmIowyXtIPNnq3FiDq9x90W8IkHfx5A0blROmUAjf8aLbbxqp5WDrsd7YaIuaFl
- Riqs0KpZwMzQc71eBft6Rk6VZYBa+mXcDscEjAGDJoDB3/qzh9ktHfE0coQuYv4MY5vYjD3nf
- rR9ZzfFiEkimowAK//M3NjB9cMu8NK7bc8F/opZivr6uIYh0uM42/TUzN19OJ6zMSvfC7WKFC
- mvx7Io2JtbuBplhwCOf4lv9iYJDFi8LTwLfTub6+Pd+lF5HMa7JAHUKH8vFRA4y0S4L9uoS6p
- HGAgxA==
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Subject: [meta-yocto][dunfell 0/1] Pull request (cover letter only)
+Date: Tue, 22 Nov 2022 13:13:01 -1000
+Message-Id: <cover.1669158724.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Am 20.11.22 um 17:59 schrieb Steve:
-> Am 18.11.22 um 20:53 schrieb Khem Raj:
->> On Thu, Nov 17, 2022 at 10:27 PM Steve <star@gmx.li> wrote:
->>>
->>> Hi,
->>>
->>> I found that GCC 11.3 that is part of latest kirkstone 4.0.5 has a
->>> problem building tensorflow-lite. (git.yoctoproject.org/meta-tensorflo=
-w)
->>>
->>> Problem is similar as described here:
->>> https://github.com/google/XNNPACK/issues/2003
->>>
->>> There are options set to compile ( -march=3Darmv8.2-a+dotprod
->>> -mfpu=3Dneon-fp-armv8) that doesn't match to the processor (armv7)
->>>
->>> Following this issue
->>> and points to=C2=A0 patch in
->>> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D101723
->>>
->>> Which is related to gcc 9. But couldn't it be that it is not fixed in
->>> 11.3 too?
->>
->> Its in gcc11 as well see
->> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D101723#c5
->>
->>>
->>> How is able to fix it or probably better ask: what can I do to get it
->>> working? Honestly, I don't understand much of it.
->>
->> are you seeing it on yocto master ?
->
-> Good point. I need some time to check that. But even if it works, it is
-> not a real solution. I need to build a defined state.
-> The fix is not a new one. Wondering why it's not in (or I am wrong and
-> it is just similar).
->
-> Best regards,
-> Steve
+The following changes since commit 56e2baf3d5d51a0491fb295b8a0bcacacdd1e2f9:
 
-sorry, can't test Master right now, it is  another gcc (12.2 instead of
-11.3) - but I need to be in 11.3. Please, if possible ad that patch to
-kirkstone release.
+  poky.conf: bump version for 3.1.20 release (2022-10-05 08:39:50 +0100)
+
+are available in the Git repository at:
+
+  https://git.yoctoproject.org/meta-yocto contrib/dunfell-next
+  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
+
+Steve Sakoman (1):
+  poky.conf: bump version for 3.1.21
+
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+-- 
+2.25.1
 
