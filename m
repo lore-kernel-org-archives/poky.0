@@ -1,79 +1,89 @@
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
- by mx.groups.io with SMTP id smtpd.web10.30317.1669312970197616748
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+ by mx.groups.io with SMTP id smtpd.web10.30496.1669313505596619166
  for <poky@lists.yoctoproject.org>;
- Thu, 24 Nov 2022 10:02:50 -0800
+ Thu, 24 Nov 2022 10:11:45 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=DGzLF2OZ;
- spf=pass (domain: linaro.org, ip: 209.85.219.52, mailfrom: javier.tia@linaro.org)
-Received: by mail-qv1-f52.google.com with SMTP id p12so1349154qvu.5
-        for <poky@lists.yoctoproject.org>; Thu, 24 Nov 2022 10:02:50 -0800 (PST)
+ dkim=pass header.i=@linaro.org header.s=google header.b=xJoLbO74;
+ spf=pass (domain: linaro.org, ip: 209.85.219.45, mailfrom: javier.tia@linaro.org)
+Received: by mail-qv1-f45.google.com with SMTP id mx15so1366726qvb.1
+        for <poky@lists.yoctoproject.org>; Thu, 24 Nov 2022 10:11:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=J7U31WVojov+Zt70GsorSuWtCFjGbNakUPf413IjnWI=;
-        b=DGzLF2OZPdMHU/5CN93TjDpd2flMNUL9vgvWR9+CJ6WSbHsZpE3Gzb6luoianYT40k
-         ElwqwF7eFMC2T2p2aD9blXRhtmXF5l1g0090KJqFTvBQsxrUf8h78+pv02IJl90n7Iw/
-         ZlGMprCkNF0Jhk5u09+xU998HPSCC0/z7BKx4L42+P+EnU/Ymzudn28NbfkX84VHzqap
-         KyzfBl712jX4U39EpAMlI0y8ZjLy/1WUEN/NiQjLKbFcLTreJeYQGzRPPwi3fwRaYhm/
-         P7eflXXoqyflgqNqN63QukPKgdxqxaxsmRvmn3sMMSACODLdy3MPIYuuq9IYoz2NEoVc
-         CjVA==
+        h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=TkOqFqpFVGTpeCKWkGZo+S4QMLbZ9hFiYz67f2pO09M=;
+        b=xJoLbO74pi3aN8oyjieWtOA6yPVq5CDe+RHH5CkfyPk6v3HDl5Ooh4PtVFvgJfABxI
+         89DkA9kzcbDQNw5TNA66BrkzFq4LH6Dzfxa5LucjNh8QPMwvPVGtWEwUTlqdwFXRuTnr
+         w0pfuH9ZfFlLO+KdMMhyx5gLJDmofaPUrjRzw4OJZhjxzuNRFgRPQfj8G5diWVXYrJma
+         ZaaJkh/Ph8USNjWu5BEbHpaoKKatJ9gMs+Z9plEuHbCPH7gxEI8Xa4+m6LZ07lEKNFVz
+         t0yAb5SQaBVrboM8/xbtpfpOo1fkUWtPXTR6nAhzJCPe0nZRtA5jZe0qMJxjXDNiiSoC
+         TSpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=J7U31WVojov+Zt70GsorSuWtCFjGbNakUPf413IjnWI=;
-        b=X+r6O4CXnGFommd+jmh7HpdVZoMfttJ7kAnVV9mf0EQ1FDTVJ3qQ82MFAW7p/dSYmx
-         IxRrfvb1z+yUtgZ2ef+jKoNncETamJPBI9dCrQYauOBOaiM17r64hKVANl3wpy1qFwbM
-         rUchZGMHkUQMWzg6wO7emqloZsah3kMSxviFuJNwBdPiwzaFVF83WuLI4iiR6wAxqnXb
-         ak0Vr+KmTMGM0tKoSBhsDPWUzOPzuEAHrfdElJ+A/J2pYLVp6toR6b2/W4iCs2eW0PM/
-         vc/tUL/HCmZTlYetkK9kjRXN6IcUM9zoyc0QUraaEdwuPDmF6WgCuctEUFIlC4RLUZqS
-         MNeA==
-X-Gm-Message-State: ANoB5pl/G9RwbCkBfx6K6fdKcOdLNtALRF38g/0E30DPR0dTiKFbJPrX
-	lcI+ezKHrCf1vfWMSY2NrmwI94puWEWUuSI+
-X-Google-Smtp-Source: AA0mqf7bfaAJGqo++dmHmh/5PmVJ+3jdHiGJz9Uxp/FytZs1bV0BFZJInw93bxc+d5RrJVWG2ICDjA==
-X-Received: by 2002:ad4:5349:0:b0:4b1:b025:54e6 with SMTP id v9-20020ad45349000000b004b1b02554e6mr20076569qvs.53.1669312969028;
-        Thu, 24 Nov 2022 10:02:49 -0800 (PST)
+        h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=TkOqFqpFVGTpeCKWkGZo+S4QMLbZ9hFiYz67f2pO09M=;
+        b=syPJe28j9FdFhdUBiLlQEdnwhcDOBbF3zLJkwoll1jyh1NNNvLQxgF9sGF01dsOhuc
+         8MiGmJvpoSNj1nOKa0xZ5LJ2QJv/89yqBd7JUr0L0A6NXp7xpNulGvNO7s6C65ioVsAc
+         pTS5SBxcRS1cOiTufqK7k3xnr1vEjVnan79Z43hOVrxhv0vxmxUvth1+2FVCgZ6YuSR/
+         YhQhjjNZKSGi8poVC8ES+AKlFPLVKQTQuosXg4Upbv2VwxgO/xz2cJgVWNzN8BkKgqY2
+         6du4YQamgRX7xrjR4Z4lLjz3Xh/PmUmJM9yOuELgQ2bhnLGlFR1yACmH8LgcbyDO7b2p
+         o26A==
+X-Gm-Message-State: ANoB5pl8A+IXtIDWlDr6IiojbsipQ+qBmOUHHXCmpFiES/w+kZdURkKl
+	e0VC2Iv6UQpi8ZbzXa7lVquiEw==
+X-Google-Smtp-Source: AA0mqf7EFdGKO/etn25F/Dp1TXdEoaRX24Bh5tRpYeJH+SayyKz0a6pIW5V9+d1ZndkMwekuCXuoQA==
+X-Received: by 2002:a05:6214:3982:b0:4b6:d480:f5ac with SMTP id ny2-20020a056214398200b004b6d480f5acmr16295951qvb.39.1669313504755;
+        Thu, 24 Nov 2022 10:11:44 -0800 (PST)
 Return-Path: <javier.tia@linaro.org>
-Received: from javier-pc.. ([177.93.3.213])
-        by smtp.gmail.com with ESMTPSA id c5-20020a05620a268500b006bb78d095c5sm1230289qkp.79.2022.11.24.10.02.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 24 Nov 2022 10:02:48 -0800 (PST)
-From: "Javier Tia" <javier.tia@linaro.org>
-To: poky@lists.yoctoproject.org
-Cc: Javier Tia <javier.tia@linaro.org>
-Subject: [PATCH] poky.conf: Add Fedora 36 as supported distro
-Date: Thu, 24 Nov 2022 12:02:20 -0600
-Message-Id: <20221124180220.610802-1-javier.tia@linaro.org>
-X-Mailer: git-send-email 2.38.1
+Received: from [192.168.1.15] ([177.93.3.213])
+        by smtp.gmail.com with ESMTPSA id v12-20020ac8748c000000b003a5c60686b0sm908316qtq.22.2022.11.24.10.11.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 24 Nov 2022 10:11:44 -0800 (PST)
+Message-ID: <e1ee98de-5651-083d-bdf0-1d3454765f36@linaro.org>
+Date: Thu, 24 Nov 2022 12:11:42 -0600
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+To: Michael Opdenacker <michael.opdenacker@bootlin.com>
+Cc: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>,
+ docs@lists.yoctoproject.org
+References: <20221124012446.483364-1-javier.tia@linaro.org>
+ <c6589e1f-aebf-cf1c-97b2-e68c4a9ffafa@bootlin.com>
+From: "Javier Tia" <javier.tia@linaro.org>
+Subject: Re: [docs] [PATCH] Add missing iproute and iputils packages for Fedora 36
+In-Reply-To: <c6589e1f-aebf-cf1c-97b2-e68c4a9ffafa@bootlin.com>
+Content-Language: en-US-large, es
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Based on [1], Fedora 36 it's building in Poky.
+Hi Michael,
 
-[1] https://autobuilder.yoctoproject.org/typhoon/#/builders/86
+On 11/24/22 02:53, Michael Opdenacker wrote:
+> Many thanks for the patch and for testing!
+> However, we usually add a new supported distro to
+> meta-poky/conf/distro/poky.conf in the meta-yocto repository
+> (https://git.yoctoproject.org/meta-yocto/tree/meta-poky/conf/distro/poky.conf),
+> before adding it to the docs.
+> 
+> It seems that Fedora 36 is indeed supported now. See all the successful
+> builds onhttps://autobuilder.yoctoproject.org/typhoon/#/builders/86
+> 
+> Could you send a patch for poky.conf? I could do it but you deserve the
+> credit 😄
 
-Thanks to Michael Opdenacker for pointing out the Fedora 36 builds
-and orientation to submit this patch.
+Sure! Thank you for pointing out the link and the next step to get this 
+change merged.
 
-Signed-off-by: Javier Tia <javier.tia@linaro.org>
----
- meta-poky/conf/distro/poky.conf | 1 +
- 1 file changed, 1 insertion(+)
+I have submitted the patch [1] adding Fedora 36 as supported distro.
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 3e90766..ccc2f11 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -41,6 +41,7 @@ SANITY_TESTED_DISTROS ?= " \
-             ubuntu-22.04 \n \
-             fedora-34 \n \
-             fedora-35 \n \
-+            fedora-36 \n \
-             debian-10 \n \
-             debian-11 \n \
-             opensuseleap-15.3 \n \
--- 
-2.38.1
+[1] https://lists.yoctoproject.org/g/poky/message/12940
+
+> Then, you can come back with the documentation patch.
+
+I will reply here if it has been merged.
+
+Thanks,
+» Javier Tia 🖋
 
