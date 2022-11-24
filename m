@@ -1,96 +1,79 @@
-Received: from relay11.mail.gandi.net (relay11.mail.gandi.net [217.70.178.231])
- by mx.groups.io with SMTP id smtpd.web10.19240.1669280045205342690
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+ by mx.groups.io with SMTP id smtpd.web10.30317.1669312970197616748
  for <poky@lists.yoctoproject.org>;
- Thu, 24 Nov 2022 00:54:06 -0800
+ Thu, 24 Nov 2022 10:02:50 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@bootlin.com header.s=gm1 header.b=DdLDTdJ2;
- spf=pass (domain: bootlin.com, ip: 217.70.178.231, mailfrom: michael.opdenacker@bootlin.com)
-Received: (Authenticated sender: michael.opdenacker@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPSA id 4A03A100018;
-	Thu, 24 Nov 2022 08:53:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1669280042;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7GhoN6VI2G30gNdpPMR/+M01mFng7JgZV3dZr1fA6gI=;
-	b=DdLDTdJ2i1R3IasdisptDhBj0BolwjuARN6IIIJpTAgRGwVMDcb+cnO3z26Yb9bFxMZFqH
-	5KS1cqqEL/0pu2AVTPGNWTt8Wsy3+kjqQ1wLXFwA3mT+9xpeNIXPhXBH2L8p6hARlXqXt2
-	KY1Bgzfiwo/uRiBkfJq/liV6Veqop8EAuGd5KQpofIEpWotGmy1QLF0bAjBb7LogPPzq9X
-	rNDbtzCi16o4KzPPQgz+utcyN406r6iH0LHwtqeJJR5kY1XO/rQsT4pIspNIM7NmiXmFbz
-	Q2oMGFKVZbVYXmQnUiY9/Ic0QuFTAek8IDbNPyUncfm+QVTz2dlEmVX/dvgnRQ==
-Message-ID: <c6589e1f-aebf-cf1c-97b2-e68c4a9ffafa@bootlin.com>
-Date: Thu, 24 Nov 2022 09:53:27 +0100
+ dkim=pass header.i=@linaro.org header.s=google header.b=DGzLF2OZ;
+ spf=pass (domain: linaro.org, ip: 209.85.219.52, mailfrom: javier.tia@linaro.org)
+Received: by mail-qv1-f52.google.com with SMTP id p12so1349154qvu.5
+        for <poky@lists.yoctoproject.org>; Thu, 24 Nov 2022 10:02:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=J7U31WVojov+Zt70GsorSuWtCFjGbNakUPf413IjnWI=;
+        b=DGzLF2OZPdMHU/5CN93TjDpd2flMNUL9vgvWR9+CJ6WSbHsZpE3Gzb6luoianYT40k
+         ElwqwF7eFMC2T2p2aD9blXRhtmXF5l1g0090KJqFTvBQsxrUf8h78+pv02IJl90n7Iw/
+         ZlGMprCkNF0Jhk5u09+xU998HPSCC0/z7BKx4L42+P+EnU/Ymzudn28NbfkX84VHzqap
+         KyzfBl712jX4U39EpAMlI0y8ZjLy/1WUEN/NiQjLKbFcLTreJeYQGzRPPwi3fwRaYhm/
+         P7eflXXoqyflgqNqN63QukPKgdxqxaxsmRvmn3sMMSACODLdy3MPIYuuq9IYoz2NEoVc
+         CjVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=J7U31WVojov+Zt70GsorSuWtCFjGbNakUPf413IjnWI=;
+        b=X+r6O4CXnGFommd+jmh7HpdVZoMfttJ7kAnVV9mf0EQ1FDTVJ3qQ82MFAW7p/dSYmx
+         IxRrfvb1z+yUtgZ2ef+jKoNncETamJPBI9dCrQYauOBOaiM17r64hKVANl3wpy1qFwbM
+         rUchZGMHkUQMWzg6wO7emqloZsah3kMSxviFuJNwBdPiwzaFVF83WuLI4iiR6wAxqnXb
+         ak0Vr+KmTMGM0tKoSBhsDPWUzOPzuEAHrfdElJ+A/J2pYLVp6toR6b2/W4iCs2eW0PM/
+         vc/tUL/HCmZTlYetkK9kjRXN6IcUM9zoyc0QUraaEdwuPDmF6WgCuctEUFIlC4RLUZqS
+         MNeA==
+X-Gm-Message-State: ANoB5pl/G9RwbCkBfx6K6fdKcOdLNtALRF38g/0E30DPR0dTiKFbJPrX
+	lcI+ezKHrCf1vfWMSY2NrmwI94puWEWUuSI+
+X-Google-Smtp-Source: AA0mqf7bfaAJGqo++dmHmh/5PmVJ+3jdHiGJz9Uxp/FytZs1bV0BFZJInw93bxc+d5RrJVWG2ICDjA==
+X-Received: by 2002:ad4:5349:0:b0:4b1:b025:54e6 with SMTP id v9-20020ad45349000000b004b1b02554e6mr20076569qvs.53.1669312969028;
+        Thu, 24 Nov 2022 10:02:49 -0800 (PST)
+Return-Path: <javier.tia@linaro.org>
+Received: from javier-pc.. ([177.93.3.213])
+        by smtp.gmail.com with ESMTPSA id c5-20020a05620a268500b006bb78d095c5sm1230289qkp.79.2022.11.24.10.02.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 24 Nov 2022 10:02:48 -0800 (PST)
+From: "Javier Tia" <javier.tia@linaro.org>
+To: poky@lists.yoctoproject.org
+Cc: Javier Tia <javier.tia@linaro.org>
+Subject: [PATCH] poky.conf: Add Fedora 36 as supported distro
+Date: Thu, 24 Nov 2022 12:02:20 -0600
+Message-Id: <20221124180220.610802-1-javier.tia@linaro.org>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Cc: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>,
- docs@lists.yoctoproject.org
-Subject: Re: [docs] [PATCH] Add missing iproute and iputils packages for Fedora 36
-To: Javier Tia <javier.tia@linaro.org>
-References: <20221124012446.483364-1-javier.tia@linaro.org>
-From: "Michael Opdenacker" <michael.opdenacker@bootlin.com>
-Organization: Bootlin
-In-Reply-To: <20221124012446.483364-1-javier.tia@linaro.org>
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Javier,
+Based on [1], Fedora 36 it's building in Poky.
 
-On 11/24/22 02:24, Javier Tia wrote:
-> So far from crops/yocto:fedora-36-base I have been building in Fedora 36
-> without issue. Just found iproute and iputils are missing.
->
-> Signed-off-by: Javier Tia <javier.tia@linaro.org>
-> ---
->   documentation/poky.yaml.in                       | 2 +-
->   documentation/ref-manual/system-requirements.rst | 2 ++
->   2 files changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/documentation/poky.yaml.in b/documentation/poky.yaml.in
-> index ce67c4d3d..c6a6560a4 100644
-> --- a/documentation/poky.yaml.in
-> +++ b/documentation/poky.yaml.in
-> @@ -19,7 +19,7 @@ FEDORA_HOST_PACKAGES_ESSENTIAL : "gawk make wget tar bzip2 gzip python3 unzip pe
->        ccache perl-Data-Dumper perl-Text-ParseWords perl-Thread-Queue perl-bignum socat \
->        python3-pexpect findutils which file cpio python python3-pip xz python3-GitPython \
->        python3-jinja2 SDL-devel rpcgen mesa-libGL-devel perl-FindBin perl-File-Compare \
-> -     perl-File-Copy perl-locale zstd lz4"
-> +     perl-File-Copy perl-locale zstd lz4 iproute iputils"
->   OPENSUSE_HOST_PACKAGES_ESSENTIAL : "python gcc gcc-c++ git chrpath make wget python-xml \
->        diffstat makeinfo python-curses patch socat python3 python3-curses tar python3-pip \
->        python3-pexpect xz which python3-Jinja2 Mesa-libEGL1 libSDL-devel rpcgen Mesa-dri-devel \
-> diff --git a/documentation/ref-manual/system-requirements.rst b/documentation/ref-manual/system-requirements.rst
-> index 150263381..3e1fc40d5 100644
-> --- a/documentation/ref-manual/system-requirements.rst
-> +++ b/documentation/ref-manual/system-requirements.rst
-> @@ -47,6 +47,8 @@ distributions:
->   
->   -  Fedora 35
->   
-> +-  Fedora 36
-> +
+[1] https://autobuilder.yoctoproject.org/typhoon/#/builders/86
 
+Thanks to Michael Opdenacker for pointing out the Fedora 36 builds
+and orientation to submit this patch.
 
-Many thanks for the patch and for testing!
-However, we usually add a new supported distro to 
-meta-poky/conf/distro/poky.conf in the meta-yocto repository 
-(https://git.yoctoproject.org/meta-yocto/tree/meta-poky/conf/distro/poky.conf), 
-before adding it to the docs.
+Signed-off-by: Javier Tia <javier.tia@linaro.org>
+---
+ meta-poky/conf/distro/poky.conf | 1 +
+ 1 file changed, 1 insertion(+)
 
-It seems that Fedora 36 is indeed supported now. See all the successful 
-builds on https://autobuilder.yoctoproject.org/typhoon/#/builders/86
-
-Could you send a patch for poky.conf? I could do it but you deserve the 
-credit :)
-Then, you can come back with the documentation patch.
-Thanks in advance
-Michael.
-
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 3e90766..ccc2f11 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -41,6 +41,7 @@ SANITY_TESTED_DISTROS ?= " \
+             ubuntu-22.04 \n \
+             fedora-34 \n \
+             fedora-35 \n \
++            fedora-36 \n \
+             debian-10 \n \
+             debian-11 \n \
+             opensuseleap-15.3 \n \
 -- 
-Michael Opdenacker, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.38.1
 
