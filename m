@@ -1,102 +1,96 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by mx.groups.io with SMTP id smtpd.web11.18691.1669277527187015974
+Received: from relay11.mail.gandi.net (relay11.mail.gandi.net [217.70.178.231])
+ by mx.groups.io with SMTP id smtpd.web10.19240.1669280045205342690
  for <poky@lists.yoctoproject.org>;
- Thu, 24 Nov 2022 00:12:07 -0800
+ Thu, 24 Nov 2022 00:54:06 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmx.li header.s=s31663417 header.b=MFiHdejX;
- spf=pass (domain: gmx.li, ip: 212.227.15.19, mailfrom: star@gmx.li)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.li; s=s31663417;
-	t=1669277524; bh=pBgK2hpKnUQhjMK+DBMDrpEzX0bl5fs91zuOR8Qx3lQ=;
-	h=X-UI-Sender-Class:Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MFiHdejX07XElvSGylRbVvYVJnOTCzSCH5LgfJ1ccVR4CtWRPyTsw2jzdLusmi7Rg
-	 /Kin0n6UFT37j3WN7ACKrYoV+bnkzzuONJYeoyc7C+i1nWRPofc5JIldSHuQsITKml
-	 hFC6Iv6t3sxOlJPE8WpDFnWjAGkPDu+BYjrXJaWEBb6MdTR4ziUx/Uv5WrwoVhr9kB
-	 kCXIV8b2v246BJKaMLuOMTVm8v2G0VL2M7VgkTeGreFsPFxbV33VAxMUqcULHLW2BZ
-	 w5GZhCjx2NiEMexG5CWnaw8TSdChAgUtM75ohHzqPP0iokpe8+kHWph9lbnSAxs0Jo
-	 H9UH29gICX+nA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.3.20] ([84.185.242.13]) by mail.gmx.net (mrgmx004
- [212.227.17.184]) with ESMTPSA (Nemesis) id 1M9o1v-1osM2T1usf-005sw2; Thu, 24
- Nov 2022 09:12:04 +0100
-Message-ID: <0f5cfbcd-03e3-4154-7486-6e812b258baf@gmx.li>
-Date: Thu, 24 Nov 2022 09:12:03 +0100
+ dkim=pass header.i=@bootlin.com header.s=gm1 header.b=DdLDTdJ2;
+ spf=pass (domain: bootlin.com, ip: 217.70.178.231, mailfrom: michael.opdenacker@bootlin.com)
+Received: (Authenticated sender: michael.opdenacker@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPSA id 4A03A100018;
+	Thu, 24 Nov 2022 08:53:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1669280042;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7GhoN6VI2G30gNdpPMR/+M01mFng7JgZV3dZr1fA6gI=;
+	b=DdLDTdJ2i1R3IasdisptDhBj0BolwjuARN6IIIJpTAgRGwVMDcb+cnO3z26Yb9bFxMZFqH
+	5KS1cqqEL/0pu2AVTPGNWTt8Wsy3+kjqQ1wLXFwA3mT+9xpeNIXPhXBH2L8p6hARlXqXt2
+	KY1Bgzfiwo/uRiBkfJq/liV6Veqop8EAuGd5KQpofIEpWotGmy1QLF0bAjBb7LogPPzq9X
+	rNDbtzCi16o4KzPPQgz+utcyN406r6iH0LHwtqeJJR5kY1XO/rQsT4pIspNIM7NmiXmFbz
+	Q2oMGFKVZbVYXmQnUiY9/Ic0QuFTAek8IDbNPyUncfm+QVTz2dlEmVX/dvgnRQ==
+Message-ID: <c6589e1f-aebf-cf1c-97b2-e68c4a9ffafa@bootlin.com>
+Date: Thu, 24 Nov 2022 09:53:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [poky] gcc11.3 (?) optimization performance problems
-To: Khem Raj <raj.khem@gmail.com>
-Cc: poky@lists.yoctoproject.org
-References: <c615aa2d-b8f3-913d-0a0c-a85037788752@gmx.li>
- <CAMKF1spZh5_JVq=xcRXErUJeqaAJncnLLp=REtCj9ghG51qXxQ@mail.gmail.com>
-From: "Steve" <star@gmx.li>
-In-Reply-To: <CAMKF1spZh5_JVq=xcRXErUJeqaAJncnLLp=REtCj9ghG51qXxQ@mail.gmail.com>
-X-Provags-ID: V03:K1:NidAcL22ROMl/U3JcBDbS8tM/9tYUrR3/FAP5ItbQuvIEL3CJ5K
- UWWtATganLvMq/smLC/2FwDsuJttYuen4z3FdVQoM38RWzQLa26LtwDit/PtRdbFq6AAy2K
- 3Dz5j73FqhViiTiIc5Kp+iNoztFQsptW/wm63X6R49FMSbVEPgZWR5+M+yf9SedTLZNJnUj
- g7TUjgM8aSgFRhqu176qQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:C+WVjZFc5Lc=;CZV9GIQZEhzSZW8zdVqkyzb5tz2
- PD4LOhi7zqJvP9msAM3PUAjHcao4kplfNkaZ5MRtehUAZfjHJqSGr5mt4IsCjDhptH0uIBwdG
- QCW9w9KlWqHI2VqiYdaadPx0fl55RNlR2SYRjsM9t8Sf4Mu12PBNUKranCWa6n5aSXou6aNkJ
- II+E6IggxzXUvev8wKlVNLzPGggfvZiB8uh+DnZsU3LRBcW1Yb3Z2UHx24/IMgIlo3fu/5m3O
- k2DbUkSMDdsXiRtzwdmdu8mpjpEF14IRE4yoIupMYrkD5ro6/8pdnUOit3tBtGlSjaYQRzGuS
- fhSE9KytJmfVqhveA7kxDRsAjLJY7UliwNQm531/05o3yTUhRt8AulnObBo1bQLl7kekASeZ1
- 2MNAaUJAUyulxByB3y1Ecvs7icl07csd46speppL+RWW0xZVs/v9qr5orCUgqKG2D5+7GROdr
- 5ybWX3+5frqvygLmC6qxUlKJadVqIhuwBL2HuoTBksC+TzxYMlFx08nWfQK7tiZBUkWYnoLaC
- sZx5gGVOxfXt697jIzbM9u8QMHrukDZCQFy6R1SQb58W08/SqAEt8kgvHNAMAZcif5qmD3kKJ
- zKcGSfqZMqoFePIt64SrtDZXPcegehRoNkPYHCPG1Deh29lI8B/j5NSaHh21+6Q6ygWBzSJnJ
- PtlD3Ht82cg6FkRvUlId0tF6PQNojdp/72S2S0rZrnq/bjOtCjfiqmX6FJAPZ0UV4L8b81kgI
- EovxzdehZoHdg0HnIZKbUhXZIc59YmfLhwK/s5SMEMxp0ktzg6jizeZsvNEdt0V439eC0NXsz
- FgtbaJ0YAfRIha/GXoPUqqWs0Y53CLtNENwlubBfQxZiEJMg61soIg4mUG1axqe4fJIn/FKLz
- GU2DOWtnbXDF1A4h6D/YmtqSWgUFXnFsLten90G+EUCiJeeGIjVnU2E914ydb8PdLosgFHKC+
- rCHCVg==
+Cc: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>,
+ docs@lists.yoctoproject.org
+Subject: Re: [docs] [PATCH] Add missing iproute and iputils packages for Fedora 36
+To: Javier Tia <javier.tia@linaro.org>
+References: <20221124012446.483364-1-javier.tia@linaro.org>
+From: "Michael Opdenacker" <michael.opdenacker@bootlin.com>
+Organization: Bootlin
+In-Reply-To: <20221124012446.483364-1-javier.tia@linaro.org>
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-Am 23.11.22 um 20:52 schrieb Khem Raj:
-> On Wed, Nov 23, 2022 at 9:28 AM Steve <star@gmx.li> wrote:
->>
->> Hello, I switched my poky distro (and SDK to compile) to 4.0.5 - runnin=
-g
->> an CortexA53 with 4 cores (before it was 4.0.0 I think).
->> My test application simple average over an array of 5 million bytes
->> takes now around 8 times as long as before.
->>
->> What is changed is gcc from 11.2 to 11.3. Can this be the reason?
+Hi Javier,
+
+On 11/24/22 02:24, Javier Tia wrote:
+> So far from crops/yocto:fedora-36-base I have been building in Fedora 36
+> without issue. Just found iproute and iputils are missing.
 >
-> It can be. However we need to narrow it down. So perhaps just revert
-> the 11.3 upgrade
-> and leave everything else at yocto 4.0.5 and see if the behavior is regr=
-essed.
-
-Building a SDK takes some time... seems I am wasting time building 4.0.1
-(gcc 11.2) and 4.0.5 (gcc11.3) clean again.
-
-I am not good in analyzing files, but compare the strings in my test
-binary tell me two differences: GNU AS 3.7 vs 3.8 and glibc 2.34-r0 vs
-2.35-r0 (one is done with my "fast" SDK the other with 4.0.1)
-
-Digging into details, my "fast" SDK was created in yocto 3.4 (not as
-assumed in 4.0)
-
-How can I test that, simply exchange the binutils-recipe? Will that
-work? Can I really mix that version?
-How to do that 'revert'? Just copy a gcc recipe from an older or newer
-version? Finally it is not the compiler, but the cross compiler, right?
-
-
->> Compiler options, eg -O3 keeps same. Is there indeed a regression?
->>
->> The speed neither depends on rootfs nor kernel. Just the compiler/SDK
->> decides wether the compiled app is fast or slow.
+> Signed-off-by: Javier Tia <javier.tia@linaro.org>
+> ---
+>   documentation/poky.yaml.in                       | 2 +-
+>   documentation/ref-manual/system-requirements.rst | 2 ++
+>   2 files changed, 3 insertions(+), 1 deletion(-)
 >
-> Right, there could be other factors as well. We do change other packages=
- too in
-> minor releases and it could be one of these which might have caused the =
-issue
-> as well but its better to go one by one.
->
+> diff --git a/documentation/poky.yaml.in b/documentation/poky.yaml.in
+> index ce67c4d3d..c6a6560a4 100644
+> --- a/documentation/poky.yaml.in
+> +++ b/documentation/poky.yaml.in
+> @@ -19,7 +19,7 @@ FEDORA_HOST_PACKAGES_ESSENTIAL : "gawk make wget tar bzip2 gzip python3 unzip pe
+>        ccache perl-Data-Dumper perl-Text-ParseWords perl-Thread-Queue perl-bignum socat \
+>        python3-pexpect findutils which file cpio python python3-pip xz python3-GitPython \
+>        python3-jinja2 SDL-devel rpcgen mesa-libGL-devel perl-FindBin perl-File-Compare \
+> -     perl-File-Copy perl-locale zstd lz4"
+> +     perl-File-Copy perl-locale zstd lz4 iproute iputils"
+>   OPENSUSE_HOST_PACKAGES_ESSENTIAL : "python gcc gcc-c++ git chrpath make wget python-xml \
+>        diffstat makeinfo python-curses patch socat python3 python3-curses tar python3-pip \
+>        python3-pexpect xz which python3-Jinja2 Mesa-libEGL1 libSDL-devel rpcgen Mesa-dri-devel \
+> diff --git a/documentation/ref-manual/system-requirements.rst b/documentation/ref-manual/system-requirements.rst
+> index 150263381..3e1fc40d5 100644
+> --- a/documentation/ref-manual/system-requirements.rst
+> +++ b/documentation/ref-manual/system-requirements.rst
+> @@ -47,6 +47,8 @@ distributions:
+>   
+>   -  Fedora 35
+>   
+> +-  Fedora 36
+> +
 
 
+Many thanks for the patch and for testing!
+However, we usually add a new supported distro to 
+meta-poky/conf/distro/poky.conf in the meta-yocto repository 
+(https://git.yoctoproject.org/meta-yocto/tree/meta-poky/conf/distro/poky.conf), 
+before adding it to the docs.
+
+It seems that Fedora 36 is indeed supported now. See all the successful 
+builds on https://autobuilder.yoctoproject.org/typhoon/#/builders/86
+
+Could you send a patch for poky.conf? I could do it but you deserve the 
+credit :)
+Then, you can come back with the documentation patch.
+Thanks in advance
+Michael.
+
+-- 
+Michael Opdenacker, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
