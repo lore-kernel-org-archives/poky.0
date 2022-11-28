@@ -1,95 +1,149 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
- by mx.groups.io with SMTP id smtpd.web10.117002.1669640492170563515
- for <poky@lists.yoctoproject.org>;
- Mon, 28 Nov 2022 05:01:32 -0800
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=GdQmLAUe;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.43, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f43.google.com with SMTP id 83-20020a1c0256000000b003d03017c6efso10879190wmc.4
-        for <poky@lists.yoctoproject.org>; Mon, 28 Nov 2022 05:01:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2JqVNCvzasAgOm5w53wU9f8o7KHumuNzYtp3LfhMYek=;
-        b=GdQmLAUeUvXuHiDaNGCswqMwYVtTFkvsDUhoi+joyfI/L/J/JBbdbEuqClNle0vRyM
-         B63qy+bGfs7M4LYHYq63DfoiZzT4t/5E5XcTPzsJoeHFtT01/jR+2Dwsg+7DB42Q+8Tx
-         80x0rzZcAM37MUyyj3FtjdSKWjh98gfgvBzS8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=2JqVNCvzasAgOm5w53wU9f8o7KHumuNzYtp3LfhMYek=;
-        b=6jQHWF0zaYP2Y+36bErt5hOXG4cKIdAPifunfBDi7Qt9SyDY9ciajWEtP1h5gnY5/L
-         +V2qQD9XLG25iWqUmwmIzgqhYEX6+WKpqUsPJbBwxQbfkdalVkktLmi4AwgxR7To88fy
-         DGe+82/g1Dkjddelwc2DTWkZHHQDXPW0tC69DN2meA7VGO2nf2/2xf1Q+aOV5yRBB/KK
-         +UdEyaPZlgxdF97KBzBx76JZlUAzZpCLrWWSSH64G2nzVIwL1UpRRod5LMlKnw0RUHXk
-         K8CLt5b/v2Sa+2fxci9epelrnojHnUdBiB7Qhf7utNKdUoEj5F6B2QwWe/ReiPl5E4os
-         iv/Q==
-X-Gm-Message-State: ANoB5pltb5N0VIWwxqh+R8zXVraq9+1MehBtMr3xiWoQ+h6msBOfxb+5
-	BTiPSlu2gD3YTuMx1gc3GOxXbQ==
-X-Google-Smtp-Source: AA0mqf7o8zwYIL+662jYGzCzbpQ7HaHHGw8zobmFJNCa8cY7/614GcqGWGqp3c8KHZhGU7oD0GBfnQ==
-X-Received: by 2002:a05:600c:3495:b0:3cf:ae53:918f with SMTP id a21-20020a05600c349500b003cfae53918fmr26133171wmq.131.1669640490303;
-        Mon, 28 Nov 2022 05:01:30 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:1da4:7286:b644:a924? ([2001:8b0:aba:5f3c:1da4:7286:b644:a924])
-        by smtp.gmail.com with ESMTPSA id a12-20020adfe5cc000000b0022cc3e67fc5sm10562229wrn.65.2022.11.28.05.01.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 28 Nov 2022 05:01:29 -0800 (PST)
-Message-ID: <d13ad92a8d9d4e5d697820fcdbb03dddf8622920.camel@linuxfoundation.org>
-Subject: Re: [poky] Azure Devops repo URL support ? #poky
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: BELHADJ SALEM Talel <talel.hajsalem@sofia-technologies.com>, 
-	poky@lists.yoctoproject.org
-Date: Mon, 28 Nov 2022 13:01:27 +0000
-In-Reply-To: <NaNK.1669633869916245748.A2O8@lists.yoctoproject.org>
-References: <NaNK.1669633869916245748.A2O8@lists.yoctoproject.org>
-User-Agent: Evolution 3.44.4-0ubuntu1 
+Subject: Re: Azure Devops repo URL support ? #poky
+To: poky@lists.yoctoproject.org
+From: "BELHADJ SALEM Talel" <talel.hajsalem@sofia-technologies.com>
+X-Originating-Location: TN (193.95.99.62)
+X-Originating-Platform: Linux Chrome 107
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 28 Nov 2022 06:51:59 -0800
+References: <d13ad92a8d9d4e5d697820fcdbb03dddf8622920.camel@linuxfoundation.org>
+In-Reply-To: <d13ad92a8d9d4e5d697820fcdbb03dddf8622920.camel@linuxfoundation.org>
+Message-ID: <29070.1669647119522002902@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="vrbByBV9oqyUDUAP3zU2"
+
+--vrbByBV9oqyUDUAP3zU2
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2022-11-28 at 03:11 -0800, BELHADJ SALEM Talel wrote:
-> Hello All,
->=20
-> I have a git repo on Azure devops project, the `git remote -v`
-> command shows the URL in the following format:
->=20
-> git@ssh.dev.azure.com:v3/<USERNAME>/<PROJECT_NAME>
->=20
-> When setting it to SRC_URI as:
->=20
-> SRC_URI =3D
-> "git://git@ssh.dev.azure.com:v3/<USERNAME>/<PROJECT_NAME>;protocol=3Dss
-> h;nobranch=3D1"
->=20
-> it shows the error:
->=20
-> Bitbake Fetcher Error: FetchError('Unable to fetch URL from any
-> source.
->=20
-> I tried too many combinations:
-> SRC_URI =3D
-> "git://<USERNAME>@ssh.dev.azure.com:v3/<USERNAME>/<PROJECT_NAME>;prot
-> ocol=3Dssh;nobranch=3D1"
-> SRC_URI =3D
-> "git://git@ssh.dev.azure.com/v3/<USERNAME>/<PROJECT_NAME>;protocol=3Dss
-> h;nobranch=3D1"
-> SRC_URI =3D
-> "git://<USERNAME>@ssh.dev.azure.com/v3/<USERNAME>/<PROJECT_NAME>;prot
-> ocol=3Dssh;nobranch=3D1"
->=20
-> I don't know how to make it work.
->=20
-> Anyone has an idea ?=C2=A0
+This is the error for the format:
 
-I'd have expected one of those to work. What is the actual fetch error?
-The error you pasted is the bit where it says "can't make this work,
-giving up" but there should have been something before that. What do
-the do_fetch logs say?
+SRC_URI =3D "git://git@ssh.dev.azure.com:v3/WITTI/(Embedded)%20Gateways/sof=
+iatech_Gateway_setup;protocol=3Dssh;branch=3Ddev"
 
-Cheers,
+>=20
+> ERROR : witti-gw-config-git-r22 do_fetch: Fetcher failure: Fetch command
+> export PSEUDO_DISABLED=3D1; export
+> DBUS_SESSION_BUS_ADDRESS=3D"unix:path=3D/run/user/1000/bus"; export
+> SSH_AGENT_PID=3D"1695";
+> export SSH_AUTH_SOCK=3D"/tmp/ssh-LYWJXxMijRIZ/agent.1632"; export
+> PATH=3D"/home/talel/Desktop/YoctoWork/maie/witti-embedded/build/tmp/sysro=
+ots-uninative/x86_64-linux/usr/bin:/home/talel/Desktop/Y
+>=20
+> octoWork/maie/witti-embedded/layers/poky/scripts:/home/talel/Desktop/Yoct=
+oWork/maie/witti-embedded/build/tmp/work/all-poky-linux/witti-gw-config/git=
+-r22/recipe-sysroot-native/usr/bin/allarch-
+>=20
+> poky-linux:/home/talel/Desktop/YoctoWork/maie/witti-embedded/build/tmp/wo=
+rk/all-poky-linux/witti-gw-config/git-r22/recipe-sysroot/usr/bin/crossscrip=
+ts:/home/talel/Desktop/YoctoWork/maie/witti-embedded/build/tmp/work/all-pok=
+y-linux/witti-gw-config/git-r22/recipe-sysroot-native/usr/sbin:/home/talel/=
+Desktop/YoctoWork/maie/witti-embedded/build/tmp/work/all-poky-linux/witti-g=
+w-config/git-r22/recipe-sysroot-native/usr/bin:/home/talel/Desktop/YoctoWor=
+k/maie/witti-embedded/build/tmp/work/all-poky-linux/witti-gw-config/git-r22=
+/recipe-sysrootnative/sbin:/home/talel/Desktop/Yo
+>=20
+> ctoWork/maie/witti-embedded/build/tmp/work/all-poky-linux/witti-gw-config=
+/git-r22/recipe-sysroot-native/bin:/home/talel/Desktop/YoctoWork/maie/witti=
+-embedded/layers/poky/bitbake/bin:/home/talel/Desktop/YoctoWork/maie/witti-=
+embedded/build/tmp/hosttools";
+> export HOME=3D"/home/talel"; LANG=3DC git -c core.fsyncobjectfiles=3D0 cl=
+one
+> --bare --mirror "ssh://git@ssh.dev.azure.com:v3/WITTI/(Em
+> bedded) Gateways/sofiatech_Gateway_setup"
+> /home/talel/Desktop/YoctoWork/maie/witti-embedded/build/downloads/git2/ss=
+h.dev.azure.com.v3.WITTI.(Embedded)_Gateways.sofiatech_Gateway_setup
+> --progr
+> ess failed with exit code 2, no output
+> ERROR : witti-gw-config-git-r22 do_fetch: Bitbake Fetcher Error:
+> FetchError('Unable to fetch URL from any source.',
+> 'git://git@ssh.dev.azure.com:v3/WITTI/(Embedded)%20Gateways/sofiatech_Gat=
+ewa
+>=20
+> y_setup;protocol=3Dssh;branch=3Ddev')
+>=20
 
-Richard
+This is the same error for all combinations:
+
+>=20
+>=20
+>> sofiatech_Gateway_setup;protocol=3Dssh;branch=3Ddev"
+>=20
+>=20
+>> SRC_URI =3D
+>> "git://WITTI@ssh.dev.azure.com/v3/WITTI/%28Embedded%29%20Gateways/sofiat=
+ech_Gateway_setup;protocol=3Dssh;branch=3Ddev"
+>>=20
+>=20
+>=20
+>> SRC_URI =3D
+>> "git://git@ssh.dev.azure.com/v3/WITTI/%28Embedded%29%20Gateways/sofiatec=
+h_Gateway_setup;protocol=3Dssh;branch=3Ddev"
+>>=20
+>=20
+>
+
+--vrbByBV9oqyUDUAP3zU2
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+This is the error for the format:&nbsp;<br /><br />SRC_URI =3D "git://git@s=
+sh.dev.azure.com:v3/WITTI/(Embedded)%20Gateways/sofiatech_Gateway_setup;pro=
+tocol=3Dssh;branch=3Ddev"<br /><br />
+<blockquote><span style=3D"font-family: monospace;"><span style=3D"font-wei=
+ght: bold; color: #ff5454;">ERROR</span><span style=3D"color: #000000;">: <=
+/span><span style=3D"color: #b21818;">witti-gw-config-git-r22 do_fetch: Fet=
+cher failure: Fetch command export PSEUDO_DISABLED=3D1; export DBUS_SESSION=
+_BUS_ADDRESS=3D"unix:path=3D/run/user/1000/bus"; export SSH_AGENT_PID=3D"16=
+95"; </span><br />export SSH_AUTH_SOCK=3D"/tmp/ssh-LYWJXxMijRIZ/agent.1632"=
+; export PATH=3D"/home/talel/Desktop/YoctoWork/maie/witti-embedded/build/tm=
+p/sysroots-uninative/x86_64-linux/usr/bin:/home/talel/Desktop/Y<br />octoWo=
+rk/maie/witti-embedded/layers/poky/scripts:/home/talel/Desktop/YoctoWork/ma=
+ie/witti-embedded/build/tmp/work/all-poky-linux/witti-gw-config/git-r22/rec=
+ipe-sysroot-native/usr/bin/allarch-<br />poky-linux:/home/talel/Desktop/Yoc=
+toWork/maie/witti-embedded/build/tmp/work/all-poky-linux/witti-gw-config/gi=
+t-r22/recipe-sysroot/usr/bin/crossscripts:/home/talel/Desktop/YoctoWork/mai=
+e/witti-embedded/build/tmp/work/all-poky-linux/witti-gw-config/git-r22/reci=
+pe-sysroot-native/usr/sbin:/home/talel/Desktop/YoctoWork/maie/witti-embedde=
+d/build/tmp/work/all-poky-linux/witti-gw-config/git-r22/recipe-sysroot-nati=
+ve/usr/bin:/home/talel/Desktop/YoctoWork/maie/witti-embedded/build/tmp/work=
+/all-poky-linux/witti-gw-config/git-r22/recipe-sysrootnative/sbin:/home/tal=
+el/Desktop/Yo<br />ctoWork/maie/witti-embedded/build/tmp/work/all-poky-linu=
+x/witti-gw-config/git-r22/recipe-sysroot-native/bin:/home/talel/Desktop/Yoc=
+toWork/maie/witti-embedded/layers/poky/bitbake/bin:/home/talel/Desktop/Yoct=
+oWork/maie/witti-embedded/build/tmp/hosttools"; export HOME=3D"/home/talel"=
+; LANG=3DC git -c core.fsyncobjectfiles=3D0 clone --bare --mirror "ssh://gi=
+t@ssh.dev.azure.com:v3/WITTI/(Em<br />bedded) Gateways/sofiatech_Gateway_se=
+tup" /home/talel/Desktop/YoctoWork/maie/witti-embedded/build/downloads/git2=
+/ssh.dev.azure.com.v3.WITTI.(Embedded)_Gateways.sofiatech_Gateway_setup --p=
+rogr<br />ess failed with exit code 2, no output &nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=3D=
+"color: #000000;">&nbsp;</span><br /><span style=3D"font-weight: bold; colo=
+r: #ff5454;">ERROR</span><span style=3D"color: #000000;">: </span><span sty=
+le=3D"color: #b21818;">witti-gw-config-git-r22 do_fetch: Bitbake Fetcher Er=
+ror: FetchError('Unable to fetch URL from any source.', 'git://git@ssh.dev.=
+azure.com:v3/WITTI/(Embedded)%20Gateways/sofiatech_Gatewa</span><br />y_set=
+up;protocol=3Dssh;branch=3Ddev')<br /></span></blockquote>
+<br />This is the same error for all combinations:<br />
+<blockquote>
+<blockquote>sofiatech_Gateway_setup;protocol=3Dssh;branch=3Ddev"</blockquot=
+e>
+<blockquote>SRC_URI =3D "git://WITTI@ssh.dev.azure.com/v3/WITTI/%28Embedded=
+%29%20Gateways/sofiatech_Gateway_setup;protocol=3Dssh;branch=3Ddev"</blockq=
+uote>
+<blockquote>SRC_URI =3D "git://git@ssh.dev.azure.com/v3/WITTI/%28Embedded%2=
+9%20Gateways/sofiatech_Gateway_setup;protocol=3Dssh;branch=3Ddev"</blockquo=
+te>
+</blockquote>
+
+--vrbByBV9oqyUDUAP3zU2--
