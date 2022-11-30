@@ -1,154 +1,96 @@
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
- by mx.groups.io with SMTP id smtpd.web10.220.1669773704189276179
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+ by mx.groups.io with SMTP id smtpd.web10.576.1669774696556645963
  for <poky@lists.yoctoproject.org>;
- Tue, 29 Nov 2022 18:01:44 -0800
+ Tue, 29 Nov 2022 18:18:16 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=RJzSUGAT;
- spf=pass (domain: gmail.com, ip: 209.85.210.54, mailfrom: raj.khem@gmail.com)
-Received: by mail-ot1-f54.google.com with SMTP id p8-20020a056830130800b0066bb73cf3bcso10351630otq.11
-        for <poky@lists.yoctoproject.org>; Tue, 29 Nov 2022 18:01:44 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=HjwuJf/F;
+ spf=pass (domain: gmail.com, ip: 209.85.210.46, mailfrom: raj.khem@gmail.com)
+Received: by mail-ot1-f46.google.com with SMTP id p27-20020a056830319b00b0066d7a348e20so10373647ots.8
+        for <poky@lists.yoctoproject.org>; Tue, 29 Nov 2022 18:18:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oNy0Xszos8C9Yue3SRsmQ3nU5ajMn/XnNEq+fTHuSTI=;
-        b=RJzSUGATttqU+ZxMqHRnUH9fzdL+YvNAWHKsuUs7OTJalgCDrTS9raxdgLLR2k2psr
-         uELpRzRgYia4GBKPiD4iTmJU+vRJ97k1HNK2rAzwxWq0OMGUu5X7zM3AeBrG6Y1TZwj8
-         nKQ7viZ1bYMJyS6YLQ0OzFKhnbIss/9Sdm/ObRIv7jZVlqSE8ynTEngmZ3xOlqEr4aPO
-         oZaGar6a7njng3J8JcVBRQUBpgBOHYoad9n6LxeFHww4ODMrOdObIGyEy8BNIrU1lt/B
-         2PjYTLIJ6qPl3AzbP4oowkpzAKtSDvnuhPi3dkjjR1u1Cy506/8G1Gvvu97jHG4vO59V
-         F4qQ==
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=aPVjRdaYRNv4pxpRmfdbrOnU1eAgYrdPknhjmedyyFg=;
+        b=HjwuJf/FaWxfMS6M1pRRTAUaTdDJU92Ma0hb1QDZ/lDM/VCOIwQkIGJKcjlWUNobaK
+         AqdEvvHph7IL7q9sIkcvmx54DirIdWYnee6lPGo/ZrO9fRaTzkMxYUab7uFIq+a965eV
+         qhByzcGI8QxEloxjImK0OemP9aN4s8eQIkKFFviHNpsoOkwOvUZeYotzwWpk1BQsW6QD
+         u0J1n1XhUfOojLqhnz+NHZ/2BcX9IHNKjzjrbXFZmHqXZ5Gb2sAnupA9KIv1+Jj8o4K6
+         v3HuRucooAts1mMnC/9LLlZ/xbF3/s1fekviV4r8jqMDGbWS5r0E+k0wfhEqWf3rjwuu
+         ixfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=oNy0Xszos8C9Yue3SRsmQ3nU5ajMn/XnNEq+fTHuSTI=;
-        b=pQd+PqZs89wLhh3o+AhLrbrVf43jPJTREpvmw5eXKLZYbwLFitkWXTuYdVlsmSer1d
-         B9u2JX+87DwX+q+MegUuxipvyYDQjRgw0DzDah2oMhGIPxC1pRpAwdI9ujTMkR0G9hvw
-         D2U1Z25nxf/ApSiUwgJuyTHMNWLXTdUrphK2pMfh7JMMZ3vSE6zH/K4mBkv18xBUGgtG
-         Qpe+3Q/QyaNI/TSfc9ZwTqmOJxw4L4caEDll0+MR8RmjEw8bFH/7pBSoSLFH89hbcZY1
-         Pw6sZVfoJIiL3ZpH1vb4EbW5qu9ulHY3J2bDbs2S1vAk7NGE8c7h7T9wUfSBdYRAKDKk
-         0g5g==
-X-Gm-Message-State: ANoB5plov+w3E46kWtF3V9dJeMow7GVtqnXPN33BH3BnT3rBn8ste6Yj
-	msC8oggm/We5EnI7Yj6+PJIv7wgWQBgN8ZZz9Sw=
-X-Google-Smtp-Source: AA0mqf6YElKtrf+hVih1DZx9QbeGFQaO4/f8FnCf3PvwxrQmte7zYslNlXIKP66mI46ZDOWfYfoBXtG62sw+U5SVCMs=
-X-Received: by 2002:a9d:6486:0:b0:66d:ca7a:8b1a with SMTP id
- g6-20020a9d6486000000b0066dca7a8b1amr20659296otl.55.1669773703379; Tue, 29
- Nov 2022 18:01:43 -0800 (PST)
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=aPVjRdaYRNv4pxpRmfdbrOnU1eAgYrdPknhjmedyyFg=;
+        b=CxF93mondM2d9OVCVZtOeBjMfVI5aY7xcW2RSGhnmnd00oOA25M0eMyhqkyOKpqRTn
+         cIxLjC+N0k9mmaKOhza6Y80i3rm1ZV2axP9BORjL4iGNcjvQuIcjgweK7LNzcbcIgp9+
+         akNhzK4YOZDA8W7XUkQ8UpHGsudirxNJVg1PgnXGREstEf+fWMwL77aWT3A/g5Ssf2Xv
+         ydK0SCczxXtgL64ThrDO2n8EUdzqoAP8eiNb4Cabv5cFosYzea6TeJA6l2uHbji+DgPx
+         5IvjXlbdiYqksuIPUWovt4cn1LYW0+TpXUkiXd8tDWLnDApKBC0qKKZWi/YAGEunipwW
+         VIEw==
+X-Gm-Message-State: ANoB5plcqN9IiQ75JwUQUN2jGHYQ8zEcWW7L1rWXx6aHkzxftgdx67Dx
+	EV7Lw5KSCnUEtuFgq8SOWmGAeovKBmypY2GmCWs=
+X-Google-Smtp-Source: AA0mqf5jYW/ZyKdSYaNJHP2ENtIpHBqaUlGcirk9JiIS6aiYJA5Be2VhZ7sBoPMv0gPGDAwjaACyiRGOSfD27Xuw6y8=
+X-Received: by 2002:a9d:6a44:0:b0:66c:fb5b:1d67 with SMTP id
+ h4-20020a9d6a44000000b0066cfb5b1d67mr30168632otn.111.1669774695675; Tue, 29
+ Nov 2022 18:18:15 -0800 (PST)
 MIME-Version: 1.0
-References: <oy3w.1669223320962012665.WVBs@lists.yoctoproject.org>
-In-Reply-To: <oy3w.1669223320962012665.WVBs@lists.yoctoproject.org>
+References: <2lN4.1669171844857500614.vHh0@lists.yoctoproject.org>
+In-Reply-To: <2lN4.1669171844857500614.vHh0@lists.yoctoproject.org>
 From: "Khem Raj" <raj.khem@gmail.com>
-Date: Tue, 29 Nov 2022 18:01:17 -0800
-Message-ID: <CAMKF1sozCP6bcFdtQzPFugatp4wmrO8pS+_Kv+OAWiBX0OQq8Q@mail.gmail.com>
-Subject: Re: [poky] stdout overwriting logger output for service units
-To: jcmalek@lakeheadu.ca
+Date: Tue, 29 Nov 2022 18:17:49 -0800
+Message-ID: <CAMKF1srn8xwaisS+ue_nCYn391tfz9_1YBJQzKJ2+Mz=NEWksg@mail.gmail.com>
+Subject: Re: [poky] Failing to Create Windows Cross Compile Toolchain/SDK using Meta-MinGW #bitbake #yocto #poky #sdk
+To: peter.jamrozinski@delve.com
 Cc: poky@lists.yoctoproject.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-maybe try
+On Tue, Nov 22, 2022 at 6:50 PM peter.jamrozinski via
+lists.yoctoproject.org
+<peter.jamrozinski=delve.com@lists.yoctoproject.org> wrote:
+>
+> Hello,
+>
+> I'm trying to create a cross-compile toolchain for my local Windows host targeting an I.MX 8M Nano target. I added the layer 'meta-mingw' to my sources and added it to my bblayers.conf file:
+>
+> # Addition of MinGW layer to allow for Windows X-Compiler generation
+> BBLAYERS =+ "/usr/local/dey-3.2/sources/meta-mingw"
+>
+>
+> My local.conf contains:
+>
+> SDKMACHINE = "x86_64-mingw32"
+> SDK_ARCHIVE_TYPE = "zip"
+>
+> I ran 'bitbake <image name> -c populate_sdk' to generate the sdk.
+>
+> I encountered the following errors:
+>
+> ERROR: nativesdk-openssl-1.1.1n-r0 do_configure: Execution of '/home/dey/workspace/ccimx8mn-dvk/tmp/work/x86_64-nativesdk-mingw32-w64-mingw32/nativesdk-openssl/1.1.1n-r0/temp/run.do_configure.1376007' failed with exit code 1:
+>
+> and
+>
+> configure: error: linux/capability.h is required in order to build libcap-ng.
+>
+> I've attached the log files from both 'do_config' steps for libcap-ng and openSSL.
+>
+> I did see the following link that looks like it might help with the openSSL issue, but I'm not sure how I download and apply this patch in my local environment:
+>
+> https://www.yoctoproject.org/pipermail/yocto/2018-July/041835.html
+>
+> any help is greatly appreciated.
 
-[Service]
-StandardError=3Djournal
-StandardOutput=3Djournal
+Try adding something like
 
-as well in your service unit file, might help.
+DEPENDS += "libcap"
 
-On Wed, Nov 23, 2022 at 9:08 AM <jcmalek@lakeheadu.ca> wrote:
 >
-> Hi there Poky team,
+> Thank you!
 >
-> I have recently noticed that some of the stdout output has been overwriti=
-ng the logger output when I do a "journalctl -u service_name" on any of the=
- services. The systemd team has referred me to this project (my downstream =
-distro) to look into the issue before they are willing to have a look. They=
- would ideally like this tested on a newer version of systemd. The steps to=
- reproduce the problem are fairly simple. I have hopefully included all the=
- relevant details below. Please let me know if there is anything else you n=
-eed.
+> - psj.dev
 >
 >
->
-> systemd version the issue has been seen with
->
-> 246
->
-> Used distribution
->
-> Poky (Yocto Project Reference Distro) 3.2.4 \n \l
->
-> Linux kernel version used
->
-> 5.12.10
->
-> CPU architectures issue was seen on
->
-> arm
->
-> Component
->
-> journalctl
->
-> Expected behaviour you didn't see
->
-> Expected both logger and standard output to appear in service unit logs:
->
-> journalctl -f -u test
-> Nov 16 15:05:08 c-00012 sh[1617]: Standard output: 1
-> Nov 16 15:05:08 c-00012 root[1650]: Logger: 1
-> Nov 16 15:05:08 c-00012 sh[1617]: Standard output: 2
-> Nov 16 15:05:08 c-00012 root[1652]: Logger: 2
-> Nov 16 15:05:09 c-00012 sh[1617]: Standard output: 3
-> Nov 16 15:05:09 c-00012 root[1654]: Logger: 3
-> Nov 16 15:05:10 c-00012 sh[1617]: Standard output: 4
-> Nov 16 15:05:10 c-00012 root[1656]: Logger: 4
-> Nov 16 15:05:11 c-00012 sh[1617]: Standard output: 5
-> Nov 16 15:05:11 c-00012 root[1658]: Logger: 5
->
-> Unexpected behaviour you saw
->
-> I only get the standard output messages and every once and a while one of=
- the logger messages sneaks through:
->
-> journalctl -f -u test
-> Nov 16 15:05:08 c-00012 sh[1617]: Standard output: 1
-> Nov 16 15:05:08 c-00012 sh[1617]: Standard output: 2
-> Nov 16 15:05:09 c-00012 sh[1617]: Standard output: 3
-> Nov 16 15:06:09 c-00012 root[1654]: Logger: 3
-> Nov 16 15:05:10 c-00012 sh[1617]: Standard output: 4
-> Nov 16 15:05:11 c-00012 sh[1617]: Standard output: 5
->
-> Steps to reproduce the problem
->
-> test.service contents:
->
-> [Unit]
-> Description=3DTest
-> DefaultDependencies=3Dno
->
->
-> [Service]
-> Type=3Doneshot
-> ExecStart=3D/bin/sh /mytest.sh
-> RemainAfterExit=3Dyes
->
-> /mytest.sh contents:
->
-> #!/bin/sh
-> i=3D0
-> while [ $i -le 100 ]; do
->   echo "Standard output: ${i}"
->   logger "Logger: ${i}"
->   sleep 1
->   i=3D$((i+1))
-> done
->
-> journalctl -f -u test
-> systemctl start test
->
->
->=20
+> 
 >
