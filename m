@@ -1,91 +1,76 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
- by mx.groups.io with SMTP id smtpd.web11.4685.1670539624858606689
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+ by mx.groups.io with SMTP id smtpd.web10.4673.1670539627416286273
  for <poky@lists.yoctoproject.org>;
- Thu, 08 Dec 2022 14:47:04 -0800
+ Thu, 08 Dec 2022 14:47:07 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=3FeIAfYZ;
- spf=softfail (domain: sakoman.com, ip: 209.85.216.51, mailfrom: steve@sakoman.com)
-Received: by mail-pj1-f51.google.com with SMTP id e7-20020a17090a77c700b00216928a3917so6171037pjs.4
-        for <poky@lists.yoctoproject.org>; Thu, 08 Dec 2022 14:47:04 -0800 (PST)
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=uUGxJrN0;
+ spf=softfail (domain: sakoman.com, ip: 209.85.216.44, mailfrom: steve@sakoman.com)
+Received: by mail-pj1-f44.google.com with SMTP id o12so2946476pjo.4
+        for <poky@lists.yoctoproject.org>; Thu, 08 Dec 2022 14:47:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=sakoman-com.20210112.gappssmtp.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=VU8VeQSRAO8xGdhF+ixABkVlBmx9zk+TcE1Xlw7IMrE=;
-        b=3FeIAfYZKpbFWTl7D9pqOD7b+2EHaBr5AzYdWcgcYu3QHv5HiWRUcCR2Jt7ah83vmb
-         0fXRN4Au/35hgUkpOl0YUTVKF44gbi9zeD+b7IdlkJMG96cYPWG8RFZ5SagGHPxecIM9
-         EhBaHEomY9ld46zK0wypr/fC/Op3oAeDseuAd4sZ6WMOWNnV3YoG9K62Yaq0VruyQJwC
-         /gJacT+1u+wVQnh1qDRT4HTpeMQbttYajeUBE+M8ESHc60ex4eFmx1Mh4HpkmuRFOzST
-         Zv/ta2JiFa6EMn4Y4wolQTHLzWasy17lsjv7/1if6LSQ+FgT8m11Ll4oc7GwsdFsrol6
-         Qm1g==
+        bh=jAJ8IwFcRUikxjgoUNzIeVtffWlAcinrMUkT37fG1nA=;
+        b=uUGxJrN06LvEzEoeHwACRQ45Dckor1RP5k8GhFX93u4d66q9wG5HmfR7qxx7dpfd4M
+         xpWYa4Ss4SnHlujQpqG5vx+kpI39WmNrLEPYvJFFm6GI+Qt+nEDxRf7Ltejk1xpAZugY
+         Kq+NV0/yz3uQ2PiOwIxzQAr3J3T5lHQyf3wOwqGIEVtNrK6ygIStuGA/rz2OSRHQ1xDD
+         sgBvRpFEDmWJrnQvcggEX/Jx2GNLlO2XQiHJ0/3bmYk99gIRcW0hdfxOVOd9UHp6XbVZ
+         l7y3c9iHFmmC/EBNwsEtON/Ur150mjlnSTNujO2gdGA2SYF+8xLFgyb7q/Voev9EKf6B
+         Ximw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=VU8VeQSRAO8xGdhF+ixABkVlBmx9zk+TcE1Xlw7IMrE=;
-        b=18OzNay96XKH5TmAMKCfXAAUHYDXcwg+QqarbNDAlOHjbJRb8Fh1TlTsFhpkNyeulJ
-         forfNZDFc6d4wsC6I4IfhxB7OSPl+na4a3oMlumAa1H0vrR8CceSEr1ivDk2G4WLdCQD
-         xyLNKVXLMHSg9JZeF4XSBiLl75WWYOSLjRDLtJqbfSMmFtq+VpEDYg/N1YjDqiUcdg/c
-         EsFCy5HizmOCRuMDsBpf5dmEpfvg743SeQOM8/iyZ8wh7yjq9MUNzZQ2NRr1BoQ6TPrm
-         1BLGeRQ6epSPD/d5hqP5L3+6jXMDiwPNL+n8cZj/J4itAmkjaARDyhQiR8p84oVpY2NC
-         73QQ==
-X-Gm-Message-State: ANoB5pmJzT7Sqi0iOtcsHG904oKFH5DM/70jjmXcBUMYVgq8YpkhvpfW
-	k0beZ9td6wM+DNZvXOAqfi+7JAu6QzVo3hg9Y+N7iQ==
-X-Google-Smtp-Source: AA0mqf4mnemM/AFPtIdjzkKd3AJK/ibPX8Ib7/vgJgDEawbmuQqjjdR41+Y9e1TkiDP4rVGpDV3Kyw==
-X-Received: by 2002:a05:6a21:1013:b0:a7:8b5e:af77 with SMTP id nk19-20020a056a21101300b000a78b5eaf77mr4100993pzb.36.1670539623736;
-        Thu, 08 Dec 2022 14:47:03 -0800 (PST)
+        bh=jAJ8IwFcRUikxjgoUNzIeVtffWlAcinrMUkT37fG1nA=;
+        b=bBXqsV8r6iKh+F6ARYvu70RTr9kEO6/IL4tYvVVSvtr5H6G2uVGT8Bj6J0PoLVPvEm
+         C78p+al9w+h63zxd8yNyWREDRoL5At807uP6EdEooQAY6IHOUj3e2ASsn2KC8xHUjY6h
+         AYfslPpEeWMZyo43dHTqzCvreelLEz8J1Gmk7meaLxD3S04u8WgRTHWvO+qRoZUel8Du
+         wZimkJ7qIBQgJnmtcVw0i8TwcEubSrIEAW2H2izl1qGsJAk9E2zQcaKL1rbAM4QSYo8v
+         nW953QKDHSVBujs3gj/3IRpQcdEKmEOgGJgbr5l0ju9rZJhi+VYntoHafroovTmCkxPn
+         ddIg==
+X-Gm-Message-State: ANoB5pnObhIjL4Z9PDatAu5GVDUZ0vOT5FpOyln0VBX+QyNNZBt7kidn
+	4c8PqQANCsSZUBxjHQ/LbCkGHcswgaqGv7/g16ve5Q==
+X-Google-Smtp-Source: AA0mqf5AGrUMRAOmuwmsHAHh3cT8GGhUgnSVulZ1sVt4iDq2z+XAuCw9K3/NIJk8Q18AFfxkeqy79w==
+X-Received: by 2002:a17:90a:dd88:b0:212:daa7:590 with SMTP id l8-20020a17090add8800b00212daa70590mr3563440pjv.7.1670539626237;
+        Thu, 08 Dec 2022 14:47:06 -0800 (PST)
 Return-Path: <steve@sakoman.com>
 Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
-        by smtp.gmail.com with ESMTPSA id d24-20020a631d18000000b00478dad38eacsm5067304pgd.38.2022.12.08.14.47.02
+        by smtp.gmail.com with ESMTPSA id d24-20020a631d18000000b00478dad38eacsm5067304pgd.38.2022.12.08.14.47.05
         for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Dec 2022 14:47:03 -0800 (PST)
+        Thu, 08 Dec 2022 14:47:05 -0800 (PST)
 From: "Steve Sakoman" <steve@sakoman.com>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][kirkstone 2/3] linux-yocto/5.15: update genericx86* machines to v5.15.72
-Date: Thu,  8 Dec 2022 12:46:52 -1000
-Message-Id: <de97d5fa277093f2f50e81fe241d537d3a112f81.1670539434.git.steve@sakoman.com>
+Subject: [meta-yocto][kirkstone 3/3] poky.conf: bump version for 4.0.6
+Date: Thu,  8 Dec 2022 12:46:53 -1000
+Message-Id: <ff1102a164e83bfa4e9529f573e2f198c3cda3b5.1670539434.git.steve@sakoman.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1670539434.git.steve@sakoman.com>
 References: <cover.1670539434.git.steve@sakoman.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ravula Adhitya Siddartha <adhityax.siddartha.ravula@intel.com>
-
-Signed-off-by: Ravula Adhitya Siddartha <adhityax.siddartha.ravula@intel.com>
 Signed-off-by: Steve Sakoman <steve@sakoman.com>
 ---
- .../recipes-kernel/linux/linux-yocto_5.15.bbappend        | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.15.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.15.bbappend
-index e682620..3ad175d 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.15.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.15.bbappend
-@@ -7,8 +7,8 @@ KMACHINE:genericx86 ?= "common-pc"
- KMACHINE:genericx86-64 ?= "common-pc-64"
- KMACHINE:beaglebone-yocto ?= "beaglebone"
- 
--SRCREV_machine:genericx86 ?= "efe20512212b0e85b5f884b1bfc8fbba2b43541a"
--SRCREV_machine:genericx86-64 ?= "efe20512212b0e85b5f884b1bfc8fbba2b43541a"
-+SRCREV_machine:genericx86 ?= "0b628306d1f9ea28c0e86369ce9bb87a47893c9c"
-+SRCREV_machine:genericx86-64 ?= "0b628306d1f9ea28c0e86369ce9bb87a47893c9c"
- SRCREV_machine:edgerouter ?= "90f1ee6589264545f548d731c2480b08a007230f"
- SRCREV_machine:beaglebone-yocto ?= "9aabbaa89fcb21af7028e814c1f5b61171314d5a"
- 
-@@ -17,7 +17,7 @@ COMPATIBLE_MACHINE:genericx86-64 = "genericx86-64"
- COMPATIBLE_MACHINE:edgerouter = "edgerouter"
- COMPATIBLE_MACHINE:beaglebone-yocto = "beaglebone-yocto"
- 
--LINUX_VERSION:genericx86 = "5.15.59"
--LINUX_VERSION:genericx86-64 = "5.15.59"
-+LINUX_VERSION:genericx86 = "5.15.72"
-+LINUX_VERSION:genericx86-64 = "5.15.72"
- LINUX_VERSION:edgerouter = "5.15.54"
- LINUX_VERSION:beaglebone-yocto = "5.15.54"
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 98c243d..79c9aba 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -1,7 +1,7 @@
+ DISTRO = "poky"
+ DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
+ #DISTRO_VERSION = "3.4+snapshot-${METADATA_REVISION}"
+-DISTRO_VERSION = "4.0.5"
++DISTRO_VERSION = "4.0.6"
+ DISTRO_CODENAME = "kirkstone"
+ SDK_VENDOR = "-pokysdk"
+ SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADATA_REVISION}', 'snapshot')}"
 -- 
 2.25.1
 
