@@ -1,73 +1,84 @@
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- by mx.groups.io with SMTP id smtpd.web11.5651.1670473710367793110
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+ by mx.groups.io with SMTP id smtpd.web11.4683.1670539620674252459
  for <poky@lists.yoctoproject.org>;
- Wed, 07 Dec 2022 20:28:33 -0800
+ Thu, 08 Dec 2022 14:47:00 -0800
 Authentication-Results: mx.groups.io;
- dkim=fail reason="unable to parse pub key" header.i=@intel.com header.s=intel header.b=ZocbUnnv;
- spf=pass (domain: intel.com, ip: 192.55.52.93, mailfrom: adhityax.siddartha.ravula@intel.com)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1670473713; x=1702009713;
-  h=from:to:subject:date:message-id:in-reply-to:references;
-  bh=T5TKy7z1NpNvYx5sRmddzSo4sROEWvefwhDaKBeUXnU=;
-  b=ZocbUnnvPHQpEo9U50PiOw2Y0oUMNd7VrF3XBY60IadkTkraTEhbsWXt
-   RdHBUE/nY78D3k7/vAurtSy7szPgr4PTUgMgWGh0XP/3pBAEm9aWzg3LU
-   0T25ZDblqhJ2haT+52mUO3ZHDi/8bkD2vV0d/ChH+uQDPEUC3Yqq3yyD8
-   47Z8oKtxUNLzaHkEHFuH2TeOlKeCsP/TdzErzEDCTaWMWEQWwJOZeBSrx
-   Kvia+0Q+uH2DB6FvZLi4byk8DUzPx1JKE5j/BN2iIZqdGZ7EdBUVcZQVa
-   7QzV4coUjWVaoOC/nw5WzsrnyBiJnx0Vxh2eD4liIkHXaFZ+bIq3Jx0G1
-   w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10554"; a="314715233"
-X-IronPort-AV: E=Sophos;i="5.96,226,1665471600"; 
-   d="scan'208";a="314715233"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
-  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Dec 2022 20:28:33 -0800
-X-IronPort-AV: E=McAfee;i="6500,9779,10554"; a="975710334"
-X-IronPort-AV: E=Sophos;i="5.96,226,1665471600"; 
-   d="scan'208";a="975710334"
-Received: from inlubt0314.iind.intel.com ([10.67.198.223])
-  by fmsmga005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Dec 2022 20:28:32 -0800
-From: adhityax.siddartha.ravula@intel.com
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=EAQtvW81;
+ spf=softfail (domain: sakoman.com, ip: 209.85.216.47, mailfrom: steve@sakoman.com)
+Received: by mail-pj1-f47.google.com with SMTP id u15-20020a17090a3fcf00b002191825cf02so3052034pjm.2
+        for <poky@lists.yoctoproject.org>; Thu, 08 Dec 2022 14:47:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9pVD1A/hHsvyT54qjTrpX1bQH3bEb9+9XFfuzxgFM/0=;
+        b=EAQtvW81IAvTdGh3kA2tu0q6d/U5CqUbOAd9oqAlVFeLyb/eLT2dtyECXunVJYHZyQ
+         TAuS5r+pF0qIkSEcFSws22PVbBly1XulNfjGjMbPBd6Dp1RLU8BOFzzU9Q74Iz/ur25y
+         1Cu0UyLr0br4eeSj3OkoIbggbj27QHKJSNjaembtGzOE9BhhTSP5zqVEtdOh7ltXz0VU
+         1tMwKEZfX7qHaK99J6kGM1WYRlLx2QPT2KVmTzhUKq65pv+8cSQvbNhZpGpTwKZquQ8U
+         xBixIrOmZ2kiP8fcSDH2RRNrwTeBNk3ye/vKyb5SjcGuh/pJt/GNWXKKLjeZkoO1uM1O
+         7gKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=9pVD1A/hHsvyT54qjTrpX1bQH3bEb9+9XFfuzxgFM/0=;
+        b=buiNh1nUxEjSmi7hTVZhNeMALKAXJSx0hyGzzwSo9/LMzAHSJs5728kRJS8tpUNHMn
+         nwS0KwTsQyiVI2tTN5q7mQE9OTasHyoXhQ7ajh9UhQ2vzBLqd+QSAMHWK10zcxXc4B49
+         0/sRih2nUH06eTBDZlA9YF5JcaduKYXWNTJ90W9xR1joNr5QiewBBtZA1woL2QcWx2B8
+         jskkiF1vsQ5Akb/044e2ub1Co5p4zk5oyA9LARtzTA1Gix87aRYaNto255WiCbndAT1F
+         V0eUcCGI9OD+O/t+FZnDKARFKT490ERTgj1ExQrNiYOEAkrd/tS2NR2ZGZiu/tpM1AeY
+         KGWA==
+X-Gm-Message-State: ANoB5plYeiLj1DsZdEuA2SpPsG5FWN6AJtz+L9ouWAAYFbGW1Gl6ykrU
+	A38WAEzjg0iqhmci4Crb/WmsfnAfn1mlDUISdJw+Ew==
+X-Google-Smtp-Source: AA0mqf6mqySOb7ruoaMFK99a6QdflI9sVD7wJg6dq+9fzMm1/dYIiQLP5lF5B+Eqp1+ediisq3WALg==
+X-Received: by 2002:a05:6a20:c6ca:b0:9d:efd3:66df with SMTP id gw10-20020a056a20c6ca00b0009defd366dfmr4062246pzb.38.1670539619354;
+        Thu, 08 Dec 2022 14:46:59 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
+        by smtp.gmail.com with ESMTPSA id d24-20020a631d18000000b00478dad38eacsm5067304pgd.38.2022.12.08.14.46.58
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Dec 2022 14:46:58 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][kirkstone][PATCH 2/2] linux-yocto/5.15: update genericx86* machines to v5.15.72
-Date: Thu,  8 Dec 2022 09:58:18 +0530
-Message-Id: <20221208042818.841-2-adhityax.siddartha.ravula@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20221208042818.841-1-adhityax.siddartha.ravula@intel.com>
-References: <20221208042818.841-1-adhityax.siddartha.ravula@intel.com>
+Subject: [meta-yocto][kirkstone 0/3] Patch review
+Date: Thu,  8 Dec 2022 12:46:50 -1000
+Message-Id: <cover.1670539434.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Ravula Adhitya Siddartha <adhityax.siddartha.ravula@intel.com>
+Please review this set of patches for kirkstone and have comments back by
+end of day Monday.
 
-Signed-off-by: Ravula Adhitya Siddartha <adhityax.siddartha.ravula@intel.com>
----
+This should be the final set of patches for the 4.0.6 release.
+
+Passed a-full on autobuilder:
+
+https://autobuilder.yoctoproject.org/typhoon/#/builders/83/builds/4600
+
+The following changes since commit 8f216dca2fda2c8862f81dacdcf11df3118b31b7:
+
+  poky.conf: bump version for 4.0.5 (2022-10-24 04:32:55 -1000)
+
+are available in the Git repository at:
+
+  https://git.yoctoproject.org/meta-yocto contrib/kirkstone-next
+  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/kirkstone-next
+
+Ravula Adhitya Siddartha (2):
+  linux-yocto/5.10: update genericx86* machines to v5.10.149
+  linux-yocto/5.15: update genericx86* machines to v5.15.72
+
+Steve Sakoman (1):
+  poky.conf: bump version for 4.0.6
+
+ meta-poky/conf/distro/poky.conf                           | 2 +-
+ .../recipes-kernel/linux/linux-yocto_5.10.bbappend        | 8 ++++----
  .../recipes-kernel/linux/linux-yocto_5.15.bbappend        | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ 3 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.15.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.15.bbappend
-index e6826203e3..3ad175dc84 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.15.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_5.15.bbappend
-@@ -7,8 +7,8 @@ KMACHINE:genericx86 ?= "common-pc"
- KMACHINE:genericx86-64 ?= "common-pc-64"
- KMACHINE:beaglebone-yocto ?= "beaglebone"
- 
--SRCREV_machine:genericx86 ?= "efe20512212b0e85b5f884b1bfc8fbba2b43541a"
--SRCREV_machine:genericx86-64 ?= "efe20512212b0e85b5f884b1bfc8fbba2b43541a"
-+SRCREV_machine:genericx86 ?= "0b628306d1f9ea28c0e86369ce9bb87a47893c9c"
-+SRCREV_machine:genericx86-64 ?= "0b628306d1f9ea28c0e86369ce9bb87a47893c9c"
- SRCREV_machine:edgerouter ?= "90f1ee6589264545f548d731c2480b08a007230f"
- SRCREV_machine:beaglebone-yocto ?= "9aabbaa89fcb21af7028e814c1f5b61171314d5a"
- 
-@@ -17,7 +17,7 @@ COMPATIBLE_MACHINE:genericx86-64 = "genericx86-64"
- COMPATIBLE_MACHINE:edgerouter = "edgerouter"
- COMPATIBLE_MACHINE:beaglebone-yocto = "beaglebone-yocto"
- 
--LINUX_VERSION:genericx86 = "5.15.59"
--LINUX_VERSION:genericx86-64 = "5.15.59"
-+LINUX_VERSION:genericx86 = "5.15.72"
-+LINUX_VERSION:genericx86-64 = "5.15.72"
- LINUX_VERSION:edgerouter = "5.15.54"
- LINUX_VERSION:beaglebone-yocto = "5.15.54"
 -- 
-2.17.1
+2.25.1
 
