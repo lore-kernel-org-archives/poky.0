@@ -1,82 +1,175 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
- by mx.groups.io with SMTP id smtpd.web11.5576.1670602310217394767
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+ by mx.groups.io with SMTP id smtpd.web10.5578.1670602422398821607
  for <poky@lists.yoctoproject.org>;
- Fri, 09 Dec 2022 08:11:50 -0800
+ Fri, 09 Dec 2022 08:13:42 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=IOlBrG1v;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.47, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f47.google.com with SMTP id u12so5662919wrr.11
-        for <poky@lists.yoctoproject.org>; Fri, 09 Dec 2022 08:11:49 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=cUM/JNKy;
+ spf=pass (domain: gmail.com, ip: 209.85.208.171, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-lj1-f171.google.com with SMTP id n1so5392627ljg.3
+        for <poky@lists.yoctoproject.org>; Fri, 09 Dec 2022 08:13:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KuknRw2JdIlbbPHaNLLkUYkhhmVcUP5xv1Tk5lqsmYI=;
-        b=IOlBrG1vn4IXfQ5d9LsacpD2DcR1ghdoktgbU3smPwnnEV+I7pxRQpvWlIWHy55lDd
-         mSEqV5mbFvEpXS1HXM6Dla1hyQiUKu6Sz8x6umAU28AGBkueqZkha7w8/iXcCcNkSbE6
-         LLG63jGk0DU4wJI+sgo8QF9zLuikqr0rBUahM=
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=7vHGAIkzlW/u2NhIPhMtycFRwuln5vkbym3gh1qdyHs=;
+        b=cUM/JNKyfbMpktjuDzrO4nUgLkpuUFTrIix5VmXeBsKgBNUIh+kWVoWFTzIl2YRs7H
+         Dxf8gR74n5nxgS/gNtZC+xNedTDRB3FsHz6q6Xb3fvg5NXl7v5nYl11wiL48+XXy5I0K
+         T/Fc4Cc+8zqrqWlacWSCGwu86eDt6zWdIWMsNwwl+wsJbzWxaIRreLyvGaHeDzUGHK3n
+         Ol3W4KQr8GeZ666FMrI8xXAkjepiXiK5tqdp2yfDPYWr8SPFRzZgyCLftB+tKdTYGE1Q
+         ULHLiwkenJyjQY0r1CXADKEM9BJSwiQJ3fNIPQjJwgCqBjs4NIAzEwEjCv252J+zkMPd
+         /JdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=KuknRw2JdIlbbPHaNLLkUYkhhmVcUP5xv1Tk5lqsmYI=;
-        b=3vjwTJEXGNj0XswHAoAH/8rEMojC4HPUaSozotNupdkEe2xafwrebOKsUNJJT3kxJS
-         rLimdKcxvXrJaYyDhlS+bKWqL7mZF/g+T+yNrHm0n8LZYlcJP0fGbosf/Y0X3dsfEfi8
-         N1xNbIG6fw1p+FRacrOAuP+LDtRzpzguqHEQ2Rjyn2f+L3SpfIraA89YXj9aXUH1Xl/r
-         ucYlpcvZfmDG3LU4Ow4W3wywQ4PIVG3F77i7ffR+Ql7e3jBRIuOKWSUwkWpylN3VhxGJ
-         vXDGyZUK7i0qYPygNfbY2xYSM4qg3C8ks4xskBS9CyMc5dS3KxhtyGW9YrjIp4fnAJxo
-         /Muw==
-X-Gm-Message-State: ANoB5pm4dK89Vj2cRynwUxFl++tnR+rwMYVIq70mHgnzuW6izXOE6as2
-	BnQ2NXcjsDGNMxjvie0jbhRjpg==
-X-Google-Smtp-Source: AA0mqf64wX0LFuRVcicr0HELsMZ4MFXPeuBcGW+P/uBjZ80TtNMV3YHA66ERum+1IroP4+y7Dogidg==
-X-Received: by 2002:adf:e283:0:b0:241:63d8:6741 with SMTP id v3-20020adfe283000000b0024163d86741mr3698949wri.9.1670602308402;
-        Fri, 09 Dec 2022 08:11:48 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:9b77:8930:5aaa:e9c4? ([2001:8b0:aba:5f3c:9b77:8930:5aaa:e9c4])
-        by smtp.gmail.com with ESMTPSA id x4-20020a5d54c4000000b00241b5af8697sm1726334wrv.85.2022.12.09.08.11.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Dec 2022 08:11:47 -0800 (PST)
-Message-ID: <d73115cd38d439c919ab6fa9448fcdce29545809.camel@linuxfoundation.org>
-Subject: Re: [poky] Unexpected package version going backwards warnings.
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Daniel Squires <dan@engineeredarts.co.uk>, poky@lists.yoctoproject.org
-Date: Fri, 09 Dec 2022 16:11:46 +0000
-In-Reply-To: <CAC+ji7EOT6D35madOZvx6tS8Nj43Tiq-cg06WYO8xue8MnBhiQ@mail.gmail.com>
-References: 
-	<CAC+ji7EOT6D35madOZvx6tS8Nj43Tiq-cg06WYO8xue8MnBhiQ@mail.gmail.com>
-User-Agent: Evolution 3.44.4-0ubuntu1 
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7vHGAIkzlW/u2NhIPhMtycFRwuln5vkbym3gh1qdyHs=;
+        b=FSNzyylqjV+HkEb3fMZ1H+FS8yTDqkABn0UtbfQTAx/kr3skufz0aw1OePnNsMgbIL
+         RUKwIEQqajqkux3FdrJZOIdpo+NK8o1dSkRP8oha6pwMI9jPl02bF1Z7K0cx7BkoFCLX
+         74vJN3Vb9+Lmn3tz3sljpLrQdY5mVXFv8L6vi14ZOMHG1WRouUbNnClWxQctL6IacXV1
+         CyGSnC88cMwwX/l/Yjp32EHbesj2g9Ua60dWwX71sTpnVxRkYmIB4sQhiGFh7ectLjiF
+         JkY5XkI1RZXnB6Z+UUfTHFdocDH+nde2lsXBJXdirR6iUHeVLPACOWcMonK4BYqBUaA6
+         clww==
+X-Gm-Message-State: ANoB5pnU2381GXdE5wzWLzE81W6z6ySu+4WPNaQ1kMZQMFR4MiEaAD6h
+	kGIC/fZHZK5e+SwSfmGi6Y/nROxM0UU4URWoV3k=
+X-Google-Smtp-Source: AA0mqf56MwO+T4+OUOkNNU2KdSamGBOeHXR/j5LhSjECry3o8shlCvulJC5XCIK58fuZ0+bHp5KlshXKVOJYYhz6MSo=
+X-Received: by 2002:a2e:a174:0:b0:279:75a0:c063 with SMTP id
+ u20-20020a2ea174000000b0027975a0c063mr24086733ljl.45.1670602415631; Fri, 09
+ Dec 2022 08:13:35 -0800 (PST)
 MIME-Version: 1.0
+References: <CAC+ji7EOT6D35madOZvx6tS8Nj43Tiq-cg06WYO8xue8MnBhiQ@mail.gmail.com>
+In-Reply-To: <CAC+ji7EOT6D35madOZvx6tS8Nj43Tiq-cg06WYO8xue8MnBhiQ@mail.gmail.com>
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+Date: Fri, 9 Dec 2022 17:13:24 +0100
+Message-ID: <CANNYZj_bEZ_EVdXjrFWaGtAoDfsX_4jieSrm+Vg5t2wC8dZXHQ@mail.gmail.com>
+Subject: Re: [poky] Unexpected package version going backwards warnings.
+To: Daniel Squires <dan@engineeredarts.co.uk>
+Cc: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="0000000000008b6ff705ef676f99"
+
+--0000000000008b6ff705ef676f99
 Content-Type: text/plain; charset="UTF-8"
+
+If you do not care about updating packages on target with a package
+manager, then you can drop SRCPV from your recipe versions.
+Otherwise, you probably need to use a prserv, as described here:
+https://docs.yoctoproject.org/dev-manual/common-tasks.html#incrementing-a-package-version
+which will ensure package versions would never go backwards.
+
+Alex
+
+On Fri, 9 Dec 2022 at 17:02, Daniel Squires <dan@engineeredarts.co.uk>
+wrote:
+
+> Hi!
+> We're using kirkstone, though not the very latest at present.
+> Every now and then a a number of packages will unexpectedly give the error
+> re package versions going backwards and teh version may have done something
+> like go from git5-######-r0.1 to git3-#######-r0.0.
+> We always see this if we've been using devtool for a given recipe and then
+> do a devtool reset, it complains about going back from git999 to e.g. git5
+> but this makes sense and we just run the build again and forget about it.
+> However sometimes this just seems to happen randomly for a given recipe
+> when it picks up a new commit from our repos and the git autoinc number
+> will have gone back a few.
+> Does anybody know why and if it is a bug or an be fixed?
+>
+>
+> --
+> *Dan Squires*
+> Senior Roboticist
+> www.engineeredarts.co.uk
+>
+> [image: EA Phone Number]+44 (0)1326 378129
+>
+> [image: RoboThespian FB] <https://www.facebook.com/RobotThespian> [image:
+> RoboThespian Twitter] <https://twitter.com/robothespian> [image: EA
+> YouTube] <http://youtube.com/EngineeredArts>
+> [image: Engineered Arts Logo] <https://www.engineeredarts.co.uk/>
+>
+>
+> * Engineered Arts Ltd *
+> E1-E3 Church View Business Park,
+> Bickland Water Road,
+> Falmouth Cornwall,
+> TR11 4FZ
+> United Kingdom
+>
+> [image: Subscribe to Mailing List]
+> <https://www.engineeredarts.co.uk/mailing-list/>
+>
+>
+> 
+>
+>
+
+--0000000000008b6ff705ef676f99
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2022-12-09 at 16:02 +0000, Daniel Squires wrote:
-> Hi!
-> We're using kirkstone, though not the very latest at present.=C2=A0
-> Every now and then a a number of packages will unexpectedly give the
-> error re package versions going backwards and teh version may have
-> done something like go from git5-######-r0.1 to git3-#######-r0.0.
-> We always see this if we've been using devtool for a given recipe and
-> then do a devtool reset, it complains about going back from git999 to
-> e.g. git5 but this makes sense and we just run the build again and
-> forget about it. However sometimes this just seems to happen randomly
-> for a given recipe when it picks up a new commit from our repos and
-> the git autoinc number will have gone back a few.
-> Does anybody know why and if it is a bug or an be fixed?
+<div dir=3D"ltr"><div>If you do not care about updating packages on target =
+with a package manager, then you can drop SRCPV from your recipe versions.<=
+/div><div>Otherwise, you probably need to use a prserv, as described here:<=
+/div><div><a href=3D"https://docs.yoctoproject.org/dev-manual/common-tasks.=
+html#incrementing-a-package-version">https://docs.yoctoproject.org/dev-manu=
+al/common-tasks.html#incrementing-a-package-version</a></div><div>which wil=
+l ensure package versions would never go backwards.</div><div><br></div><di=
+v>Alex<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Fri, 9 Dec 2022 at 17:02, Daniel Squires &lt;<a href=3D"=
+mailto:dan@engineeredarts.co.uk">dan@engineeredarts.co.uk</a>&gt; wrote:<br=
+></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;=
+border-left:1px solid rgb(204,204,204);padding-left:1ex"><div>Hi!<br></div>=
+<div>We&#39;re using kirkstone, though not the very latest at present.=C2=
+=A0</div><div>Every now and then a a number of packages will unexpectedly g=
+ive the error re package versions going backwards and teh version may have =
+done something like go from git5-######-r0.1 to git3-#######-r0.0.</div><di=
+v>We always see this if we&#39;ve been using devtool for a given recipe and=
+ then do a devtool reset, it complains about going back from git999 to e.g.=
+ git5 but this makes sense and we just run the build again and forget about=
+ it. However sometimes this just seems to happen randomly for a given recip=
+e when it picks up a new commit from our repos and the git autoinc number w=
+ill have gone back a few.</div><div>Does anybody know why and if it is a bu=
+g or an be fixed?</div><br><br>-- <br><div dir=3D"ltr"><font face=3D"Helvet=
+ica, Arial, sans-serif"><b>Dan Squires</b></font><br>
+<font size=3D"-1" color=3D"#666666">Senior Roboticist</font><a href=3D"http=
+s://www.engineeredarts.co.uk/" target=3D"_blank"><font size=3D"-2" color=3D=
+"#509ed2"><br>
+    <font color=3D"#000000">www.engineeredarts.co.uk</font></font></a><font=
+ size=3D"-2"><br>
+  <br>
+</font><font size=3D"-2"><img src=3D"https://www.engineeredarts.co.uk/wp-co=
+ntent/uploads/2018/05/Phone.png" alt=3D"EA Phone Number" width=3D"23" heigh=
+t=3D"23" align=3D"left"></font><font size=3D"-2">+44 (0)1326 378129</font><=
+br>
+<br>
+<a href=3D"https://www.facebook.com/RobotThespian" target=3D"_blank"><img s=
+rc=3D"https://www.engineeredarts.co.uk/wp-content/uploads/2018/05/facebook.=
+png" alt=3D"RoboThespian FB" width=3D"11" height=3D"17" border=3D"0" align=
+=3D"top"></a>
+<a href=3D"https://twitter.com/robothespian" target=3D"_blank"><img src=3D"=
+https://www.engineeredarts.co.uk/wp-content/uploads/2018/05/twitter.png" al=
+t=3D"RoboThespian Twitter" width=3D"19" height=3D"16" border=3D"0"></a>  <a=
+ href=3D"http://youtube.com/EngineeredArts" target=3D"_blank"><img src=3D"h=
+ttps://www.engineeredarts.co.uk/wp-content/uploads/2018/05/youtube.png" alt=
+=3D"EA YouTube" width=3D"21" height=3D"14" border=3D"0"></a><br>
+<a href=3D"https://www.engineeredarts.co.uk/" target=3D"_blank"><font size=
+=3D"-2"><img src=3D"https://www.engineeredarts.co.uk/wp-content/uploads/201=
+8/05/EngArts-Logo.png" alt=3D"Engineered Arts Logo" width=3D"131" height=3D=
+"39" border=3D"0" align=3D"left"></font></a><br>
+<font size=3D"-2"><b><br>
+    <font color=3D"#666666"><br>
+      Engineered Arts Ltd </font></b><font color=3D"#666666"><br>
+  E1-E3 Church View Business Park, <br>
+  Bickland Water Road,<br> Falmouth Cornwall,<br> TR11 4FZ <br>
+</font><font size=3D"-2" color=3D"#666666">United Kingdom<br>
+  <br>
+  <a href=3D"https://www.engineeredarts.co.uk/mailing-list/" target=3D"_bla=
+nk"><img src=3D"https://www.engineeredarts.co.uk/wp-content/uploads/2018/05=
+/EA_Subcribe.jpg" alt=3D"Subscribe to Mailing List" width=3D"366" height=3D=
+"68" border=3D"0"></a></font></font><br></div><br>
+<br>
+<br>
+<br>
+</blockquote></div>
 
-We probably need to know a bit more about how you're building things.
-Do you have a pool of workers building against a common sstate?
-
-Are you using hash equivalence? Are you using a PR server?=20
-
-I ask the questions as the answer is probably somewhere in the way data
-is being shared/reused between builds.
-
-If you're not using package management on device to upgrade them, it
-probably isn't a big issue but it is worth understanding the sstate
-reuse in this context.
-
-Cheers,
-
-Richard
+--0000000000008b6ff705ef676f99--
