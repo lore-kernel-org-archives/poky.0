@@ -1,76 +1,87 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
- by mx.groups.io with SMTP id smtpd.web10.4673.1670539627416286273
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+ by mx.groups.io with SMTP id smtpd.web10.372.1670589098002860748
  for <poky@lists.yoctoproject.org>;
- Thu, 08 Dec 2022 14:47:07 -0800
+ Fri, 09 Dec 2022 04:31:38 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=uUGxJrN0;
- spf=softfail (domain: sakoman.com, ip: 209.85.216.44, mailfrom: steve@sakoman.com)
-Received: by mail-pj1-f44.google.com with SMTP id o12so2946476pjo.4
-        for <poky@lists.yoctoproject.org>; Thu, 08 Dec 2022 14:47:07 -0800 (PST)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=aE4YUbJm;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.46, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f46.google.com with SMTP id ay14-20020a05600c1e0e00b003cf6ab34b61so5662796wmb.2
+        for <poky@lists.yoctoproject.org>; Fri, 09 Dec 2022 04:31:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jAJ8IwFcRUikxjgoUNzIeVtffWlAcinrMUkT37fG1nA=;
-        b=uUGxJrN06LvEzEoeHwACRQ45Dckor1RP5k8GhFX93u4d66q9wG5HmfR7qxx7dpfd4M
-         xpWYa4Ss4SnHlujQpqG5vx+kpI39WmNrLEPYvJFFm6GI+Qt+nEDxRf7Ltejk1xpAZugY
-         Kq+NV0/yz3uQ2PiOwIxzQAr3J3T5lHQyf3wOwqGIEVtNrK6ygIStuGA/rz2OSRHQ1xDD
-         sgBvRpFEDmWJrnQvcggEX/Jx2GNLlO2XQiHJ0/3bmYk99gIRcW0hdfxOVOd9UHp6XbVZ
-         l7y3c9iHFmmC/EBNwsEtON/Ur150mjlnSTNujO2gdGA2SYF+8xLFgyb7q/Voev9EKf6B
-         Ximw==
+        d=linuxfoundation.org; s=google;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LVUO2MI0ntvjV9E7E6UHy9uBF4Sjkshf8jOwV4zBDRM=;
+        b=aE4YUbJm2aYDwShUKz43XxyGYYUjPJ/Bz5MXLN6Bw874CWsbi3phs2g0h+MXaSULzp
+         Q60u1CVFSa4lDFEGoLnYlSPJjxEzFA4aLpUfZc7lXBNO8FpFzuTjSKwDMujpfXOUTNS6
+         P8RIq5jsl7wF2QSU7pg2bF31cC9bK6f1q4QY0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jAJ8IwFcRUikxjgoUNzIeVtffWlAcinrMUkT37fG1nA=;
-        b=bBXqsV8r6iKh+F6ARYvu70RTr9kEO6/IL4tYvVVSvtr5H6G2uVGT8Bj6J0PoLVPvEm
-         C78p+al9w+h63zxd8yNyWREDRoL5At807uP6EdEooQAY6IHOUj3e2ASsn2KC8xHUjY6h
-         AYfslPpEeWMZyo43dHTqzCvreelLEz8J1Gmk7meaLxD3S04u8WgRTHWvO+qRoZUel8Du
-         wZimkJ7qIBQgJnmtcVw0i8TwcEubSrIEAW2H2izl1qGsJAk9E2zQcaKL1rbAM4QSYo8v
-         nW953QKDHSVBujs3gj/3IRpQcdEKmEOgGJgbr5l0ju9rZJhi+VYntoHafroovTmCkxPn
-         ddIg==
-X-Gm-Message-State: ANoB5pnObhIjL4Z9PDatAu5GVDUZ0vOT5FpOyln0VBX+QyNNZBt7kidn
-	4c8PqQANCsSZUBxjHQ/LbCkGHcswgaqGv7/g16ve5Q==
-X-Google-Smtp-Source: AA0mqf5AGrUMRAOmuwmsHAHh3cT8GGhUgnSVulZ1sVt4iDq2z+XAuCw9K3/NIJk8Q18AFfxkeqy79w==
-X-Received: by 2002:a17:90a:dd88:b0:212:daa7:590 with SMTP id l8-20020a17090add8800b00212daa70590mr3563440pjv.7.1670539626237;
-        Thu, 08 Dec 2022 14:47:06 -0800 (PST)
-Return-Path: <steve@sakoman.com>
-Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
-        by smtp.gmail.com with ESMTPSA id d24-20020a631d18000000b00478dad38eacsm5067304pgd.38.2022.12.08.14.47.05
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=LVUO2MI0ntvjV9E7E6UHy9uBF4Sjkshf8jOwV4zBDRM=;
+        b=Fk0WHLWiWrYbkQuY5NfTEwLZrKOx/dR9Hv7hFrNSjwojItvQun+nl78BI9RLyQdMBV
+         ChdwZyCrMW2iQ770ohB61AUMnglkiS3qnu8jP6ibVuYs1xvUXlL6pYFeXBtHEvzfm0RL
+         /NFVFAR2m7MFxcQ/HH8F1uup4Od/VXi9UE8IQ6A4kHBnbIVkU+ykEVNTJxmt4xe5qwcp
+         Wlh8wm3cB1ktjhATrqKHUMVWkQ+C8NskHYxWU9Ey15zlJJpHjHmneF3tbdBOkN1a7k9i
+         HEsd6KYXBr+hi8Z+CPPxju4cdRY2omicvfI5gVcnmEPWW5ktj2DD/Mb3JLVekcbWIXdp
+         Y0rw==
+X-Gm-Message-State: ANoB5pmbnS2dptgCuUMAMC1P4VdZJoyh9LcFSMZuPzdCVXvgsgJ1i5/t
+	d0ny9waF3fO8HP8et05Y14lFH4oxxZwCHY5I
+X-Google-Smtp-Source: AA0mqf6r+EEvk1Z0Y9Z/RLw/u2hz9DePFH6p3lqSiojdGU3JBHJBs2jaW7q0sRxFIFYTxH/aNd2lug==
+X-Received: by 2002:a1c:6a04:0:b0:3c6:f6b4:6b0b with SMTP id f4-20020a1c6a04000000b003c6f6b46b0bmr4902556wmc.20.1670589095959;
+        Fri, 09 Dec 2022 04:31:35 -0800 (PST)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:9b77:8930:5aaa:e9c4])
+        by smtp.gmail.com with ESMTPSA id hg10-20020a05600c538a00b003cf4eac8e80sm626727wmb.23.2022.12.09.04.31.35
         for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Dec 2022 14:47:05 -0800 (PST)
-From: "Steve Sakoman" <steve@sakoman.com>
+        Fri, 09 Dec 2022 04:31:35 -0800 (PST)
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][kirkstone 3/3] poky.conf: bump version for 4.0.6
-Date: Thu,  8 Dec 2022 12:46:53 -1000
-Message-Id: <ff1102a164e83bfa4e9529f573e2f198c3cda3b5.1670539434.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1670539434.git.steve@sakoman.com>
-References: <cover.1670539434.git.steve@sakoman.com>
+Subject: [PATCH] poky/poky-tiny: Drop largefile mentions
+Date: Fri,  9 Dec 2022 12:31:34 +0000
+Message-Id: <20221209123134.2535058-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Steve Sakoman <steve@sakoman.com>
----
- meta-poky/conf/distro/poky.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+largefile was made the default and the distro feature is no longer needed.
+Drop the leftovers in poky.
 
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/conf/distro/poky-tiny.conf | 3 ---
+ meta-poky/conf/distro/poky.conf      | 2 +-
+ 2 files changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
+index 5772661588b..ce466e30b76 100644
+--- a/meta-poky/conf/distro/poky-tiny.conf
++++ b/meta-poky/conf/distro/poky-tiny.conf
+@@ -82,9 +82,6 @@ DISTRO_FEATURES = "${DISTRO_FEATURES_TINY} \
+                    ${DISTRO_FEATURES_WIFI} \
+                   "
+ 
+-# Enable LFS - see bug YOCTO #5865
+-DISTRO_FEATURES:append:libc-musl = " largefile"
+-
+ DISTRO_FEATURES:class-native = "${DISTRO_FEATURES_DEFAULT} ${POKY_DEFAULT_DISTRO_FEATURES}"
+ DISTRO_FEATURES:class-nativesdk = "${DISTRO_FEATURES_DEFAULT} ${POKY_DEFAULT_DISTRO_FEATURES}"
+ 
 diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 98c243d..79c9aba 100644
+index ccc2f1155f0..dc0e8e76ab7 100644
 --- a/meta-poky/conf/distro/poky.conf
 +++ b/meta-poky/conf/distro/poky.conf
-@@ -1,7 +1,7 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
- #DISTRO_VERSION = "3.4+snapshot-${METADATA_REVISION}"
--DISTRO_VERSION = "4.0.5"
-+DISTRO_VERSION = "4.0.6"
- DISTRO_CODENAME = "kirkstone"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADATA_REVISION}', 'snapshot')}"
+@@ -14,7 +14,7 @@ TARGET_VENDOR = "-poky"
+ LOCALCONF_VERSION = "2"
+ 
+ # Override these in poky based distros
+-POKY_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch wayland vulkan"
++POKY_DEFAULT_DISTRO_FEATURES = "opengl ptest multiarch wayland vulkan"
+ POKY_DEFAULT_EXTRA_RDEPENDS = "packagegroup-core-boot"
+ POKY_DEFAULT_EXTRA_RRECOMMENDS = "kernel-module-af-packet"
+ 
 -- 
-2.25.1
+2.34.1
 
