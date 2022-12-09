@@ -1,87 +1,142 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
- by mx.groups.io with SMTP id smtpd.web10.372.1670589098002860748
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+ by mx.groups.io with SMTP id smtpd.web10.5200.1670601755820664696
  for <poky@lists.yoctoproject.org>;
- Fri, 09 Dec 2022 04:31:38 -0800
+ Fri, 09 Dec 2022 08:02:36 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=aE4YUbJm;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.46, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f46.google.com with SMTP id ay14-20020a05600c1e0e00b003cf6ab34b61so5662796wmb.2
-        for <poky@lists.yoctoproject.org>; Fri, 09 Dec 2022 04:31:37 -0800 (PST)
+ dkim=pass header.i=@engineeredarts.co.uk header.s=google header.b=WWbDsxiw;
+ spf=pass (domain: engineeredarts.co.uk, ip: 209.85.216.44, mailfrom: dan@engineeredarts.co.uk)
+Received: by mail-pj1-f44.google.com with SMTP id 3-20020a17090a098300b00219041dcbe9so5382766pjo.3
+        for <poky@lists.yoctoproject.org>; Fri, 09 Dec 2022 08:02:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=LVUO2MI0ntvjV9E7E6UHy9uBF4Sjkshf8jOwV4zBDRM=;
-        b=aE4YUbJm2aYDwShUKz43XxyGYYUjPJ/Bz5MXLN6Bw874CWsbi3phs2g0h+MXaSULzp
-         Q60u1CVFSa4lDFEGoLnYlSPJjxEzFA4aLpUfZc7lXBNO8FpFzuTjSKwDMujpfXOUTNS6
-         P8RIq5jsl7wF2QSU7pg2bF31cC9bK6f1q4QY0=
+        d=engineeredarts.co.uk; s=google;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=51BSPLXrD+Khb6FqrK/HjYaqPaAvlCFUhgCfMnELNhw=;
+        b=WWbDsxiwugYOOA+PiKSK+Mge3hMcpeekke+WYYBT3ksbRNxR1TlZ0VCfUaL1VnjnbJ
+         mEaYN+WAF6m2/ffcZqUcCZOMU1j6pCEeDPU25aAEh+QPv/LdladMW5WhCc25j2VpWQmq
+         7R+QkdQswLyojLb2uGVvNt3lJ1dERaeO86vOBIAVKaZ0s79dDlmxpI3lxWMiS0/bMBHD
+         8gZ1EqlS7lU/3JsA0mb8eqR3atkI62xFNwZU7kP775f+uLVTsT3vogcvz2iWX+3Lpw+0
+         hsoUvXNRVGrPNl2K3mNS4MTwxzUHjxaDNuCGPCSGzfDzUesjFep3NyxlYikTTm6bGNVC
+         ws6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LVUO2MI0ntvjV9E7E6UHy9uBF4Sjkshf8jOwV4zBDRM=;
-        b=Fk0WHLWiWrYbkQuY5NfTEwLZrKOx/dR9Hv7hFrNSjwojItvQun+nl78BI9RLyQdMBV
-         ChdwZyCrMW2iQ770ohB61AUMnglkiS3qnu8jP6ibVuYs1xvUXlL6pYFeXBtHEvzfm0RL
-         /NFVFAR2m7MFxcQ/HH8F1uup4Od/VXi9UE8IQ6A4kHBnbIVkU+ykEVNTJxmt4xe5qwcp
-         Wlh8wm3cB1ktjhATrqKHUMVWkQ+C8NskHYxWU9Ey15zlJJpHjHmneF3tbdBOkN1a7k9i
-         HEsd6KYXBr+hi8Z+CPPxju4cdRY2omicvfI5gVcnmEPWW5ktj2DD/Mb3JLVekcbWIXdp
-         Y0rw==
-X-Gm-Message-State: ANoB5pmbnS2dptgCuUMAMC1P4VdZJoyh9LcFSMZuPzdCVXvgsgJ1i5/t
-	d0ny9waF3fO8HP8et05Y14lFH4oxxZwCHY5I
-X-Google-Smtp-Source: AA0mqf6r+EEvk1Z0Y9Z/RLw/u2hz9DePFH6p3lqSiojdGU3JBHJBs2jaW7q0sRxFIFYTxH/aNd2lug==
-X-Received: by 2002:a1c:6a04:0:b0:3c6:f6b4:6b0b with SMTP id f4-20020a1c6a04000000b003c6f6b46b0bmr4902556wmc.20.1670589095959;
-        Fri, 09 Dec 2022 04:31:35 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:9b77:8930:5aaa:e9c4])
-        by smtp.gmail.com with ESMTPSA id hg10-20020a05600c538a00b003cf4eac8e80sm626727wmb.23.2022.12.09.04.31.35
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Dec 2022 04:31:35 -0800 (PST)
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: poky@lists.yoctoproject.org
-Subject: [PATCH] poky/poky-tiny: Drop largefile mentions
-Date: Fri,  9 Dec 2022 12:31:34 +0000
-Message-Id: <20221209123134.2535058-1-richard.purdie@linuxfoundation.org>
-X-Mailer: git-send-email 2.34.1
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=51BSPLXrD+Khb6FqrK/HjYaqPaAvlCFUhgCfMnELNhw=;
+        b=Ns9/hiyMgsr39E2fwaGc1d1rI/vRVpKXkx9mZ9zXfrvSiV7dG8v0ApURefos77ZikQ
+         heBZFaTGfe1cS73kCNE2y+csU6+SMnV49ScePx5iwpoLG2bltXhXzg3rUjnl5gALAYW8
+         6x5mWu4SbALHIAc+K8vOXOoKBe2zHz1nBuMkfZNAuIHw7krDHdAy34QiQg1vkNMOmSgQ
+         NZMT9VRVTtbq8Z0SJEaC0Z/bEG8I4GAIYV8rjd3L5du0IBiskekU8fuG0DjoFyAoOBGg
+         HaUXPOQYVMRt63QDAxELbfUn7y0PHGz4Tqq4yF6TSfP4X/58DnTJ/gl+2bRfHzcyISgP
+         KovQ==
+X-Gm-Message-State: ANoB5pnSTSQmcBQfaCrt0Sj3RunjBrSi4oP6iuMAbK2s9BsyoGooLm5I
+	TIkM8s6DC8XZT8RADbuvfhgMHmg7B/W46SyYn3xVubi5lGclfJxW
+X-Google-Smtp-Source: AA0mqf5/DwRI3crNFyf2oE0Ar69JZb3mRxXKu45Y00s7XAD0uv2p/MTDUgjXNwq4gyF6pQkf7SpbnImdzXgTiKbivYM=
+X-Received: by 2002:a17:902:d4c8:b0:189:cf7a:b563 with SMTP id
+ o8-20020a170902d4c800b00189cf7ab563mr20676012plg.56.1670601754990; Fri, 09
+ Dec 2022 08:02:34 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: by 2002:a05:6a10:70a:b0:358:832f:d32c with HTTP; Fri, 9 Dec 2022
+ 08:02:34 -0800 (PST)
+X-Originating-IP: [86.16.192.236]
+From: "Daniel Squires" <dan@engineeredarts.co.uk>
+Date: Fri, 9 Dec 2022 16:02:34 +0000
+Message-ID: <CAC+ji7EOT6D35madOZvx6tS8Nj43Tiq-cg06WYO8xue8MnBhiQ@mail.gmail.com>
+Subject: Unexpected package version going backwards warnings.
+To: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="0000000000002af2a605ef674841"
 
-largefile was made the default and the distro feature is no longer needed.
-Drop the leftovers in poky.
+--0000000000002af2a605ef674841
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- meta-poky/conf/distro/poky-tiny.conf | 3 ---
- meta-poky/conf/distro/poky.conf      | 2 +-
- 2 files changed, 1 insertion(+), 4 deletions(-)
+Hi!
+We're using kirkstone, though not the very latest at present.
+Every now and then a a number of packages will unexpectedly give the error
+re package versions going backwards and teh version may have done something
+like go from git5-######-r0.1 to git3-#######-r0.0.
+We always see this if we've been using devtool for a given recipe and then
+do a devtool reset, it complains about going back from git999 to e.g. git5
+but this makes sense and we just run the build again and forget about it.
+However sometimes this just seems to happen randomly for a given recipe
+when it picks up a new commit from our repos and the git autoinc number
+will have gone back a few.
+Does anybody know why and if it is a bug or an be fixed?
 
-diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
-index 5772661588b..ce466e30b76 100644
---- a/meta-poky/conf/distro/poky-tiny.conf
-+++ b/meta-poky/conf/distro/poky-tiny.conf
-@@ -82,9 +82,6 @@ DISTRO_FEATURES = "${DISTRO_FEATURES_TINY} \
-                    ${DISTRO_FEATURES_WIFI} \
-                   "
- 
--# Enable LFS - see bug YOCTO #5865
--DISTRO_FEATURES:append:libc-musl = " largefile"
--
- DISTRO_FEATURES:class-native = "${DISTRO_FEATURES_DEFAULT} ${POKY_DEFAULT_DISTRO_FEATURES}"
- DISTRO_FEATURES:class-nativesdk = "${DISTRO_FEATURES_DEFAULT} ${POKY_DEFAULT_DISTRO_FEATURES}"
- 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index ccc2f1155f0..dc0e8e76ab7 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -14,7 +14,7 @@ TARGET_VENDOR = "-poky"
- LOCALCONF_VERSION = "2"
- 
- # Override these in poky based distros
--POKY_DEFAULT_DISTRO_FEATURES = "largefile opengl ptest multiarch wayland vulkan"
-+POKY_DEFAULT_DISTRO_FEATURES = "opengl ptest multiarch wayland vulkan"
- POKY_DEFAULT_EXTRA_RDEPENDS = "packagegroup-core-boot"
- POKY_DEFAULT_EXTRA_RRECOMMENDS = "kernel-module-af-packet"
- 
+
 -- 
-2.34.1
+*Dan Squires*
+Senior Roboticist
+www.engineeredarts.co.uk
 
+[image: EA Phone Number]+44 (0)1326 378129
+
+[image: RoboThespian FB] <https://www.facebook.com/RobotThespian> [image:
+RoboThespian Twitter] <https://twitter.com/robothespian> [image: EA YouTube]
+<http://youtube.com/EngineeredArts>
+[image: Engineered Arts Logo] <https://www.engineeredarts.co.uk/>
+
+
+* Engineered Arts Ltd *
+E1-E3 Church View Business Park,
+Bickland Water Road,
+Falmouth Cornwall,
+TR11 4FZ
+United Kingdom
+
+[image: Subscribe to Mailing List]
+<https://www.engineeredarts.co.uk/mailing-list/>
+
+--0000000000002af2a605ef674841
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>Hi!<br></div><div>We&#39;re using kirkstone, though not the very lates=
+t at present.=C2=A0</div><div>Every now and then a a number of packages wil=
+l unexpectedly give the error re package versions going backwards and teh v=
+ersion may have done something like go from git5-######-r0.1 to git3-######=
+#-r0.0.</div><div>We always see this if we&#39;ve been using devtool for a =
+given recipe and then do a devtool reset, it complains about going back fro=
+m git999 to e.g. git5 but this makes sense and we just run the build again =
+and forget about it. However sometimes this just seems to happen randomly f=
+or a given recipe when it picks up a new commit from our repos and the git =
+autoinc number will have gone back a few.</div><div>Does anybody know why a=
+nd if it is a bug or an be fixed?</div><br><br>-- <br><div dir=3D"ltr"><fon=
+t face=3D"Helvetica, Arial, sans-serif"><b>Dan Squires</b></font><br>
+<font size=3D"-1" color=3D"#666666">Senior Roboticist</font><a href=3D"http=
+s://www.engineeredarts.co.uk/" target=3D"_blank"><font size=3D"-2" color=3D=
+"#509ed2"><br>
+    <font color=3D"#000000">www.engineeredarts.co.uk</font></font></a><font=
+ size=3D"-2"><br>
+  <br>
+</font><font size=3D"-2"><img src=3D"https://www.engineeredarts.co.uk/wp-co=
+ntent/uploads/2018/05/Phone.png" alt=3D"EA Phone Number" width=3D"23" heigh=
+t=3D"23" align=3D"left"></font><font size=3D"-2">+44 (0)1326 378129</font><=
+br>
+<br>
+<a href=3D"https://www.facebook.com/RobotThespian" target=3D"_blank"><img s=
+rc=3D"https://www.engineeredarts.co.uk/wp-content/uploads/2018/05/facebook.=
+png" alt=3D"RoboThespian FB" width=3D"11" height=3D"17" border=3D"0" align=
+=3D"top"></a>
+<a href=3D"https://twitter.com/robothespian" target=3D"_blank"><img src=3D"=
+https://www.engineeredarts.co.uk/wp-content/uploads/2018/05/twitter.png" al=
+t=3D"RoboThespian Twitter" width=3D"19" height=3D"16" border=3D"0"></a>  <a=
+ href=3D"http://youtube.com/EngineeredArts" target=3D"_blank"><img src=3D"h=
+ttps://www.engineeredarts.co.uk/wp-content/uploads/2018/05/youtube.png" alt=
+=3D"EA YouTube" width=3D"21" height=3D"14" border=3D"0"></a><br>
+<a href=3D"https://www.engineeredarts.co.uk/" target=3D"_blank"><font size=
+=3D"-2"><img src=3D"https://www.engineeredarts.co.uk/wp-content/uploads/201=
+8/05/EngArts-Logo.png" alt=3D"Engineered Arts Logo" width=3D"131" height=3D=
+"39" border=3D"0" align=3D"left"></font></a><br>
+<font size=3D"-2"><b><br>
+    <font color=3D"#666666"><br>
+      Engineered Arts Ltd </font></b><font color=3D"#666666"><br>
+  E1-E3 Church View Business Park, <br>
+  Bickland Water Road,<br> Falmouth Cornwall,<br> TR11 4FZ <br>
+</font><font size=3D"-2" color=3D"#666666">United Kingdom<br>
+  <br>
+  <a href=3D"https://www.engineeredarts.co.uk/mailing-list/" target=3D"_bla=
+nk"><img src=3D"https://www.engineeredarts.co.uk/wp-content/uploads/2018/05=
+/EA_Subcribe.jpg" alt=3D"Subscribe to Mailing List" width=3D"366" height=3D=
+"68" border=3D"0"></a></font></font><br></div><br>
+
+--0000000000002af2a605ef674841--
