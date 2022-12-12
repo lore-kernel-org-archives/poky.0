@@ -1,175 +1,215 @@
-Subject: Error while creating ipk (do_package_write_ipk) packages for Linux kernel source #bitbake #poky #yocto
+Subject: [hardknott][PATCH] license: add package URLs to license.manifest
 To: poky@lists.yoctoproject.org
-From: "Noufal" <noufal.poyiloor@gmail.com>
-X-Originating-Location: Melbourne, Victoria, AU (155.190.53.6)
+From: dirk.richter@softing.com
+X-Originating-Location: Rattenkirchen, Bavaria, DE (213.30.210.169)
 X-Originating-Platform: Windows Chrome 108
 User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Date: Sat, 10 Dec 2022 08:53:11 -0800
-Message-ID: <nUVr.1670691191955937069.aIh7@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="lecuntt2uIhMOsliPtTR"
+Date: Mon, 12 Dec 2022 05:11:10 -0800
+Message-ID: <8fxp.1670850670311561291.iLcc@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="r3jJiqCIvZYVRCMbNAqw"
 
---lecuntt2uIhMOsliPtTR
+--r3jJiqCIvZYVRCMbNAqw
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Team,
+Manufacturers of embedded systems are obliged to publish information
+to the used open-source software components. Additionally the URLs for
+accessing these software components are a useful or even necessary
+information. Therefore these URLs are added to the package information
+listed in the license.manifest file.
 
-As part of my project, I am using yocto dunfell branch as my build environm=
-ent.
+Signed-off-by: Dirk Richter <dirk.richter@softing.com>
+---
+meta/classes/license.bbclass=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 2 ++
+meta/classes/license_image.bbclass | 23 ++++++++++++++++++++++-
+2 files changed, 24 insertions(+), 1 deletion(-)
 
-I am experiencing an issue while creating IPK packages for Linux source as =
-given below.
+diff --git a/meta/classes/license.bbclass b/meta/classes/license.bbclass
+index 0d0faa28d7..83bf1da41f 100644
+--- a/meta/classes/license.bbclass
++++ b/meta/classes/license.bbclass
+@@ -50,6 +50,8 @@ def get_recipe_info(d):
+info["PV"] =3D d.getVar("PV")
+info["PR"] =3D d.getVar("PR")
+info["LICENSE"] =3D d.getVar("LICENSE")
++=C2=A0 =C2=A0 info["SRC_URI"] =3D d.getVar("SRC_URI")
++=C2=A0 =C2=A0 info["LIC_FILES_CHKSUM"] =3D d.getVar("LIC_FILES_CHKSUM")
+return info
 
-```
+def add_package_and_files(d):
+diff --git a/meta/classes/license_image.bbclass b/meta/classes/license_imag=
+e.bbclass
+index 73cebb4d55..16a39fce3d 100644
+--- a/meta/classes/license_image.bbclass
++++ b/meta/classes/license_image.bbclass
+@@ -72,7 +72,28 @@ def write_license_files(d, license_manifest, pkg_dic, ro=
+otfs=3DTrue):
+license_file.write("PACKAGE NAME: %s\n" % pkg)
+license_file.write("PACKAGE VERSION: %s\n" % pkg_dic[pkg]["PV"])
+license_file.write("RECIPE NAME: %s\n" % pkg_dic[pkg]["PN"])
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 license_file.write=
+("LICENSE: %s\n\n" % pkg_dic[pkg]["LICENSE"])
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 license_file.write=
+("LICENSE: %s\n" % pkg_dic[pkg]["LICENSE"])
++
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 # Add SRC_URIs to =
+license.manifest from recipeinfo files
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pkg_dic[pkg]["SRC_=
+URI"] =3D ""
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 licdir =3D os.path=
+.join(d.getVar('LICENSE_DIRECTORY'), pkg_dic[pkg]["PN"])
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if os.path.exists(=
+licdir):
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 with=
+ open(os.path.join(licdir, "recipeinfo"), "r") as f:
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 for line in f.readlines():
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 key,val =3D line.split(": ", 1)
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 if key =3D=3D "SRC_URI":
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 uri =3D val.split()
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if len(uri) > 0:
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if "file://" not in ur=
+i[0]:
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pkg_dic[=
+pkg]["SRC_URI"] =3D uri[0]
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else:
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.warn(=
+"No source URL available for %s" % (pkg_dic[pkg]["PN"]))
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else:
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.warn("No source URL=
+ available for %s" % (pkg_dic[pkg]["PN"]))
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else:
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.n=
+ote("No license information available for %s" % (pkg_dic[pkg]["PN"]))
++
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 license_file.write=
+("SRC_URI: %s\n\n" % pkg_dic[pkg]["SRC_URI"])
 
-PATH=3D$<paths> opkg-build -Z xz -a "--memlimit=3D50% --threads=3D128" kern=
-el-module-atmel-5.4.198
+# If the package doesn't contain any file, that is, its size is 0, the lice=
+nse
+# isn't relevant as far as the final image is concerned. So doing license c=
+heck
+--
+2.17.1
 
-<dir>/linux/5.4.198/deploy-ipks/generic32' returned non-zero exit status 12=
-7.
-
-16:54:05 =C2=A0Subprocess output:<tmp-dir>/linux//5.4.198+git2b99183f1c3663=
-c9c7344a6b3b17f52c81b6746c-r0/recipe-sysroot-native/usr/bin/opkg-build: lin=
-e 313: <dir>/linux /5.4.198/recipe-sysroot-native/usr/bin/gzip: No such fil=
-e or directory
-
-```
-
-*Line 313 of opkg-build is as follows:*
-
-```
-
-( cd $pkg_dir/$CONTROL && tar $ogargs $tsortargs --no-recursion --mtime=3D@=
-$build_date -c $tarformat -T $tmp_dir/control_list | pigz $zipargs > $tmp_d=
-ir/control.tar.gz )
-
-```
-
-My build environment is ubuntu 20.04 docker container. Also am building mul=
-tiple images within the same build directory in sequence and shared sstate.=
- With this, one of the build is failing for do_package_write_ipk.
-
-The error is randomly observed and gzip is not found under the directory li=
-nux/ recipe-sysroot-native/usr/bin/gzip even if the build is success or fai=
-led. I have verified only the single image which was failing during sequenc=
-e build, and it was success with no gzip binary under the directory linux/ =
-recipe-sysroot-native/usr/bin/gzip. But HOSTTOOLS_DIR has all these package=
-s available.
-
-Is this because during sequence build with shared sstate, PATH from where t=
-he gzip binary is slected inside opkg-build script is getting messed up som=
-etimes or something else?
-
-Also How can I verify the gzip tool path selected by the opkg-build script?
-
-Can any one help me to resolve this issue?
-
-Thanks,
-
-Noufal P
-
---lecuntt2uIhMOsliPtTR
+--r3jJiqCIvZYVRCMbNAqw
 Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;">Hi Team,</p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;">=C2=A0</p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;">As part of my project,=
- I am using yocto dunfell branch as my build environment.</p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;">I am experiencing an i=
-ssue while creating IPK packages for Linux source as given below.</p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;">=C2=A0</p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;">=C2=A0</p>
-<p class=3D"DefangedMsoNormal" style=3D"background: white;" style=3D"margin=
-:0px;"><span lang=3D"DE" style=3D"font-size: 10.5pt; font-family: &#39;Sego=
-e UI&#39;,sans-serif; mso-fareast-font-family: &#39;Times New Roman&#39;; c=
-olor: black; mso-ansi-language: DE;">```</span></p>
-<p class=3D"DefangedMsoNormal" style=3D"background: white;" style=3D"margin=
-:0px;"><em><span style=3D"font-size: 10.5pt; font-family: &#39;Segoe UI&#39=
-;,sans-serif; mso-fareast-font-family: &#39;Times New Roman&#39;; color: bl=
-ack;">PATH=3D$&lt;paths&gt; opkg-build -Z xz -a &#34;--memlimit=3D50% --thr=
-eads=3D128&#34; kernel-module-atmel-5.4.198 </span></em></p>
-<p class=3D"DefangedMsoNormal" style=3D"background: white;" style=3D"margin=
-:0px;"><em><span style=3D"font-size: 10.5pt; font-family: &#39;Segoe UI&#39=
-;,sans-serif; mso-fareast-font-family: &#39;Times New Roman&#39;; color: bl=
-ack;">&lt;dir&gt;/linux/5.4.198/deploy-ipks/generic32&#39; returned non-zer=
-o exit status 127.</span></em></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span style=3D"fon=
-t-size: 10.5pt; font-family: &#39;Segoe UI&#39;,sans-serif; mso-fareast-fon=
-t-family: &#39;Times New Roman&#39;; color: black; background: white;">16:5=
-4:05 =C2=A0Subprocess output:&lt;tmp-dir&gt;/linux//5.4.198+git2b99183f1c36=
-63c9c7344a6b3b17f52c81b6746c-r0/recipe-sysroot-native/usr/bin/opkg-build: l=
-ine 313: &lt;dir&gt;/linux /5.4.198/recipe-sysroot-native/usr/bin/gzip: No =
-such file or directory</span></em></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;">```</p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><strong>Line 313 of op=
-kg-build is as follows:</strong></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;">```</p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em>( cd $pkg_dir/$CON=
-TROL &amp;&amp; tar $ogargs $tsortargs --no-recursion --mtime=3D@$build_dat=
-e -c $tarformat -T $tmp_dir/control_list | pigz $zipargs &gt; $tmp_dir/cont=
-rol.tar.gz )</em></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><a name=3D"_MailAutoSi=
-g"></a><span style=3D"mso-fareast-font-family: &#39;Times New Roman&#39;; m=
-so-fareast-theme-font: minor-fareast; mso-no-proof: yes;">```</span></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><span style=3D"mso-boo=
-kmark: _MailAutoSig;">My build environment is ubuntu 20.04 docker container=
-. Also am building multiple images within the same build directory in seque=
-nce and </span><span style=3D"mso-bookmark: _MailAutoSig;"><span style=3D"m=
-so-fareast-font-family: &#39;Times New Roman&#39;; mso-fareast-theme-font: =
-minor-fareast; mso-no-proof: yes;">shared sstate. </span>With this, one of =
-the build is failing for do_package_write_ipk.</span><span style=3D"mso-boo=
-kmark: _MailAutoSig;"><span style=3D"mso-fareast-font-family: &#39;Times Ne=
-w Roman&#39;; mso-fareast-theme-font: minor-fareast; mso-no-proof: yes;"></=
-span></span></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><span style=3D"mso-boo=
-kmark: _MailAutoSig;">The error is randomly observed and gzip is not found =
-under the directory <em>linux/</em></span><span style=3D"mso-bookmark: _Mai=
-lAutoSig;"><em><span style=3D"font-size: 10.5pt; font-family: &#39;Segoe UI=
-&#39;,sans-serif; mso-fareast-font-family: &#39;Times New Roman&#39;; color=
-: black; background: white;">recipe-sysroot-native/usr/bin/gzip</span></em>=
-</span><span style=3D"mso-bookmark: _MailAutoSig;"><span style=3D"font-size=
-: 10.5pt; font-family: &#39;Segoe UI&#39;,sans-serif; mso-fareast-font-fami=
-ly: &#39;Times New Roman&#39;; color: black; background: white;"> even if t=
-he build is success or failed. I have verified only the single image which =
-was failing during sequence build, and it was success with no gzip binary u=
-nder the directory </span><em>linux/</em></span><span style=3D"mso-bookmark=
-: _MailAutoSig;"><em><span style=3D"font-size: 10.5pt; font-family: &#39;Se=
-goe UI&#39;,sans-serif; mso-fareast-font-family: &#39;Times New Roman&#39;;=
- color: black; background: white;">recipe-sysroot-native/usr/bin/gzip</span=
-></em></span><span style=3D"mso-bookmark: _MailAutoSig;"><span style=3D"fon=
-t-size: 10.5pt; font-family: &#39;Segoe UI&#39;,sans-serif; mso-fareast-fon=
-t-family: &#39;Times New Roman&#39;; color: black; background: white;"> . B=
-ut HOSTTOOLS_DIR has all these packages available. </span></span><span styl=
-e=3D"mso-bookmark: _MailAutoSig;"><span style=3D"mso-fareast-font-family: &=
-#39;Times New Roman&#39;; mso-fareast-theme-font: minor-fareast; mso-no-pro=
-of: yes;"></span></span></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><span style=3D"mso-boo=
-kmark: _MailAutoSig;"><span style=3D"mso-fareast-font-family: &#39;Times Ne=
-w Roman&#39;; mso-fareast-theme-font: minor-fareast; mso-no-proof: yes;">=
-=C2=A0</span></span></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><span style=3D"mso-boo=
-kmark: _MailAutoSig;"><span style=3D"mso-fareast-font-family: &#39;Times Ne=
-w Roman&#39;; mso-fareast-theme-font: minor-fareast; mso-no-proof: yes;">Is=
- this because during sequence build with shared sstate, PATH from where the=
- gzip binary is slected inside opkg-build script is getting messed up somet=
-imes or something else?<br/><br/>Also How can I verify the gzip tool path s=
-elected by the opkg-build script?</span></span></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><span style=3D"mso-boo=
-kmark: _MailAutoSig;"><span style=3D"mso-fareast-font-family: &#39;Times Ne=
-w Roman&#39;; mso-fareast-theme-font: minor-fareast; mso-no-proof: yes;">=
-=C2=A0<br/></span></span>Can any one help me to resolve this issue?</p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><span style=3D"mso-boo=
-kmark: _MailAutoSig;"><span style=3D"mso-fareast-font-family: &#39;Times Ne=
-w Roman&#39;; mso-fareast-theme-font: minor-fareast; mso-no-proof: yes;">=
-=C2=A0</span></span></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;">Thanks,</p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><span style=3D"mso-boo=
-kmark: _MailAutoSig;"><span style=3D"mso-fareast-font-family: &#39;Times Ne=
-w Roman&#39;; mso-fareast-theme-font: minor-fareast; mso-no-proof: yes;">No=
-ufal P</span></span></p>
-<span style=3D"mso-bookmark: _MailAutoSig;"></span>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;">=C2=A0</p>
+<div>Manufacturers of embedded systems are obliged to publish information</=
+div>
+<div>to the used open-source software components. Additionally the URLs for=
+</div>
+<div>accessing these software components are a useful or even necessary</di=
+v>
+<div>information. Therefore these URLs are added to the package information=
+</div>
+<div>listed in the license.manifest file.</div>
+<div>&nbsp;</div>
+<div>Signed-off-by: Dirk Richter &lt;dirk.richter@softing.com&gt;</div>
+<div>---</div>
+<div>&nbsp;meta/classes/license.bbclass&nbsp; &nbsp; &nbsp; &nbsp;|&nbsp; 2=
+ ++</div>
+<div>&nbsp;meta/classes/license_image.bbclass | 23 ++++++++++++++++++++++-<=
+/div>
+<div>&nbsp;2 files changed, 24 insertions(+), 1 deletion(-)</div>
+<div>&nbsp;</div>
+<div>diff --git a/meta/classes/license.bbclass b/meta/classes/license.bbcla=
+ss</div>
+<div>index 0d0faa28d7..83bf1da41f 100644</div>
+<div>--- a/meta/classes/license.bbclass</div>
+<div>+++ b/meta/classes/license.bbclass</div>
+<div>@@ -50,6 +50,8 @@ def get_recipe_info(d):</div>
+<div>&nbsp; &nbsp; &nbsp;info["PV"] =3D d.getVar("PV")</div>
+<div>&nbsp; &nbsp; &nbsp;info["PR"] =3D d.getVar("PR")</div>
+<div>&nbsp; &nbsp; &nbsp;info["LICENSE"] =3D d.getVar("LICENSE")</div>
+<div>+&nbsp; &nbsp; info["SRC_URI"] =3D d.getVar("SRC_URI")</div>
+<div>+&nbsp; &nbsp; info["LIC_FILES_CHKSUM"] =3D d.getVar("LIC_FILES_CHKSUM=
+")</div>
+<div>&nbsp; &nbsp; &nbsp;return info</div>
+<div>&nbsp;</div>
+<div>&nbsp;def add_package_and_files(d):</div>
+<div>diff --git a/meta/classes/license_image.bbclass b/meta/classes/license=
+_image.bbclass</div>
+<div>index 73cebb4d55..16a39fce3d 100644</div>
+<div>--- a/meta/classes/license_image.bbclass</div>
+<div>+++ b/meta/classes/license_image.bbclass</div>
+<div>@@ -72,7 +72,28 @@ def write_license_files(d, license_manifest, pkg_di=
+c, rootfs=3DTrue):</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;license_=
+file.write("PACKAGE NAME: %s\n" % pkg)</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;license_=
+file.write("PACKAGE VERSION: %s\n" % pkg_dic[pkg]["PV"])</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;license_=
+file.write("RECIPE NAME: %s\n" % pkg_dic[pkg]["PN"])</div>
+<div>-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; license_file.=
+write("LICENSE: %s\n\n" % pkg_dic[pkg]["LICENSE"])</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; license_file.=
+write("LICENSE: %s\n" % pkg_dic[pkg]["LICENSE"])</div>
+<div>+</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Add SRC_URI=
+s to license.manifest from recipeinfo files</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pkg_dic[pkg][=
+"SRC_URI"] =3D ""</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; licdir =3D os=
+.path.join(d.getVar('LICENSE_DIRECTORY'), pkg_dic[pkg]["PN"])</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if os.path.ex=
+ists(licdir):</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ with open(os.path.join(licdir, "recipeinfo"), "r") as f:</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; for line in f.readlines():</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; key,val =3D line.split(": ", 1)</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; if key =3D=3D "SRC_URI":</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; uri =3D val.split()</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if len(uri) &gt; 0:</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if "file://" not i=
+n uri[0]:</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pkg_=
+dic[pkg]["SRC_URI"] =3D uri[0]</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else:</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bb.w=
+arn("No source URL available for %s" % (pkg_dic[pkg]["PN"]))</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else:</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bb.warn("No source=
+ URL available for %s" % (pkg_dic[pkg]["PN"]))</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else:</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ bb.note("No license information available for %s" % (pkg_dic[pkg]["PN"]))<=
+/div>
+<div>+</div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; license_file.=
+write("SRC_URI: %s\n\n" % pkg_dic[pkg]["SRC_URI"])</div>
+<div>&nbsp;</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# If the=
+ package doesn't contain any file, that is, its size is 0, the license</div=
+>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# isn't =
+relevant as far as the final image is concerned. So doing license check</di=
+v>
+<div>--&nbsp;</div>
+<div>2.17.1</div>
+<div>&nbsp;</div>
 
---lecuntt2uIhMOsliPtTR--
+--r3jJiqCIvZYVRCMbNAqw--
