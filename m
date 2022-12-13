@@ -1,215 +1,77 @@
-Subject: [hardknott][PATCH] license: add package URLs to license.manifest
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+ by mx.groups.io with SMTP id smtpd.web10.63832.1670898977605084844
+ for <poky@lists.yoctoproject.org>;
+ Mon, 12 Dec 2022 18:36:17 -0800
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=c2vHn5Km;
+ spf=softfail (domain: sakoman.com, ip: 209.85.216.46, mailfrom: steve@sakoman.com)
+Received: by mail-pj1-f46.google.com with SMTP id b13-20020a17090a5a0d00b0021906102d05so2032486pjd.5
+        for <poky@lists.yoctoproject.org>; Mon, 12 Dec 2022 18:36:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=DqnWDtab4d6y+3XO3MAGvLLdrLAxfIEskjWg2seX/n8=;
+        b=c2vHn5KmPf+ZOrSSqekej656SveGBJVZuuKVcT1r49pOiXjqaw9ssmeLurgbwXZzVy
+         dMGpC4kcetuf+HKB9++BtqeQbNZiaknBtM1Et9NnxR9p39J+jYCBlfr8CgThYiAYkKxT
+         iS+dinLKRyT5kUsB1dxH9zsEb3h2D461f8GJmNxNkBWdZhsD7sA4dgiHPmsTEw/1sCsY
+         F8zaWz5Y5MDsxm6ITvHozFGwnOWhLezQ3zg8wDtuRBteYT3P06rc+5EmgxAdCH3oJ9NR
+         W6A2WsO329KutXuDOFVwwuGfTdrbRc2WbbsWFQ5Nn6dwOohoFPTtKxPsbCHwZQE3AAr9
+         q5pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=DqnWDtab4d6y+3XO3MAGvLLdrLAxfIEskjWg2seX/n8=;
+        b=4obqrDApUUgKfcttPLfav/xyeuf+JNhJxVrZFRp/U8Kiry8/+zILxxCR3yrUwOXtFO
+         G3bn5nvedtz7PEP2BZnOEfvp66mVJvIpxRt62pnaSv7gZ7LPUOqcuUgTT8OLsbXU+10A
+         ity2nQIfnZeJKoyz8+8obuN841YXVkAqNhOY8PadN16zBRX7COe6TycZEs2tYHf9qpS5
+         7E9Ou7BxG+JD8wwH/D+/qcGgV5JyFw0xPYDlg3MoInosSndbF4pMCsZ12i5cdMBQ8vS6
+         QjINNaCmRpTNERRSVUG8IfGYczmQbAxOo0CU8p2AhSoXacRzKX//2sQ5CQ4Mog+B09fJ
+         asMQ==
+X-Gm-Message-State: ANoB5pmVXUhEPPPk3tdJXAxIVXnuEKDfNzjWIsqZEinSCd7XxvIeUahf
+	zE3ROggIjEWWmh4PfC9t0D9jcXQFiO6+I2b6K4iQOQ==
+X-Google-Smtp-Source: AA0mqf59aOFLOltdiULFmLXJOtPE5RiAlVyqUqgUfYQSUgeLYbZjafDxGjzZURYhhvbz0NiURfiDNA==
+X-Received: by 2002:a17:90b:4a8c:b0:219:e763:1d21 with SMTP id lp12-20020a17090b4a8c00b00219e7631d21mr19517038pjb.5.1670898976280;
+        Mon, 12 Dec 2022 18:36:16 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
+        by smtp.gmail.com with ESMTPSA id o8-20020a17090a678800b0020087d7e778sm6102580pjj.37.2022.12.12.18.36.15
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Dec 2022 18:36:15 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
 To: poky@lists.yoctoproject.org
-From: dirk.richter@softing.com
-X-Originating-Location: Rattenkirchen, Bavaria, DE (213.30.210.169)
-X-Originating-Platform: Windows Chrome 108
-User-Agent: GROUPS.IO Web Poster
+Subject: [meta-yocto][kirkstone 0/3] Pull request (cover letter only)
+Date: Mon, 12 Dec 2022 16:36:10 -1000
+Message-Id: <cover.1670898874.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Date: Mon, 12 Dec 2022 05:11:10 -0800
-Message-ID: <8fxp.1670850670311561291.iLcc@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="r3jJiqCIvZYVRCMbNAqw"
+Content-Transfer-Encoding: 8bit
 
---r3jJiqCIvZYVRCMbNAqw
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+This is the final pull request for the 4.0.6 build.
 
-Manufacturers of embedded systems are obliged to publish information
-to the used open-source software components. Additionally the URLs for
-accessing these software components are a useful or even necessary
-information. Therefore these URLs are added to the package information
-listed in the license.manifest file.
+The following changes since commit 8f216dca2fda2c8862f81dacdcf11df3118b31b7:
 
-Signed-off-by: Dirk Richter <dirk.richter@softing.com>
----
-meta/classes/license.bbclass=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 2 ++
-meta/classes/license_image.bbclass | 23 ++++++++++++++++++++++-
-2 files changed, 24 insertions(+), 1 deletion(-)
+  poky.conf: bump version for 4.0.5 (2022-10-24 04:32:55 -1000)
 
-diff --git a/meta/classes/license.bbclass b/meta/classes/license.bbclass
-index 0d0faa28d7..83bf1da41f 100644
---- a/meta/classes/license.bbclass
-+++ b/meta/classes/license.bbclass
-@@ -50,6 +50,8 @@ def get_recipe_info(d):
-info["PV"] =3D d.getVar("PV")
-info["PR"] =3D d.getVar("PR")
-info["LICENSE"] =3D d.getVar("LICENSE")
-+=C2=A0 =C2=A0 info["SRC_URI"] =3D d.getVar("SRC_URI")
-+=C2=A0 =C2=A0 info["LIC_FILES_CHKSUM"] =3D d.getVar("LIC_FILES_CHKSUM")
-return info
+are available in the Git repository at:
 
-def add_package_and_files(d):
-diff --git a/meta/classes/license_image.bbclass b/meta/classes/license_imag=
-e.bbclass
-index 73cebb4d55..16a39fce3d 100644
---- a/meta/classes/license_image.bbclass
-+++ b/meta/classes/license_image.bbclass
-@@ -72,7 +72,28 @@ def write_license_files(d, license_manifest, pkg_dic, ro=
-otfs=3DTrue):
-license_file.write("PACKAGE NAME: %s\n" % pkg)
-license_file.write("PACKAGE VERSION: %s\n" % pkg_dic[pkg]["PV"])
-license_file.write("RECIPE NAME: %s\n" % pkg_dic[pkg]["PN"])
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 license_file.write=
-("LICENSE: %s\n\n" % pkg_dic[pkg]["LICENSE"])
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 license_file.write=
-("LICENSE: %s\n" % pkg_dic[pkg]["LICENSE"])
-+
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 # Add SRC_URIs to =
-license.manifest from recipeinfo files
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pkg_dic[pkg]["SRC_=
-URI"] =3D ""
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 licdir =3D os.path=
-.join(d.getVar('LICENSE_DIRECTORY'), pkg_dic[pkg]["PN"])
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if os.path.exists(=
-licdir):
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 with=
- open(os.path.join(licdir, "recipeinfo"), "r") as f:
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 for line in f.readlines():
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 key,val =3D line.split(": ", 1)
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 if key =3D=3D "SRC_URI":
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 uri =3D val.split()
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if len(uri) > 0:
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if "file://" not in ur=
-i[0]:
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 pkg_dic[=
-pkg]["SRC_URI"] =3D uri[0]
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else:
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.warn(=
-"No source URL available for %s" % (pkg_dic[pkg]["PN"]))
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else:
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.warn("No source URL=
- available for %s" % (pkg_dic[pkg]["PN"]))
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else:
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bb.n=
-ote("No license information available for %s" % (pkg_dic[pkg]["PN"]))
-+
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 license_file.write=
-("SRC_URI: %s\n\n" % pkg_dic[pkg]["SRC_URI"])
+  https://git.yoctoproject.org/meta-yocto contrib/kirkstone-next
+  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/kirkstone-next
 
-# If the package doesn't contain any file, that is, its size is 0, the lice=
-nse
-# isn't relevant as far as the final image is concerned. So doing license c=
-heck
---
-2.17.1
+Ravula Adhitya Siddartha (2):
+  linux-yocto/5.10: update genericx86* machines to v5.10.149
+  linux-yocto/5.15: update genericx86* machines to v5.15.72
 
---r3jJiqCIvZYVRCMbNAqw
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Steve Sakoman (1):
+  poky.conf: bump version for 4.0.6
 
-<div>Manufacturers of embedded systems are obliged to publish information</=
-div>
-<div>to the used open-source software components. Additionally the URLs for=
-</div>
-<div>accessing these software components are a useful or even necessary</di=
-v>
-<div>information. Therefore these URLs are added to the package information=
-</div>
-<div>listed in the license.manifest file.</div>
-<div>&nbsp;</div>
-<div>Signed-off-by: Dirk Richter &lt;dirk.richter@softing.com&gt;</div>
-<div>---</div>
-<div>&nbsp;meta/classes/license.bbclass&nbsp; &nbsp; &nbsp; &nbsp;|&nbsp; 2=
- ++</div>
-<div>&nbsp;meta/classes/license_image.bbclass | 23 ++++++++++++++++++++++-<=
-/div>
-<div>&nbsp;2 files changed, 24 insertions(+), 1 deletion(-)</div>
-<div>&nbsp;</div>
-<div>diff --git a/meta/classes/license.bbclass b/meta/classes/license.bbcla=
-ss</div>
-<div>index 0d0faa28d7..83bf1da41f 100644</div>
-<div>--- a/meta/classes/license.bbclass</div>
-<div>+++ b/meta/classes/license.bbclass</div>
-<div>@@ -50,6 +50,8 @@ def get_recipe_info(d):</div>
-<div>&nbsp; &nbsp; &nbsp;info["PV"] =3D d.getVar("PV")</div>
-<div>&nbsp; &nbsp; &nbsp;info["PR"] =3D d.getVar("PR")</div>
-<div>&nbsp; &nbsp; &nbsp;info["LICENSE"] =3D d.getVar("LICENSE")</div>
-<div>+&nbsp; &nbsp; info["SRC_URI"] =3D d.getVar("SRC_URI")</div>
-<div>+&nbsp; &nbsp; info["LIC_FILES_CHKSUM"] =3D d.getVar("LIC_FILES_CHKSUM=
-")</div>
-<div>&nbsp; &nbsp; &nbsp;return info</div>
-<div>&nbsp;</div>
-<div>&nbsp;def add_package_and_files(d):</div>
-<div>diff --git a/meta/classes/license_image.bbclass b/meta/classes/license=
-_image.bbclass</div>
-<div>index 73cebb4d55..16a39fce3d 100644</div>
-<div>--- a/meta/classes/license_image.bbclass</div>
-<div>+++ b/meta/classes/license_image.bbclass</div>
-<div>@@ -72,7 +72,28 @@ def write_license_files(d, license_manifest, pkg_di=
-c, rootfs=3DTrue):</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;license_=
-file.write("PACKAGE NAME: %s\n" % pkg)</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;license_=
-file.write("PACKAGE VERSION: %s\n" % pkg_dic[pkg]["PV"])</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;license_=
-file.write("RECIPE NAME: %s\n" % pkg_dic[pkg]["PN"])</div>
-<div>-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; license_file.=
-write("LICENSE: %s\n\n" % pkg_dic[pkg]["LICENSE"])</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; license_file.=
-write("LICENSE: %s\n" % pkg_dic[pkg]["LICENSE"])</div>
-<div>+</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # Add SRC_URI=
-s to license.manifest from recipeinfo files</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pkg_dic[pkg][=
-"SRC_URI"] =3D ""</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; licdir =3D os=
-.path.join(d.getVar('LICENSE_DIRECTORY'), pkg_dic[pkg]["PN"])</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if os.path.ex=
-ists(licdir):</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- with open(os.path.join(licdir, "recipeinfo"), "r") as f:</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; for line in f.readlines():</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; key,val =3D line.split(": ", 1)</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; if key =3D=3D "SRC_URI":</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; uri =3D val.split()</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if len(uri) &gt; 0:</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if "file://" not i=
-n uri[0]:</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pkg_=
-dic[pkg]["SRC_URI"] =3D uri[0]</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else:</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bb.w=
-arn("No source URL available for %s" % (pkg_dic[pkg]["PN"]))</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else:</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bb.warn("No source=
- URL available for %s" % (pkg_dic[pkg]["PN"]))</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else:</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- bb.note("No license information available for %s" % (pkg_dic[pkg]["PN"]))<=
-/div>
-<div>+</div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; license_file.=
-write("SRC_URI: %s\n\n" % pkg_dic[pkg]["SRC_URI"])</div>
-<div>&nbsp;</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# If the=
- package doesn't contain any file, that is, its size is 0, the license</div=
->
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# isn't =
-relevant as far as the final image is concerned. So doing license check</di=
-v>
-<div>--&nbsp;</div>
-<div>2.17.1</div>
-<div>&nbsp;</div>
+ meta-poky/conf/distro/poky.conf                           | 2 +-
+ .../recipes-kernel/linux/linux-yocto_5.10.bbappend        | 8 ++++----
+ .../recipes-kernel/linux/linux-yocto_5.15.bbappend        | 8 ++++----
+ 3 files changed, 9 insertions(+), 9 deletions(-)
 
---r3jJiqCIvZYVRCMbNAqw--
+-- 
+2.25.1
+
