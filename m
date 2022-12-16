@@ -1,200 +1,69 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
- by mx.groups.io with SMTP id smtpd.web10.69312.1670924251348741197
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+ by mx.groups.io with SMTP id smtpd.web11.14.1671210344551672788
  for <poky@lists.yoctoproject.org>;
- Tue, 13 Dec 2022 01:37:31 -0800
+ Fri, 16 Dec 2022 09:05:45 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@engineeredarts.co.uk header.s=google header.b=GrKEZ4ji;
- spf=pass (domain: engineeredarts.co.uk, ip: 209.85.215.181, mailfrom: dan@engineeredarts.co.uk)
-Received: by mail-pg1-f181.google.com with SMTP id s196so10050157pgs.3
-        for <poky@lists.yoctoproject.org>; Tue, 13 Dec 2022 01:37:31 -0800 (PST)
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=ZaKZ+swt;
+ spf=softfail (domain: sakoman.com, ip: 209.85.210.172, mailfrom: steve@sakoman.com)
+Received: by mail-pf1-f172.google.com with SMTP id w26so2194591pfj.6
+        for <poky@lists.yoctoproject.org>; Fri, 16 Dec 2022 09:05:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=engineeredarts.co.uk; s=google;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=0UihZqsJvDcmF72VL7C/raU0B94AQyX5nitOqk3NTGw=;
-        b=GrKEZ4jiJkfg6BdTGc4Q9jpp1kdSjRUZQ3gbNe2mMpbKQV3rIPKK3t9qyBqsLupAnJ
-         n+V+ZooynppZQeqmn/fh2QI/4XhCxNE+4N8I639j/ml6zexHxpCac8Tq17ofZZUFgbSh
-         xJ5mCBYITfAGovwFpstG23fW+bm4Uw517Pohl0581L3C+KviJBoyoa1WvyKlaz2VDibw
-         QMeoL4s6jMu8rezr1g58S29oKcB1a9ESPIK8ZC7c8xNFGwtf+6kdUJ6ywE0EN3iTYYec
-         gGGNPaBe3H9I+oNJzsWbMOUw+8z0qGtwosSVFd5ZG3VYNsCqzEQXAOpaWUlzZ0XUPbeg
-         F/AA==
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8MyWI7eeDWoAkSTQ7SC3hqAxnyY/k4mQNYKbwTJ071U=;
+        b=ZaKZ+swtto+p2TjJo+COS2MOISVHJ/6twfByqu7Ta/v3O7v/FHnClA4FQbxbcjzqhv
+         +AtIKoog7KBoce+22S2IbBQKJfFFC95VOv10bwr9bUdBVrWIRO+Qro2hKEz9sr9PNfMb
+         Oq3/hVsgLRA6xtnCQSu630ASJSMVXvB/0XsHlBTtnWKkbfkDYiDElSGjaHKOgySw6TgQ
+         5qgW7exCCwYZNMrjO+qaZlkhrYu0gQanyI+wn+bZCUI0azrTUc92aJW4bqMh3dsMVhUr
+         DBNBWIGJ0pLffgMzAXFltQpdGFLPYwdLRk0mIasL+WfFA979ycaT+3s7xr69hyi6vggz
+         xe4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0UihZqsJvDcmF72VL7C/raU0B94AQyX5nitOqk3NTGw=;
-        b=UQDT/c0xnJEXeENvcwcBAjUyhi4GUG7WVgKtUCrI916kTslgaKMIiVmGuE76apYq1v
-         T7IVQ9K3nZXEw8Kcr7vnbZ+eh+aXoxrE5P3VM8iCYjVws3szf06G7uXc4aeU/w4RhreN
-         9D7T1Iy4MdPE8jrxUfFI3Ue+Y8i49OqEe6dbIBO3QpnNVBXe1G2scy3h1Wu26KbljcDw
-         vehbA6/e7UIsaNdTiBacu/LFEWitfEI4sLgSkmKcd8osRCHylisLrrOcqMTNuGfFBofa
-         dcPR61UKzQyfPn60kghiu6rguenCwshFup6tFbiWUe5TifvuKvwamMxQZFatC+oef/JE
-         wKgw==
-X-Gm-Message-State: ANoB5pmnkwmEG9qRw8tWS+3rBPgobIR1WZQCopqsqU9ZImAUaZEPq1qh
-	jnD3A8JaT4a16Ma3GZDhRFT4PPNuB9axHZc8UjivYQ==
-X-Google-Smtp-Source: AA0mqf4EfT9M6PDNC/UB1ubzyPLgnUXhI9OEJRvBJ4zDKk1Ip2md7PYPQhYCt/ppJjj4ksOhU6MAv54m/xT9hvmaBUk=
-X-Received: by 2002:a63:4c01:0:b0:478:b7ab:2f72 with SMTP id
- z1-20020a634c01000000b00478b7ab2f72mr17326253pga.186.1670924250649; Tue, 13
- Dec 2022 01:37:30 -0800 (PST)
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=8MyWI7eeDWoAkSTQ7SC3hqAxnyY/k4mQNYKbwTJ071U=;
+        b=gx6LlDSiJKIa9i9GFOIKi/GC9XanNv8HyWXt2MTljq/KppcNOtjmqgdUiwNCWfdFdY
+         ve7kS69+gxgDHYa1OoBDqK0uCbDvxKkVwFC/ZYi7UMJuRDit4kkzRCKITRvU0Nol1BV2
+         fe2ab6elkKRKEwiEF+FXbUscB3tWjI5kZxyugK2CgYpHEwxYC6by4CDF2rGYt885rLRi
+         KKb3T8fNiiszdbb13pn2Tvfs8/eO+X5l9xEwuKQ4w7KZlv+3T86jGPeX7iwVydK3VaR0
+         IDnoU4sXs/7hsONG/tqJdVqfTPZUGswjfTiuZsgwbgXuBpZPROPpqZf5rF5bhRA+wrph
+         ablQ==
+X-Gm-Message-State: ANoB5pl82C2bCmtCUUHpNbvi8bOB4nIH6in3y5rncrNsUmIt70KuL/EA
+	84vg1jvTGgc6dLFnjiFc2Ueqao1HgUQP1SPrjiA=
+X-Google-Smtp-Source: AA0mqf6slhMSkBQhR490KInT/pylA7aWBHk43oLYPPCJSxJRFDkZavqebNqtcFj+1T1551ts1nWGzw==
+X-Received: by 2002:aa7:87c3:0:b0:577:1857:57fa with SMTP id i3-20020aa787c3000000b00577185757famr31707793pfo.18.1671210343396;
+        Fri, 16 Dec 2022 09:05:43 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
+        by smtp.gmail.com with ESMTPSA id d68-20020a623647000000b005765a5ff1fasm1701642pfa.213.2022.12.16.09.05.42
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Dec 2022 09:05:42 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][dunfell 0/1] Pull request (cover letter only)
+Date: Fri, 16 Dec 2022 07:05:39 -1000
+Message-Id: <cover.1671210229.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <CAC+ji7EOT6D35madOZvx6tS8Nj43Tiq-cg06WYO8xue8MnBhiQ@mail.gmail.com>
- <d73115cd38d439c919ab6fa9448fcdce29545809.camel@linuxfoundation.org>
-In-Reply-To: <d73115cd38d439c919ab6fa9448fcdce29545809.camel@linuxfoundation.org>
-From: "Daniel Squires" <dan@engineeredarts.co.uk>
-Date: Tue, 13 Dec 2022 09:37:19 +0000
-Message-ID: <CAC+ji7E41d0u8E-g+JOA6-15y4w3fuRMvTSRKCbzQT-rGiuWuA@mail.gmail.com>
-Subject: Re: [poky] Unexpected package version going backwards warnings.
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="00000000000068352605efb25ec5"
+Content-Transfer-Encoding: 8bit
 
---00000000000068352605efb25ec5
-Content-Type: text/plain; charset="UTF-8"
+The following changes since commit 9b713fe0cc7c5f5cb51bcf760d1a1c6540b485f1:
 
-We are not currently running multiple instances of bitbake against the same
-sstate cache. We are using PR servers, but currently only local to a build,
-not shared. We do use packages to update targets.
-Below is the content of local.conf (generated by kas).
+  poky.conf: bump version for 3.1.21 (2022-11-22 12:32:14 +0000)
 
-Cheers
+are available in the Git repository at:
 
-Dan
+  https://git.yoctoproject.org/meta-yocto contrib/dunfell-next
+  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/dunfell-next
 
-# meta-custom
-PACKAGE_CLASSES ?= "package_deb"
-LICENSE_FLAGS_ACCEPTED += "commercial"
-# Number of parrallel bitbake tasks
-BB_NUMBER_THREADS = "6"
-# number of parraellel task run by "make" et al
-PARALLEL_MAKE = "-j 4"
+Ravula Adhitya Siddartha (1):
+  linux-yocto/5.4: update genericx86* machines to v5.4.219
 
-# meta-custom-tritium-os
-BBFILE_PRIORITY_meta-aws = "11"
+ .../recipes-kernel/linux/linux-yocto_5.4.bbappend         | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-# meta-local
-PRSERV_HOST = "localhost:0"
-# It is recommended to activate "buildhistory" for testing the PR service
-INHERIT += "buildhistory"
-BUILDHISTORY_COMMIT = "1"
+-- 
+2.25.1
 
-MACHINE ??= "containerx86-64"
-DISTRO ??= "tritium3-container"
-BBMULTICONFIG ?= ""
-
-On Fri, 9 Dec 2022 at 16:11, Richard Purdie <
-richard.purdie@linuxfoundation.org> wrote:
-
-> On Fri, 2022-12-09 at 16:02 +0000, Daniel Squires wrote:
-> > Hi!
-> > We're using kirkstone, though not the very latest at present.
-> > Every now and then a a number of packages will unexpectedly give the
-> > error re package versions going backwards and teh version may have
-> > done something like go from git5-######-r0.1 to git3-#######-r0.0.
-> > We always see this if we've been using devtool for a given recipe and
-> > then do a devtool reset, it complains about going back from git999 to
-> > e.g. git5 but this makes sense and we just run the build again and
-> > forget about it. However sometimes this just seems to happen randomly
-> > for a given recipe when it picks up a new commit from our repos and
-> > the git autoinc number will have gone back a few.
-> > Does anybody know why and if it is a bug or an be fixed?
->
-> We probably need to know a bit more about how you're building things.
-> Do you have a pool of workers building against a common sstate?
->
-> Are you using hash equivalence? Are you using a PR server?
->
-> I ask the questions as the answer is probably somewhere in the way data
-> is being shared/reused between builds.
->
-> If you're not using package management on device to upgrade them, it
-> probably isn't a big issue but it is worth understanding the sstate
-> reuse in this context.
->
-> Cheers,
->
-> Richard
->
-
---00000000000068352605efb25ec5
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><span style=3D"font-family:monospace"><span style=3D"=
-color:rgb(0,0,0)">We are not currently running multiple instances of bitbak=
-e against the same sstate cache. We are using PR servers, but currently onl=
-y local to a build, not shared. We do use packages to update targets.</span=
-></span></div><div><span style=3D"font-family:monospace"><span style=3D"col=
-or:rgb(0,0,0)">Below is the content of local.conf (generated by kas).</span=
-></span></div><span style=3D"font-family:monospace"><span style=3D"color:rg=
-b(0,0,0)"><div><span style=3D"font-family:monospace"><span style=3D"color:r=
-gb(0,0,0)"><br></span></span></div><div><span style=3D"font-family:monospac=
-e"><span style=3D"color:rgb(0,0,0)">Cheers</span></span></div><div><span st=
-yle=3D"font-family:monospace"><span style=3D"color:rgb(0,0,0)"><br></span><=
-/span></div><div><span style=3D"font-family:monospace"><span style=3D"color=
-:rgb(0,0,0)">Dan</span></span></div><div><span style=3D"font-family:monospa=
-ce"><span style=3D"color:rgb(0,0,0)"><br></span></span></div># meta-custom
-</span><br>PACKAGE_CLASSES ?=3D &quot;package_deb&quot;
-<br>LICENSE_FLAGS_ACCEPTED +=3D &quot;commercial&quot;
-<br># Number of parrallel bitbake tasks
-<br>BB_NUMBER_THREADS =3D &quot;6&quot;
-<br># number of parraellel task run by &quot;make&quot; et al
-<br>PARALLEL_MAKE =3D &quot;-j 4&quot;
-<br>
-<br># meta-custom-tritium-os
-<br>BBFILE_PRIORITY_meta-aws =3D &quot;11&quot;
-<br>
-<br># meta-local
-<br>PRSERV_HOST =3D &quot;localhost:0&quot;
-<br># It is recommended to activate &quot;buildhistory&quot; for testing th=
-e PR service
-<br>INHERIT +=3D &quot;buildhistory&quot;
-<br>BUILDHISTORY_COMMIT =3D &quot;1&quot;
-<br>
-<br>MACHINE ??=3D &quot;containerx86-64&quot;
-<br>DISTRO ??=3D &quot;tritium3-container&quot;
-<br>BBMULTICONFIG ?=3D &quot;&quot;<br></span></div><br><div class=3D"gmail=
-_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, 9 Dec 2022 at 16:11, =
-Richard Purdie &lt;<a href=3D"mailto:richard.purdie@linuxfoundation.org">ri=
-chard.purdie@linuxfoundation.org</a>&gt; wrote:<br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
-b(204,204,204);padding-left:1ex">On Fri, 2022-12-09 at 16:02 +0000, Daniel =
-Squires wrote:<br>
-&gt; Hi!<br>
-&gt; We&#39;re using kirkstone, though not the very latest at present.=C2=
-=A0<br>
-&gt; Every now and then a a number of packages will unexpectedly give the<b=
-r>
-&gt; error re package versions going backwards and teh version may have<br>
-&gt; done something like go from git5-######-r0.1 to git3-#######-r0.0.<br>
-&gt; We always see this if we&#39;ve been using devtool for a given recipe =
-and<br>
-&gt; then do a devtool reset, it complains about going back from git999 to<=
-br>
-&gt; e.g. git5 but this makes sense and we just run the build again and<br>
-&gt; forget about it. However sometimes this just seems to happen randomly<=
-br>
-&gt; for a given recipe when it picks up a new commit from our repos and<br=
->
-&gt; the git autoinc number will have gone back a few.<br>
-&gt; Does anybody know why and if it is a bug or an be fixed?<br>
-<br>
-We probably need to know a bit more about how you&#39;re building things.<b=
-r>
-Do you have a pool of workers building against a common sstate?<br>
-<br>
-Are you using hash equivalence? Are you using a PR server? <br>
-<br>
-I ask the questions as the answer is probably somewhere in the way data<br>
-is being shared/reused between builds.<br>
-<br>
-If you&#39;re not using package management on device to upgrade them, it<br=
->
-probably isn&#39;t a big issue but it is worth understanding the sstate<br>
-reuse in this context.<br>
-<br>
-Cheers,<br>
-<br>
-Richard<br>
-</blockquote></div>
-
---00000000000068352605efb25ec5--
