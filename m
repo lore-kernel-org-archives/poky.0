@@ -1,103 +1,71 @@
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
- by mx.groups.io with SMTP id smtpd.web10.121.1671229747886518080
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+ by mx.groups.io with SMTP id smtpd.web10.26971.1671468196441863468
  for <poky@lists.yoctoproject.org>;
- Fri, 16 Dec 2022 14:29:08 -0800
+ Mon, 19 Dec 2022 08:43:16 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=qeAdp6Ep;
- spf=pass (domain: gmail.com, ip: 209.85.208.174, mailfrom: rustyhowell@gmail.com)
-Received: by mail-lj1-f174.google.com with SMTP id a19so3650673ljk.0
-        for <poky@lists.yoctoproject.org>; Fri, 16 Dec 2022 14:29:07 -0800 (PST)
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=BBKUGLc5;
+ spf=softfail (domain: sakoman.com, ip: 209.85.214.171, mailfrom: steve@sakoman.com)
+Received: by mail-pl1-f171.google.com with SMTP id t2so9594732ply.2
+        for <poky@lists.yoctoproject.org>; Mon, 19 Dec 2022 08:43:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=3eyDtpZIbK9TWGWpROrkAVLCTbg0lRAU9unkJ9NVe5Y=;
-        b=qeAdp6EpHKBSGkIs2R/RVGupiYpkI87Boa2RLuNRXEt5URNur9QV9XqFsUQ5Ki7m89
-         5e75PupV2k7q7hm7ISHFa/xan0AZZWQrNTK3gOng6bqhrLkEJTuFtdA31n48GJN0HI3f
-         h1/785yp6DA7LxplI/9MW1S23gnHTRd4kQB5q/xjcuUFWnXEHLMe81NJfPmb7w61Mdor
-         hk9YZUSE7ZtmfrwfjPrLOnt2AXSUhsuZXc82+Nl1vHhW/dIxodd83zso10oF9uWFroVF
-         6PQ5lYtgWPHADPnIOLY0pjcu+UdhKOthyCXCZHkTu18lhnTyzEZXU5bJJzXHfBKvQYac
-         NOiw==
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=nHd274e5N6rQcO0Uv4frYmvZmzFTS0xigG1m2rXuKxI=;
+        b=BBKUGLc5LjbJy6kTO2onXpwxrt4LUiLGBFpBSvKwga6AODo0EyMV3+iUwvsO4BcvKv
+         8v6kdQ9ZNOZqHZsX5dNpP9pJeNQ0E3Tu9JMEr4FM9wWGFpZhH7ZJMvDvX8xqf/e56eHb
+         xXfkSzkKNKr1JchI7Ov02Dtx9nqQGzOMEW0M+WkHOA/yBdg1+cHTLajadZYXShqzMvC/
+         Az6KrPlCKRJDnzgGGkih8+jYIQdZC3iZKrUArvDK4+XHEfXGQYcwsgWfkCAXe/WEEXjr
+         v6LAdRS0HOlWaooie8JDTQ4hMSUn1ym1ebHNgPJFyqnrEoylUTTUvsRFGq7Cgagh+v5s
+         kfZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=3eyDtpZIbK9TWGWpROrkAVLCTbg0lRAU9unkJ9NVe5Y=;
-        b=enroVymfp4SdTddmy3HjHWmSYp0y4v7wWSvy5BFocpkCsIhYfimhZeEDftG1NZBgCf
-         ZeaOH9GSWLnqARwAA+1csxnljQQTQM5f2yVwKQQsp4IjeK77Mq3rDlPUoCX+O17Qh+iM
-         rO2rOwac5ubmcvlUeL7CKKyBBdDi7x+0gDUf44keim5/gb50vnNH/2woI6OJK2SizUJ2
-         OV6TE0ChinX0d7eKe/SspSPEuSypQHcQ94O2/zcf5G00ppCxfLdtW87S52FFVh9nxhBg
-         6BcugwWP68iC75ExhO2+TudKOQ53kGynbS+fwp1ThokExp5T35UayqqTKDkYHGEsKIKO
-         9FrA==
-X-Gm-Message-State: ANoB5pmGpgCqvzK2gnYd/QT4tUIqgwVuABqg9Xf+RFj2y4zVFhvZnV2E
-	LzmQNYCf/BJa6eP1T+nRngiWNJ7TpVTOEOadDPLVKvhR
-X-Google-Smtp-Source: AA0mqf63WhZ541jWHtrBxRRYCJejJyH+L5t8fS0XLNrCg5oU4sWnABGOvTBLSUH50L9LbBEda2Fr7pUa6gWQyr38MJw=
-X-Received: by 2002:a05:651c:2211:b0:26c:66c1:87f9 with SMTP id
- y17-20020a05651c221100b0026c66c187f9mr27048800ljq.47.1671229745505; Fri, 16
- Dec 2022 14:29:05 -0800 (PST)
-MIME-Version: 1.0
-From: "Rusty Howell" <rustyhowell@gmail.com>
-Date: Fri, 16 Dec 2022 15:28:49 -0700
-Message-ID: <CAE+BM3kDvMmpuh3H_d9PpsaDSfTvxRjef1oC++oPS7aHMCAuMA@mail.gmail.com>
-Subject: pr-server improvements
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=nHd274e5N6rQcO0Uv4frYmvZmzFTS0xigG1m2rXuKxI=;
+        b=OOHST1qIpeObcYFSFVywOpnSV1JUgdChIfImtE9e39pZ2hbcobxRhllubHOCZcPCkL
+         gBHPgZx5PdBxAatHiLscfkZj6kerJnBdmwlr3KbLsmwtctmIuh5OOoD+RUauExJu+VeJ
+         27l7mxktAVe1CDUk4M96Tpgr4N5/iQIOSC/l9OA1doAlWhcxWHAPAkjnpFe2NxClb9cd
+         Es0ydRQ/4V9yZYpMDpVUpe2winKmH1d8ZzvpzqvX1qv0g2/GzaXifhZlcFx1k/8U9p2C
+         ntpMcftu0NIfUHHK62XEiv6KNBalzT1T93ZzaB+b3jk3aTBH7hGSSksZdYjUqkjqeDYy
+         Bw8Q==
+X-Gm-Message-State: AFqh2kqF5/uTav1SqKhNprTjZWaOdfkl76Q5EoYSQLHelr9X4j/zTfgY
+	PgmSzeFecHWTj0QWcJCeU9aj6Npi4mQRb5Rb7iA=
+X-Google-Smtp-Source: AMrXdXtPmAsWW2OIEnJ8DzP3LkDMhg3ft/dBBYnH+2beBkMNdMloB8xLj1+KomfFQ1xh8IO8IPtBwA==
+X-Received: by 2002:a17:903:40cb:b0:189:bcf8:c1a0 with SMTP id t11-20020a17090340cb00b00189bcf8c1a0mr10464351pld.69.1671468195125;
+        Mon, 19 Dec 2022 08:43:15 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
+        by smtp.gmail.com with ESMTPSA id jf20-20020a170903269400b0018725c2fc46sm7339679plb.303.2022.12.19.08.43.14
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Dec 2022 08:43:14 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
 To: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="00000000000051aae105eff97f7c"
+Subject: [meta-yocto][langdale 0/2] Pull request (cover letter only)
+Date: Mon, 19 Dec 2022 06:43:10 -1000
+Message-Id: <cover.1671467509.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---00000000000051aae105eff97f7c
-Content-Type: text/plain; charset="UTF-8"
+The following changes since commit e911b760d279774d8ab24529a2ffd82c02976feb:
 
-I have made some changes/improvements to the preserver that I needed for
-work.   One was to expose the hist/nohist option on the bitbake-prserv
-command line util. Another was to add self tests to the preserver
-(bitbake-selftest prserv.tests.preserver).
+  poky.conf: bump version for 4.1.1 (2022-11-09 17:42:53 +0000)
 
-The main change that I did was to make the preserver "OS version aware".
-The problem arises because we are frequently working two or more versions
-of our OS at the same time.  One release may be nearing release, one may be
-nearing feature complete, while the other is still in heavy development.
+are available in the Git repository at:
 
-Queries to the prserver include the OS version (as an int). OS version is
-provided through a new variable PRSERV_OS_VERSION ??=0.  Our build system
-just sets PRSERV_OS_VERSION in the local.conf appropriately based on the
-build params.   The os_version added to the getPR() query and is stored as
-a column in the database.   When the PRAUTO value is calculated, the prauto
-value for the provided pkgversion/pkgarch/os_version tuple is going to be
-greater than any matching tuple (pkgversion, pkgarch, os_version <
-this_version).   In cases where the os_versions differ but the checksums
-match, we use the same prauto value to avoid unnecessary pkg upgrades.
+  https://git.yoctoproject.org/meta-yocto contrib/langdale-next
+  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/langdale-next
 
-The changes have some self tests around them, but I should add some more I
-think.
+Ravula Adhitya Siddartha (2):
+  linux-yocto/5.15: update genericx86* machines to v5.15.72
+  linux-yocto/5.19: update genericx86* machines to v5.19.14
 
-Is this something that would be of interest to others?  I'd happily
-contribute it if it would be useful.
-Rusty Howell
+ .../recipes-kernel/linux/linux-yocto_5.15.bbappend        | 8 ++++----
+ .../recipes-kernel/linux/linux-yocto_5.19.bbappend        | 8 ++++----
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
---00000000000051aae105eff97f7c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+-- 
+2.25.1
 
-<div dir=3D"ltr"><div>I have made some changes/improvements to the preserve=
-r that I needed for work.=C2=A0=C2=A0 One was to expose the hist/nohist opt=
-ion on the bitbake-prserv command line util. Another was to add self tests =
-to the preserver=C2=A0 (bitbake-selftest prserv.tests.preserver).<br></div>=
-<div><br></div><div>The main change that I did was to make the preserver &q=
-uot;OS version aware&quot;.=C2=A0 The problem arises because we are frequen=
-tly working two or more versions of our OS at the same time.=C2=A0 One rele=
-ase may be nearing release, one may be nearing feature complete, while the =
-other is still in heavy development.</div><div><br></div><div>Queries to th=
-e prserver include the OS version (as an int). OS version is provided throu=
-gh a new variable PRSERV_OS_VERSION ??=3D0.=C2=A0 Our build system just set=
-s PRSERV_OS_VERSION in the local.conf appropriately based on the build para=
-ms. =C2=A0 The os_version added to the getPR() query and is stored as a col=
-umn in the database.=C2=A0=C2=A0 When the PRAUTO value is calculated, the p=
-rauto value for the provided pkgversion/pkgarch/os_version tuple is going t=
-o be greater than any matching tuple (pkgversion, pkgarch, os_version &lt; =
-this_version).=C2=A0=C2=A0 In cases where the os_versions differ but the ch=
-ecksums match, we use the same prauto value to avoid unnecessary pkg upgrad=
-es.</div><div><br></div><div>The changes have some self tests around them, =
-but I should add some more I think.<br></div><div><br></div><div>Is this so=
-mething that would be of interest to others?=C2=A0 I&#39;d happily contribu=
-te it if it would be useful.</div><div>Rusty Howell<br></div></div>
-
---00000000000051aae105eff97f7c--
