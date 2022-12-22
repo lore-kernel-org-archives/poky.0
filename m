@@ -1,71 +1,147 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
- by mx.groups.io with SMTP id smtpd.web10.26971.1671468196441863468
+Received: from mail-40133.protonmail.ch (mail-40133.protonmail.ch [185.70.40.133])
+ by mx.groups.io with SMTP id smtpd.web11.47585.1671721757669593570
  for <poky@lists.yoctoproject.org>;
- Mon, 19 Dec 2022 08:43:16 -0800
+ Thu, 22 Dec 2022 07:09:18 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=BBKUGLc5;
- spf=softfail (domain: sakoman.com, ip: 209.85.214.171, mailfrom: steve@sakoman.com)
-Received: by mail-pl1-f171.google.com with SMTP id t2so9594732ply.2
-        for <poky@lists.yoctoproject.org>; Mon, 19 Dec 2022 08:43:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=nHd274e5N6rQcO0Uv4frYmvZmzFTS0xigG1m2rXuKxI=;
-        b=BBKUGLc5LjbJy6kTO2onXpwxrt4LUiLGBFpBSvKwga6AODo0EyMV3+iUwvsO4BcvKv
-         8v6kdQ9ZNOZqHZsX5dNpP9pJeNQ0E3Tu9JMEr4FM9wWGFpZhH7ZJMvDvX8xqf/e56eHb
-         xXfkSzkKNKr1JchI7Ov02Dtx9nqQGzOMEW0M+WkHOA/yBdg1+cHTLajadZYXShqzMvC/
-         Az6KrPlCKRJDnzgGGkih8+jYIQdZC3iZKrUArvDK4+XHEfXGQYcwsgWfkCAXe/WEEXjr
-         v6LAdRS0HOlWaooie8JDTQ4hMSUn1ym1ebHNgPJFyqnrEoylUTTUvsRFGq7Cgagh+v5s
-         kfZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nHd274e5N6rQcO0Uv4frYmvZmzFTS0xigG1m2rXuKxI=;
-        b=OOHST1qIpeObcYFSFVywOpnSV1JUgdChIfImtE9e39pZ2hbcobxRhllubHOCZcPCkL
-         gBHPgZx5PdBxAatHiLscfkZj6kerJnBdmwlr3KbLsmwtctmIuh5OOoD+RUauExJu+VeJ
-         27l7mxktAVe1CDUk4M96Tpgr4N5/iQIOSC/l9OA1doAlWhcxWHAPAkjnpFe2NxClb9cd
-         Es0ydRQ/4V9yZYpMDpVUpe2winKmH1d8ZzvpzqvX1qv0g2/GzaXifhZlcFx1k/8U9p2C
-         ntpMcftu0NIfUHHK62XEiv6KNBalzT1T93ZzaB+b3jk3aTBH7hGSSksZdYjUqkjqeDYy
-         Bw8Q==
-X-Gm-Message-State: AFqh2kqF5/uTav1SqKhNprTjZWaOdfkl76Q5EoYSQLHelr9X4j/zTfgY
-	PgmSzeFecHWTj0QWcJCeU9aj6Npi4mQRb5Rb7iA=
-X-Google-Smtp-Source: AMrXdXtPmAsWW2OIEnJ8DzP3LkDMhg3ft/dBBYnH+2beBkMNdMloB8xLj1+KomfFQ1xh8IO8IPtBwA==
-X-Received: by 2002:a17:903:40cb:b0:189:bcf8:c1a0 with SMTP id t11-20020a17090340cb00b00189bcf8c1a0mr10464351pld.69.1671468195125;
-        Mon, 19 Dec 2022 08:43:15 -0800 (PST)
-Return-Path: <steve@sakoman.com>
-Received: from hexa.router0800d9.com (dhcp-72-253-6-214.hawaiiantel.net. [72.253.6.214])
-        by smtp.gmail.com with ESMTPSA id jf20-20020a170903269400b0018725c2fc46sm7339679plb.303.2022.12.19.08.43.14
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Dec 2022 08:43:14 -0800 (PST)
-From: "Steve Sakoman" <steve@sakoman.com>
+ dkim=fail reason="signature has expired" header.i=@pm.me header.s=protonmail3 header.b=XJjhLgFV;
+ spf=pass (domain: pm.me, ip: 185.70.40.133, mailfrom: antoningodard@pm.me)
+Date: Thu, 22 Dec 2022 15:09:11 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1671721755; x=1671980955;
+	bh=k6WrjD9Ij6SP5V0zn1DcSu63bRSqmqePnZ6nKQxBqfU=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=XJjhLgFV6cxQnANJXOHREVNCKrHe256Z1R8JEnui5iLMREkP4jlodAceJNY4pp3Ik
+	 LAbnRl/X+hZy5H9+XcFVlC4DzFACYZ5+tsruyhK6Fj5ejKvWvBrnSu2uWktsi3qpN5
+	 1JLiS/HTkIDwB3Cxuq9oVtlwjY09tfQvEu05Bvdv5SUOKVw4CH/D7eoGJxalYf3BSj
+	 Oqs9WUVpfPb6lX/zzwfk4ZXU1b2I4voPnXeqNHLBmsJ90z6KgwsRJ/Gf6OC5mCqMaO
+	 cTYtk/B2v3Huyz+0naQu7KoOsE3tvlb8pKC+FB2nTgRrzv0NP6wo9nzzJn2Gl9oYfj
+	 x70ZQbqjK9Fkw==
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][langdale 0/2] Pull request (cover letter only)
-Date: Mon, 19 Dec 2022 06:43:10 -1000
-Message-Id: <cover.1671467509.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.25.1
+From: antoningodard@pm.me
+Cc: Antonin Godard <antoningodard@pm.me>
+Subject: [PATCH] busybox: save a copy of autoconf.h before compiling
+Message-ID: <20221222150904.1058186-1-antoningodard@pm.me>
+Feedback-ID: 17651652:user:proton
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The following changes since commit e911b760d279774d8ab24529a2ffd82c02976feb:
+Busybox's compiling process alters autoconf.h. When compiling a second
+time (e.g. with `compile -f`), busybox uses this altered file for
+compiling, which ultimately produces different binaries.
 
-  poky.conf: bump version for 4.1.1 (2022-11-09 17:42:53 +0000)
+This can produce errors like this one:
 
-are available in the Git repository at:
+ERROR: busybox-1.35.0-r0 do_package: Error executing a python function in e=
+xec_func_python() autogenerated:
+The stack trace of python calls that resulted in this exception/failure was=
+:
+File: 'exec_func_python() autogenerated', lineno: 2, function: <module>
+     0001:
+ *** 0002:ptest_update_alternatives(d)
+     0003:
+File: '=E2=80=A6/poky/meta/classes/ptest.bbclass', lineno: 100, function: p=
+test_update_alternatives
+     0096:        for alt_name, alt_link, alt_target, _ in alternatives:
+     0097:            # Some alternatives are for man pages,
+     0098:            # check if the alternative is in PATH
+     0099:            if os.path.dirname(alt_link) in bin_paths:
+ *** 0100:                os.symlink(alt_target, os.path.join(ptest_bindir,=
+ alt_name))
+     0101:}
+     0102:
+     0103:do_configure_ptest_base[dirs] =3D "${B}"
+     0104:do_compile_ptest_base[dirs] =3D "${B}"
+Exception: FileExistsError: [Errno 17] File exists: '/bin/busybox.suid' -> =
+'=E2=80=A6/busybox/1.35.0-r0/package/usr/lib/busybox/ptest/bin/login'
 
-  https://git.yoctoproject.org/meta-yocto contrib/langdale-next
-  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/langdale-next
+This happens because ALTERNATIVE:busybox contains `/bin/login` twice,
+initially that's because `/bin/login` is present in both
+busybox.links.suid and busybox.links.nosuid. The reason for that is
+because of the altered autoconf.h. See the diff (not complete here)
+between autoconf.h before and after do_compile:
 
-Ravula Adhitya Siddartha (2):
-  linux-yocto/5.15: update genericx86* machines to v5.15.72
-  linux-yocto/5.19: update genericx86* machines to v5.19.14
+2887,2890c2887,2894
+< #undef CONFIG_LOGIN
+< #define ENABLE_LOGIN 0
+< #define IF_LOGIN(...)
+< #define IF_NOT_LOGIN(...) __VA_ARGS__
+---
+> #define CONFIG_LOGIN 1
+> #define ENABLE_LOGIN 1
+> #ifdef MAKE_SUID
+> # define IF_LOGIN(...) __VA_ARGS__ "CONFIG_LOGIN"
+> #else
+> # define IF_LOGIN(...) __VA_ARGS__
+> #endif
+> #define IF_NOT_LOGIN(...)
 
- .../recipes-kernel/linux/linux-yocto_5.15.bbappend        | 8 ++++----
- .../recipes-kernel/linux/linux-yocto_5.19.bbappend        | 8 ++++----
- 2 files changed, 8 insertions(+), 8 deletions(-)
+Steps to reproduce above error:
 
--- 
+- Build busybox.
+- Enable ptest feature.
+- Re-build busybox.
+  Build will start from do_compile, and will raise this error.
+
+This patch replaces include/autoconf.h by the original if previously
+saved.
+---
+ meta/recipes-core/busybox/busybox.inc | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/meta/recipes-core/busybox/busybox.inc b/meta/recipes-core/busy=
+box/busybox.inc
+index 5f1c473d5e..1fcc4742b6 100644
+--- a/meta/recipes-core/busybox/busybox.inc
++++ b/meta/recipes-core/busybox/busybox.inc
+@@ -145,6 +145,12 @@ do_compile() {
+ =09export KCONFIG_NOTIMESTAMP=3D1
+
+ =09if [ "${BUSYBOX_SPLIT_SUID}" =3D "1" -a x`grep "CONFIG_FEATURE_INDIVIDU=
+AL=3Dy" .config` =3D x ]; then
++=09=09# Restore or save original autoconf.h.
++=09=09if [ -f include/autoconf.h.orig ]; then
++=09=09=09cp include/autoconf.h.orig include/autoconf.h
++=09=09else
++=09=09=09cp include/autoconf.h include/autoconf.h.orig
++=09=09fi
+ =09=09# split the .config into two parts, and make two busybox binaries
+ =09=09if [ -e .config.orig ]; then
+ =09=09=09# Need to guard again an interrupted do_compile - restore any bac=
+kup
+@@ -427,7 +433,7 @@ pkg_postinst:${PN}:prepend () {
+         # Need path to saved utils, but they may have be removed on upgrad=
+e of busybox
+         # Only use shell to get paths. Also capture if busybox was saved.
+         BUSYBOX=3D""
+-        if [ "x$D" =3D "x" ] ; then
++        if [ "x$D" =3D "x" ] ; then
+            for busybox_rmdir in /tmp/busyboxrm-*; do
+                if [ "$busybox_rmdir" !=3D '/tmp/busyboxrm-*' ] ; then
+                   export PATH=3D$busybox_rmdir:$PATH
+@@ -447,7 +453,7 @@ pkg_postinst:${PN}:append () {
+               rm -f $BUSYBOX
+            fi
+         fi
+-}
++}
+
+ pkg_prerm:${PN} () {
+ =09# This is so you can make busybox commit suicide - removing busybox wit=
+h no other packages
+@@ -475,7 +481,7 @@ pkg_prerm:${PN} () {
+         if [ -n "$(readlink -f /bin/sh | grep busybox)" ] ; then
+            BUSYBOX=3D$(readlink -f /bin/sh)
+            cp $BUSYBOX $tmpdir/$(basename $BUSYBOX)
+-           update-alternatives --install /bin/sh sh $tmpdir/$(basename $BU=
+SYBOX) 1
++           update-alternatives --install /bin/sh sh $tmpdir/$(basename $BU=
+SYBOX) 1
+         fi
+ }
+
+--
 2.25.1
+
 
