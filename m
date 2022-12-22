@@ -1,183 +1,65 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
- by mx.groups.io with SMTP id smtpd.web10.48199.1671723638438672235
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+ by mx.groups.io with SMTP id smtpd.web10.49035.1671725698918174711
  for <poky@lists.yoctoproject.org>;
- Thu, 22 Dec 2022 07:40:38 -0800
+ Thu, 22 Dec 2022 08:14:59 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=NaLcU4zD;
- spf=pass (domain: gmail.com, ip: 209.85.208.172, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-lj1-f172.google.com with SMTP id q2so2278589ljp.6
-        for <poky@lists.yoctoproject.org>; Thu, 22 Dec 2022 07:40:38 -0800 (PST)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=YNZI+3jv;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.45, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f45.google.com with SMTP id r126-20020a1c4484000000b003d6b8e8e07fso4043283wma.0
+        for <poky@lists.yoctoproject.org>; Thu, 22 Dec 2022 08:14:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=v6X2hUuooC+z7CKM7UO5ZICrWdF7+1P/vGNsM9Xf15g=;
-        b=NaLcU4zDFPdpNw4+wzkZ1HF/RlLtl+AA7JJtNiwB4lOFDyAq6BGkqCywwuvlC2X8tI
-         XS0JNMkkE2zLlBvT9keXc4ToZIUxFiKBVt+xlLay/istE3qyYXWZTYyG4rvqVK+F7AcB
-         Ml4C6mFpnExJF3fVUM24GC5fAN+2h2dbz/k25IW+WAGF8xymKDD0icI3+gMirbswoe2D
-         MdyMP84XprfNrzVtf82CZ0yHNZZ59TQI7i35AWlYSl6Lkg2cBq66IYM29WYj3eapAwjB
-         mDuXllQAof7g/7G2RVZU2R653cqhRK1Bc/vvTfLYd/nRrEtyA6i9rpWBuB82JQsOo7AZ
-         ZWtA==
+        d=linuxfoundation.org; s=google;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=LHA+4QAgTZM7JUXkP7DOwFqSTPOuR0MLtVf1ejjdptw=;
+        b=YNZI+3jvERFVqlA8D6c94y6kVKzdZ+Kzn/UCgW7x76rYCkJJQtDTHLf5HjFR3V2pmC
+         GN37W42tJgvuWjfmRoyfoQdE2gNrME3j0gWcZrnwfkAAAqYDGWlBdZLB/BVFrqu05cuC
+         p5xfW8arb2mHms40AFlBBSzVZ3gM0hUiXYCPU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=v6X2hUuooC+z7CKM7UO5ZICrWdF7+1P/vGNsM9Xf15g=;
-        b=NLAbItjm+yS4aWaoye1PT5GWxVEDeb1cBXcptvN8jeU/z5SOrnBK6aDoEKRNQpGM/u
-         HLgiv2LKwVPMGMIGqBJFrgd/NbjEU69GuJcxkD3+WfiYW1V7UV+87EsX1RF/eDRenSfs
-         l2g7uEZ/9r2q1vAhVpxaP2ASE6hm7f3hKCWOND3aLCA2NzcgWBxDel11Tq8plQRswNyg
-         pcYI0CRxzgXZWRSIlRcZuR692RVQ1an0//9Za0c5kYmU2jESzKwRwtItOAirzF6tCuD2
-         9YdCgLHmukg5Va+ne0Y7EUlunyNPF8XjkuUqrbp6r+flDqbs7/eOEKFcWAe/lf4QIotm
-         pAHA==
-X-Gm-Message-State: AFqh2kr/drtjRKTOG6rWTcb1BwkJnfU5EsfcYN5TpxW8fWRJFpDiVx8N
-	P5xfTDunE7hwLFdQPUbvod8CyoQPUwRUANEMego=
-X-Google-Smtp-Source: AMrXdXtgb1mYvCv5ieWkyIpN2LHtNHax0W6r5EYF9jU7xD/oeVy6Ftx+VK+8DLXwmdoU3EYpWngdVEOGNcnk387Et5Q=
-X-Received: by 2002:a05:651c:11c5:b0:27b:4ac7:bb8f with SMTP id
- z5-20020a05651c11c500b0027b4ac7bb8fmr480706ljo.403.1671723636394; Thu, 22 Dec
- 2022 07:40:36 -0800 (PST)
-MIME-Version: 1.0
-References: <20221222150904.1058186-1-antoningodard@pm.me>
-In-Reply-To: <20221222150904.1058186-1-antoningodard@pm.me>
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-Date: Thu, 22 Dec 2022 16:40:24 +0100
-Message-ID: <CANNYZj9rzJaVPCN4xOxP2X2xJX_niRQ6MNqXn6Ksq8koKEknYg@mail.gmail.com>
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=LHA+4QAgTZM7JUXkP7DOwFqSTPOuR0MLtVf1ejjdptw=;
+        b=wSnjgsbEsqJNbGXPQlWhZ2+ycLysf2bSAOyo5m1kBfLe5vBQWe6M1BXrf8lxwHwo+X
+         wmvpIPo7/iT/7YS7TM5Ko0FOCsQgzzmZVgyKmXYoqPI16kQWd+nIGGmqizb1FTNgmrCM
+         GQo4Hg43OsAAHzMNEJOKF9AJUA1in7KD3/ZeK3OTcZ47+AlmiZHB1wYf2/YPPVPb2owD
+         6t3+tjO4tH/rjco7krkTmDqabodb2CF5RCdvcunhGxsqXwqHo4k0TVfQc6bNrU9tDYsl
+         ViD/poHoVyIDnLpBJTRk9nDRcmscIoAI48bUKjrj150h/IsPidD3WjFr2saZRgdItIlH
+         FeJA==
+X-Gm-Message-State: AFqh2kod/OHo1cd53lsUh0w3zf4zCD0pkmxN02Qp7d/RPt8gs6LvzMe/
+	uZ9IHjJ3TDhAPebMOWnSbZrsRg==
+X-Google-Smtp-Source: AMrXdXu96365tCuVO7BOdxVc370nxZOkn/G6q3qo8qvrH4Y0SaJdnORx8wkPL0q1IirR5bN0hI4wlw==
+X-Received: by 2002:a05:600c:5114:b0:3d0:75ee:357b with SMTP id o20-20020a05600c511400b003d075ee357bmr4867786wms.21.1671725697245;
+        Thu, 22 Dec 2022 08:14:57 -0800 (PST)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from ?IPv6:2001:8b0:aba:5f3c:a8db:6d5d:f54f:c6b2? ([2001:8b0:aba:5f3c:a8db:6d5d:f54f:c6b2])
+        by smtp.gmail.com with ESMTPSA id v26-20020a7bcb5a000000b003cf4eac8e80sm1749347wmj.23.2022.12.22.08.14.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Dec 2022 08:14:56 -0800 (PST)
+Message-ID: <bc006b61f6ce7b6f80e83cbe81e286737339efe1.camel@linuxfoundation.org>
 Subject: Re: [poky] [PATCH] busybox: save a copy of autoconf.h before compiling
-To: antoningodard@pm.me
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Alexander Kanavin <alex.kanavin@gmail.com>, antoningodard@pm.me
 Cc: poky@lists.yoctoproject.org
+Date: Thu, 22 Dec 2022 16:14:56 +0000
+In-Reply-To: <CANNYZj9rzJaVPCN4xOxP2X2xJX_niRQ6MNqXn6Ksq8koKEknYg@mail.gmail.com>
+References: <20221222150904.1058186-1-antoningodard@pm.me>
+	 <CANNYZj9rzJaVPCN4xOxP2X2xJX_niRQ6MNqXn6Ksq8koKEknYg@mail.gmail.com>
+User-Agent: Evolution 3.46.1-0ubuntu1 
+MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-This seems like something that needs to be solved upstream instead of
-fixing after the fact in the recipe?
+On Thu, 2022-12-22 at 16:40 +0100, Alexander Kanavin wrote:
+> This seems like something that needs to be solved upstream instead of
+> fixing after the fact in the recipe?
 
-Alex
+We play games to build busybox twice, once for a binary for use with
+suid and once without. I suspect this is therefore our own issue but I
+didn't check specifically as yet.
 
-On Thu, 22 Dec 2022 at 16:09, Antonin Godard via
-lists.yoctoproject.org <antoningodard=3Dpm.me@lists.yoctoproject.org>
-wrote:
->
-> Busybox's compiling process alters autoconf.h. When compiling a second
-> time (e.g. with `compile -f`), busybox uses this altered file for
-> compiling, which ultimately produces different binaries.
->
-> This can produce errors like this one:
->
-> ERROR: busybox-1.35.0-r0 do_package: Error executing a python function in=
- exec_func_python() autogenerated:
-> The stack trace of python calls that resulted in this exception/failure w=
-as:
-> File: 'exec_func_python() autogenerated', lineno: 2, function: <module>
->      0001:
->  *** 0002:ptest_update_alternatives(d)
->      0003:
-> File: '=E2=80=A6/poky/meta/classes/ptest.bbclass', lineno: 100, function:=
- ptest_update_alternatives
->      0096:        for alt_name, alt_link, alt_target, _ in alternatives:
->      0097:            # Some alternatives are for man pages,
->      0098:            # check if the alternative is in PATH
->      0099:            if os.path.dirname(alt_link) in bin_paths:
->  *** 0100:                os.symlink(alt_target, os.path.join(ptest_bindi=
-r, alt_name))
->      0101:}
->      0102:
->      0103:do_configure_ptest_base[dirs] =3D "${B}"
->      0104:do_compile_ptest_base[dirs] =3D "${B}"
-> Exception: FileExistsError: [Errno 17] File exists: '/bin/busybox.suid' -=
-> '=E2=80=A6/busybox/1.35.0-r0/package/usr/lib/busybox/ptest/bin/login'
->
-> This happens because ALTERNATIVE:busybox contains `/bin/login` twice,
-> initially that's because `/bin/login` is present in both
-> busybox.links.suid and busybox.links.nosuid. The reason for that is
-> because of the altered autoconf.h. See the diff (not complete here)
-> between autoconf.h before and after do_compile:
->
-> 2887,2890c2887,2894
-> < #undef CONFIG_LOGIN
-> < #define ENABLE_LOGIN 0
-> < #define IF_LOGIN(...)
-> < #define IF_NOT_LOGIN(...) __VA_ARGS__
-> ---
-> > #define CONFIG_LOGIN 1
-> > #define ENABLE_LOGIN 1
-> > #ifdef MAKE_SUID
-> > # define IF_LOGIN(...) __VA_ARGS__ "CONFIG_LOGIN"
-> > #else
-> > # define IF_LOGIN(...) __VA_ARGS__
-> > #endif
-> > #define IF_NOT_LOGIN(...)
->
-> Steps to reproduce above error:
->
-> - Build busybox.
-> - Enable ptest feature.
-> - Re-build busybox.
->   Build will start from do_compile, and will raise this error.
->
-> This patch replaces include/autoconf.h by the original if previously
-> saved.
-> ---
->  meta/recipes-core/busybox/busybox.inc | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
->
-> diff --git a/meta/recipes-core/busybox/busybox.inc b/meta/recipes-core/bu=
-sybox/busybox.inc
-> index 5f1c473d5e..1fcc4742b6 100644
-> --- a/meta/recipes-core/busybox/busybox.inc
-> +++ b/meta/recipes-core/busybox/busybox.inc
-> @@ -145,6 +145,12 @@ do_compile() {
->         export KCONFIG_NOTIMESTAMP=3D1
->
->         if [ "${BUSYBOX_SPLIT_SUID}" =3D "1" -a x`grep "CONFIG_FEATURE_IN=
-DIVIDUAL=3Dy" .config` =3D x ]; then
-> +               # Restore or save original autoconf.h.
-> +               if [ -f include/autoconf.h.orig ]; then
-> +                       cp include/autoconf.h.orig include/autoconf.h
-> +               else
-> +                       cp include/autoconf.h include/autoconf.h.orig
-> +               fi
->                 # split the .config into two parts, and make two busybox =
-binaries
->                 if [ -e .config.orig ]; then
->                         # Need to guard again an interrupted do_compile -=
- restore any backup
-> @@ -427,7 +433,7 @@ pkg_postinst:${PN}:prepend () {
->          # Need path to saved utils, but they may have be removed on upgr=
-ade of busybox
->          # Only use shell to get paths. Also capture if busybox was saved=
-.
->          BUSYBOX=3D""
-> -        if [ "x$D" =3D "x" ] ; then
-> +        if [ "x$D" =3D "x" ] ; then
->             for busybox_rmdir in /tmp/busyboxrm-*; do
->                 if [ "$busybox_rmdir" !=3D '/tmp/busyboxrm-*' ] ; then
->                    export PATH=3D$busybox_rmdir:$PATH
-> @@ -447,7 +453,7 @@ pkg_postinst:${PN}:append () {
->                rm -f $BUSYBOX
->             fi
->          fi
-> -}
-> +}
->
->  pkg_prerm:${PN} () {
->         # This is so you can make busybox commit suicide - removing busyb=
-ox with no other packages
-> @@ -475,7 +481,7 @@ pkg_prerm:${PN} () {
->          if [ -n "$(readlink -f /bin/sh | grep busybox)" ] ; then
->             BUSYBOX=3D$(readlink -f /bin/sh)
->             cp $BUSYBOX $tmpdir/$(basename $BUSYBOX)
-> -           update-alternatives --install /bin/sh sh $tmpdir/$(basename $=
-BUSYBOX) 1
-> +           update-alternatives --install /bin/sh sh $tmpdir/$(basename $=
-BUSYBOX) 1
->          fi
->  }
->
-> --
-> 2.25.1
->
->
->
->=20
->
+Cheers,
+
+Richard
