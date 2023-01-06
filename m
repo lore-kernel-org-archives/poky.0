@@ -1,76 +1,201 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
- by mx.groups.io with SMTP id smtpd.web10.14723.1673015372007240444
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+ by mx.groups.io with SMTP id smtpd.web10.16969.1673020132884172405
  for <poky@lists.yoctoproject.org>;
- Fri, 06 Jan 2023 06:29:32 -0800
+ Fri, 06 Jan 2023 07:48:53 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=M/G5Zncu;
- spf=softfail (domain: sakoman.com, ip: 209.85.216.48, mailfrom: steve@sakoman.com)
-Received: by mail-pj1-f48.google.com with SMTP id gq18so1470057pjb.2
-        for <poky@lists.yoctoproject.org>; Fri, 06 Jan 2023 06:29:31 -0800 (PST)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=OjyeCOxU;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.50, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f50.google.com with SMTP id bk16so1609461wrb.11
+        for <poky@lists.yoctoproject.org>; Fri, 06 Jan 2023 07:48:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=W6WhNn6OSq9rq0TxJufZSXWRKo1EcGyUheaPwHlhBzE=;
-        b=M/G5ZnculV1EfzgukulbfeO7hvHDj3tE/D0ulnt9+0AuajTn0BJBPh9cRXq/cKGoqM
-         kLS+7vhJVxIMD9ZNDCvsDlG2yDzmyDAtMLYO9O9mbErWgvG48GuOh16UagaSnsoP/8wN
-         wA37DxZhybRPlEcxt5OdW57sDjZVKjTGsR+sek75VuIkhqSJmQ10U+9jVEHkxXennKO/
-         8HD/rx53BWqy2mC8dFG2tKS9pD/n45SWkC8pTZyWqXkDTi0L+zG5yDnrMoNTsejSUfXr
-         wDm51bgCKSzDlwD9/bDIO+tH6S0l+OwfW9XZ0X/Sc5tnxyKJ2zpMUijCG2GrWiRiltoY
-         u0MQ==
+        d=linuxfoundation.org; s=google;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=p1DCksTNm+I+ipMAYqK7wIa2ncHOpYp2WdcYI4EjW3w=;
+        b=OjyeCOxUW/NDTce0JPPvAiALY/J0UHfGA8Yd5fuUQbyFX7nIqmp/k0gL57W+fkSmxf
+         WHWwjg6Nw/5zNHf6Do2E+dnxNNvYZNPOH59N5lQRIDm3yWC5bPP7V7NUtltoC+adI8Hy
+         Xe6DoGSJq/sFHzI8WL88Z4lMElGify0vOuqiE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=W6WhNn6OSq9rq0TxJufZSXWRKo1EcGyUheaPwHlhBzE=;
-        b=CqZ6/C488buu6UlYf9QWcROsUPb3jGfGCLMB62848Llrlw+CHjUuokq76I5tlAe/Qt
-         f0lkIpjCzbUGYl9d8oGAihWi9Ok7mZRRnlbVVsGfwIH/PZ7lEF8qPlEw53yGwM2oRSMA
-         j1YOQbO5ZBRaowFBkXVcbNObd1bT6Cigf9d8M0dXVxDLyF/vYYOWfFAiLyzGD2Wqna2g
-         hpSf382ZN/kYgFswY5ZskQ+DYjcxPtF+Uhmh3kHpYDJDRABIlA6IKZC0BcWxaR5nmosL
-         EWacQQu+cmxIVe0W2IkFOFyvafWrtXr8Tl5vDLwD4bJfyC32uuV3Dto+5URKIH1OGyij
-         OmNQ==
-X-Gm-Message-State: AFqh2kpnb1FzofH7Lm2TlJNoFXE+aLAydPHptewsz1K9IyRF6YS9l2vo
-	IYiqC4LxTEtdOzOloRNpGV/HVLlKUzxo+fPE1hY=
-X-Google-Smtp-Source: AMrXdXu8a7bVa9QEsYh/vtv04XikmymMwd6FlN2UDCilpZd0WEY7dGKJB4SWVlwAYqyeCbP2egvAEg==
-X-Received: by 2002:a17:902:8c90:b0:192:a470:2c0b with SMTP id t16-20020a1709028c9000b00192a4702c0bmr25277578plo.49.1673015370636;
-        Fri, 06 Jan 2023 06:29:30 -0800 (PST)
-Return-Path: <steve@sakoman.com>
-Received: from hexa.router0800d9.com (dhcp-72-253-5-74.hawaiiantel.net. [72.253.5.74])
-        by smtp.gmail.com with ESMTPSA id q1-20020a170902dac100b00185402cfedesm980801plx.246.2023.01.06.06.29.29
-        for <poky@lists.yoctoproject.org>
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=p1DCksTNm+I+ipMAYqK7wIa2ncHOpYp2WdcYI4EjW3w=;
+        b=q7xWYuL7YB/5jLGVgBqA0GJ0KVSg0uhN1KqgJjaOXOuD1XxwpG0NIjFq5Iu3hIoL5V
+         HFWwRgJblwDt5mNWd9c6B9xfJVb/azYsdsThtH8xVIL0nfdCwg+mtJ36QHgWaJ36k4Eo
+         cOJoer11503GtwO8qhBSpvsPSWxn00fpuDIPW6UKGg1dZnZyFl+XDlhrNYfg2rwZng9/
+         JjOxWsoyoraB9h/U2CmKhIR1THEjvc5kVoB6GkjBn8r5WED+TMr3JqGKmn6aWmvTGmu8
+         qy4o6467i+n3tFCsdxArzye3pd3WaRf1MacNiYmaAI3h3Bxcksmw1k5G8rjjR/eZ4U8b
+         eU+A==
+X-Gm-Message-State: AFqh2krkoBNp0BO3gm2e3me2//344BbQSkKSJEIvmbetE5okQoR68It9
+	TS6MAGHWLDDdvWgmYcqUaQAANw==
+X-Google-Smtp-Source: AMrXdXtLH52vsUG+H6pVT/OXu2kZcLARI0Od3i6YL93BfVr5e88RU9RYO+EhcsqzDhpQT3FBnNnCoA==
+X-Received: by 2002:adf:e949:0:b0:28b:536c:61c8 with SMTP id m9-20020adfe949000000b0028b536c61c8mr17783823wrn.37.1673020131004;
+        Fri, 06 Jan 2023 07:48:51 -0800 (PST)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from ?IPv6:2001:8b0:aba:5f3c:49cf:c46d:e32d:e951? ([2001:8b0:aba:5f3c:49cf:c46d:e32d:e951])
+        by smtp.gmail.com with ESMTPSA id t3-20020a5d42c3000000b002709e616fa2sm1423776wrr.64.2023.01.06.07.48.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Jan 2023 06:29:30 -0800 (PST)
-From: "Steve Sakoman" <steve@sakoman.com>
-To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][langdale] poky.conf: bump version for 4.1.2
-Date: Fri,  6 Jan 2023 04:29:23 -1000
-Message-Id: <38cf7e70ff67ec3cf20c0e8fb4dfec094d7b62f5.1673015170.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1673015170.git.steve@sakoman.com>
-References: <cover.1673015170.git.steve@sakoman.com>
+        Fri, 06 Jan 2023 07:48:49 -0800 (PST)
+Message-ID: <35e3dac0c661b041e04729f46248882faaf85361.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH] busybox: save a copy of autoconf.h before compiling
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: antoningodard@pm.me, poky@lists.yoctoproject.org
+Date: Fri, 06 Jan 2023 15:48:49 +0000
+In-Reply-To: <20221222150904.1058186-1-antoningodard@pm.me>
+References: <20221222150904.1058186-1-antoningodard@pm.me>
+User-Agent: Evolution 3.46.1-0ubuntu1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Steve Sakoman <steve@sakoman.com>
----
- meta-poky/conf/distro/poky.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Thu, 2022-12-22 at 15:09 +0000, Antonin Godard via
+lists.yoctoproject.org wrote:
+> Busybox's compiling process alters autoconf.h. When compiling a second
+> time (e.g. with `compile -f`), busybox uses this altered file for
+> compiling, which ultimately produces different binaries.
+>=20
+> This can produce errors like this one:
+>=20
+> ERROR: busybox-1.35.0-r0 do_package: Error executing a python function in=
+ exec_func_python() autogenerated:
+> The stack trace of python calls that resulted in this exception/failure w=
+as:
+> File: 'exec_func_python() autogenerated', lineno: 2, function: <module>
+>      0001:
+>  *** 0002:ptest_update_alternatives(d)
+>      0003:
+> File: '=E2=80=A6/poky/meta/classes/ptest.bbclass', lineno: 100, function:=
+ ptest_update_alternatives
+>      0096:        for alt_name, alt_link, alt_target, _ in alternatives:
+>      0097:            # Some alternatives are for man pages,
+>      0098:            # check if the alternative is in PATH
+>      0099:            if os.path.dirname(alt_link) in bin_paths:
+>  *** 0100:                os.symlink(alt_target, os.path.join(ptest_bindi=
+r, alt_name))
+>      0101:}
+>      0102:
+>      0103:do_configure_ptest_base[dirs] =3D "${B}"
+>      0104:do_compile_ptest_base[dirs] =3D "${B}"
+> Exception: FileExistsError: [Errno 17] File exists: '/bin/busybox.suid' -=
+> '=E2=80=A6/busybox/1.35.0-r0/package/usr/lib/busybox/ptest/bin/login'
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index be7d9f9..299618a 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -1,7 +1,7 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
- #DISTRO_VERSION = "4.1+snapshot-${METADATA_REVISION}"
--DISTRO_VERSION = "4.1.1"
-+DISTRO_VERSION = "4.1.2"
- DISTRO_CODENAME = "langdale"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADATA_REVISION}', 'snapshot')}"
--- 
-2.25.1
+I did confirm that if I:
+
+bitbake busybox -c clean
+<remove ptest from poky.conf>
+bitbake busybox -c package -f
+<add ptest to poky.conf>
+bitbake busybox -c package -f
+
+then it does break as you describe. Thanks for reporting and debugging
+it!
+
+Patches to OE-Core need to go to the openembedded-core mailing list.
+I'd also prefer the patch not to contain whitespace changes as well as
+code changes.
+
+I am a little worried that enabling ptest is changing the busybox
+configuration so before we can merge this, I'd also want to understand
+why the ptest configuration is different. Changing ptest shouldn't
+change busybox configuration?
+
+Cheers,
+
+Richard
+
+
+>=20
+> This happens because ALTERNATIVE:busybox contains `/bin/login` twice,
+> initially that's because `/bin/login` is present in both
+> busybox.links.suid and busybox.links.nosuid. The reason for that is
+> because of the altered autoconf.h. See the diff (not complete here)
+> between autoconf.h before and after do_compile:
+>=20
+> 2887,2890c2887,2894
+> < #undef CONFIG_LOGIN
+> < #define ENABLE_LOGIN 0
+> < #define IF_LOGIN(...)
+> < #define IF_NOT_LOGIN(...) __VA_ARGS__
+> ---
+> > #define CONFIG_LOGIN 1
+> > #define ENABLE_LOGIN 1
+> > #ifdef MAKE_SUID
+> > # define IF_LOGIN(...) __VA_ARGS__ "CONFIG_LOGIN"
+> > #else
+> > # define IF_LOGIN(...) __VA_ARGS__
+> > #endif
+> > #define IF_NOT_LOGIN(...)
+>=20
+> Steps to reproduce above error:
+>=20
+> - Build busybox.
+> - Enable ptest feature.
+> - Re-build busybox.
+>   Build will start from do_compile, and will raise this error.
+>=20
+> This patch replaces include/autoconf.h by the original if previously
+> saved.
+> ---
+>  meta/recipes-core/busybox/busybox.inc | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/meta/recipes-core/busybox/busybox.inc b/meta/recipes-core/bu=
+sybox/busybox.inc
+> index 5f1c473d5e..1fcc4742b6 100644
+> --- a/meta/recipes-core/busybox/busybox.inc
+> +++ b/meta/recipes-core/busybox/busybox.inc
+> @@ -145,6 +145,12 @@ do_compile() {
+>  	export KCONFIG_NOTIMESTAMP=3D1
+>=20
+>  	if [ "${BUSYBOX_SPLIT_SUID}" =3D "1" -a x`grep "CONFIG_FEATURE_INDIVIDU=
+AL=3Dy" .config` =3D x ]; then
+> +		# Restore or save original autoconf.h.
+> +		if [ -f include/autoconf.h.orig ]; then
+> +			cp include/autoconf.h.orig include/autoconf.h
+> +		else
+> +			cp include/autoconf.h include/autoconf.h.orig
+> +		fi
+>  		# split the .config into two parts, and make two busybox binaries
+>  		if [ -e .config.orig ]; then
+>  			# Need to guard again an interrupted do_compile - restore any backup
+> @@ -427,7 +433,7 @@ pkg_postinst:${PN}:prepend () {
+>          # Need path to saved utils, but they may have be removed on upgr=
+ade of busybox
+>          # Only use shell to get paths. Also capture if busybox was saved=
+.
+>          BUSYBOX=3D""
+> -        if [ "x$D" =3D "x" ] ; then
+> +        if [ "x$D" =3D "x" ] ; then
+>             for busybox_rmdir in /tmp/busyboxrm-*; do
+>                 if [ "$busybox_rmdir" !=3D '/tmp/busyboxrm-*' ] ; then
+>                    export PATH=3D$busybox_rmdir:$PATH
+> @@ -447,7 +453,7 @@ pkg_postinst:${PN}:append () {
+>                rm -f $BUSYBOX
+>             fi
+>          fi
+> -}
+> +}
+>=20
+>  pkg_prerm:${PN} () {
+>  	# This is so you can make busybox commit suicide - removing busybox wit=
+h no other packages
+> @@ -475,7 +481,7 @@ pkg_prerm:${PN} () {
+>          if [ -n "$(readlink -f /bin/sh | grep busybox)" ] ; then
+>             BUSYBOX=3D$(readlink -f /bin/sh)
+>             cp $BUSYBOX $tmpdir/$(basename $BUSYBOX)
+> -           update-alternatives --install /bin/sh sh $tmpdir/$(basename $=
+BUSYBOX) 1
+> +           update-alternatives --install /bin/sh sh $tmpdir/$(basename $=
+BUSYBOX) 1
+>          fi
+>  }
+>=20
+> --
+> 2.25.1
+>=20
+>=20
+>=20
+>=20
 
