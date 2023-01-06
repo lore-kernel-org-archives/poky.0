@@ -1,201 +1,213 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
- by mx.groups.io with SMTP id smtpd.web10.16969.1673020132884172405
+Received: from mail-40134.protonmail.ch (mail-40134.protonmail.ch [185.70.40.134])
+ by mx.groups.io with SMTP id smtpd.web11.19160.1673024396024076323
  for <poky@lists.yoctoproject.org>;
- Fri, 06 Jan 2023 07:48:53 -0800
+ Fri, 06 Jan 2023 08:59:57 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=OjyeCOxU;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.50, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f50.google.com with SMTP id bk16so1609461wrb.11
-        for <poky@lists.yoctoproject.org>; Fri, 06 Jan 2023 07:48:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=p1DCksTNm+I+ipMAYqK7wIa2ncHOpYp2WdcYI4EjW3w=;
-        b=OjyeCOxUW/NDTce0JPPvAiALY/J0UHfGA8Yd5fuUQbyFX7nIqmp/k0gL57W+fkSmxf
-         WHWwjg6Nw/5zNHf6Do2E+dnxNNvYZNPOH59N5lQRIDm3yWC5bPP7V7NUtltoC+adI8Hy
-         Xe6DoGSJq/sFHzI8WL88Z4lMElGify0vOuqiE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=p1DCksTNm+I+ipMAYqK7wIa2ncHOpYp2WdcYI4EjW3w=;
-        b=q7xWYuL7YB/5jLGVgBqA0GJ0KVSg0uhN1KqgJjaOXOuD1XxwpG0NIjFq5Iu3hIoL5V
-         HFWwRgJblwDt5mNWd9c6B9xfJVb/azYsdsThtH8xVIL0nfdCwg+mtJ36QHgWaJ36k4Eo
-         cOJoer11503GtwO8qhBSpvsPSWxn00fpuDIPW6UKGg1dZnZyFl+XDlhrNYfg2rwZng9/
-         JjOxWsoyoraB9h/U2CmKhIR1THEjvc5kVoB6GkjBn8r5WED+TMr3JqGKmn6aWmvTGmu8
-         qy4o6467i+n3tFCsdxArzye3pd3WaRf1MacNiYmaAI3h3Bxcksmw1k5G8rjjR/eZ4U8b
-         eU+A==
-X-Gm-Message-State: AFqh2krkoBNp0BO3gm2e3me2//344BbQSkKSJEIvmbetE5okQoR68It9
-	TS6MAGHWLDDdvWgmYcqUaQAANw==
-X-Google-Smtp-Source: AMrXdXtLH52vsUG+H6pVT/OXu2kZcLARI0Od3i6YL93BfVr5e88RU9RYO+EhcsqzDhpQT3FBnNnCoA==
-X-Received: by 2002:adf:e949:0:b0:28b:536c:61c8 with SMTP id m9-20020adfe949000000b0028b536c61c8mr17783823wrn.37.1673020131004;
-        Fri, 06 Jan 2023 07:48:51 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:49cf:c46d:e32d:e951? ([2001:8b0:aba:5f3c:49cf:c46d:e32d:e951])
-        by smtp.gmail.com with ESMTPSA id t3-20020a5d42c3000000b002709e616fa2sm1423776wrr.64.2023.01.06.07.48.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Jan 2023 07:48:49 -0800 (PST)
-Message-ID: <35e3dac0c661b041e04729f46248882faaf85361.camel@linuxfoundation.org>
+ dkim=fail reason="signature has expired" header.i=@pm.me header.s=protonmail3 header.b=Bj6B8UFP;
+ spf=pass (domain: pm.me, ip: 185.70.40.134, mailfrom: antoningodard@pm.me)
+Date: Fri, 06 Jan 2023 16:59:45 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1673024393; x=1673283593;
+	bh=aHWhnWmTGoERfmG/f7cgffE+GLf3h8GFlKMqE9QKprY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Bj6B8UFPZmdvhXahT01ebwreUDyBviiKezZ8qPCmp1144QuzeM32meTlPDrG9oxTN
+	 9KqnUDcIcSc59uX6MQ5CPEsTRirpZBaC2eMyfqThi1ed8LVEmzrjW7OQEoUtTMZxi7
+	 PtQNrwQyFRf+07hZq8L4EqmKilVbdvmWGleJX9Gz1yRIdZm16EeJG3yXQ6DzWAoHib
+	 DuTH3/MR5cElz+VoLX+ZYi/v7H/2zXFL3AH4AbGQ2TirYBf4o1yCLEY+PzdcX0vt+6
+	 dqwJfkbg7ClddJ/uyaCt0WE4DE0GZkFmPkOkIHY2HdS62SubohJmyUH/YkYiPGvaPm
+	 nOhC/6SKMDLwQ==
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+From: "Antonin Godard" <antoningodard@pm.me>
+Cc: poky@lists.yoctoproject.org
 Subject: Re: [poky] [PATCH] busybox: save a copy of autoconf.h before compiling
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: antoningodard@pm.me, poky@lists.yoctoproject.org
-Date: Fri, 06 Jan 2023 15:48:49 +0000
-In-Reply-To: <20221222150904.1058186-1-antoningodard@pm.me>
-References: <20221222150904.1058186-1-antoningodard@pm.me>
-User-Agent: Evolution 3.46.1-0ubuntu1 
+Message-ID: <GXUfGXJNEFlNU8aVUE8NJ3dAJnbDhOp5V6IgngUGMlDN3ycKCuzXvQRqXhfz8nKIE6EJd0v8XX57zW0Jfg--05ANVZJMxr_JkBl3TUIGPig=@pm.me>
+In-Reply-To: <35e3dac0c661b041e04729f46248882faaf85361.camel@linuxfoundation.org>
+References: <20221222150904.1058186-1-antoningodard@pm.me> <35e3dac0c661b041e04729f46248882faaf85361.camel@linuxfoundation.org>
+Feedback-ID: 17651652:user:proton
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2022-12-22 at 15:09 +0000, Antonin Godard via
-lists.yoctoproject.org wrote:
-> Busybox's compiling process alters autoconf.h. When compiling a second
-> time (e.g. with `compile -f`), busybox uses this altered file for
-> compiling, which ultimately produces different binaries.
->=20
-> This can produce errors like this one:
->=20
-> ERROR: busybox-1.35.0-r0 do_package: Error executing a python function in=
- exec_func_python() autogenerated:
-> The stack trace of python calls that resulted in this exception/failure w=
-as:
-> File: 'exec_func_python() autogenerated', lineno: 2, function: <module>
->      0001:
->  *** 0002:ptest_update_alternatives(d)
->      0003:
-> File: '=E2=80=A6/poky/meta/classes/ptest.bbclass', lineno: 100, function:=
- ptest_update_alternatives
->      0096:        for alt_name, alt_link, alt_target, _ in alternatives:
->      0097:            # Some alternatives are for man pages,
->      0098:            # check if the alternative is in PATH
->      0099:            if os.path.dirname(alt_link) in bin_paths:
->  *** 0100:                os.symlink(alt_target, os.path.join(ptest_bindi=
-r, alt_name))
->      0101:}
->      0102:
->      0103:do_configure_ptest_base[dirs] =3D "${B}"
->      0104:do_compile_ptest_base[dirs] =3D "${B}"
-> Exception: FileExistsError: [Errno 17] File exists: '/bin/busybox.suid' -=
-> '=E2=80=A6/busybox/1.35.0-r0/package/usr/lib/busybox/ptest/bin/login'
+Hi Richard,
 
-I did confirm that if I:
+------- Original Message -------
+Le vendredi 6 janvier 2023 =C3=A0 16:48, Richard Purdie <richard.purdie@lin=
+uxfoundation.org> a =C3=A9crit :
+
+
+>
+>
+> On Thu, 2022-12-22 at 15:09 +0000, Antonin Godard via
+> lists.yoctoproject.org wrote:
+>
+> > Busybox's compiling process alters autoconf.h. When compiling a second
+> > time (e.g. with `compile -f`), busybox uses this altered file for
+> > compiling, which ultimately produces different binaries.
+> >
+> > This can produce errors like this one:
+> >
+> > ERROR: busybox-1.35.0-r0 do_package: Error executing a python function =
+in exec_func_python() autogenerated:
+> > The stack trace of python calls that resulted in this exception/failure=
+ was:
+> > File: 'exec_func_python() autogenerated', lineno: 2, function: <module>
+> > 0001:
+> > *** 0002:ptest_update_alternatives(d)
+> > 0003:
+> > File: '=E2=80=A6/poky/meta/classes/ptest.bbclass', lineno: 100, functio=
+n: ptest_update_alternatives
+> > 0096: for alt_name, alt_link, alt_target, _ in alternatives:
+> > 0097: # Some alternatives are for man pages,
+> > 0098: # check if the alternative is in PATH
+> > 0099: if os.path.dirname(alt_link) in bin_paths:
+> > *** 0100: os.symlink(alt_target, os.path.join(ptest_bindir, alt_name))
+> > 0101:}
+> > 0102:
+> > 0103:do_configure_ptest_base[dirs] =3D "${B}"
+> > 0104:do_compile_ptest_base[dirs] =3D "${B}"
+> > Exception: FileExistsError: [Errno 17] File exists: '/bin/busybox.suid'=
+ -> '=E2=80=A6/busybox/1.35.0-r0/package/usr/lib/busybox/ptest/bin/login'
+>
+>
+> I did confirm that if I:
+>
+> bitbake busybox -c clean
+> <remove ptest from poky.conf>
+>
+> bitbake busybox -c package -f
+> <add ptest to poky.conf>
+>
+> bitbake busybox -c package -f
+>
+> then it does break as you describe. Thanks for reporting and debugging
+> it!
+>
+> Patches to OE-Core need to go to the openembedded-core mailing list.
+> I'd also prefer the patch not to contain whitespace changes as well as
+> code changes.
+
+Sure, I'll remove whitespace changes and send the patch to OE-Core.
+I'll add you in copy.
+
+> I am a little worried that enabling ptest is changing the busybox
+> configuration so before we can merge this, I'd also want to understand
+> why the ptest configuration is different. Changing ptest shouldn't
+> change busybox configuration?
+
+Actually adding/removing ptest does not change busybox's configuration
+AFAIK. In fact, I just found that the following reproduces the error
+as well:
+
+<add ptest to poky.conf>
 
 bitbake busybox -c clean
-<remove ptest from poky.conf>
 bitbake busybox -c package -f
-<add ptest to poky.conf>
+bitbake busybox -c compile -f
 bitbake busybox -c package -f
 
-then it does break as you describe. Thanks for reporting and debugging
-it!
+ptest_update_alternatives just seems to be what triggers the error but
+really the problem comes from the fact that busybox.links.suid and
+busybox.links.nosuid both contain /bin/login. So the problem does seem
+to be compiling busybox twice when BUSYBOX_SPLIT_SUID is set. Without ptest=
+s
+the error remains but is unnoticed I believe.
 
-Patches to OE-Core need to go to the openembedded-core mailing list.
-I'd also prefer the patch not to contain whitespace changes as well as
-code changes.
+-Antonin
 
-I am a little worried that enabling ptest is changing the busybox
-configuration so before we can merge this, I'd also want to understand
-why the ptest configuration is different. Changing ptest shouldn't
-change busybox configuration?
-
-Cheers,
-
-Richard
-
-
->=20
-> This happens because ALTERNATIVE:busybox contains `/bin/login` twice,
-> initially that's because `/bin/login` is present in both
-> busybox.links.suid and busybox.links.nosuid. The reason for that is
-> because of the altered autoconf.h. See the diff (not complete here)
-> between autoconf.h before and after do_compile:
->=20
-> 2887,2890c2887,2894
-> < #undef CONFIG_LOGIN
-> < #define ENABLE_LOGIN 0
-> < #define IF_LOGIN(...)
-> < #define IF_NOT_LOGIN(...) __VA_ARGS__
-> ---
-> > #define CONFIG_LOGIN 1
-> > #define ENABLE_LOGIN 1
-> > #ifdef MAKE_SUID
-> > # define IF_LOGIN(...) __VA_ARGS__ "CONFIG_LOGIN"
-> > #else
-> > # define IF_LOGIN(...) __VA_ARGS__
-> > #endif
-> > #define IF_NOT_LOGIN(...)
->=20
-> Steps to reproduce above error:
->=20
-> - Build busybox.
-> - Enable ptest feature.
-> - Re-build busybox.
->   Build will start from do_compile, and will raise this error.
->=20
-> This patch replaces include/autoconf.h by the original if previously
-> saved.
-> ---
->  meta/recipes-core/busybox/busybox.inc | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
->=20
-> diff --git a/meta/recipes-core/busybox/busybox.inc b/meta/recipes-core/bu=
-sybox/busybox.inc
-> index 5f1c473d5e..1fcc4742b6 100644
-> --- a/meta/recipes-core/busybox/busybox.inc
-> +++ b/meta/recipes-core/busybox/busybox.inc
-> @@ -145,6 +145,12 @@ do_compile() {
->  	export KCONFIG_NOTIMESTAMP=3D1
->=20
->  	if [ "${BUSYBOX_SPLIT_SUID}" =3D "1" -a x`grep "CONFIG_FEATURE_INDIVIDU=
+> Cheers,
+>
+> Richard
+>
+> > This happens because ALTERNATIVE:busybox contains `/bin/login` twice,
+> > initially that's because `/bin/login` is present in both
+> > busybox.links.suid and busybox.links.nosuid. The reason for that is
+> > because of the altered autoconf.h. See the diff (not complete here)
+> > between autoconf.h before and after do_compile:
+> >
+> > 2887,2890c2887,2894
+> > < #undef CONFIG_LOGIN
+> > < #define ENABLE_LOGIN 0
+> > < #define IF_LOGIN(...)
+> > < #define IF_NOT_LOGIN(...) VA_ARGS
+> > ---
+> >
+> > > #define CONFIG_LOGIN 1
+> > > #define ENABLE_LOGIN 1
+> > > #ifdef MAKE_SUID
+> > > # define IF_LOGIN(...) VA_ARGS "CONFIG_LOGIN"
+> > > #else
+> > > # define IF_LOGIN(...) VA_ARGS
+> > > #endif
+> > > #define IF_NOT_LOGIN(...)
+> >
+> > Steps to reproduce above error:
+> >
+> > - Build busybox.
+> > - Enable ptest feature.
+> > - Re-build busybox.
+> > Build will start from do_compile, and will raise this error.
+> >
+> > This patch replaces include/autoconf.h by the original if previously
+> > saved.
+> > ---
+> > meta/recipes-core/busybox/busybox.inc | 12 +++++++++---
+> > 1 file changed, 9 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/meta/recipes-core/busybox/busybox.inc b/meta/recipes-core/=
+busybox/busybox.inc
+> > index 5f1c473d5e..1fcc4742b6 100644
+> > --- a/meta/recipes-core/busybox/busybox.inc
+> > +++ b/meta/recipes-core/busybox/busybox.inc
+> > @@ -145,6 +145,12 @@ do_compile() {
+> > export KCONFIG_NOTIMESTAMP=3D1
+> >
+> > if [ "${BUSYBOX_SPLIT_SUID}" =3D "1" -a x`grep "CONFIG_FEATURE_INDIVIDU=
 AL=3Dy" .config` =3D x ]; then
-> +		# Restore or save original autoconf.h.
-> +		if [ -f include/autoconf.h.orig ]; then
-> +			cp include/autoconf.h.orig include/autoconf.h
-> +		else
-> +			cp include/autoconf.h include/autoconf.h.orig
-> +		fi
->  		# split the .config into two parts, and make two busybox binaries
->  		if [ -e .config.orig ]; then
->  			# Need to guard again an interrupted do_compile - restore any backup
-> @@ -427,7 +433,7 @@ pkg_postinst:${PN}:prepend () {
->          # Need path to saved utils, but they may have be removed on upgr=
-ade of busybox
->          # Only use shell to get paths. Also capture if busybox was saved=
-.
->          BUSYBOX=3D""
-> -        if [ "x$D" =3D "x" ] ; then
-> +        if [ "x$D" =3D "x" ] ; then
->             for busybox_rmdir in /tmp/busyboxrm-*; do
->                 if [ "$busybox_rmdir" !=3D '/tmp/busyboxrm-*' ] ; then
->                    export PATH=3D$busybox_rmdir:$PATH
-> @@ -447,7 +453,7 @@ pkg_postinst:${PN}:append () {
->                rm -f $BUSYBOX
->             fi
->          fi
-> -}
-> +}
->=20
->  pkg_prerm:${PN} () {
->  	# This is so you can make busybox commit suicide - removing busybox wit=
+> > + # Restore or save original autoconf.h.
+> > + if [ -f include/autoconf.h.orig ]; then
+> > + cp include/autoconf.h.orig include/autoconf.h
+> > + else
+> > + cp include/autoconf.h include/autoconf.h.orig
+> > + fi
+> > # split the .config into two parts, and make two busybox binaries
+> > if [ -e .config.orig ]; then
+> > # Need to guard again an interrupted do_compile - restore any backup
+> > @@ -427,7 +433,7 @@ pkg_postinst:${PN}:prepend () {
+> > # Need path to saved utils, but they may have be removed on upgrade of =
+busybox
+> > # Only use shell to get paths. Also capture if busybox was saved.
+> > BUSYBOX=3D""
+> > - if [ "x$D" =3D "x" ] ; then
+> > + if [ "x$D" =3D "x" ] ; then
+> > for busybox_rmdir in /tmp/busyboxrm-; do
+> > if [ "$busybox_rmdir" !=3D '/tmp/busyboxrm-' ] ; then
+> > export PATH=3D$busybox_rmdir:$PATH
+> > @@ -447,7 +453,7 @@ pkg_postinst:${PN}:append () {
+> > rm -f $BUSYBOX
+> > fi
+> > fi
+> > -}
+> > +}
+> >
+> > pkg_prerm:${PN} () {
+> > # This is so you can make busybox commit suicide - removing busybox wit=
 h no other packages
-> @@ -475,7 +481,7 @@ pkg_prerm:${PN} () {
->          if [ -n "$(readlink -f /bin/sh | grep busybox)" ] ; then
->             BUSYBOX=3D$(readlink -f /bin/sh)
->             cp $BUSYBOX $tmpdir/$(basename $BUSYBOX)
-> -           update-alternatives --install /bin/sh sh $tmpdir/$(basename $=
-BUSYBOX) 1
-> +           update-alternatives --install /bin/sh sh $tmpdir/$(basename $=
-BUSYBOX) 1
->          fi
->  }
+> > @@ -475,7 +481,7 @@ pkg_prerm:${PN} () {
+> > if [ -n "$(readlink -f /bin/sh | grep busybox)" ] ; then
+> > BUSYBOX=3D$(readlink -f /bin/sh)
+> > cp $BUSYBOX $tmpdir/$(basename $BUSYBOX)
+> > - update-alternatives --install /bin/sh sh $tmpdir/$(basename $BUSYBOX)=
+ 1
+> > + update-alternatives --install /bin/sh sh $tmpdir/$(basename $BUSYBOX)=
+ 1
+> > fi
+> > }
+> >
+> > --
+> > 2.25.1
+>
+>
+>
 >=20
-> --
-> 2.25.1
->=20
->=20
->=20
->=20
-
