@@ -1,67 +1,108 @@
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- by mx.groups.io with SMTP id smtpd.web11.109345.1673369376485744097
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+ by mx.groups.io with SMTP id smtpd.web11.110023.1673370636423912663
  for <poky@lists.yoctoproject.org>;
- Tue, 10 Jan 2023 08:49:37 -0800
+ Tue, 10 Jan 2023 09:10:36 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@axis.com header.s=axis-central1 header.b=H0pUb1kj;
- spf=pass (domain: axis.com, ip: 195.60.68.18, mailfrom: peter.kjellerstedt@axis.com)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=fZ/CnV2A;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.46, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f46.google.com with SMTP id i17-20020a05600c355100b003d99434b1cfso10639191wmq.1
+        for <poky@lists.yoctoproject.org>; Tue, 10 Jan 2023 09:10:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=axis.com; q=dns/txt; s=axis-central1; t=1673369377;
-  x=1704905377;
-  h=from:to:subject:date:message-id:references:in-reply-to:
-   content-transfer-encoding:mime-version;
-  bh=yjaeuohrFZJkoCaNfSOQPABOn7CymzvT/ebcaM3mc0g=;
-  b=H0pUb1kjmbd9u3rZCaZSaUAZ3dCoiLTd6bRSGgm1OAKuisYhgyOvMqnA
-   ReC2g4tZ2j9w9MGcGlFrDoc4KDj4Dvy+cdMc7KwqKXijv7totFzfUIY6R
-   jByYeONFVB2pVGY2aNZyrFCr/1ajn/Dmdw/2aPj2PrXBcqALEHtV+1WM0
-   CSCygghhH5vXoAtUMZ/deU2nVYs5h4drUHiH00h+b4TvNLmGux/BAM5Wk
-   W5rr9A/ogOl82bcRloGYLeUL0zsHReQdDPIUaWVIC+5GMjwasANTW9LwZ
-   Rc5g/D0vWsesDZ/JorJEYGodTeS4whXKQrWyjNRcg0QF7657vVdnesBA5
-   Q==;
-From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>,
-	"poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+        d=linuxfoundation.org; s=google;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fiSewnIVv984sJVPYOAzw38uu3EVkB97WAqkFiET9H8=;
+        b=fZ/CnV2AOL3vtFM7lOs8i7d5BSYugB3vEkwXSaC8AH4K3BWvy1l6lCrXxolOzSCEAL
+         ponUJvt0t8VtBodQRwdiO8gUkBiBaeuXXfEj2jrGFSFqA3iQWL//HvnG4O+RG9anF8Fv
+         SdoZ7OKZObFOuRx12m+Ar954vX49xcmN9+ytQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=fiSewnIVv984sJVPYOAzw38uu3EVkB97WAqkFiET9H8=;
+        b=b/SHWhINQs9C6ibU4IWKVOQvQ96ZVMGT/p45F6UrqqaC8XYo0jhGP1aKNmTj1OkjOO
+         9FPFbHAqRFiO/xjE3VQWSH+S/QKnyVP8S43rIcM2buwmT4vnXlnL1ZtnVnLgK6JOfzoQ
+         NLvoYbbY0oeS8gZaTGLrEBz+c/Uhj1hNtsB3655aP0mKLuKEs+2D/CU7Kgr0UCg9625o
+         SmbGERp4SPbOLLyPaeE1DIxv873yydKlIvs4Th8oyaB5bIzkJmz2Hg7CpxfPqOqg7BYa
+         HjvhmmcjVAq/UUkZuSBDjHwKJlxM7C26FEkoL8GDTgmZGsWZlptVcHF5REw0t327+2hO
+         6RVQ==
+X-Gm-Message-State: AFqh2krdc01+WIWwZNRBiEjQPl3pMU8Sir1rGfLKxUGiY1MqFlFtfwfA
+	kXWjCFBzAu/U9S7zbszebH7PsA==
+X-Google-Smtp-Source: AMrXdXupFVO5Vd1zuRFKEtZqZHPI2DLQXEWhixne5z6mCOtW2jMxewfAJiQve8uJG2mnMNiFh993wQ==
+X-Received: by 2002:a05:600c:b8b:b0:3d9:f8a1:2bde with SMTP id fl11-20020a05600c0b8b00b003d9f8a12bdemr2454497wmb.18.1673370634864;
+        Tue, 10 Jan 2023 09:10:34 -0800 (PST)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from ?IPv6:2001:8b0:aba:5f3c:ef35:464f:aac3:7a? ([2001:8b0:aba:5f3c:ef35:464f:aac3:7a])
+        by smtp.gmail.com with ESMTPSA id n9-20020a05600c4f8900b003d96b8e9bcasm22249563wmq.32.2023.01.10.09.10.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 10 Jan 2023 09:10:34 -0800 (PST)
+Message-ID: <64e0c6f14b7e0a96bb31c68d787d4f4d89af1c38.camel@linuxfoundation.org>
 Subject: Re: [poky] [PATCH] poky.conf: Switch to post release name/version
-Thread-Topic: [poky] [PATCH] poky.conf: Switch to post release name/version
-Thread-Index: AQHZJQcm2l0FU4DX3U6RKbo43NQT2a6X2xdA
-Date: Tue, 10 Jan 2023 16:49:34 +0000
-Message-ID: <98c150c64275429cabad3e6de72ab727@axis.com>
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>, 
+	"poky@lists.yoctoproject.org"
+	 <poky@lists.yoctoproject.org>
+Date: Tue, 10 Jan 2023 17:10:33 +0000
+In-Reply-To: <98c150c64275429cabad3e6de72ab727@axis.com>
 References: <20230110151811.2602621-1-pkj@axis.com>
- <4f064e6c849b715805f4217d8c63563bb05e19c5.camel@linuxfoundation.org>
-In-Reply-To: <4f064e6c849b715805f4217d8c63563bb05e19c5.camel@linuxfoundation.org>
-Accept-Language: en-US, sv-SE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.0.5.60]
+	 <4f064e6c849b715805f4217d8c63563bb05e19c5.camel@linuxfoundation.org>
+	 <98c150c64275429cabad3e6de72ab727@axis.com>
+User-Agent: Evolution 3.46.1-0ubuntu1 
 MIME-Version: 1.0
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBSaWNoYXJkIFB1cmRpZSA8cmlj
-aGFyZC5wdXJkaWVAbGludXhmb3VuZGF0aW9uLm9yZz4NCj4gU2VudDogZGVuIDEwIGphbnVhcmkg
-MjAyMyAxNjoyMQ0KPiBUbzogUGV0ZXIgS2plbGxlcnN0ZWR0IDxwZXRlci5ramVsbGVyc3RlZHRA
-YXhpcy5jb20+OyBwb2t5QGxpc3RzLnlvY3RvcHJvamVjdC5vcmcNCj4gU3ViamVjdDogUmU6IFtw
-b2t5XSBbUEFUQ0hdIHBva3kuY29uZjogU3dpdGNoIHRvIHBvc3QgcmVsZWFzZSBuYW1lL3ZlcnNp
-b24NCj4gDQo+IE9uIFR1ZSwgMjAyMy0wMS0xMCBhdCAxNjoxOCArMDEwMCwgUGV0ZXIgS2plbGxl
-cnN0ZWR0IHdyb3RlOg0KPiA+IFNpZ25lZC1vZmYtYnk6IFBldGVyIEtqZWxsZXJzdGVkdCA8cGV0
-ZXIua2plbGxlcnN0ZWR0QGF4aXMuY29tPg0KPiA+IC0tLQ0KPiA+ICBtZXRhLXBva3kvY29uZi9k
-aXN0cm8vcG9reS5jb25mIHwgNSArKy0tLQ0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRp
-b25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL21ldGEtcG9reS9j
-b25mL2Rpc3Ryby9wb2t5LmNvbmYgYi9tZXRhLXBva3kvY29uZi9kaXN0cm8vcG9reS5jb25mDQo+
-ID4gaW5kZXggZGMwZThlNzZhYi4uYTg3NmRkZGU5NCAxMDA2NDQNCj4gPiAtLS0gYS9tZXRhLXBv
-a3kvY29uZi9kaXN0cm8vcG9reS5jb25mDQo+ID4gKysrIGIvbWV0YS1wb2t5L2NvbmYvZGlzdHJv
-L3Bva3kuY29uZg0KPiA+IEBAIC0xLDggKzEsNyBAQA0KPiA+ICBESVNUUk8gPSAicG9reSINCj4g
-PiAgRElTVFJPX05BTUUgPSAiUG9reSAoWW9jdG8gUHJvamVjdCBSZWZlcmVuY2UgRGlzdHJvKSIN
-Cj4gPiAtI0RJU1RST19WRVJTSU9OID0gIjQuMStzbmFwc2hvdC0ke01FVEFEQVRBX1JFVklTSU9O
-fSINCj4gPiAtRElTVFJPX1ZFUlNJT04gPSAiNC4xIg0KPiA+IC1ESVNUUk9fQ09ERU5BTUUgPSAi
-bGFuZ2RhbGUiDQo+ID4gK0RJU1RST19WRVJTSU9OID0gIjQuMitzbmFwc2hvdC0ke01FVEFEQVRB
-X1JFVklTSU9OfSINCj4gPiArRElTVFJPX0NPREVOQU1FID0gIm1pY2tsZWRvcmUiDQo+ID4gIFNE
-S19WRU5ET1IgPSAiLXBva3lzZGsiDQo+ID4gIFNES19WRVJTSU9OID0gIiR7QGQuZ2V0VmFyKCdE
-SVNUUk9fVkVSU0lPTicpLnJlcGxhY2UoJ3NuYXBzaG90LSR7TUVUQURBVEFfUkVWSVNJT059Jywg
-J3NuYXBzaG90Jyl9Ig0KPiA+ICBTREtfVkVSU0lPTlt2YXJkZXB2YWx1ZV0gPSAiJHtTREtfVkVS
-U0lPTn0iDQo+IA0KPiBUaGUgY29kZW5hbWUgY2hhbmdlIGlzIG9rIGJ1dCB0aGUgdmVyc2lvbiBp
-cyBub3QgNC4yIHBsdXMgc29tZXRoaW5nDQo+IHNpbmNlIHdlIGhhdmVuJ3QgcmVsZWFzZWQgNC4y
-IHlldC4NCj4gDQo+IENoZWVycywNCj4gDQo+IFJpY2hhcmQNCg0KSSBqdXN0IGZvbGxvd2VkIGhv
-dyB5b3UgZGlkIGl0IGluIGNvbW1pdCANCmU2ZjRhN2Y3NmI4YTYwZjM2NWExMTFlMGIzOGQ2ZDUw
-OTBhMGIwMDMgZm9yIExhbmdkYWxlLi4uDQoNCi8vUGV0ZXINCg0K
+On Tue, 2023-01-10 at 16:49 +0000, Peter Kjellerstedt wrote:
+> > -----Original Message-----
+> > From: Richard Purdie <richard.purdie@linuxfoundation.org>
+> > Sent: den 10 januari 2023 16:21
+> > To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>;
+> > poky@lists.yoctoproject.org
+> > Subject: Re: [poky] [PATCH] poky.conf: Switch to post release
+> > name/version
+> >=20
+> > On Tue, 2023-01-10 at 16:18 +0100, Peter Kjellerstedt wrote:
+> > > Signed-off-by: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+> > > ---
+> > > =C2=A0meta-poky/conf/distro/poky.conf | 5 ++---
+> > > =C2=A01 file changed, 2 insertions(+), 3 deletions(-)
+> > >=20
+> > > diff --git a/meta-poky/conf/distro/poky.conf b/meta-
+> > > poky/conf/distro/poky.conf
+> > > index dc0e8e76ab..a876ddde94 100644
+> > > --- a/meta-poky/conf/distro/poky.conf
+> > > +++ b/meta-poky/conf/distro/poky.conf
+> > > @@ -1,8 +1,7 @@
+> > > =C2=A0DISTRO =3D "poky"
+> > > =C2=A0DISTRO_NAME =3D "Poky (Yocto Project Reference Distro)"
+> > > -#DISTRO_VERSION =3D "4.1+snapshot-${METADATA_REVISION}"
+> > > -DISTRO_VERSION =3D "4.1"
+> > > -DISTRO_CODENAME =3D "langdale"
+> > > +DISTRO_VERSION =3D "4.2+snapshot-${METADATA_REVISION}"
+> > > +DISTRO_CODENAME =3D "mickledore"
+> > > =C2=A0SDK_VENDOR =3D "-pokysdk"
+> > > =C2=A0SDK_VERSION =3D "${@d.getVar('DISTRO_VERSION').replace('snapsho=
+t-
+> > > ${METADATA_REVISION}', 'snapshot')}"
+> > > =C2=A0SDK_VERSION[vardepvalue] =3D "${SDK_VERSION}"
+> >=20
+> > The codename change is ok but the version is not 4.2 plus something
+> > since we haven't released 4.2 yet.
+> >=20
+> > Cheers,
+> >=20
+> > Richard
+>=20
+> I just followed how you did it in commit=20
+> e6f4a7f76b8a60f365a111e0b38d6d5090a0b003 for Langdale...
+
+The key difference is probably the timing, was that post release or
+close to it?
+
+Cheers,
+
+Richard
+
+
