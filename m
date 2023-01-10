@@ -1,84 +1,67 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
- by mx.groups.io with SMTP id smtpd.web11.106582.1673364066291308530
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ by mx.groups.io with SMTP id smtpd.web11.109345.1673369376485744097
  for <poky@lists.yoctoproject.org>;
- Tue, 10 Jan 2023 07:21:07 -0800
+ Tue, 10 Jan 2023 08:49:37 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=FPImRAMI;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.51, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f51.google.com with SMTP id p1-20020a05600c1d8100b003d8c9b191e0so10280948wms.4
-        for <poky@lists.yoctoproject.org>; Tue, 10 Jan 2023 07:21:05 -0800 (PST)
+ dkim=pass header.i=@axis.com header.s=axis-central1 header.b=H0pUb1kj;
+ spf=pass (domain: axis.com, ip: 195.60.68.18, mailfrom: peter.kjellerstedt@axis.com)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XaSUsVHUijNAY5dgIXvQhrGm0m8ooxkDJcG4jRoEVXw=;
-        b=FPImRAMIvJqiPYZ2ZYDde/ENPor1ycN6TzZTTAPeMku/KV3CGKVxphUl+B6NkCYcMg
-         dy8BCgCdIIn/6OUAiYIQm5WN7GOZZRZI3zQTBPXjhauUdWP37/NZeHWlhx3O97LzJfm6
-         ciK9AoqenJ2hA95pFcHlNgAa5XgvvX/5wAE7k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=XaSUsVHUijNAY5dgIXvQhrGm0m8ooxkDJcG4jRoEVXw=;
-        b=X+swqOPvjrKdAChZz3m3DZWnVoHd+tvNsnQJG9dwCU4dqOObz/n+xmghwM4JmnWLgq
-         MkIG7oD+KW4NiC3QWkYGt4Zo2QOt/Ke/9UD3z2nR69XxMREk/to3EYIulV2f6gJefjlc
-         bQq3SQtamCGRwZoM/uTJMXOBxk2Xz4anszun1pSoC5FcJNqW8/aQS3RY9zT9MTI9c86Q
-         LN9yYi2M0mn13TFEJUn9zD4m4FW5QozofFKi5ao+ABehzqtW57rRCZ/JICOmfq7jNvyZ
-         zQtQcMz7QWMgBZqtOJ2wNfWOZLU8MxTTELg9165/xIZSg+ygcs7K2sQDltuq20PoSr5P
-         sl0A==
-X-Gm-Message-State: AFqh2krez4y+0oDgQkbZw7SlBK9sR87idh6zBi/6V6D/NQgc1uRMfwBb
-	3nTgBPCj1HePmhBQqa3IZq4JqKW2fC0bvpHK
-X-Google-Smtp-Source: AMrXdXvaF1J7pY2N4VGMhhuBbxQC4FjaMNJhIoEe64bYKoVia0/Ulj4nk0eRxaHu/kv7VZSqRbvw8Q==
-X-Received: by 2002:a05:600c:4148:b0:3d3:52bb:3985 with SMTP id h8-20020a05600c414800b003d352bb3985mr49581795wmm.31.1673364064387;
-        Tue, 10 Jan 2023 07:21:04 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:ef35:464f:aac3:7a? ([2001:8b0:aba:5f3c:ef35:464f:aac3:7a])
-        by smtp.gmail.com with ESMTPSA id i10-20020adff30a000000b0024228b0b932sm13910964wro.27.2023.01.10.07.21.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Jan 2023 07:21:03 -0800 (PST)
-Message-ID: <4f064e6c849b715805f4217d8c63563bb05e19c5.camel@linuxfoundation.org>
+  d=axis.com; q=dns/txt; s=axis-central1; t=1673369377;
+  x=1704905377;
+  h=from:to:subject:date:message-id:references:in-reply-to:
+   content-transfer-encoding:mime-version;
+  bh=yjaeuohrFZJkoCaNfSOQPABOn7CymzvT/ebcaM3mc0g=;
+  b=H0pUb1kjmbd9u3rZCaZSaUAZ3dCoiLTd6bRSGgm1OAKuisYhgyOvMqnA
+   ReC2g4tZ2j9w9MGcGlFrDoc4KDj4Dvy+cdMc7KwqKXijv7totFzfUIY6R
+   jByYeONFVB2pVGY2aNZyrFCr/1ajn/Dmdw/2aPj2PrXBcqALEHtV+1WM0
+   CSCygghhH5vXoAtUMZ/deU2nVYs5h4drUHiH00h+b4TvNLmGux/BAM5Wk
+   W5rr9A/ogOl82bcRloGYLeUL0zsHReQdDPIUaWVIC+5GMjwasANTW9LwZ
+   Rc5g/D0vWsesDZ/JorJEYGodTeS4whXKQrWyjNRcg0QF7657vVdnesBA5
+   Q==;
+From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>,
+	"poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
 Subject: Re: [poky] [PATCH] poky.conf: Switch to post release name/version
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>, 
-	poky@lists.yoctoproject.org
-Date: Tue, 10 Jan 2023 15:21:03 +0000
-In-Reply-To: <20230110151811.2602621-1-pkj@axis.com>
+Thread-Topic: [poky] [PATCH] poky.conf: Switch to post release name/version
+Thread-Index: AQHZJQcm2l0FU4DX3U6RKbo43NQT2a6X2xdA
+Date: Tue, 10 Jan 2023 16:49:34 +0000
+Message-ID: <98c150c64275429cabad3e6de72ab727@axis.com>
 References: <20230110151811.2602621-1-pkj@axis.com>
-User-Agent: Evolution 3.46.1-0ubuntu1 
+ <4f064e6c849b715805f4217d8c63563bb05e19c5.camel@linuxfoundation.org>
+In-Reply-To: <4f064e6c849b715805f4217d8c63563bb05e19c5.camel@linuxfoundation.org>
+Accept-Language: en-US, sv-SE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.0.5.60]
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Tue, 2023-01-10 at 16:18 +0100, Peter Kjellerstedt wrote:
-> Signed-off-by: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
-> ---
->  meta-poky/conf/distro/poky.conf | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
->=20
-> diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky=
-.conf
-> index dc0e8e76ab..a876ddde94 100644
-> --- a/meta-poky/conf/distro/poky.conf
-> +++ b/meta-poky/conf/distro/poky.conf
-> @@ -1,8 +1,7 @@
->  DISTRO =3D "poky"
->  DISTRO_NAME =3D "Poky (Yocto Project Reference Distro)"
-> -#DISTRO_VERSION =3D "4.1+snapshot-${METADATA_REVISION}"
-> -DISTRO_VERSION =3D "4.1"
-> -DISTRO_CODENAME =3D "langdale"
-> +DISTRO_VERSION =3D "4.2+snapshot-${METADATA_REVISION}"
-> +DISTRO_CODENAME =3D "mickledore"
->  SDK_VENDOR =3D "-pokysdk"
->  SDK_VERSION =3D "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METAD=
-ATA_REVISION}', 'snapshot')}"
->  SDK_VERSION[vardepvalue] =3D "${SDK_VERSION}"
-
-The codename change is ok but the version is not 4.2 plus something
-since we haven't released 4.2 yet.
-
-Cheers,
-
-Richard
-
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBSaWNoYXJkIFB1cmRpZSA8cmlj
+aGFyZC5wdXJkaWVAbGludXhmb3VuZGF0aW9uLm9yZz4NCj4gU2VudDogZGVuIDEwIGphbnVhcmkg
+MjAyMyAxNjoyMQ0KPiBUbzogUGV0ZXIgS2plbGxlcnN0ZWR0IDxwZXRlci5ramVsbGVyc3RlZHRA
+YXhpcy5jb20+OyBwb2t5QGxpc3RzLnlvY3RvcHJvamVjdC5vcmcNCj4gU3ViamVjdDogUmU6IFtw
+b2t5XSBbUEFUQ0hdIHBva3kuY29uZjogU3dpdGNoIHRvIHBvc3QgcmVsZWFzZSBuYW1lL3ZlcnNp
+b24NCj4gDQo+IE9uIFR1ZSwgMjAyMy0wMS0xMCBhdCAxNjoxOCArMDEwMCwgUGV0ZXIgS2plbGxl
+cnN0ZWR0IHdyb3RlOg0KPiA+IFNpZ25lZC1vZmYtYnk6IFBldGVyIEtqZWxsZXJzdGVkdCA8cGV0
+ZXIua2plbGxlcnN0ZWR0QGF4aXMuY29tPg0KPiA+IC0tLQ0KPiA+ICBtZXRhLXBva3kvY29uZi9k
+aXN0cm8vcG9reS5jb25mIHwgNSArKy0tLQ0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRp
+b25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL21ldGEtcG9reS9j
+b25mL2Rpc3Ryby9wb2t5LmNvbmYgYi9tZXRhLXBva3kvY29uZi9kaXN0cm8vcG9reS5jb25mDQo+
+ID4gaW5kZXggZGMwZThlNzZhYi4uYTg3NmRkZGU5NCAxMDA2NDQNCj4gPiAtLS0gYS9tZXRhLXBv
+a3kvY29uZi9kaXN0cm8vcG9reS5jb25mDQo+ID4gKysrIGIvbWV0YS1wb2t5L2NvbmYvZGlzdHJv
+L3Bva3kuY29uZg0KPiA+IEBAIC0xLDggKzEsNyBAQA0KPiA+ICBESVNUUk8gPSAicG9reSINCj4g
+PiAgRElTVFJPX05BTUUgPSAiUG9reSAoWW9jdG8gUHJvamVjdCBSZWZlcmVuY2UgRGlzdHJvKSIN
+Cj4gPiAtI0RJU1RST19WRVJTSU9OID0gIjQuMStzbmFwc2hvdC0ke01FVEFEQVRBX1JFVklTSU9O
+fSINCj4gPiAtRElTVFJPX1ZFUlNJT04gPSAiNC4xIg0KPiA+IC1ESVNUUk9fQ09ERU5BTUUgPSAi
+bGFuZ2RhbGUiDQo+ID4gK0RJU1RST19WRVJTSU9OID0gIjQuMitzbmFwc2hvdC0ke01FVEFEQVRB
+X1JFVklTSU9OfSINCj4gPiArRElTVFJPX0NPREVOQU1FID0gIm1pY2tsZWRvcmUiDQo+ID4gIFNE
+S19WRU5ET1IgPSAiLXBva3lzZGsiDQo+ID4gIFNES19WRVJTSU9OID0gIiR7QGQuZ2V0VmFyKCdE
+SVNUUk9fVkVSU0lPTicpLnJlcGxhY2UoJ3NuYXBzaG90LSR7TUVUQURBVEFfUkVWSVNJT059Jywg
+J3NuYXBzaG90Jyl9Ig0KPiA+ICBTREtfVkVSU0lPTlt2YXJkZXB2YWx1ZV0gPSAiJHtTREtfVkVS
+U0lPTn0iDQo+IA0KPiBUaGUgY29kZW5hbWUgY2hhbmdlIGlzIG9rIGJ1dCB0aGUgdmVyc2lvbiBp
+cyBub3QgNC4yIHBsdXMgc29tZXRoaW5nDQo+IHNpbmNlIHdlIGhhdmVuJ3QgcmVsZWFzZWQgNC4y
+IHlldC4NCj4gDQo+IENoZWVycywNCj4gDQo+IFJpY2hhcmQNCg0KSSBqdXN0IGZvbGxvd2VkIGhv
+dyB5b3UgZGlkIGl0IGluIGNvbW1pdCANCmU2ZjRhN2Y3NmI4YTYwZjM2NWExMTFlMGIzOGQ2ZDUw
+OTBhMGIwMDMgZm9yIExhbmdkYWxlLi4uDQoNCi8vUGV0ZXINCg0K
