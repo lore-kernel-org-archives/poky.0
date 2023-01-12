@@ -1,54 +1,61 @@
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- by mx.groups.io with SMTP id smtpd.web10.19975.1673430192858674991
+Received: from mail.socneth.com (mail.socneth.com [54.36.198.193])
+ by mx.groups.io with SMTP id smtpd.web11.52407.1673521905696973552
  for <poky@lists.yoctoproject.org>;
- Wed, 11 Jan 2023 01:43:13 -0800
+ Thu, 12 Jan 2023 03:11:46 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@axis.com header.s=axis-central1 header.b=IjsXfmjU;
- spf=pass (domain: axis.com, ip: 195.60.68.18, mailfrom: peter.kjellerstedt@axis.com)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=axis.com; q=dns/txt; s=axis-central1; t=1673430193;
-  x=1704966193;
-  h=from:to:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=BfELLTdEMbU+py7b41wNaq7Cb8naFyeDDAn1kTKsL6s=;
-  b=IjsXfmjUqwIJZT9VS6EEp+fjDXt76PYV6ex4HyJgLOI80aD2ZMxvYiC7
-   oSNIWcxZuCckHWlBzpWlH/v6c4PqXKUnKlAnLqxICX4PgAF2zCTLX/thl
-   DJqQHTf/WgnvSb3o2nfwxZwriCCeA20t7UcIVwhNiUa2/vd5AjMekM1Vd
-   gKFFHzXCR3h2S60jQ1481MV5GxbWksNKfRwdT4N/StPOd6mOxpxuAw79U
-   +OXquPxPuSS/goEk8zEHASKYuD8vVBlta1yD1P7I0mjzUwzogAqrkd/Tc
-   8vyXaz8XqCdeIPa4nzS8S8FqdDbMSMAEY8IphWe6VPpAfFA4KMlhmEXY0
-   w==;
-From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
-To: <poky@lists.yoctoproject.org>
-Subject: [PATCHv2] poky.conf: Switch to post release name/version
-Date: Wed, 11 Jan 2023 10:42:58 +0100
-Message-ID: <20230111094258.3472270-1-pkj@axis.com>
-X-Mailer: git-send-email 2.38.1
+ dkim=fail reason="body hash did not verify" header.i=@beneth.fr header.s=mail header.b=KhRa1Xkh;
+ spf=pass (domain: beneth.fr, ip: 54.36.198.193, mailfrom: bmauduit@beneth.fr)
+From: =?UTF-8?B?QmVub8OudCBNYXVkdWl0?= <bmauduit@beneth.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=beneth.fr; s=mail;
+	t=1673521903;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S33HcobrN6BgdoGL04wgO+cdoD7W/O4vvIYGCsccrPE=;
+	b=KhRa1XkhVdLId7vG0pMuODWw0uP067RFLKNbkyD42GEmW0P3R8VYan1FBQaVsTxJYi3jQ0
+	FNNa6M73ZVtWz+CkDaZz2UQYC0ClsbXA2feipgbVtJpOnNaysDVP8ZLvgXpU2If7T2IOwy
+	Gk733s7r6hrIeFNORxjImpNtlxwV2VjiVb2at+gMXoVq5sZ7SalNlY8xcWQB9MP1bE9rnJ
+	5vVJwSog/SwjEZ3WP5nPOuc/eh8wTu0+Sw/x4sCHJlSai7jRRj0olMkigw3g4SVNVgjVCc
+	g7oDmPOruK7HHoYHPu4Vlp1ebdZOj9HMNthvd+9ZvOBJ1o//8eWfTHZtn0mCbA==
+To: poky@lists.yoctoproject.org
+Cc: =?UTF-8?q?Beno=C3=AEt=20Mauduit?= <bmauduit@beneth.fr>
+Subject: [PATCH 1/1] lib/oe/reproducible: Use git log without gpg signature
+Date: Thu, 12 Jan 2023 12:11:02 +0100
+Message-Id: <4415ab7387d6c4466b693b4fc7c2dd4438c1d6aa.1673521664.git.bmauduit@beneth.fr>
+X-Mailer: git-send-email 2.39.0
+In-Reply-To: <cover.1673521664.git.bmauduit@beneth.fr>
+References: <cover.1673521664.git.bmauduit@beneth.fr>
 MIME-Version: 1.0
-Return-Path: pkj@axis.com
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+Previously, if "showSignature" is present in user gitconfig, parsing
+of the timestamp will fail.
+
+Ideally we should replace this command with a git plumbing command.
+
+Signed-off-by: Beno=C3=AEt Mauduit <bmauduit@beneth.fr>
 ---
+ meta/lib/oe/reproducible.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-PATCHv2: Base DISTRO_VERSION on 4.1 rather than 4.2.
+diff --git a/meta/lib/oe/reproducible.py b/meta/lib/oe/reproducible.py
+index 04a1810d4f2..9ac75c02e38 100644
+--- a/meta/lib/oe/reproducible.py
++++ b/meta/lib/oe/reproducible.py
+@@ -115,7 +115,8 @@ def get_source_date_epoch_from_git(d, sourcedir):
+         return None
+=20
+     bb.debug(1, "git repository: %s" % gitpath)
+-    p =3D subprocess.run(['git', '--git-dir', gitpath, 'log', '-1', '--p=
+retty=3D%ct'], check=3DTrue, stdout=3Dsubprocess.PIPE)
++    p =3D subprocess.run(['git', '-c', 'log.showSignature=3Dfalse', '--g=
+it-dir', gitpath, 'log', '-1', '--pretty=3D%ct'],
++                       check=3DTrue, stdout=3Dsubprocess.PIPE)
+     return int(p.stdout.decode('utf-8'))
+=20
+ def get_source_date_epoch_from_youngest_file(d, sourcedir):
+--=20
+2.39.0
 
- meta-poky/conf/distro/poky.conf | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index dc0e8e76ab..a86e2ead2f 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -1,8 +1,7 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
--#DISTRO_VERSION = "4.1+snapshot-${METADATA_REVISION}"
--DISTRO_VERSION = "4.1"
--DISTRO_CODENAME = "langdale"
-+DISTRO_VERSION = "4.1+snapshot-${METADATA_REVISION}"
-+DISTRO_CODENAME = "mickledore"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADATA_REVISION}', 'snapshot')}"
- SDK_VERSION[vardepvalue] = "${SDK_VERSION}"
