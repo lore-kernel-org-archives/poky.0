@@ -1,91 +1,87 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
- by mx.groups.io with SMTP id smtpd.web10.38884.1674468336673142143
+Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net [217.70.183.196])
+ by mx.groups.io with SMTP id smtpd.web11.39674.1674469956296656504
  for <poky@lists.yoctoproject.org>;
- Mon, 23 Jan 2023 02:05:36 -0800
+ Mon, 23 Jan 2023 02:32:36 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=AXMLjq5W;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.44, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f44.google.com with SMTP id b7so10255478wrt.3
-        for <poky@lists.yoctoproject.org>; Mon, 23 Jan 2023 02:05:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LBI4gMmxbhIefo4muWmxzzPp+f0P5P0ap4Sy64DFt8s=;
-        b=AXMLjq5WgcFdfJRWCEbgKXU5HUPzwdPjY/Vkf7Xsn1LDr4vjJCUSg5okBWOFC+Ed4M
-         EcyYQK+xWMMNF9Pr7LikguGjKD6hWF5SfuYYPaAZfP0LaS6d90mdTs5XtLQAe+psOx12
-         XeBsdzKS4oy6J7fqMeU1rkGNQzryieQ1a+Z0w=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=LBI4gMmxbhIefo4muWmxzzPp+f0P5P0ap4Sy64DFt8s=;
-        b=Pmh5RBn6QH99eoOoQXGXcAVpsadRJsQUjVhguOd8152+S6XOyBwfNVVBB+yodzzfq9
-         uP2BVf2Qw6s2j5TZ9T3MSQRZjU5Xjtn3nBap7EzOYR9jhfz0q0mB7MVBpBLcu+0vU536
-         htIqbKhf5EwyUaehoztyEEQuggb88fMIABu7Wl6FZirta2sZoaGtSTHUK9eB5Nf5pqO0
-         C7bwxNZ7M1eynXw3EfndmlgAdHOg/GnMCe/WjAI174Rnj72mGzejsHVgNTrT3tcvLvC7
-         pVSVitgrz76bEJ3BCcXDbvzBBV0xXDlaMf/dMmCYsQEYG7j/GQ+0F2go10iaz31bE01+
-         7TTA==
-X-Gm-Message-State: AFqh2kqNK44LIVPYrDHm2I0jtx4U/N4huF/936OiJtJYgt54W9xdth75
-	ds0kSrX8AJx8Wg84i1hInsm3IALNQx/KIycD
-X-Google-Smtp-Source: AMrXdXulr/HsPyBbNX5ofII2F7GnHGjZ5HEcG94DKJrIhCEyLU8K4aGeXrCtDIaVkTOvEMHyCiL1GQ==
-X-Received: by 2002:adf:e74e:0:b0:2bd:e8c0:8dfe with SMTP id c14-20020adfe74e000000b002bde8c08dfemr19427440wrn.4.1674468334693;
-        Mon, 23 Jan 2023 02:05:34 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:9195:b014:a064:8114? ([2001:8b0:aba:5f3c:9195:b014:a064:8114])
-        by smtp.gmail.com with ESMTPSA id c8-20020a5d4148000000b002bdd21f25ebsm27489429wrq.71.2023.01.23.02.05.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 23 Jan 2023 02:05:34 -0800 (PST)
-Message-ID: <4514863819222de97dcc00c0c55ec795f6f60d6a.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH] poky.conf: set INIT_MANAGER with ?=
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: michael.opdenacker@bootlin.com, poky@lists.yoctoproject.org
-Date: Mon, 23 Jan 2023 10:05:33 +0000
-In-Reply-To: <20230123095529.21702-1-michael.opdenacker@bootlin.com>
-References: <20230123095529.21702-1-michael.opdenacker@bootlin.com>
-User-Agent: Evolution 3.46.1-0ubuntu1 
+ dkim=pass header.i=@bootlin.com header.s=gm1 header.b=Fdr4CZ4N;
+ spf=pass (domain: bootlin.com, ip: 217.70.183.196, mailfrom: michael.opdenacker@bootlin.com)
+Received: (Authenticated sender: michael.opdenacker@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPSA id 01F87E0009;
+	Mon, 23 Jan 2023 10:32:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1674469954;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GT21tm/2YVR5JXQFCNGlS6MOQo4aU/uOKlJYFcavE2I=;
+	b=Fdr4CZ4NIssxbN6K5bKY5GosGQRINbyTaEsrAdvQx/ojhjurqDh/bpl6tJOEp1F/pCgb98
+	pcHi9KTz8dYTrS16VmhXOQYQSN9GwWWv7HKoJW85NeAHKgXY/dF9i0mzdpiUJlM2NA6NB7
+	9BTOZmdDz3i9tv4MaaZ42wB/lgClnZfLEhDLv9Rk5SjXZsYHqDGwhgBBnDPp2WU6cbPqrf
+	9OOQAQ/GefIqUcX2oq8BXOPqbJIXKIpAQQEgvZopcmkxxtx3Rz7yw8e1SIiesMOGIi99WW
+	4VgQBErS5Kl8+TWDja/v3VJYyfWyTSWwAiVmAdCi1l0WJO9xxdJlE5ceRxBz5Q==
+Message-ID: <57335780-bf20-b438-c15b-5a612f9cbcab@bootlin.com>
+Date: Mon, 23 Jan 2023 11:32:33 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Cc: poky@lists.yoctoproject.org
+Subject: Re: [poky] [PATCH] poky.conf: set INIT_MANAGER with ?=
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+References: <20230123095529.21702-1-michael.opdenacker@bootlin.com>
+ <4514863819222de97dcc00c0c55ec795f6f60d6a.camel@linuxfoundation.org>
+From: "Michael Opdenacker" <michael.opdenacker@bootlin.com>
+Organization: Bootlin
+In-Reply-To: <4514863819222de97dcc00c0c55ec795f6f60d6a.camel@linuxfoundation.org>
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2023-01-23 at 10:55 +0100, Michael Opdenacker via
-lists.yoctoproject.org wrote:
-> From: Michael Opdenacker <michael.opdenacker@bootlin.com>
->=20
-> Allowing to set INIT_MANAGER from conf/local.conf
->=20
-> ---
->=20
-> This has been tested on the autobuilder:
-> https://autobuilder.yoctoproject.org/typhoon/#/builders/83/builds/4797
->=20
-> This will allow to document INIT_MANAGER properly
-> and address a few related bugs.
->=20
-> Signed-off-by: Michael Opdenacker <michael.opdenacker@bootlin.com>
-> ---
->  meta-poky/conf/distro/poky.conf | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky=
-.conf
-> index dc0e8e76ab..072d2ab32f 100644
-> --- a/meta-poky/conf/distro/poky.conf
-> +++ b/meta-poky/conf/distro/poky.conf
-> @@ -65,7 +65,7 @@ INHERIT +=3D "uninative"
->  BB_SIGNATURE_HANDLER ?=3D "OEEquivHash"
->  BB_HASHSERVE ??=3D "auto"
-> =20
-> -INIT_MANAGER =3D "sysvinit"
-> +INIT_MANAGER ?=3D "sysvinit"
-> =20
+Hi Richard,
 
-This solves the problem for poky, but not poky-tiny or poky-altcfg.
-I've just sent a version which would address those too. I'd much prefer
-to fix this issue properly rather than incompletely!
+On 23.01.23 at 11:05, Richard Purdie wrote:
+> On Mon, 2023-01-23 at 10:55 +0100, Michael Opdenacker via
+> lists.yoctoproject.org wrote:
+>> From: Michael Opdenacker <michael.opdenacker@bootlin.com>
+>>
+>> Allowing to set INIT_MANAGER from conf/local.conf
+>>
+>> ---
+>>
+>> This has been tested on the autobuilder:
+>> https://autobuilder.yoctoproject.org/typhoon/#/builders/83/builds/4797
+>>
+>> This will allow to document INIT_MANAGER properly
+>> and address a few related bugs.
+>>
+>> Signed-off-by: Michael Opdenacker <michael.opdenacker@bootlin.com>
+>> ---
+>>   meta-poky/conf/distro/poky.conf | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+>> index dc0e8e76ab..072d2ab32f 100644
+>> --- a/meta-poky/conf/distro/poky.conf
+>> +++ b/meta-poky/conf/distro/poky.conf
+>> @@ -65,7 +65,7 @@ INHERIT += "uninative"
+>>   BB_SIGNATURE_HANDLER ?= "OEEquivHash"
+>>   BB_HASHSERVE ??= "auto"
+>>   
+>> -INIT_MANAGER = "sysvinit"
+>> +INIT_MANAGER ?= "sysvinit"
+>>   
+> This solves the problem for poky, but not poky-tiny or poky-altcfg.
+> I've just sent a version which would address those too. I'd much prefer
+> to fix this issue properly rather than incompletely!
 
-Cheers,
 
-Richard
+Great! I was actually wondering about those. Glad that we have a generic 
+solution.
+Thanks
+Michael
+
+-- 
+Michael Opdenacker, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
