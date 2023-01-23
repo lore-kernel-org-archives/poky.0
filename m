@@ -1,87 +1,76 @@
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net [217.70.183.196])
- by mx.groups.io with SMTP id smtpd.web11.39674.1674469956296656504
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+ by mx.groups.io with SMTP id smtpd.web11.45995.1674488963565888983
  for <poky@lists.yoctoproject.org>;
- Mon, 23 Jan 2023 02:32:36 -0800
+ Mon, 23 Jan 2023 07:49:23 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@bootlin.com header.s=gm1 header.b=Fdr4CZ4N;
- spf=pass (domain: bootlin.com, ip: 217.70.183.196, mailfrom: michael.opdenacker@bootlin.com)
-Received: (Authenticated sender: michael.opdenacker@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPSA id 01F87E0009;
-	Mon, 23 Jan 2023 10:32:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1674469954;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GT21tm/2YVR5JXQFCNGlS6MOQo4aU/uOKlJYFcavE2I=;
-	b=Fdr4CZ4NIssxbN6K5bKY5GosGQRINbyTaEsrAdvQx/ojhjurqDh/bpl6tJOEp1F/pCgb98
-	pcHi9KTz8dYTrS16VmhXOQYQSN9GwWWv7HKoJW85NeAHKgXY/dF9i0mzdpiUJlM2NA6NB7
-	9BTOZmdDz3i9tv4MaaZ42wB/lgClnZfLEhDLv9Rk5SjXZsYHqDGwhgBBnDPp2WU6cbPqrf
-	9OOQAQ/GefIqUcX2oq8BXOPqbJIXKIpAQQEgvZopcmkxxtx3Rz7yw8e1SIiesMOGIi99WW
-	4VgQBErS5Kl8+TWDja/v3VJYyfWyTSWwAiVmAdCi1l0WJO9xxdJlE5ceRxBz5Q==
-Message-ID: <57335780-bf20-b438-c15b-5a612f9cbcab@bootlin.com>
-Date: Mon, 23 Jan 2023 11:32:33 +0100
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=T5ugHEEi;
+ spf=softfail (domain: sakoman.com, ip: 209.85.210.178, mailfrom: steve@sakoman.com)
+Received: by mail-pf1-f178.google.com with SMTP id s3so9072118pfd.12
+        for <poky@lists.yoctoproject.org>; Mon, 23 Jan 2023 07:49:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=CjCYKPNnpenFGgIJszul48NGUhR1Ggugfplqw+Oquvg=;
+        b=T5ugHEEio8giOTDwYhB2BV/Rwz5q0fQUQsXG5bT1RbfbVQGCizORaoAerDMplX3+BC
+         THvB4OJEAKj/64aadAD6CpASruSPxCFgTNK9RIYH5niO9LyuRHZRaEhGHVUyjm6xrnAY
+         FnU1tJ46yUMX3AIZhAjWhr+IobbPuiiO025CDduIukyEM1EDByrgLwkOalaAJ5MvGBez
+         VDSKWMnAaqTZUqHlgVieN4gGGds4ja3+VngAHkJntmWYnIq+8C3SrixXH1yaJFs6sPpX
+         m/m0oeetkvQkHUp2VPXWfsJLUFDiM0LlJP+pJ8EeFqLrkZ6E+hYNjAjou6J/JE+qX7UH
+         HBgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=CjCYKPNnpenFGgIJszul48NGUhR1Ggugfplqw+Oquvg=;
+        b=CN/t4Df6wm0ztHgx0+ELLgg8S/H6uu6SIie1OtN5DQZU9INMS5h2adSQidwcZ2/+K2
+         8kXcQ01IljS33qI1yOgnlBfijg96LI5A3AGUUtvEj9rfkVWVGhSnDYzj4W8RXEhQrXjh
+         Yuw82WOQcAQrTx/KQqAXzm2wALPHxZULH9w9j6Z3EkozVVCOquqARFr7Tm7zlz9yH5u7
+         Rq6rC9OYI9kMs9zQmD06JmtE7+ZNFqcKTHeMNUAKSRmypnD5Hw06lVHyc630ccUhjsBD
+         z38VmpetUR3+DKuNIGOZZ/kP6p9SX9uQky8A/UwqsVBfqFlyzaHVT0SDZ1iGgG5+w7y/
+         IsQg==
+X-Gm-Message-State: AFqh2koe6fb/Tk4bFLAoeqgLj84BjDgD2GU1N/dEsf1OTYtsvaNBDa9u
+	Iv5FvsJzRWg1J7fiCHEUQbOs6ekSKEW+JFvGNJM=
+X-Google-Smtp-Source: AMrXdXuE4P4dALvb7/UlqRfkMBtgjIHfXvRwdiRYIRpF+OMj8zc+dGNZe1yZdZi+f/PPHFHmUuwwUQ==
+X-Received: by 2002:a05:6a00:1c8c:b0:589:af4d:43a5 with SMTP id y12-20020a056a001c8c00b00589af4d43a5mr25235959pfw.4.1674488962192;
+        Mon, 23 Jan 2023 07:49:22 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (rrcs-66-91-142-162.west.biz.rr.com. [66.91.142.162])
+        by smtp.gmail.com with ESMTPSA id d2-20020aa797a2000000b005895f9657ebsm26663099pfq.70.2023.01.23.07.49.20
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 23 Jan 2023 07:49:21 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][kirkstone] poky.conf: bump version for 4.0.7
+Date: Mon, 23 Jan 2023 05:49:11 -1000
+Message-Id: <bcbf35c19c4b3b450b4cc3a8381b72ce4378f438.1674488892.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1674488892.git.steve@sakoman.com>
+References: <cover.1674488892.git.steve@sakoman.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Cc: poky@lists.yoctoproject.org
-Subject: Re: [poky] [PATCH] poky.conf: set INIT_MANAGER with ?=
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-References: <20230123095529.21702-1-michael.opdenacker@bootlin.com>
- <4514863819222de97dcc00c0c55ec795f6f60d6a.camel@linuxfoundation.org>
-From: "Michael Opdenacker" <michael.opdenacker@bootlin.com>
-Organization: Bootlin
-In-Reply-To: <4514863819222de97dcc00c0c55ec795f6f60d6a.camel@linuxfoundation.org>
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Richard,
+Signed-off-by: Steve Sakoman <steve@sakoman.com>
+---
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On 23.01.23 at 11:05, Richard Purdie wrote:
-> On Mon, 2023-01-23 at 10:55 +0100, Michael Opdenacker via
-> lists.yoctoproject.org wrote:
->> From: Michael Opdenacker <michael.opdenacker@bootlin.com>
->>
->> Allowing to set INIT_MANAGER from conf/local.conf
->>
->> ---
->>
->> This has been tested on the autobuilder:
->> https://autobuilder.yoctoproject.org/typhoon/#/builders/83/builds/4797
->>
->> This will allow to document INIT_MANAGER properly
->> and address a few related bugs.
->>
->> Signed-off-by: Michael Opdenacker <michael.opdenacker@bootlin.com>
->> ---
->>   meta-poky/conf/distro/poky.conf | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
->> index dc0e8e76ab..072d2ab32f 100644
->> --- a/meta-poky/conf/distro/poky.conf
->> +++ b/meta-poky/conf/distro/poky.conf
->> @@ -65,7 +65,7 @@ INHERIT += "uninative"
->>   BB_SIGNATURE_HANDLER ?= "OEEquivHash"
->>   BB_HASHSERVE ??= "auto"
->>   
->> -INIT_MANAGER = "sysvinit"
->> +INIT_MANAGER ?= "sysvinit"
->>   
-> This solves the problem for poky, but not poky-tiny or poky-altcfg.
-> I've just sent a version which would address those too. I'd much prefer
-> to fix this issue properly rather than incompletely!
-
-
-Great! I was actually wondering about those. Glad that we have a generic 
-solution.
-Thanks
-Michael
-
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 79c9aba..4876d74 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -1,7 +1,7 @@
+ DISTRO = "poky"
+ DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
+ #DISTRO_VERSION = "3.4+snapshot-${METADATA_REVISION}"
+-DISTRO_VERSION = "4.0.6"
++DISTRO_VERSION = "4.0.7"
+ DISTRO_CODENAME = "kirkstone"
+ SDK_VENDOR = "-pokysdk"
+ SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADATA_REVISION}', 'snapshot')}"
 -- 
-Michael Opdenacker, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.25.1
 
