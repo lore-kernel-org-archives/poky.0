@@ -1,66 +1,76 @@
-Subject: Preparation esdk failed, sstate cache do_package and do_populate_sysroot missing #esdk
-To: poky@lists.yoctoproject.org
-From: alouxndre@hotmail.fr
-X-Originating-Location: Girona, Catalonia, ES (149.6.134.59)
-X-Originating-Platform: Windows Chrome 109
-User-Agent: GROUPS.IO Web Poster
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+ by mx.groups.io with SMTP id smtpd.web10.47420.1674659459294842998
+ for <poky@lists.yoctoproject.org>;
+ Wed, 25 Jan 2023 07:10:59 -0800
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=AyKVNdsm;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.46, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f46.google.com with SMTP id m5-20020a05600c4f4500b003db03b2559eso1517205wmq.5
+        for <poky@lists.yoctoproject.org>; Wed, 25 Jan 2023 07:10:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=WzeLViKTZ5L/dBTdCX8a4Eqo6H7JsaQiC1vDKo8O6M8=;
+        b=AyKVNdsmsBYxeK33N33gBFKLBvcwwuHai8MOxp8MoQYWno9mNeFY+S+EXvQ0XcDGtt
+         Uvqs67PQcYn9dGHHJwgRHD0RQ2ooJOelKkT+3BrVZunmf/Y+9CXbyQ/6upRB3/pOYFCb
+         XlF6sx/qdBS+JdhPM1HNSRx3GOODURFFbVqQk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=WzeLViKTZ5L/dBTdCX8a4Eqo6H7JsaQiC1vDKo8O6M8=;
+        b=D3oV5H4socJhKEVoEArm9FGGvW+aZwDPpogVoIBXg6A3X6GlCHFIzO3P7IUikcha9N
+         pUooqBhdIWSCiTQ2EJXPrt5qlT4AdQmsGfcjy6kjs0yxUXzNnYM5osKCWamOWgaIWUa1
+         iivcLvoEF3B0LWb3sa/ex14CS7yT4gjt+fTZg+51AJhG+KKZwaMRXvkq+U1S1lj+Nrpk
+         kvG6L2VGyPzLYJBw47W3ZYuELQG/OIoGRJNzgpEk7xV8TS2Pbvcp5Y84BUMmcb39WXSK
+         BFJcaj44VtaTdpVGRqA64iWC070c80kXqFn8r4Q+TCcx6kaDVnR/oKj1DSX/jykOLtFs
+         kMGA==
+X-Gm-Message-State: AFqh2krMilrFDmW0QgID3eWAyGtg0li6y5piLlDafQCJ2oR3bufrYHdv
+	zjXYSdcbnBLVEd5wCq0yX8loo2f0m3HkMcem
+X-Google-Smtp-Source: AMrXdXuxQYsEnV6r17OjSQaxfaay/ZorZcj5fRDC9FqyPtDyxLddlCVteUjPJUvCTzEJn5cgyHZgnA==
+X-Received: by 2002:a05:600c:b54:b0:3c6:e60f:3f6f with SMTP id k20-20020a05600c0b5400b003c6e60f3f6fmr32379551wmr.38.1674659457518;
+        Wed, 25 Jan 2023 07:10:57 -0800 (PST)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from ?IPv6:2001:8b0:aba:5f3c:3356:3b1f:dd00:4e1a? ([2001:8b0:aba:5f3c:3356:3b1f:dd00:4e1a])
+        by smtp.gmail.com with ESMTPSA id l4-20020a05600c1d0400b003db2e3f2c7csm7928010wms.0.2023.01.25.07.10.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Jan 2023 07:10:57 -0800 (PST)
+Message-ID: <1003421ce4ffd0b93c7dabe3b2aa7c0b5c240746.camel@linuxfoundation.org>
+Subject: Re: [docs] yocto-3.1.22/RELEASENOTES
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Takayasu Ito <ito@lineo.co.jp>, poky@lists.yoctoproject.org
+Cc: docs@lists.yoctoproject.org
+Date: Wed, 25 Jan 2023 15:10:56 +0000
+In-Reply-To: <8ada8dc6-fb4b-5042-9fce-d0926d422226@lineo.co.jp>
+References: <8ada8dc6-fb4b-5042-9fce-d0926d422226@lineo.co.jp>
+User-Agent: Evolution 3.46.1-0ubuntu1 
 MIME-Version: 1.0
-Date: Tue, 24 Jan 2023 10:09:54 -0800
-Message-ID: <bd6x.1674583794764420697.AXPz@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="9FEubeRt7lPNxwJQ4DVC"
-
---9FEubeRt7lPNxwJQ4DVC
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Mon, 2023-01-23 at 17:55 +0900, Takayasu Ito wrote:
+> I was checking the following RELEASENOTE contents, and the CVE for
+> cairo vulnerability has already been fixed in 2019 and the change in the=
+=20
+> PATCH file is that the status of the upstream PATCH has been changed=20
+> from pending to backported.
+>=20
+> http://downloads.yoctoproject.org/releases/yocto/yocto-3.1.22/RELEASENOTE=
+S
+>=20
 
-I'm not able to deploy the esdk in running the sdk installer obtained thank=
-s to -c populate_sdk_ext task. (Honister yocto version)
+The patch was updated in:
 
-The populate_sdk_ext task goes well, with the 'full' sdk type enabled.
-In the config, I should normally install also the sstate-cache for the comp=
-onent listed in the image recipe.
+https://git.yoctoproject.org/poky/commit/?h=3Ddunfell&id=3D6e97ceb8586281a8=
+d594a3a1ab9e303fd34e1d4a
 
-But during the installation process, the installer triggers a kind of cache=
- checking.
-At this moment it fails displaying a list of sstate-cache task missing for =
-the components.
-These tasks are do_package and do_populate_sysroot.
-
-Indeed the cache for these tasks is not available in the sdk local sstate c=
-ache since I can see them in the sstate-cache from the yocto env where I cr=
-eated the esdk installer.
-Moreover, i can see other sstate cache tasks and do_packagedata_setscene or=
- populate_lic_setscene happened without issue for example.
-
-I think I miss something in the SDK config but I'm not able to figure out w=
-hat.
-
-Can you help me please :)
+which seems to match the change log and release notes? It wasn't just
+the patch status but the patch itself as well?
 
 Cheers,
 
-Alexandre
+Richard
 
---9FEubeRt7lPNxwJQ4DVC
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,<br /><br />I'm not able to deploy the esdk in running the sdk installer=
- obtained thanks to -c populate_sdk_ext task. (Honister yocto version)<br /=
-><br />The populate_sdk_ext task goes well, with the 'full' sdk type enable=
-d.<br />In the config, I should normally install also the sstate-cache for =
-the component listed in the image recipe.<br /><br />But during the install=
-ation process, the installer triggers a kind of cache checking.<br />At thi=
-s moment it fails displaying a list of sstate-cache task missing for the co=
-mponents.<br />These tasks are do_package and do_populate_sysroot.<br /><br=
- />Indeed the cache for these tasks is not available in the sdk local sstat=
-e cache since I can see them in the sstate-cache from the yocto env where I=
- created the esdk installer.<br />Moreover, i can see other sstate cache ta=
-sks and do_packagedata_setscene or populate_lic_setscene happened without i=
-ssue for example.<br /><br />I think I miss something in the SDK config but=
- I'm not able to figure out what.<br /><br />Can you help me please :)<br /=
-><br />Cheers,&nbsp;<br /><br />Alexandre<br />
-
---9FEubeRt7lPNxwJQ4DVC--
