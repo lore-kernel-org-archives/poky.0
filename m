@@ -1,63 +1,74 @@
-Received: from mail.lineo.co.jp (mail.lineo.co.jp [203.141.200.203])
- by mx.groups.io with SMTP id smtpd.web11.62613.1674692046185525212
+Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
+ by mx.groups.io with SMTP id smtpd.web10.45306.1675095007794846005
  for <poky@lists.yoctoproject.org>;
- Wed, 25 Jan 2023 16:14:06 -0800
+ Mon, 30 Jan 2023 08:10:08 -0800
 Authentication-Results: mx.groups.io;
- dkim=missing; spf=pass (domain: lineo.co.jp, ip: 203.141.200.203, mailfrom: ito@lineo.co.jp)
-Received: from [172.31.28.27] (vpn1.lineo.co.jp [203.141.200.204])
-	by mail.lineo.co.jp (Postfix) with ESMTPSA id 40334803179DE;
-	Thu, 26 Jan 2023 09:14:03 +0900 (JST)
-Message-ID: <f6e45090-3a66-a066-7b89-f59a7c2b504f@lineo.co.jp>
-Date: Thu, 26 Jan 2023 09:14:04 +0900
+ dkim=pass header.i=@axis.com header.s=axis-central1 header.b=gL7aAQ6K;
+ spf=pass (domain: axis.com, ip: 195.60.68.18, mailfrom: peter.kjellerstedt@axis.com)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=axis.com; q=dns/txt; s=axis-central1; t=1675095009;
+  x=1706631009;
+  h=from:to:subject:date:message-id:references:in-reply-to:
+   content-transfer-encoding:mime-version;
+  bh=TBx4+mKfUasQKK6aRFrxLKCQ7epqRJWzL5+WFKGBamo=;
+  b=gL7aAQ6KuHxUN1kXol/LgjyCJvxsTA0q9fRoBY6Lels1x2pW7DlS+3qN
+   dv5OfTEFDmfg6PxXqlhyWmTrbBFoWhOuFignX77wgEmAlg3ZrEIVd5wTI
+   nQeAW8tz3g9FtgXLfLCaUxj6VdKCzEcxWA8YxM7ippbIE8f82BcZS7mmA
+   vgjCgCgmlj/oaValUmj+TGppHl/CmZakxbG7IRT+mT6C2wm/y6z5XK8sW
+   rTi0qb2otA3eJlo34Vbc/mq1xi1cmtn/l1HB2i55nPZPH6ADF3P0cirYQ
+   ziOMzbj9McR5cIGYIIkVbz9drujnhVyNhAOUJ0D84Lye2RRT6/1mjqWMb
+   w==;
+From: "Peter Kjellerstedt" <peter.kjellerstedt@axis.com>
+To: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+Subject: Re: [poky] [PATCHv2] poky.conf: Switch to post release name/version
+Thread-Topic: [poky] [PATCHv2] poky.conf: Switch to post release name/version
+Thread-Index: AQHZJaEnRyEcoLriiEeqx1sO3th+4q63PzAw
+Date: Mon, 30 Jan 2023 16:10:05 +0000
+Message-ID: <d2743f8c36a94f5494e4014612694751@axis.com>
+References: <173937E51F61413F.23170@lists.yoctoproject.org>
+In-Reply-To: <173937E51F61413F.23170@lists.yoctoproject.org>
+Accept-Language: en-US, sv-SE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.0.5.60]
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [poky] [docs] yocto-3.1.22/RELEASENOTES
-To: Richard Purdie <richard.purdie@linuxfoundation.org>,
- poky@lists.yoctoproject.org
-Cc: docs@lists.yoctoproject.org
-References: <8ada8dc6-fb4b-5042-9fce-d0926d422226@lineo.co.jp>
- <1003421ce4ffd0b93c7dabe3b2aa7c0b5c240746.camel@linuxfoundation.org>
-From: "Takayasu Ito" <ito@lineo.co.jp>
-In-Reply-To: <1003421ce4ffd0b93c7dabe3b2aa7c0b5c240746.camel@linuxfoundation.org>
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Considering that the Security Fixes section lists CVEs whose status has 
-been changed to fixed by this release, I think it is appropriate that 
-this update to the cairo patch file be listed under Fixes.
+*ping*
 
-On 2023/01/26 0:10, Richard Purdie wrote:
-> On Mon, 2023-01-23 at 17:55 +0900, Takayasu Ito wrote:
->> I was checking the following RELEASENOTE contents, and the CVE for
->> cairo vulnerability has already been fixed in 2019 and the change in the
->> PATCH file is that the status of the upstream PATCH has been changed
->> from pending to backported.
->>
->> http://downloads.yoctoproject.org/releases/yocto/yocto-3.1.22/RELEASENOTES
->>
-> 
-> The patch was updated in:
-> 
-> https://git.yoctoproject.org/poky/commit/?h=dunfell&id=6e97ceb8586281a8d594a3a1ab9e303fd34e1d4a
-> 
-> which seems to match the change log and release notes? It wasn't just
-> the patch status but the patch itself as well?
-> 
-> Cheers,
-> 
-> Richard
-> 
-> 
-> 
-> 
-> 
+//Peter
 
--- 
-Takayasu Ito
-Yocto Project Ambassador
-Solution Department Lineo Solutions, Inc.
-https://www.lineo.co.jp/english/
-Email: ito@lineo.co.jp
-
+> -----Original Message-----
+> From: poky@lists.yoctoproject.org <poky@lists.yoctoproject.org> On Behalf=
+ Of Peter Kjellerstedt
+> Sent: den 11 januari 2023 10:43
+> To: poky@lists.yoctoproject.org
+> Subject: [poky] [PATCHv2] poky.conf: Switch to post release name/version
+>=20
+> Signed-off-by: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+> ---
+>=20
+> PATCHv2: Base DISTRO_VERSION on 4.1 rather than 4.2.
+>=20
+>  meta-poky/conf/distro/poky.conf | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky=
+.conf
+> index dc0e8e76ab..a86e2ead2f 100644
+> --- a/meta-poky/conf/distro/poky.conf
+> +++ b/meta-poky/conf/distro/poky.conf
+> @@ -1,8 +1,7 @@
+>  DISTRO =3D "poky"
+>  DISTRO_NAME =3D "Poky (Yocto Project Reference Distro)"
+> -#DISTRO_VERSION =3D "4.1+snapshot-${METADATA_REVISION}"
+> -DISTRO_VERSION =3D "4.1"
+> -DISTRO_CODENAME =3D "langdale"
+> +DISTRO_VERSION =3D "4.1+snapshot-${METADATA_REVISION}"
+> +DISTRO_CODENAME =3D "mickledore"
+>  SDK_VENDOR =3D "-pokysdk"
+>  SDK_VERSION =3D "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METAD=
+ATA_REVISION}', 'snapshot')}"
+>  SDK_VERSION[vardepvalue] =3D "${SDK_VERSION}"
