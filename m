@@ -1,80 +1,84 @@
-Received: from mail-il1-f175.google.com (mail-il1-f175.google.com [209.85.166.175])
- by mx.groups.io with SMTP id smtpd.web11.22120.1675456179973527219
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net [217.70.183.198])
+ by mx.groups.io with SMTP id smtpd.web11.23036.1675458330520536747
  for <poky@lists.yoctoproject.org>;
- Fri, 03 Feb 2023 12:29:57 -0800
+ Fri, 03 Feb 2023 13:05:31 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=QZqT+jQX;
- spf=pass (domain: gmail.com, ip: 209.85.166.175, mailfrom: george.kelly1097@gmail.com)
-Received: by mail-il1-f175.google.com with SMTP id u7so2558775ilg.4
-        for <poky@lists.yoctoproject.org>; Fri, 03 Feb 2023 12:29:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Vz19rTnST6fKJbb2IyWpXuFMnwb0EgWoKBFrABPFu1s=;
-        b=QZqT+jQX2FJgY0iCzDbUlFQJsQ7C3RDegGpcHg2kZixwfq1Kp6n8jdRFPskL8OHoxU
-         e2X42qX3R2IaCgsP0FlDUpFlmgozHCyEv0EC4MN9xQlVBxVxRZVAUsxt+x29PQJAGqCR
-         lu54l/NvXFFDrMWQ4nLdn7lgEGf7SJqUvEKb2xB7E9zbNHEyKLHPqEVBIbSFGc1ahCkz
-         DNSKIheT9ZOZNLWaEQiKOVEC0ZZZcE3kydsFoaBcFdYS86mY2BZ/SFYnXihzc6D2jCJq
-         qmd7ysOfQLzjEN2tK0rvTc0FjGYg6fdeyKlS3eu4M6Y2f+G6TUlgdyh07aPdE3/j2qUm
-         IEjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Vz19rTnST6fKJbb2IyWpXuFMnwb0EgWoKBFrABPFu1s=;
-        b=KjCk17uMn9nF00Gr6eJLOGBlFCHVCBjokxqb/d9b9+MyR+Nn6lZfMG9C72CFFh2sBh
-         tHExfWEdr/9ncFRDtK/A2cwsscRr2TrQVou8Ov1YytqUTli8/nNCKm5gwBIcIrd/O4pW
-         F+Mop2fL0SSTLWp1hFpDEm05xF1UPN+GqoqOTbiXEkZpmFMaJjYnrgBAdoxjBB7z0nn+
-         4uacWh1GUnC7vPELNK/q7YLoXnkV0GSn0aGew2PiLlD1gMtxpZBXIX3TgRgSZxGV+w9J
-         fOKr36eW7beaB9ozkP6VZhYLKyWLKFaSzQp0HXNYKNFxmkYBUntJToM5wRCpZyV9Q5By
-         UNMw==
-X-Gm-Message-State: AO0yUKUhimS5wP9PnJunJE8ZK76V37tXnMmzTReR8Dz6rTFpiGV1M+cf
-	2Syqz2YO24f+YYDibz5Dt6MjAAyC1Wyx8Q==
-X-Google-Smtp-Source: AK7set/FVLZQdcKQQf5He6xHO125+Ck7CoTowfkcUsYDjvbApedTJFcL2I3gAq1JGmEsiHFkNckVSQ==
-X-Received: by 2002:a92:7d01:0:b0:312:7ca2:fee6 with SMTP id y1-20020a927d01000000b003127ca2fee6mr4707781ilc.30.1675456196973;
-        Fri, 03 Feb 2023 12:29:56 -0800 (PST)
-Return-Path: <george.kelly1097@gmail.com>
-Received: from gk-ubuntu.. ([50.201.15.182])
-        by smtp.gmail.com with ESMTPSA id a12-20020a056638164c00b003a58ae912aasm1172364jat.28.2023.02.03.12.29.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Feb 2023 12:29:56 -0800 (PST)
-From: "George Kelly" <george.kelly1097@gmail.com>
-To: poky@lists.yoctoproject.org
-Cc: George Kelly <gkelly@phoenixcontact.com>,
-	George Kelly <george.kelly1097@gmail.com>
-Subject: [PULL] [PATCH 1/1] bitbake: fetch2: Add NODE_EXTRA_CA_CERTS to the list of exports
-Date: Fri,  3 Feb 2023 15:29:43 -0500
-Message-Id: <c486378d098e4a5cb89b712dbd6b66e9b67f7dde.1675447409.git.gkelly@phoenixcontact.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <cover.1675447409.git.gkelly@phoenixcontact.com>
+ dkim=pass header.i=@bootlin.com header.s=gm1 header.b=libaeTbP;
+ spf=pass (domain: bootlin.com, ip: 217.70.183.198, mailfrom: alexandre.belloni@bootlin.com)
+Received: (Authenticated sender: alexandre.belloni@bootlin.com)
+	by mail.gandi.net (Postfix) with ESMTPSA id 5CFC1C0002;
+	Fri,  3 Feb 2023 21:05:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
+	t=1675458328;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=IPcfhGRu50seJg1fPKPHbiHHn3ZUzg4wl/2iTx8uezs=;
+	b=libaeTbPz10vtcz0I7y1PoV2nl9dIQDdmJ5ayUdPsSWTkGTkSthYEPpsLMlblQL7Kf36jW
+	V28KFXmfT5oyiPevnyuox+9P4HeQH08Zh1OFR7jAmOVNJOhZzKPVyCTpdo5IeHlab+wMvJ
+	usac59lA+21+TX8DHoECZJ/fuZ1A8tz0SRZXoY4nzEXU8WZ4Z0AgCDdni0HNy9Gc0x3k9l
+	tnIwzoqk+6oVM2cCMXXiWMvOlyXlNq5871TVWyJ5lgI7p3l60mbyt8+kEQ9nIeZOulVwi2
+	kOTtS4cCBsQ0X9TEazhzYTpvlB1RI9C7yTYM7Ykn1GGimahCd2p1HRnQN9rFzw==
+Date: Fri, 3 Feb 2023 22:05:28 +0100
+From: "Alexandre Belloni" <alexandre.belloni@bootlin.com>
+To: George Kelly <george.kelly1097@gmail.com>
+Cc: poky@lists.yoctoproject.org, George Kelly <gkelly@phoenixcontact.com>
+Subject: Re: [poky] [PULL] [PATCH 1/1] bitbake: fetch2: Add NODE_EXTRA_CA_CERTS to the list of exports
+Message-ID: <Y913GNz0hk4BPi7m@mail.local>
 References: <cover.1675447409.git.gkelly@phoenixcontact.com>
+ <c486378d098e4a5cb89b712dbd6b66e9b67f7dde.1675447409.git.gkelly@phoenixcontact.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <c486378d098e4a5cb89b712dbd6b66e9b67f7dde.1675447409.git.gkelly@phoenixcontact.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-From: George Kelly <gkelly@phoenixcontact.com>
+Hello George,
 
-if you are behind a corporate proxy, the npm fetcher uses the proxy IP address already passed in the list of exports. However, it will error if the proxy injects its own root CA certificate. Thus, the NODE_EXTRA_CA_CERTS environment variable must be passed so the user can include their company's root CA as a trusted CA inside node's certificate store.
+Thanks for the patch, a few things to improve:
 
-Signed-off-by: George Kelly <george.kelly1097@gmail.com>
----
- bitbake/lib/bb/fetch2/__init__.py | 1 +
- 1 file changed, 1 insertion(+)
+On 03/02/2023 15:29:43-0500, George Kelly wrote:
+> From: George Kelly <gkelly@phoenixcontact.com>
+> 
+> if you are behind a corporate proxy, the npm fetcher uses the proxy IP address already passed in the list of exports. However, it will error if the proxy injects its own root CA certificate. Thus, the NODE_EXTRA_CA_CERTS environment variable must be passed so the user can include their company's root CA as a trusted CA inside node's certificate store.
 
-diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
-index 5a7a6024d1..747356dfa1 100644
---- a/bitbake/lib/bb/fetch2/__init__.py
-+++ b/bitbake/lib/bb/fetch2/__init__.py
-@@ -851,6 +851,7 @@ FETCH_EXPORT_VARS = ['HOME', 'PATH',
-                      'DBUS_SESSION_BUS_ADDRESS',
-                      'P4CONFIG',
-                      'SSL_CERT_FILE',
-+                     'NODE_EXTRA_CA_CERTS',
-                      'AWS_PROFILE',
-                      'AWS_ACCESS_KEY_ID',
-                      'AWS_SECRET_ACCESS_KEY',
+This commit message should be wrapped
+
+> 
+> Signed-off-by: George Kelly <george.kelly1097@gmail.com>
+
+The Author and SoB must match.
+
+> ---
+>  bitbake/lib/bb/fetch2/__init__.py | 1 +
+
+This is a bitake patch, please base it on the bitbake git repository
+(git.openembedded.org/bitbake).
+Also, this should be sent to bitbake-devel@lists.openembedded.org
+
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
+> index 5a7a6024d1..747356dfa1 100644
+> --- a/bitbake/lib/bb/fetch2/__init__.py
+> +++ b/bitbake/lib/bb/fetch2/__init__.py
+> @@ -851,6 +851,7 @@ FETCH_EXPORT_VARS = ['HOME', 'PATH',
+>                       'DBUS_SESSION_BUS_ADDRESS',
+>                       'P4CONFIG',
+>                       'SSL_CERT_FILE',
+> +                     'NODE_EXTRA_CA_CERTS',
+>                       'AWS_PROFILE',
+>                       'AWS_ACCESS_KEY_ID',
+>                       'AWS_SECRET_ACCESS_KEY',
+> -- 
+> 2.37.2
+> 
+
+> 
+> 
+> 
+
+
 -- 
-2.37.2
-
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
