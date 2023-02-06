@@ -1,84 +1,75 @@
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net [217.70.183.198])
- by mx.groups.io with SMTP id smtpd.web11.23036.1675458330520536747
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+ by mx.groups.io with SMTP id smtpd.web11.60243.1675704892016385612
  for <poky@lists.yoctoproject.org>;
- Fri, 03 Feb 2023 13:05:31 -0800
+ Mon, 06 Feb 2023 09:34:52 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@bootlin.com header.s=gm1 header.b=libaeTbP;
- spf=pass (domain: bootlin.com, ip: 217.70.183.198, mailfrom: alexandre.belloni@bootlin.com)
-Received: (Authenticated sender: alexandre.belloni@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPSA id 5CFC1C0002;
-	Fri,  3 Feb 2023 21:05:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1675458328;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IPcfhGRu50seJg1fPKPHbiHHn3ZUzg4wl/2iTx8uezs=;
-	b=libaeTbPz10vtcz0I7y1PoV2nl9dIQDdmJ5ayUdPsSWTkGTkSthYEPpsLMlblQL7Kf36jW
-	V28KFXmfT5oyiPevnyuox+9P4HeQH08Zh1OFR7jAmOVNJOhZzKPVyCTpdo5IeHlab+wMvJ
-	usac59lA+21+TX8DHoECZJ/fuZ1A8tz0SRZXoY4nzEXU8WZ4Z0AgCDdni0HNy9Gc0x3k9l
-	tnIwzoqk+6oVM2cCMXXiWMvOlyXlNq5871TVWyJ5lgI7p3l60mbyt8+kEQ9nIeZOulVwi2
-	kOTtS4cCBsQ0X9TEazhzYTpvlB1RI9C7yTYM7Ykn1GGimahCd2p1HRnQN9rFzw==
-Date: Fri, 3 Feb 2023 22:05:28 +0100
-From: "Alexandre Belloni" <alexandre.belloni@bootlin.com>
-To: George Kelly <george.kelly1097@gmail.com>
-Cc: poky@lists.yoctoproject.org, George Kelly <gkelly@phoenixcontact.com>
-Subject: Re: [poky] [PULL] [PATCH 1/1] bitbake: fetch2: Add NODE_EXTRA_CA_CERTS to the list of exports
-Message-ID: <Y913GNz0hk4BPi7m@mail.local>
-References: <cover.1675447409.git.gkelly@phoenixcontact.com>
- <c486378d098e4a5cb89b712dbd6b66e9b67f7dde.1675447409.git.gkelly@phoenixcontact.com>
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=obob/2LI;
+ spf=softfail (domain: sakoman.com, ip: 209.85.214.181, mailfrom: steve@sakoman.com)
+Received: by mail-pl1-f181.google.com with SMTP id z1so12882805plg.6
+        for <poky@lists.yoctoproject.org>; Mon, 06 Feb 2023 09:34:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ulb6MHqDVSDIt1kssaOb3puI4pL3hP8hhBUmYi+BTIk=;
+        b=obob/2LITFfyRy0qJcTDZDVMUxezxnXh8ohB5zv3rfvZX8rWGfD5yqWl9UC8xdD1AY
+         AEFl43MzHe1IxtvWrNaBpc2YvMITkmQW1wyhfWRVKFo5F2xYu+I7ZsYItYB1As/tI0FT
+         IeDRfKkRAtbdNlyC43YkHgGloktuOfvXOzqc2fjpRgw4KI5r5ijGsCYqoW88EJAgcEG1
+         wPNo3+uNoQ5ZLobfI+g5uf+TQGqD23myTfxaUg57kpiujMdFeL6iQOXA5v784qdT0xwJ
+         hm4k4tSg2RQHgCHaIoc3RDA1c9NtEOgkmn+K8EDVzExN35VyJuzFE6gAtnRYlU6hwvlb
+         uciw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ulb6MHqDVSDIt1kssaOb3puI4pL3hP8hhBUmYi+BTIk=;
+        b=ASZncZ0iv3gtJUaPSkysgdTTEkqpnlEQ2q1q0G0RkVwAE3Y6g22eTbwZYceA/h1ywL
+         oE3oYi1zjHrL7YUq2n3Xysq9erRJrhyKafvmrC7GeTSDTH4KOjSLT3EuHADGh2fjgBLW
+         JrqKJnRZRbzPvZpYrbb5Kt+0d90yww8MXUkZMrcVb9rE2BQr+F8VqaHh2MgCQ8BZ0P1L
+         nNndoZhDcAjqa4flUxeqVp7XAXo6FlycCDgTvz7FQlycLrdLk0qzS9LAlrWA36OOUw4Z
+         Mt+st9ofi+xPOEXS8BS151DjV5EIPkY2ifGLDBbzSCCW7SJdEw5HBl8w5iIKbwnq7EK2
+         ZW1Q==
+X-Gm-Message-State: AO0yUKVby1EtcEHZimo3fszKW6/3i/TuofvtOCd+z5Il0wFT7ho6mDUr
+	7TweWeQZ7zh0fx3XTj8bdiH0HV+ZsmzRfnHRXEY=
+X-Google-Smtp-Source: AK7set8wiLHRdgRhfY7gpesh+na3uEiBDAyKQL2uMjQTxoD1sDXMV7fJoDEEmj6NMeZz2JRtLEdJ9g==
+X-Received: by 2002:a17:902:f20c:b0:198:efdb:f039 with SMTP id m12-20020a170902f20c00b00198efdbf039mr7441257plc.25.1675704890943;
+        Mon, 06 Feb 2023 09:34:50 -0800 (PST)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (dhcp-72-253-4-112.hawaiiantel.net. [72.253.4.112])
+        by smtp.gmail.com with ESMTPSA id g13-20020a170902d5cd00b00198e726a6bbsm6100385plh.44.2023.02.06.09.34.49
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 06 Feb 2023 09:34:50 -0800 (PST)
+From: "Steve Sakoman" <steve@sakoman.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][dunfell] poky.conf: bump version for 3.1.23
+Date: Mon,  6 Feb 2023 07:34:46 -1000
+Message-Id: <2fca98952f8bca9f19b2c03abc3db3349be6a2ee.1675704739.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1675704739.git.steve@sakoman.com>
+References: <cover.1675704739.git.steve@sakoman.com>
 MIME-Version: 1.0
-In-Reply-To: <c486378d098e4a5cb89b712dbd6b66e9b67f7dde.1675447409.git.gkelly@phoenixcontact.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hello George,
+Signed-off-by: Steve Sakoman <steve@sakoman.com>
+---
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks for the patch, a few things to improve:
-
-On 03/02/2023 15:29:43-0500, George Kelly wrote:
-> From: George Kelly <gkelly@phoenixcontact.com>
-> 
-> if you are behind a corporate proxy, the npm fetcher uses the proxy IP address already passed in the list of exports. However, it will error if the proxy injects its own root CA certificate. Thus, the NODE_EXTRA_CA_CERTS environment variable must be passed so the user can include their company's root CA as a trusted CA inside node's certificate store.
-
-This commit message should be wrapped
-
-> 
-> Signed-off-by: George Kelly <george.kelly1097@gmail.com>
-
-The Author and SoB must match.
-
-> ---
->  bitbake/lib/bb/fetch2/__init__.py | 1 +
-
-This is a bitake patch, please base it on the bitbake git repository
-(git.openembedded.org/bitbake).
-Also, this should be sent to bitbake-devel@lists.openembedded.org
-
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/bitbake/lib/bb/fetch2/__init__.py b/bitbake/lib/bb/fetch2/__init__.py
-> index 5a7a6024d1..747356dfa1 100644
-> --- a/bitbake/lib/bb/fetch2/__init__.py
-> +++ b/bitbake/lib/bb/fetch2/__init__.py
-> @@ -851,6 +851,7 @@ FETCH_EXPORT_VARS = ['HOME', 'PATH',
->                       'DBUS_SESSION_BUS_ADDRESS',
->                       'P4CONFIG',
->                       'SSL_CERT_FILE',
-> +                     'NODE_EXTRA_CA_CERTS',
->                       'AWS_PROFILE',
->                       'AWS_ACCESS_KEY_ID',
->                       'AWS_SECRET_ACCESS_KEY',
-> -- 
-> 2.37.2
-> 
-
-> 
-> 
-> 
-
-
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 52755cc..5be5042 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -1,6 +1,6 @@
+ DISTRO = "poky"
+ DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
+-DISTRO_VERSION = "3.1.22"
++DISTRO_VERSION = "3.1.23"
+ DISTRO_CODENAME = "dunfell"
+ SDK_VENDOR = "-pokysdk"
+ SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}', 'snapshot')}"
 -- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+2.25.1
+
