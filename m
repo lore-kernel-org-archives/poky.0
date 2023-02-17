@@ -1,86 +1,119 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
- by mx.groups.io with SMTP id smtpd.web10.7407.1676643726347829211
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+ by mx.groups.io with SMTP id smtpd.web11.7488.1676643891569521996
  for <poky@lists.yoctoproject.org>;
- Fri, 17 Feb 2023 06:22:06 -0800
+ Fri, 17 Feb 2023 06:24:51 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=E0+9t1lI;
- spf=softfail (domain: sakoman.com, ip: 209.85.208.46, mailfrom: steve@sakoman.com)
-Received: by mail-ed1-f46.google.com with SMTP id i28so4358858eda.8
-        for <poky@lists.yoctoproject.org>; Fri, 17 Feb 2023 06:22:06 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=LoY0OMUS;
+ spf=pass (domain: gmail.com, ip: 209.85.128.43, mailfrom: martin.jansa@gmail.com)
+Received: by mail-wm1-f43.google.com with SMTP id e4-20020a05600c4e4400b003dc4050c94aso1078108wmq.4
+        for <poky@lists.yoctoproject.org>; Fri, 17 Feb 2023 06:24:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        d=gmail.com; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=DeBoEgYu8ke+Xzng9LK0TXNoTrE/RWBBPddDPhNVQEE=;
-        b=E0+9t1lIeqRHjFaxYNmGn6NNMNaEQzFiWp5ljJagREiJr9PkJqgqvD4jD6UbSL8/oq
-         v9zJBp6kGu8zLP7JH4bPzKSo6W7I1cAoVoVwOhoq0G1ghNoK62UkDkt16YKfCykDJ/7t
-         O9mtMFRDZY1sprjsSVpXC1cdmIqMtQls/HUb0alVx+G3h7zt6yfUa0l97xtI1j8C/IKF
-         fRgo9/mG2qluUSyoH1iJkFp1003Ii9CGGvDaldb111eltOjD0XIH5/9pkl/8jEp2CkK1
-         5M4+3ZGcDulANI3dnOK/0IR/3Ejn3VK3qBeLE37QTTeaKsz1INU0EPNtbnBYdocvD5ME
-         +v/w==
+        bh=6p39AYisWMYmp95LgBIrFbpjZjmYnFEgSYHl81QKXXQ=;
+        b=LoY0OMUSxZBq7hpysI2Gl4B/1UmDdPZlSQEtcnhG6S5bgbQwxlmkf7uBYOQR4pIgnv
+         aHUl2FltFiL3FlMZL1xEHYE0S4c28oO4BYdFvTYpscEMs4IEFQw1jfryyI33+X6q9DJn
+         /go5wZ/PRYM054xpKERd/AvzZkZXfdanrzazhJ6QPB3L9uL7TuZTbNlSR4zcKJX2nFro
+         3URpZQdxH1wjspirdA6N9YTVhvTdLEyGS0K+iTR9PZeKti/K9uvvhbhayMXyL/WikUv7
+         GUlkzMEwNXxmKeuu+yhvkxvC1TiyJhQq18C7X+FiOZCYDwfDE4qeXFWj5GpVHqkmkICw
+         Nm8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=DeBoEgYu8ke+Xzng9LK0TXNoTrE/RWBBPddDPhNVQEE=;
-        b=NetvexYk/4u0dlPtf27OO/C5uvjsiB7k5EIfpBvW+n+gf2bI9SO8aeE8vi+jwDQhbz
-         Jsc/+2uQPznwaV7GatnwHMSAAEDY/diJzilJC8qPxBSZdYBH1AhaNy7POrZ/e7kPlS/Z
-         P5gdFzUFRs7LizoqKMR74ab0jMhPIggGXG2/czZ6fpy5FTdOxUfsqJuFrozSBg8UwYEx
-         vAxztGzgwG3XgMzY7KYkV1J8ofZonM4E1CK/FiEpZ8NOHIv9jl8QSX6oO4AAGbfAqbi+
-         6X17oDdiUebRJT3lAVagKU+bsLp0gWiIY+XgrVC5TgFGUMflblNHLr8VAB1v+kEpsBw5
-         ptdw==
-X-Gm-Message-State: AO0yUKWYfUrs9OQYu0lKKcAZC2aZBUV0qSan14lZI5wk79hKcN8yRdAd
-	DmqM7WioXzxNAwU876oN8r+Jfw0f8eiAdzuNhTJhCA==
-X-Google-Smtp-Source: AK7set8i+1EVCLF9GyiYGmBQHCs/nE4xTrINZfhBfc4+i3i6p9Tw0e/p7NsmVPN1GpcNnR0c8j4pqsvPoERcgXnM824=
-X-Received: by 2002:a17:907:c081:b0:8b1:2410:3b4b with SMTP id
- st1-20020a170907c08100b008b124103b4bmr4215485ejc.2.1676643724516; Fri, 17 Feb
- 2023 06:22:04 -0800 (PST)
+        bh=6p39AYisWMYmp95LgBIrFbpjZjmYnFEgSYHl81QKXXQ=;
+        b=x1QIWj3g5ENJjXuVxnP55Qw/ewljZcEsl/1YkZAxZj7jraTsBYPQMn+IFk5RyupjzF
+         oT4P7pzU3fyTMMS7f3fB5Veuz9Dh/Pd2Dw/SxFgYRSCDElv0PqFzxMfEH+x33e9YLVT0
+         CVpXxlv//I51/5SO+L4yxkRpm2We3G5WRw+bP0znXPREGg0PYlmld0Ive+GtC/7fqOAK
+         KUz9mfyq0BgHHWOHXVQwzmgjsOd+NTt1mZ4xvBhNph+g3ALeQBh4YQwsLQIdCrHdBv20
+         pVXoGubujpi2ctOx85TPOaSqiV3U6e0ZS/2m1BPoYNys2vQO4WRFYfHFKrcLw1+mFEVY
+         1tdA==
+X-Gm-Message-State: AO0yUKV/Yn0QWZq6WYcbIy28MLoLu0ieQbcqx0Hqb9Ia6qMtMP6E8bsJ
+	khQ+eH2TO7yHDMtxNYB9TdZpAxasKkylS5dxoUM=
+X-Google-Smtp-Source: AK7set9chVly0mUspuQfHSXVLh6Bcdyg/VeIwFA/uvViHc7bh8cges+RoroE2HD3MnXue7+0WsypwhOPiX8KiAapZ5U=
+X-Received: by 2002:a05:600c:1e85:b0:3dc:546c:b2ec with SMTP id
+ be5-20020a05600c1e8500b003dc546cb2ecmr566234wmb.32.1676643889955; Fri, 17 Feb
+ 2023 06:24:49 -0800 (PST)
 MIME-Version: 1.0
-References: <BooD.1676632109346078064.HPtY@lists.yoctoproject.org> <CANNYZj8DU7twqWsXKq3F95efV80i3jQHRF1bBnNk8kZR_xR+pA@mail.gmail.com>
-In-Reply-To: <CANNYZj8DU7twqWsXKq3F95efV80i3jQHRF1bBnNk8kZR_xR+pA@mail.gmail.com>
-From: "Steve Sakoman" <steve@sakoman.com>
-Date: Fri, 17 Feb 2023 04:21:53 -1000
-Message-ID: <CAOSpxdZsZ-LE6-y-M3=0Tg79=UYNX61v3F+WhomwHEheQp83JA@mail.gmail.com>
+References: <BooD.1676632109346078064.HPtY@lists.yoctoproject.org>
+ <CANNYZj8DU7twqWsXKq3F95efV80i3jQHRF1bBnNk8kZR_xR+pA@mail.gmail.com> <CAOSpxdZsZ-LE6-y-M3=0Tg79=UYNX61v3F+WhomwHEheQp83JA@mail.gmail.com>
+In-Reply-To: <CAOSpxdZsZ-LE6-y-M3=0Tg79=UYNX61v3F+WhomwHEheQp83JA@mail.gmail.com>
+From: "Martin Jansa" <Martin.Jansa@gmail.com>
+Date: Fri, 17 Feb 2023 15:24:34 +0100
+Message-ID: <CA+chaQeZAaN=yxcsv_Jp8AOuF9GdTA0wmesp-ttzXczs6N2qGw@mail.gmail.com>
 Subject: Re: [poky] Test dunfell LTS release on UBUNTU LTS 22.04 #yocto
-To: Alexander Kanavin <alex.kanavin@gmail.com>
-Cc: Kamel Fezzani <kamfezz@gmail.com>, poky@lists.yoctoproject.org
+To: Steve Sakoman <steve@sakoman.com>
+Cc: Alexander Kanavin <alex.kanavin@gmail.com>, Kamel Fezzani <kamfezz@gmail.com>, 
+	poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="00000000000079c81405f4e61350"
+
+--00000000000079c81405f4e61350
 Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Feb 17, 2023 at 2:24 AM Alexander Kanavin
-<alex.kanavin@gmail.com> wrote:
+On Fri, Feb 17, 2023 at 3:22 PM Steve Sakoman <steve@sakoman.com> wrote:
+
+> On Fri, Feb 17, 2023 at 2:24 AM Alexander Kanavin
+> <alex.kanavin@gmail.com> wrote:
+> >
+> > The list of distributions is simply what the yocto CI is using to run
+> > test builds. It doesn't mean that 22.04 will not work, but you may run
+> > into issues, mostly caused by newer ubuntu compiler building an older
+> > set of native recipes in dunfell. If you have compelling reasons to
+> > move to 22.04, you can also install buildtools tarball which will
+> > insulate you from the host tools: scripts/install-buildtools
 >
-> The list of distributions is simply what the yocto CI is using to run
-> test builds. It doesn't mean that 22.04 will not work, but you may run
-> into issues, mostly caused by newer ubuntu compiler building an older
-> set of native recipes in dunfell. If you have compelling reasons to
-> move to 22.04, you can also install buildtools tarball which will
-> insulate you from the host tools: scripts/install-buildtools
-
-You should be fine with 22.04 and dunfell.
-
-I've been using it for my local test builds for a few weeks now, and
-was just preparing a patch to enable it on the autobuilder.
-
-Once I have a week or two of testing on the autobuilder I'll send a
-patch to add 22.04 to the "officially supported" list.
-
-Steve
-
-> > On one of my Yocto projects, I am using dunfell LTS release, and I'm tracking latest dunfell releases (3.1.22 (January 2023)).
-> > I am using build machines with native UBUNTU distribution.
-> >
-> > Ive seen that dunfell LTS release si not tested on UBUNTU LTS 22.04 (https://git.yoctoproject.org/poky/tree/meta-poky/conf/distro/poky.conf?h=dunfell#n49).
-> >
-> > Si there any reason for that ? This test is planned ?
-> > Or should I keep my build machine on UBUNTU20.04 ?
-> >
-> > Thanks for help.
-> > Regards.
-> > Kamel FAZZANI.
-> >
-> >
-> >
+> You should be fine with 22.04 and dunfell.
 >
-> 
+> I've been using it for my local test builds for a few weeks now, and
+> was just preparing a patch to enable it on the autobuilder.
 >
+> Once I have a week or two of testing on the autobuilder I'll send a
+> patch to add 22.04 to the "officially supported" list.
+>
+
+I'm using unrelased ubuntu 23.04 in container and dunfell still builds with
+it fine, needs only small fix in bitbake I've sent after seeing this
+question (I've already forgot that I still have it in my jansa/1.46 branch).
+
+Regards,
+
+--00000000000079c81405f4e61350
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">On Fri, Feb 17, 2023 at 3:22 PM Steve Sak=
+oman &lt;<a href=3D"mailto:steve@sakoman.com">steve@sakoman.com</a>&gt; wro=
+te:<br></div><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" s=
+tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
+ding-left:1ex">On Fri, Feb 17, 2023 at 2:24 AM Alexander Kanavin<br>
+&lt;<a href=3D"mailto:alex.kanavin@gmail.com" target=3D"_blank">alex.kanavi=
+n@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; The list of distributions is simply what the yocto CI is using to run<=
+br>
+&gt; test builds. It doesn&#39;t mean that 22.04 will not work, but you may=
+ run<br>
+&gt; into issues, mostly caused by newer ubuntu compiler building an older<=
+br>
+&gt; set of native recipes in dunfell. If you have compelling reasons to<br=
+>
+&gt; move to 22.04, you can also install buildtools tarball which will<br>
+&gt; insulate you from the host tools: scripts/install-buildtools<br>
+<br>
+You should be fine with 22.04 and dunfell.<br>
+<br>
+I&#39;ve been using it for my local test builds for a few weeks now, and<br=
+>
+was just preparing a patch to enable it on the autobuilder.<br>
+<br>
+Once I have a week or two of testing on the autobuilder I&#39;ll send a<br>
+patch to add 22.04 to the &quot;officially supported&quot; list.<br></block=
+quote><div><br></div><div>I&#39;m using unrelased ubuntu 23.04 in container=
+ and dunfell still builds with it fine, needs only small fix in bitbake I&#=
+39;ve sent after seeing this question (I&#39;ve already forgot that I still=
+ have it in my jansa/1.46 branch).</div><div><br></div><div>Regards,</div><=
+/div></div>
+
+--00000000000079c81405f4e61350--
