@@ -1,76 +1,86 @@
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [217.70.183.194])
- by mx.groups.io with SMTP id smtpd.web10.7392.1676643676278698338
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+ by mx.groups.io with SMTP id smtpd.web10.7407.1676643726347829211
  for <poky@lists.yoctoproject.org>;
- Fri, 17 Feb 2023 06:21:16 -0800
+ Fri, 17 Feb 2023 06:22:06 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@bootlin.com header.s=gm1 header.b=QyJxr9Wx;
- spf=pass (domain: bootlin.com, ip: 217.70.183.194, mailfrom: michael.opdenacker@bootlin.com)
-Received: (Authenticated sender: michael.opdenacker@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPSA id 51C3B40007;
-	Fri, 17 Feb 2023 14:21:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1676643674;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AsIL+go1+PR3368te70aVZ6eBFk1JVMc/72RAqNJdWk=;
-	b=QyJxr9WxShdBbUQ0jDrVTug3dbPk742VUlT3j4Qtq07Pht6G3XJ/Eulxihr/TNh2qs0Bcb
-	tnOX0Ny8PHs6ibvFO8oUoAfqUvnj26WfD16rBSNxqQEeIK2kxBxIHr0t2DXPUQg43FbsPE
-	F5UB4sLZsXXMsyx4E3QQnrVY1AeUceZB4AnXB5vwzmLuRCTgikX+FakagRlOSAs4Cg8ihr
-	t/YX3KhqfJNOO3zTmbka6w8vPUPoDJyT9okA8GjQMKjYUV7vfsEJRKo6p2CRzkNkyIpV1W
-	4OHaRxJQS/1voKegCBT65dXMP8RGQtvrFuIgcYl2gyoOCqLk0gO84/QPyxWUzw==
-Message-ID: <4d70f231-afe0-fb28-4d49-ea5192b120e6@bootlin.com>
-Date: Fri, 17 Feb 2023 15:21:13 +0100
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=E0+9t1lI;
+ spf=softfail (domain: sakoman.com, ip: 209.85.208.46, mailfrom: steve@sakoman.com)
+Received: by mail-ed1-f46.google.com with SMTP id i28so4358858eda.8
+        for <poky@lists.yoctoproject.org>; Fri, 17 Feb 2023 06:22:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=DeBoEgYu8ke+Xzng9LK0TXNoTrE/RWBBPddDPhNVQEE=;
+        b=E0+9t1lIeqRHjFaxYNmGn6NNMNaEQzFiWp5ljJagREiJr9PkJqgqvD4jD6UbSL8/oq
+         v9zJBp6kGu8zLP7JH4bPzKSo6W7I1cAoVoVwOhoq0G1ghNoK62UkDkt16YKfCykDJ/7t
+         O9mtMFRDZY1sprjsSVpXC1cdmIqMtQls/HUb0alVx+G3h7zt6yfUa0l97xtI1j8C/IKF
+         fRgo9/mG2qluUSyoH1iJkFp1003Ii9CGGvDaldb111eltOjD0XIH5/9pkl/8jEp2CkK1
+         5M4+3ZGcDulANI3dnOK/0IR/3Ejn3VK3qBeLE37QTTeaKsz1INU0EPNtbnBYdocvD5ME
+         +v/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DeBoEgYu8ke+Xzng9LK0TXNoTrE/RWBBPddDPhNVQEE=;
+        b=NetvexYk/4u0dlPtf27OO/C5uvjsiB7k5EIfpBvW+n+gf2bI9SO8aeE8vi+jwDQhbz
+         Jsc/+2uQPznwaV7GatnwHMSAAEDY/diJzilJC8qPxBSZdYBH1AhaNy7POrZ/e7kPlS/Z
+         P5gdFzUFRs7LizoqKMR74ab0jMhPIggGXG2/czZ6fpy5FTdOxUfsqJuFrozSBg8UwYEx
+         vAxztGzgwG3XgMzY7KYkV1J8ofZonM4E1CK/FiEpZ8NOHIv9jl8QSX6oO4AAGbfAqbi+
+         6X17oDdiUebRJT3lAVagKU+bsLp0gWiIY+XgrVC5TgFGUMflblNHLr8VAB1v+kEpsBw5
+         ptdw==
+X-Gm-Message-State: AO0yUKWYfUrs9OQYu0lKKcAZC2aZBUV0qSan14lZI5wk79hKcN8yRdAd
+	DmqM7WioXzxNAwU876oN8r+Jfw0f8eiAdzuNhTJhCA==
+X-Google-Smtp-Source: AK7set8i+1EVCLF9GyiYGmBQHCs/nE4xTrINZfhBfc4+i3i6p9Tw0e/p7NsmVPN1GpcNnR0c8j4pqsvPoERcgXnM824=
+X-Received: by 2002:a17:907:c081:b0:8b1:2410:3b4b with SMTP id
+ st1-20020a170907c08100b008b124103b4bmr4215485ejc.2.1676643724516; Fri, 17 Feb
+ 2023 06:22:04 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Cc: poky@lists.yoctoproject.org
-Subject: Re: [poky] Test dunfell LTS release on UBUNTU LTS 22.04 #yocto #poky
-To: Kamel Fezzani <kamfezz@gmail.com>
-References: <Ns4R.1676632334791492919.c94a@lists.yoctoproject.org>
- <Groupsio.1.Ns4R.1676632334791492919.c94a@lists.yoctoproject.org>
-From: "Michael Opdenacker" <michael.opdenacker@bootlin.com>
-Organization: Bootlin
-In-Reply-To: <Groupsio.1.Ns4R.1676632334791492919.c94a@lists.yoctoproject.org>
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <BooD.1676632109346078064.HPtY@lists.yoctoproject.org> <CANNYZj8DU7twqWsXKq3F95efV80i3jQHRF1bBnNk8kZR_xR+pA@mail.gmail.com>
+In-Reply-To: <CANNYZj8DU7twqWsXKq3F95efV80i3jQHRF1bBnNk8kZR_xR+pA@mail.gmail.com>
+From: "Steve Sakoman" <steve@sakoman.com>
+Date: Fri, 17 Feb 2023 04:21:53 -1000
+Message-ID: <CAOSpxdZsZ-LE6-y-M3=0Tg79=UYNX61v3F+WhomwHEheQp83JA@mail.gmail.com>
+Subject: Re: [poky] Test dunfell LTS release on UBUNTU LTS 22.04 #yocto
+To: Alexander Kanavin <alex.kanavin@gmail.com>
+Cc: Kamel Fezzani <kamfezz@gmail.com>, poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hello Kamel
-
-On 17.02.23 at 12:12, Kamel Fezzani wrote:
+On Fri, Feb 17, 2023 at 2:24 AM Alexander Kanavin
+<alex.kanavin@gmail.com> wrote:
 >
-> [Edited Message Follows]
+> The list of distributions is simply what the yocto CI is using to run
+> test builds. It doesn't mean that 22.04 will not work, but you may run
+> into issues, mostly caused by newer ubuntu compiler building an older
+> set of native recipes in dunfell. If you have compelling reasons to
+> move to 22.04, you can also install buildtools tarball which will
+> insulate you from the host tools: scripts/install-buildtools
+
+You should be fine with 22.04 and dunfell.
+
+I've been using it for my local test builds for a few weeks now, and
+was just preparing a patch to enable it on the autobuilder.
+
+Once I have a week or two of testing on the autobuilder I'll send a
+patch to add 22.04 to the "officially supported" list.
+
+Steve
+
+> > On one of my Yocto projects, I am using dunfell LTS release, and I'm tracking latest dunfell releases (3.1.22 (January 2023)).
+> > I am using build machines with native UBUNTU distribution.
+> >
+> > Ive seen that dunfell LTS release si not tested on UBUNTU LTS 22.04 (https://git.yoctoproject.org/poky/tree/meta-poky/conf/distro/poky.conf?h=dunfell#n49).
+> >
+> > Si there any reason for that ? This test is planned ?
+> > Or should I keep my build machine on UBUNTU20.04 ?
+> >
+> > Thanks for help.
+> > Regards.
+> > Kamel FAZZANI.
+> >
+> >
+> >
 >
-> Hello,
-> On one of my Yocto projects, I am using dunfell LTS release, and I'm 
-> tracking latest dunfell releases (3.1.22 (January 2023)).
-> I am using build machines with native UBUNTU distribution.
-> I've seen that dunfell LTS release is not tested on UBUNTU LTS 22.04 
-> (https://git.yoctoproject.org/poky/tree/meta-poky/conf/distro/poky.conf?h=dunfell#n49 
-> <https://git.yoctoproject.org/poky/tree/meta-poky/conf/distro/poky.conf?h=dunfell#n49>).
-> Si there any reason for that ? This test is planned ?
-> Or should I keep my build machine on UBUNTU20.04 ?
-
-
-I guess that the main reason is that Ubuntu 22.04 wasn't released when 
-Dunfell 3.1 was initially published. Supporting a new version of the 
-host distro requires running (and passing) extra tests.
-
-I also have a question about our autobuilders... On 
-https://autobuilder.yoctoproject.org/, how to see the Dunfell builds (if 
-any)?
-
-Back to your question... Why would you want to stick to Dunfell 3.1, but 
-not to Ubuntu 20.04?  Ubuntu 20.04 will still be supported when Dunfell 
-reaches its end of life (April 2024).
-
-Cheers
-Michael.
-
--- 
-Michael Opdenacker, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+> 
+>
