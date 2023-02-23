@@ -1,93 +1,83 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
- by mx.groups.io with SMTP id smtpd.web10.55378.1677016048041313248
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+ by mx.groups.io with SMTP id smtpd.web11.8899.1677154336900271160
  for <poky@lists.yoctoproject.org>;
- Tue, 21 Feb 2023 13:47:28 -0800
+ Thu, 23 Feb 2023 04:12:17 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=QI4yEU+3;
- spf=softfail (domain: sakoman.com, ip: 209.85.215.173, mailfrom: steve@sakoman.com)
-Received: by mail-pg1-f173.google.com with SMTP id y19so3196791pgk.5
-        for <poky@lists.yoctoproject.org>; Tue, 21 Feb 2023 13:47:28 -0800 (PST)
+ dkim=pass header.i=@inovex.de header.s=google header.b=Y4YTv9v0;
+ spf=pass (domain: inovex.de, ip: 209.85.128.47, mailfrom: anna-lena.marx@inovex.de)
+Received: by mail-wm1-f47.google.com with SMTP id k37so5691053wms.0
+        for <poky@lists.yoctoproject.org>; Thu, 23 Feb 2023 04:12:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20210112.gappssmtp.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mO4Dh5W8iA1RvouSKKADiWJpTsN5IVpNG7E86Z7XyZo=;
-        b=QI4yEU+31+imkES8buExApFe3lGH1pQkg5Co7ioQ93DvZpW30OsvfPt2KU7o/c+9R9
-         uyiemRmsmdXqilUg5dR6Df5m+G5qmPQKZi8XIn4bBC7X2+n5Vzvl/AoR9+3XtcpXL3Oz
-         i4aZjPjHHN7it4mprfFTeDpT2AiCFnXNbtB99HrNN8lW+PrBh0Xyz3E705uhY309oJec
-         HB9zdJIVLvagUHO17cq0JY1AtRIN+blq47NaIgTEUOBOFp/dspfaVRjX1aVs1kfWermK
-         sDHOZIvzkqJs/szI4YZ3FynnhtZckLJ8gqrGg+r9beZrwAGvEfWkCSPk8aJgBTxYkH8U
-         GJow==
+        d=inovex.de; s=google;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=jhttwUq7RKKADOxsAD+erwum/oTjFX8gaIC8afVqA8Y=;
+        b=Y4YTv9v0wvtLZZetzfL2s0FdQnPwFW8wmEwDmRkdezpoam23pDYHuYw3A7auuETJmG
+         1ial7Ud5vkDl7YCtochGEU+AcVd8Q8OE1SYHtNdFq8Pqrm4UKfZeXn4Lr5sGtQ9YSUOb
+         9XDZdrlslbJ/mGTjj/BMh6GhnyaD5o0bbInj0SRKsSkaV/lwwhAfAkBcdUOL6WS/6v8L
+         Lr9b9PBYorJS6ssypAiMeYJK/FdZZSYjzPdfEV8rSLo1sd+fcTkwfCsjdSFLXyA1JOOT
+         0adgPpq/8z6JA0oYWF3YbFsRjd7qjoQV7QVdffECYodTKUPY3XKrVYPtc0uZOcga8JBs
+         oMPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=mO4Dh5W8iA1RvouSKKADiWJpTsN5IVpNG7E86Z7XyZo=;
-        b=U4oTTTmWrZYC3aHc2wTgbmzdfNhNNFIjHzGNB/Vkh4zk2bGNqtUrTi2WjICx7+YcPR
-         b8rloCq16dvmAn6GslXgadxyz6mvQdCsoDHPNt1L4iMZE+4N2fh8mOl2nkgyCOHiKEEg
-         jsrNo0q0sE0usVt5FCH+qUKuGoD1Sx/KYEuLnO9SfZl9DRuTX+61fj/m4V8s3Pv/Uq1P
-         3J+G/0YNzATvjHl3f5UAozEXsgmDNLH3i6rThixEoceoYQGG5KPPW9fL37QduE/xvd+p
-         JyQ3WtoqLMTVvCY3szso0wZq49X1fGyRB/062XQ5tarnKy+l/P0j4dxbHrM7G0INt5uq
-         7Vzw==
-X-Gm-Message-State: AO0yUKXuYaP5SWD8PsVsg71+PjwBtpLJg3QoP+p3CnCbrrdnIHS3r4cV
-	0fDRaEExzxJaWrOj8E/w/RL3jPb9nhz7ejt79Zw=
-X-Google-Smtp-Source: AK7set/Vy65cM+1dA0+2vDYLw3b9+iJJvp+h6k/I5nk7JP4ZsdPD4clGzbIpRzTU/kLXhI++ZwEZFg==
-X-Received: by 2002:aa7:96b4:0:b0:5d2:248d:7ec3 with SMTP id g20-20020aa796b4000000b005d2248d7ec3mr1558300pfk.8.1677016047112;
-        Tue, 21 Feb 2023 13:47:27 -0800 (PST)
-Return-Path: <steve@sakoman.com>
-Received: from hexa.router0800d9.com (dhcp-72-253-4-112.hawaiiantel.net. [72.253.4.112])
-        by smtp.gmail.com with ESMTPSA id z8-20020aa791c8000000b005a8a4665d3bsm3986531pfa.116.2023.02.21.13.47.26
-        for <poky@lists.yoctoproject.org>
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=jhttwUq7RKKADOxsAD+erwum/oTjFX8gaIC8afVqA8Y=;
+        b=Tj2aXmDmgCObsujRIKDi+BlhgCaFYy0qwO3pXyUNr5OhQZeGfixoSyG8sAZ1/Oox6e
+         30wC/AdEGMuDd4rMHRrN3VTSDRhJVBige/7heCx2mfzeu1T3J1Q1lLoVR6UTWGb4merh
+         PQmA0UWTcfe1znQjkwNNlHnt6vd/5rgRqVhpxjaQX6p2me1e3xk7ugafdBO+gUSd2yGc
+         CN1clcYAyyk3lRjUKxW4GLFmP5iEZUTPv52HeAXe1v/StcTREKs0Sm007wQeYlasDCY7
+         1Pr+Q/U6B9ju/oMe2HfH6ZpDDNTiOIyVCwUCtqvgxDB0/19Ut3yCqr/MZoSZa/AV0TBt
+         4DrA==
+X-Gm-Message-State: AO0yUKVDwZcIo9V4zHMW53lAjBjTxStneaOW0KlEAUr7mTl4N5uyOz78
+	C0Dn2Je53Rl+IuyGlaeVOFrwFT7N55hJURnbUVbxX2UGbFIFGA/sArN6RYaD7+H4hSsKjsnEb7w
+	l1chtThGLEivQ1ONZ2aspxvjSPfRfOq6iQii/x+bRNF+Gqyer1+qyvNGG4fFkvpysRdrZGEddqt
+	BSD5GxCgmZyQ==
+X-Google-Smtp-Source: AK7set8un5lRmtZ13D7YFWA/8bMCx19jCEtCz0jO+RtF8PxsKdKgPApLOyqjVaJXZsZq2g3o6G7NmA==
+X-Received: by 2002:a05:600c:2b0f:b0:3da:22a6:7b6b with SMTP id y15-20020a05600c2b0f00b003da22a67b6bmr9044071wme.13.1677154334960;
+        Thu, 23 Feb 2023 04:12:14 -0800 (PST)
+Return-Path: <anna-lena.marx@inovex.de>
+Received: from Dell.fritz.box ([2001:9e8:386f:d600:e361:487c:564b:e3a3])
+        by smtp.gmail.com with ESMTPSA id u5-20020a05600c210500b003e00c453447sm11027177wml.48.2023.02.23.04.12.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 21 Feb 2023 13:47:26 -0800 (PST)
-From: "Steve Sakoman" <steve@sakoman.com>
+        Thu, 23 Feb 2023 04:12:14 -0800 (PST)
+From: "Anna-Lena Marx" <anna-lena.marx@inovex.de>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][dunfell] poky.conf: Update SANITY_TESTED_DISTROS to match autobuilder
-Date: Tue, 21 Feb 2023 11:47:19 -1000
-Message-Id: <032aed804fd4a2f2dfb676b472516d682303ba04.1677015949.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1677015949.git.steve@sakoman.com>
-References: <cover.1677015949.git.steve@sakoman.com>
+Cc: Anna-Lena Marx <anna-lena.marx@inovex.de>
+Subject: [PULL][PATCH 0/1] wic: Add support for F2FS in WIC rootfs plugin
+Date: Thu, 23 Feb 2023 13:11:53 +0100
+Message-Id: <cover.1677071966.git.anna-lena.marx@inovex.de>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The autobuilder workers change over time, update the sanity testing list
-to match the current autobuilder workers OS list.
+Hi there,
 
-Signed-off-by: Steve Sakoman <steve@sakoman.com>
----
- meta-poky/conf/distro/poky.conf | 3 +++
- 1 file changed, 3 insertions(+)
+Yocto supports generating F2FS rootfs in general for years but
+WIC does not, yet.
+The patch adds support to do so in the "rootfs" WIC plugin.
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 5be5042..64712bb 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -47,12 +47,14 @@ SANITY_TESTED_DISTROS ?= " \
-             ubuntu-18.04 \n \
-             ubuntu-19.04 \n \
-             ubuntu-20.04 \n \
-+            ubuntu-22.04 \n \
-             fedora-30 \n \
-             fedora-31 \n \
-             fedora-32 \n \
-             fedora-33 \n \
-             fedora-34 \n \
-             fedora-35 \n \
-+            fedora-36 \n \
-             centos-7 \n \
-             centos-8 \n \
-             debian-8 \n \
-@@ -63,6 +65,7 @@ SANITY_TESTED_DISTROS ?= " \
-             opensuseleap-15.2 \n \
-             opensuseleap-15.3 \n \
-             almalinux-8.5 \n \
-+            almalinux-8.7 \n \
-             "
- # add poky sanity bbclass
- INHERIT += "poky-sanity"
+Generating the F2FS rootfs follows mostly the way it is implemented
+in meta/classes-recipe/image_types.bbclass.
+Thereby, F2FS needs a minimum size in order to work correctly as it
+uses an overprovision functionality.
+
+Pull from https://git.yoctoproject.org/poky-contrib/log/?h=amarx/wic-f2fs
+
+-- Anna
+
+Anna-Lena Marx (1):
+  wic: Add support for F2FS in WIC rootfs plugin
+
+ meta/classes-recipe/image_types_wic.bbclass |  2 +-
+ meta/recipes-core/meta/wic-tools.bb         |  2 +-
+ scripts/lib/wic/help.py                     |  1 +
+ scripts/lib/wic/ksparser.py                 |  2 +-
+ scripts/lib/wic/misc.py                     |  1 +
+ scripts/lib/wic/partition.py                | 32 ++++++++++++++++++++-
+ 6 files changed, 36 insertions(+), 4 deletions(-)
+
 -- 
-2.34.1
+2.39.2
 
