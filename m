@@ -1,110 +1,78 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
- by mx.groups.io with SMTP id smtpd.web10.637.1678814729809496111
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+ by mx.groups.io with SMTP id smtpd.web10.646.1678814750915517352
  for <poky@lists.yoctoproject.org>;
- Tue, 14 Mar 2023 10:25:30 -0700
+ Tue, 14 Mar 2023 10:25:51 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=lLgLttz8;
- spf=pass (domain: gmail.com, ip: 209.85.167.48, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-lf1-f48.google.com with SMTP id o8so1008673lfo.0
-        for <poky@lists.yoctoproject.org>; Tue, 14 Mar 2023 10:25:29 -0700 (PDT)
+ dkim=pass header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=6596oWPz;
+ spf=softfail (domain: sakoman.com, ip: 209.85.208.54, mailfrom: steve@sakoman.com)
+Received: by mail-ed1-f54.google.com with SMTP id da10so65186712edb.3
+        for <poky@lists.yoctoproject.org>; Tue, 14 Mar 2023 10:25:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678814728;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=m1b/ue7l1cwbLNdkOIxcIWDTZVX5TpOyg0g8yNS/54I=;
-        b=lLgLttz8CbC4eeSIN8jAzb8wmHh0GwD4830FXvIOBO5q8xABOltIC+TUvSNOh0juDx
-         2xZc9n82sI1ZisMRtxnCZ4kBkgFl8dT5cuHh5et6dc9tKut9DNULdU8SFcD0SG6kvvz7
-         5p1r/w74rlmSP4NxbkoLQeelKg0V36kifkPVgue+E/Q+kxbMrQwlVi1GJrEfiiDIRZr8
-         96PsdVgGo1Gp84J5qhQk7j4FuhFDLwwCgQ9aPdWDfq8mAi685tfA+NyP7TDYnxw11CI1
-         R/khb6EICvqFqVYAzPA7oNmqaP3qTrmS1OQKjODMUs4ixaVoM43k9SEnGvNqzpsjWsSS
-         dTNQ==
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112; t=1678814749;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=S2Se3lTL2Xq4KV2QOM0Y+r479WwxyKqGqSgE+FdsM6A=;
+        b=6596oWPzZQoVB1j7mZ/6tB0OEtluln1KPtcEjF6qicGpPTrqrBSdSOz2PtZHAaFpwj
+         udWOobI7/CvFi7RIlLECJKZEqL4bFqRaxhECJG04vx54xF9uPLZiTMTl9bQczCk4VLWx
+         wrRCcWTtd9xMnke3CQqlMqr9qJqP/IGVw91oSfyEnysHiY4+jMYDIoE3wg85qm87YHYx
+         O1hO+LfpRIcpmAFBlAwiP41VJgqZNiTr+Aa7nbIT7C/KGFq5HFa9Vt2WXG/FVyMocAWf
+         N+mod+YSGaqUSqKwtC2dubJVFVmdpV429jexcwhC90Llti+pxH70q0Zdlc7bp0dVod+k
+         amCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678814728;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=m1b/ue7l1cwbLNdkOIxcIWDTZVX5TpOyg0g8yNS/54I=;
-        b=uLk1riUydfTJWUSSR1Zj877O4Dclf9YBoxWian/RvJeWuP3qZL7Lw45VLp2Mz7oGBb
-         OBGypoMrCGCsyebjASZ+HwnpA5C5jnrPRVKb0773By6zsUmTDST8wOKbNGUxfmgg1aNi
-         HyUfWldtdjpuFSD1XQ9rv6BqrtcTfALCR0OjFukhf/yRIoEChWwdByq6ovvIfpwO/h1U
-         wacxtJa/hbCmP9ZTqaJgvQ6TkgGhj104aJrJZDaglSmTnXc5dsKOLPKL+GWPFZkPXPn7
-         fn0W1NoRjrab/7d1GSkxpV+gnhtQiXVO/B8CtWjOGBlt+onLruCOZjQ2fN3y3E/+B7sR
-         /ksQ==
-X-Gm-Message-State: AO0yUKVYEDZ1spZiPPo+izJCo3xvsjQg0n7dlF7O6D1p8S85905YWp7S
-	Th1RCFJZ732lGilgmpUXBlHa7LD3/JO6Gp6TJFU=
-X-Google-Smtp-Source: AK7set89z1InsxQ2m0nSXS5N1QwjQZEdkzH/RMzd8+/i6H3iiWNIRs8X70w9PFuvWV/JVOSEZNOTV1I+y1bDSu0Ddh0=
-X-Received: by 2002:ac2:562b:0:b0:4e8:426d:123f with SMTP id
- b11-20020ac2562b000000b004e8426d123fmr1008182lff.11.1678814727467; Tue, 14
- Mar 2023 10:25:27 -0700 (PDT)
+        d=1e100.net; s=20210112; t=1678814749;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=S2Se3lTL2Xq4KV2QOM0Y+r479WwxyKqGqSgE+FdsM6A=;
+        b=F1QKUrlXrEpFCvHVthJD4Nsx3LFEHeFyxcwU04GziUmrg6hFDEZuDaAtsdIENJx2zE
+         vlWPmDucjISJUbvf4nMW8w0vOHyAhdsJ1BINqrocvrUjN94/E4LHltHigmpuhGc+PS8o
+         Py8kwI6/kiBscvD82W5RVg2HuybpodyuKk2yJSwa33D1XLuMrKeOLa3y/c6OYIWMnTkl
+         64AKGqHlPgE3lxY16DjF0CVVOo7KtIJq4RNDY029lFuEVePJyWfDlT2qD+n1BK9FJU17
+         EOOS/YpbijsV10GMxY2S4RZfzmSvdbMtXZPJly7SHcuWxafVFgBH6DfBR9WjngPCDK2K
+         4imA==
+X-Gm-Message-State: AO0yUKV6PeFcS68iDbBjiR1F9T4IQFmrsosnyyeWzEjNc5mUDSNQdcz6
+	ZvmnCVpF/253eMH3zgckhGrPqM6L8l86V9jbtHZcNQ==
+X-Google-Smtp-Source: AK7set880KmQEzt7q5onPsqTwWIeW4IjhhzZTxkNA35XeH0U0WpO0DANfMgQ11c4dLNuW9e2ajq17yd8pHuLdpuaKOM=
+X-Received: by 2002:a50:8704:0:b0:4fa:794a:c0cc with SMTP id
+ i4-20020a508704000000b004fa794ac0ccmr5778636edb.2.1678814749125; Tue, 14 Mar
+ 2023 10:25:49 -0700 (PDT)
 MIME-Version: 1.0
 References: <MRZP264MB1544487A07884D37D9CFD78E93BE9@MRZP264MB1544.FRAP264.PROD.OUTLOOK.COM>
 In-Reply-To: <MRZP264MB1544487A07884D37D9CFD78E93BE9@MRZP264MB1544.FRAP264.PROD.OUTLOOK.COM>
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-Date: Tue, 14 Mar 2023 18:25:16 +0100
-Message-ID: <CANNYZj8xUGqb-JQW7qTfzasKCK1KY68L9q3itmLgJvvxi9gcHA@mail.gmail.com>
+From: "Steve Sakoman" <steve@sakoman.com>
+Date: Tue, 14 Mar 2023 07:25:38 -1000
+Message-ID: <CAOSpxdam2mGY6BgHwdSMOdPQVfMWJfD7i3zd3uhUUKMraFKUKw@mail.gmail.com>
 Subject: Re: [poky] [meta-yocto][langdale][connman] Partial integration of CVE-2022-32293 fixes
 To: "VAUTRIN Emmanuel (Canal Plus Prestataire)" <Emmanuel.VAUTRIN@cpexterne.org>
-Cc: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="0000000000007976fe05f6df839e"
-
---0000000000007976fe05f6df839e
+Cc: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>, Khem Raj <raj.khem@gmail.com>, 
+	Patches and discussions about the oe-core layer <openembedded-core@lists.openembedded.org>
 Content-Type: text/plain; charset="UTF-8"
-
-You can simply send the needed patch as a follow up yourself. Ask if
-specifics of submission are unclear.
-
-Alex
-
-On Tue 14. Mar 2023 at 18.16, VAUTRIN Emmanuel (Canal Plus Prestataire) <
-Emmanuel.VAUTRIN@cpexterne.org> wrote:
-
-> Hello,
->
-> I have noticed that 2 patches fixing CVE-2022-32293 have been backported
-> on meta/recipes-connectivity/connman/connman_1.41.bb (b33cf2d113d0
-> "connman: Backports for security fixes")
-> Unfortunately, the last one (CVE-2022-32293_p2.patch) brings some
-> regressions, which have been fixed by  e6523511d736 ("wispr: Fix context
-> refcounting in wispr_portal_request_portal()"). Can you integrate this
-> commit as patch?
->
->
-> Best Regards,
->
-> Emmanuel
-> 
->
->
-
---0000000000007976fe05f6df839e
-Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"auto">You can simply send the needed patch as a follow up yours=
-elf. Ask if specifics of submission are unclear.</div><div dir=3D"auto"><br=
-></div><div dir=3D"auto">Alex</div><div><br><div class=3D"gmail_quote"><div=
- dir=3D"ltr" class=3D"gmail_attr">On Tue 14. Mar 2023 at 18.16, VAUTRIN Emm=
-anuel (Canal Plus Prestataire) &lt;<a href=3D"mailto:Emmanuel.VAUTRIN@cpext=
-erne.org">Emmanuel.VAUTRIN@cpexterne.org</a>&gt; wrote:<br></div><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width=
-:1px;border-left-style:solid;padding-left:1ex;border-left-color:rgb(204,204=
-,204)">Hello,<br>
-<br>
-I have noticed that 2 patches fixing CVE-2022-32293 have been backported on=
- meta/recipes-connectivity/connman/<a href=3D"http://connman_1.41.bb" rel=
-=3D"noreferrer" target=3D"_blank">connman_1.41.bb</a> (b33cf2d113d0 &quot;c=
-onnman: Backports for security fixes&quot;)<br>
-Unfortunately, the last one (CVE-2022-32293_p2.patch) brings some regressio=
-ns, which have been fixed by=C2=A0 e6523511d736 (&quot;wispr: Fix context r=
-efcounting in wispr_portal_request_portal()&quot;). Can you integrate this =
-commit as patch?<br>
-<br>
-<br>
-Best Regards,<br>
-<br>
-Emmanuel<br>
-<br>
-<br>
-</blockquote></div></div>
+On Tue, Mar 14, 2023 at 7:16=E2=80=AFAM VAUTRIN Emmanuel (Canal Plus
+Prestataire) <Emmanuel.VAUTRIN@cpexterne.org> wrote:
 
---0000000000007976fe05f6df839e--
+> I have noticed that 2 patches fixing CVE-2022-32293 have been backported =
+on meta/recipes-connectivity/connman/connman_1.41.bb (b33cf2d113d0 "connman=
+: Backports for security fixes")
+> Unfortunately, the last one (CVE-2022-32293_p2.patch) brings some regress=
+ions, which have been fixed by  e6523511d736 ("wispr: Fix context refcounti=
+ng in wispr_portal_request_portal()"). Can you integrate this commit as pat=
+ch?
+
+Hi Emmanuel,
+
+Thanks for bringing this to my attention.
+
+In the future please send this sort of thing to the openembedded-core
+mailing list.  It would also be good to copy the author of the patch
+you are commenting on. (I've cc'd  the openembedded-core list as wel
+as Khem)
+
+Would you be willing to send a patch to the openembedded-core list
+that implements this regression fix?
+
+Thanks!
+
+Steve
