@@ -1,132 +1,174 @@
-Received: from FRA01-PR2-obe.outbound.protection.outlook.com (FRA01-PR2-obe.outbound.protection.outlook.com [40.107.12.54])
- by mx.groups.io with SMTP id smtpd.web11.4012.1678874263118341659
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+ by mx.groups.io with SMTP id smtpd.web11.7294.1678918914349203208
  for <poky@lists.yoctoproject.org>;
- Wed, 15 Mar 2023 02:57:43 -0700
+ Wed, 15 Mar 2023 15:21:54 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@cpexterne.org header.s=selector2 header.b=HZXFcNaj;
- spf=pass (domain: cpexterne.org, ip: 40.107.12.54, mailfrom: emmanuel.vautrin@cpexterne.org)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GUUNElG0HXV7V3Obpwz2JIKRn9lshMGaOvlXweiTlKiWA7BXoZolEB1pm9ZyNHS131Sf+Sl+MuoTAEJod5pTmt7VpD56Pqjy1oWZxKDvwwxslbrrDSKio+d5pcPlHzZnqu4avg63zPFbxvuT1z5RAw4CYhjvzLTrI5J5uBnHexcloWLyUbGsjhPNi0xAy7n+Wt7mUQhGkFFz33mjeQjhLZxkGwN2tI1pPo9N4BC7BHG3WnPwN7S9BcXdmvEPcdYH295NyU2b8cZKkB3kXNPnbGdGqzbS9uKXN34xaoRNCxUp7jvW15Xfz1VvQQfzJxIdIzu4Y5hSZT+y4PibKq56tQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gdZf6CSKXxcSpsD1fEF3wUmNAuzN34ockWCwIxF5Mqk=;
- b=HePmdi/ARJmoMQqJaBEaBDgGW/iUH32/sDJ3yY6Vh87lZxjvm3iWQF/mImuKI54MLb37QR9FqDA9I10G7j7VxqhBV0aWoVUvL7Sm7AVcVOT+MB6gCJ78TaAJxik/YoTlZ67k98owVUtRKezEMqkA+FL58lep18uS3r54Equ4dyTLSVEjJNo24FkwT4f3WAzZ2xukhirC7+/CXJzWvsEwzS/8ItDYvCJS+4uEYWjlf4uNb+hzrBgsjanyj6wy1szoRF1RWFWiZnDcQRwPQD4zgqDRtc498/BJiFQgMGuso61Auy7tpPYsCe1+M/V4HPzaTlAshVy6aARKSDA6w1g/Dg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cpexterne.org; dmarc=pass action=none
- header.from=cpexterne.org; dkim=pass header.d=cpexterne.org; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cpexterne.org;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gdZf6CSKXxcSpsD1fEF3wUmNAuzN34ockWCwIxF5Mqk=;
- b=HZXFcNajNOCHOvXGOS7hKh4Jlq/6z9NlGk7GA4vdRtPNB82rokqZ8QhfBC/E56co3ntUrXe2PZ2cc3hoHB7/8aJ/nYYnEruHsrIn2ZG5zZO1avIAACymElAhuSVdhYYlN5qySj9wfXn9dSm2x/hd9FJqUUhz/LDKNFsQqvjwULQ=
-Received: from MRZP264MB1544.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:a::7) by
- MRZP264MB1589.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:c::21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6178.26; Wed, 15 Mar 2023 09:57:40 +0000
-Received: from MRZP264MB1544.FRAP264.PROD.OUTLOOK.COM
- ([fe80::6d79:b93c:b64:95ed]) by MRZP264MB1544.FRAP264.PROD.OUTLOOK.COM
- ([fe80::6d79:b93c:b64:95ed%6]) with mapi id 15.20.6178.029; Wed, 15 Mar 2023
- 09:57:39 +0000
-From: "VAUTRIN Emmanuel (Canal Plus Prestataire)" <Emmanuel.VAUTRIN@cpexterne.org>
-To: Steve Sakoman <steve@sakoman.com>
-CC: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>, Khem Raj
-	<raj.khem@gmail.com>, Patches and discussions about the oe-core layer
-	<openembedded-core@lists.openembedded.org>
-Subject: Re: [poky] [meta-yocto][langdale][connman] Partial integration of CVE-2022-32293 fixes
-Thread-Topic: [poky] [meta-yocto][langdale][connman] Partial integration of
- CVE-2022-32293 fixes
-Thread-Index: AQHZVpibY64I3KYMn0mowgk+BFQDdK76hssAgAESZ0I=
-Date: Wed, 15 Mar 2023 09:57:39 +0000
-Message-ID: 
- <MRZP264MB154440CFE6C988CB0700C63793BF9@MRZP264MB1544.FRAP264.PROD.OUTLOOK.COM>
-References: 
- <MRZP264MB1544487A07884D37D9CFD78E93BE9@MRZP264MB1544.FRAP264.PROD.OUTLOOK.COM>
- <CAOSpxdam2mGY6BgHwdSMOdPQVfMWJfD7i3zd3uhUUKMraFKUKw@mail.gmail.com>
-In-Reply-To: 
- <CAOSpxdam2mGY6BgHwdSMOdPQVfMWJfD7i3zd3uhUUKMraFKUKw@mail.gmail.com>
-Accept-Language: fr-FR, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cpexterne.org;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MRZP264MB1544:EE_|MRZP264MB1589:EE_
-x-ms-office365-filtering-correlation-id: 106862dd-59fe-4f39-5aea-08db253bb69b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- FEAwDKhOz/cWT/1cz4A96+dJq/Dmajlk5WRcwj3R09edQSQb1q2Wbg1ee3f9YrVX5OhfIEzp1h2dBo7GGu8OiZ66Pvy8EZEo/F63PVgVrCri8ckZ9YbB0GDGWBbk0ST84SrWxmPVjEEuqeMnzXYZTcSfwkZowA7X1tDOhA4mvcn5wxuu8QzMYDyqjqx8YZouy8KjU+zsfjKyRojHydP2hPDJNqCRLoZLu5n8Uur2scR1xSCCXT1r6G99URQ1Ejwfna1Y6R60fHQzGuT60PCNW+UHT5beY+3ZoteIw4swxeO/+i1Jt85t64OySOgfDs/JixU/iS4BjmqCmvuY4z/jMHXJMiX+KlYtydZFtgVvcCe9hkAjVeE5zGkhMcJyfin2P99b5HQIazxuM5rOZHwuguY4MRBx/+rjEYt3grqNA/FGnX9Q38JZa3LvX/XX0YhmFwLhGIEyVZiFjaSoh2B9sCQG6wuaxaYbOkx/m3r6xdusQ7+TW1iS2WHitGfWwpIhjUhdY1VPt5ADTtGW9YUQuggIk5tlGLqfphN1R+tRNUiwK+hlIDSvbCvJdeVKeqiGnJLBsnFY1LaHoukkM7dgB3XDOsnAMwET5FuUkmPZULekOYg4AZYnQFRF3zmewHQ5xUJDcAlVvvZpoMxfp7Ea16wxwppUzERhK3NrpTK+g8S4D42sDcXg61J4KKa/Rx03uFb0oPyfjOT8Usnr0GAlxQ==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MRZP264MB1544.FRAP264.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230025)(4636009)(366004)(39860400002)(346002)(396003)(376002)(136003)(451199018)(122000001)(55016003)(6506007)(9686003)(26005)(76116006)(8676002)(91956017)(2906002)(54906003)(316002)(41300700001)(186003)(66476007)(66556008)(64756008)(66446008)(4326008)(66946007)(6916009)(4744005)(71200400001)(7696005)(8936002)(52536014)(478600001)(5660300002)(38100700002)(33656002)(86362001)(38070700005);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?oYvUog7UqQgEMkeTpc/j1vkS7I1n0N/RxyXIzbwDEbhcUW/HpWJlcGW00F?=
- =?iso-8859-1?Q?ZGTVMZjMPrhyMGE9YY/EMwd5yyihGZqWPAerFUhPm1o1ptYXrtVWifM4Z8?=
- =?iso-8859-1?Q?6EKmhiAnWGFpmyUq/ar+dCDT4o5td7JkrhWIygp4pW6/5OJYfzSLublgtz?=
- =?iso-8859-1?Q?0xfJVhmNYzCwQ+W2zq7veu3DwDwbpLimnyjZmI/miX8Bw7XlbSTItOj/MG?=
- =?iso-8859-1?Q?7w84V3jI+ZZY3Vt1WKr6QZRl7EyzVYdI7EvNpD/7i/0hCzHm4jW1fhkCwR?=
- =?iso-8859-1?Q?VfSS7BS4EkOKfBii+WXTfATXC/+U8/7lLNTocL7lrTlGYbRFCF/ehrtkXf?=
- =?iso-8859-1?Q?9s5y9XGgxpSdtBt+GGrULIwpKo7K1meHJbQ9aym4CAvhbx1s+1Lx8qMHRr?=
- =?iso-8859-1?Q?lWKhVBOmNGkTV+bGc6J2NvqRB3fc97A1lXCwVRYM6YeR4kwBOkN0yLwMw0?=
- =?iso-8859-1?Q?sxfrLACw6KaYAkVCH7nKEEr0CmuvG+YemcjG7JKtkIcjeFmyUWU83aJc9E?=
- =?iso-8859-1?Q?GXnk+WRwdMpdoxkNZ7ZsX5jHWnH/vUb7R+wyIxNd3mmu19maAjVNI5Hbo5?=
- =?iso-8859-1?Q?kDddFJDO6RAx5ddxqf5Z47H+wLoa65T1EWofkzro28O/f2KDWYixNu5LR0?=
- =?iso-8859-1?Q?P99TN+qXeG8IpEww1XymSry8k3cwPGOrzQuYzNfj65L8oxBkkupp645+tk?=
- =?iso-8859-1?Q?9b8qcgmtS4JV+XPyW5V6tEU4nC6MdZ7piiiDidG1icFSpLtopqrucTSTh1?=
- =?iso-8859-1?Q?fm1kaBeCjdX0wHJ7Bs97pQ8FWsqWIxF7kJjkuemdqsotgWtGI3u49hVsIR?=
- =?iso-8859-1?Q?CHqnLPRjK9DqCK3DxtaY4NprMPOsQPQ8jbSeA1hFvOJmWNqVajR9uRuB7t?=
- =?iso-8859-1?Q?FOI711X2TdgAdSIqyOCPlQHu5oALjSbNOK9ORHh1VyBD1SZQb3xgpReuKr?=
- =?iso-8859-1?Q?ZOYxC0tpShHWYRKTXERt4LaFRAaEzADGJKdM4nrZX1+YCRbNavTsdZX8+l?=
- =?iso-8859-1?Q?PzAoWFW5AOvwwQ0IFrPSMU90YheFnZow5WcARHYQW5X3j8T3QGALEqA3MQ?=
- =?iso-8859-1?Q?+dvsQoUZFsrbKXetCAP2zCB/0KM64Oem82+qnux8uzFjKMOIT+Ye3jlKXt?=
- =?iso-8859-1?Q?JiOc4aOkfqGa+2cgaispe9svyQt4cWfD7ZK6o7bLnNVgXObTeX3/pagp8U?=
- =?iso-8859-1?Q?w4dk5aRGmtCaNt9N07M65Rgb8Xwb+Wc9vMRnoK0y+h2f/qQPnNZ7dmfiKy?=
- =?iso-8859-1?Q?CkWmDDd1hQdT3CtfnhGfxVRBKYIypkYruerJzNmyVJRm6zPq+va0YHIzIM?=
- =?iso-8859-1?Q?wxPqAPI5CZKURfX1ikMqTMZiZ98jW0swKUx9sdQikpuQFyUTiqK7mrK7Cl?=
- =?iso-8859-1?Q?1RbVJ9BGEpkIbqM09cnY4OsYVYgR0XcjesW81y576C2if8kNJH9mDwCtDz?=
- =?iso-8859-1?Q?klbP6ciY9yUUXmBqqgjIh1ga2wFhY5pBxLUOVRL68a/UXFyHng7dqvclnO?=
- =?iso-8859-1?Q?ec6Jv8GFuhG9uQV1vu3vkuV62wfsaac9cTus7lEjPG0GEZD4wv1i3DHeBc?=
- =?iso-8859-1?Q?ThKsIp92iqa3NBFTjfcTxfi67LUgUJcE3G+FRnf+Y6LKaH+PcMXIh8R3ez?=
- =?iso-8859-1?Q?jkQXbApvWrYodqV3twzlFBJVW+hYPKRirSsHQLawgda/kBSVeHxP0hLw?=
- =?iso-8859-1?Q?=3D=3D?=
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Rb0+nb2D;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.44, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f44.google.com with SMTP id c8-20020a05600c0ac800b003ed2f97a63eso1965958wmr.3
+        for <poky@lists.yoctoproject.org>; Wed, 15 Mar 2023 15:21:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1678918912;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=b/p1rnrBPTEI1QHVeFbwsQ3hlXHcEpNql0A+ubk+Wj8=;
+        b=Rb0+nb2D24fG9Fhes4NofZjW/00SUqsP39mLenVuiqBP5cSd3IaEfIZs3Cv406pDuZ
+         7y/MEy3J/EGdg3uaovJxRAzVfwMzoVf2dSMmg6vajYwvM1QBVPQ2rP+ZXW+2TaC2ebky
+         9OxvTH62ZL5VHj1Ur269ikuzusS45z+nnu6jc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678918912;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=b/p1rnrBPTEI1QHVeFbwsQ3hlXHcEpNql0A+ubk+Wj8=;
+        b=5bIPCUSsDpJc4Xtd0zxZTr+RPMeEZNgDQQwK4RE3HsHCUiwSIimWRutkAuxVTD7oAa
+         r26sZpO/9r8FJF8sagjxleeKmKAxiHYAQ3vlTvjtMCC10IiJh05d7MaDhM8b48uZ6cHy
+         N2VCj4LqY2LLF13Am5UEl8zB5QzjNw4XU/NEbGWk7KTjaRDjKJ8+WHbh0CI6aA514diI
+         3DYp3Qk2exOa9a5rFDtGprABgd3eZYa5BsduU3AMgQ9xy0iMzDxdZQZTtn2+1rHgJ7F4
+         i24un8C+lCfZ3OLb08yJ/4B0xDBr7IjV9It8S3aWs0wPRDcsFsjdKXKn8i5YhDTUiNFF
+         hPfw==
+X-Gm-Message-State: AO0yUKXkP3VIVm81unY5SHR/yVtYftM8iw/fOI3x2lCHEeBlM4ITNqJA
+	1B/47zv42W5OZhO5vXYB4XdMtm542K8ZZcCiamg=
+X-Google-Smtp-Source: AK7set9HDMqjVLsHO50Id5y3VAziUaGwISDFcKIoLunDRLn7HYz/fLEmDXU1DZ2sWNWvvgu1X/MfRQ==
+X-Received: by 2002:a05:600c:4e4f:b0:3ed:4c36:ae94 with SMTP id e15-20020a05600c4e4f00b003ed4c36ae94mr316800wmq.15.1678918912352;
+        Wed, 15 Mar 2023 15:21:52 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:4181:67:6e43:6a9])
+        by smtp.gmail.com with ESMTPSA id bh10-20020a05600c3d0a00b003ed23e9e03bsm3101930wmb.46.2023.03.15.15.21.51
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Mar 2023 15:21:51 -0700 (PDT)
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH] poky-bleeding: Update and rework
+Date: Wed, 15 Mar 2023 22:21:51 +0000
+Message-Id: <20230315222151.4190075-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-X-OriginatorOrg: cpexterne.org
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MRZP264MB1544.FRAP264.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 106862dd-59fe-4f39-5aea-08db253bb69b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Mar 2023 09:57:39.9521
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: bf5c5de1-6a54-4091-a72f-90e32801628c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6DpTpDc3wp028XAERD/ucZMw/O3RvhBFNyZlFF6Q8KB2PSaFXMOpjod4WE14iZ7+fSvnOqxs35qIcJlicxunFeSTFOmau6Jp6Lm8ay7y3bM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MRZP264MB1589
-Content-Language: fr-FR
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Thank you Steve for the answer.=0A=
-> Thanks for bringing this to my attention.=0A=
-=0A=
-> In the future please send this sort of thing to the openembedded-core=0A=
-> mailing list.=A0 It would also be good to copy the author of the patch=0A=
-> you are commenting on. (I've cc'd=A0 the openembedded-core list as wel=0A=
-> as Khem)=0A=
-I shall confess it was complicated to choose the relevant group. So, does=
-=0A=
-openembedded-core correspond to all sources in yocto/meta?=0A=
-=0A=
-> Would you be willing to send a patch to the openembedded-core list=0A=
-> that implements this regression fix?=0A=
-Allright, I can do that, even if with my professional email the tabs are=0A=
-automatically formatted as spaces, what corrupts the patches.=0A=
-=0A=
-> Thanks!=0A=
-=0A=
-> Steve=0A=
-B.R.=0A=
-=0A=
-Emmanuel=
+This distro setting has bitrotted quite badly but the idea remains
+a good one. Try and improve things by:
+
+* using a class and a list of recipes to make things more readable
+* drop settings for recipes which no longer use git
+* drop obsolete PREFERRED_VERSION settings
+* add a provider switch to use linux-yocto-dev
+* reword to avoid "package" confusion with recipe
+
+The distro then builds and highlighted a number of matchbox
+issues which other patches address and improve.
+
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/classes/poky-bleeding.bbclass       |  5 ++
+ .../include/poky-floating-revisions.inc       | 69 ++++++-------------
+ meta-poky/conf/distro/poky-bleeding.conf      |  6 +-
+ 3 files changed, 27 insertions(+), 53 deletions(-)
+ create mode 100644 meta-poky/classes/poky-bleeding.bbclass
+
+diff --git a/meta-poky/classes/poky-bleeding.bbclass b/meta-poky/classes/poky-bleeding.bbclass
+new file mode 100644
+index 00000000000..3167d623fc3
+--- /dev/null
++++ b/meta-poky/classes/poky-bleeding.bbclass
+@@ -0,0 +1,5 @@
++python () {
++    for recipe in d.getVar("POKY_AUTOREV_RECIPES").split():
++        d.setVar("SRCREV:pn-%s" % recipe, "${AUTOREV}")
++        d.setVar("PV:append:pn-%s" % recipe, "+git${SRCPV}")
++}
+diff --git a/meta-poky/conf/distro/include/poky-floating-revisions.inc b/meta-poky/conf/distro/include/poky-floating-revisions.inc
+index 0cc4e005b91..82e5360b910 100644
+--- a/meta-poky/conf/distro/include/poky-floating-revisions.inc
++++ b/meta-poky/conf/distro/include/poky-floating-revisions.inc
+@@ -1,52 +1,25 @@
+ #
+-# Package Versions for cutting edge testing:
++# Set recipe versions to auto-rev for cutting edge testing
+ #
+ 
+-#SRCREV:pn-opkg-native ?= "${AUTOREV}"
+-#SRCREV:pn-opkg-sdk ?= "${AUTOREV}"
+-#SRCREV:pn-opkg ?= "${AUTOREV}"
+-#SRCREV:pn-opkg-utils-native ?= "${AUTOREV}"
+-#SRCREV:pn-opkg-utils ?= "${AUTOREV}"
+-SRCREV:pn-gconf-dbus ?= "${AUTOREV}"
+-SRCREV:pn-matchbox-common ?= "${AUTOREV}"
+-SRCREV:pn-matchbox-config-gtk ?= "${AUTOREV}"
+-SRCREV:pn-matchbox-desktop ?= "${AUTOREV}"
+-SRCREV:pn-matchbox-keyboard ?= "${AUTOREV}"
+-SRCREV:pn-matchbox-panel-2 ?= "${AUTOREV}"
+-SRCREV:pn-matchbox-themes-extra ?= "${AUTOREV}"
+-SRCREV:pn-matchbox-terminal ?= "${AUTOREV}"
+-SRCREV:pn-matchbox-wm ?= "${AUTOREV}"
+-SRCREV:pn-settings-daemon ?= "${AUTOREV}"
+-SRCREV:pn-screenshot ?= "${AUTOREV}"
+-SRCREV:pn-libfakekey ?= "${AUTOREV}"
+-SRCREV:pn-psplash ?= "${AUTOREV}"
+-SRCREV:pn-gtk-sato-engine ?= "${AUTOREV}"
+-SRCREV:pn-matchbox-theme-sato ?= "${AUTOREV}"
+-SRCREV:pn-sato-icon-theme ?= "${AUTOREV}"
+-SRCREV:pn-matchbox-desktop-sato ?= "${AUTOREV}"
+-SRCREV:pn-oh-puzzles ?= "${AUTOREV}"
+-SRCREV:pn-libowl ?= "${AUTOREV}"
+-SRCREV:pn-libmatchbox ?= "${AUTOREV}"
+-SRCREV:pn-ofono ?= "${AUTOREV}"
+-
+-SRCREV:pn-dri2proto = "${AUTOREV}"
+-#PREFERRED_VERSION_dri2proto ?= "1.99.1+git%"
+-SRCREV:pn-libdrm = "${AUTOREV}"
+-#PREFERRED_VERSION_libdrm ?= "2.4.0+git%"
+-SRCREV:pn-libxcb = "${AUTOREV}"
+-#PREFERRED_VERSION_libxcb ?= "1.1.90.1+gitr%"
+-SRCREV:pn-lib-proto = "${AUTOREV}"
+-#PREFERRED_VERSION_xcb-proto ?= "1.2+gitr%"
+-SRCREV:pn-libxcb-sdk = "${AUTOREV}"
+-#PREFERRED_VERSION_libxcb-sdk ?= "1.1.90.1+gitr%"
+-SRCREV:pn-xf86-input-evdev = "${AUTOREV}"
+-#PREFERRED_VERSION_xf86-input-evdev ?= "2.0.4"
+-SRCREV:pn-xf86-input-mouse = "${AUTOREV}"
+-#PREFERRED_VERSION_xf86-input-mouse ?= "1.3.0+git%"
+-SRCREV:pn-xf86-input-synaptics = "${AUTOREV}"
+-#PREFERRED_VERSION_xf86-input-synaptics ?= "0.15.2+git%"
+-
+-#SRCDATE_oprofile ?= "${DATE}"
+-
+-PREFERRED_VERSION_oprofile ?= "0.9.4+cvs${SRCDATE_oprofile}"
++INHERIT += "poky-bleeding"
+ 
++POKY_AUTOREV_RECIPES = "\
++    libmatchbox \
++    opkg-utils \
++    opkg-utils-native \
++    matchbox-config-gtk \
++    matchbox-desktop \
++    matchbox-keyboard \
++    matchbox-panel-2 \
++    matchbox-terminal \
++    matchbox-theme-sato \
++    matchbox-wm \
++    pseudo \
++    pseudo-native \
++    sato-icon-theme \
++    sato-screenshot \
++    settings-daemon \
++"
++# Not currently working
++#    puzzles
+diff --git a/meta-poky/conf/distro/poky-bleeding.conf b/meta-poky/conf/distro/poky-bleeding.conf
+index 2d3e046a457..8cbf2284d0a 100644
+--- a/meta-poky/conf/distro/poky-bleeding.conf
++++ b/meta-poky/conf/distro/poky-bleeding.conf
+@@ -1,8 +1,4 @@
+-PREFERRED_VERSION_glib-2.0 ?= "2.17.4"
+-PREFERRED_VERSION_glib-2.0-native ?= "2.17.4"
+-PREFERRED_VERSION_atk ?= "1.22.0"
+-PREFERRED_VERSION_pango ?= "1.21.2"
+-PREFERRED_VERSION_gtk+ ?= "2.13.3"
++PREFERRED_PROVIDER_virtual/kernel = "linux-yocto-dev"
+ 
+ require conf/distro/include/poky-floating-revisions.inc
+ require conf/distro/poky.conf
+-- 
+2.38.1
+
