@@ -1,186 +1,102 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
- by mx.groups.io with SMTP id smtpd.web10.241.1678987951638163165
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+ by mx.groups.io with SMTP id smtpd.web10.3537.1679132561695241729
  for <poky@lists.yoctoproject.org>;
- Thu, 16 Mar 2023 10:32:31 -0700
+ Sat, 18 Mar 2023 02:42:42 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=hGSdrYFd;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.53, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f53.google.com with SMTP id r19-20020a05600c459300b003eb3e2a5e7bso1718025wmo.0
-        for <poky@lists.yoctoproject.org>; Thu, 16 Mar 2023 10:32:31 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=Ldz6B1kI;
+ spf=pass (domain: gmail.com, ip: 209.85.221.49, mailfrom: martin.jansa@gmail.com)
+Received: by mail-wr1-f49.google.com with SMTP id v1so235528wrv.1
+        for <poky@lists.yoctoproject.org>; Sat, 18 Mar 2023 02:42:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1678987950;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=E5UbD0Hv+btkgBJJ0qv1wP3kFcCYObSWtgsyN5DAVkY=;
-        b=hGSdrYFdRB6loUVbUzhhrNu5wuIAPbLRQMx1UKMpQHJt/JtloTnIZSLbkjLJJElv4n
-         NmD7OHs1ODRl69JX0UlN5udU9uXZTrE5Q+2JmXvZ3bisXHUFxIWVMdG68D4rMt2K5SsO
-         vuDL3cPWtUzVoj+2exSCN8XQZjfwXShaFSTdY=
+        d=gmail.com; s=20210112; t=1679132560;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=p62VLlZbgaWCvO9m/ipsF4Mc/efsilyFJyrdqDbSZXw=;
+        b=Ldz6B1kIOHxBYWPK2dNo63KyqLurVpB5icphxD5INdqIGhFNUshAKe1S+IxtqI2JM4
+         9cIZuINliS3A33Y4IwmPUVWWziW41D+hp7Z6KJTAtREtUqpb7UP3mgOmMoTJVMW37Px8
+         yOcoyLo5PWfIkgx7Cpade2Zw57t+odiSoJD+pwL9Twc1H9Lo8P6k+s9k621bb/mbT39Y
+         fSoCH2s5UJzIVJzUsvpehR84Kpuv6+wpjyEWQcYWTXypI6EkWJNCqmSwx3OEgB7nhDCf
+         eOB8/FxepYOiXTQPqZJSiDjRhn5htYBKCk0eefqkZGAq0XIeRhy84gd3yfsN3iB5q3Q+
+         z3bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678987950;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=E5UbD0Hv+btkgBJJ0qv1wP3kFcCYObSWtgsyN5DAVkY=;
-        b=eLmf31jS5wfN2k4UE6NSTWXPGJHBGG1egfdmFMoGIa0OcmscDFKKjZ7IMQaHZCxdic
-         ANBHjRgHBhz2ipaGkveo9MBK2ABSa3GTxa4pg9neXFwuemDWBYa8q1vaHCd6XSGzHf5P
-         W/4pBWHlYBCL3oQV+9O6qtN10FuQyrGUXBX0L/rodqSK4w4VCYJSnsTxqViUvVDkPmyD
-         +Iws1dYQkfEuflTsARh3f13/iCrncIc4CdnBxr9CupdSwAvuSu4dG9CuzXIbVj/yBuzQ
-         JcQbzMmKVZLrcEIt8viqHQ6+6tIdCsXIJ/WsPZa1hgaFrIwV2ccZWBMx8Lg66MycGoiR
-         wQwQ==
-X-Gm-Message-State: AO0yUKUW1LkOLM6ZC98QtfZishpwb8pe90oSf7ctIqG6XzU7shHR/Mfd
-	h7JBIvHNgHYlbYIrqjcIK8kLrl08Gej1hQgLCow=
-X-Google-Smtp-Source: AK7set/Nzw3roodZvme8/s8FLy0Y0i54WGsbrI7Q4VucushxaZRrhkmBkbFR1EgtzeX7uBR2ve2hxg==
-X-Received: by 2002:a1c:ed08:0:b0:3ed:4e5d:99fd with SMTP id l8-20020a1ced08000000b003ed4e5d99fdmr2856914wmh.13.1678987949627;
-        Thu, 16 Mar 2023 10:32:29 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:4181:67:6e43:6a9])
-        by smtp.gmail.com with ESMTPSA id 23-20020a05600c229700b003dc522dd25esm5488754wmf.30.2023.03.16.10.32.28
-        for <poky@lists.yoctoproject.org>
+        d=1e100.net; s=20210112; t=1679132560;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=p62VLlZbgaWCvO9m/ipsF4Mc/efsilyFJyrdqDbSZXw=;
+        b=reotGVia4NNFABzOePN/+NYnu7l32wTaDsqoQDY7cZPwtBkWRr2FuvoPoHy9tYc5uN
+         2UbiyvFzoVUchrDIMSMTI5k2pKbZE9ul1oFHEALVYa+jIwUniASjaw0Cy/xRLXL8zaLG
+         zJOa0hH4wZGRYj+laCyvDpHBbJAWjkLCKivtC2n6DUSJxotyVA8W2AANy+iNNScdQi9D
+         9djPOrBegqOZRqeRFkBTX6VvH6RtLBdCXZwXIE5MCdiL3OL4o2s+I8vwT1IZSnKqFmw1
+         AvqWd1CEgQlrcfvCvElc/JP6W1V3k6C6oeoNxHbymVsSRBL/jEg9IGfa5buJXqC5WFgO
+         uKMA==
+X-Gm-Message-State: AO0yUKUwX3IYlyr92WPAIUZMU7Yy3FU2ljyvX+RlzRpoqse/8uNTEZ8Y
+	WhN3gt4VKg8UprLbn8FGmBmqW9Om0yk=
+X-Google-Smtp-Source: AK7set8uiCctD+bSgUBerfOx9QkZI5DYDgpjNXOuRxHquAHgiOjmj/46ynwmpyXc2h5ucJ+7bKm8AQ==
+X-Received: by 2002:a5d:4802:0:b0:2d3:f610:8417 with SMTP id l2-20020a5d4802000000b002d3f6108417mr2914695wrq.0.1679132559781;
+        Sat, 18 Mar 2023 02:42:39 -0700 (PDT)
+Return-Path: <martin.jansa@gmail.com>
+Received: from localhost (ip-109-238-218-228.aim-net.cz. [109.238.218.228])
+        by smtp.gmail.com with ESMTPSA id a7-20020adff7c7000000b002c70ce264bfsm3951244wrq.76.2023.03.18.02.42.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 16 Mar 2023 10:32:29 -0700 (PDT)
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+        Sat, 18 Mar 2023 02:42:39 -0700 (PDT)
+From: "Martin Jansa" <Martin.Jansa@gmail.com>
+X-Google-Original-From: Martin Jansa <Martin.Jansa@gmail.com>
 To: poky@lists.yoctoproject.org
-Subject: [PATCH v2] poky-bleeding: Update and rework
-Date: Thu, 16 Mar 2023 17:32:28 +0000
-Message-Id: <20230316173228.200216-1-richard.purdie@linuxfoundation.org>
-X-Mailer: git-send-email 2.38.1
+Cc: Martin Jansa <Martin.Jansa@gmail.com>
+Subject: [meta-yocto][PATCH] selftest: systemd_boot.py: respect IMAGE_LINK_NAME
+Date: Sat, 18 Mar 2023 10:42:26 +0100
+Message-Id: <20230318094226.2307911-1-Martin.Jansa@gmail.com>
+X-Mailer: git-send-email 2.40.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This distro setting has bitrotted quite badly but the idea remains
-a good one. Try and improve things by:
+* use IMAGE_LINK_NAME instead of hardcoding
+  core-image-minimal-genericx86-64.wic assumption
 
-* using a class and a list of recipes to make things more readable
-* drop settings for recipes which no longer use git
-* drop obsolete PREFERRED_VERSION settings
-* add a provider switch to use linux-yocto-dev
-* reword to avoid "package" confusion with recipe
+[YOCTO #12937]
 
-The distro then builds and highlighted a number of matchbox
-issues which other patches address and improve.
-
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+Signed-off-by: Martin Jansa <Martin.Jansa@gmail.com>
 ---
- meta-poky/classes/poky-bleeding.bbclass       | 20 ++++++
- .../include/poky-floating-revisions.inc       | 66 +++++--------------
- meta-poky/conf/distro/poky-bleeding.conf      |  6 +-
- 3 files changed, 39 insertions(+), 53 deletions(-)
- create mode 100644 meta-poky/classes/poky-bleeding.bbclass
+ .../lib/oeqa/selftest/cases/systemd_boot.py           | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/meta-poky/classes/poky-bleeding.bbclass b/meta-poky/classes/poky-bleeding.bbclass
-new file mode 100644
-index 00000000000..e5f30687e4b
---- /dev/null
-+++ b/meta-poky/classes/poky-bleeding.bbclass
-@@ -0,0 +1,20 @@
-+#
-+# AUTOREV and PV containing SRCPV needs to be set early, before any anonymous python
-+# expands anything containing PV, else the parse process won't trigger the fetcher to
-+# cache the needed version data
-+#
-+python pokybleeding_version_handler () {
-+    bpn = d.getVar("BPN")
-+    # We're running before the class extension code at PreFinalise so manually fix BPN
-+    bpn = bpn.replace("-nativesdk", "").replace("nativesdk-", "")
-+
-+    if bpn in d.getVar("POKY_AUTOREV_RECIPES").split():
-+        if "pseudo" in bpn:
-+            bb.warn("Here 5 %s %s" % (d.getVar("PN"), bpn))
-+        d.setVar("SRCREV", "${AUTOREV}")
-+        if "+git" not in d.getVar("PV"):
-+            d.appendVar("PV", "+git${SRCPV}")
-+}
-+
-+addhandler pokybleeding_version_handler
-+pokybleeding_version_handler[eventmask] = "bb.event.RecipePreFinalise"
-diff --git a/meta-poky/conf/distro/include/poky-floating-revisions.inc b/meta-poky/conf/distro/include/poky-floating-revisions.inc
-index 0cc4e005b91..0721a718bdd 100644
---- a/meta-poky/conf/distro/include/poky-floating-revisions.inc
-+++ b/meta-poky/conf/distro/include/poky-floating-revisions.inc
-@@ -1,52 +1,22 @@
- #
--# Package Versions for cutting edge testing:
-+# Set recipe versions to auto-rev for cutting edge testing
- #
+diff --git a/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py b/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
+index 57599e1..6ce9a3b 100644
+--- a/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
++++ b/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
+@@ -2,7 +2,7 @@ import os
  
--#SRCREV:pn-opkg-native ?= "${AUTOREV}"
--#SRCREV:pn-opkg-sdk ?= "${AUTOREV}"
--#SRCREV:pn-opkg ?= "${AUTOREV}"
--#SRCREV:pn-opkg-utils-native ?= "${AUTOREV}"
--#SRCREV:pn-opkg-utils ?= "${AUTOREV}"
--SRCREV:pn-gconf-dbus ?= "${AUTOREV}"
--SRCREV:pn-matchbox-common ?= "${AUTOREV}"
--SRCREV:pn-matchbox-config-gtk ?= "${AUTOREV}"
--SRCREV:pn-matchbox-desktop ?= "${AUTOREV}"
--SRCREV:pn-matchbox-keyboard ?= "${AUTOREV}"
--SRCREV:pn-matchbox-panel-2 ?= "${AUTOREV}"
--SRCREV:pn-matchbox-themes-extra ?= "${AUTOREV}"
--SRCREV:pn-matchbox-terminal ?= "${AUTOREV}"
--SRCREV:pn-matchbox-wm ?= "${AUTOREV}"
--SRCREV:pn-settings-daemon ?= "${AUTOREV}"
--SRCREV:pn-screenshot ?= "${AUTOREV}"
--SRCREV:pn-libfakekey ?= "${AUTOREV}"
--SRCREV:pn-psplash ?= "${AUTOREV}"
--SRCREV:pn-gtk-sato-engine ?= "${AUTOREV}"
--SRCREV:pn-matchbox-theme-sato ?= "${AUTOREV}"
--SRCREV:pn-sato-icon-theme ?= "${AUTOREV}"
--SRCREV:pn-matchbox-desktop-sato ?= "${AUTOREV}"
--SRCREV:pn-oh-puzzles ?= "${AUTOREV}"
--SRCREV:pn-libowl ?= "${AUTOREV}"
--SRCREV:pn-libmatchbox ?= "${AUTOREV}"
--SRCREV:pn-ofono ?= "${AUTOREV}"
--
--SRCREV:pn-dri2proto = "${AUTOREV}"
--#PREFERRED_VERSION_dri2proto ?= "1.99.1+git%"
--SRCREV:pn-libdrm = "${AUTOREV}"
--#PREFERRED_VERSION_libdrm ?= "2.4.0+git%"
--SRCREV:pn-libxcb = "${AUTOREV}"
--#PREFERRED_VERSION_libxcb ?= "1.1.90.1+gitr%"
--SRCREV:pn-lib-proto = "${AUTOREV}"
--#PREFERRED_VERSION_xcb-proto ?= "1.2+gitr%"
--SRCREV:pn-libxcb-sdk = "${AUTOREV}"
--#PREFERRED_VERSION_libxcb-sdk ?= "1.1.90.1+gitr%"
--SRCREV:pn-xf86-input-evdev = "${AUTOREV}"
--#PREFERRED_VERSION_xf86-input-evdev ?= "2.0.4"
--SRCREV:pn-xf86-input-mouse = "${AUTOREV}"
--#PREFERRED_VERSION_xf86-input-mouse ?= "1.3.0+git%"
--SRCREV:pn-xf86-input-synaptics = "${AUTOREV}"
--#PREFERRED_VERSION_xf86-input-synaptics ?= "0.15.2+git%"
--
--#SRCDATE_oprofile ?= "${DATE}"
--
--PREFERRED_VERSION_oprofile ?= "0.9.4+cvs${SRCDATE_oprofile}"
-+INHERIT += "poky-bleeding"
+ from oeqa.selftest.case import OESelftestTestCase
+ from oeqa.core.decorator.depends import OETestDepends
+-from oeqa.utils.commands import runCmd, bitbake, get_bb_var, runqemu
++from oeqa.utils.commands import runCmd, bitbake, get_bb_var, get_bb_vars, runqemu
  
-+POKY_AUTOREV_RECIPES = "\
-+    libmatchbox \
-+    opkg-utils \
-+    matchbox-config-gtk \
-+    matchbox-desktop \
-+    matchbox-keyboard \
-+    matchbox-panel-2 \
-+    matchbox-terminal \
-+    matchbox-theme-sato \
-+    matchbox-wm \
-+    pseudo \
-+    puzzles \
-+    sato-icon-theme \
-+    sato-screenshot \
-+    settings-daemon \
-+"
-diff --git a/meta-poky/conf/distro/poky-bleeding.conf b/meta-poky/conf/distro/poky-bleeding.conf
-index 2d3e046a457..8cbf2284d0a 100644
---- a/meta-poky/conf/distro/poky-bleeding.conf
-+++ b/meta-poky/conf/distro/poky-bleeding.conf
-@@ -1,8 +1,4 @@
--PREFERRED_VERSION_glib-2.0 ?= "2.17.4"
--PREFERRED_VERSION_glib-2.0-native ?= "2.17.4"
--PREFERRED_VERSION_atk ?= "1.22.0"
--PREFERRED_VERSION_pango ?= "1.21.2"
--PREFERRED_VERSION_gtk+ ?= "2.13.3"
-+PREFERRED_PROVIDER_virtual/kernel = "linux-yocto-dev"
+ class Systemdboot(OESelftestTestCase):
  
- require conf/distro/include/poky-floating-revisions.inc
- require conf/distro/poky.conf
+@@ -21,8 +21,9 @@ class Systemdboot(OESelftestTestCase):
+         features += 'MACHINE = "genericx86-64"'
+         self.append_config(features)
+ 
+-        deploydir = get_bb_var('DEPLOY_DIR_IMAGE', "core-image-minimal")
+-        systemdbootfile = os.path.join(deploydir, 'systemd-bootx64.efi')
++        image = 'core-image-minimal'
++        bb_vars = get_bb_vars(['DEPLOY_DIR_IMAGE', 'IMAGE_LINK_NAME'], image)
++        systemdbootfile = os.path.join(bb_vars['DEPLOY_DIR_IMAGE'], 'systemd-bootx64.efi')
+ 
+         # Ensure we're actually testing that this gets built and not that
+         # it was around from an earlier build
+@@ -50,8 +51,8 @@ class Systemdboot(OESelftestTestCase):
+         AutomatedBy:  Jose Perez Carranza <jose.perez.carranza at linux-intel.com>
+         """
+ 
+-        systemdbootimage = os.path.join(deploydir, 'core-image-minimal-genericx86-64.wic')
+-        imagebootfile = os.path.join(deploydir, 'bootx64.efi')
++        systemdbootimage = os.path.join(bb_vars['DEPLOY_DIR_IMAGE'], '%s.wic' % bb_vars['IMAGE_LINK_NAME'])
++        imagebootfile = os.path.join(bb_vars['DEPLOY_DIR_IMAGE'], 'bootx64.efi')
+ 
+         # Clean environment before start the test
+         if os.path.isfile(imagebootfile):
 -- 
-2.38.1
+2.40.0
 
