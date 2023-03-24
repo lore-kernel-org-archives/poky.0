@@ -1,77 +1,113 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
- by mx.groups.io with SMTP id smtpd.web10.98956.1679657520698197863
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
+ by mx.groups.io with SMTP id smtpd.web10.10151.1679696026321588830
  for <poky@lists.yoctoproject.org>;
- Fri, 24 Mar 2023 04:32:01 -0700
+ Fri, 24 Mar 2023 15:13:46 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=m7uADefB;
- spf=pass (domain: gmail.com, ip: 209.85.167.53, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-lf1-f53.google.com with SMTP id y15so1824903lfa.7
-        for <poky@lists.yoctoproject.org>; Fri, 24 Mar 2023 04:32:00 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=GBwEwVXq;
+ spf=pass (domain: gmail.com, ip: 209.85.160.50, mailfrom: raj.khem@gmail.com)
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-17e140619fdso3147815fac.11
+        for <poky@lists.yoctoproject.org>; Fri, 24 Mar 2023 15:13:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679657519;
+        d=gmail.com; s=20210112; t=1679696025;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kwQPoVToVcGm5L24lfjDbrfRe3DyL0ISucIlsWiadOI=;
-        b=m7uADefB/qrIM/x0a77WITDhK8jSJGR7pFnlzy1H3FKKKIDOQ0WnmxJdgE4cPkt4B9
-         KUbJvQgsyx2+ExtRlMLm8oRt0TM6m5nkd3M2IC26U/RTK+Z3zcqUYllROYSQtGSfa8cI
-         4OvsVj8QP1Hz5cL24VEHHAwTPAlmLapXcRGBzH0yKEMXJhtnDIpNhH3GB3vsa+2JPcDN
-         M5o9WPy2usco+UIk8yuU7xZDmIa+Et/0Tcb91IkaYQE1xzjiFTdr581la6H5rw0sVs+E
-         ABoIDZdwrj1SuckkWNEhjKep8zHymr1pMb/UvtqNSrrFm/ughrwoZlnrBmVLLJNqdjsc
-         KwDA==
+        bh=NaB4VHcohNSJeBtPQEQeDSbUfwKzDt3TJ4R09o+tonM=;
+        b=GBwEwVXq4iH6LapqCGr75DAcUVsU3C9+c6IzD5QpSPTAtmFU12fbSoSZi2RVflrBK9
+         zHyQXINmz+DFwXbRF2wl0Unh/L9p0NeF+pJYVefxNZAk9Z+CFCM7CvJUv1i7SVdnmu/7
+         dQeFT+YsnU9u4PkyvfvkWmrNvmnpVMRa+6LmHt97c1K599NZYydnBBMdwUHwTKNUmb/d
+         U62Z+xb7Zw+VmjNG8RtNjZLfSpHwNv2EDkOYYmDbmXCGe23eL7eH9xmkLaEE5gBiuTsK
+         JrHOH6XXxVZw4tshio4sg4EjTZy5Js0CveMUy6MldEaPGkQrT4BwKzVIBJfTZjQ/Z6mK
+         T2qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679657519;
+        d=1e100.net; s=20210112; t=1679696025;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=kwQPoVToVcGm5L24lfjDbrfRe3DyL0ISucIlsWiadOI=;
-        b=hIN7347ZpTXHdzWkpAMgu2H0TY+RdXWoy/jMMwGnunHZ2AqL0VXFrflHFTsqI2Wegr
-         pLElcQq7ln7en2z/d3QouCzScf85oDDB6p8ggN8CoV/gth/4PeuAoq1Wc46bDtuzXx2p
-         T87rJ0figxGWk4Qr9TgiXRvW4Z1aiWKQSuglbWffA81ZBA0PSo79jmns5X6K9j24AS0X
-         Ax3z10RhkKp/Zmla/ts67EThrKpdtAPqxLifsxCU8KPwgh8G1V0xto13abZqF9ErRvef
-         12dMZUJ67xySq5ixcrE1hOnLS/7Li1OxEa+qUYaXRf8jMutv/U9l9A646PMVRa507p84
-         zP9Q==
-X-Gm-Message-State: AAQBX9fMD3E4peNYxQlF6yhbw8N2UWra8svGvI8RH/whVP2JXxdtv5r2
-	MNKVMZg0hlEw4/M/lUIvK8zCIZMxsN9qQXfS2nY=
-X-Google-Smtp-Source: AKy350ZgEfJypENh4lupX+UjAFLnaK6nNNjAUf4cdBKrkMdWizPingZhnZw3Pj9kH231q1HcJ8QOMQrTdEKKqWIr+UE=
-X-Received: by 2002:ac2:522e:0:b0:4ea:e2f8:5ed6 with SMTP id
- i14-20020ac2522e000000b004eae2f85ed6mr592805lfl.11.1679657518573; Fri, 24 Mar
- 2023 04:31:58 -0700 (PDT)
+        bh=NaB4VHcohNSJeBtPQEQeDSbUfwKzDt3TJ4R09o+tonM=;
+        b=V5W8Abql1HjxWIMgZrs/ZPq86NOGUo85uUL2rY398b0D4n3jr0f/PeLkFKzWPZmXop
+         3crcCg1/t8jBzSTSDUlG+8Y8rfXYv3llc6buRly85lsuagaLOzwrIVoCK62ULl3E1Ga+
+         2C+PGzUBYqvXabCH4lOtvI1LR8CbLI4PZPeYX28mGpSz5WcQPaDAreBozY7r00vZpuNR
+         bg5H+XO4/cLDe8GMkpG/p/m9d+3lRbxBz4Gh2F/sbkuXXzniMMuLGEadoB6VM5ooVtVl
+         DpeO4V08wKAgLNoXlGRdBzSGkfTz8IMQLp4VUOOwj83KfsMtYxQOZfMcaHPvQO55rSqm
+         Yn0Q==
+X-Gm-Message-State: AAQBX9eobQ/26pACvHadSD4iyQ4K9NrJMKO4yAXm9EWb7IZRZLAZDG5e
+	R2dzyg/PDReF3gBXoXJ3LbqLP1agi9oTJ0Ymlao=
+X-Google-Smtp-Source: AKy350ZYrNQFzhwIszWc0fHoMSfUIQ9DufNliMGSNLFOW/xB6QHBYZpAmhZC44RKDAGCQpzKwkkHjf5tnEnBkmFaKHs=
+X-Received: by 2002:a05:6870:f916:b0:177:90f5:b995 with SMTP id
+ ao22-20020a056870f91600b0017790f5b995mr1230981oac.4.1679696025375; Fri, 24
+ Mar 2023 15:13:45 -0700 (PDT)
 MIME-Version: 1.0
-References: <CANNYZj_7_5fr-5maZ2633R6=mkbd2+Jufuejy+wfnxUWmmB4Bg@mail.gmail.com>
- <21387.1679656649236932073@lists.yoctoproject.org>
-In-Reply-To: <21387.1679656649236932073@lists.yoctoproject.org>
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-Date: Fri, 24 Mar 2023 12:31:47 +0100
-Message-ID: <CANNYZj86dCZhkV+7CzyF09=EJBEtBzLOQWRwP=x_5uK3NCBBkw@mail.gmail.com>
-Subject: Re: [poky] [PATCH 0/2] git/gitsm do_clean fixes
-To: =?UTF-8?B?TmljbyBNw7xsbGVy?= <nicomueller1991@gmail.com>
+References: <LZpV.1679640532008145166.lhJQ@lists.yoctoproject.org>
+In-Reply-To: <LZpV.1679640532008145166.lhJQ@lists.yoctoproject.org>
+From: "Khem Raj" <raj.khem@gmail.com>
+Date: Fri, 24 Mar 2023 15:13:19 -0700
+Message-ID: <CAMKF1sqnoFCmOBJnC1Y2_fsFfs-sjDQ0NTCw_6P3BjcMdEZi=A@mail.gmail.com>
+Subject: Re: [poky] Unable to build latest dunfell branch python3 module
+To: sarathmadala03@gmail.com
 Cc: poky@lists.yoctoproject.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Yes, there is a strict 'master first' policy to avoid losing patches
-from old branches and general chaos.
+It says
 
-I would suggest this sequence:
-- set up a master build, verify that the issue still exists
-- rebase the patches into it, verify that the issue no longer exists
-- adjust the commit messages, showing how the issue can be observed,
-and what the patch does so that it no longer happens
-- submit to bitbake-devel
+| Failed to build these modules:
+| _ssl
 
-Alex
+so look for the error messages in your build logs for python3-native.
+It seems your build host
+might have some customizations. Its good to use one of tested
+distributions for better results.
 
-On Fri, 24 Mar 2023 at 12:17, "Nico M=C3=BCller <nicomueller1991@gmail.com>=
- wrote:
+see the list here
+https://docs.yoctoproject.org/3.1.24/ref-manual/ref-system-requirements.htm=
+l#supported-linux-distributions
+
+On Thu, Mar 23, 2023 at 11:48=E2=80=AFPM <sarathmadala03@gmail.com> wrote:
 >
-> Okay Alex, I will resubmit the patches to `bitbake-devel`.
+> Initialising tasks: 100% |###############################################=
+###################################################| Time: 0:00:02
+> Sstate summary: Wanted 459 Found 0 Missed 459 Current 408 (0% match, 47% =
+complete)
+> NOTE: Executing Tasks
+> ERROR: python3-native-3.8.14-r0 do_install: Execution of '/mt/sdb2/kernal=
+_sandboxes/build_emmc_debug/tmp/work/x86_64-linux/python3-native/3.8.14-r0/=
+temp/run.do_install.11207' failed with exit code 1
+> ERROR: Logfile of failure stored in: /mt/sdb2/kernal_sandboxes/build_emmc=
+_debug/tmp/work/x86_64-linux/python3-native/3.8.14-r0/temp/log.do_install.1=
+1207
+> Log data follows:
+> | DEBUG: Executing python function autotools_aclocals
+> | DEBUG: SITE files ['endian-little', 'common-linux', 'common-glibc', 'bi=
+t-64', 'x86_64-linux', 'common']
+> | DEBUG: Python function autotools_aclocals finished
+> | DEBUG: Executing shell function do_install
+> | Failed to build these modules:
+> | _ssl
+> | WARNING: exit code 1 from a shell command.
+> | ERROR: Execution of '/mt/sdb2/kernal_sandboxes/build_emmc_debug/tmp/wor=
+k/x86_64-linux/python3-native/3.8.14-r0/temp/run.do_install.11207' failed w=
+ith exit code 1
+> ERROR: Task (virtual:native:/mt/sdb2/kernal_sandboxes/sources/poky/meta/r=
+ecipes-devtools/python/python3_3.8.14.bb:do_install) failed with exit code =
+'1'
+> NOTE: Tasks Summary: Attempted 1316 tasks of which 1314 didn't need to be=
+ rerun and 1 failed.
+> NOTE: Writing build history
+> NOTE: Writing build history took: 10 seconds
 >
-> The patches are created on dunfell. I checked the relevant master source =
-files and the issue definitely persists there too.
-> Would you suggest to rebase the patches before submitting them again?
+> Summary: 1 task failed:
+>   virtual:native:/mt/sdb2/kernal_sandboxes/sources/poky/meta/recipes-devt=
+ools/python/python3_3.8.14.bb:do_install
+> Summary: There were 5 WARNING messages shown.
+> Summary: There was 1 ERROR message shown, returning a non-zero exit code.
 >
-> Best Regards,
-> Nico
+> Above is the error I'm getting while trying to build the latest dunfell b=
+ranch python3 module
+> I'm building for the below machine and distro
+> MACHINE ??=3D 'phx-core-pca'
+> DISTRO ?=3D 'fslc-framebuffer'
+>
+>
 >=20
 >
