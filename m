@@ -1,116 +1,79 @@
-Subject: Unable to build latest dunfell branch python3 module
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+ by mx.groups.io with SMTP id smtpd.web11.97436.1679653593031696406
+ for <poky@lists.yoctoproject.org>;
+ Fri, 24 Mar 2023 03:26:33 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=KrpIL4u2;
+ spf=pass (domain: gmail.com, ip: 209.85.221.41, mailfrom: nicomueller1991@gmail.com)
+Received: by mail-wr1-f41.google.com with SMTP id y14so1243761wrq.4
+        for <poky@lists.yoctoproject.org>; Fri, 24 Mar 2023 03:26:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1679653591;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NARkW9fU6i71tos0RlZNpLhAbN9Qp/ni3gHg1jJQk2U=;
+        b=KrpIL4u2g179Zvm1xtezxv5cFtIJHbhWZKRwC3C7VRbfh+hNirkxdyCo8h09YpVA0u
+         EtweiUuynxTkmMEAf9N1EN+ZPRG7Sa46oUgHHIeDZ9my35rInlYoyB38guOZ0sTImpvU
+         7qWJa3agYzEZePgHlzKo/asOc4Re1C4PUrHK210vDz6j2vxj7uCFjCL1vNEdVShZZ6C6
+         PREa6jeFRh4Oq8Ey4TVpoujTjGkJgXJ1Sk1r2ih0xPCGW70cqZWjc4s2cg3xM68YoBx2
+         dc5ltc77c3qKft/kJmCHe2bCq6wEwKxGVJ9DTEBFNguDyGEfAUrybtXTj06YHHz4Q4nw
+         /OMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679653591;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NARkW9fU6i71tos0RlZNpLhAbN9Qp/ni3gHg1jJQk2U=;
+        b=AO9dRL2bj+5YHBsM/Vd5PUaDmiKtCnnD5pHhYtbBuCwBpXPxJw+o9HSE417OV2PCNC
+         h/HkLJb29ntQYqIgUiyz+AYvwhbbWqXnX3eQbhGrnIjLUrrwIfVwaxInqB2jZQcF+Eo/
+         vPhgXjZzb5b4jwmTYv7S4Afa3T0Hbu6YZ7SIA8EEsG5AJrw0mLDF4tAWJO1VMfsNPJw6
+         ifUl++yL4d2qDHvg2e48ElobuSLYqYjBZTpS7Q7YPmSJlttFLYv+oKg+lD3EClTWl5R+
+         kOmis0Nw3SL7IYt2sZEwKz/0/ISZi1eqnFJElcFYnS0eVhgKPQfE05YPgv3JM6017BRC
+         v+JA==
+X-Gm-Message-State: AAQBX9cVX4tb3SrFHXjAXeMFiuit1Vqax5Tu51HPzqGedbYSzZicZcr1
+	AG1S5D2PBu4s5swtoQ74P5KZa3xL5oyvHQ==
+X-Google-Smtp-Source: AKy350aTcDXGNVGR6VSll8UHoWli2iNDIVAIWqYka+UZtYSlMuHeoNR9zm5uIRX3gRG8XUfcBe9bTQ==
+X-Received: by 2002:adf:e8cb:0:b0:2cf:efad:9c1f with SMTP id k11-20020adfe8cb000000b002cfefad9c1fmr1738906wrn.46.1679653591282;
+        Fri, 24 Mar 2023 03:26:31 -0700 (PDT)
+Return-Path: <nicomueller1991@gmail.com>
+Received: from niecore-standardpcq35ich92009.fritz.box (p200300ddff0eee00cdfb4df80ec527f9.dip0.t-ipconnect.de. [2003:dd:ff0e:ee00:cdfb:4df8:ec5:27f9])
+        by smtp.gmail.com with ESMTPSA id m9-20020adffa09000000b002c70d97af78sm18208905wrr.85.2023.03.24.03.26.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Mar 2023 03:26:31 -0700 (PDT)
+From: nicomueller1991@gmail.com
+X-Google-Original-From: =?UTF-8?q?Nico=20M=C3=BCller?= <nicomueller1991@googlemail.com>
 To: poky@lists.yoctoproject.org
-From: sarathmadala03@gmail.com
-X-Originating-Location: Melbourne, Victoria, AU (155.190.53.5)
-X-Originating-Platform: Windows Chrome 111
-User-Agent: GROUPS.IO Web Poster
+Cc: =?UTF-8?q?Nico=20M=C3=BCller?= <nico.mueller@de.bosch.com>
+Subject: [PATCH 0/2] git/gitsm do_clean fixes
+Date: Fri, 24 Mar 2023 11:23:20 +0100
+Message-Id: <cover.1679649125.git.nicomueller1991@googlemail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Date: Thu, 23 Mar 2023 23:48:52 -0700
-Message-ID: <LZpV.1679640532008145166.lhJQ@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="txBCKaiKK5VYnOT842r3"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---txBCKaiKK5VYnOT842r3
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+This pull request adds two fixes to the fetch2 git and gitsm modules.
+Previously `do_cleanall` did not correctly remove all tarballs when
+different combinations of BB_GENERATE_MIRROR_TARBALLS BB_GENERATE_SHALLOW_TARBALLS
+and gitsm have been used.
 
-Initialising tasks: 100% |#################################################=
-#################################################| Time: 0:00:02
-Sstate summary: Wanted 459 Found 0 Missed 459 Current 408 (0% match, 47% co=
-mplete)
-NOTE: Executing Tasks
-*ERROR: python3-native-3.8.14-r0 do_install: Execution of '/mt/sdb2/kernal_=
-sandboxes/build_emmc_debug/tmp/work/x86_64-linux/python3-native/3.8.14-r0/t=
-emp/run.do_install.11207' failed with exit code 1*
-*ERROR: Logfile of failure stored in: /mt/sdb2/kernal_sandboxes/build_emmc_=
-debug/tmp/work/x86_64-linux/python3-native/3.8.14-r0/temp/log.do_install.11=
-207*
-*Log data follows:*
-*| DEBUG: Executing python function autotools_aclocals*
-*| DEBUG: SITE files ['endian-little', 'common-linux', 'common-glibc', 'bit=
--64', 'x86_64-linux', 'common']*
-*| DEBUG: Python function autotools_aclocals finished*
-*| DEBUG: Executing shell function do_install*
-*| Failed to build these modules:*
-*| _ssl*
-*| WARNING: exit code 1 from a shell command.*
-*| ERROR: Execution of '/mt/sdb2/kernal_sandboxes/build_emmc_debug/tmp/work=
-/x86_64-linux/python3-native/3.8.14-r0/temp/run.do_install.11207' failed wi=
-th exit code 1*
-*ERROR: Task (virtual:native:/mt/sdb2/kernal_sandboxes/sources/poky/meta/re=
-cipes-devtools/python/python3_3.8.14.bb:do_install) failed with exit code '=
-1'*
-NOTE: Tasks Summary: Attempted 1316 tasks of which 1314 didn't need to be r=
-erun and 1 failed.
-NOTE: Writing build history
-NOTE: Writing build history took: 10 seconds
+The following changes since commit aec83663aadc871354b441eef0a3a41eb3780b13:
 
-Summary: 1 task failed:
-virtual:native:/mt/sdb2/kernal_sandboxes/sources/poky/meta/recipes-devtools=
-/python/python3_3.8.14.bb:do_install
-Summary: There were 5 WARNING messages shown.
-Summary: There was 1 ERROR message shown, returning a non-zero exit code.
+  build-appliance-image: Update to dunfell head revision (2023-02-13 07:48:24 +0000)
 
-Above is the error I'm getting while trying to build the latest dunfell bra=
-nch python3 module
-I'm building for the below machine and distro
-MACHINE ??=3D 'phx-core-pca'
-DISTRO ?=3D 'fslc-framebuffer'
+are available in the Git repository at:
 
---txBCKaiKK5VYnOT842r3
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+  https://git.yoctoproject.org/poky-contrib niecore/fix-clean-tasks-for-git-and-gitsm
+  http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=niecore/fix-clean-tasks-for-git-and-gitsm
 
-<div>Initialising tasks: 100% |############################################=
-######################################################| Time: 0:00:02</div>
-<div>Sstate summary: Wanted 459 Found 0 Missed 459 Current 408 (0% match, 4=
-7% complete)</div>
-<div>NOTE: Executing Tasks</div>
-<div><strong>ERROR: python3-native-3.8.14-r0 do_install: Execution of '/mt/=
-sdb2/kernal_sandboxes/build_emmc_debug/tmp/work/x86_64-linux/python3-native=
-/3.8.14-r0/temp/run.do_install.11207' failed with exit code 1</strong></div=
->
-<div><strong><em>ERROR: Logfile of failure stored in: /mt/sdb2/kernal_sandb=
-oxes/build_emmc_debug/tmp/work/x86_64-linux/python3-native/3.8.14-r0/temp/l=
-og.do_install.11207</em></strong></div>
-<div><strong><em>Log data follows:</em></strong></div>
-<div><strong><em>| DEBUG: Executing python function autotools_aclocals</em>=
-</strong></div>
-<div><strong><em>| DEBUG: SITE files ['endian-little', 'common-linux', 'com=
-mon-glibc', 'bit-64', 'x86_64-linux', 'common']</em></strong></div>
-<div><strong><em>| DEBUG: Python function autotools_aclocals finished</em><=
-/strong></div>
-<div><strong><em>| DEBUG: Executing shell function do_install</em></strong>=
-</div>
-<div><strong><em>| Failed to build these modules:</em></strong></div>
-<div><strong><em>| _ssl</em></strong></div>
-<div><strong><em>| WARNING: exit code 1 from a shell command.</em></strong>=
-</div>
-<div><strong><em>| ERROR: Execution of '/mt/sdb2/kernal_sandboxes/build_emm=
-c_debug/tmp/work/x86_64-linux/python3-native/3.8.14-r0/temp/run.do_install.=
-11207' failed with exit code 1</em></strong></div>
-<div><strong><em>ERROR: Task (virtual:native:/mt/sdb2/kernal_sandboxes/sour=
-ces/poky/meta/recipes-devtools/python/python3_3.8.14.bb:do_install) failed =
-with exit code '1'</em></strong></div>
-<div>NOTE: Tasks Summary: Attempted 1316 tasks of which 1314 didn't need to=
- be rerun and 1 failed.</div>
-<div>NOTE: Writing build history</div>
-<div>NOTE: Writing build history took: 10 seconds</div>
-<div>&nbsp;</div>
-<div>Summary: 1 task failed:</div>
-<div>&nbsp; virtual:native:/mt/sdb2/kernal_sandboxes/sources/poky/meta/reci=
-pes-devtools/python/python3_3.8.14.bb:do_install</div>
-<div>Summary: There were 5 WARNING messages shown.</div>
-<div>Summary: There was 1 ERROR message shown, returning a non-zero exit co=
-de.<br /><br />Above is the error I'm getting while trying to build the lat=
-est dunfell branch python3 module<br />I'm building for the below machine a=
-nd distro<br />
-<div style=3D"color: #d4d4d4; background-color: #1e1e1e; font-family: Conso=
-las, 'Courier New', monospace; line-height: 19px; white-space: pre;">
-<div>MACHINE ??=3D <span style=3D"color: #ce9178;">'phx-core-pca'</span></d=
-iv>
-<div>DISTRO ?=3D <span style=3D"color: #ce9178;">'fslc-framebuffer'<br /><b=
-r /></span></div>
-</div>
-</div>
+Nico Müller (2):
+  bitbake: fetch2/git: Clean all mirrortarballs
+  bitbake: fetch2/gitsm: Add clean function
 
---txBCKaiKK5VYnOT842r3--
+ bitbake/lib/bb/fetch2/git.py   |  6 +++++-
+ bitbake/lib/bb/fetch2/gitsm.py | 19 +++++++++++++++++++
+ 2 files changed, 24 insertions(+), 1 deletion(-)
+
+-- 
+2.39.0
+
