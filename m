@@ -1,103 +1,94 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
- by mx.groups.io with SMTP id smtpd.web10.97992.1679653601792331802
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+ by mx.groups.io with SMTP id smtpd.web11.97511.1679653932864732388
  for <poky@lists.yoctoproject.org>;
- Fri, 24 Mar 2023 03:26:42 -0700
+ Fri, 24 Mar 2023 03:32:13 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=akg+8U/l;
- spf=pass (domain: gmail.com, ip: 209.85.128.45, mailfrom: nicomueller1991@gmail.com)
-Received: by mail-wm1-f45.google.com with SMTP id n19so849718wms.0
-        for <poky@lists.yoctoproject.org>; Fri, 24 Mar 2023 03:26:41 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20210112 header.b=VOhmbNkp;
+ spf=pass (domain: gmail.com, ip: 209.85.208.179, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-lj1-f179.google.com with SMTP id h9so1223485ljq.2
+        for <poky@lists.yoctoproject.org>; Fri, 24 Mar 2023 03:32:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679653600;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20210112; t=1679653931;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SkjaGwUWeNz+Soe4rJlvviSsCZt65pjd7HP92V0Dur8=;
-        b=akg+8U/ly8899mk7dO9ZQpWrDBu9bl4lCiQi2PM88GomQ7U+7zpyTaswN2HThY8+2g
-         UnCZQNM14lrj/QGNqUZOKDfI0ADUdHv5koiAqTFcGZM8u/luQgfd3peZJue14niiQTan
-         Fx1OIRjGDNb4r+2W9RI5lXEHcoqk5Cg43fqjkldflY2pnpuI2fC3C5NiVWrdcrlvIdGY
-         +8sVoqAwS5ooJxW07pN6V1O79/Iue6kbg2+YHpr7GjILpTFdMHNUpIjp7y3fVLujr7b6
-         1wKD+2laPXiZ5fG8IFdJtgFpOsNMzzFp+mGdIvp7t3GV4c625nJQmtnqqjPeMWAqnr2G
-         CbDw==
+        bh=/e0bQs9QRrM7uhdyb5QJeBeOgtxLfjQCcKEoWhXqVQ8=;
+        b=VOhmbNkpVFILrzDBGzehnu8vSbUzj0S0qpZMoVpJN4ShpNqA+FHUtlinmscK5Y8JkW
+         H2a7GtB+e6Cs/EO/UrER80AjoLZHhRfxGd2jccRab3JKWbEjLMIP/KSKF2XHlh4/qXxy
+         5gNI0mJcN2FKoRVUtElf3uK556PuPhK+Pnzezi2ZK938NA7G7IJyenty7RSIt8BcER8c
+         5PcZNO9JiOeM/lbiyKOfx3uk4Nkw8MhcHUa+LvimiL+v3ARHQZoPaCRn2f9yQmwhlxYJ
+         sKMhRsPsJ5KjsyZ7dr3WwzzM5Ac0OjYqyKg2uN7Q0ut3adgzLEEENamcdr6T3vOzStfV
+         JLZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679653600;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20210112; t=1679653931;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=SkjaGwUWeNz+Soe4rJlvviSsCZt65pjd7HP92V0Dur8=;
-        b=NMNZngqVlJWaqDsy+pu0GEcvVOLHssVHJcuJbGXaAxnlX5rgw6CEQLR5lg5ldb1MHg
-         wbq3iGN6HLpTBFzAb6Wqb0SJLi9q7bA8s3X+wjcltQE5ibYo3dOpCMgdKYC6M5IwWGVh
-         gKMmI4oI1xZmyzK6kAs0Qi9Lxbujlt4rKyu372Yxf2ArNy2mTEdgQfToBHETRYRHgvnF
-         IEaKUZrjc4UltPtI6TlA1UM6hcRL2BZh4zifA80PG/jOJHtxP5A6s4IyUgNh3jGoupgz
-         oNSWDXXdj4q1ZRX5A1lJHxFqVbPUFLbnM3098sNT3ltrLywvBPmN5dLji7VyklKUnM7D
-         U/2w==
-X-Gm-Message-State: AO0yUKVgaVgoZuITfDF3HCSN/RcpI7/mhhOdd0pHD8XYBWCTwrbMQIAb
-	T1ddTAFT+S1MOdBRUOVG+irLd+WDNLCLOA==
-X-Google-Smtp-Source: AK7set9LvQsYxwOZkYZ8HvCzAB7A36BjLPiL39Qa7Q+JOR50QaEqBJffPOIRWN7EEkOndeUZS9+Xdg==
-X-Received: by 2002:a05:600c:2286:b0:3ea:ecc2:daab with SMTP id 6-20020a05600c228600b003eaecc2daabmr2493466wmf.3.1679653599991;
-        Fri, 24 Mar 2023 03:26:39 -0700 (PDT)
-Return-Path: <nicomueller1991@gmail.com>
-Received: from niecore-standardpcq35ich92009.fritz.box (p200300ddff0eee00cdfb4df80ec527f9.dip0.t-ipconnect.de. [2003:dd:ff0e:ee00:cdfb:4df8:ec5:27f9])
-        by smtp.gmail.com with ESMTPSA id 12-20020a05600c22cc00b003ee697ecefdsm4402080wmg.45.2023.03.24.03.26.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Mar 2023 03:26:39 -0700 (PDT)
-From: =?UTF-8?B?Ik5pY28gTcO8bGxlcg==?= <nicomueller1991@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Nico=20M=C3=BCller?= <nicomueller1991@googlemail.com>
-To: poky@lists.yoctoproject.org
-Cc: =?UTF-8?q?Nico=20M=C3=BCller?= <nico.mueller@de.bosch.com>
-Subject: [PATCH 2/2] bitbake: fetch2/gitsm: Add clean function
-Date: Fri, 24 Mar 2023 11:23:23 +0100
-Message-Id: <fd0dae14d7c0355beb4564f5824d5076733a7360.1679649125.git.nicomueller1991@googlemail.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1679649125.git.nicomueller1991@googlemail.com>
-References: <cover.1679649125.git.nicomueller1991@googlemail.com>
+        bh=/e0bQs9QRrM7uhdyb5QJeBeOgtxLfjQCcKEoWhXqVQ8=;
+        b=FOizt0EQ/irN9LS/NpvVun9g7lwrEgSqrp0A30bKGIHJ/IXXdiGP3FpZHsQ6bRGRm5
+         CW6uZb1dQEJRkSKl7ymIQbb6W1qn9W4+bgjVZpoysswNwptCyVsgi/fnd1o0VzL9tajc
+         CSpJY5x2ywjh2F7/064x8VxFDPEeB+3MO5a890cckAxNNpT+drJEjTOBOZvzP3E8bozM
+         cNRDQ+NL3yjk9/wJBOu2qvo0hCDQaoEhH4cxO7gO9ANrW+M85EteXNRtx26LMubh+Irc
+         DJl2NjFmw1Jrzc+nL7xODcm9i9i6jERTOOCYGwQp/7JRdUtncYwOfCzutpFhMt8t0Axo
+         1lOQ==
+X-Gm-Message-State: AAQBX9dzH0ydBz7sYSn4V/SS+O38Jqw+z26qZHNf8A3pBYOdDnhioJGT
+	jnBN1OAyzLLqN+Qm+QwdXBNKdGpIyciGgwO4Iko=
+X-Google-Smtp-Source: AKy350a/3Jj3vIj0iZzT0ELGSzI9bHUhUJjzk8PPDhQNzrkePKNrsWRcr+Z4iQds+uH24QxmZEbP9oSROGtV9vwQly4=
+X-Received: by 2002:a2e:86d9:0:b0:298:b3c7:293d with SMTP id
+ n25-20020a2e86d9000000b00298b3c7293dmr689224ljj.7.1679653930878; Fri, 24 Mar
+ 2023 03:32:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1679649125.git.nicomueller1991@googlemail.com>
+In-Reply-To: <cover.1679649125.git.nicomueller1991@googlemail.com>
+From: "Alexander Kanavin" <alex.kanavin@gmail.com>
+Date: Fri, 24 Mar 2023 11:31:59 +0100
+Message-ID: <CANNYZj_7_5fr-5maZ2633R6=mkbd2+Jufuejy+wfnxUWmmB4Bg@mail.gmail.com>
+Subject: Re: [poky] [PATCH 0/2] git/gitsm do_clean fixes
+To: =?UTF-8?B?TmljbyBNw7xsbGVy?= <nicomueller1991@gmail.com>
+Cc: poky@lists.yoctoproject.org, =?UTF-8?B?TmljbyBNw7xsbGVy?= <nico.mueller@de.bosch.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Nico Müller <nico.mueller@de.bosch.com>
+The patches need to go to bitbake-devel.
 
-The gitsm module previously did not clean any of the
-tarballs created by the submodule since only the main
-repo has been cleaned. With this addition firstly
-all submodules are cleaned fully and after that
-the main repository.
+Also, are they for dunfell? Have they been tested on top of master,
+are they maybe no longer needed?
 
-Signed-off-by: Nico Müller <nico.mueller@de.bosch.com>
----
- bitbake/lib/bb/fetch2/gitsm.py | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+Alex
 
-diff --git a/bitbake/lib/bb/fetch2/gitsm.py b/bitbake/lib/bb/fetch2/gitsm.py
-index e7083001dae..5856e97f16d 100644
---- a/bitbake/lib/bb/fetch2/gitsm.py
-+++ b/bitbake/lib/bb/fetch2/gitsm.py
-@@ -182,6 +182,25 @@ class GitSM(Git):
-         else:
-             self.process_submodules(ud, ud.clonedir, download_submodule, d)
- 
-+    def clean(self, ud, d):
-+        def clean_submodule(ud, url, module, modpath, workdir, d):
-+            url += ";bareclone=1;nobranch=1"
-+            try:
-+                newclean = Fetch([url], d, cache=False)
-+                newclean.clean()
-+            except Exception as e:
-+                logger.error('gitsm: submodule clean failed: %s %s' % (type(e).__name__, str(e)))
-+        
-+        if ud.shallow and os.path.exists(ud.fullshallow):
-+            tmpdir = tempfile.mkdtemp(dir=d.getVar("DL_DIR"))
-+            runfetchcmd("tar -xzf %s" % ud.fullshallow, d, workdir=tmpdir)
-+            self.process_submodules(ud, tmpdir, clean_submodule, d)
-+            shutil.rmtree(tmpdir)
-+        else:
-+            self.process_submodules(ud, ud.clonedir, clean_submodule, d)        
-+
-+        Git.clean(self, ud, d)
-+
-     def unpack(self, ud, destdir, d):
-         def unpack_submodules(ud, url, module, modpath, workdir, d):
-             url += ";bareclone=1;nobranch=1"
--- 
-2.39.0
-
+On Fri, 24 Mar 2023 at 11:26, "Nico M=C3=BCller <nicomueller1991@gmail.com>=
+ wrote:
+>
+> This pull request adds two fixes to the fetch2 git and gitsm modules.
+> Previously `do_cleanall` did not correctly remove all tarballs when
+> different combinations of BB_GENERATE_MIRROR_TARBALLS BB_GENERATE_SHALLOW=
+_TARBALLS
+> and gitsm have been used.
+>
+> The following changes since commit aec83663aadc871354b441eef0a3a41eb3780b=
+13:
+>
+>   build-appliance-image: Update to dunfell head revision (2023-02-13 07:4=
+8:24 +0000)
+>
+> are available in the Git repository at:
+>
+>   https://git.yoctoproject.org/poky-contrib niecore/fix-clean-tasks-for-g=
+it-and-gitsm
+>   http://git.yoctoproject.org/cgit.cgi/poky-contrib/log/?h=3Dniecore/fix-=
+clean-tasks-for-git-and-gitsm
+>
+> Nico M=C3=BCller (2):
+>   bitbake: fetch2/git: Clean all mirrortarballs
+>   bitbake: fetch2/gitsm: Add clean function
+>
+>  bitbake/lib/bb/fetch2/git.py   |  6 +++++-
+>  bitbake/lib/bb/fetch2/gitsm.py | 19 +++++++++++++++++++
+>  2 files changed, 24 insertions(+), 1 deletion(-)
+>
+> --
+> 2.39.0
+>
+>
+>=20
+>
