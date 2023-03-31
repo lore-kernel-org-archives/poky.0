@@ -1,76 +1,83 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
- by mx.groups.io with SMTP id smtpd.web10.47922.1680240328510706684
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+ by mx.groups.io with SMTP id smtpd.web10.48970.1680246724880628598
  for <poky@lists.yoctoproject.org>;
- Thu, 30 Mar 2023 22:25:28 -0700
+ Fri, 31 Mar 2023 00:12:05 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20210112 header.b=Nym3iYHa;
- spf=pass (domain: gmail.com, ip: 209.85.221.45, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-wr1-f45.google.com with SMTP id r11so21174092wrr.12
-        for <poky@lists.yoctoproject.org>; Thu, 30 Mar 2023 22:25:28 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=MCyDb5ev;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.49, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f49.google.com with SMTP id v1so21385087wrv.1
+        for <poky@lists.yoctoproject.org>; Fri, 31 Mar 2023 00:12:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680240327;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=YDwO4o+abJazWZ0CX6h7StTkWyGQuzOiXuBd4etaMaA=;
-        b=Nym3iYHa66ddR+SfOotgnOm1TkTU6ONo2Ysk0TKchu82oRadwQj/R+y9uyl9tS8WfJ
-         R5rAgMD7bjPS/MprsxEUiuEYRWpAY88/xfZdgQSH+dqP/6Ibel0KitnUnLx4W1JsDrmt
-         kThB87xRc4CwVI8byyxEkgFzHlF1cLEcg84g+Mmvue2qwMNDY1mq8LPn9ZUg47ewId30
-         PB97ORlI2hkpEsFA1AqtRA48Unc+WbBphn6Gx10ru2aOJ1AV+Tr7eJG/ABVnyNdOXe/t
-         BewKPKl22nnUIOhjI+ocraPKT3qb575reK5u6/rbtwBjCO+Ohwr1ADXv00aUM5azBMGq
-         QeSQ==
+        d=linuxfoundation.org; s=google; t=1680246723;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Sj2A1UtXHrb/53PCZrLpVYyBEA4sCt4P35PfRPyJ2OM=;
+        b=MCyDb5ev58RAUzscraZfeNZsrn6sPqyXG2O/Vy+hD0+GQfy2ikLKw9Db8dVHDKFNXo
+         WnkK0o7mujIJF0XM7peclJvHJMzFJ82dcDCuc123DStUkEWtH4yKoISHZd+MlxCCRGuT
+         2ttUPtKyhe0REcFlVMedXlsHPCEkrg1TA+F4w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680240327;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=YDwO4o+abJazWZ0CX6h7StTkWyGQuzOiXuBd4etaMaA=;
-        b=CPzD1jQE+IrWAPSo4RFcCOTd3Eq5jQvI5yDSrhSBSnyfQ0CDKhUdrW2GLZ0dt4zwbt
-         qyemqDP2lUDZXbAIoEVB+eyoZPAwZVtTrr0baM/bbsFhQUbKHJgqbfNwN5zRNt0IdCRV
-         qbRYRa335wDXeOkoDOLmDQ+LKyrjyw9TJMAjC7obnxXV1kS2yKrPEDk6AsJRtrOoHGdl
-         QHqbn+bL3+KFYRrfNQhbbSbO1xt6lD41K0d7Uvi/b9dPTjU8WVusfJwHchHBEmNGjehw
-         DvLx0Ps5WhupKtx671qQIKxPty4EFq3QBbW0SqFbgBY2KkrzfG8igdRS5I8MctLQV2Io
-         mxuQ==
-X-Gm-Message-State: AAQBX9fJPHTfVF0qopjcM5ljFLRKSN0kke1zihzPqZPO6Wym3l7RKN5O
-	3Y3VoHFrgdqd3WAccj8Rv5+2iGpjKhg=
-X-Google-Smtp-Source: AKy350ZsgGH71jPpaxHFsQYzJsix6KoJl6M5SqcNsuN4vcKGdnwXzY2mcb494vi4dGkEyH7pXxY1Ow==
-X-Received: by 2002:a5d:4811:0:b0:2ce:a74f:3253 with SMTP id l17-20020a5d4811000000b002cea74f3253mr20164817wrq.70.1680240326638;
-        Thu, 30 Mar 2023 22:25:26 -0700 (PDT)
-Return-Path: <alex.kanavin@gmail.com>
-Received: from Zen2.lab.linutronix.de. (drugstore.linutronix.de. [80.153.143.164])
-        by smtp.gmail.com with ESMTPSA id v16-20020a5d6110000000b002d89e113691sm1128451wrt.52.2023.03.30.22.25.26
+        d=1e100.net; s=20210112; t=1680246723;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Sj2A1UtXHrb/53PCZrLpVYyBEA4sCt4P35PfRPyJ2OM=;
+        b=YyQNcBZFZNZaVdP3QS8TGuKs+F4sURuY34768xo3zwqqBJEWDxPZucIycWf8WlEaKC
+         mUtufFK1T4VvtOz1S0z9Re3y/oal0GiWWGnfcONmSRYwQY7kLf5tFor2qdRffBtrNrm2
+         v/aZsTaPgqCg1JHRcziPo/z66LqW3Ue1ri+QH7/WOK98FIPi1+9HLJckRMPaddqTcvs9
+         xMGxTZLqhs9/zoOfnOVqMglhPrLfdcBbUNoOFi2Krk5NOQyMly/LN/ig/tCyPQK01l5S
+         KOOmDDP1jp9CZoymvgKOSkjz/W6M3P2lTc/qhrFoHxYTiZpKoho9wbFZ8QWjZTBmFZtJ
+         hjLg==
+X-Gm-Message-State: AAQBX9cvvG5soiaR0mxUUB7daynjCe3Fvh3nJm8Co+gvt7dUUkRAmHtX
+	4AoaIjLXu0jLjvSE14W3Mh78PQ==
+X-Google-Smtp-Source: AKy350ZCitesPJRmJbIaNSnD6KplGR0qTcmzRU69dR1ZyFa9Nyj8ucSIsSbImgtOwoZvp4TCRpPvzQ==
+X-Received: by 2002:a5d:66d1:0:b0:2cf:e8f4:d1ea with SMTP id k17-20020a5d66d1000000b002cfe8f4d1eamr18529687wrw.29.1680246723147;
+        Fri, 31 Mar 2023 00:12:03 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from ?IPv6:2001:8b0:aba:5f3c:18b7:bfe:d74b:7341? ([2001:8b0:aba:5f3c:18b7:bfe:d74b:7341])
+        by smtp.gmail.com with ESMTPSA id m2-20020a5d4a02000000b002d75ef32032sm1369223wrq.68.2023.03.31.00.12.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Mar 2023 22:25:26 -0700 (PDT)
-From: "Alexander Kanavin" <alex.kanavin@gmail.com>
-X-Google-Original-From: Alexander Kanavin <alex@linutronix.de>
-To: poky@lists.yoctoproject.org
+        Fri, 31 Mar 2023 00:12:02 -0700 (PDT)
+Message-ID: <37a9246c5e670f7db14fd64ec7afba97aed1d2c3.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH] poky-altcfg: enable 'commercial' recipes
+From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
+To: Alexander Kanavin <alex.kanavin@gmail.com>, poky@lists.yoctoproject.org
 Cc: Alexander Kanavin <alex@linutronix.de>
-Subject: [PATCH] poky-altcfg: enable 'commercial' recipes
-Date: Fri, 31 Mar 2023 07:25:22 +0200
-Message-Id: <20230331052522.978142-1-alex@linutronix.de>
-X-Mailer: git-send-email 2.30.2
+Date: Fri, 31 Mar 2023 08:12:01 +0100
+In-Reply-To: <20230331052522.978142-1-alex@linutronix.de>
+References: <20230331052522.978142-1-alex@linutronix.de>
+User-Agent: Evolution 3.47.3-1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Somehow this was overlooked, and this excluded important
-pieces such as ffmpeg from the test matrix.
+On Fri, 2023-03-31 at 07:25 +0200, Alexander Kanavin wrote:
+> Somehow this was overlooked, and this excluded important
+> pieces such as ffmpeg from the test matrix.
+>=20
+> Signed-off-by: Alexander Kanavin <alex@linutronix.de>
+> ---
+>  meta-poky/conf/distro/include/poky-distro-alt-test-config.inc | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/meta-poky/conf/distro/include/poky-distro-alt-test-config.in=
+c b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
+> index b42b830e43a..f916e010c97 100644
+> --- a/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
+> +++ b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
+> @@ -6,3 +6,7 @@ PREFERRED_VERSION_linux-yocto =3D "5.15%"
+> =20
+>  # Ensure the kernel nfs server is enabled
+>  KERNEL_FEATURES:append:pn-linux-yocto =3D " features/nfsd/nfsd-enable.sc=
+c"
+> +
+> +# Enable all the recipes (primarly multimedia codec implementations)
+> +# that may require special licensing arrangements
+> +LICENSE_FLAGS_ACCEPTED =3D "commercial"
 
-Signed-off-by: Alexander Kanavin <alex@linutronix.de>
----
- meta-poky/conf/distro/include/poky-distro-alt-test-config.inc | 4 ++++
- 1 file changed, 4 insertions(+)
+The project doesn't have any such license arrangements so I don't think
+we can do that...
 
-diff --git a/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
-index b42b830e43a..f916e010c97 100644
---- a/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
-+++ b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
-@@ -6,3 +6,7 @@ PREFERRED_VERSION_linux-yocto = "5.15%"
- 
- # Ensure the kernel nfs server is enabled
- KERNEL_FEATURES:append:pn-linux-yocto = " features/nfsd/nfsd-enable.scc"
-+
-+# Enable all the recipes (primarly multimedia codec implementations)
-+# that may require special licensing arrangements
-+LICENSE_FLAGS_ACCEPTED = "commercial"
--- 
-2.30.2
+Cheers,
 
+Richard
