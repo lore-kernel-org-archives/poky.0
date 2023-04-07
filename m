@@ -1,83 +1,69 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
- by mx.groups.io with SMTP id smtpd.web10.48970.1680246724880628598
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+ by mx.groups.io with SMTP id smtpd.web11.8958.1680876684281576660
  for <poky@lists.yoctoproject.org>;
- Fri, 31 Mar 2023 00:12:05 -0700
+ Fri, 07 Apr 2023 07:11:24 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=MCyDb5ev;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.49, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f49.google.com with SMTP id v1so21385087wrv.1
-        for <poky@lists.yoctoproject.org>; Fri, 31 Mar 2023 00:12:04 -0700 (PDT)
+ dkim=fail reason="signature has expired" header.i=@sakoman-com.20210112.gappssmtp.com header.s=20210112 header.b=aiFZd7H4;
+ spf=softfail (domain: sakoman.com, ip: 209.85.216.41, mailfrom: steve@sakoman.com)
+Received: by mail-pj1-f41.google.com with SMTP id d22-20020a17090a111600b0023d1b009f52so1467695pja.2
+        for <poky@lists.yoctoproject.org>; Fri, 07 Apr 2023 07:11:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1680246723;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Sj2A1UtXHrb/53PCZrLpVYyBEA4sCt4P35PfRPyJ2OM=;
-        b=MCyDb5ev58RAUzscraZfeNZsrn6sPqyXG2O/Vy+hD0+GQfy2ikLKw9Db8dVHDKFNXo
-         WnkK0o7mujIJF0XM7peclJvHJMzFJ82dcDCuc123DStUkEWtH4yKoISHZd+MlxCCRGuT
-         2ttUPtKyhe0REcFlVMedXlsHPCEkrg1TA+F4w=
+        d=sakoman-com.20210112.gappssmtp.com; s=20210112; t=1680876683; x=1683468683;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=RUotOS6DtCRC5WqCRgDlN1S57dCC/ao4/y1wDaOJOJg=;
+        b=aiFZd7H42I0laKWqN+8OMhLAU2hgQrtW+R7fIcfb63SK+ynVJi1qPEGST/eqy/GeGK
+         3romSvcRvEjIBv5wyCikFgRkVzZ4Z05HaIhyBpsjkueA0hHpUNFVZu0ePzfCn6440K7d
+         ZB5b3glxfCF0PyorRr/KZgP5iqGaEfekRsHNGtTWEsXSQau8SKHCrJvyXG7uCRbAc40Y
+         YMmkOjENZReBC5uWvAq1j/TkEvAKArXB6Z2EDd+x6Sh3A3TRG5jZw1VxSd9U/hmWAtxN
+         HJCq9PeCDE/d6YfLN+CvkD4DGkNUNaS8iF87m93sWqQX+Qw+z/S/D1WI8/wNemUV/AT6
+         naGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680246723;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Sj2A1UtXHrb/53PCZrLpVYyBEA4sCt4P35PfRPyJ2OM=;
-        b=YyQNcBZFZNZaVdP3QS8TGuKs+F4sURuY34768xo3zwqqBJEWDxPZucIycWf8WlEaKC
-         mUtufFK1T4VvtOz1S0z9Re3y/oal0GiWWGnfcONmSRYwQY7kLf5tFor2qdRffBtrNrm2
-         v/aZsTaPgqCg1JHRcziPo/z66LqW3Ue1ri+QH7/WOK98FIPi1+9HLJckRMPaddqTcvs9
-         xMGxTZLqhs9/zoOfnOVqMglhPrLfdcBbUNoOFi2Krk5NOQyMly/LN/ig/tCyPQK01l5S
-         KOOmDDP1jp9CZoymvgKOSkjz/W6M3P2lTc/qhrFoHxYTiZpKoho9wbFZ8QWjZTBmFZtJ
-         hjLg==
-X-Gm-Message-State: AAQBX9cvvG5soiaR0mxUUB7daynjCe3Fvh3nJm8Co+gvt7dUUkRAmHtX
-	4AoaIjLXu0jLjvSE14W3Mh78PQ==
-X-Google-Smtp-Source: AKy350ZCitesPJRmJbIaNSnD6KplGR0qTcmzRU69dR1ZyFa9Nyj8ucSIsSbImgtOwoZvp4TCRpPvzQ==
-X-Received: by 2002:a5d:66d1:0:b0:2cf:e8f4:d1ea with SMTP id k17-20020a5d66d1000000b002cfe8f4d1eamr18529687wrw.29.1680246723147;
-        Fri, 31 Mar 2023 00:12:03 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:18b7:bfe:d74b:7341? ([2001:8b0:aba:5f3c:18b7:bfe:d74b:7341])
-        by smtp.gmail.com with ESMTPSA id m2-20020a5d4a02000000b002d75ef32032sm1369223wrq.68.2023.03.31.00.12.02
+        d=1e100.net; s=20210112; t=1680876683; x=1683468683;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=RUotOS6DtCRC5WqCRgDlN1S57dCC/ao4/y1wDaOJOJg=;
+        b=2sABANGtuJgEyKCE6ZMJgxQ8C6cCBOcDJkenDmZy75HU1cLjhdlsG4Sxv98XMBj+vA
+         HQIy6Nc+keTcVQur0yNHV6Ybg2sgksCze7UWrgZvxvFI7qcH6vmffZGGZ0eg4iZQEZzg
+         t12dwYsjkMS77o69A1Chte+1S/J+ldf3tveRYW5G0DAvCGxAjM6WeJUBOE0H3pAKSL6a
+         npzdx0ixD/iEMItMkcIypdvcDAws7dXr2UgNk8qbDXERT18N3SLV+2YYIECw3qco1hTr
+         epWotzlSjWQBBStfvhigFrqS8F0nCVxcWJ3/efr1fYgM1f89H7Xa1dT+44Q3hAJ81MK6
+         xiRA==
+X-Gm-Message-State: AAQBX9ewFTBfsIkAw6AtEE5m9zGz+V8sNaHIYzTBS4xHOenbaw/07kA4
+	sFH4/6h+L6LJgWlri8dkAYYgQsp0ENGN85ioSuA=
+X-Google-Smtp-Source: AKy350YV/x3TYvb3vBh41WvEiOsvjJvcVNsF1+Eo32KCPfKMT8QG/YJuNGviVgr463igSfEVvIZcWA==
+X-Received: by 2002:a17:90b:1e10:b0:233:e9a7:209e with SMTP id pg16-20020a17090b1e1000b00233e9a7209emr2659084pjb.28.1680876683086;
+        Fri, 07 Apr 2023 07:11:23 -0700 (PDT)
+Return-Path: <steve@sakoman.com>
+Received: from hexa.router0800d9.com (dhcp-72-253-4-112.hawaiiantel.net. [72.253.4.112])
+        by smtp.gmail.com with ESMTPSA id y8-20020a17090a86c800b0022335f1dae2sm438857pjv.22.2023.04.07.07.11.22
+        for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Mar 2023 00:12:02 -0700 (PDT)
-Message-ID: <37a9246c5e670f7db14fd64ec7afba97aed1d2c3.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH] poky-altcfg: enable 'commercial' recipes
-From: "Richard Purdie" <richard.purdie@linuxfoundation.org>
-To: Alexander Kanavin <alex.kanavin@gmail.com>, poky@lists.yoctoproject.org
-Cc: Alexander Kanavin <alex@linutronix.de>
-Date: Fri, 31 Mar 2023 08:12:01 +0100
-In-Reply-To: <20230331052522.978142-1-alex@linutronix.de>
-References: <20230331052522.978142-1-alex@linutronix.de>
-User-Agent: Evolution 3.47.3-1 
+        Fri, 07 Apr 2023 07:11:22 -0700 (PDT)
+From: "Steve Sakoman" <steve@sakoman.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][kirkstone 0/1] Pull request (cover letter only)
+Date: Fri,  7 Apr 2023 04:11:11 -1000
+Message-Id: <cover.1680876558.git.steve@sakoman.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2023-03-31 at 07:25 +0200, Alexander Kanavin wrote:
-> Somehow this was overlooked, and this excluded important
-> pieces such as ffmpeg from the test matrix.
->=20
-> Signed-off-by: Alexander Kanavin <alex@linutronix.de>
-> ---
->  meta-poky/conf/distro/include/poky-distro-alt-test-config.inc | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/meta-poky/conf/distro/include/poky-distro-alt-test-config.in=
-c b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
-> index b42b830e43a..f916e010c97 100644
-> --- a/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
-> +++ b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
-> @@ -6,3 +6,7 @@ PREFERRED_VERSION_linux-yocto =3D "5.15%"
-> =20
->  # Ensure the kernel nfs server is enabled
->  KERNEL_FEATURES:append:pn-linux-yocto =3D " features/nfsd/nfsd-enable.sc=
-c"
-> +
-> +# Enable all the recipes (primarly multimedia codec implementations)
-> +# that may require special licensing arrangements
-> +LICENSE_FLAGS_ACCEPTED =3D "commercial"
+The following changes since commit 2903a4ac643f390bc0ca0899187b89ecd346d294:
 
-The project doesn't have any such license arrangements so I don't think
-we can do that...
+  poky.conf: bump version for 4.0.8 (2023-02-27 23:38:26 +0000)
 
-Cheers,
+are available in the Git repository at:
 
-Richard
+  https://git.yoctoproject.org/meta-yocto contrib/kirkstone-next
+  http://git.yoctoproject.org/cgit.cgi/meta-yocto/log/?h=contrib/kirkstone-next
+
+Steve Sakoman (1):
+  poky.conf: bump version for 4.0.9
+
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+-- 
+2.34.1
+
