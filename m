@@ -1,80 +1,59 @@
-Return-Path: <luca.ceresoli@bootlin.com>
+Return-Path: <rustyhowell@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F3389C7618E
-	for <webhook@archiver.kernel.org>; Mon, 24 Apr 2023 10:38:20 +0000 (UTC)
-Received: from relay11.mail.gandi.net (relay11.mail.gandi.net [217.70.178.231])
- by mx.groups.io with SMTP id smtpd.web10.47924.1682332699324921291
- for <poky@lists.yoctoproject.org>;
- Mon, 24 Apr 2023 03:38:19 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@bootlin.com header.s=gm1 header.b=C3IDIDIj;
- spf=pass (domain: bootlin.com, ip: 217.70.178.231, mailfrom: luca.ceresoli@bootlin.com)
-Received: from booty (unknown [77.244.183.192])
-	(Authenticated sender: luca.ceresoli@bootlin.com)
-	by mail.gandi.net (Postfix) with ESMTPSA id 8E205100002;
-	Mon, 24 Apr 2023 10:38:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1682332697;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=htyYauSd9W4Om9A/mhKi9hRmg8OgioWTuilHULrH9xM=;
-	b=C3IDIDIjdEeRww5cadVuOE2L7R64f+AuoAYgt87sUq2fnjV9Mw00+eIlwWis096rFlTaJ0
-	b2QOjne5jekbV281f8efywi/FLtn/g8p8YewCeIlSEBlRbwKsxQehrz6GTKN8QOl0U9piV
-	RB8HF6P4WyLqSeyBRaLL4hfU+vRij7b4mfb3t9yYmTimmXed9i3mW+hWs3PPfkVpn/N1Op
-	3Zi5ewuwnAln9FUI12NDfbkVkT725AlA7OJaZGv+CBlgXsXmWpofJExaSUoDIahB9DCJE9
-	3Nowsp1CgE2ijH9ZO+mb4C1Z/ZwPgRUm1lTKwnbLGIEUNWryP+O+zREfIo8GHQ==
-Date: Mon, 24 Apr 2023 12:38:15 +0200
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: "Michael Callahan" <coder.callahan@gmail.com>
-Cc: poky@lists.yoctoproject.org, "wangmy" <wangmy@fujitsu.com>
-Subject: Re: [poky] [PATCH] zstd: update 1.5.4 -> 1.5.5
-Message-ID: <20230424123815.7b33088e@booty>
-In-Reply-To: <CADm5WxNHOOJw6N+8bwnsZa50j7A2dPC+dawzR+1QsDHx-yutXA@mail.gmail.com>
-References: <CADm5WxNHOOJw6N+8bwnsZa50j7A2dPC+dawzR+1QsDHx-yutXA@mail.gmail.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.0.0 (GTK+ 3.24.33; x86_64-pc-linux-gnu)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F475C7EE2A
+	for <webhook@archiver.kernel.org>; Wed,  3 May 2023 17:03:41 +0000 (UTC)
+Subject: Ability to customize the prserver connection?
+To: poky@lists.yoctoproject.org
+From: "Rusty Howell" <rustyhowell@gmail.com>
+X-Originating-Location: US (192.207.236.6)
+X-Originating-Platform: Linux Firefox 112
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Date: Wed, 03 May 2023 10:03:32 -0700
+Message-ID: <wKCv.1683133412145731863.pxoj@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="Vpa6kHs5pNRafmtyyMCc"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Mon, 24 Apr 2023 10:38:20 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13059
+ <poky@lists.yoctoproject.org>; Wed, 03 May 2023 17:03:41 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13060
 
-Hello Michael,
+--Vpa6kHs5pNRafmtyyMCc
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 22 Apr 2023 19:15:52 -0600
-"Michael Callahan" <coder.callahan@gmail.com> wrote:
+Hello, is there a way to (or is there interest from others) in being able t=
+o customize the connection to the prserver?=C2=A0=C2=A0 We have a need to s=
+end an extra parameter to the prserver (which we have also customized).=C2=
+=A0 We were able to do this by monkeypatching the prserv client during the =
+do_packagedata task. (Rule #5 Never modify Poky)=C2=A0 We had a custom Task=
+Started handler which would monkeypatch the getPR() method and add the extr=
+a parameter we wanted.=C2=A0 We recently upgraded to honister which broke o=
+ur method of monkeypatching.
 
-> Update zstd to 1.5.5 for a rare corruption fix.
+I know most Yocto users focus on images and don't bother with package feeds=
+. But for those who do, I wanted to work on a way to allow one to create a =
+custom prserver connection rather than being forced to use the client in bb=
+/lib/prserv/client.py and hack at it via inherits and task handlers.
 
-Thank you for your patch! However there are a couple issues with it:
-you should send it to the openembedded-core mailing list and you should
-not send patch as attachments but rather inline (using git send-email
-is probably your best option).
+--Vpa6kHs5pNRafmtyyMCc
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-More info on sending patches here:
-https://www.openembedded.org/wiki/How_to_submit_a_patch_to_OpenEmbedded
+Hello, is there a way to (or is there interest from others) in being able t=
+o customize the connection to the prserver?&nbsp;&nbsp; We have a need to s=
+end an extra parameter to the prserver (which we have also customized).&nbs=
+p; We were able to do this by monkeypatching the prserv client during the d=
+o_packagedata task. (Rule #5 Never modify Poky)&nbsp; We had a custom TaskS=
+tarted handler which would monkeypatch the getPR() method and add the extra=
+ parameter we wanted.&nbsp; We recently upgraded to honister which broke ou=
+r method of monkeypatching.<br /><br />I know most Yocto users focus on ima=
+ges and don't bother with package feeds. But for those who do, I wanted to =
+work on a way to allow one to create a custom prserver connection rather th=
+an being forced to use the client in bb/lib/prserv/client.py and hack at it=
+ via inherits and task handlers.
 
-Specifically about your patch, another apparently identical one has
-already been sent, and it has been rejected as it generated failures
-during autobuilder testing:
-
-https://lists.openembedded.org/g/openembedded-core/topic/98172286#179877
-
-You may want to reply to that e-mail if you have more info on that
-build issue.
-
-Best regards,
-Luca
-
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+--Vpa6kHs5pNRafmtyyMCc--
 
