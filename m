@@ -1,110 +1,116 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F6A0EB64D7
-	for <webhook@archiver.kernel.org>; Tue, 13 Jun 2023 13:30:57 +0000 (UTC)
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
- by mx.groups.io with SMTP id smtpd.web10.13124.1686663055174385163
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8378FEB64D7
+	for <webhook@archiver.kernel.org>; Tue, 13 Jun 2023 20:44:11 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+ by mx.groups.io with SMTP id smtpd.web10.1878.1686689044461156045
  for <poky@lists.yoctoproject.org>;
- Tue, 13 Jun 2023 06:30:55 -0700
+ Tue, 13 Jun 2023 13:44:04 -0700
 Authentication-Results: mx.groups.io;
- dkim=fail reason="signature has expired" header.i=@gmail.com header.s=20221208 header.b=Iq5UefhQ;
- spf=pass (domain: gmail.com, ip: 209.85.208.169, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-2b1fe3a1a73so66771991fa.1
-        for <poky@lists.yoctoproject.org>; Tue, 13 Jun 2023 06:30:54 -0700 (PDT)
+ dkim=fail reason="signature has expired" header.i=@linuxfoundation.org header.s=google header.b=C2c5dh11;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.41, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-3f8c5d0b19dso15145395e9.1
+        for <poky@lists.yoctoproject.org>; Tue, 13 Jun 2023 13:44:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1686663053; x=1689255053;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=c3VaEtT5WteCxvFoIQfkFSNH8Kuw+u0cPYOLrzInHJE=;
-        b=Iq5UefhQEVZW0bPF77Rj3XOgWeG7G73fQqANfcn/CRi+szEiTk9fMlzGP/0w2mDhcl
-         rCGTMvG2Hm7Jp33VCRQlAEVLOsKVgnVvjpyRzzuBeL+9z6nYRUXcYnuc0SFR0SDaWDj2
-         KC8Q4D8VNOzDb3LEaEL0oyYSI3RvrT6i5Z8CIvq8gaajytUlvlk0eJCF1L7uHcvER8yy
-         3Zp9UqEKnaIQgGRMJ8cu3VpgUWJf9XiHyPfPcLLxxJJyJF+lqfi9GbHsHxAlQTqHnba+
-         auhO8mJR5Odo+44I2T/s9eGv7uhPjQlxy8D6WNyFa5H769jSkglC6DiZdPci6OCiF4Xw
-         HoTw==
+        d=linuxfoundation.org; s=google; t=1686689043; x=1689281043;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=rBoAbr2zw+Y0SWpAJSd9LVrE9QWXWYPaZiDITUAPf+U=;
+        b=C2c5dh11N9E9N2maCTlbZdmqqyiAq74SSo9uBxD/78opN8qUafKYTngrt8HKmC6A8j
+         silcA2hkGgamb1Kz4sCQXlp7B1eH/tjQpQ7TicESE/Iv2wF3Q2sNMCOKmdeviyMmW48w
+         swWrAbdy+WbDa+rJUPH8O0NyoPLUzK1NVlodc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686663053; x=1689255053;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=c3VaEtT5WteCxvFoIQfkFSNH8Kuw+u0cPYOLrzInHJE=;
-        b=NR4eQBRtHgOFlg+VctlyYp5/VoZrO7/T1ulReh08mTv4X4b5qx336xUgLyQe9Mnkec
-         e+e0ySsd6X4qz2OV/8i4O60wAOIs3FBVHIgJ/jd814BVy+54T9gO+azV5cTaHnB5EcNx
-         i7yIILGMw0BuL7WrK9mA3cGPVW5pGxIAGKu1XwqaJJGbmNb0TvQkbtfuha03ln8HPKir
-         XWVNG4VW09lnxrnLyyPHJ/IhyKoGEQ8A7p07bhqEfwwz4Anu+Ij2mFXk9JprA/THOChl
-         fmEnGuPeRFawfRzlXWxQojJLQcWkAETkxVjQOrvvAk83/pHPX6iPd+UqfSI5VDnn6n8X
-         +DWw==
-X-Gm-Message-State: AC+VfDw0UYRdd21WLBGvEGFe1PAoNX3FGm5NyaBNC0FlEJ/il6cyCl5g
-	7507lcueYINB4SsD7Xui6y6VUeUDql1Egppu3sU=
-X-Google-Smtp-Source: ACHHUZ6HSEnpis09rd9hfjvXat5W/Xk/PltAAk0woZp4SDpsjQwPxHKnmY6pRiY7es71qIKxlMTk9Mfqai6JI51sYJg=
-X-Received: by 2002:a2e:804b:0:b0:2b0:489e:c457 with SMTP id
- p11-20020a2e804b000000b002b0489ec457mr4562733ljg.39.1686663053055; Tue, 13
- Jun 2023 06:30:53 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1686657637.git.chiachiwu@google.com> <271614cc517d93437c74e12e4d86d2d3149574ea.1686657637.git.chiachiwu@google.com>
+        d=1e100.net; s=20221208; t=1686689043; x=1689281043;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=rBoAbr2zw+Y0SWpAJSd9LVrE9QWXWYPaZiDITUAPf+U=;
+        b=P9AD4Pf44CLIGJvI83Cwpk+2Uopg4TOM5YkSIkHpYnEJOgWe4xawxIfC4HL22SZxF1
+         X7bKm14SAhO6/Wegg2rKA6jc5o6g6/L47gBmbXkoALM/oyktpYHyyromsgWTqJw+inmi
+         cxPLEaFwcWBF35VU6pKdFX7dej0sEd80x/hGmg6soMzgCfVAPxjE/2GblPta0gtEPU1B
+         lD8aw30uCGGAZK+wYPQBrzFSHT0+z9IdRcdM0T5H1z+zi4ImeGHOfI4vqQALs5UMQ2Nw
+         lEhbOlZ6E8FqHHBrZWt3vkQ9sr6HHm/E55y9/6Uo1S5wOeY/RoYqzSSglF/6UPR0ABxH
+         ip6g==
+X-Gm-Message-State: AC+VfDzVMuxdVytrdbWmdDkVFIA+nY7hVVKm2cbllT+3WXp/JWSbq9h9
+	USAEjRF8BRwt0RZXs+s674VvWg==
+X-Google-Smtp-Source: ACHHUZ7R2yJpawk6xBvo8NRQ9v1SuBicF5eyOSQs/O3XzB++kSsIpd88BWIjOZ9Gq38yUmrrxSy9MA==
+X-Received: by 2002:a05:6000:1814:b0:310:b979:d00f with SMTP id m20-20020a056000181400b00310b979d00fmr389705wrh.45.1686689042543;
+        Tue, 13 Jun 2023 13:44:02 -0700 (PDT)
+Received: from ?IPv6:2001:8b0:aba:5f3c:5d56:2e19:9720:bd3b? ([2001:8b0:aba:5f3c:5d56:2e19:9720:bd3b])
+        by smtp.gmail.com with ESMTPSA id p14-20020a7bcc8e000000b003f605566610sm15356538wma.13.2023.06.13.13.44.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Jun 2023 13:44:01 -0700 (PDT)
+Message-ID: <24b0ee85cc57f65fa622f1a80d51da0b4e3bd72f.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH 1/1] devtool: Fix the wrong variable in
+ srcuri_entry
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: chiachiwu@google.com, poky@lists.yoctoproject.org
+Cc: ryanoleary@google.com
+Date: Tue, 13 Jun 2023 21:43:58 +0100
 In-Reply-To: <271614cc517d93437c74e12e4d86d2d3149574ea.1686657637.git.chiachiwu@google.com>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Tue, 13 Jun 2023 15:30:41 +0200
-Message-ID: <CANNYZj_iR4i1w9t615q3ua3jKuAUvirPVoVWA528BTsNN9YD-g@mail.gmail.com>
-Subject: Re: [poky] [PATCH 1/1] devtool: Fix the wrong variable in srcuri_entry
-To: chiachiwu@google.com
-Cc: poky@lists.yoctoproject.org, ryanoleary@google.com
+References: <cover.1686657637.git.chiachiwu@google.com>
+	 <271614cc517d93437c74e12e4d86d2d3149574ea.1686657637.git.chiachiwu@google.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.1-0ubuntu1 
+MIME-Version: 1.0
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 13 Jun 2023 13:30:57 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13084
+ <poky@lists.yoctoproject.org>; Tue, 13 Jun 2023 20:44:11 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13085
 
-Thank you, the correct mailing list for this submission is openembedded-core.
-
-Alex
-
-On Tue, 13 Jun 2023 at 14:56, Charlie Wu via lists.yoctoproject.org
-<chiachiwu=google.com@lists.yoctoproject.org> wrote:
->
-> devtool crashes when running "update-recipe" and append changes on the recipe.
+On Tue, 2023-06-13 at 12:56 +0000, Charlie Wu via
+lists.yoctoproject.org wrote:
+> devtool crashes when running "update-recipe" and append changes on the re=
+cipe.
 > "$ devtool update-recipe -a <layer> <recipe>"
 > Traceback (most recent call last):
 > ...
-> File "/ovss/ovss_quanta/poky/scripts/lib/devtool/standard.py", line 1636, in srcuri_entry
+> File "/ovss/ovss_quanta/poky/scripts/lib/devtool/standard.py", line 1636,=
+ in srcuri_entry
 >     return 'file://%s%s' % (basepath, paramstr)
 >                             ^^^^^^^^
-> NameError: cannot access free variable 'basepath' where it is not associated with a value in enclosing scope
->
-> The input variable 'fname' should have the same meaning as the variable 'basepath'.
+> NameError: cannot access free variable 'basepath' where it is not associa=
+ted with a value in enclosing scope
+>=20
+> The input variable 'fname' should have the same meaning as the variable '=
+basepath'.
 > Modify the 'fname' to 'basepath' and solve the issue.
->
+>=20
 > Signed-off-by: Charlie Wu <chiachiwu@google.com>
 > ---
 >  scripts/lib/devtool/standard.py | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/scripts/lib/devtool/standard.py b/scripts/lib/devtool/standard.py
+>=20
+> diff --git a/scripts/lib/devtool/standard.py b/scripts/lib/devtool/standa=
+rd.py
 > index 852672810a..86ca77f718 100644
 > --- a/scripts/lib/devtool/standard.py
 > +++ b/scripts/lib/devtool/standard.py
-> @@ -1629,7 +1629,7 @@ def _update_recipe_patch(recipename, workspace, srctree, rd, appendlayerdir, wil
+> @@ -1629,7 +1629,7 @@ def _update_recipe_patch(recipename, workspace, src=
+tree, rd, appendlayerdir, wil
 >      else:
->          patchdir_params = {'patchdir': relpatchdir}
->
+>          patchdir_params =3D {'patchdir': relpatchdir}
+> =20
 > -    def srcuri_entry(fname):
 > +    def srcuri_entry(basepath):
 >          if patchdir_params:
->              paramstr = ';' + ';'.join('%s=%s' % (k,v) for k,v in patchdir_params.items())
+>              paramstr =3D ';' + ';'.join('%s=3D%s' % (k,v) for k,v in pat=
+chdir_params.items())
 >          else:
-> --
-> 2.41.0.162.gfafddb0af9-goog
->
->
-> -=-=-=-=-=-=-=-=-=-=-=-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13083): https://lists.yoctoproject.org/g/poky/message/13083
-> Mute This Topic: https://lists.yoctoproject.org/mt/99504639/1686489
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gmail.com]
-> -=-=-=-=-=-=-=-=-=-=-=-
->
+
+Thanks for the patch. As Alex mentions, this needs to go to the OE-Core
+mailing list. I also wondered if we're missing a test case since the
+selftests should catch issues like this?
+
+Could you see if there is something we should add to "oe-selftest -r
+devtool" to catch this issue?
+
+Thanks,
+
+Richard
 
