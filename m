@@ -1,243 +1,140 @@
-Return-Path: <chiachiwu@google.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47287EB64D8
-	for <webhook@archiver.kernel.org>; Fri, 16 Jun 2023 14:01:03 +0000 (UTC)
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
- by mx.groups.io with SMTP id smtpd.web10.9144.1686924060677262643
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A2FEEB64D9
+	for <webhook@archiver.kernel.org>; Mon, 19 Jun 2023 14:09:44 +0000 (UTC)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+ by mx.groups.io with SMTP id smtpd.web11.8441.1687183776917245283
  for <poky@lists.yoctoproject.org>;
- Fri, 16 Jun 2023 07:01:00 -0700
+ Mon, 19 Jun 2023 07:09:37 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@google.com header.s=20221208 header.b=OEF4Rnh6;
- spf=pass (domain: google.com, ip: 209.85.160.182, mailfrom: chiachiwu@google.com)
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-3f9a81da5d7so255661cf.0
-        for <poky@lists.yoctoproject.org>; Fri, 16 Jun 2023 07:01:00 -0700 (PDT)
+ dkim=fail reason="signature has expired" header.i=@linuxfoundation.org header.s=google header.b=TtMhhGca;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.50, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-3094910b150so3492832f8f.0
+        for <poky@lists.yoctoproject.org>; Mon, 19 Jun 2023 07:09:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1686924059; x=1689516059;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=USc7B238xSuKlutdMS7CF7SmpwWkCpfjHG3U8G/jT10=;
-        b=OEF4Rnh6j9nYYSkfQT7jk8DnQ4TV+wAaZ3+zse/jYgOLnfFMSlnUg+vcUoDINsbvbn
-         2oFlYyMcJcvVhTP8JZ9bcUD4YI+bUQbqER8WmbIKv7hpuYeOYgv0LeVs2NNkmpq93HCd
-         opvL9FaxDfceVZLoxCCC0e26UbOUMr/CRiNSsxYPI0igwfckqWwm52LjGFuBNzYI+P3A
-         2BJQbcy0nb691/DxruHRM5D7oI0RZHvLUMiN8kkHqDVPSvPusJ4v0VYvDflcfYIoXJJt
-         ilwPRwACmZOcgamGIp5/aLixA+/lRYd9PJpKIcQakqzHFzkFnM7N/idMU4F5Bn44hUTD
-         ooRQ==
+        d=linuxfoundation.org; s=google; t=1687183775; x=1689775775;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=M5xUQMLXATmrQm4JHsQruSy/jHQHqgoMkMkyjiy6ysk=;
+        b=TtMhhGcaoJEC5lusB3eDvSmk1cWoYrpT4Ze+RY51eqDsZ+ehdczYIEV/awfDTXy59i
+         WLM76tRiXWx8rTwS1iO11YqFS9x93/K7Fjy9tXJKLPTQqksN8ryLaoRjb9jpB7kG3BZL
+         onqd5IF5pHq0n/RSawCpBMNwglwRo2cAk8UiE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686924059; x=1689516059;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=USc7B238xSuKlutdMS7CF7SmpwWkCpfjHG3U8G/jT10=;
-        b=ibC2N8cffFaM82I65nVWHp3xx+Z38LYAAquBV7HnsN9WS6TqQF0IVnEK42Fmv4r2zJ
-         ifgmEVE7eM4hA0YGv9Fd1VbcddWcBS4Ym2mXtG23GnhdgEKg+RWaNGDVb5NReNA8Ymt3
-         zV+Fcua1pyGrkecbtOx/0DkaZ58pInukp+JZwAez1WN0QPZY+n5f/NIO6txSZsvQjwHu
-         AqVn1u5+QuvXZTULwAS2UkjQxpR9UwNRjnVmv3eRiiXQOKkQbe7QnDaWdx2/IdkkJb4R
-         yOux9L2CS/kEaOfjoqwIUuwncnKFkJ6Sjcg7lQ+y+l7Iv/v0A377PamSPAh9aEiFaCOS
-         7iTQ==
-X-Gm-Message-State: AC+VfDzw0VhCuCI65QhS0LBgu6tIWCxmHAmNvdvsgrLSvlsDAF2i3y4U
-	YS768kCH3RCVRmgUrPJ4c+S+P+HSAV6aaG4mToxFaw==
-X-Google-Smtp-Source: ACHHUZ4Uvj0Pvbpv83V/qo3ZI35OaYAZyjp9sn8OO2HVcQvByUwtS0Jfu55EO6J82PdQdP7CFU0WsAaa7N51YCvbe1E=
-X-Received: by 2002:a05:622a:44:b0:3f9:f877:1129 with SMTP id
- y4-20020a05622a004400b003f9f8771129mr469957qtw.29.1686924059381; Fri, 16 Jun
- 2023 07:00:59 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1687183775; x=1689775775;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=M5xUQMLXATmrQm4JHsQruSy/jHQHqgoMkMkyjiy6ysk=;
+        b=Aai6BQ9eKJp1YSoW51aJE4hSQX9Yxz4NnyGyjYzWVk9hG8PciEKa7HaMoPzh1LIRQi
+         rxX0cGtGegYcF20q9iJWKs9SKrZYH/QWMsUIt4E3O3GfLryg+O/dOK++gBjTeux4+mYY
+         BBnIsB76v4mXXfy/EMRAbpsm7USXmXY/SBjgJ92bJEoeqzdky+9BN4N95tNxS/mnJEAW
+         RngIfuSlAOlIs052NX/ln+rCx9+xViKjEgEJLULIWsHi0LrmC94YQFQVfRUsBEREGsrn
+         oy2n6+ljnzWWZN55zBqlsvdJTWgDBCv9AwyTTTYhS6oiJBHzPFpgZQQZi+XtQhwkEa/2
+         R6ZQ==
+X-Gm-Message-State: AC+VfDy3uwjcMhwTq75xaSdP9efaeMopLm1MMO4sb+XIOfq/gTIg/W43
+	g338UXpJEFH47F4FvIbT84vW5/058YITqKViGrc=
+X-Google-Smtp-Source: ACHHUZ7b46iKdAyWK38CSfpUCIB+W9DNGJj8iCUOuABZhF8I/baSPHaUE2JK/Y06zkuD6OkzsCRAeA==
+X-Received: by 2002:adf:fe48:0:b0:311:10c0:85f0 with SMTP id m8-20020adffe48000000b0031110c085f0mr7977003wrs.14.1687183774836;
+        Mon, 19 Jun 2023 07:09:34 -0700 (PDT)
+Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:f105:ba55:87cc:dc34])
+        by smtp.gmail.com with ESMTPSA id m6-20020adfdc46000000b0030e5bd253aasm31685691wrj.39.2023.06.19.07.09.34
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Jun 2023 07:09:34 -0700 (PDT)
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH] genericx86: Drop gma500-gfx-check
+Date: Mon, 19 Jun 2023 15:09:33 +0100
+Message-Id: <20230619140933.2669732-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-References: <cover.1686657637.git.chiachiwu@google.com> <271614cc517d93437c74e12e4d86d2d3149574ea.1686657637.git.chiachiwu@google.com>
- <24b0ee85cc57f65fa622f1a80d51da0b4e3bd72f.camel@linuxfoundation.org>
-In-Reply-To: <24b0ee85cc57f65fa622f1a80d51da0b4e3bd72f.camel@linuxfoundation.org>
-From: Charlie Wu <chiachiwu@google.com>
-Date: Fri, 16 Jun 2023 22:00:48 +0800
-Message-ID: <CA+kC3ja3OKmmVxf_zxYrJ4wi4DQdpdLLGzLkFqourbpKDoqYcQ@mail.gmail.com>
-Subject: Re: [poky] [PATCH 1/1] devtool: Fix the wrong variable in srcuri_entry
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: poky@lists.yoctoproject.org, ryanoleary@google.com
-Content-Type: multipart/alternative; boundary="0000000000005367f905fe3f9de0"
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 16 Jun 2023 14:01:03 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13087
+ <poky@lists.yoctoproject.org>; Mon, 19 Jun 2023 14:09:44 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13088
 
---0000000000005367f905fe3f9de0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Drop the gma500-gfx-check script. This hardware is ancient and times have moved
+on, stop carrying around this old compatibility script.
 
-Hi Richard,
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-yocto-bsp/conf/machine/genericx86.conf    |  1 -
+ .../gma500-gfx-check/gma500-gfx-check.conf     |  2 --
+ .../gma500-gfx-check/gma500-gfx-check.sh       | 15 ---------------
+ .../gma500-gfx-check/gma500-gfx-check_1.0.bb   | 18 ------------------
+ 4 files changed, 36 deletions(-)
+ delete mode 100644 meta-yocto-bsp/recipes-bsp/gma500-gfx-check/gma500-gfx-check/gma500-gfx-check.conf
+ delete mode 100644 meta-yocto-bsp/recipes-bsp/gma500-gfx-check/gma500-gfx-check/gma500-gfx-check.sh
+ delete mode 100644 meta-yocto-bsp/recipes-bsp/gma500-gfx-check/gma500-gfx-check_1.0.bb
 
-I set up the environment to run "oe-selftest -r devtool" and all test cases
-are passed.
-I revisited our use case and checked the code again, I think this might be
-related to kmeta
-<https://docs.yoctoproject.org/4.0.10/kernel-dev/advanced.html?highlight=3D=
-kmeta#recipe-space-metadata>
-.
-Since kmeta is using the folder name, thus the function
-"_remove_file_entries" will not remove the .scc and .cfg files here
-<https://github.com/openembedded/openembedded-core/blob/master/scripts/lib/=
-devtool/standard.py#L1685>
-and
-put them into the "remaining" list.
-And we call the problematic function "srcuri_entry" when the "remaining"
-list is not empty.
+diff --git a/meta-yocto-bsp/conf/machine/genericx86.conf b/meta-yocto-bsp/conf/machine/genericx86.conf
+index ed4fc8a3de8..34e1448a8c7 100644
+--- a/meta-yocto-bsp/conf/machine/genericx86.conf
++++ b/meta-yocto-bsp/conf/machine/genericx86.conf
+@@ -6,6 +6,5 @@ DEFAULTTUNE ?= "core2-32"
+ require conf/machine/include/x86/tune-core2.inc
+ require conf/machine/include/genericx86-common.inc
+ 
+-MACHINE_ESSENTIAL_EXTRA_RRECOMMENDS += "gma500-gfx-check"
+ #For runqemu
+ QB_SYSTEM_NAME = "qemu-system-i386"
+diff --git a/meta-yocto-bsp/recipes-bsp/gma500-gfx-check/gma500-gfx-check/gma500-gfx-check.conf b/meta-yocto-bsp/recipes-bsp/gma500-gfx-check/gma500-gfx-check/gma500-gfx-check.conf
+deleted file mode 100644
+index 74d33c871fb..00000000000
+--- a/meta-yocto-bsp/recipes-bsp/gma500-gfx-check/gma500-gfx-check/gma500-gfx-check.conf
++++ /dev/null
+@@ -1,2 +0,0 @@
+-# Mimic modprobe's install funcitonality with busybox's modprobe
+-install gma500_gfx dmesg | grep gma500_gfx_checked || { /etc/modprobe.d/gma500-gfx-check.sh || modprobe gma500_gfx; }
+diff --git a/meta-yocto-bsp/recipes-bsp/gma500-gfx-check/gma500-gfx-check/gma500-gfx-check.sh b/meta-yocto-bsp/recipes-bsp/gma500-gfx-check/gma500-gfx-check/gma500-gfx-check.sh
+deleted file mode 100644
+index 75cda99f547..00000000000
+--- a/meta-yocto-bsp/recipes-bsp/gma500-gfx-check/gma500-gfx-check/gma500-gfx-check.sh
++++ /dev/null
+@@ -1,15 +0,0 @@
+-#!/bin/sh
+-
+-# Check for devices we wish to avoid gma500_gfx for
+-DEVICES="0x8119 0x4108"
+-
+-# Checked flag to avoid infinite modprobe
+-echo "gma500_gfx_checked" >> /dev/kmsg;
+-
+-for DEVICE in $DEVICES; do
+-    if udevadm trigger --subsystem-match=pci --verbose --attr-match=device=$DEVICE | grep "pci" >> /dev/null ; then
+-        echo "Found $DEVICE, avoiding gma500_gfx module" >> /dev/kmsg;
+-        exit 0
+-    fi
+-done
+-exit 1
+diff --git a/meta-yocto-bsp/recipes-bsp/gma500-gfx-check/gma500-gfx-check_1.0.bb b/meta-yocto-bsp/recipes-bsp/gma500-gfx-check/gma500-gfx-check_1.0.bb
+deleted file mode 100644
+index 6726f683199..00000000000
+--- a/meta-yocto-bsp/recipes-bsp/gma500-gfx-check/gma500-gfx-check_1.0.bb
++++ /dev/null
+@@ -1,18 +0,0 @@
+-SUMMARY = "Intel gma500_gfx fix for certain hardware"
+-DESCRIPTION = "Avoid inserting gma500_gfx module for certain hardware devices."
+-LICENSE = "GPL-2.0-only"
+-LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0-only;md5=801f80980d171dd6425610833a22dbe6"
+-
+-SRC_URI = "file://gma500-gfx-check.conf \
+-	file://gma500-gfx-check.sh "
+-
+-do_install(){
+-    install -d ${D}${sysconfdir}/modprobe.d/
+-    install -m 755 ${WORKDIR}/gma500-gfx-check.sh ${D}${sysconfdir}/modprobe.d/gma500-gfx-check.sh
+-    install -m 644 ${WORKDIR}/gma500-gfx-check.conf ${D}${sysconfdir}/modprobe.d/gma500-gfx-check.conf
+-}
+-
+-FILES:${PN}="${sysconfdir}/modprobe.d/gma500-gfx-check.conf \
+-             ${sysconfdir}/modprobe.d/gma500-gfx-check.sh"
+-
+-COMPATIBLE_MACHINE = "genericx86"
+-- 
+2.39.2
 
-I think we do not have recipes using kmeta inside openembedded-core, which
-makes it hard to add another unit test for this.
-Or we have other ways to make the "remaining" list not empty, but I do not
-know how.
-
-I will check the guide
-<https://www.openembedded.org/wiki/How_to_submit_a_patch_to_OpenEmbedded> a=
-nd
-change to upload the patch to openembedded-core these days.
-
-Thanks,
-Charlie
-
-
-On Wed, Jun 14, 2023 at 4:44=E2=80=AFAM Richard Purdie <
-richard.purdie@linuxfoundation.org> wrote:
-
-> On Tue, 2023-06-13 at 12:56 +0000, Charlie Wu via
-> lists.yoctoproject.org wrote:
-> > devtool crashes when running "update-recipe" and append changes on the
-> recipe.
-> > "$ devtool update-recipe -a <layer> <recipe>"
-> > Traceback (most recent call last):
-> > ...
-> > File "/ovss/ovss_quanta/poky/scripts/lib/devtool/standard.py", line
-> 1636, in srcuri_entry
-> >     return 'file://%s%s' % (basepath, paramstr)
-> >                             ^^^^^^^^
-> > NameError: cannot access free variable 'basepath' where it is not
-> associated with a value in enclosing scope
-> >
-> > The input variable 'fname' should have the same meaning as the variable
-> 'basepath'.
-> > Modify the 'fname' to 'basepath' and solve the issue.
-> >
-> > Signed-off-by: Charlie Wu <chiachiwu@google.com>
-> > ---
-> >  scripts/lib/devtool/standard.py | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/scripts/lib/devtool/standard.py
-> b/scripts/lib/devtool/standard.py
-> > index 852672810a..86ca77f718 100644
-> > --- a/scripts/lib/devtool/standard.py
-> > +++ b/scripts/lib/devtool/standard.py
-> > @@ -1629,7 +1629,7 @@ def _update_recipe_patch(recipename, workspace,
-> srctree, rd, appendlayerdir, wil
-> >      else:
-> >          patchdir_params =3D {'patchdir': relpatchdir}
-> >
-> > -    def srcuri_entry(fname):
-> > +    def srcuri_entry(basepath):
-> >          if patchdir_params:
-> >              paramstr =3D ';' + ';'.join('%s=3D%s' % (k,v) for k,v in
-> patchdir_params.items())
-> >          else:
->
-> Thanks for the patch. As Alex mentions, this needs to go to the OE-Core
-> mailing list. I also wondered if we're missing a test case since the
-> selftests should catch issues like this?
->
-> Could you see if there is something we should add to "oe-selftest -r
-> devtool" to catch this issue?
->
-> Thanks,
->
-> Richard
->
-
---0000000000005367f905fe3f9de0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Richard,<br><br>I set up the environment to run &quot;o=
-e-selftest -r devtool&quot; and all test cases are passed.<br>I revisited o=
-ur use case and checked the code again, I think this might be related to <a=
- href=3D"https://docs.yoctoproject.org/4.0.10/kernel-dev/advanced.html?high=
-light=3Dkmeta#recipe-space-metadata" target=3D"_blank">kmeta</a>.<div>Since=
- kmeta is using the folder name, thus the function &quot;_remove_file_entri=
-es&quot; will not remove the .scc and .cfg files <a href=3D"https://github.=
-com/openembedded/openembedded-core/blob/master/scripts/lib/devtool/standard=
-.py#L1685">here</a>=C2=A0and put them into the &quot;remaining&quot; list.=
-=C2=A0</div><div>And we call the problematic function &quot;srcuri_entry&qu=
-ot; when the &quot;remaining&quot; list is not empty.=C2=A0</div><div><br><=
-/div><div>I think we do not have recipes using kmeta inside openembedded-co=
-re, which makes it hard to add another unit test for this.</div><div>Or we =
-have other ways to make the &quot;remaining&quot; list not empty, but I do =
-not know how.</div><div><br></div><div>I will check the <a href=3D"https://=
-www.openembedded.org/wiki/How_to_submit_a_patch_to_OpenEmbedded">guide</a>=
-=C2=A0and change to upload the patch to openembedded-core these days.</div>=
-<div><br></div><div>Thanks,</div><div>Charlie</div><div><br></div></div><br=
-><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, J=
-un 14, 2023 at 4:44=E2=80=AFAM Richard Purdie &lt;<a href=3D"mailto:richard=
-.purdie@linuxfoundation.org" target=3D"_blank">richard.purdie@linuxfoundati=
-on.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left=
-:1ex">On Tue, 2023-06-13 at 12:56 +0000, Charlie Wu via<br>
-<a href=3D"http://lists.yoctoproject.org" rel=3D"noreferrer" target=3D"_bla=
-nk">lists.yoctoproject.org</a> wrote:<br>
-&gt; devtool crashes when running &quot;update-recipe&quot; and append chan=
-ges on the recipe.<br>
-&gt; &quot;$ devtool update-recipe -a &lt;layer&gt; &lt;recipe&gt;&quot;<br=
->
-&gt; Traceback (most recent call last):<br>
-&gt; ...<br>
-&gt; File &quot;/ovss/ovss_quanta/poky/scripts/lib/devtool/standard.py&quot=
-;, line 1636, in srcuri_entry<br>
-&gt;=C2=A0 =C2=A0 =C2=A0return &#39;file://%s%s&#39; % (basepath, paramstr)=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^^^^^^^^<br>
-&gt; NameError: cannot access free variable &#39;basepath&#39; where it is =
-not associated with a value in enclosing scope<br>
-&gt; <br>
-&gt; The input variable &#39;fname&#39; should have the same meaning as the=
- variable &#39;basepath&#39;.<br>
-&gt; Modify the &#39;fname&#39; to &#39;basepath&#39; and solve the issue.<=
-br>
-&gt; <br>
-&gt; Signed-off-by: Charlie Wu &lt;<a href=3D"mailto:chiachiwu@google.com" =
-target=3D"_blank">chiachiwu@google.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 scripts/lib/devtool/standard.py | 2 +-<br>
-&gt;=C2=A0 1 file changed, 1 insertion(+), 1 deletion(-)<br>
-&gt; <br>
-&gt; diff --git a/scripts/lib/devtool/standard.py b/scripts/lib/devtool/sta=
-ndard.py<br>
-&gt; index 852672810a..86ca77f718 100644<br>
-&gt; --- a/scripts/lib/devtool/standard.py<br>
-&gt; +++ b/scripts/lib/devtool/standard.py<br>
-&gt; @@ -1629,7 +1629,7 @@ def _update_recipe_patch(recipename, workspace, =
-srctree, rd, appendlayerdir, wil<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 else:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 patchdir_params =3D {&#39;patchdir&#=
-39;: relpatchdir}<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 def srcuri_entry(fname):<br>
-&gt; +=C2=A0 =C2=A0 def srcuri_entry(basepath):<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if patchdir_params:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 paramstr =3D &#39;;&#3=
-9; + &#39;;&#39;.join(&#39;%s=3D%s&#39; % (k,v) for k,v in patchdir_params.=
-items())<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 else:<br>
-<br>
-Thanks for the patch. As Alex mentions, this needs to go to the OE-Core<br>
-mailing list. I also wondered if we&#39;re missing a test case since the<br=
->
-selftests should catch issues like this?<br>
-<br>
-Could you see if there is something we should add to &quot;oe-selftest -r<b=
-r>
-devtool&quot; to catch this issue?<br>
-<br>
-Thanks,<br>
-<br>
-Richard<br>
-</blockquote></div>
-
---0000000000005367f905fe3f9de0--
 
