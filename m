@@ -1,293 +1,107 @@
-Return-Path: <Lincoln.Ramsay@digi.com>
+Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D7F7EEB64DA
-	for <webhook@archiver.kernel.org>; Thu,  6 Jul 2023 00:36:56 +0000 (UTC)
-Subject: Cannot enable a templated service where the instance starts with a number
-To: poky@lists.yoctoproject.org
-From: "Ramsay, Lincoln" <Lincoln.Ramsay@digi.com>
-X-Originating-Location: Brunswick West, Victoria, AU (220.233.36.19)
-X-Originating-Platform: Linux Chrome 114
-User-Agent: GROUPS.IO Web Poster
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9238BEB64DC
+	for <webhook@archiver.kernel.org>; Thu,  6 Jul 2023 09:50:19 +0000 (UTC)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+ by mx.groups.io with SMTP id smtpd.web11.18452.1688637016133882785
+ for <poky@lists.yoctoproject.org>;
+ Thu, 06 Jul 2023 02:50:16 -0700
+Authentication-Results: mx.groups.io;
+ dkim=fail reason="signature has expired" header.i=@gmail.com header.s=20221208 header.b=OBbX1QKC;
+ spf=pass (domain: gmail.com, ip: 209.85.208.171, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-2b69923a715so6757211fa.0
+        for <poky@lists.yoctoproject.org>; Thu, 06 Jul 2023 02:50:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1688637014; x=1691229014;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=UTP5cDG6vXMXyrxLQ7s+RE3Nrd3OnDx/UoLuuaUMjtQ=;
+        b=OBbX1QKCkz4Fwz503zlEYaRpT0ROt75i/BupA9u604B+O8IxKaBAq2WQ6sQilgT2Cd
+         36X8UrTm/1urJ4jQ3H8+MkAnPNniZg/IrdHlbsgstRfzHK1zWGiPwbdNKZjh3ikDwgyh
+         ThNqeec9lp/6UmYNPkRKkLQrBe7ZRDqcVIm4aDi3pY/68S35wkpeqodE3pYERWE7sRdW
+         uQkL5YUGN18T0w9tvxotFbIC+uOSuiA0GykVI+Zu98tj/T/fTV6CMZLdMcVYcGgxW3dC
+         OQ8bwEFvHEEXRkTGa5moklLrJt0i7F+JhyQj0XJyfGvA3fPkyqrCLaitQQPGrf9rWCPm
+         xYow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1688637014; x=1691229014;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UTP5cDG6vXMXyrxLQ7s+RE3Nrd3OnDx/UoLuuaUMjtQ=;
+        b=h26+6E5Z3zC6ou6aO1wPUydKIhvw4kQNa+oTuXxlfLepCWmYBo9Zl2KON6I4T5Fci8
+         TBDloS9SZnzvBgZ9UJEx3qJte8MOyrij5UE8tzIPic/GtHD8bBgiZIAjSt5mOjozCEXS
+         IORqEPmrjoiDSkATnwigvia8vwcSIZcmgIyCLE3l4nieVnEh/tqwoQRhPyasZDnOJzS9
+         wAqk/A1PUh/gjzXRZe/JzQiUV1rRPxDj60qOiKV4L1sxfqeZrWgDofsIoe8H9vjZOGVL
+         jyIGkC3WVWRRQ9md76TuEQjwfWiMDLLYE0kxUO8pja4E0MqFg8+deub0g0i7OKDhK6xI
+         +5jA==
+X-Gm-Message-State: ABy/qLYYSiJhh94GpL2FI2Q+Q97/hoVINLGo3y7iMD2AZ9Rv6pzGZMpV
+	HZceXfOi94EKkK1ygLuCV26vOpdf0uJj9+ijFHs=
+X-Google-Smtp-Source: APBJJlGTy1Z19PivJAwaI76IOdItCJ9rR0qp7XPc1eJayotg3G8RdkgBtoKw1rFfMTcGV/dnrSmRXSsrCJY6aMaoUds=
+X-Received: by 2002:a2e:9c46:0:b0:2b7:857:7cb5 with SMTP id
+ t6-20020a2e9c46000000b002b708577cb5mr587484ljj.24.1688637013905; Thu, 06 Jul
+ 2023 02:50:13 -0700 (PDT)
 MIME-Version: 1.0
-Date: Wed, 05 Jul 2023 17:36:47 -0700
-Message-ID: <zaH1.1688603807958251008.7uhU@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="QDPUlL0OTLaxk73nqnC7"
+References: <zaH1.1688603807958251008.7uhU@lists.yoctoproject.org>
+In-Reply-To: <zaH1.1688603807958251008.7uhU@lists.yoctoproject.org>
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Thu, 6 Jul 2023 11:50:02 +0200
+Message-ID: <CANNYZj9yMacnjCvZCXnc0QYUrCxYPFPpPUsgziigkqsfonmnhg@mail.gmail.com>
+Subject: Re: [poky] Cannot enable a templated service where the instance
+ starts with a number
+To: Lincoln.Ramsay@digi.com
+Cc: poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 06 Jul 2023 00:36:56 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13103
+ <poky@lists.yoctoproject.org>; Thu, 06 Jul 2023 09:50:19 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13104
 
---QDPUlL0OTLaxk73nqnC7
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+The patch should be sent with 'git send-email' to openembedded-core
+mailing list. You can find out more at
+https://www.openembedded.org/wiki/How_to_submit_a_patch_to_OpenEmbedded
 
-Hi folks,
+Alex
 
-We just tried to update our poky submodule (kirkstone branch) and hit a pro=
-blem because of this change: https://git.yoctoproject.org/poky/commit/?h=3D=
-kirkstone&id=3D7f8a4aa6cf240a5cdda012837f3f3f7a0f9bbf1c
-
-The problem is that we install some templated services like so:
-
-SYSTEMD_SERVICE:${PN} =3D "\
-wsapi-fcgi.socket \
-wsapi-fcgi@1.service \
-
-In do_rootfs, the poky systemctl is told to enable the service and so insta=
-nce is set to "1".
-
-The problem is that the re.sub uses \\1 and then pastes the instance name i=
-n, so in our case, it ends up as \\11, which fails because there is only 1 =
-match in the pattern.
-
-python has a solution for this, which is to use \\g<1>.
-
-eg.
-
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dependent =3D re.s=
-ub("([^%](%%)*)%i", "\\1{}".format(instance), dependent)
-+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dependent =3D re.s=
-ub("([^%](%%)*)%i", "\\g<1>{}".format(instance), dependent)
-
-I am not sure which other poky branches this change is on... presumably at =
-least all of the newer ones.
-
-I'm not sure of the normal process for proposing patches to poky, hence thi=
-s email.
-
-Thanks,
-Lincoln
-
---QDPUlL0OTLaxk73nqnC7
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-<span style=3D"border: 0px; font-variant-numeric: inherit; font-variant-eas=
-t-asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; =
-font-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helveti=
-ca, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-f=
-eature-settings: inherit; font-variation-settings: inherit; margin: 0px; pa=
-dding: 0px; vertical-align: baseline; color: black;">Hi folks,</span><span =
-style=3D"color: #000000; font-family: Calibri, Arial, Helvetica, sans-serif=
-; font-size: 16px;"></span>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">&nbsp;</div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">We just tried to update=
- our poky submodule (kirkstone branch) and hit a problem because of this ch=
-ange:&nbsp;<a id=3D"LPlnk974012" style=3D"border: 0px; font: inherit; margi=
-n: 0px; padding: 0px; vertical-align: baseline;" href=3D"https://git.yoctop=
-roject.org/poky/commit/?h=3Dkirkstone&amp;id=3D7f8a4aa6cf240a5cdda012837f3f=
-3f7a0f9bbf1c" target=3D"_blank" rel=3D"noopener noreferrer" data-auth=3D"No=
-tApplicable" data-linkindex=3D"0">https://git.yoctoproject.org/poky/commit/=
-?h=3Dkirkstone&amp;id=3D7f8a4aa6cf240a5cdda012837f3f3f7a0f9bbf1c</a></div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">&nbsp;</div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">The problem is that we =
-install some templated services like so:</div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">&nbsp;</div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">
-<div style=3D"border: 0px; font-style: inherit; font-variant: inherit; font=
--stretch: inherit; font-size: 14px; line-height: 19px; font-family: 'Droid =
-Sans Mono', monospace, monospace; font-optical-sizing: inherit; font-kernin=
-g: inherit; font-feature-settings: inherit; font-variation-settings: inheri=
-t; margin: 0px; padding: 0px; vertical-align: baseline; color: #d4d4d4; bac=
-kground-color: #1e1e1e;"><span style=3D"border: 0px; font: inherit; margin:=
- 0px; padding: 0px; vertical-align: baseline; color: inherit;"><span style=
-=3D"border: 0px; font: inherit; margin: 0px; padding: 0px; vertical-align: =
-baseline; color: #9cdcfe;">SYSTEMD_SERVICE:${PN}</span><span style=3D"borde=
-r: 0px; font: inherit; margin: 0px; padding: 0px; vertical-align: baseline;=
- color: inherit;">&nbsp;=3D<span style=3D"border: 0px; font: inherit; margi=
-n: 0px; padding: 0px; vertical-align: baseline; color: inherit;">&nbsp;</sp=
-an></span><span style=3D"border: 0px; font: inherit; margin: 0px; padding: =
-0px; vertical-align: baseline; color: #ce9178;">"\</span></span>
-<div style=3D"border: 0px; font: inherit; margin: 0px; padding: 0px; vertic=
-al-align: baseline; color: inherit;"><span style=3D"border: 0px; font: inhe=
-rit; margin: 0px; padding: 0px; vertical-align: baseline; color: #ce9178;">=
-&nbsp; &nbsp; wsapi-fcgi.socket \</span></div>
-</div>
-<div style=3D"border: 0px; font-style: inherit; font-variant: inherit; font=
--stretch: inherit; font-size: 14px; line-height: 19px; font-family: 'Droid =
-Sans Mono', monospace, monospace; font-optical-sizing: inherit; font-kernin=
-g: inherit; font-feature-settings: inherit; font-variation-settings: inheri=
-t; margin: 0px; padding: 0px; vertical-align: baseline; color: #d4d4d4; bac=
-kground-color: #1e1e1e;"><span style=3D"border: 0px; font: inherit; margin:=
- 0px; padding: 0px; vertical-align: baseline; color: inherit;"><span style=
-=3D"border: 0px; font: inherit; margin: 0px; padding: 0px; vertical-align: =
-baseline; color: #ce9178;">&nbsp; &nbsp; wsapi-fcgi@1.service \</span></spa=
-n></div>
-<div style=3D"border: 0px; font-style: inherit; font-variant: inherit; font=
--stretch: inherit; font-size: 14px; line-height: 19px; font-family: 'Droid =
-Sans Mono', monospace, monospace; font-optical-sizing: inherit; font-kernin=
-g: inherit; font-feature-settings: inherit; font-variation-settings: inheri=
-t; margin: 0px; padding: 0px; vertical-align: baseline; color: #d4d4d4; bac=
-kground-color: #1e1e1e;">
-<div style=3D"border: 0px; font: inherit; margin: 0px; padding: 0px; vertic=
-al-align: baseline; color: inherit;">&nbsp;</div>
-</div>
-</div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">In do_rootfs, the poky =
-systemctl is told to enable the service and so instance is set to "1".</div=
+On Thu, 6 Jul 2023 at 02:36, Ramsay, Lincoln via
+lists.yoctoproject.org
+<Lincoln.Ramsay=digi.com@lists.yoctoproject.org> wrote:
 >
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">&nbsp;</div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">The problem is that the=
- re.sub uses \\1 and then pastes the instance name in, so in our case, it e=
-nds up as \\11, which fails because there is only 1 match in the pattern.</=
-div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">&nbsp;</div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">python has a solution f=
-or this, which is to use \\g&lt;1&gt;.</div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">&nbsp;</div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">eg.</div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">&nbsp;</div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;"><span style=3D"border: =
-0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font=
--stretch: inherit; font-size: 13.31px; line-height: inherit; font-family: m=
-onospace; font-optical-sizing: inherit; font-kerning: inherit; font-feature=
--settings: inherit; font-variation-settings: inherit; margin: 0px; padding:=
- 0px; vertical-align: baseline; color: green;">-&nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; dependent =3D re.sub("([^%](%%)*)%i", "\\1{}".=
-format(instance), dependent)</span></div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;"><span style=3D"border: =
-0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font=
--stretch: inherit; font-size: 13.31px; line-height: inherit; font-family: m=
-onospace; font-optical-sizing: inherit; font-kerning: inherit; font-feature=
--settings: inherit; font-variation-settings: inherit; margin: 0px; padding:=
- 0px; vertical-align: baseline; color: green;"><span style=3D"border: 0px; =
-font: inherit; margin: 0px; padding: 0px; vertical-align: baseline; color: =
-inherit;">+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;dependen=
-t =3D re.sub("([^%](%%)*)%i", "\\g&lt;1&gt;{}".format(instance), dependent)=
-</span><br aria-hidden=3D"true" /></span></div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">&nbsp;</div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;"><span style=3D"border: =
-0px; font: inherit; margin: 0px; padding: 0px; vertical-align: baseline; co=
-lor: inherit;">I am not sure which other poky branches this change is on...=
- presumably at least all of the newer ones.</span></div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;"><span style=3D"border: =
-0px; font: inherit; margin: 0px; padding: 0px; vertical-align: baseline; co=
-lor: inherit;">&nbsp;</span></div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;"><span style=3D"border: =
-0px; font: inherit; margin: 0px; padding: 0px; vertical-align: baseline; co=
-lor: inherit;">I'm not sure of the normal process for proposing patches to =
-poky, hence this email.</span></div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">&nbsp;</div>
-<div style=3D"border: 0px; font-variant-numeric: inherit; font-variant-east=
--asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; f=
-ont-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helvetic=
-a, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-fe=
-ature-settings: inherit; font-variation-settings: inherit; margin: 0px; pad=
-ding: 0px; vertical-align: baseline; color: black;">Thanks,</div>
-<span style=3D"border: 0px; font-variant-numeric: inherit; font-variant-eas=
-t-asian: inherit; font-variant-alternates: inherit; font-stretch: inherit; =
-font-size: 12pt; line-height: inherit; font-family: Calibri, Arial, Helveti=
-ca, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-f=
-eature-settings: inherit; font-variation-settings: inherit; margin: 0px; pa=
-dding: 0px; vertical-align: baseline; color: black;">Lincoln</span>
-
---QDPUlL0OTLaxk73nqnC7--
+> Hi folks,
+>
+> We just tried to update our poky submodule (kirkstone branch) and hit a problem because of this change: https://git.yoctoproject.org/poky/commit/?h=kirkstone&id=7f8a4aa6cf240a5cdda012837f3f3f7a0f9bbf1c
+>
+> The problem is that we install some templated services like so:
+>
+> SYSTEMD_SERVICE:${PN} = "\
+>     wsapi-fcgi.socket \
+>     wsapi-fcgi@1.service \
+>
+> In do_rootfs, the poky systemctl is told to enable the service and so instance is set to "1".
+>
+> The problem is that the re.sub uses \\1 and then pastes the instance name in, so in our case, it ends up as \\11, which fails because there is only 1 match in the pattern.
+>
+> python has a solution for this, which is to use \\g<1>.
+>
+> eg.
+>
+> -                dependent = re.sub("([^%](%%)*)%i", "\\1{}".format(instance), dependent)
+> +                dependent = re.sub("([^%](%%)*)%i", "\\g<1>{}".format(instance), dependent)
+>
+> I am not sure which other poky branches this change is on... presumably at least all of the newer ones.
+>
+> I'm not sure of the normal process for proposing patches to poky, hence this email.
+>
+> Thanks,
+> Lincoln
+> -=-=-=-=-=-=-=-=-=-=-=-
+> Links: You receive all messages sent to this group.
+> View/Reply Online (#13103): https://lists.yoctoproject.org/g/poky/message/13103
+> Mute This Topic: https://lists.yoctoproject.org/mt/99977115/1686489
+> Group Owner: poky+owner@lists.yoctoproject.org
+> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gmail.com]
+> -=-=-=-=-=-=-=-=-=-=-=-
+>
 
