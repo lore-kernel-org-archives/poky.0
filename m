@@ -1,61 +1,90 @@
-Return-Path: <peter.kjellerstedt@axis.com>
+Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7454FC7EE43
-	for <webhook@archiver.kernel.org>; Thu, 24 Aug 2023 18:01:04 +0000 (UTC)
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- by mx.groups.io with SMTP id smtpd.web10.1981.1692900056505787643
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E6AAC83F17
+	for <webhook@archiver.kernel.org>; Wed, 30 Aug 2023 14:16:13 +0000 (UTC)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+ by mx.groups.io with SMTP id smtpd.web11.14935.1693404964675097456
  for <poky@lists.yoctoproject.org>;
- Thu, 24 Aug 2023 11:00:57 -0700
+ Wed, 30 Aug 2023 07:16:04 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@axis.com header.s=axis-central1 header.b=CSBw8TL0;
- spf=pass (domain: axis.com, ip: 195.60.68.18, mailfrom: peter.kjellerstedt@axis.com)
+ dkim=pass header.i=@gmail.com header.s=20221208 header.b=HcZutDaN;
+ spf=pass (domain: gmail.com, ip: 209.85.218.43, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-9a1de3417acso207946866b.0
+        for <poky@lists.yoctoproject.org>; Wed, 30 Aug 2023 07:16:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=axis.com; q=dns/txt; s=axis-central1; t=1692900058;
-  x=1724436058;
-  h=from:to:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=fpntYwIBnN/gX9rleioP2clG4h925vH3qZfI1rh1nIA=;
-  b=CSBw8TL0Em+xkdc8RUNpRBO8jot0tHwZ6UzALaRUkCQK1MnFp2SdOsKf
-   tSrV66+hjJH4vIvDHcnUmYppDKQBNAd22O6lM8NLilR17wP5lRD4Zf1jv
-   /Bev0jXKNkUk2kp1u2vXCQMPP1Nt4/SwamFhHTDarfozrM4G47lknw4km
-   FEIPsl4sA/Un6LxTkHwkfJkprYok4iMxCk/845EZ89MLALjvmpEq+q1v+
-   2PNk6KwCJ2RmcUyPa+0h9Cby4/em0rPjBGknfTT/xXOCp0n/xIPM9u7Be
-   7uYbsXVfLTFaDDcKalnflcMOlIVl060qXRSLM69j53b43+Z2/AoNGFxQ2
-   Q==;
-From: Peter Kjellerstedt <pkj@axis.com>
-To: <poky@lists.yoctoproject.org>
-Subject: [PATCH] poky.conf: Switch to post release name/version
-Date: Thu, 24 Aug 2023 20:00:50 +0200
-Message-ID: <20230824180050.4083628-1-pkj@axis.com>
-X-Mailer: git-send-email 2.40.1
+        d=gmail.com; s=20221208; t=1693404963; x=1694009763; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ciUtO8PJEsbUaoy8xRhPbUPgVbULMLF8FpG+qVN6z9s=;
+        b=HcZutDaNGpZM4LIv8k0YeUBwqFigX4BfBKhS0lDkEMPr9XcJMRIx/+T1Fyw9TwpbCm
+         MZ0lmfTY9fxgZ3CUacJtg/Ep7EfDU5RO7iEop6sH7YtJlv8uc0ONPaqcEfqgfNqcSpBV
+         Mtdwzen8JuoJikAwh3Gj2O3IEyabtqUNpRvZbglpUeYrfgSjsY34MvZgvlPIFDiuLA7W
+         biGL+kG3oyR7/Roa9LWS5R56TH5XGnQQbJgae1OPgIJcV2G6ipmZeUVpbSxKLgWp+7C4
+         RoZIsjK+sDDdE2HTxkyuWYcGRb8/9o99TzNNIbNmB9GCYXBjqOfvwdSBMgRltoWBqsyO
+         08xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1693404963; x=1694009763;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ciUtO8PJEsbUaoy8xRhPbUPgVbULMLF8FpG+qVN6z9s=;
+        b=HwhCVsIW2hrD3yL0E0wU4Eia2C8M+Z3Kq1fAoQT0LG1VpDEs2X7KGg1HbjKC4Tk4x2
+         +VJa2K1pHXC62lvzWdWD3X/+D5pctg3nsWSF7l87hTIjlMws4ELVTIv/wQfqPHVNIJJp
+         yS/4HEvL9rl4ZNiP2YXatwIWwYPTGFuiggj0qeW8VBmvOOeY4cV82yyRmeyo4d8ySwQe
+         kvM7R9guwaxE+vt4ojqqc+M7ky74e7qdTeUrDwL+WTsO6aQ1jRgCGHqKOTvCyfAaZIB6
+         fBxJUAO1EVveODTLJUBsyAEFOQ6PR0Ck8DO6T6VBiLsdfsBFFN784L0DJH1tlHMwk33G
+         rW/Q==
+X-Gm-Message-State: AOJu0YxajLiBNYnOKC3G3Do+PG7UUchXzIzLr/Gh/pjG0WHIM8qMrdFf
+	HDCqE0nNMW3ZSt5hh/OosrCZazGiXs8=
+X-Google-Smtp-Source: AGHT+IFQbNlQ4gqNu4VByCEoLz8r4Lv9If5TyBQyEQPP2WKcazsZTmaBBxlrjYeD0jTR2/jySK79Jg==
+X-Received: by 2002:a17:907:75d4:b0:9a1:b144:30f4 with SMTP id jl20-20020a17090775d400b009a1b14430f4mr2968731ejc.14.1693404962885;
+        Wed, 30 Aug 2023 07:16:02 -0700 (PDT)
+Received: from Zen2.lab.linutronix.de. (drugstore.linutronix.de. [80.153.143.164])
+        by smtp.gmail.com with ESMTPSA id q4-20020a170906144400b00992f81122e1sm7233742ejc.21.2023.08.30.07.16.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Aug 2023 07:16:02 -0700 (PDT)
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+X-Google-Original-From: Alexander Kanavin <alex@linutronix.de>
+To: poky@lists.yoctoproject.org
+Cc: Alexander Kanavin <alex@linutronix.de>
+Subject: [PATCH 2/2] meta-poky/conf/templates/default/conf-description.txt: add a template description
+Date: Wed, 30 Aug 2023 16:15:55 +0200
+Message-Id: <20230830141555.656242-2-alex@linutronix.de>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20230830141555.656242-1-alex@linutronix.de>
+References: <20230830141555.656242-1-alex@linutronix.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 24 Aug 2023 18:01:04 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13135
+ <poky@lists.yoctoproject.org>; Wed, 30 Aug 2023 14:16:13 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13137
 
-Signed-off-by: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+There is a need to separate the template notes (which are lengthy
+instructions about how to use the template) and template description
+(which is a short explanation of what the template is for).
+
+This patch adds such a description for the poky default template,
+and updates to the tools will follow.
+
+Signed-off-by: Alexander Kanavin <alex@linutronix.de>
 ---
- meta-poky/conf/distro/poky.conf | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ meta-poky/conf/templates/default/conf-description.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 meta-poky/conf/templates/default/conf-description.txt
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 388694b2f8..3bc7bff011 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -1,7 +1,7 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
--DISTRO_VERSION = "4.2"
--DISTRO_CODENAME = "mickledore"
-+DISTRO_VERSION = "4.2+snapshot-${METADATA_REVISION}"
-+DISTRO_CODENAME = "nanbield"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADATA_REVISION}', 'snapshot')}"
- SDK_VERSION[vardepvalue] = "${SDK_VERSION}"
+diff --git a/meta-poky/conf/templates/default/conf-description.txt b/meta-poky/conf/templates/default/conf-description.txt
+new file mode 100644
+index 00000000000..8fc03030c7f
+--- /dev/null
++++ b/meta-poky/conf/templates/default/conf-description.txt
+@@ -0,0 +1 @@
++This is the default build configuration for the Poky reference distribution.
+-- 
+2.30.2
+
 
