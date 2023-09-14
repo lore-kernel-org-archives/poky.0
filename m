@@ -2,46 +2,45 @@ Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C0C75EDE9A7
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2562EDE9A8
 	for <webhook@archiver.kernel.org>; Thu, 14 Sep 2023 11:25:17 +0000 (UTC)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
- by mx.groups.io with SMTP id smtpd.web11.9519.1694690715831341471
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+ by mx.groups.io with SMTP id smtpd.web11.9518.1694690715463464682
  for <poky@lists.yoctoproject.org>;
- Thu, 14 Sep 2023 04:25:16 -0700
+ Thu, 14 Sep 2023 04:25:15 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20221208 header.b=RguOghYR;
- spf=pass (domain: gmail.com, ip: 209.85.218.46, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-99bcf2de59cso117589766b.0
+ dkim=pass header.i=@gmail.com header.s=20221208 header.b=k0OvNtVV;
+ spf=pass (domain: gmail.com, ip: 209.85.218.44, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-9a9f139cd94so117995566b.2
         for <poky@lists.yoctoproject.org>; Thu, 14 Sep 2023 04:25:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20221208; t=1694690714; x=1695295514; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Mxsz/CLfdnBzX/2UAzFFI4ytRarjwmXbmrVO5fn0V9E=;
-        b=RguOghYRlV0CvsDZN6ukcpSlmidHKmRZWjFsyZjcExMRMuG9lBTJEHlRpiFfRw1iBB
-         YfkNssbxHgcZhXwBVdrgq1409JQToLfWA5uhCBlvUadmnuObJk/3CLJ9hk7jEgdPMvtw
-         nG8gi8AZFi+p+rwBRfNh4Z29/j4zBtE3/iVe+IAnuDFrVF2BOzk0zsm3BGa5shwD74EA
-         wJyj0fS+hXrJ8q4MLX4e5kd4yNeu1liY4Oqg8dfDitEMy10GZucXTVoLyjpc8sb2XJl9
-         2HSjpZxTAn4imW9NKB5kA1uoRXeCuUfgxBGEw7vy1877n9H+OCc5eikZJdDLdMHpZtaf
-         f0ZQ==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=evs+TjeImYiBkSef5ZLvCqtFCo9WoCxxFbqHEzLrA/Y=;
+        b=k0OvNtVVz+NRLrrDUYRFEmPSvOPHuU1mpBOJqe9FAWAvbyuo/3tu0TM6Ppyq0A6xuV
+         Mp1k+CW2IEFtg+s4tSXYkALVhYqAml3Mt37GI79BiG8Vf36sjb+TNZgpVOw0yZ0wXhUy
+         wp3aZw1HcV3Xn6mvSPuKGPXveRr2uRM6Y/Jg5u766nfxTf9VZYoZfrHSb9pycCtkDBDD
+         zbx6vS4VY2U75RuHL/Z49dPHOl0N7HmYOHWslztGfOmsepYYn1OLuKlocJzZSV5rY8Hp
+         2tGqjcdX+Y3sI/8n27lGP0cYdnwB8LYCPAvh4lTruFnnl6nFLupzuSfrq9RrR2XPbm8+
+         AFRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1694690714; x=1695295514;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Mxsz/CLfdnBzX/2UAzFFI4ytRarjwmXbmrVO5fn0V9E=;
-        b=d0BxKvXp+ZFD2JIigaxMtdhi+tvWyOQifNDvjgZD9bD8D9nkxjzT3+LaoJ/onNMKbD
-         Bph8FTaJgzoc7cIEdMBepV7eVkHu3jYMizt1lqbq8yZbBspgIS0/uSCE3Njb8FlcKkXo
-         hFQS6ovMt5meTm1gZVWFjdY4XVYPuF1mpJR3YvOAMRBhbopmGPXtSBRm0CZsgtXnnoiY
-         GCXomml5Vg5eIPAVxm4VTX28etrW2Nrf97v7jXqqMVDxQ4ONftG0UkC4qDBDFyQSkr8d
-         AQY5rj4D2YFtYnWD6x0/+dnjGrT5AiRi8x0n2C/5CWcjFUrfEwrK0MhhcTcsEzte+h4J
-         ddGg==
-X-Gm-Message-State: AOJu0YybRrVKJFtgKJAANYrXrrInolyqL90FOudPGMH0E1eKZ24RKDuh
-	RiRHTxCxizMwhpRBj3HQ3nVjbGNmIpY=
-X-Google-Smtp-Source: AGHT+IF8jR1i9vWBmKz+5Hz5MThJXOrczYfMoENSGz2aZLRKygkw6ZmCV0upZtmuqqy4fTpXCX0DuQ==
-X-Received: by 2002:a17:907:2cd2:b0:9a1:914e:490e with SMTP id hg18-20020a1709072cd200b009a1914e490emr3845089ejc.53.1694690714028;
-        Thu, 14 Sep 2023 04:25:14 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=evs+TjeImYiBkSef5ZLvCqtFCo9WoCxxFbqHEzLrA/Y=;
+        b=mfqeJFjvEEYVa80Dj6ZpIfqgmOwxSj8O1T6o4ls82xAXE4LXRltwCYRVg3avW93n8U
+         yM5qsB1A2IuwQFRnCv7D0PV4cfyres/xkh7DTrBQQdLWrrSy6kKexAHtnEr8QFKwXvxQ
+         e5JC0o8M9ZzFSqQs4Vp4Q9aQsUtXlNpQ8WyfBP+mApxT7tQkb3csN0h9P0mUKwRd7gPy
+         InUUa1wGalhdFlqpp2K7yVQILtOZzqHUKSPFkqAYDEezyCGg6QZLGvNSuwnHEODUQCDN
+         ObfslovhRP6c4rZemkjGJeXPiO923O2zYOrAAKNZ77d6paV3mnmwUR1n8QX7Q33Ux/Ji
+         JMog==
+X-Gm-Message-State: AOJu0YxqBCGvDKA33bZuQ1PV82dBAKM0kfJrlfN8aS/gDdNj7UzAC77v
+	cvMMjbnYDQpoH79kDRV7vfc711EiyJQ=
+X-Google-Smtp-Source: AGHT+IGPLwuiJ4+X3iTBOhwt9mLiuk2sWP69HnbqNJAh9oREX4XUcpMukHJyLyVnOgDJB9FVryP6ow==
+X-Received: by 2002:a17:906:2cf:b0:9a5:cab0:b050 with SMTP id 15-20020a17090602cf00b009a5cab0b050mr4076017ejk.13.1694690713512;
+        Thu, 14 Sep 2023 04:25:13 -0700 (PDT)
 Received: from Zen2.lab.linutronix.de. (drugstore.linutronix.de. [80.153.143.164])
         by smtp.gmail.com with ESMTPSA id y13-20020a170906470d00b0098884f86e41sm858587ejq.123.2023.09.14.04.25.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
@@ -50,44 +49,53 @@ From: Alexander Kanavin <alex.kanavin@gmail.com>
 X-Google-Original-From: Alexander Kanavin <alex@linutronix.de>
 To: poky@lists.yoctoproject.org
 Cc: Alexander Kanavin <alex@linutronix.de>
-Subject: [PATCH 2/2] meta-poky/conf/templates/default/conf-description.txt: add a template description
-Date: Thu, 14 Sep 2023 13:25:03 +0200
-Message-Id: <20230914112503.2214003-2-alex@linutronix.de>
+Subject: [PATCH 1/2] meta/conf/templates/default/conf-notes.txt: remove
+Date: Thu, 14 Sep 2023 13:25:02 +0200
+Message-Id: <20230914112503.2214003-1-alex@linutronix.de>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230914112503.2214003-1-alex@linutronix.de>
-References: <20230914112503.2214003-1-alex@linutronix.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
  <poky@lists.yoctoproject.org>; Thu, 14 Sep 2023 11:25:17 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13161
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13160
 
-Existing conf-notes.txt is not adequate in situations where the user
-needs to select a config template from several, or get an overview of them and
-is interested only in a brief explanation of what the template is for,
-but not extended multi-paragraph instructions for how to use it.
-
-Such descriptions can be provided via conf-description.txt and
-this patch adds such a description for the poky default template.
-
-Updates to the tools and a tool for selecting templates which
-will make specific use of the description will follow.
+This is present in the poky repository, even though it should
+not be:
+https://git.yoctoproject.org/poky/tree/meta/conf/templates/default?id=ddf3b3ecd4b1680dc0dedfd4eaebcf3441b14ca7
 
 Signed-off-by: Alexander Kanavin <alex@linutronix.de>
 ---
- meta-poky/conf/templates/default/conf-description.txt | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 meta-poky/conf/templates/default/conf-description.txt
+ meta/conf/templates/default/conf-notes.txt | 19 -------------------
+ 1 file changed, 19 deletions(-)
+ delete mode 100644 meta/conf/templates/default/conf-notes.txt
 
-diff --git a/meta-poky/conf/templates/default/conf-description.txt b/meta-poky/conf/templates/default/conf-description.txt
-new file mode 100644
-index 00000000000..8fc03030c7f
---- /dev/null
-+++ b/meta-poky/conf/templates/default/conf-description.txt
-@@ -0,0 +1 @@
-+This is the default build configuration for the Poky reference distribution.
+diff --git a/meta/conf/templates/default/conf-notes.txt b/meta/conf/templates/default/conf-notes.txt
+deleted file mode 100644
+index cfd1f1977bf..00000000000
+--- a/meta/conf/templates/default/conf-notes.txt
++++ /dev/null
+@@ -1,19 +0,0 @@
+-
+-### Shell environment set up for builds. ###
+-
+-You can now run 'bitbake <target>'
+-
+-Common targets are:
+-    core-image-minimal
+-    core-image-full-cmdline
+-    core-image-sato
+-    core-image-weston
+-    meta-toolchain
+-    meta-ide-support
+-
+-You can also run generated qemu images with a command like 'runqemu qemux86-64'.
+-
+-Other commonly useful commands are:
+- - 'devtool' and 'recipetool' handle common recipe tasks
+- - 'bitbake-layers' handles common layer tasks
+- - 'oe-pkgdata-util' handles common target package tasks
 -- 
 2.30.2
 
