@@ -1,278 +1,130 @@
-Return-Path: <bhstalel@gmail.com>
+Return-Path: <joerg.sommer@navimatix.de>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 467D0CE7A8A
-	for <webhook@archiver.kernel.org>; Sun, 24 Sep 2023 15:14:53 +0000 (UTC)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
- by mx.groups.io with SMTP id smtpd.web10.41250.1695568486272668980
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49B2AE7E622
+	for <webhook@archiver.kernel.org>; Tue, 26 Sep 2023 11:21:22 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com (EUR04-VI1-obe.outbound.protection.outlook.com [40.107.8.73])
+ by mx.groups.io with SMTP id smtpd.web10.16605.1695727276282308778
  for <poky@lists.yoctoproject.org>;
- Sun, 24 Sep 2023 08:14:46 -0700
+ Tue, 26 Sep 2023 04:21:17 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=lgZFBBQs;
- spf=pass (domain: gmail.com, ip: 209.85.208.51, mailfrom: bhstalel@gmail.com)
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-533c5d10dc7so2169396a12.3
-        for <poky@lists.yoctoproject.org>; Sun, 24 Sep 2023 08:14:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1695568485; x=1696173285; darn=lists.yoctoproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=c96w3KLGj0TAnjtDuP9IJpiFtrI9XCdH25Fq435GXbo=;
-        b=lgZFBBQs3r/VZAZNOdSjbO73GvdvfdPvy6LtnyfSxE5gc9RIlrsMhVxqoZmZg0+ODY
-         919F12QGa7ulwzTvJcWKd9mLmXgoEj9ZSi+FlE2/r67o8q1hT5spc3ilhXT//GxBhu8e
-         fsP+ITy55519vd5Pdwrvhbm4b0+APWMKGjvooDFhRAIkhs+SlOSAOqZzCymYmlTIF9IS
-         gqdpDto9BLmMZUP/SMveJ74pbq14AqPGEKqXFTeg4KmLtkGyagalHYUD8yMqTLpPbCW/
-         xy9bksI3VtfAdmeilA6vmKYZXw3GVHh4lQNGHqMO3dPQ9qW7cznJKIxEJgZTbEoah2qG
-         4q3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1695568485; x=1696173285;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=c96w3KLGj0TAnjtDuP9IJpiFtrI9XCdH25Fq435GXbo=;
-        b=CohMht7OT3hmASshVaKDf0Rb+1DV225pw2R4bcTbSJaURZT0Yk/wskEKdWgkt0WLkT
-         WWYulMkOgbtmXDfifwmYgIC7gccUzPedcmGfGjbM4LmH5qcI1J+Gef0iQ+7hVmsM5bBz
-         UiaWWhSVF/l/F04EecbGRhZ8epmCjR+LD1bVg6Az9SRP0uVuMtit3I6HIhpAYWF0lGCG
-         lVyQ2pSOEEsEVv35o7PAGm8y4RAG8HTqSonTV93DJ1ytxBHCRMph7/OTg/RT37z3Sv46
-         gzNfHN6PsA4bVLCgLxuhD+f1ApRJahLb+uhJlhsuG+uK6M4ZXF9ecKl3KXg9qe/5U9Y7
-         5ssQ==
-X-Gm-Message-State: AOJu0YwTSgMlplDJAqyy4VGLFXx7Exka9dtW5ydwhyk7Y+lzxwnsL7N+
-	Gq++8V2cyKI3l/yvNNuB5/am2pFu9DYAB4rZEBc=
-X-Google-Smtp-Source: AGHT+IFaAjP/ptV6ikvVa0Gvu03IX7BszQ7tdMqwmgNpCJtcxfrYdKgVOEEk2RDI/JDFou5dQB0FdDAwi8BkfCrl+6U=
-X-Received: by 2002:a05:6402:28e:b0:522:2d1b:5a38 with SMTP id
- l14-20020a056402028e00b005222d1b5a38mr3850813edv.10.1695568484428; Sun, 24
- Sep 2023 08:14:44 -0700 (PDT)
+ dkim=pass header.i=@navimatix.de header.s=selector1 header.b=sOapsduh;
+ spf=pass (domain: navimatix.de, ip: 40.107.8.73, mailfrom: joerg.sommer@navimatix.de)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Cool+p4MsuPGs5zPdjdFEVFVPvP7U1RkH/ZtXpmb6i7STpPbno79rimJhtJo1S4EsIZUVkhlksfiY1h4YB9HwMoberMC8LLE88eNSkr4AMYf/0aWhLM3vaXZwj0E31o+ig96o5+PZKbYEKZJBK1nfBNBjFAQ6MLU/rNo5Co4hA/vy7xNV/xNsMDYeJFaDVzsHvARi+QIbeCTb3x8zHjYx1mt5VBf+drgFEUHIdlGuNrmKXDs4uMZC70AjMKpOfEXqpm8PW1SyUBEXDDO5ehqHJ7pbcdWALMOzdhhhXUiyCtVKNYP3PkuLtZjzdUVYEXk91WXZSlZCzMKqB4Zm4lk/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZdAwdewS0a5pn1VaeuO8nPELooVzN/KS+lafjx2jDyI=;
+ b=nSvGLQa4lEdZCkyJV1zjqjFDeWxVNfD57Bt9KOKjhgkCPVDJytEm5sqs9qBjolVg1VzcDoP3T9vcBDOTJ8hiU5/TPE0HyIbliJ9SAkUvgZOR7pZvDMpVJDwwYlVC8PoKh2Cltbf50D07Z5KQ2RUXtWfg+qUnrnR/NrH2wAYrzsropDF6xtV7BUDYGTFCVcimx9fyCFxtirIY9bzfmAd/AObHFlBHftmpCFySXHBSDam93Ydrw9YcT5LX/ZhaD8MswaU/X/8a0c5cgFHa2u8xIdHz1YFRr+Kf4PuOS+yLES5z4FX/KKyg07i8SupioGtNYUp9COm6xb/tpdqw9Odx6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=navimatix.de; dmarc=pass action=none header.from=navimatix.de;
+ dkim=pass header.d=navimatix.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=navimatix.de;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZdAwdewS0a5pn1VaeuO8nPELooVzN/KS+lafjx2jDyI=;
+ b=sOapsduhaQ2ngm1jBzKOQ02aY9sywcxHsrQaVSIsGDFi9W50+4Eoolgv25wGh+sIaRDPY4cD/ydzYPejZ23Y2GY/naFdzBwZHKljDpgeInMhHDeFHedYpacynmvW/dgFri6Bsw5LXFuQOuzkAqwwCaB/UEmraDWXqY7+plcACAc=
+Received: from VI1PR0102MB3136.eurprd01.prod.exchangelabs.com
+ (2603:10a6:803:5::26) by DB9PR01MB7418.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:21d::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6838.18; Tue, 26 Sep
+ 2023 11:21:11 +0000
+Received: from VI1PR0102MB3136.eurprd01.prod.exchangelabs.com
+ ([fe80::fedc:a1fb:55e9:fb31]) by
+ VI1PR0102MB3136.eurprd01.prod.exchangelabs.com
+ ([fe80::fedc:a1fb:55e9:fb31%3]) with mapi id 15.20.6838.016; Tue, 26 Sep 2023
+ 11:21:10 +0000
+From: =?iso-8859-1?Q?J=F6rg_Sommer?= <joerg.sommer@navimatix.de>
+To: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+Subject: menuconfig doesn't work with UBOOT_CONFIG
+Thread-Topic: menuconfig doesn't work with UBOOT_CONFIG
+Thread-Index: AQHZ8GrAH0nvLqvhX0Wf5XIXw9nFRw==
+Date: Tue, 26 Sep 2023 11:21:10 +0000
+Message-ID: 
+ <VI1PR0102MB31369595C0BDC52F60C4D272FCC3A@VI1PR0102MB3136.eurprd01.prod.exchangelabs.com>
+Accept-Language: en-DE, de-DE, en-US
+Content-Language: aa
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=navimatix.de;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI1PR0102MB3136:EE_|DB9PR01MB7418:EE_
+x-ms-office365-filtering-correlation-id: cc16a995-1005-4fed-1be1-08dbbe82afcb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ TuWjIt0IZ3aLzl0R3GeRH0jWbBpUFbCkRehtdL1JUeJQt2Wpc37M56EvRohIPMA9DSMBnk9WI6aY5b3bCoRhO80iZkBZ/JAlfNDzLzcx5Wlii6pcnHHIEKOekQ/enDf32MuOx/Cy7PH+XJZ7MySUzUP8R1gHNBhKuI8Yc6zgAMbp3R7IZyfIFigTTzLggFga22G3DY5xtGxgfuzfa2PkHty2HtwbJ9mvXesuaZAg35k56kuReWzJPiaUm3DA+ktH/RtyAgT3VJeupoBzHuR0g4WLBZCCxczN2V47IkfT3aBEcm1cGamj0PqvbANLtZn08c9QEaFNsJSB8Y/zVBlvinlMT/Fpj6ee3vN68+FoP1LTonIcvvgcPn6pUOOrv0LcfM9GoDnSIADc+qziG+rMDLcjkKat2w/ZxstHOvTxvgZWlAHnLU42vkPie1/rfZPdTIaVP5LvUPkc9asor3RmcwB+bYQTYTV/TXzcXMaLltbnrpzDscR58z82Z512w7PFBVrlnxJFe/t19EVlYvvtQkF3bvkCHVoVAxCaqj9RmBPR8ufAcKv/5OCsiuDA0sjVdB+ADMqVoxK4qiNWddhk+B0Y0K4KJjeAHCHRoz74YglLVNrYO6YZ+jlMd5EZIogs
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR0102MB3136.eurprd01.prod.exchangelabs.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(346002)(136003)(39840400004)(396003)(366004)(230922051799003)(451199024)(1800799009)(186009)(4744005)(55016003)(8936002)(5660300002)(8676002)(26005)(71200400001)(508600001)(91956017)(38070700005)(86362001)(76116006)(38100700002)(6916009)(122000001)(66476007)(52536014)(316002)(66446008)(66556008)(66946007)(64756008)(9686003)(2906002)(41300700001)(33656002)(7696005)(6506007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?EUiQ08jJcR4DR/wvQTDnlg/OSq96p4KkBhwo6IfK51q8mc7XJsOo1fQFmL?=
+ =?iso-8859-1?Q?e4anZsj6ATaDCMhiVp4pdzTaZwZRQo5cZ/bYTnXp29Rg/+uvlPIK5F6nq7?=
+ =?iso-8859-1?Q?WowpdECLKMG8PPzeuc21jace+PaNeBkkIgWIn5yCPK45a3Kz8/mYlEhs25?=
+ =?iso-8859-1?Q?a5xLIxpfUPdqAqB+SDP2tOGMfEdRAJu3l7QkyAfSZ3GDADwIB2KXKUTnK1?=
+ =?iso-8859-1?Q?ILwkIp3L7/UmcLZG9Zm2FDLq3ML41qbDIDqeDTQIZvqB9n06HniGIQ4/8P?=
+ =?iso-8859-1?Q?C5Yt7PTgXvuz27L/do9ckQMb4yxV2/Ici/NkW1A8JdkqV4L1NxhEYzg6+E?=
+ =?iso-8859-1?Q?+hTLyRLONfy0SRCxq6kG8DeOlLCtW34t0coKlGL5EJpty5yfjHqtZUWPp2?=
+ =?iso-8859-1?Q?rX4P6qsc7B4tPvDsh1sIw0ez8DZcaXsWFUsoObMlc2Ho3EgKuTGPGBQxjJ?=
+ =?iso-8859-1?Q?Wlj9xXqh9bfh7dQ3cC/D6JQWS4kJO7DG3zIWK2l4RoE7Pqt3sgUhHxi7a3?=
+ =?iso-8859-1?Q?4yOnOu+uVSHTqIo1qbqyy9YMRW9lmEY2hjR7gYSYNNH78Ipt2P6/AkTGKd?=
+ =?iso-8859-1?Q?osVdlhp2/fj+jPXu+kStzCtuhNiRAIfp8sWRIzyU5MOqc+7L6mDahaQGVD?=
+ =?iso-8859-1?Q?K6dsmQm4PHKLjN9anfwj3+nMr/rYLuAHpTM8OnCtsXUR+mw8hN4dl0/S2e?=
+ =?iso-8859-1?Q?pulRYnJpJBQgHBCpPAaXx4gf9kp3V9VcY4ls2+jj9kulTXnUclvuLNQqHy?=
+ =?iso-8859-1?Q?yTJFgJeNY0NT74znCafAFiXLjuiLUmplQSC0K5iXSLnRORarM+KSncLp0z?=
+ =?iso-8859-1?Q?kBx9YhTzgPBGD0R2fmhg6TS+9eJMPDUxmetLa2jZ8nJEAb2dOx4nOrjQ5h?=
+ =?iso-8859-1?Q?VzxMGUM2eMZq1BcOEw+5XJ6YrP/um8HiDKnfeBHHCeOupFB81jAn2zCmrr?=
+ =?iso-8859-1?Q?yNyB2M+L58R30zuC2Q2k8QZSmiIprJb7+AKv4JFSFHSYcoccDQwMFGayXt?=
+ =?iso-8859-1?Q?xlr7mQY+U47Ts+Ej9paFF+c1DtGVQBHyWU4HHtBjbRIQfeXgiefNj8i2g6?=
+ =?iso-8859-1?Q?sLJulcf2vLrMTEHaAf7RoZbPckqTX3un8ED4AubZPz2jLv/QKfaq3gM8q9?=
+ =?iso-8859-1?Q?DzByv7aL60nGuldzq05Q8H1Zc69QiQswYPrLWcImxfj2v4LI9EumpPxbYZ?=
+ =?iso-8859-1?Q?TEx18MPqc0gQR65mAINQpM5perJ6uTrbxnnfVkI8AQlwoK1jF98n3mNIoq?=
+ =?iso-8859-1?Q?nuhaqLavockCQ+4rKbGOmZbpTj4dgIgFXhM6M1CwEaeYmWOOgAivbGZV5T?=
+ =?iso-8859-1?Q?LupT29E8s0bDA64IDtNg3EKPYVA2f2rgV/kzSX6uxQOZ0JDfxbwH0Ag+ox?=
+ =?iso-8859-1?Q?yNvEScFyDLb5EjIZEn7pkurtC+718kEDv9m1zO3jfniuzgzXHIRmELnz7a?=
+ =?iso-8859-1?Q?ohYLzGEHz4W7v0xphsGlIPlnXt5XEkOSiUnce/2nhhpBCsWzbgrzbxw5Cj?=
+ =?iso-8859-1?Q?S++AobHSfhaJjI2w23MIfJVpqjs6kC7unP9ZqZNDk21IsZjOSqgOVquMDy?=
+ =?iso-8859-1?Q?bBmYo6ZjA6YSpk+DkdfmKQ30AF6PCRQAuSS6CXwOCM3dK/24PHPPQ03p9r?=
+ =?iso-8859-1?Q?n1wuqHlNEe0sF0GpPhvSFlKFhpmZkc7m8A?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <20230924122259.2697980-1-bhstalel@gmail.com> <CANNYZj_HQA2SM+a8wZRBQs204RLV2srX5gBaB2W3=FyoNu2hgQ@mail.gmail.com>
-In-Reply-To: <CANNYZj_HQA2SM+a8wZRBQs204RLV2srX5gBaB2W3=FyoNu2hgQ@mail.gmail.com>
-From: Talel BELHADJ SALEM <bhstalel@gmail.com>
-Date: Sun, 24 Sep 2023 16:14:33 +0100
-Message-ID: <CAOgG7m0Fg++aG43D1SjtX55h-PH6MUe5AmhJ1UJaARRfcyogsw@mail.gmail.com>
-Subject: Re: [poky] [PATCH] scripts/oe-setup-builddir: Add option to force
- TEMPLATECONF on existing configs
-To: Alexander Kanavin <alex.kanavin@gmail.com>
-Cc: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="00000000000034f1cf06061c4de2"
+X-OriginatorOrg: navimatix.de
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR0102MB3136.eurprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc16a995-1005-4fed-1be1-08dbbe82afcb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Sep 2023 11:21:10.7180
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c87b4f54-b992-4813-8f3f-4a876324197f
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: c54OVPrQLRmfS5VeMGnb65m3DsCecLqEbqUp3ylpICwqfiAbIbQnmDQ+F6FQYeQPcrUy+EtOVjBkaD0YXjeNw0Vtx4fQ25Kx6ppMwYOWvVw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR01MB7418
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Sun, 24 Sep 2023 15:14:53 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13165
+ <poky@lists.yoctoproject.org>; Tue, 26 Sep 2023 11:21:22 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13166
 
---00000000000034f1cf06061c4de2
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-I, totally agree with you, I did thought about adding the variable to the
-documentation page, but I forgot that developers can easily forget about it
-since they do not dig into the documentation well, but if you forget to set
-the variable, the script will behave the same way, hince [ -n ] option.
-
-So, only who knows about the variable will use it correctly and explicitly.
-This is maybe the last argument that I have for introducing this new
-variable.
-
-What do you think?
-
-Kind regards
-Talel
-
-On Sun, Sep 24, 2023 at 2:06=E2=80=AFPM Alexander Kanavin <alex.kanavin@gma=
-il.com>
-wrote:
-
-> But is it really that difficult to remove the files? Adding variables
-> needs documentation, and tests, and adds complexity, and this one in
-> particular can be easily avoided.
->
-> Alex
->
-> On Sun, 24 Sept 2023 at 14:24, BELHADJ SALEM Talel <bhstalel@gmail.com>
-> wrote:
-> >
-> > Since we cannot force overriding of the config samples created based on
-> TEMPALTECONF variable,
-> > and that's because it may remove any custom configuration done on
-> local.conf or bblayers.conf,
-> > and that's also because TEMPALTECONF is, usually, used to create new
-> builds.
-> >
-> > But, when the developer wants to recreate the build after changing the
-> sample files, the developer
-> > must remove the files manually.
-> >
-> > I think introducing another variable FORCE_TEMPLATECONF can help when
-> override is wanted.
-> >
-> > Signed-off-by: Talel BELHAJSALEM <bhstalel@gmail.com>
-> > ---
-> >  scripts/oe-setup-builddir | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/scripts/oe-setup-builddir b/scripts/oe-setup-builddir
-> > index 678aeac4be..3bd3df0930 100755
-> > --- a/scripts/oe-setup-builddir
-> > +++ b/scripts/oe-setup-builddir
-> > @@ -64,7 +64,7 @@ unset SHOWYPDOC
-> >  if [ -z "$OECORELOCALCONF" ]; then
-> >
-> OECORELOCALCONF=3D"$OEROOT/meta/conf/templates/default/local.conf.sample"
-> >  fi
-> > -if [ ! -r "$BUILDDIR/conf/local.conf" ]; then
-> > +if [ ! -r "$BUILDDIR/conf/local.conf" ] || [ -n "$FORCE_TEMPLATECONF"
-> ]; then
-> >      cat <<EOM
-> >  You had no conf/local.conf file. This configuration file has therefore
-> been
-> >  created for you from $OECORELOCALCONF
-> > @@ -79,7 +79,7 @@ fi
-> >  if [ -z "$OECORELAYERCONF" ]; then
-> >
-> OECORELAYERCONF=3D"$OEROOT/meta/conf/templates/default/bblayers.conf.samp=
-le"
-> >  fi
-> > -if [ ! -r "$BUILDDIR/conf/bblayers.conf" ]; then
-> > +if [ ! -r "$BUILDDIR/conf/bblayers.conf" ] || [ -n
-> "$FORCE_TEMPLATECONF" ]; then
-> >      cat <<EOM
-> >  You had no conf/bblayers.conf file. This configuration file has
-> therefore been
-> >  created for you from $OECORELAYERCONF
-> > @@ -101,7 +101,7 @@ fi
-> >  if [ -z "$OECORENOTESCONF" ]; then
-> >      OECORENOTESCONF=3D"$OEROOT/meta/conf/templates/default/conf-notes.=
-txt"
-> >  fi
-> > -if [ ! -r "$BUILDDIR/conf/conf-notes.txt" ]; then
-> > +if [ ! -r "$BUILDDIR/conf/conf-notes.txt" ] || [ -n
-> "$FORCE_TEMPLATECONF" ]; then
-> >      [ ! -r "$OECORENOTESCONF" ] || cp "$OECORENOTESCONF"
-> "$BUILDDIR/conf/conf-notes.txt"
-> >  fi
-> >
-> > --
-> > 2.25.1
-> >
-> >
-> > -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> > Links: You receive all messages sent to this group.
-> > View/Reply Online (#13162):
-> https://lists.yoctoproject.org/g/poky/message/13162
-> > Mute This Topic: https://lists.yoctoproject.org/mt/101554603/1686489
-> > Group Owner: poky+owner@lists.yoctoproject.org
-> > Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [
-> alex.kanavin@gmail.com]
-> > -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> >
->
-
---00000000000034f1cf06061c4de2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I, totally agree with you, I did thought about adding the =
-variable to the documentation page, but I forgot that developers can easily=
- forget about it since they do not dig into the documentation well, but if =
-you forget to set the variable, the script will behave the same way, hince =
-[ -n ] option.<div><br></div><div>So, only who knows about the variable wil=
-l use it correctly and explicitly. This is maybe the last argument that=C2=
-=A0I have for introducing this new variable.<div><br></div><div>What=C2=A0d=
-o you think?</div></div><div><br></div><div>Kind=C2=A0regards</div><div>Tal=
-el</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmai=
-l_attr">On Sun, Sep 24, 2023 at 2:06=E2=80=AFPM Alexander Kanavin &lt;<a hr=
-ef=3D"mailto:alex.kanavin@gmail.com">alex.kanavin@gmail.com</a>&gt; wrote:<=
-br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex">But is it really=
- that difficult to remove the files? Adding variables<br>
-needs documentation, and tests, and adds complexity, and this one in<br>
-particular can be easily avoided.<br>
-<br>
-Alex<br>
-<br>
-On Sun, 24 Sept 2023 at 14:24, BELHADJ SALEM Talel &lt;<a href=3D"mailto:bh=
-stalel@gmail.com" target=3D"_blank">bhstalel@gmail.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Since we cannot force overriding of the config samples created based o=
-n TEMPALTECONF variable,<br>
-&gt; and that&#39;s because it may remove any custom configuration done on =
-local.conf or bblayers.conf,<br>
-&gt; and that&#39;s also because TEMPALTECONF is, usually, used to create n=
-ew builds.<br>
-&gt;<br>
-&gt; But, when the developer wants to recreate the build after changing the=
- sample files, the developer<br>
-&gt; must remove the files manually.<br>
-&gt;<br>
-&gt; I think introducing another variable FORCE_TEMPLATECONF can help when =
-override is wanted.<br>
-&gt;<br>
-&gt; Signed-off-by: Talel BELHAJSALEM &lt;<a href=3D"mailto:bhstalel@gmail.=
-com" target=3D"_blank">bhstalel@gmail.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 scripts/oe-setup-builddir | 6 +++---<br>
-&gt;=C2=A0 1 file changed, 3 insertions(+), 3 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/scripts/oe-setup-builddir b/scripts/oe-setup-builddir<br>
-&gt; index 678aeac4be..3bd3df0930 100755<br>
-&gt; --- a/scripts/oe-setup-builddir<br>
-&gt; +++ b/scripts/oe-setup-builddir<br>
-&gt; @@ -64,7 +64,7 @@ unset SHOWYPDOC<br>
-&gt;=C2=A0 if [ -z &quot;$OECORELOCALCONF&quot; ]; then<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 OECORELOCALCONF=3D&quot;$OEROOT/meta/conf/template=
-s/default/local.conf.sample&quot;<br>
-&gt;=C2=A0 fi<br>
-&gt; -if [ ! -r &quot;$BUILDDIR/conf/local.conf&quot; ]; then<br>
-&gt; +if [ ! -r &quot;$BUILDDIR/conf/local.conf&quot; ] || [ -n &quot;$FORC=
-E_TEMPLATECONF&quot; ]; then<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 cat &lt;&lt;EOM<br>
-&gt;=C2=A0 You had no conf/local.conf file. This configuration file has the=
-refore been<br>
-&gt;=C2=A0 created for you from $OECORELOCALCONF<br>
-&gt; @@ -79,7 +79,7 @@ fi<br>
-&gt;=C2=A0 if [ -z &quot;$OECORELAYERCONF&quot; ]; then<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 OECORELAYERCONF=3D&quot;$OEROOT/meta/conf/template=
-s/default/bblayers.conf.sample&quot;<br>
-&gt;=C2=A0 fi<br>
-&gt; -if [ ! -r &quot;$BUILDDIR/conf/bblayers.conf&quot; ]; then<br>
-&gt; +if [ ! -r &quot;$BUILDDIR/conf/bblayers.conf&quot; ] || [ -n &quot;$F=
-ORCE_TEMPLATECONF&quot; ]; then<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 cat &lt;&lt;EOM<br>
-&gt;=C2=A0 You had no conf/bblayers.conf file. This configuration file has =
-therefore been<br>
-&gt;=C2=A0 created for you from $OECORELAYERCONF<br>
-&gt; @@ -101,7 +101,7 @@ fi<br>
-&gt;=C2=A0 if [ -z &quot;$OECORENOTESCONF&quot; ]; then<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 OECORENOTESCONF=3D&quot;$OEROOT/meta/conf/template=
-s/default/conf-notes.txt&quot;<br>
-&gt;=C2=A0 fi<br>
-&gt; -if [ ! -r &quot;$BUILDDIR/conf/conf-notes.txt&quot; ]; then<br>
-&gt; +if [ ! -r &quot;$BUILDDIR/conf/conf-notes.txt&quot; ] || [ -n &quot;$=
-FORCE_TEMPLATECONF&quot; ]; then<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 [ ! -r &quot;$OECORENOTESCONF&quot; ] || cp &quot;=
-$OECORENOTESCONF&quot; &quot;$BUILDDIR/conf/conf-notes.txt&quot;<br>
-&gt;=C2=A0 fi<br>
-&gt;<br>
-&gt; --<br>
-&gt; 2.25.1<br>
-&gt;<br>
-&gt;<br>
-&gt; -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
-&gt; Links: You receive all messages sent to this group.<br>
-&gt; View/Reply Online (#13162): <a href=3D"https://lists.yoctoproject.org/=
-g/poky/message/13162" rel=3D"noreferrer" target=3D"_blank">https://lists.yo=
-ctoproject.org/g/poky/message/13162</a><br>
-&gt; Mute This Topic: <a href=3D"https://lists.yoctoproject.org/mt/10155460=
-3/1686489" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctoproject.=
-org/mt/101554603/1686489</a><br>
-&gt; Group Owner: <a href=3D"mailto:poky%2Bowner@lists.yoctoproject.org" ta=
-rget=3D"_blank">poky+owner@lists.yoctoproject.org</a><br>
-&gt; Unsubscribe: <a href=3D"https://lists.yoctoproject.org/g/poky/unsub" r=
-el=3D"noreferrer" target=3D"_blank">https://lists.yoctoproject.org/g/poky/u=
-nsub</a> [<a href=3D"mailto:alex.kanavin@gmail.com" target=3D"_blank">alex.=
-kanavin@gmail.com</a>]<br>
-&gt; -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
-&gt;<br>
-</blockquote></div>
-
---00000000000034f1cf06061c4de2--
+Hello,=0A=
+=0A=
+what's the common way to run `menuconfig` for u-boot when UBOOT_CONFIG is s=
+et? When UBOOT_CONFIG is set the config is saved in a subdirectory and menu=
+config and diffconfig do not work. One way would be to set KCONFIG_CONFIG_R=
+OOTDIR, but should this happen in the u-boot recipe?=0A=
+=0A=
+=0A=
+Kind regards=0A=
+=0A=
+J=F6rg Sommer=0A=
+=0A=
+--=A0=0A=
+Navimatix GmbH=0A=
+Gesch=E4ftsf=FChrer: Steffen Sp=E4the, Jan Rommeley=0A=
+Registergericht: Amtsgericht Jena, HRB 501480=0A=
 
