@@ -1,112 +1,99 @@
-Return-Path: <rybczynska@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 832E5CDB465
-	for <webhook@archiver.kernel.org>; Sat, 14 Oct 2023 08:34:17 +0000 (UTC)
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
- by mx.groups.io with SMTP id smtpd.web10.59182.1697272452495434959
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B7DD4CDB47E
+	for <webhook@archiver.kernel.org>; Sun, 15 Oct 2023 12:59:46 +0000 (UTC)
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+ by mx.groups.io with SMTP id smtpd.web10.92765.1697374784126835238
  for <poky@lists.yoctoproject.org>;
- Sat, 14 Oct 2023 01:34:12 -0700
+ Sun, 15 Oct 2023 05:59:44 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=MML109kD;
- spf=pass (domain: gmail.com, ip: 209.85.208.172, mailfrom: rybczynska@gmail.com)
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-2c50305c5c4so24655831fa.1
-        for <poky@lists.yoctoproject.org>; Sat, 14 Oct 2023 01:34:12 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=YMa3vEll;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.41, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-32d885e97e2so3562176f8f.0
+        for <poky@lists.yoctoproject.org>; Sun, 15 Oct 2023 05:59:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1697272450; x=1697877250; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=T87eQp0ERiTshJFO7e80oOQbSJ2XR/OEwwvc9/r2Uvc=;
-        b=MML109kDcV03yNYe0yB6WJfqZPchzBBhfPdLlWfRfG0R2tjA80oz/DHSq8ky3QZF8M
-         FClBs9tIiCBBP4q088hf6KNuY0IH/So2h+F2zBdKFXbJ6nudpfUqQKtUAtIwW9M4QHLZ
-         YOhtPxn7TcJbbJvzkRo/54RGCeB4fN1x6DklDarCzNW4vWyMMOn/ydvjLWjIg2AOYvRv
-         8RNKxJcvdTNdnCBaHjn5pz9i77njWS74PtfWBoyzFmNU2mRSFsC5dQHXinohudTtfgCn
-         qG31tatym8rE8nd+DIoSbTKAGVklD9hGlh8RR17PnnS4EBWQEJzibB6dbXZ6lA/e5JNK
-         ZSwg==
+        d=linuxfoundation.org; s=google; t=1697374782; x=1697979582; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=/+r/73VFoDxG6Wiwi2ErhfuxGb25GE6Cwiqm4ffdzWM=;
+        b=YMa3vEllzVU/4hnPGMT/aKIaMoAufcTNNFRyO50Xvhs1eQMPKI2FfRokVsNYm3Xelt
+         JVBkasU3nv/hXfFB9k/4GMwKijISa43Xdy+yTSNaE0DhFbnBE3jTrwQXKeNYBLlaSCSa
+         7JvYszRkjBd9IHhUgen6SoYVDKVld9CRa/3fg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697272450; x=1697877250;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=T87eQp0ERiTshJFO7e80oOQbSJ2XR/OEwwvc9/r2Uvc=;
-        b=wozK5zpGw9jFg9y63LoVVbk2IpR633q4pMATJJTHQc0kl3MDPgChP4AoTJVxomvvqs
-         hnZup/JSKUr0VPfaUxPa8KavTyt5Z0RQqejTCHepCZIPINgjJD573VDGlQQ35xan5Uc+
-         +Qa35Ths4vitFQP3pb4GfuZ60D2heZL1j4pKa02+4Y03VLaiWomAZzOvs6IG1x7d0HD8
-         I81o3k5uvaO6bUPtBCait7uWRf5T+UlKVkXXWt9kOpoXkq0B0EmvcYBlEu+0fm6lhdfG
-         JMWs07+6mgDV42XUhwzfr3eOfUUIva5xuZv2BHMvAwjL8pVMbX0yty5Ux4DJ8O7GAQYB
-         1kJw==
-X-Gm-Message-State: AOJu0YyZqpBhTfoQFI2aDwC0r5HjjXCtvIkt3arb8jHj15TPjO+k8KmI
-	ji+a/TyUllw70RiUgfwETq9Qu9uMyIoVLH29ZyY=
-X-Google-Smtp-Source: AGHT+IHZsI2sC/QnfQZP4Izg27Lw0mb0nnRRVz3wLAGDvI6yKH6eD+R3AQf2Z41srLIKheZQj2fp8RM0lrrotUpHb1Y=
-X-Received: by 2002:a2e:beab:0:b0:2c5:82c:73d3 with SMTP id
- a43-20020a2ebeab000000b002c5082c73d3mr3415319ljr.40.1697272449560; Sat, 14
- Oct 2023 01:34:09 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1697374782; x=1697979582;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=/+r/73VFoDxG6Wiwi2ErhfuxGb25GE6Cwiqm4ffdzWM=;
+        b=Pp3dPdFqTJMYL0A+bl3U5fTsuPw2Ck4yfwEPMqkE/iyNpiqRugNwNemPcL7i/Kzone
+         Z5gN4lwdqb+MkopzxqHlcaxGPQQidhel+P/SHwBZuxVDleSaTyxBcfNN8LXaWVnQNnor
+         lyzKc1PnNX6gJ0eQZw94/Hxw45BT4VxHoWZSjNfxDyDVbw8AZD2dwtYq3yJQ2qtpwAIi
+         OcLHjHgKM4aJisaig0gdrryHRh9yoNubi74c71Nl8J+qV5nSGzoCUD9gdnth2WO9rMwC
+         mWe/6352YAhi8ABH6YBZn5DpZjX7USRzim/FosRlQBcrp8nEayoEFigr1rTSnR9KZoiy
+         ljTQ==
+X-Gm-Message-State: AOJu0YyYeF37HA3d9hQqTjEQDe0p60FATTfujRwWNpfXN30fkWBZ7vqm
+	lMOy4muMrJdtE2ZRzltDVlHllGnhg39X3ujNe/0=
+X-Google-Smtp-Source: AGHT+IFmN02gwL1KKCWVVeqswcWKhL0CksJKrGgjRpvrDy1ApV3dAXr30ED+wK5ScFeooZF6Ez4yyA==
+X-Received: by 2002:a5d:4ccf:0:b0:32d:8183:d130 with SMTP id c15-20020a5d4ccf000000b0032d8183d130mr10356459wrt.38.1697374781909;
+        Sun, 15 Oct 2023 05:59:41 -0700 (PDT)
+Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:7e01:6bdd:8c85:9c17])
+        by smtp.gmail.com with ESMTPSA id bg24-20020a05600c3c9800b004053e9276easm4546476wmb.32.2023.10.15.05.59.41
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Oct 2023 05:59:41 -0700 (PDT)
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH] local.conf.sample: Document new CDN mirror for sstate
+Date: Sun, 15 Oct 2023 13:59:40 +0100
+Message-Id: <20231015125940.412569-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-References: <DxsL.1697069952825184652.wun3@lists.yoctoproject.org> <CAOSpxda3XdD2-=r-Zaqs=TQO3VBkBton8BELYq7rQYaQ-W9E6w@mail.gmail.com>
-In-Reply-To: <CAOSpxda3XdD2-=r-Zaqs=TQO3VBkBton8BELYq7rQYaQ-W9E6w@mail.gmail.com>
-From: Marta Rybczynska <rybczynska@gmail.com>
-Date: Sat, 14 Oct 2023 10:33:57 +0200
-Message-ID: <CAApg2=Sdg06uKOSYJbzFSMSDMe3tas6y9eyLUxn2etVUWBFi+Q@mail.gmail.com>
-Subject: Re: [poky] CVE CHECK scorev3
-To: Steve Sakoman <steve@sakoman.com>
-Cc: Grant.Smith3@ngc.com, poky@lists.yoctoproject.org, 
-	Ross Burton <ross.burton@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Sat, 14 Oct 2023 08:34:17 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13177
+ <poky@lists.yoctoproject.org>; Sun, 15 Oct 2023 12:59:46 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13179
 
-On Fri, Oct 13, 2023 at 4:23=E2=80=AFPM Steve Sakoman <steve@sakoman.com> w=
-rote:
->
-> On Wed, Oct 11, 2023 at 2:19=E2=80=AFPM <Grant.Smith3@ngc.com> wrote:
-> >
-> > All,
-> >
-> >
-> >
-> > In the poky layer (yocto-4.2.3 branch) I am using the built in cve-chec=
-ker and running into an issue where it is unable to produce the scorev3 met=
-ric. All CVEs have a scorev3 equivalent to 0.0. When looking at poky (yocto=
--4.0.9 branch) I noticed that the cve-checker uses the 1.1 version of the N=
-VD database and can successfully produce scorev3 when running a test build.
->
-> You are using an old version of kirkstone (4.0.9), the current version
-> is 4.0.13.  The current version now uses the new version of the
-> cve-checker.  I just checked and the code is identical in kirkstone
-> and mickledore, with the exception of this commit which is required
-> for some older distros which are supported by kirkstone but not
-> mickledore:
->
-> https://git.yoctoproject.org/poky/commit/?h=3Dkirkstone&id=3Dcd1d34d5106c=
-4484372552bb3cf93198f7b25d76
->
-> So kirkstone and mickledore should be producing identical results
-> (assuming the same recipe versions of course)
->
-> Looking at a random sampling of json files though, I also see
-> "scorev3": "0.0" in all of them.
->
-> So I suspect that there is a bug, and it is present in all branches
-> (master, mickledore, kirkstone, dunfell)
->
-> Steve
+We have a Content Delivery Network available for sstate, document
+this in local.conf.sample.
 
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/conf/templates/default/local.conf.sample | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-Hello,
-I've looked into the current results of master and kirkstone and
-nothing unusual.
-There are quite many entries with cvss3 at 0.0, but that's normal.
+diff --git a/meta-poky/conf/templates/default/local.conf.sample b/meta-poky/conf/templates/default/local.conf.sample
+index f9cb8aa77d1..44b851b9dd5 100644
+--- a/meta-poky/conf/templates/default/local.conf.sample
++++ b/meta-poky/conf/templates/default/local.conf.sample
+@@ -228,15 +228,21 @@ BB_DISKMON_DIRS ??= "\
+ # Yocto Project SState Mirror
+ #
+ # The Yocto Project has prebuilt artefacts available for its releases, you can enable
+-# use of these by uncommenting the following lines. This will mean the build uses
++# use of these by uncommenting some of the following lines. This will mean the build uses
+ # the network to check for artefacts at the start of builds, which does slow it down
+-# equally, it will also speed up the builds by not having to build things if they are
++# initially but it will then speed up the builds by not having to build things if they are
+ # present in the cache. It assumes you can download something faster than you can build it
+ # which will depend on your network.
+ # Note: For this to work you also need hash-equivalence passthrough to the matching server
++# There is a choice between our sstate server directly and a faster content delivery network
++# (CDN) kindly provided by JSDelivr, uncomment one of the SSTATE_MIRRORS lines, not both.
++# Using the CDN rather than the yoctoproject.org address is suggested/preferred.
+ #
+ #BB_HASHSERVE_UPSTREAM = "hashserv.yocto.io:8687"
+-#SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
++#SSTATE_MIRRORS ?= "file://.* http://cdn.jsdelivr.net/yocto/sstate/all/PATH;downloadfilename=PATH"
++#
++###SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
++
+ 
+ #
+ # Qemu configuration
+-- 
+2.39.2
 
-Steve, Grant, if you have situations with all cvss3 at 0.0, I will need you=
-r
-results file and the exact hash of the poky versions you use.
-
-Kind regards,
-Marta
 
