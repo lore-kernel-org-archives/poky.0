@@ -1,124 +1,85 @@
-Return-Path: <rybczynska@gmail.com>
+Return-Path: <bhstalel@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E2D1CDB474
-	for <webhook@archiver.kernel.org>; Tue, 17 Oct 2023 09:14:47 +0000 (UTC)
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
- by mx.groups.io with SMTP id smtpd.web11.202753.1697534079481586015
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46664CDB482
+	for <webhook@archiver.kernel.org>; Tue, 17 Oct 2023 19:09:31 +0000 (UTC)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+ by mx.groups.io with SMTP id smtpd.web10.239802.1697569762656622929
  for <poky@lists.yoctoproject.org>;
- Tue, 17 Oct 2023 02:14:39 -0700
+ Tue, 17 Oct 2023 12:09:22 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=TloDWL3h;
- spf=pass (domain: gmail.com, ip: 209.85.208.171, mailfrom: rybczynska@gmail.com)
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-2c16757987fso67913111fa.3
-        for <poky@lists.yoctoproject.org>; Tue, 17 Oct 2023 02:14:39 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=PY1fIaxx;
+ spf=pass (domain: gmail.com, ip: 209.85.218.47, mailfrom: bhstalel@gmail.com)
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-9c3aec5f326so555087366b.1
+        for <poky@lists.yoctoproject.org>; Tue, 17 Oct 2023 12:09:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1697534077; x=1698138877; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uz2z8FA8IKrjvFxExJpud0TAlffbP/ZQkFvJixpIvis=;
-        b=TloDWL3hkuf+hCA+R/J/BQEf4mRp/E/5wQcUnMxRF4sbOc/zB6eiONZv+AxPKQ+mOH
-         Z5gKi2YKDQuTdHKC6v8nHze/gM5lxvW6QXP9ZmgmRdBPn1ATM06fu9Nyc4WIfxazm0Zl
-         oSQeSCRyJmyCKD7QtcgXY6Xcms+1qvcykHZQVcFzrmiQOkMb1uUEhlj1SG0QNxfbqiQZ
-         8Kkqcbk5OaTUaAmmKvG2hSbZJLcjRnmRbbwi36fZw/Grd4yFTt5X8ka0fyS6Y7irc8Qk
-         F02PPhnXPUV8mPxOGlUwXeoFbAlqpj9W5TZxaLikRRcv0D5v9oTQ+Ks2+PSrDhe9/JmV
-         i9sg==
+        d=gmail.com; s=20230601; t=1697569761; x=1698174561; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=XQBgkLeFojET/fzKvogHvUFuW4f7jC/JpacUIOf/Xt4=;
+        b=PY1fIaxx36mW7UJ0hsAAwvw78P/EdWAkcWBuc0RzUYQ5t6pOw0uSQi1iU3LTOEwRjs
+         xMiNgH63+D3DAE87ewW/rWQop5L72PWxXnMqBj4QSK0Newt4GGfpfwlvEA1SCQxazhPz
+         3etuyVE+WfS0WdeURfEijBVIDUHSAJQOSJeBiXwFp9HH+CDv2OtM9/ZKxXhS0Kuf9/1P
+         Ol9r8uwd4LZTyrnTmfEjyZfs37+3nR4/upiNWwuB5Bffxcy23hd8COnCF03XFnzjX5q6
+         FeeRcaJ9cswY7iTmInTOZebcQESMBY3oS3Jjg1ULkrUl5nY2EQxCUY+zgoMvfhS5XIht
+         TcnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1697534077; x=1698138877;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=uz2z8FA8IKrjvFxExJpud0TAlffbP/ZQkFvJixpIvis=;
-        b=ZWau2CTA/hVK4q9he1bSdLx76MgPYzwlyctEZKZ2ommKLirIp49oI0PzneNHWRL8tN
-         GbBApmxjvnoGEhEpuWSots4uGcp0xdbWHpXStObeAg+AN3UVqHqH2wfnMOKI/FHQNx/B
-         NT87dA15KhVF6jfjMLNQMjAq9oyZse91/PA3pXynmKXKg4cTCTmovNlwx72fy9vKpzuC
-         QNBQXu7fnyu34ja9Hnf9F8/XBqYl+/BwMQ/Q1CSNMgwWz4tWJ5szs2I8BOPs+4NsfXtx
-         sdz81B93VYQXrZ5lGCi76hHtUnxIIRxQDh4g8wD7uJo7Ddj/SLth3/Oz620mqHyFFKkR
-         4OnA==
-X-Gm-Message-State: AOJu0YxaCP/7czBWHS78u6Brq/lDzYTzAS5qvX5R/Gpa78tDmB7ij2M/
-	U3tAWghiY/3k6km12FUmg7UZfJkNJIQYsNRweLM=
-X-Google-Smtp-Source: AGHT+IG1+QMFDvFrQqJNBAIrGWb0aT8JXjxk55X29seD6gjKarILamxmesa+o5TIuWIjf+hUVUayfP++RfEim52w8O0=
-X-Received: by 2002:a05:651c:19a6:b0:2c5:d52:a08e with SMTP id
- bx38-20020a05651c19a600b002c50d52a08emr1543406ljb.20.1697534077340; Tue, 17
- Oct 2023 02:14:37 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1697569761; x=1698174561;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=XQBgkLeFojET/fzKvogHvUFuW4f7jC/JpacUIOf/Xt4=;
+        b=YeUVhi67o0Bg22zPgiFPpKJaLFdweDy2IlOPgLDH9GsadxqtT27vaEgCFSkYoPZPRO
+         Ri56tW4LMWYSEhsnoKRxp3ijgtmx094zbbJ10zEb/dl/4pecbCXyZpEaymeWQBiPs3YT
+         MrYwmiIWYwVi7Edgg9Anb0VIHowZtrzf7FRlusWRZQK8oGl6omsKzOCIAGrcQ263ghvL
+         1oKjt8sLz+rNgufn3DaZJoLVRCBgMNjaTnynmd+7lyzJlACmC8d0W5tOgjg2ac8gWAUg
+         41Eu7KthJBh1jDKeRiYz+t6L6SsYlr5QmrMmwJKN6hDViWjjimCurYNAFJ9iQi7Z3A7o
+         mqnQ==
+X-Gm-Message-State: AOJu0YzZDWfEPOZJRU3xk5l/6DH+cY2OrCp+nSZUUyYYb78kH7tCndr3
+	bgM+81902847h6hzNMDkX0R8Q8HQOMY=
+X-Google-Smtp-Source: AGHT+IEbiVZuZLZkdiIX8PexZ4QJjiOlA5CYauJaSfcVt0UgMKVRB0+P1JyS4IjnMT79pINCcJYWlQ==
+X-Received: by 2002:a17:907:ea9:b0:9b2:b80d:da87 with SMTP id ho41-20020a1709070ea900b009b2b80dda87mr2796684ejc.16.1697569760587;
+        Tue, 17 Oct 2023 12:09:20 -0700 (PDT)
+Received: from talel.sofia.local ([193.95.99.58])
+        by smtp.gmail.com with ESMTPSA id hx10-20020a170906846a00b009a13fdc139fsm269139ejc.183.2023.10.17.12.09.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Oct 2023 12:09:20 -0700 (PDT)
+From: Talel BELHAJSALEM <bhstalel@gmail.com>
+To: poky@lists.yoctoproject.org
+Cc: Talel BELHAJSALEM <bhstalel@gmail.com>
+Subject: [PATCH] bitbake.conf: Drop DEPLOY_DIR_TAR
+Date: Tue, 17 Oct 2023 20:08:54 +0100
+Message-Id: <20231017190854.3863137-1-bhstalel@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <DxsL.1697069952825184652.wun3@lists.yoctoproject.org>
- <CAOSpxda3XdD2-=r-Zaqs=TQO3VBkBton8BELYq7rQYaQ-W9E6w@mail.gmail.com> <178DEC4DABB5202F.14388@lists.yoctoproject.org>
-In-Reply-To: <178DEC4DABB5202F.14388@lists.yoctoproject.org>
-From: Marta Rybczynska <rybczynska@gmail.com>
-Date: Tue, 17 Oct 2023 11:14:24 +0200
-Message-ID: <CAApg2=Qf6FtjBaKynpuZ_COc_vuVOgD8+UhckDS=MoSj5NWVVQ@mail.gmail.com>
-Subject: Re: [poky] CVE CHECK scorev3
-To: rybczynska@gmail.com
-Cc: Steve Sakoman <steve@sakoman.com>, Grant.Smith3@ngc.com, poky@lists.yoctoproject.org, 
-	Ross Burton <ross.burton@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 17 Oct 2023 09:14:47 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13180
+ <poky@lists.yoctoproject.org>; Tue, 17 Oct 2023 19:09:31 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13181
 
-On Sat, Oct 14, 2023 at 10:34=E2=80=AFAM Marta Rybczynska via
-lists.yoctoproject.org <rybczynska=3Dgmail.com@lists.yoctoproject.org>
-wrote:
->
-> On Fri, Oct 13, 2023 at 4:23=E2=80=AFPM Steve Sakoman <steve@sakoman.com>=
- wrote:
-> >
-> > On Wed, Oct 11, 2023 at 2:19=E2=80=AFPM <Grant.Smith3@ngc.com> wrote:
-> > >
-> > > All,
-> > >
-> > >
-> > >
-> > > In the poky layer (yocto-4.2.3 branch) I am using the built in cve-ch=
-ecker and running into an issue where it is unable to produce the scorev3 m=
-etric. All CVEs have a scorev3 equivalent to 0.0. When looking at poky (yoc=
-to-4.0.9 branch) I noticed that the cve-checker uses the 1.1 version of the=
- NVD database and can successfully produce scorev3 when running a test buil=
-d.
-> >
-> > You are using an old version of kirkstone (4.0.9), the current version
-> > is 4.0.13.  The current version now uses the new version of the
-> > cve-checker.  I just checked and the code is identical in kirkstone
-> > and mickledore, with the exception of this commit which is required
-> > for some older distros which are supported by kirkstone but not
-> > mickledore:
-> >
-> > https://git.yoctoproject.org/poky/commit/?h=3Dkirkstone&id=3Dcd1d34d510=
-6c4484372552bb3cf93198f7b25d76
-> >
-> > So kirkstone and mickledore should be producing identical results
-> > (assuming the same recipe versions of course)
-> >
-> > Looking at a random sampling of json files though, I also see
-> > "scorev3": "0.0" in all of them.
-> >
-> > So I suspect that there is a bug, and it is present in all branches
-> > (master, mickledore, kirkstone, dunfell)
-> >
-> > Steve
->
->
-> Hello,
-> I've looked into the current results of master and kirkstone and
-> nothing unusual.
-> There are quite many entries with cvss3 at 0.0, but that's normal.
->
-> Steve, Grant, if you have situations with all cvss3 at 0.0, I will need y=
-our
-> results file and the exact hash of the poky versions you use.
->
+DEPLOY_DIR_TAR is never used since package_tar.bbclass is removed.
 
+Signed-off-by: Talel BELHAJSALEM <bhstalel@gmail.com>
+---
+ meta/conf/bitbake.conf | 1 -
+ 1 file changed, 1 deletion(-)
 
-A complete re-download of the database worked for Grant, but I'm creating
-an issue https://bugzilla.yoctoproject.org/show_bug.cgi?id=3D15239 because
-it seems that more people are affected. I'll be working on this.
+diff --git a/meta/conf/bitbake.conf b/meta/conf/bitbake.conf
+index 77ff494523..2900a8bdba 100644
+--- a/meta/conf/bitbake.conf
++++ b/meta/conf/bitbake.conf
+@@ -444,7 +444,6 @@ STAGING_DIR_TARGET = "${RECIPE_SYSROOT}"
+ # Setting DEPLOY_DIR outside of TMPDIR is helpful, when you are using
+ # packaged staging and/or multimachine.
+ DEPLOY_DIR ?= "${TMPDIR}/deploy"
+-DEPLOY_DIR_TAR = "${DEPLOY_DIR}/tar"
+ DEPLOY_DIR_IPK = "${DEPLOY_DIR}/ipk"
+ DEPLOY_DIR_RPM = "${DEPLOY_DIR}/rpm"
+ DEPLOY_DIR_DEB = "${DEPLOY_DIR}/deb"
+-- 
+2.25.1
 
-Regards,
-Marta
 
