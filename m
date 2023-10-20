@@ -1,167 +1,88 @@
-Return-Path: <gs-yoctoproject.org@gluelogic.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD796CDB47E
-	for <webhook@archiver.kernel.org>; Fri, 20 Oct 2023 11:49:07 +0000 (UTC)
-Received: from smtp1.atof.net (smtp1.atof.net [52.86.233.228])
- by mx.groups.io with SMTP id smtpd.web11.52405.1697802533323620242
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DDE97C001DF
+	for <webhook@archiver.kernel.org>; Fri, 20 Oct 2023 12:08:37 +0000 (UTC)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+ by mx.groups.io with SMTP id smtpd.web10.52580.1697803710217961159
  for <poky@lists.yoctoproject.org>;
- Fri, 20 Oct 2023 04:48:58 -0700
+ Fri, 20 Oct 2023 05:08:30 -0700
 Authentication-Results: mx.groups.io;
- dkim=none (message not signed); spf=pass (domain: gluelogic.com, ip: 52.86.233.228, mailfrom: gs-yoctoproject.org@gluelogic.com)
-From: Glenn Strauss <gs-yoctoproject.org@gluelogic.com>
-To: poky@lists.yoctoproject.org
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=VPE7c3Dy;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.208.181, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-2c523ac38fbso10763981fa.0
+        for <poky@lists.yoctoproject.org>; Fri, 20 Oct 2023 05:08:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1697803708; x=1698408508; darn=lists.yoctoproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=xwtQD1eu3hLDuN4VsmdJyfNaL4gKHvFuNSZCr+F/OfI=;
+        b=VPE7c3DyqHYvV2W0H9E8yY8dvSFB8OwPmXzz297NoDSXLagd88JooCSJvA+w0P5MPx
+         dAkn6jMKgjBE2GdsQ85Qu/Cf+W3MWNlpiqiM4oz2Cn7i+6eqdrm9GvNJtB/+ItpcQrY6
+         B/rn2G0PI+cSU0rWKMCdfQf8FUNl5x9mdR8oU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1697803708; x=1698408508;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xwtQD1eu3hLDuN4VsmdJyfNaL4gKHvFuNSZCr+F/OfI=;
+        b=XixNip2fDaUvWlf+aakg0AWsDIJH3Fu0T9HvygznWH6IsPZ1LTtzGSkC5Rwa+l/HWd
+         TMfjxIWK97vt76aH8T0p/QsZ5iW9y1IXau337r6ldcIMOQ0O3RAD+ue17VBpl+mTV7eL
+         a7dpZgX7iallQMWXdKMXrm6i6j7jO7aRv2fY8SvN05yrDuZXz6EvNQDieWm7LEdZP/9f
+         vLxNulYdhVHsUWhNNXaO9jReEVnhGnXnCB76Ir6xhrEes4tTe+kvD3U2W3SYqkIHXttQ
+         cXmA0FyBIz0bh3ekpEBYLMzx2gCS8DxCWWhpmuWGZSRhLSnC9dcSd1WoliBX6uz3SDMB
+         XmqA==
+X-Gm-Message-State: AOJu0Yx3hy13CMAQIdaCYSsdrLGiZca5ivjbhkJXxwW1Ba+C+0Y02WkN
+	whp7HZTB0lNY26RgrSpMptTWqQ==
+X-Google-Smtp-Source: AGHT+IHeHV0T8AmvNV8MuYD+UVq2OqGjP0je9mqIa4O/kwob7LmM7lK/hso7XC8ulE2Ta1EXdldelQ==
+X-Received: by 2002:a2e:a309:0:b0:2c0:7d6:570a with SMTP id l9-20020a2ea309000000b002c007d6570amr1199991lje.33.1697803707999;
+        Fri, 20 Oct 2023 05:08:27 -0700 (PDT)
+Received: from ?IPv6:2001:8b0:aba:5f3c:e461:a77:598a:10d6? ([2001:8b0:aba:5f3c:e461:a77:598a:10d6])
+        by smtp.gmail.com with ESMTPSA id m16-20020a7bca50000000b00405d9a950a2sm6731341wml.28.2023.10.20.05.08.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 20 Oct 2023 05:08:27 -0700 (PDT)
+Message-ID: <df3bf5a897c3519dcef8237d8eb850c541aada6e.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH 0/3] lighttpd-1.4.72
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Glenn Strauss <gs-yoctoproject.org@gluelogic.com>, 
+	poky@lists.yoctoproject.org
 Cc: Glenn Strauss <gstrauss@gluelogic.com>
-Subject: [PATCH 3/3] lighttpd: modernize lighttpd.conf
-Date: Fri, 20 Oct 2023 07:48:45 -0400
-Message-ID: <20231020114845.100062-4-gs-yoctoproject.org@gluelogic.com>
-X-Mailer: git-send-email 2.41.0
+Date: Fri, 20 Oct 2023 13:08:26 +0100
 In-Reply-To: <20231020114845.100062-1-gs-yoctoproject.org@gluelogic.com>
 References: <20231020114845.100062-1-gs-yoctoproject.org@gluelogic.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: 7bit
-X-Mime-Autoconverted: from 8bit to 7bit by courier 0.78
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.1-0ubuntu1 
+MIME-Version: 1.0
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 20 Oct 2023 11:49:07 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13186
+ <poky@lists.yoctoproject.org>; Fri, 20 Oct 2023 12:08:37 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13187
 
-From: Glenn Strauss <gstrauss@gluelogic.com>
+On Fri, 2023-10-20 at 07:48 -0400, Glenn Strauss wrote:
+> From: Glenn Strauss <gstrauss@gluelogic.com>
+>=20
+>=20
+> Glenn Strauss (3):
+>   lighttpd: upgrade 1.4.71 -> 1.4.72
+>   lighttpd: update init script
+>   lighttpd: modernize lighttpd.conf
+>=20
+>  .../lighttpd/lighttpd/lighttpd                | 19 +++++++++-
+>  .../lighttpd/lighttpd/lighttpd.conf           | 38 ++++---------------
+>  ...{lighttpd_1.4.71.bb =3D> lighttpd_1.4.72.bb} |  2 +-
+>  3 files changed, 26 insertions(+), 33 deletions(-)
+>  rename meta/recipes-extended/lighttpd/{lighttpd_1.4.71.bb =3D> lighttpd_=
+1.4.72.bb} (97%)
 
-- remove obsolete modules
-- replace mod_compress directives with mod_deflate
-- do not enable debug.log-request-handling by default
-  (should not be enabled *by default* on any production system,
-   especially not an embedded system)
-- update TLS syntax for modern recommended use
-  (separate files for certificate+chain, and private key)
-- remove incorrect comment about server.event-handler
-  lighttpd defaults correctly to use kqueue on *BSD systems
-- remove ancient config which disables range requests for PDF
-  (cargo-culted config from ~15 years ago to address problem
-   in then-popular PDF client)
-- use recommend config file include syntax
-  (more efficient and more deterministic include file ordering)
+At a quick glance the patches look reasonable, thanks. Would you be
+able to resend this series to the openembededded-core mailing list
+though please? Patches for that component should be sent there.
 
-Signed-off-by: Glenn Strauss <gstrauss@gluelogic.com>
----
- .../lighttpd/lighttpd/lighttpd.conf           | 38 ++++---------------
- 1 file changed, 8 insertions(+), 30 deletions(-)
+Cheers,
 
-diff --git a/meta/recipes-extended/lighttpd/lighttpd/lighttpd.conf b/meta/recipes-extended/lighttpd/lighttpd/lighttpd.conf
-index 6e8402d242..47a6c93349 100644
---- a/meta/recipes-extended/lighttpd/lighttpd/lighttpd.conf
-+++ b/meta/recipes-extended/lighttpd/lighttpd/lighttpd.conf
-@@ -16,8 +16,6 @@ server.modules              = (
- #                               "mod_redirect",
- #                               "mod_alias",
-                                 "mod_access",
--#                               "mod_cml",
--#                               "mod_trigger_b4_dl",
- #                               "mod_auth",
- #                               "mod_status",
- #                               "mod_setenv",
-@@ -27,11 +25,9 @@ server.modules              = (
- #                               "mod_evhost",
- #                               "mod_userdir",
- #                               "mod_cgi",
--#                               "mod_compress",
- #                               "mod_ssi",
--#                               "mod_usertrack",
- #                               "mod_expire",
--#                               "mod_secdownload",
-+#                               "mod_deflate",
- #                               "mod_rrdtool",
- #				"mod_webdav",
-                                 "mod_accesslog" )
-@@ -47,9 +43,6 @@ server.errorlog             = "/www/logs/lighttpd.error.log"
- index-file.names            = ( "index.php", "index.html",
-                                 "index.htm", "default.htm" )
- 
--## set the event-handler (read the performance section in the manual)
--# server.event-handler = "freebsd-kqueue" # needed on OS X
--
- # mimetype mapping
- mimetype.assign             = (
-   ".pdf"          =>      "application/pdf",
-@@ -115,7 +108,6 @@ mimetype.assign             = (
- 
- #### accesslog module
- accesslog.filename          = "/www/logs/access.log"
--debug.log-request-handling = "enable"
- 
- 
- 
-@@ -127,10 +119,6 @@ debug.log-request-handling = "enable"
- #      of the document-root
- url.access-deny             = ( "~", ".inc" )
- 
--$HTTP["url"] =~ "\.pdf$" {
--  server.range-requests = "disable"
--}
--
- ##
- # which extensions should not be handle via static-file transfer
- #
-@@ -177,6 +165,7 @@ static-file.exclude-extensions = ( ".php", ".pl", ".fcgi" )
- #dir-listing.activate       = "enable"
- 
- ## enable debugging
-+#debug.log-request-header-on-error = "enable"
- #debug.log-request-header   = "enable"
- #debug.log-response-header  = "enable"
- #debug.log-request-handling = "enable"
-@@ -194,8 +183,9 @@ static-file.exclude-extensions = ( ".php", ".pl", ".fcgi" )
- #server.groupname           = "wwwrun"
- 
- #### compress module
--#compress.cache-dir         = "/tmp/lighttpd/cache/compress/"
--#compress.filetype          = ("text/plain", "text/html")
-+#deflate.cache-dir          = "/tmp/lighttpd/cache/compress/"
-+#deflate.mimetypes          = ("text/plain", "text/html")
-+#deflate.allowed-encodings  = ("gzip")
- 
- #### proxy module
- ## read proxy.txt for more info
-@@ -227,7 +217,8 @@ static-file.exclude-extensions = ( ".php", ".pl", ".fcgi" )
- 
- #### SSL engine
- #ssl.engine                 = "enable"
--#ssl.pemfile                = "server.pem"
-+#ssl.pemfile                = "/path/to/fullchain.pem"
-+#ssl.privkey                = "/path/to/privkey.pem"
- 
- #### status module
- #status.status-url          = "/server-status"
-@@ -291,19 +282,6 @@ static-file.exclude-extensions = ( ".php", ".pl", ".fcgi" )
- #setenv.add-request-header  = ( "TRAV_ENV" => "mysql://user@host/db" )
- #setenv.add-response-header = ( "X-Secret-Message" => "42" )
- 
--## for mod_trigger_b4_dl
--# trigger-before-download.gdbm-filename = "/home/weigon/testbase/trigger.db"
--# trigger-before-download.memcache-hosts = ( "127.0.0.1:11211" )
--# trigger-before-download.trigger-url = "^/trigger/"
--# trigger-before-download.download-url = "^/download/"
--# trigger-before-download.deny-url = "http://127.0.0.1/index.html"
--# trigger-before-download.trigger-timeout = 10
--
--## for mod_cml
--## don't forget to add index.cml to server.indexfiles
--# cml.extension               = ".cml"
--# cml.memcache-hosts          = ( "127.0.0.1:11211" )
--
- #### variable usage:
- ## variable name without "." is auto prefixed by "var." and becomes "var.bar"
- #bar = 1
-@@ -328,4 +306,4 @@ static-file.exclude-extensions = ( ".php", ".pl", ".fcgi" )
- #var.a=1
- 
- # include other config file fragments from lighttpd.d subdir
--include_shell "find /etc/lighttpd.d -maxdepth 1 -name '*.conf' -exec cat {} \;" 
-+include "/etc/lighttpd.d/*.conf"
--- 
-2.41.0
+Richard
 
