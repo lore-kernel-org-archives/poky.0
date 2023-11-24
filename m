@@ -1,153 +1,345 @@
-Return-Path: <star@gmx.li>
+Return-Path: <jinrong.liao@amlogic.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C10B5C61D90
-	for <webhook@archiver.kernel.org>; Tue, 21 Nov 2023 15:14:00 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by mx.groups.io with SMTP id smtpd.web10.43456.1700579630986998773
- for <poky@lists.yoctoproject.org>;
- Tue, 21 Nov 2023 07:13:51 -0800
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=star@gmx.li header.s=s31663417 header.b=kGDIlj9t;
- spf=pass (domain: gmx.li, ip: 212.227.17.22, mailfrom: star@gmx.li)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.li; s=s31663417;
-	t=1700579629; x=1701184429; i=star@gmx.li;
-	bh=zhfNvsljivluQOOOplLEYBfc36us+mQom1K5l5XgKnU=;
-	h=X-UI-Sender-Class:Date:Subject:To:References:From:In-Reply-To;
-	b=kGDIlj9tZK8T155sCGyGGY19mz3YVGBcflb6KzXvhWvQjvXCLkQAO+3imNJ8DooL
-	 fMVYFj/lZP8Jdk9pZYBcWx+zxxmNLHgqM3MlKiNk3AEDd6ahcCzne1Ju9MSTkhKpO
-	 uhAWCt/dIGGDsd8xgahrlZ4ifoGUNKthJHHQaP2j012fQgkUU71YPlvGOYt2Is7TW
-	 OU8gkFAcwLgdxpYdNb8NM1QXL1K2BhA2DLFwaa2rSD5FtDcY5O4cJ/kS2nLIxshJm
-	 DSV+G/DYkJXRoZ1nyoORB2lW3bEmXsVSF7iXmHas4pqz4KmuUsNqyCUr9SfQB4BSz
-	 SPsSQ9K9yE+uss5xAA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.3.21] ([93.199.90.61]) by mail.gmx.net (mrgmx104
- [212.227.17.174]) with ESMTPSA (Nemesis) id 1Mnpnm-1rhJUl06J8-00pNrV for
- <poky@lists.yoctoproject.org>; Tue, 21 Nov 2023 16:13:49 +0100
-Message-ID: <55b9a7c9-3ac3-40f2-a3cb-44328a067499@gmx.li>
-Date: Tue, 21 Nov 2023 16:13:48 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [poky] shared library location and linking
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BE40C61D97
+	for <webhook@archiver.kernel.org>; Fri, 24 Nov 2023 05:31:54 +0000 (UTC)
+Subject: [PATCH] update_udev_hwdb: fix the fail to postinstall intercept update_udev_hwdb 
 To: poky@lists.yoctoproject.org
-References: <17995B12D8E7BA2D.25909@lists.yoctoproject.org>
-Content-Language: en-US
-From: star <star@gmx.li>
-In-Reply-To: <17995B12D8E7BA2D.25909@lists.yoctoproject.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:cf8EU1Vg1PljGNRvwKfjnTIov/DQnOxqF+pXEQmi7lJswpXJefv
- /hOLEg8+QHDGO0vgCM6l+donWUupgNHfFX7Idc6VTS4/oXNHf/C8BG2QBli9ufsJ3VfBbAO
- olnV7Qn9/SPeGWyBGowq+N5o3NtImUtG6SwElnWJohhp/NwH6iXRG4zjQ3fgAur6JEVDGNy
- IGsFDfx58sSR1gl0HwWMw==
-UI-OutboundReport: notjunk:1;M01:P0:+VfZFr8IrG8=;WeuUlnFL+Bu32wmYSZkWG0haC5R
- Evb7SThl/7EVR44/LA4Q3NnliLtH8rxebGIw65QEd/Dj/TSNWztER8K3GHHXmWBreY6Turi1z
- Qao4e7+qS8sg8Dlif2XBAO31mBV+t/VJusOp6wJuXjLpphjx8lWoP+KDiy9nkAUSCMYB046uL
- 4oDFbx/t7HXyGhSYbAyqK/29J+f/IrUDzlUtuu4APNaLINTXE4GCW3lGMHhCtsxUWYC24HSj+
- b1mNXj5fULWMrr9aTe3Ct5EB3Z5LY9SNasjoKnbhIEV4MKyYpA/Hh9vApSTysvgH+0gTsuHKv
- QFFRIH580QqPOd86dDorGp02E4dWQekKX2HqgywlgG0xKwEeC7j7+q72xj68zMNjdYFDvH6Gj
- NhGnZ+pW/F7y9a7oV1K7FYqROlGBDkLm0nL2fa/siM7Ozi5dP+5ZhGzXUBHqsgg1JfrzMkjEE
- BVkRqLVnhwZOzDBAFiTPVKxdJkd5nXgrKQtpVrk5qbiXiVpb9S/UexI3sOtZz3AL/zbUcDRVY
- XQkwMLMHDwHRkrEwHCyIaUFl/16x94A1FkObRcIl8yyqsc15wpv3TuovTc1sEe6VXpWvtWL1B
- cKEB7eWJGWy0qJzJ17n6M5xEtFBa5a7e0Jft20qdHzY2TOYfPtU5X4A4nemkfVRfVdoA3OLz6
- zmtXnsGZOCVRzms7J4ITmwkLxWChWtvtN5mBeBsctzmcBuFJNnpIMsVk7W0Qi031UyQocroFO
- mVi47yNCwAVlezxICEb6by7U+o1tKcwSCX6rWTzAdhCD/5sEoDXEQlzMQIhSkxPEfmOg973tU
- PIgOFOZZs5mjz2yhg3OUOXWqHJ+eaTblvAVbe14yUHEG4hFkdkY3nOYeqpKPvaB5J4DFIqbv6
- NrIiK4rrvm9nILyHV5xJ2YokMGp7Si8hhYitBwIQKSD3mow7xcEkHfh5lvfix8zwFu/xfzh0G
- CAAvlA==
+From: jinrong.liao@amlogic.com
+X-Originating-Location: Hsinchu, TW (60.248.184.76)
+X-Originating-Platform: Windows Chrome 119
+User-Agent: GROUPS.IO Web Poster
+MIME-Version: 1.0
+Date: Thu, 23 Nov 2023 21:31:45 -0800
+Message-ID: <OUs1.1700803905876989857.Olfi@lists.yoctoproject.org>
+Content-Type: multipart/mixed; boundary="QAi2rYAUCH2IKtrMtdaK"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 21 Nov 2023 15:14:00 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13209
+ <poky@lists.yoctoproject.org>; Fri, 24 Nov 2023 05:31:54 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13210
 
-I found my issue described here, more or less exactly:
+--QAi2rYAUCH2IKtrMtdaK
+Content-Type: multipart/alternative; boundary="Or6FhHxOtqiHfXAsVCxQ"
 
-https://docs.yoctoproject.org/ref-manual/variables.html#term-SYSROOT_DIRS_=
-IGNORE
+--Or6FhHxOtqiHfXAsVCxQ
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-For me it turns out to need in recipe of lib:
-SYSROOT_DIRS:append =3D " /opt/lib"
+when multilib enabled, the lib32 udevadm will be installed to oe-sdk-hardco=
+ded-buildpath/sysroots/armv8a-poky-linux/bin/, it will fail=C2=A0when run u=
+pdate_udev_hwdb for 64 bit script:
+|qemu-aarch64: /xxxxxx/oe-sdk-hardcoded-buildpath/sysroots/armv8a-poky-linu=
+x/bin/udevadm: Invalid ELF image for this architecture
 
-and in recipe of app, using that lib:
-TARGET_LDFLAGS:append =3D " -L${RECIPE_SYSROOT}/opt/lib"
+the update_udev_hwdb fail to re-run udevadm with same arch qemuwrapper if r=
+un ${binprefix}qemuwrapper fail, because the binprefix is empty when=C2=A0r=
+un in 64 bit script
 
-But that's not helping. Looking at bitbake <recipe_app> -e I can't see
-why linker does not find it. As mentioned
-${WORKDIR}/recipe-sysroot/opt/lib is populated for the app.
-A bug? Usually I am just miss something, but I don't have a clue how to
-debug.
+error:
+NOTE: Running intercept scripts:
+NOTE: > Executing update_udev_hwdb-lib32 intercept ...
++ [ True =3D False -a lib32-qemuwrapper-cross !=3D nativesdk-qemuwrapper-cr=
+oss ]
++ qemu-arm -r 3.2.0 -E LD_LIBRARY_PATH=3D/mnt/fileroot/jinrong.liao/yocto/t=
+est/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/a=
+mlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysr=
+oots/armv8a-poky-linux/usr/lib:/mnt/fileroot/jinrong.liao/yocto/test/build-=
+av400-lib32-=C2=A0 popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlo=
+gic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysroot=
+s/armv8a-poky-linux/lib -L /mnt/fileroot/jinrong.liao/yocto/test/build-av40=
+0-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic-sbr-yoc=
+to/1.0-r0/sdk/image/usr/local/ oe-sdk-hardcoded-buildpath/sysroots/armv8a-p=
+oky-linux /mnt/fileroot/jinrong.liao/yocto/test/build-av400-lib32-popular-s=
+dk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/sdk/ima=
+ge/usr/local/oe-sdk-hardcoded-buildpath/sysroots/armv8a-poky-linux/bin/udev=
+adm hwdb --update --root /mnt/fileroot/=C2=A0 =C2=A0 jinrong.liao/yocto/tes=
+t/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/aml=
+ogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysroo=
+ts/armv8a-poky-linux --usr
 
-Best regards,
-Steve
+NOTE: > Executing update_gio_module_cache intercept ...
+NOTE: + [ True =3D False -a qemuwrapper-cross !=3D nativesdk-qemuwrapper-cr=
+oss ]
++ qemu-aarch64 -r 3.14 -E LD_LIBRARY_PATH=3D/mnt/fileroot/jinrong.liao/yoct=
+o/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linu=
+x/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/s=
+ysroots/armv8a-poky-linux/usr/lib64:/mnt/fileroot/jinrong.liao/yocto/test/b=
+uild-av400-=C2=A0 =C2=A0lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky=
+-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildp=
+ath/sysroots/armv8a-poky-linux/lib64 -L /mnt/fileroot/jinrong.liao/yocto/te=
+st/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/am=
+logic-sbr-yocto/1.0-r0/sdk/image/=C2=A0 =C2=A0usr/local/oe-sdk-hardcoded-bu=
+ildpath/sysroots/armv8a-poky-linux /mnt/fileroot/jinrong.liao/yocto/test/bu=
+ild-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic=
+-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysroots/a=
+rmv8a-poky-linux/usr/libexec/gio-querymodules /mnt/=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0fileroot/jinrong.liao/yocto/test/build-av400-lib32-popular-sdk/tmp/work/=
+mesona5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local=
+/oe-sdk-hardcoded-buildpath/sysroots/armv8a-poky-linux/usr/lib64/gio/module=
+s/
 
+NOTE: > Executing update_gio_module_cache-lib32 intercept ...
+NOTE: + [ True =3D False -a lib32-qemuwrapper-cross !=3D nativesdk-qemuwrap=
+per-cross ]
++ qemu-arm -r 3.2.0 -E LD_LIBRARY_PATH=3D/mnt/fileroot/jinrong.liao/yocto/t=
+est/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/a=
+mlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysr=
+oots/armv8a-poky-linux/usr/lib:/mnt/fileroot/jinrong.liao/yocto/test/build-=
+av400-lib32-=C2=A0 popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlo=
+gic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysroot=
+s/armv8a-poky-linux/lib -L /mnt/fileroot/jinrong.liao/yocto/test/build-av40=
+0-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic-sbr-yoc=
+to/1.0-r0/sdk/image/usr/local/ oe-sdk-hardcoded-buildpath/sysroots/armv8a-p=
+oky-linux /mnt/fileroot/jinrong.liao/yocto/test/build-av400-lib32-popular-s=
+dk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/sdk/ima=
+ge/usr/local/oe-sdk-hardcoded-buildpath/sysroots/armv8a-poky-linux/usr/libe=
+xec/lib32-gio-querymodules /mnt/fileroot/=C2=A0 jinrong.liao/yocto/test/bui=
+ld-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic-=
+sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysroots/ar=
+mv8a-poky-linux/usr/lib/gio/modules/
 
-> Hello,
-> I have a problem if a shared lib should be located in some other than
-> usual folder - in /opt/lib in my example. Althoug not usual, it should
-> be possible, right?
-> The lib itself is created well and with that including in recipe (which
-> tooks me some time to find):
-> SYSROOT_DIRS +=3D "/opt/lib"
-> this lib is also populated into sysroot-destdir/opt/lib
->
-> But recipe of app, that is depending on that lib, will not link -
-> although the lib is located in build directory of app in
-> recipe-sysroot/opt/lib (thanks to the trick above).
->
-> I couldn't figure out what is the problem:
->
-> | arm-poky-linux-gnueabi-gcc=C2=A0 -mfpu=3Dneon -mfloat-abi=3Dhard
-> -mcpu=3Dcortex-a9 -fstack-protector-strong=C2=A0 -O2 -D_FORTIFY_SOURCE=
-=3D2
-> -Wformat -Wformat-security -Werror=3Dformat-security
-> --sysroot=3D/home/user/y/yocto_4014_sp2/build/tmp/work/cortexa9hf-neon-p=
-oky-linux-gnueabi/sps/0.1-r0/recipe-sysroot
-> sps.c -L/opt/lib -lvision-device -o sps
-> |
-> /home/user/y/yocto_4014_sp2/build/tmp/work/cortexa9hf-neon-poky-linux-gn=
-ueabi/sps/0.1-r0/recipe-sysroot-native/usr/bin/arm-poky-linux-gnueabi/../.=
-./libexec/arm-poky-linux-gnueabi/gcc/arm-poky-linux-gnueabi/11.4.0/ld:
-> cannot find -lvision-device: No such file or directory
-> | collect2: error: ld returned 1 exit status
->
-> I don't know where the linker is looking for? Just as a dirty hack I
-> copied the libs in recipe as below, it works:
->
-> do_compile () {
->  =C2=A0=C2=A0=C2=A0 cp recipe-sysroot/opt/lib/* recipe-sysroot/usr/lib
->  =C2=A0=C2=A0=C2=A0 oe_runmake -f Makefile-sps
-> }
->
-> I seems the -L is not passed through!? Is it a bug? Or what do I miss?
->
-> Best regards and any help is welcome.
-> Steve
->
-> PS: Makefile is as simple:
->
-> LIBSINC=C2=A0 =3D -L/opt/lib
-> LIBS=C2=A0=C2=A0=C2=A0=C2=A0 =3D -lvision-device
->
-> all: sps
->
-> sps: *.c
->  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 $(CC) sps.c $(LIBSINC) $(LIB=
-S) -o sps
->
-> clean:
->  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rm -f sps
->
->
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13208): https://lists.yoctoproject.org/g/poky/messag=
-e/13208
-> Mute This Topic: https://lists.yoctoproject.org/mt/102707949/3618575
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [star@gmx.li]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
+NOTE: > Executing update_udev_hwdb intercept ...
+NOTE: Exit code 255. Output:
++ [ True =3D False -a qemuwrapper-cross !=3D nativesdk-qemuwrapper-cross ]
++ qemu-aarch64 -r 3.14 -E LD_LIBRARY_PATH=3D/mnt/fileroot/jinrong.liao/yoct=
+o/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linu=
+x/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/s=
+ysroots/armv8a-poky-linux/usr/lib64:/mnt/fileroot/jinrong.liao/yocto/test/b=
+uild-av400-=C2=A0 =C2=A0lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky=
+-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildp=
+ath/sysroots/armv8a-poky-linux/lib64 -L /mnt/fileroot/jinrong.liao/yocto/te=
+st/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/am=
+logic-sbr-yocto/1.0-r0/sdk/image/=C2=A0 =C2=A0usr/local/oe-sdk-hardcoded-bu=
+ildpath/sysroots/armv8a-poky-linux /mnt/fileroot/jinrong.liao/yocto/test/bu=
+ild-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic=
+-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysroots/a=
+rmv8a-poky-linux/bin/udevadm hwdb --update --root /mnt/=C2=A0 =C2=A0fileroo=
+t/jinrong.liao/yocto/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av=
+400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-ha=
+rdcoded-buildpath/sysroots/armv8a-poky-linux --usr
+qemu-aarch64: /mnt/fileroot/jinrong.liao/yocto/test/build-av400-lib32-popul=
+ar-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/sdk=
+/image/usr/local/oe-sdk-hardcoded-buildpath/sysroots/armv8a-poky-linux/bin/=
+udevadm: Invalid ELF image for this architecture
++ [ True =3D False -a qemuwrapper-cross !=3D nativesdk-qemuwrapper-cross ]
++ qemu-aarch64 -r 3.14 -E LD_LIBRARY_PATH=3D/mnt/fileroot/jinrong.liao/yoct=
+o/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linu=
+x/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/s=
+ysroots/armv8a-poky-linux/usr/lib64:/mnt/fileroot/jinrong.liao/yocto/test/b=
+uild-av400-=C2=A0 =C2=A0lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky=
+-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildp=
+ath/sysroots/armv8a-poky-linux/lib64 -L /mnt/fileroot/jinrong.liao/yocto/te=
+st/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/am=
+logic-sbr-yocto/1.0-r0/sdk/image/=C2=A0 =C2=A0usr/local/oe-sdk-hardcoded-bu=
+ildpath/sysroots/armv8a-poky-linux /mnt/fileroot/jinrong.liao/yocto/test/bu=
+ild-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic=
+-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysroots/a=
+rmv8a-poky-linux/bin/udevadm hwdb --update --root /mnt/=C2=A0 =C2=A0fileroo=
+t/jinrong.liao/yocto/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av=
+400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-ha=
+rdcoded-buildpath/sysroots/armv8a-poky-linux --usr
+qemu-aarch64: /mnt/fileroot/jinrong.liao/yocto/test/build-av400-lib32-popul=
+ar-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/sdk=
+/image/usr/local/oe-sdk-hardcoded-buildpath/sysroots/armv8a-poky-linux/bin/=
+udevadm: Invalid ELF image for this architecture
 
+ERROR: The postinstall intercept hook 'update_udev_hwdb' failed, details in=
+ /mnt/fileroot/jinrong.liao/yocto/test/build-av400-lib32-popular-sdk/tmp/wo=
+rk/mesona5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/temp/log.do_popu=
+late_sdk
+
+--Or6FhHxOtqiHfXAsVCxQ
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>
+<div>&nbsp;when multilib enabled, the lib32 udevadm will be installed to oe=
+-sdk-hardcoded-buildpath/sysroots/armv8a-poky-linux/bin/, it will fail&nbsp=
+;when run update_udev_hwdb for 64 bit script:</div>
+<div>&nbsp; &nbsp; |qemu-aarch64: /xxxxxx/oe-sdk-hardcoded-buildpath/sysroo=
+ts/armv8a-poky-linux/bin/udevadm: Invalid ELF image for this architecture</=
+div>
+<div>&nbsp;</div>
+<div>the update_udev_hwdb fail to re-run udevadm with same arch qemuwrapper=
+ if run ${binprefix}qemuwrapper fail, because the binprefix is empty when&n=
+bsp;run in 64 bit script</div>
+<div><br />error:&nbsp;</div>
+NOTE: Running intercept scripts:</div>
+<div>NOTE: &gt; Executing update_udev_hwdb-lib32 intercept ...</div>
+<div>+ [ True =3D False -a lib32-qemuwrapper-cross !=3D nativesdk-qemuwrapp=
+er-cross ]</div>
+<div>+ qemu-arm -r 3.2.0 -E LD_LIBRARY_PATH=3D/mnt/fileroot/jinrong.liao/yo=
+cto/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-li=
+nux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath=
+/sysroots/armv8a-poky-linux/usr/lib:/mnt/fileroot/jinrong.liao/yocto/test/b=
+uild-av400-lib32-&nbsp; popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux=
+/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sy=
+sroots/armv8a-poky-linux/lib -L /mnt/fileroot/jinrong.liao/yocto/test/build=
+-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic-sb=
+r-yocto/1.0-r0/sdk/image/usr/local/ oe-sdk-hardcoded-buildpath/sysroots/arm=
+v8a-poky-linux /mnt/fileroot/jinrong.liao/yocto/test/build-av400-lib32-popu=
+lar-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/sd=
+k/image/usr/local/oe-sdk-hardcoded-buildpath/sysroots/armv8a-poky-linux/bin=
+/udevadm hwdb --update --root /mnt/fileroot/&nbsp; &nbsp; jinrong.liao/yoct=
+o/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linu=
+x/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/s=
+ysroots/armv8a-poky-linux --usr</div>
+<div>&nbsp;</div>
+<div>NOTE: &gt; Executing update_gio_module_cache intercept ...</div>
+<div>NOTE: + [ True =3D False -a qemuwrapper-cross !=3D nativesdk-qemuwrapp=
+er-cross ]</div>
+<div>+ qemu-aarch64 -r 3.14 -E LD_LIBRARY_PATH=3D/mnt/fileroot/jinrong.liao=
+/yocto/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky=
+-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildp=
+ath/sysroots/armv8a-poky-linux/usr/lib64:/mnt/fileroot/jinrong.liao/yocto/t=
+est/build-av400-&nbsp; &nbsp;lib32-popular-sdk/tmp/work/mesona5_av400_lib32=
+-poky-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-b=
+uildpath/sysroots/armv8a-poky-linux/lib64 -L /mnt/fileroot/jinrong.liao/yoc=
+to/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-lin=
+ux/amlogic-sbr-yocto/1.0-r0/sdk/image/&nbsp; &nbsp;usr/local/oe-sdk-hardcod=
+ed-buildpath/sysroots/armv8a-poky-linux /mnt/fileroot/jinrong.liao/yocto/te=
+st/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/am=
+logic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysro=
+ots/armv8a-poky-linux/usr/libexec/gio-querymodules /mnt/&nbsp; &nbsp; &nbsp=
+; &nbsp;fileroot/jinrong.liao/yocto/test/build-av400-lib32-popular-sdk/tmp/=
+work/mesona5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/=
+local/oe-sdk-hardcoded-buildpath/sysroots/armv8a-poky-linux/usr/lib64/gio/m=
+odules/</div>
+<div>&nbsp;</div>
+<div>NOTE: &gt; Executing update_gio_module_cache-lib32 intercept ...</div>
+<div>NOTE: + [ True =3D False -a lib32-qemuwrapper-cross !=3D nativesdk-qem=
+uwrapper-cross ]</div>
+<div>+ qemu-arm -r 3.2.0 -E LD_LIBRARY_PATH=3D/mnt/fileroot/jinrong.liao/yo=
+cto/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-li=
+nux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath=
+/sysroots/armv8a-poky-linux/usr/lib:/mnt/fileroot/jinrong.liao/yocto/test/b=
+uild-av400-lib32-&nbsp; popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux=
+/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sy=
+sroots/armv8a-poky-linux/lib -L /mnt/fileroot/jinrong.liao/yocto/test/build=
+-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic-sb=
+r-yocto/1.0-r0/sdk/image/usr/local/ oe-sdk-hardcoded-buildpath/sysroots/arm=
+v8a-poky-linux /mnt/fileroot/jinrong.liao/yocto/test/build-av400-lib32-popu=
+lar-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/sd=
+k/image/usr/local/oe-sdk-hardcoded-buildpath/sysroots/armv8a-poky-linux/usr=
+/libexec/lib32-gio-querymodules /mnt/fileroot/&nbsp; jinrong.liao/yocto/tes=
+t/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/aml=
+ogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysroo=
+ts/armv8a-poky-linux/usr/lib/gio/modules/</div>
+<div>&nbsp;</div>
+<div>NOTE: &gt; Executing update_udev_hwdb intercept ...</div>
+<div>NOTE: Exit code 255. Output:</div>
+<div>+ [ True =3D False -a qemuwrapper-cross !=3D nativesdk-qemuwrapper-cro=
+ss ]</div>
+<div>+ qemu-aarch64 -r 3.14 -E LD_LIBRARY_PATH=3D/mnt/fileroot/jinrong.liao=
+/yocto/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky=
+-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildp=
+ath/sysroots/armv8a-poky-linux/usr/lib64:/mnt/fileroot/jinrong.liao/yocto/t=
+est/build-av400-&nbsp; &nbsp;lib32-popular-sdk/tmp/work/mesona5_av400_lib32=
+-poky-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-b=
+uildpath/sysroots/armv8a-poky-linux/lib64 -L /mnt/fileroot/jinrong.liao/yoc=
+to/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-lin=
+ux/amlogic-sbr-yocto/1.0-r0/sdk/image/&nbsp; &nbsp;usr/local/oe-sdk-hardcod=
+ed-buildpath/sysroots/armv8a-poky-linux /mnt/fileroot/jinrong.liao/yocto/te=
+st/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/am=
+logic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysro=
+ots/armv8a-poky-linux/bin/udevadm hwdb --update --root /mnt/&nbsp; &nbsp;fi=
+leroot/jinrong.liao/yocto/test/build-av400-lib32-popular-sdk/tmp/work/meson=
+a5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-s=
+dk-hardcoded-buildpath/sysroots/armv8a-poky-linux --usr</div>
+<div>qemu-aarch64: /mnt/fileroot/jinrong.liao/yocto/test/build-av400-lib32-=
+popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r=
+0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysroots/armv8a-poky-linux=
+/bin/udevadm: Invalid ELF image for this architecture</div>
+<div>+ [ True =3D False -a qemuwrapper-cross !=3D nativesdk-qemuwrapper-cro=
+ss ]</div>
+<div>+ qemu-aarch64 -r 3.14 -E LD_LIBRARY_PATH=3D/mnt/fileroot/jinrong.liao=
+/yocto/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky=
+-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildp=
+ath/sysroots/armv8a-poky-linux/usr/lib64:/mnt/fileroot/jinrong.liao/yocto/t=
+est/build-av400-&nbsp; &nbsp;lib32-popular-sdk/tmp/work/mesona5_av400_lib32=
+-poky-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-b=
+uildpath/sysroots/armv8a-poky-linux/lib64 -L /mnt/fileroot/jinrong.liao/yoc=
+to/test/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-lin=
+ux/amlogic-sbr-yocto/1.0-r0/sdk/image/&nbsp; &nbsp;usr/local/oe-sdk-hardcod=
+ed-buildpath/sysroots/armv8a-poky-linux /mnt/fileroot/jinrong.liao/yocto/te=
+st/build-av400-lib32-popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/am=
+logic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysro=
+ots/armv8a-poky-linux/bin/udevadm hwdb --update --root /mnt/&nbsp; &nbsp;fi=
+leroot/jinrong.liao/yocto/test/build-av400-lib32-popular-sdk/tmp/work/meson=
+a5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/sdk/image/usr/local/oe-s=
+dk-hardcoded-buildpath/sysroots/armv8a-poky-linux --usr</div>
+<div>qemu-aarch64: /mnt/fileroot/jinrong.liao/yocto/test/build-av400-lib32-=
+popular-sdk/tmp/work/mesona5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r=
+0/sdk/image/usr/local/oe-sdk-hardcoded-buildpath/sysroots/armv8a-poky-linux=
+/bin/udevadm: Invalid ELF image for this architecture</div>
+<div>&nbsp;</div>
+<div>ERROR: The postinstall intercept hook 'update_udev_hwdb' failed, detai=
+ls in /mnt/fileroot/jinrong.liao/yocto/test/build-av400-lib32-popular-sdk/t=
+mp/work/mesona5_av400_lib32-poky-linux/amlogic-sbr-yocto/1.0-r0/temp/log.do=
+_populate_sdk</div>
+<div>&nbsp;</div>
+
+--Or6FhHxOtqiHfXAsVCxQ--
+
+--QAi2rYAUCH2IKtrMtdaK
+Content-Type: application/octet-stream; name="0001-update_udev_hwdb-fix-the-fail-to-postinstall-interce.patch"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="0001-update_udev_hwdb-fix-the-fail-to-postinstall-interce.patch"
+
+RnJvbSA5ZTgyYjRiODFhMjQ4NDI5MmExODNhNWMzYzdiZGQwZDljYWYwZTBiIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiAiamlucm9uZy5saWFvIiA8amlucm9uZy5saWFvQGFtbG9naWMu
+Y29tPgpEYXRlOiBGcmksIDI0IE5vdiAyMDIzIDEwOjEyOjA1ICswODAwClN1YmplY3Q6IFtQQVRD
+SF0gdXBkYXRlX3VkZXZfaHdkYjogZml4IHRoZSBmYWlsIHRvIHBvc3RpbnN0YWxsIGludGVyY2Vw
+dAogdXBkYXRlX3VkZXZfaHdkYiBbMS8xXQoKd2hlbiBtdWx0aWxpYiBlbmFibGVkLCB0aGUgbGli
+MzIgdWRldmFkbSB3aWxsIGJlIGluc3RhbGxlZCB0bwpvZS1zZGstaGFyZGNvZGVkLWJ1aWxkcGF0
+aC9zeXNyb290cy9hcm12OGEtcG9reS1saW51eC9iaW4vLCBpdCB3aWxsIGZhaWwKd2hlbiBydW4g
+dXBkYXRlX3VkZXZfaHdkYiBmb3IgNjQgYml0IHNjcmlwdDoKfHFlbXUtYWFyY2g2NDogL3h4eHh4
+eC9vZS1zZGstaGFyZGNvZGVkLWJ1aWxkcGF0aC9zeXNyb290cy9hcm12OGEtcG9reS1saW51eC9i
+aW4vdWRldmFkbTogSW52YWxpZCBFTEYgaW1hZ2UgZm9yIHRoaXMgYXJjaGl0ZWN0dXJlCgp0aGUg
+dXBkYXRlX3VkZXZfaHdkYiBmYWlsIHRvIHJlLXJ1biB1ZGV2YWRtIHdpdGggc2FtZSBhcmNoIHFl
+bXV3cmFwcGVyCmlmIHJ1biAke2JpbnByZWZpeH1xZW11d3JhcHBlciBmYWlsLCBiZWNhdXNlIHRo
+ZSBiaW5wcmVmaXggaXMgZW1wdHkgd2hlbgpydW4gaW4gNjQgYml0IHNjcmlwdAoKcmVsYXRlZCBj
+aGFuZ2U6CmNvbW1pdCAwOWQyY2EyMGNiZTA4NTdhMDQwMTRmOGEzNjJmMDNkMTQ4MGYxNzQ4CkF1
+dGhvcjogS2FpIEthbmcgPGthaS5rYW5nQHdpbmRyaXZlci5jb20+CkRhdGU6ICAgRnJpIEFwciAx
+NSAyMjozODowMyAyMDIyICswODAwCgogICAgdXBkYXRlX3VkZXZfaHdkYjogZml4IG11bHRpbGli
+IGlzc3VlIHdpdGggc3lzdGVtZAoKICAgIEl0IGR1cGxpY2F0ZXMgdWRldmFkbSBpbiBzeXN0ZW1k
+IHJlY2lwZSB0byBtYWtlIGl0IGNvdWxkIHJ1bgogICAgdXBkYXRlX3VkZXZfaHdkYiB3aXRoIG11
+bHRpbGliIGVuYWJsZWQuIFNpbmNlIHN5c3RlbWQgbGFzdCB1cGRhdGUsCiAgICBpdCBkZXBsb3lz
+IGEgc2hhcmVkIGxpYnJhcnkgbGlic3lzdGVtZC1zaGFyZWQtMjUwLnNvIGluIC9saWIvc3lzdGVt
+ZC8uCiAgICBUaGUgbGlicmFyeSB3aWxsIGJlIG92ZXJ3cml0dGVuIHdoZW4gbXVsdGlsaWIgZW5h
+YmxlZC4gVGhlbiBpZiBib3RoCiAgICB1ZGV2LWh3ZGIgYW5kIGxpYjMyLXVkZXYtaHdkYiBhcmUg
+aW5zdGFsbGVkLCBpdCBmYWlscyB0byBydW4gdGhlCiAgICBtdWx0aWxpYiB2ZXJzaW9uIHBvc3Rp
+bnN0YWxsIGludGVyY2VwdCB1cGRhdGVfdWRldl9od2RiOgoKICAgIHwgL3BhdGgvdG8vYnVpbGQv
+dG1wLWdsaWJjL3dvcmsvaW50ZWxfeDg2XzY0LXdycy1saW51eC93cmxpbnV4LWltYWdlLXNtYWxs
+LzEuMC1yMS9yb290ZnMvdXNyL2xpYmV4ZWMvbGliMzItdWRldmFkbToKICAgICAgICBlcnJvciB3
+aGlsZSBsb2FkaW5nIHNoYXJlZCBsaWJyYXJpZXM6IGxpYnN5c3RlbWQtc2hhcmVkLTI1MC5zbzog
+d3JvbmcgRUxGIGNsYXNzOiBFTEZDTEFTUzY0CgogICAgYHVkZXZhZG0gaHdkYiAtLXVwZGF0ZWAg
+anVzdCBjb25jYXRlbmF0ZXMgLmh3ZGIgZmlsZXMgaW4gZGlycwogICAgL2V0Yy91ZGV2L2h3ZGIu
+ZCBhbmQgL2xpYi91ZGV2L2h3ZGIuZC4gVGhlIG91dHB1dCBmaWxlIGh3ZGIuYmluIGlzCiAgICBp
+ZGVudGljYWwgd2l0aCB0aGUgb25lIGNyZWF0ZWQgYnkgbGliMzItdWRldmFkbS4gU28gZG8gTk9U
+IGR1cGxpY2F0ZQogICAgbGliMzItdWRldmFkbSBpbiBzeXN0ZW1kIGFuZCBldWRldi4gQW5kIHVw
+ZGF0ZSBpbnRlcmNlcHQgc2NyaXB0CiAgICB1cGRhdGVfdWRldl9od2RiIHRoYXQgcmUtcnVuIHVk
+ZXZhZG0gd2l0aCBzYW1lIGFyY2ggcWVtdXdyYXBwZXIgaWYgcnVuCiAgICAke2JpbnByZWZpeH1x
+ZW11d3JhcHBlciBmYWlsZWQuCgogICAgKEZyb20gT0UtQ29yZSByZXY6IDc0ZmUxYjVhZjA2NGY2
+NDRhN2Q1NTViNjE1MjdiYjdkMDJjYzMwYjgpCgpDaGFuZ2UtSWQ6IEkzYmVlOTQzNDdmNzk2YzZj
+ZTZhZTNjNjk5YzNkNDkzYzdiZDc0ZWUwClNpZ25lZC1vZmYtYnk6IGppbnJvbmcubGlhbyA8amlu
+cm9uZy5saWFvQGFtbG9naWMuY29tPgotLS0KIHNjcmlwdHMvcG9zdGluc3QtaW50ZXJjZXB0cy91
+cGRhdGVfdWRldl9od2RiIHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAx
+IGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvc2NyaXB0cy9wb3N0aW5zdC1pbnRlcmNlcHRzL3Vw
+ZGF0ZV91ZGV2X2h3ZGIgYi9zY3JpcHRzL3Bvc3RpbnN0LWludGVyY2VwdHMvdXBkYXRlX3VkZXZf
+aHdkYgppbmRleCA4YjNmNWRlNzkxLi41NDA0Y2NkNmE1IDEwMDY0NAotLS0gYS9zY3JpcHRzL3Bv
+c3RpbnN0LWludGVyY2VwdHMvdXBkYXRlX3VkZXZfaHdkYgorKysgYi9zY3JpcHRzL3Bvc3RpbnN0
+LWludGVyY2VwdHMvdXBkYXRlX3VkZXZfaHdkYgpAQCAtMjAsNiArMjAsNiBAQCBjYXNlICIke1BS
+RUZFUlJFRF9QUk9WSURFUl91ZGV2fSIgaW4KIGVzYWMKIAogcm0gLWYgJEQke1VERVZMSUJESVJ9
+L3VkZXYvaHdkYi5iaW4KLVBTRVVET19VTkxPQUQ9MSAke2JpbnByZWZpeH1xZW11d3JhcHBlciAt
+TCAkRCAkRCR7VURFVkFETX0gaHdkYiAtLXVwZGF0ZSAtLXJvb3QgJEQgJHtVREVWX0VYVFJBX0FS
+R1N9IHx8CitQU0VVRE9fVU5MT0FEPTEgbGliMzItcWVtdXdyYXBwZXIgLUwgJEQgJEQke1VERVZB
+RE19IGh3ZGIgLS11cGRhdGUgLS1yb290ICREICR7VURFVl9FWFRSQV9BUkdTfSB8fAogCVBTRVVE
+T19VTkxPQUQ9MSBxZW11d3JhcHBlciAtTCAkRCAkRCR7VURFVkFETX0gaHdkYiAtLXVwZGF0ZSAt
+LXJvb3QgJEQgJHtVREVWX0VYVFJBX0FSR1N9CiBjaG93biByb290OnJvb3QgJEQke1VERVZMSUJE
+SVJ9L3VkZXYvaHdkYi5iaW4KLS0gCjIuMzQuMQoK
+
+--QAi2rYAUCH2IKtrMtdaK--
 
