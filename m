@@ -2,26 +2,28 @@ Return-Path: <teddyxiong53@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 31FB8C47072
-	for <webhook@archiver.kernel.org>; Wed, 27 Dec 2023 12:41:31 +0000 (UTC)
-Subject: qemuarm64 use lib64 as multilib 
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 305E3C46CD4
+	for <webhook@archiver.kernel.org>; Wed, 27 Dec 2023 12:44:01 +0000 (UTC)
+Subject: qemuarm64 use lib64 as multilib
 To: poky@lists.yoctoproject.org
 From: teddyxiong53@gmail.com
 X-Originating-Location: Shenzhen, Guangdong, CN (183.238.223.226)
 X-Originating-Platform: Windows Chrome 113
 User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Date: Wed, 27 Dec 2023 04:41:29 -0800
+Date: Wed, 27 Dec 2023 04:43:51 -0800
 Message-ID: <UCr5.1703680889704812095.gDfO@lists.yoctoproject.org>
+X-Old-Date: Wed, 27 Dec 2023 04:41:29 -0800
 Content-Type: multipart/alternative; boundary="P95Kobef2lyzP4ihjjj0"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 27 Dec 2023 12:41:31 -0000
+ <poky@lists.yoctoproject.org>; Wed, 27 Dec 2023 12:44:01 -0000
 X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13235
+Message-ID: <20231227124351.NWhZcd60SVCUvYVwiGS9x9C6eYMz3oUl68K4DWVMNuw@z>
 
 --P95Kobef2lyzP4ihjjj0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 Hey guys,
@@ -45,7 +47,7 @@ I know most people use lib64 as default, but I have to use lib32 as default=
 I have to use a 64bit kernel (including all kernel module), and all the use=
 rspace as 32bit.
 
-Now I bitbake yocto, I see this error.
+Now I bitbake linux-yocto to compile kernel, I see this error.
 ```
 ERROR: Nothing PROVIDES 'virtual/aarch64-poky-linux-binutils' (but /mnt/fil=
 eroot/hanliang.xiong/work/yocto-study/code/poky/meta/recipes-kernel/linux/l=
@@ -64,13 +66,13 @@ But it seems no such provider.
 Then how can I make it work?
 
 --P95Kobef2lyzP4ihjjj0
-Content-Type: text/html; charset="utf-8"
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 Hey guys,<br /><br />I use poky as the test environment. work on kirkstone =
 branch. test on qemuarm64.<br />I add this to local.conf<br />```<br />
 <div style=3D"color: #383a42; background-color: #fafafa; font-family: Conso=
-las, 'Courier New', monospace; line-height: 19px; white-space: pre;">
+las, 'Courier New', monospace;">
 <div><span style=3D"color: #a626a4;">require</span> conf/multilib.conf</div=
 >
 <div><span style=3D"color: #e45649;">MULTILIBS</span> =3D <span style=3D"co=
@@ -86,8 +88,8 @@ span> =3D <span style=3D"color: #50a14f;">"armv8a"</span></div>
  output 32bit file by default<br />bitbake lib64-attr: this output 64bit fi=
 le<br /><br />I know most people use lib64 as default, but I have to use li=
 b32 as default.<br />I have to use a 64bit kernel (including all kernel mod=
-ule), and all the userspace as 32bit.<br /><br />Now I bitbake yocto, I see=
- this error.<br />```<br />
+ule), and all the userspace as 32bit.<br /><br />Now I bitbake linux-yocto =
+to compile kernel, I see this error.<br />```<br />
 <div>ERROR: Nothing PROVIDES 'virtual/aarch64-poky-linux-binutils' (but /mn=
 t/fileroot/hanliang.xiong/work/yocto-study/code/poky/meta/recipes-kernel/li=
 nux/linux-yocto_5.15.bb DEPENDS on or otherwise requires it). Close matches=
@@ -101,7 +103,7 @@ nux/linux-yocto_5.15.bb DEPENDS on or otherwise requires it). Close matches=
 aarch64-poky-linux-binutils']</div>
 ```<br />The DEPENDS is from kernel.bbclass, it expands to virtual/aarch64-=
 poky-linux-binutils<br />But it seems no such provider.<br /><br />Then how=
- can I make it work?<br /><br />
+ can I make it work?
 
 --P95Kobef2lyzP4ihjjj0--
 
