@@ -1,109 +1,301 @@
-Return-Path: <teddyxiong53@gmail.com>
+Return-Path: <Qi.Chen@windriver.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 305E3C46CD4
-	for <webhook@archiver.kernel.org>; Wed, 27 Dec 2023 12:44:01 +0000 (UTC)
-Subject: qemuarm64 use lib64 as multilib
-To: poky@lists.yoctoproject.org
-From: teddyxiong53@gmail.com
-X-Originating-Location: Shenzhen, Guangdong, CN (183.238.223.226)
-X-Originating-Platform: Windows Chrome 113
-User-Agent: GROUPS.IO Web Poster
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2138C46CD4
+	for <webhook@archiver.kernel.org>; Thu, 28 Dec 2023 02:38:25 +0000 (UTC)
+Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com [205.220.166.238])
+ by mx.groups.io with SMTP id smtpd.web11.115966.1703731102646835062
+ for <poky@lists.yoctoproject.org>;
+ Wed, 27 Dec 2023 18:38:22 -0800
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@windriver.com header.s=PPS06212021 header.b=JzjZEweu;
+ spf=permerror, err=parse error for token &{10 18 %{ir}.%{v}.%{d}.spf.has.pphosted.com}: invalid domain name (domain: windriver.com, ip: 205.220.166.238, mailfrom: prvs=072696740c=qi.chen@windriver.com)
+Received: from pps.filterd (m0250809.ppops.net [127.0.0.1])
+	by mx0a-0064b401.pphosted.com (8.17.1.24/8.17.1.24) with ESMTP id 3BS2K3XY007528;
+	Wed, 27 Dec 2023 18:38:21 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+	 h=from:to:subject:date:message-id:references:in-reply-to
+	:content-type:mime-version; s=PPS06212021; bh=d/QajMp7vAQJVTETix
+	xl6lHEHC6wU0Lb8TfdrUKcbCs=; b=JzjZEweuFO/1yFpCmJzw4wM1kfNiukm9lT
+	VN+OaVfMT3j33dRDuBxSyegfr+lDLVewoe0DVTIMYtYP7dOkCY0h1TFOFNOQCyMr
+	ANzGP4zLYbeW66sjwq+pGvg8aElWserqBoXRgTxALS+ifGw+xrmZ5hLKonXWK8Dx
+	hdVetOn6818FBSouRXWPS3hbNeDfpPTXASnEngmbpXL5RxvLh3T/biK2Lbuy1WJQ
+	V3ttnREjb5IY3pva3CxUfBlmKZfqGavbW+QFx6i2N1Bxb3xaiu/erQ14n/3ADOvX
+	l3jorQRpd12uyloex9kzIcjSfAOMxkRQQCSOO5FCz1zZiQUxMhkQ==
+Received: from nam10-dm6-obe.outbound.protection.outlook.com (mail-dm6nam10lp2101.outbound.protection.outlook.com [104.47.58.101])
+	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 3v5yxm3fy4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 27 Dec 2023 18:38:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=H1NzvNZhMfu54fEcTFxnGSl6kJ7+2HHgjO480knsoOLWjcb8UyZkLFwlj+fjE/LeB8zTGC/nhMQxj52S/vx/rF69VH5eUWlgPwV86EBXVn1WoxTLRT0B9X6v5Uy8a03zVFo5M02LF/O0Xtp16B3Pv9ycFZCA/5n0mGjvwEMwKty+GvV9txRFnVDn4x/FthusBhxpv5gNP+6sq9kuNMD1YmRhDqMQpl/HvPVhysztxDFLrWSEYvcB2AlY/K9lanlFlQVz0wiEoijt4vTaQPJm1aO2/1CA3ONxswql4J41qh+AObDxGk/2Pj2extLxKD7+jCORuzLN1kwlE7ONKrsxnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d/QajMp7vAQJVTETixxl6lHEHC6wU0Lb8TfdrUKcbCs=;
+ b=RGqYmP8JQCS5MZnnLURgFwdVkQBENmC8+8xREuVTNt7xAfN0Mzv8RKPOyfpdKl3sLB4zil4qghhpNhsN5LMmRnFkRQS7jKRDcNvfCoh1fRXQ3lvt4ybscyuFd2X/k5QVHzvd4NARwclCOVRbfjTZiK6a7CyjuJmGx1GgobreGaPynRumBtJOAA2M9XPImy414YVRo00R5GzFs58WhICTNgQ8PjGz08XX3ATXvsf9NNMbazm7K/DM3asTDxmi+AT/I24lzCiXbZMcA3wiIXTLZzx8kmWBWfdoO/r1oNc3gUIUODev6nz9/45VwAjFw5L0McWGOk+dojhc3VrOU5k1lQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+Received: from CO6PR11MB5602.namprd11.prod.outlook.com (2603:10b6:303:13a::5)
+ by IA0PR11MB7258.namprd11.prod.outlook.com (2603:10b6:208:43d::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.27; Thu, 28 Dec
+ 2023 02:38:17 +0000
+Received: from CO6PR11MB5602.namprd11.prod.outlook.com
+ ([fe80::5d84:2b01:5029:9315]) by CO6PR11MB5602.namprd11.prod.outlook.com
+ ([fe80::5d84:2b01:5029:9315%6]) with mapi id 15.20.7135.017; Thu, 28 Dec 2023
+ 02:38:17 +0000
+From: "Chen, Qi" <Qi.Chen@windriver.com>
+To: "teddyxiong53@gmail.com" <teddyxiong53@gmail.com>,
+        "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+Subject: RE: [poky] qemuarm64 use lib64 as multilib
+Thread-Topic: [poky] qemuarm64 use lib64 as multilib
+Thread-Index: AQHaOMIJ7XAGbpfPQUKGpE2j5l6ugLC9+6nA
+Date: Thu, 28 Dec 2023 02:38:16 +0000
+Message-ID: 
+ <CO6PR11MB5602612BCA995AEAC901E5A6ED9EA@CO6PR11MB5602.namprd11.prod.outlook.com>
+References: <UCr5.1703680889704812095.gDfO@lists.yoctoproject.org>
+In-Reply-To: <UCr5.1703680889704812095.gDfO@lists.yoctoproject.org>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CO6PR11MB5602:EE_|IA0PR11MB7258:EE_
+x-ms-office365-filtering-correlation-id: 74ea3aa2-138e-44bd-108d-08dc074e0bfb
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ DzKKTpMfg67YBwhY86xHVsOEufQ1fbJDIH8ByCsjbSaW8L1QeplWzZNycGSGIUVbTYYmKM05+7e0FM/sCC7TSfvOscrXBhka37GJ7yXB1Xc7ZDsyqExvNfdYsJ/rxQqfEOneVDGfByzpo74BGr70jVRbvth5L3pBaJ1dl7TS0jUBqqd4saWfoyaOLe4pS1hq3WcZwveDw6t44U0NZa/Txvp8L5fG6zh3y+Giq1OJUHbeZTRJn9NzeB9P1C1rszFYcf6dW9FAI7ZgOCgV9bKYzBU7ck0M1twr9TjzGCTWZZRJSe1+egj9m1rDISO+g+FPaZAq0Z2p8FRu9PlerEZqaPe25xoXcbF1of+0GAicX+L8YtfZxv14S/wksuBhNPF2cojj4mpQugZ8JG2hJy3Ocm4I8cTN7kxPvEak1jNtqnMmq/tL1+TokNU5SsMWHWHnCawuwH8NguzdV99C0DLcBqbD2itqXNs1n5TsN0U1WBs3Lc34hD9JPHjSD2AECSxDcLkn+ypjn3eQfUQWtltr7dlzqIIYR73QUjlEVNJTxNclPULIl4g/h8ysmoaMy7eqjpAZTLjRYl5sblkpV7J2eHKmEqYsljz5W/s9ECnBjIn2xmKNzmM/b/k1nHjskoph
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO6PR11MB5602.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(39850400004)(346002)(136003)(376002)(396003)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(55016003)(33656002)(66476007)(64756008)(6506007)(53546011)(71200400001)(66446008)(76116006)(66946007)(66556008)(9686003)(38070700009)(86362001)(7696005)(26005)(38100700002)(122000001)(83380400001)(41300700001)(2906002)(8676002)(5660300002)(8936002)(478600001)(52536014)(110136005)(316002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?K28wSXI2UlFmYTM1emNHenl1czgxbVU2UjBJU3JvVVprQnZiMGpkYzVGL0Vs?=
+ =?utf-8?B?K01iN1cwSUFGU21NRHkrRDVuZUVVcmVwQTdxMzNwK1ZvTlE0YUZEeGo2cHpX?=
+ =?utf-8?B?TkZ1Q3dPMzcxR1QvTlpGRitrUkVHcDZOcHIrbFpZMGhkM0RBa3ZYcUZHazRt?=
+ =?utf-8?B?MFh5Q00waVZoTXV3NTE1UTlZZ1dGbTBHUHFQN3RHMVl0UzE4WStlczZ6cnhM?=
+ =?utf-8?B?UnlOQlFMUlZ5QnhOcXJHNnA2M2loNmFZbEZubVlrd0YyRktzWVZLckVqTTRI?=
+ =?utf-8?B?VUlDaWRQZ201Q1RpamhjT3VCWExpLzhmRjUxeFNONENVTTF1MUJMcEgybUJo?=
+ =?utf-8?B?bTJpVFhQVkN6QnBOS1BtaEt6LzhtWC8xQXhsdEJlUVpObkd2M05SZVUvcHNS?=
+ =?utf-8?B?cGRvclllMHhkUno1OUwzNjZyMnh1WkpwbjlGc0lyRldCYnpMVWNWWDRNQzBm?=
+ =?utf-8?B?dkV0d3FGTVc1bE1oNWtrYkJRd1htVUV0Q0N2MGNjWHp6SkxSd3dqbm5YMlNr?=
+ =?utf-8?B?OWtMVmhSdzNxTjNZYXpVT3BrYURhSGErekVmWTVRZkZaWjBvYW9LWlMxeith?=
+ =?utf-8?B?Q0NkNTkrZTlVUk9Hb0gzSGV6VU9ucUpFS2ZkNUt3SUpNalh0UkVZR2J0QU15?=
+ =?utf-8?B?Y1NmS3VPZjFvOGxpdlhydGtrbkdubWtIUVhQZnExMWladmJyYllmZEVCYTVo?=
+ =?utf-8?B?YUlicW03NU01cW4xMHB5Vzg0U2VYK3RZRUtZMHRZZGhoWWdUeFZsVmZWdlox?=
+ =?utf-8?B?MWhNK3NQWlM4eWp0aTRhQzNIT1B6NHpTTUdxaDhqdUxLRTlzMlB1My9JVkFx?=
+ =?utf-8?B?NHRnR2VCQkc5OXVYQVJEZmZkaE1SN2xtVTliblIwK1BybklUWjdBaWVXVEpo?=
+ =?utf-8?B?aGl6UnFONFlzT1VnMmFNUzJlYkM1Wm9LK0s1bkhpT1ovcHJpanhZeEFOVVBj?=
+ =?utf-8?B?K0QvYW82bTVRRWk3OHhUT0s4TGZjd2syTXk3ZHgyR0E1UjRPSks4ZS8wdGJ2?=
+ =?utf-8?B?aXFIeURGc1NjSGlXYnpUcGJmclhHZFl0dktmMWRVdTk3TjlVaUFJUTZidDlu?=
+ =?utf-8?B?aVByajRPY2MxWW1qMmJFZDJYenhLSDFoRCtJbjlhNEw0QXBKb24vT1V0c1JK?=
+ =?utf-8?B?UzF0QTRsMDZpd09jd2J0djlGTmpqRWh5ZWd4Y2RQUGphWFMzMTVtd2NtS1FO?=
+ =?utf-8?B?cm9tazlSUGQ1djNBSjgxUGZFdTNMZXpLNkM4UFJ2REY2K3NPR3FjMXpNRTF5?=
+ =?utf-8?B?aFlDMEZLTlEyWEw0M0trMDBvTVRtMm05V3JwS1lqVEpYa2xVcUJTL2NsYnlX?=
+ =?utf-8?B?UW5qaiszQjBJWjE5d1FDaDZzSG00clhYaTJkVkk5NTVLR1JwMjRodEZoTXVL?=
+ =?utf-8?B?eDZjOStDdmZnbXNpS0VJbzlrVnZzTFhMbkwrMzlPZGRGS1RCT29tWVJSQlF6?=
+ =?utf-8?B?ZlRGc044dmovVURaTEJ0ZmZUemR5WjJuRjZEQU1zTXJndFNjZjlXck1naWNB?=
+ =?utf-8?B?ckZ4cEpQVHVsN3A3dnhleGZPMUNiRU94SjNuaG9TVndtVjNEZTg5bFA4Mkhr?=
+ =?utf-8?B?eG5xa3JGcVdodnFkdXlHU0hkUTZmaWtIbEtCWWYwNTFiRng3QzdsaElyQ2R6?=
+ =?utf-8?B?cmJNSlRhYW1MTmp5b0Z3NExiMWltc0IvbnZMdUMyaUhid1YyWnl0VVZYSTQ5?=
+ =?utf-8?B?ZGUrbFpTV3JMNWFsVGhraHhxSHdQbkVwQ3JWbUdlNjBzYlYrVG45MWR3M0pE?=
+ =?utf-8?B?Zitjc00rV1IvSnZSVVd4TTk0SUJ3TXdRNXIyTmVCeE9NTGcxT2V2dkgrbHdh?=
+ =?utf-8?B?UEtpVkdwdFVLNFBqRDZJNHlxUlR0R2F5TWRENXh0SzNLQjhNZFF0Y2MycVdU?=
+ =?utf-8?B?eXo0S08yL2VhREovUHFKYjFwZy85QzFnejNMNURNbFV6aTdXZ0UvVGdoZ3Z2?=
+ =?utf-8?B?U1FnZm1JS3BJeWpxUjBDbSsxa25SQ1JNRzFKWVIzcW5RdTZjaWlFSEVOK2Z3?=
+ =?utf-8?B?ZEpxUnhwaDBFNy82SGp1L1dQUmUrVDF6cGw4aFBJN282bzZqcitWVlh3OFN0?=
+ =?utf-8?B?WlpTVjZTMVdTMzlzL2VEeEN5M3Q0UG9LdGRCVE1hTG0zNVgvbzJONWZ5SFBu?=
+ =?utf-8?Q?pYBGrLBNDnG/C1biAGurRNGnR?=
+Content-Type: multipart/alternative;
+	boundary="_000_CO6PR11MB5602612BCA995AEAC901E5A6ED9EACO6PR11MB5602namp_"
 MIME-Version: 1.0
-Date: Wed, 27 Dec 2023 04:43:51 -0800
-Message-ID: <UCr5.1703680889704812095.gDfO@lists.yoctoproject.org>
-X-Old-Date: Wed, 27 Dec 2023 04:41:29 -0800
-Content-Type: multipart/alternative; boundary="P95Kobef2lyzP4ihjjj0"
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CO6PR11MB5602.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74ea3aa2-138e-44bd-108d-08dc074e0bfb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Dec 2023 02:38:16.9196
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: SNIYsy30eG9l9sIZblZALrn1SRvRo0vBlWGPmWh1xOzj9cfxBVLwHhz01jnAL0Ho+ltSfFdvIJjvx3JMf1PGFg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7258
+X-Proofpoint-GUID: VzBURSBZNj6Qdkra98V5ip61VWiYb3lY
+X-Proofpoint-ORIG-GUID: VzBURSBZNj6Qdkra98V5ip61VWiYb3lY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.272,Aquarius:18.0.987,Hydra:6.0.619,FMLib:17.11.176.26
+ definitions=2023-11-16_25,2023-11-16_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxlogscore=637
+ priorityscore=1501 mlxscore=0 bulkscore=0 impostorscore=0 adultscore=0
+ clxscore=1011 phishscore=0 spamscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.19.0-2311290000 definitions=main-2312280020
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 27 Dec 2023 12:44:01 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13235
-Message-ID: <20231227124351.NWhZcd60SVCUvYVwiGS9x9C6eYMz3oUl68K4DWVMNuw@z>
+ <poky@lists.yoctoproject.org>; Thu, 28 Dec 2023 02:38:25 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13236
 
---P95Kobef2lyzP4ihjjj0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+--_000_CO6PR11MB5602612BCA995AEAC901E5A6ED9EACO6PR11MB5602namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hey guys,
+SG93IGFib3V0IGVuYWJsaW5nIG11bHRpbGliIGluIGEgbm9ybWFsIHdheSBhbmQgdGhlbiDigJhi
+aXRiYWtlIGxpYjMyLWNvcmUtaW1hZ2UteHh44oCZPw0KDQpSZWdhcmRzLA0KUWkNCg0KRnJvbTog
+cG9reUBsaXN0cy55b2N0b3Byb2plY3Qub3JnIDxwb2t5QGxpc3RzLnlvY3RvcHJvamVjdC5vcmc+
+IE9uIEJlaGFsZiBPZiB0ZWRkeXhpb25nNTMgdmlhIGxpc3RzLnlvY3RvcHJvamVjdC5vcmcNClNl
+bnQ6IFdlZG5lc2RheSwgRGVjZW1iZXIgMjcsIDIwMjMgODo0MSBQTQ0KVG86IHBva3lAbGlzdHMu
+eW9jdG9wcm9qZWN0Lm9yZw0KU3ViamVjdDogW3Bva3ldIHFlbXVhcm02NCB1c2UgbGliNjQgYXMg
+bXVsdGlsaWINCg0KSGV5IGd1eXMsDQoNCkkgdXNlIHBva3kgYXMgdGhlIHRlc3QgZW52aXJvbm1l
+bnQuIHdvcmsgb24ga2lya3N0b25lIGJyYW5jaC4gdGVzdCBvbiBxZW11YXJtNjQuDQpJIGFkZCB0
+aGlzIHRvIGxvY2FsLmNvbmYNCmBgYA0KDQpyZXF1aXJlIGNvbmYvbXVsdGlsaWIuY29uZg0KDQpN
+VUxUSUxJQlMgPSAibXVsdGlsaWI6bGliNjQiDQoNCkRFRkFVTFRUVU5FID0gImFybXY3YXRoZi1u
+ZW9uIg0KDQpERUZBVUxUVFVORTp2aXJ0Y2xhc3MtbXVsdGlsaWItbGliNjQgPSAiYXJtdjhhIg0K
+DQpERUZBVUxUVFVORTpwbi1saW51eC15b2N0byA9ICJhcm12OGEiDQoNCmBgYA0KSSB3aXNoIHRv
+IHVzZSBhcyB0aGlzIDoNCmJpdGJha2UgYXR0ciAgIDogdGhpcyB3b3VsZCBvdXRwdXQgMzJiaXQg
+ZmlsZSBieSBkZWZhdWx0DQpiaXRiYWtlIGxpYjY0LWF0dHI6IHRoaXMgb3V0cHV0IDY0Yml0IGZp
+bGUNCg0KSSBrbm93IG1vc3QgcGVvcGxlIHVzZSBsaWI2NCBhcyBkZWZhdWx0LCBidXQgSSBoYXZl
+IHRvIHVzZSBsaWIzMiBhcyBkZWZhdWx0Lg0KSSBoYXZlIHRvIHVzZSBhIDY0Yml0IGtlcm5lbCAo
+aW5jbHVkaW5nIGFsbCBrZXJuZWwgbW9kdWxlKSwgYW5kIGFsbCB0aGUgdXNlcnNwYWNlIGFzIDMy
+Yml0Lg0KDQpOb3cgSSBiaXRiYWtlIHlvY3RvLCBJIHNlZSB0aGlzIGVycm9yLg0KYGBgDQpFUlJP
+UjogTm90aGluZyBQUk9WSURFUyAndmlydHVhbC9hYXJjaDY0LXBva3ktbGludXgtYmludXRpbHMn
+IChidXQgL21udC9maWxlcm9vdC9oYW5saWFuZy54aW9uZy93b3JrL3lvY3RvLXN0dWR5L2NvZGUv
+cG9reS9tZXRhL3JlY2lwZXMta2VybmVsL2xpbnV4L2xpbnV4LXlvY3RvXzUuMTUuYmIgREVQRU5E
+UyBvbiBvciBvdGhlcndpc2UgcmVxdWlyZXMgaXQpLiBDbG9zZSBtYXRjaGVzOg0KICB2aXJ0dWFs
+L2FybS1wb2t5LWxpbnV4LWdudWVhYmktYmludXRpbHMNCiAgdmlydHVhbC9hcm0tcG9reS1saW51
+eC1nbnVlYWJpLXJ1c3QNCiAgdmlydHVhbC9saWI2NC1hYXJjaDY0LXBva3ltbGxpYjY0LWxpbnV4
+LWJpbnV0aWxzDQpFUlJPUjogUmVxdWlyZWQgYnVpbGQgdGFyZ2V0ICdsaW51eC15b2N0bycgaGFz
+IG5vIGJ1aWxkYWJsZSBwcm92aWRlcnMuDQpNaXNzaW5nIG9yIHVuYnVpbGRhYmxlIGRlcGVuZGVu
+Y3kgY2hhaW4gd2FzOiBbJ2xpbnV4LXlvY3RvJywgJ3ZpcnR1YWwvYWFyY2g2NC1wb2t5LWxpbnV4
+LWJpbnV0aWxzJ10NCmBgYA0KVGhlIERFUEVORFMgaXMgZnJvbSBrZXJuZWwuYmJjbGFzcywgaXQg
+ZXhwYW5kcyB0byB2aXJ0dWFsL2FhcmNoNjQtcG9reS1saW51eC1iaW51dGlscw0KQnV0IGl0IHNl
+ZW1zIG5vIHN1Y2ggcHJvdmlkZXIuDQoNClRoZW4gaG93IGNhbiBJIG1ha2UgaXQgd29yaz8NCg==
 
-I use poky as the test environment. work on kirkstone branch. test on qemua=
-rm64.
-I add this to local.conf
-```
-require conf/multilib.conf
-MULTILIBS =3D "multilib:lib64"
-DEFAULTTUNE =3D "armv7athf-neon"
-DEFAULTTUNE:virtclass-multilib-lib64 =3D "armv8a"
-DEFAULTTUNE:pn-linux-yocto =3D "armv8a"
-```
-I wish to use as this :
-bitbake attr=C2=A0 =C2=A0: this would output 32bit file by default
-bitbake lib64-attr: this output 64bit file
+--_000_CO6PR11MB5602612BCA995AEAC901E5A6ED9EACO6PR11MB5602namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-I know most people use lib64 as default, but I have to use lib32 as default=
-.
-I have to use a 64bit kernel (including all kernel module), and all the use=
-rspace as 32bit.
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5Ouetiee6vzsNCglwYW5vc2UtMToyIDEgNiAwIDMgMSAxIDEgMSAx
+O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUg
+MiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OkNvbnNvbGFzOw0KCXBh
+bm9zZS0xOjIgMTEgNiA5IDIgMiA0IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IlxA562J57q/IjsNCglwYW5vc2UtMToyIDEgNiAwIDMgMSAxIDEgMSAxO30NCi8qIFN0eWxlIERl
+ZmluaXRpb25zICovDQpwLk1zb05vcm1hbCwgbGkuTXNvTm9ybWFsLCBkaXYuTXNvTm9ybWFsDQoJ
+e21hcmdpbjowaW47DQoJZm9udC1zaXplOjExLjBwdDsNCglmb250LWZhbWlseToiQ2FsaWJyaSIs
+c2Fucy1zZXJpZjt9DQpzcGFuLkVtYWlsU3R5bGUxOA0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25h
+bC1yZXBseTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsNCgljb2xvcjp3aW5k
+b3d0ZXh0O30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0K
+CWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmO30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0K
+CXtzaXplOjguNWluIDExLjBpbjsNCgltYXJnaW46MS4waW4gMS4yNWluIDEuMGluIDEuMjVpbjt9
+DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+PCEt
+LVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBzcGlk
+bWF4PSIxMDI2IiAvPg0KPC94bWw+PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+
+DQo8bzpzaGFwZWxheW91dCB2OmV4dD0iZWRpdCI+DQo8bzppZG1hcCB2OmV4dD0iZWRpdCIgZGF0
+YT0iMSIgLz4NCjwvbzpzaGFwZWxheW91dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4NCjxi
+b2R5IGxhbmc9IkVOLVVTIiBsaW5rPSIjMDU2M0MxIiB2bGluaz0iIzk1NEY3MiIgc3R5bGU9Indv
+cmQtd3JhcDpicmVhay13b3JkIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIj5Ib3cgYWJvdXQgZW5hYmxpbmcgbXVsdGlsaWIgaW4gYSBub3JtYWwgd2F5
+IGFuZCB0aGVuIOKAmGJpdGJha2UgbGliMzItY29yZS1pbWFnZS14eHjigJk/PG86cD48L286cD48
+L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiPlJlZ2FyZHMsPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij5RaTxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286
+cD48L3A+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItdG9wOnNvbGlkICNFMUUxRTEg
+MS4wcHQ7cGFkZGluZzozLjBwdCAwaW4gMGluIDBpbiI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
+Yj5Gcm9tOjwvYj4gcG9reUBsaXN0cy55b2N0b3Byb2plY3Qub3JnICZsdDtwb2t5QGxpc3RzLnlv
+Y3RvcHJvamVjdC5vcmcmZ3Q7DQo8Yj5PbiBCZWhhbGYgT2YgPC9iPnRlZGR5eGlvbmc1MyB2aWEg
+bGlzdHMueW9jdG9wcm9qZWN0Lm9yZzxicj4NCjxiPlNlbnQ6PC9iPiBXZWRuZXNkYXksIERlY2Vt
+YmVyIDI3LCAyMDIzIDg6NDEgUE08YnI+DQo8Yj5Ubzo8L2I+IHBva3lAbGlzdHMueW9jdG9wcm9q
+ZWN0Lm9yZzxicj4NCjxiPlN1YmplY3Q6PC9iPiBbcG9reV0gcWVtdWFybTY0IHVzZSBsaWI2NCBh
+cyBtdWx0aWxpYjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48
+bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkhleSBndXlzLDxicj4N
+Cjxicj4NCkkgdXNlIHBva3kgYXMgdGhlIHRlc3QgZW52aXJvbm1lbnQuIHdvcmsgb24ga2lya3N0
+b25lIGJyYW5jaC4gdGVzdCBvbiBxZW11YXJtNjQuPGJyPg0KSSBhZGQgdGhpcyB0byBsb2NhbC5j
+b25mPGJyPg0KYGBgPG86cD48L286cD48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIg
+c3R5bGU9ImxpbmUtaGVpZ2h0OjE0LjI1cHQ7YmFja2dyb3VuZDojRkFGQUZBIj48c3BhbiBzdHls
+ZT0iZm9udC1mYW1pbHk6Q29uc29sYXM7Y29sb3I6IzM4M0E0MiI+PG86cD4mbmJzcDs8L286cD48
+L3NwYW4+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJsaW5lLWhlaWdo
+dDoxNC4yNXB0O2JhY2tncm91bmQ6I0ZBRkFGQSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OkNv
+bnNvbGFzO2NvbG9yOiNBNjI2QTQiPnJlcXVpcmU8L3NwYW4+PHNwYW4gc3R5bGU9ImZvbnQtZmFt
+aWx5OkNvbnNvbGFzO2NvbG9yOiMzODNBNDIiPiBjb25mL211bHRpbGliLmNvbmY8bzpwPjwvbzpw
+Pjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJsaW5lLWhl
+aWdodDoxNC4yNXB0O2JhY2tncm91bmQ6I0ZBRkFGQSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5
+OkNvbnNvbGFzO2NvbG9yOiMzODNBNDIiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxk
+aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibGluZS1oZWlnaHQ6MTQuMjVwdDtiYWNr
+Z3JvdW5kOiNGQUZBRkEiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTpDb25zb2xhcztjb2xvcjoj
+RTQ1NjQ5Ij5NVUxUSUxJQlM8L3NwYW4+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OkNvbnNvbGFz
+O2NvbG9yOiMzODNBNDIiPiA9DQo8L3NwYW4+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OkNvbnNv
+bGFzO2NvbG9yOiM1MEExNEYiPiZxdW90O211bHRpbGliOmxpYjY0JnF1b3Q7PC9zcGFuPjxzcGFu
+IHN0eWxlPSJmb250LWZhbWlseTpDb25zb2xhcztjb2xvcjojMzgzQTQyIj48bzpwPjwvbzpwPjwv
+c3Bhbj48L3A+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJsaW5lLWhlaWdo
+dDoxNC4yNXB0O2JhY2tncm91bmQ6I0ZBRkFGQSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OkNv
+bnNvbGFzO2NvbG9yOiMzODNBNDIiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxkaXY+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibGluZS1oZWlnaHQ6MTQuMjVwdDtiYWNrZ3Jv
+dW5kOiNGQUZBRkEiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTpDb25zb2xhcztjb2xvcjojRTQ1
+NjQ5Ij5ERUZBVUxUVFVORTwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6Q29uc29sYXM7
+Y29sb3I6IzM4M0E0MiI+ID0NCjwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6Q29uc29s
+YXM7Y29sb3I6IzUwQTE0RiI+JnF1b3Q7YXJtdjdhdGhmLW5lb24mcXVvdDs8L3NwYW4+PHNwYW4g
+c3R5bGU9ImZvbnQtZmFtaWx5OkNvbnNvbGFzO2NvbG9yOiMzODNBNDIiPjxvOnA+PC9vOnA+PC9z
+cGFuPjwvcD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImxpbmUtaGVpZ2h0
+OjE0LjI1cHQ7YmFja2dyb3VuZDojRkFGQUZBIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6Q29u
+c29sYXM7Y29sb3I6IzM4M0E0MiI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPGRpdj4N
+CjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJsaW5lLWhlaWdodDoxNC4yNXB0O2JhY2tncm91
+bmQ6I0ZBRkFGQSI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OkNvbnNvbGFzO2NvbG9yOiNFNDU2
+NDkiPkRFRkFVTFRUVU5FOnZpcnRjbGFzcy1tdWx0aWxpYi1saWI2NDwvc3Bhbj48c3BhbiBzdHls
+ZT0iZm9udC1mYW1pbHk6Q29uc29sYXM7Y29sb3I6IzM4M0E0MiI+ID0NCjwvc3Bhbj48c3BhbiBz
+dHlsZT0iZm9udC1mYW1pbHk6Q29uc29sYXM7Y29sb3I6IzUwQTE0RiI+JnF1b3Q7YXJtdjhhJnF1
+b3Q7PC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTpDb25zb2xhcztjb2xvcjojMzgzQTQy
+Ij48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0
+eWxlPSJsaW5lLWhlaWdodDoxNC4yNXB0O2JhY2tncm91bmQ6I0ZBRkFGQSI+PHNwYW4gc3R5bGU9
+ImZvbnQtZmFtaWx5OkNvbnNvbGFzO2NvbG9yOiMzODNBNDIiPjxvOnA+Jm5ic3A7PC9vOnA+PC9z
+cGFuPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibGluZS1oZWlnaHQ6
+MTQuMjVwdDtiYWNrZ3JvdW5kOiNGQUZBRkEiPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTpDb25z
+b2xhcztjb2xvcjojRTQ1NjQ5Ij5ERUZBVUxUVFVORTpwbi1saW51eC15b2N0bzwvc3Bhbj48c3Bh
+biBzdHlsZT0iZm9udC1mYW1pbHk6Q29uc29sYXM7Y29sb3I6IzM4M0E0MiI+ID0NCjwvc3Bhbj48
+c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6Q29uc29sYXM7Y29sb3I6IzUwQTE0RiI+JnF1b3Q7YXJt
+djhhJnF1b3Q7PC9zcGFuPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTpDb25zb2xhcztjb2xvcjoj
+MzgzQTQyIj48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3Jt
+YWwiIHN0eWxlPSJsaW5lLWhlaWdodDoxNC4yNXB0O2JhY2tncm91bmQ6I0ZBRkFGQSI+PHNwYW4g
+c3R5bGU9ImZvbnQtZmFtaWx5OkNvbnNvbGFzO2NvbG9yOiMzODNBNDIiPjxvOnA+Jm5ic3A7PC9v
+OnA+PC9zcGFuPjwvcD4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+YGBgPGJyPg0KSSB3
+aXNoIHRvIHVzZSBhcyB0aGlzIDo8YnI+DQpiaXRiYWtlIGF0dHImbmJzcDsgJm5ic3A7OiB0aGlz
+IHdvdWxkIG91dHB1dCAzMmJpdCBmaWxlIGJ5IGRlZmF1bHQ8YnI+DQpiaXRiYWtlIGxpYjY0LWF0
+dHI6IHRoaXMgb3V0cHV0IDY0Yml0IGZpbGU8YnI+DQo8YnI+DQpJIGtub3cgbW9zdCBwZW9wbGUg
+dXNlIGxpYjY0IGFzIGRlZmF1bHQsIGJ1dCBJIGhhdmUgdG8gdXNlIGxpYjMyIGFzIGRlZmF1bHQu
+PGJyPg0KSSBoYXZlIHRvIHVzZSBhIDY0Yml0IGtlcm5lbCAoaW5jbHVkaW5nIGFsbCBrZXJuZWwg
+bW9kdWxlKSwgYW5kIGFsbCB0aGUgdXNlcnNwYWNlIGFzIDMyYml0Ljxicj4NCjxicj4NCk5vdyBJ
+IGJpdGJha2UgeW9jdG8sIEkgc2VlIHRoaXMgZXJyb3IuPGJyPg0KYGBgPG86cD48L286cD48L3A+
+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+RVJST1I6IE5vdGhpbmcgUFJPVklERVMgJ3Zp
+cnR1YWwvYWFyY2g2NC1wb2t5LWxpbnV4LWJpbnV0aWxzJyAoYnV0IC9tbnQvZmlsZXJvb3QvaGFu
+bGlhbmcueGlvbmcvd29yay95b2N0by1zdHVkeS9jb2RlL3Bva3kvbWV0YS9yZWNpcGVzLWtlcm5l
+bC9saW51eC9saW51eC15b2N0b181LjE1LmJiIERFUEVORFMgb24gb3Igb3RoZXJ3aXNlIHJlcXVp
+cmVzIGl0KS4gQ2xvc2UgbWF0Y2hlczo8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxw
+IGNsYXNzPSJNc29Ob3JtYWwiPiZuYnNwOyB2aXJ0dWFsL2FybS1wb2t5LWxpbnV4LWdudWVhYmkt
+YmludXRpbHM8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3Jt
+YWwiPiZuYnNwOyB2aXJ0dWFsL2FybS1wb2t5LWxpbnV4LWdudWVhYmktcnVzdDxvOnA+PC9vOnA+
+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Jm5ic3A7IHZpcnR1YWwv
+bGliNjQtYWFyY2g2NC1wb2t5bWxsaWI2NC1saW51eC1iaW51dGlsczxvOnA+PC9vOnA+PC9wPg0K
+PC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+RVJST1I6IFJlcXVpcmVkIGJ1aWxk
+IHRhcmdldCAnbGludXgteW9jdG8nIGhhcyBubyBidWlsZGFibGUgcHJvdmlkZXJzLjxvOnA+PC9v
+OnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+TWlzc2luZyBvciB1
+bmJ1aWxkYWJsZSBkZXBlbmRlbmN5IGNoYWluIHdhczogWydsaW51eC15b2N0bycsICd2aXJ0dWFs
+L2FhcmNoNjQtcG9reS1saW51eC1iaW51dGlscyddPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxw
+IGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tYm90dG9tOjEyLjBwdCI+YGBgPGJyPg0K
+VGhlIERFUEVORFMgaXMgZnJvbSBrZXJuZWwuYmJjbGFzcywgaXQgZXhwYW5kcyB0byB2aXJ0dWFs
+L2FhcmNoNjQtcG9reS1saW51eC1iaW51dGlsczxicj4NCkJ1dCBpdCBzZWVtcyBubyBzdWNoIHBy
+b3ZpZGVyLjxicj4NCjxicj4NClRoZW4gaG93IGNhbiBJIG1ha2UgaXQgd29yaz88bzpwPjwvbzpw
+PjwvcD4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
 
-Now I bitbake linux-yocto to compile kernel, I see this error.
-```
-ERROR: Nothing PROVIDES 'virtual/aarch64-poky-linux-binutils' (but /mnt/fil=
-eroot/hanliang.xiong/work/yocto-study/code/poky/meta/recipes-kernel/linux/l=
-inux-yocto_5.15.bb DEPENDS on or otherwise requires it). Close matches:
-virtual/arm-poky-linux-gnueabi-binutils
-virtual/arm-poky-linux-gnueabi-rust
-virtual/lib64-aarch64-pokymllib64-linux-binutils
-ERROR: Required build target 'linux-yocto' has no buildable providers.
-Missing or unbuildable dependency chain was: ['linux-yocto', 'virtual/aarch=
-64-poky-linux-binutils']
-```
-The DEPENDS is from kernel.bbclass, it expands to virtual/aarch64-poky-linu=
-x-binutils
-But it seems no such provider.
-
-Then how can I make it work?
-
---P95Kobef2lyzP4ihjjj0
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-Hey guys,<br /><br />I use poky as the test environment. work on kirkstone =
-branch. test on qemuarm64.<br />I add this to local.conf<br />```<br />
-<div style=3D"color: #383a42; background-color: #fafafa; font-family: Conso=
-las, 'Courier New', monospace;">
-<div><span style=3D"color: #a626a4;">require</span> conf/multilib.conf</div=
->
-<div><span style=3D"color: #e45649;">MULTILIBS</span> =3D <span style=3D"co=
-lor: #50a14f;">"multilib:lib64"</span></div>
-<div><span style=3D"color: #e45649;">DEFAULTTUNE</span> =3D <span style=3D"=
-color: #50a14f;">"armv7athf-neon"</span></div>
-<div><span style=3D"color: #e45649;">DEFAULTTUNE:virtclass-multilib-lib64</=
-span> =3D <span style=3D"color: #50a14f;">"armv8a"</span></div>
-<div><span style=3D"color: #e45649;">DEFAULTTUNE:pn-linux-yocto</span> =3D =
-<span style=3D"color: #50a14f;">"armv8a"</span></div>
-</div>
-```<br />I wish to use as this :<br />bitbake attr&nbsp; &nbsp;: this would=
- output 32bit file by default<br />bitbake lib64-attr: this output 64bit fi=
-le<br /><br />I know most people use lib64 as default, but I have to use li=
-b32 as default.<br />I have to use a 64bit kernel (including all kernel mod=
-ule), and all the userspace as 32bit.<br /><br />Now I bitbake linux-yocto =
-to compile kernel, I see this error.<br />```<br />
-<div>ERROR: Nothing PROVIDES 'virtual/aarch64-poky-linux-binutils' (but /mn=
-t/fileroot/hanliang.xiong/work/yocto-study/code/poky/meta/recipes-kernel/li=
-nux/linux-yocto_5.15.bb DEPENDS on or otherwise requires it). Close matches=
-:</div>
-<div>&nbsp; virtual/arm-poky-linux-gnueabi-binutils</div>
-<div>&nbsp; virtual/arm-poky-linux-gnueabi-rust</div>
-<div>&nbsp; virtual/lib64-aarch64-pokymllib64-linux-binutils</div>
-<div>ERROR: Required build target 'linux-yocto' has no buildable providers.=
-</div>
-<div>Missing or unbuildable dependency chain was: ['linux-yocto', 'virtual/=
-aarch64-poky-linux-binutils']</div>
-```<br />The DEPENDS is from kernel.bbclass, it expands to virtual/aarch64-=
-poky-linux-binutils<br />But it seems no such provider.<br /><br />Then how=
- can I make it work?
-
---P95Kobef2lyzP4ihjjj0--
+--_000_CO6PR11MB5602612BCA995AEAC901E5A6ED9EACO6PR11MB5602namp_--
 
