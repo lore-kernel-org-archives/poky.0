@@ -1,94 +1,117 @@
-Return-Path: <alexandre.belloni@bootlin.com>
+Return-Path: <teddyxiong53@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45DE7C46CD2
-	for <webhook@archiver.kernel.org>; Tue,  2 Jan 2024 18:17:39 +0000 (UTC)
-Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net [217.70.183.195])
- by mx.groups.io with SMTP id smtpd.web10.35669.1704219451033527354
- for <poky@lists.yoctoproject.org>;
- Tue, 02 Jan 2024 10:17:31 -0800
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@bootlin.com header.s=gm1 header.b=i5iRed6I;
- spf=pass (domain: bootlin.com, ip: 217.70.183.195, mailfrom: alexandre.belloni@bootlin.com)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id B960560002;
-	Tue,  2 Jan 2024 18:17:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=gm1;
-	t=1704219449;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1V07MmZI1bB7knCYcxwy8T8jTUau5T1jEuuXByssTt0=;
-	b=i5iRed6Iupbzzu3AxqRsXHTTKBsxEWzjqYB9yUdInOtgST+iRPwrWmi76MhOOy86zvvxj7
-	K4opes5gva52EbsrsS34VxNgwpnG49yAuDo6Gg7y04uBe+qanp7rw4c7Jw/AKEhVZJwY59
-	pe9p1j5IwMCOCprtpfDRVbxJgJh9pfYt9ptrfqXMFAqaz3YlE2n19VfSwbDAQKVYyj7DSf
-	MnZz4WRlDCc6CnnMrytf5jGN6v/eoeJbL8WZ5tPcz99JBySCql81H6olXdoeN+L9et+svS
-	ip8xZHMVlT52IxBt4d2CW6GghMqDNTI20aqA+RqofyIzYtk77IKPPYghNFLCcg==
-Date: Tue, 2 Jan 2024 19:17:26 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: kexin.hao@windriver.com
-Cc: Richard Purdie <richard.purdie@linuxfoundation.org>,
-	Robert Berger <pokylinux@reliableembeddedsystems.com>,
-	poky@lists.yoctoproject.org
-Subject: Re: [poky] [PATCH 1/2] beaglebone-yocto: Remove the redundant
- kernel-devicetree
-Message-ID: <20240102181616f254329b@mail.local>
-References: <20240102115709.4165033-1-kexin.hao@windriver.com>
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C762DC3DA6E
+	for <webhook@archiver.kernel.org>; Wed,  3 Jan 2024 12:27:34 +0000 (UTC)
+Subject: Re: qemuarm64 use lib64 as multilib
+To: poky@lists.yoctoproject.org
+From: teddyxiong53@gmail.com
+X-Originating-Location: Shenzhen, Guangdong, CN (183.238.223.226)
+X-Originating-Platform: Windows Chrome 113
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240102115709.4165033-1-kexin.hao@windriver.com>
-X-GND-Sasl: alexandre.belloni@bootlin.com
+Date: Wed, 03 Jan 2024 04:27:24 -0800
+References: <20231228212126346a51ea@mail.local>
+In-Reply-To: <20231228212126346a51ea@mail.local>
+Message-ID: <19798.1704284844567109905@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="s5pVnk4TnE6donlgl3Li"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 02 Jan 2024 18:17:39 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13241
+ <poky@lists.yoctoproject.org>; Wed, 03 Jan 2024 12:27:34 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13242
 
-Please follow https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html#fixing-your-from-identity
+--s5pVnk4TnE6donlgl3Li
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 02/01/2024 19:57:08+0800, Kevin Hao via lists.yoctoproject.org wrote:
-> The kernel-devicetree is set in both MACHINE_ESSENTIAL_EXTRA_RDEPENDS
-> and MACHINE_EXTRA_RRECOMMENDS. Since it is an essential package for
-> boot, drop the one in MACHINE_EXTRA_RRECOMMENDS.
-> 
-> [YOCTO #15229]
-> 
-> Signed-off-by: Kevin Hao <kexin.hao@windriver.com>
-> ---
->  meta-yocto-bsp/conf/machine/beaglebone-yocto.conf | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> index 9f389711b3b4..0c1741235368 100644
-> --- a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> +++ b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> @@ -4,7 +4,7 @@
->  
->  PREFERRED_PROVIDER_virtual/xserver ?= "xserver-xorg"
->  
-> -MACHINE_EXTRA_RRECOMMENDS = "kernel-modules kernel-devicetree"
-> +MACHINE_EXTRA_RRECOMMENDS = "kernel-modules"
->  
->  EXTRA_IMAGEDEPENDS += "virtual/bootloader"
->  
-> -- 
-> 2.39.2
-> 
+I have made it works with 64bit kernel and pure 32bit userspace
 
-> 
-> -=-=-=-=-=-=-=-=-=-=-=-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13239): https://lists.yoctoproject.org/g/poky/message/13239
-> Mute This Topic: https://lists.yoctoproject.org/mt/103479682/3617179
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alexandre.belloni@bootlin.com]
-> -=-=-=-=-=-=-=-=-=-=-=-
-> 
+The solution is as below:
+1. write a bbclass file for kernel and moduel recipe file to inherit.
+```
+PATH:prepend =3D "/toolchain/gcc/linux-x86/aarch64/gcc-arm-10.2-2020.11-x86=
+_64-aarch64-none-linux-gnu/bin:"
+export PATH
+export UBOOT_ARCH =3D "arm64"
+export ARCH =3D "arm64"
+export CROSS_COMPILE =3D "aarch64-none-linux-gnu-"
+export STRIP =3D "aarch64-none-linux-gnu-strip"
+export OBJDUMP =3D "aarch64-none-linux-gnu-objdump"
+export OBJCOPY =3D "aarch64-none-linux-gnu-objcopy"
 
+KERNEL_CC =3D "aarch64-none-linux-gnu-gcc"
+KERNEL_LD =3D "aarch64-none-linux-gnu-ld"
+KERNEL_AR =3D "aarch64-none-linux-gnu-ar"
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+# do_package[noexec] =3D "1"
+# do_package_write_ipk[noexec] =3D "1"
+# do_packagedata[noexec] =3D "1"
+do_package_qa[noexec] =3D "1"
+```
+2. Adjust the kernel and module compile command
+3. Modify a little code in poky to adjust the toolchain name.=C2=A0kernel-m=
+odule-split.bbclass
+```
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 cmd =3D "%sobjcopy -j .modinfo -=
+O binary %s %s" % (d.getVar("HOST_PREFIX") or "", tmpkofile, tmpfile)
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 cmd =3D "%sobjcopy -j .modinfo -=
+O binary %s %s" % ("aarch64-none-linux-gnu-", tmpkofile, tmpfile)
+```
+
+--s5pVnk4TnE6donlgl3Li
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+I have made it works with 64bit kernel and pure 32bit userspace<br /><br />=
+The solution is as below:<br />1. write a bbclass file for kernel and modue=
+l recipe file to inherit.<br />```<br />
+<div style=3D"color: #383a42; background-color: #fafafa; font-family: Conso=
+las, 'Courier New', monospace; line-height: 19px; white-space: pre;">
+<div><span style=3D"color: #e45649;">PATH:prepend</span> =3D <span style=3D=
+"color: #50a14f;">"/toolchain/gcc/linux-x86/aarch64/gcc-arm-10.2-2020.11-x8=
+6_64-aarch64-none-linux-gnu/bin:"</span></div>
+<div>export <span style=3D"color: #986801;">PATH</span></div>
+<div>export <span style=3D"color: #986801;">UBOOT_ARCH</span>=3D<span style=
+=3D"color: #50a14f;">"arm64"</span></div>
+<div>export <span style=3D"color: #986801;">ARCH</span>=3D<span style=3D"co=
+lor: #50a14f;">"arm64"</span></div>
+<div>export <span style=3D"color: #986801;">CROSS_COMPILE</span>=3D<span st=
+yle=3D"color: #50a14f;">"aarch64-none-linux-gnu-"</span></div>
+<div>export <span style=3D"color: #986801;">STRIP</span>=3D<span style=3D"c=
+olor: #50a14f;">"aarch64-none-linux-gnu-strip"</span></div>
+<div>export <span style=3D"color: #986801;">OBJDUMP</span>=3D<span style=3D=
+"color: #50a14f;">"aarch64-none-linux-gnu-objdump"</span></div>
+<div>export <span style=3D"color: #986801;">OBJCOPY</span>=3D<span style=3D=
+"color: #50a14f;">"aarch64-none-linux-gnu-objcopy"</span></div>
+<br /><br />
+<div><span style=3D"color: #e45649;">KERNEL_CC</span> =3D <span style=3D"co=
+lor: #50a14f;">"aarch64-none-linux-gnu-gcc"</span></div>
+<div><span style=3D"color: #e45649;">KERNEL_LD</span> =3D <span style=3D"co=
+lor: #50a14f;">"aarch64-none-linux-gnu-ld"</span></div>
+<div><span style=3D"color: #e45649;">KERNEL_AR</span> =3D <span style=3D"co=
+lor: #50a14f;">"aarch64-none-linux-gnu-ar"</span></div>
+<br />
+<div><span style=3D"color: #a0a1a7; font-style: italic;"># do_package[noexe=
+c] =3D "1"</span></div>
+<div><span style=3D"color: #a0a1a7; font-style: italic;"># do_package_write=
+_ipk[noexec] =3D "1"</span></div>
+<div><span style=3D"color: #a0a1a7; font-style: italic;"># do_packagedata[n=
+oexec] =3D "1"</span></div>
+<div><span style=3D"color: #e45649;">do_package_qa[noexec]</span> =3D <span=
+ style=3D"color: #50a14f;">"1"</span></div>
+</div>
+```<br />2. Adjust the kernel and module compile command&nbsp;<br />3. Modi=
+fy a little code in poky to adjust the toolchain name.&nbsp;kernel-module-s=
+plit.bbclass<br />```<br />
+<div>-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cmd =3D "%sobjcopy -j .modi=
+nfo -O binary %s %s" % (d.getVar("HOST_PREFIX") or "", tmpkofile, tmpfile)<=
+/div>
+<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cmd =3D "%sobjcopy -j .modi=
+nfo -O binary %s %s" % ("aarch64-none-linux-gnu-", tmpkofile, tmpfile)</div=
+>
+```
+
+--s5pVnk4TnE6donlgl3Li--
 
