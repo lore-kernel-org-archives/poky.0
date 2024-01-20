@@ -1,117 +1,90 @@
-Return-Path: <teddyxiong53@gmail.com>
+Return-Path: <haokexin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C762DC3DA6E
-	for <webhook@archiver.kernel.org>; Wed,  3 Jan 2024 12:27:34 +0000 (UTC)
-Subject: Re: qemuarm64 use lib64 as multilib
-To: poky@lists.yoctoproject.org
-From: teddyxiong53@gmail.com
-X-Originating-Location: Shenzhen, Guangdong, CN (183.238.223.226)
-X-Originating-Platform: Windows Chrome 113
-User-Agent: GROUPS.IO Web Poster
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AAEB1C47DB7
+	for <webhook@archiver.kernel.org>; Sat, 20 Jan 2024 13:43:16 +0000 (UTC)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+ by mx.groups.io with SMTP id smtpd.web11.22430.1705758189159028066
+ for <poky@lists.yoctoproject.org>;
+ Sat, 20 Jan 2024 05:43:09 -0800
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=iIP/79j8;
+ spf=pass (domain: gmail.com, ip: 209.85.215.171, mailfrom: haokexin@gmail.com)
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-5cf450eba00so1467092a12.0
+        for <poky@lists.yoctoproject.org>; Sat, 20 Jan 2024 05:43:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1705758188; x=1706362988; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=VrRvh5SHvaNlc6DjSsv61cFp8PoZK961WikDDpbahss=;
+        b=iIP/79j8BmxFuAWzjb6XAvsukATJljzRJBMPtnPGoN4KTRiAq1nq/pzkVw09UAxCf8
+         QrI7dHpL1ABGrKI28MUu6Zti/hhBFOd5El3GUW+n/HSuChQ9qq9J3WD6Ytyszdn1PfRq
+         O73TAtVXRAtf+/SELbl76fDQK+t9eiayim0A3kMBj547nZUSmp5q9MhBSTuI8KJF3yEZ
+         rEFqRer6jpsggmaOPjGTL1NxXjLUj4FKp6hN30YFVifbSJLds4sTc/Oc9ISynWEIp6om
+         D/gQ/Y2v8wAKkpwJ8tgN+evW3ibEt7stcpReo70+X49Va50J97BNDMXe5dAgGSMcdpQU
+         e8DQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705758188; x=1706362988;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VrRvh5SHvaNlc6DjSsv61cFp8PoZK961WikDDpbahss=;
+        b=karSt6E5dVlGkOZ0eiRUMfRZSx+342fYhipmA+3W0STCUcFpCZfae0JP47MksbCUFh
+         NXjjotT7f0ke9dnfXuYYEnJxQwVTVWb4a+rFYVcctDA6B2hFKIkozLhKMJa5vbM3SjI8
+         rbmFxzQLSboM83HThkLEbfynF/04pFPWnMcMqYh/qcTk+f1GHPBoIbuG7F2rsyuX2eS6
+         4f9OFQBkLL4RmoGRO8TzAWWZSDq8QhKzNDBfTHjNM+DN/GAAeYcSYjgi2vaTnoGGXQOX
+         pMtGb5sqBLj2cpSUyPzXcWF77PrT8sVgWqbdMfEaI96fyCNXfOlpG7t0aYlFbfRWPmpk
+         9uPQ==
+X-Gm-Message-State: AOJu0YzGpRus8h6wrdFa20+eW+KASSuLb8txpkPEFtdkXdH86KeqYaa2
+	3JM7xeN7R+vpEOw23ELjcsQEEjMtZv2HOKgtgf70JVREkHIdDjOl
+X-Google-Smtp-Source: AGHT+IHLCHQkNeT4RmY01Ng14zrjFIHFXlGhuSPG58+uBCB2Om4WPgwYdo08g8zkroPKA7a+53taRg==
+X-Received: by 2002:a17:902:c948:b0:1d6:fb10:7430 with SMTP id i8-20020a170902c94800b001d6fb107430mr2042762pla.113.1705758188507;
+        Sat, 20 Jan 2024 05:43:08 -0800 (PST)
+Received: from pek-lpggp6.wrs.com (unknown-105-121.windriver.com. [147.11.105.121])
+        by smtp.gmail.com with ESMTPSA id jy5-20020a17090342c500b001d6e9d127e3sm4592723plb.90.2024.01.20.05.43.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 20 Jan 2024 05:43:08 -0800 (PST)
+From: Kevin Hao <haokexin@gmail.com>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: Bruce Ashfield <bruce.ashfield@gmail.com>,
+	<poky@lists.yoctoproject.org>
+Subject: [PATCH 0/2] yocto-bsp: Bump the default kernel to v6.6 for all the machines
+Date: Sat, 20 Jan 2024 21:42:52 +0800
+Message-Id: <20240120134254.3235808-1-haokexin@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Date: Wed, 03 Jan 2024 04:27:24 -0800
-References: <20231228212126346a51ea@mail.local>
-In-Reply-To: <20231228212126346a51ea@mail.local>
-Message-ID: <19798.1704284844567109905@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="s5pVnk4TnE6donlgl3Li"
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 03 Jan 2024 12:27:34 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13242
+ <poky@lists.yoctoproject.org>; Sat, 20 Jan 2024 13:43:16 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13243
 
---s5pVnk4TnE6donlgl3Li
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+From: Kevin Hao <kexin.hao@windriver.com>
 
-I have made it works with 64bit kernel and pure 32bit userspace
+Hi Richard,
 
-The solution is as below:
-1. write a bbclass file for kernel and moduel recipe file to inherit.
-```
-PATH:prepend =3D "/toolchain/gcc/linux-x86/aarch64/gcc-arm-10.2-2020.11-x86=
-_64-aarch64-none-linux-gnu/bin:"
-export PATH
-export UBOOT_ARCH =3D "arm64"
-export ARCH =3D "arm64"
-export CROSS_COMPILE =3D "aarch64-none-linux-gnu-"
-export STRIP =3D "aarch64-none-linux-gnu-strip"
-export OBJDUMP =3D "aarch64-none-linux-gnu-objdump"
-export OBJCOPY =3D "aarch64-none-linux-gnu-objcopy"
+This patch series bumps the default kernel to the v6.6 for all the
+reference machines, and also drop the v6.1 bbappend at the same time.
+There are some kernel config check warnings on the beaglebone on v6.6 kernel.
+A fix [1] is under review. Build and boot test for all the machines.
 
-KERNEL_CC =3D "aarch64-none-linux-gnu-gcc"
-KERNEL_LD =3D "aarch64-none-linux-gnu-ld"
-KERNEL_AR =3D "aarch64-none-linux-gnu-ar"
+[1] https://lists.yoctoproject.org/g/linux-yocto/message/13504
 
-# do_package[noexec] =3D "1"
-# do_package_write_ipk[noexec] =3D "1"
-# do_packagedata[noexec] =3D "1"
-do_package_qa[noexec] =3D "1"
-```
-2. Adjust the kernel and module compile command
-3. Modify a little code in poky to adjust the toolchain name.=C2=A0kernel-m=
-odule-split.bbclass
-```
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 cmd =3D "%sobjcopy -j .modinfo -=
-O binary %s %s" % (d.getVar("HOST_PREFIX") or "", tmpkofile, tmpfile)
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 cmd =3D "%sobjcopy -j .modinfo -=
-O binary %s %s" % ("aarch64-none-linux-gnu-", tmpkofile, tmpfile)
-```
+Kevin Hao (2):
+  yocto-bsp: Bump the default kernel to v6.6
+  yocto-bsp: Drop the support for v6.1 kernel
 
---s5pVnk4TnE6donlgl3Li
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+ .../conf/machine/beaglebone-yocto.conf        |  7 ++++---
+ .../machine/include/genericx86-common.inc     |  2 +-
+ .../linux/linux-yocto_6.1.bbappend            | 19 -------------------
+ .../linux/linux-yocto_6.6.bbappend            | 19 +++++++++++++++++++
+ 4 files changed, 24 insertions(+), 23 deletions(-)
+ delete mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.1.bbappend
+ create mode 100644 meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
 
-I have made it works with 64bit kernel and pure 32bit userspace<br /><br />=
-The solution is as below:<br />1. write a bbclass file for kernel and modue=
-l recipe file to inherit.<br />```<br />
-<div style=3D"color: #383a42; background-color: #fafafa; font-family: Conso=
-las, 'Courier New', monospace; line-height: 19px; white-space: pre;">
-<div><span style=3D"color: #e45649;">PATH:prepend</span> =3D <span style=3D=
-"color: #50a14f;">"/toolchain/gcc/linux-x86/aarch64/gcc-arm-10.2-2020.11-x8=
-6_64-aarch64-none-linux-gnu/bin:"</span></div>
-<div>export <span style=3D"color: #986801;">PATH</span></div>
-<div>export <span style=3D"color: #986801;">UBOOT_ARCH</span>=3D<span style=
-=3D"color: #50a14f;">"arm64"</span></div>
-<div>export <span style=3D"color: #986801;">ARCH</span>=3D<span style=3D"co=
-lor: #50a14f;">"arm64"</span></div>
-<div>export <span style=3D"color: #986801;">CROSS_COMPILE</span>=3D<span st=
-yle=3D"color: #50a14f;">"aarch64-none-linux-gnu-"</span></div>
-<div>export <span style=3D"color: #986801;">STRIP</span>=3D<span style=3D"c=
-olor: #50a14f;">"aarch64-none-linux-gnu-strip"</span></div>
-<div>export <span style=3D"color: #986801;">OBJDUMP</span>=3D<span style=3D=
-"color: #50a14f;">"aarch64-none-linux-gnu-objdump"</span></div>
-<div>export <span style=3D"color: #986801;">OBJCOPY</span>=3D<span style=3D=
-"color: #50a14f;">"aarch64-none-linux-gnu-objcopy"</span></div>
-<br /><br />
-<div><span style=3D"color: #e45649;">KERNEL_CC</span> =3D <span style=3D"co=
-lor: #50a14f;">"aarch64-none-linux-gnu-gcc"</span></div>
-<div><span style=3D"color: #e45649;">KERNEL_LD</span> =3D <span style=3D"co=
-lor: #50a14f;">"aarch64-none-linux-gnu-ld"</span></div>
-<div><span style=3D"color: #e45649;">KERNEL_AR</span> =3D <span style=3D"co=
-lor: #50a14f;">"aarch64-none-linux-gnu-ar"</span></div>
-<br />
-<div><span style=3D"color: #a0a1a7; font-style: italic;"># do_package[noexe=
-c] =3D "1"</span></div>
-<div><span style=3D"color: #a0a1a7; font-style: italic;"># do_package_write=
-_ipk[noexec] =3D "1"</span></div>
-<div><span style=3D"color: #a0a1a7; font-style: italic;"># do_packagedata[n=
-oexec] =3D "1"</span></div>
-<div><span style=3D"color: #e45649;">do_package_qa[noexec]</span> =3D <span=
- style=3D"color: #50a14f;">"1"</span></div>
-</div>
-```<br />2. Adjust the kernel and module compile command&nbsp;<br />3. Modi=
-fy a little code in poky to adjust the toolchain name.&nbsp;kernel-module-s=
-plit.bbclass<br />```<br />
-<div>-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cmd =3D "%sobjcopy -j .modi=
-nfo -O binary %s %s" % (d.getVar("HOST_PREFIX") or "", tmpkofile, tmpfile)<=
-/div>
-<div>+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cmd =3D "%sobjcopy -j .modi=
-nfo -O binary %s %s" % ("aarch64-none-linux-gnu-", tmpkofile, tmpfile)</div=
->
-```
+-- 
+2.39.2
 
---s5pVnk4TnE6donlgl3Li--
 
