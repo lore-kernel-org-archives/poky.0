@@ -1,315 +1,210 @@
-Return-Path: <bruce.ashfield@gmail.com>
+Return-Path: <pbarker.renesas@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 813DBC48BC3
-	for <webhook@archiver.kernel.org>; Wed, 21 Feb 2024 13:37:57 +0000 (UTC)
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
- by mx.groups.io with SMTP id smtpd.web11.12921.1708522675563373763
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E191EC48BEB
+	for <webhook@archiver.kernel.org>; Wed, 21 Feb 2024 15:06:37 +0000 (UTC)
+Received: from relmlie5.idc.renesas.com (relmlie5.idc.renesas.com [210.160.252.171])
+ by mx.groups.io with SMTP id smtpd.web10.15272.1708527991680747839
  for <poky@lists.yoctoproject.org>;
- Wed, 21 Feb 2024 05:37:55 -0800
+ Wed, 21 Feb 2024 07:06:32 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=UOzs8J3r;
- spf=pass (domain: gmail.com, ip: 209.85.215.182, mailfrom: bruce.ashfield@gmail.com)
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-5dca1efad59so6116193a12.2
-        for <poky@lists.yoctoproject.org>; Wed, 21 Feb 2024 05:37:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1708522675; x=1709127475; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9d2SVjnSULIzkfMcnR/UV0KrRZE86t6d4lQuBwhlwYI=;
-        b=UOzs8J3rlo4XPaBSSuFeHm2VLjsHnUP2cpLzPTOfD4v/EeRIIs6c05wBcgSP/L+ej6
-         bWGMKoeo+f0gLn7fZkUpjG7Qlu2Aq/g0eU9fguTMAvQCUs59XcFbsIMlEJDZ6z0CTNZ9
-         FCXfrE1ivnN6Ej9/R5dvJbz3XfAdG3ZHy9xNuIw5MQDZR2OunmdV9wDWWGMCz4DszzOC
-         80fAwALgoL1zRtUSW0pVR2R8x00M5rJAEmBB3Ircb3mP5x/ZhnBQYh9D2dj4brHDbYjL
-         RPitP59HYjO8FjO0H3CCAsuMbqZSjzWIPuI3DwyFebXedxkHuNP1WSJIHBGc3Yv2Ct3K
-         FKoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1708522675; x=1709127475;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9d2SVjnSULIzkfMcnR/UV0KrRZE86t6d4lQuBwhlwYI=;
-        b=B1ySwSvCjMKqiDgu6koX2sjUUEXxwi1bdXJ3EpdBxyJyxyGdRjerTGa8u7zLNShndw
-         SSGjs/5nftXy7jYhD3NRWottPhahzvUTJsxN0WK1I+EZdZZgU8Swm7D/p8dw+ChieYcm
-         zwXfEYwYyAJWdd+hTGiSbPS8927qtcA6vzWLHdp5yYYGnltHHBFNqopvKPjFMyECu8K2
-         rWufvZxH59yqWpPMhcTOeTkMz44nkSoVhqd8YCNufKp92yuRLydLRwCW95Y/OnLyNq+i
-         GW/aCa7hZrS9icc0YT7wIUgkKgdJWql9dF2NLTlTGhSz9x3WaprSD/r3ET1SdLwZucbk
-         NJ/A==
-X-Forwarded-Encrypted: i=1; AJvYcCVv829rAvUqOZXZmUboYBxe3LbvLMQ8SIIC05MiaVAElyib9Sv9SH4YZYC/lgC9WVAn7d8zhwSmmn+IVKWiBUkhwEBMcGRveLPLfNw=
-X-Gm-Message-State: AOJu0YzOFvo4j4ZhNnaUSxiME5mVpPhVlxnzlKIfzeWkIYlLZ2BO+EQA
-	fVSWuEL1WJk3pZT4x46cJxpNQiByRx8zelJX7ISSRq1QBxROtlXNtLsvEIkrDCC/9yF4FYKubp3
-	YxbYskq0CGLIZI07T9kaBMsvynTY=
-X-Google-Smtp-Source: AGHT+IE88JGfohOpFAXGY/OhQgdJHnOQ3EFI62p4M1TBMlRnmijd5KFFNYFaLTpWVLKWlMOTyiPRu/DOJPpbKXOBJDw=
-X-Received: by 2002:a17:90b:3a90:b0:299:544c:4940 with SMTP id
- om16-20020a17090b3a9000b00299544c4940mr8919972pjb.29.1708522674803; Wed, 21
- Feb 2024 05:37:54 -0800 (PST)
+ dkim=none (message not signed); spf=pass (domain: bp.renesas.com, ip: 210.160.252.171, mailfrom: paul.barker.ct@bp.renesas.com)
+X-IronPort-AV: E=Sophos;i="6.06,175,1705330800"; 
+   d="asc'?scan'208";a="194765311"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+  by relmlie5.idc.renesas.com with ESMTP; 22 Feb 2024 00:06:30 +0900
+Received: from [10.226.92.101] (unknown [10.226.92.101])
+	by relmlir5.idc.renesas.com (Postfix) with ESMTP id C783B400294B;
+	Thu, 22 Feb 2024 00:06:28 +0900 (JST)
+Message-ID: <95d22879-3f51-466c-a544-91db3fff6dcd@bp.renesas.com>
+Date: Wed, 21 Feb 2024 15:06:27 +0000
 MIME-Version: 1.0
-References: <20240221105723.1501833-1-ross.burton@arm.com> <17B5E41BBD3629FA.11907@lists.openembedded.org>
-In-Reply-To: <17B5E41BBD3629FA.11907@lists.openembedded.org>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-Date: Wed, 21 Feb 2024 08:37:43 -0500
-Message-ID: <CADkTA4PkLGBzL82d8cuO0d0+vP5jm2W2ZAZn=aZDfz4weJOzYQ@mail.gmail.com>
-Subject: Re: [OE-core] [Openembedded-architecture] [RFC PATCH] Add
- genericarm64 MACHINE using upstream defconfig
-To: bruce.ashfield@gmail.com
-Cc: Ross Burton <ross.burton@arm.com>, poky@lists.yoctoproject.org, 
-	openembedded-core@lists.openembedded.org, 
-	openembedded-architecture@lists.openembedded.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Openembedded-architecture] [RFC PATCH] Add genericarm64 MACHINE
+ using upstream defconfig
+Content-Language: en-GB
+To: Ross Burton <ross.burton@arm.com>, poky@lists.yoctoproject.org
+Cc: openembedded-core@lists.openembedded.org,
+ openembedded-architecture@lists.openembedded.org
+References: <20240221105723.1501833-1-ross.burton@arm.com>
+From: Paul Barker <paul.barker.ct@bp.renesas.com>
+Organization: Renesas Electronics Corporation
+In-Reply-To: <20240221105723.1501833-1-ross.burton@arm.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------csoYlLXK53C5kKn8vpX7sq12"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 21 Feb 2024 13:37:57 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13263
+ <poky@lists.yoctoproject.org>; Wed, 21 Feb 2024 15:06:37 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13264
 
-I should add that if just doing this for qemu is acceptable, I can take
-over the task of creating the configuration fragments with what remains
-for the week.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------csoYlLXK53C5kKn8vpX7sq12
+Content-Type: multipart/mixed; boundary="------------OSnyHBxn7NInbsG03EN9Am0A";
+ protected-headers="v1"
+From: Paul Barker <paul.barker.ct@bp.renesas.com>
+To: Ross Burton <ross.burton@arm.com>, poky@lists.yoctoproject.org
+Cc: openembedded-core@lists.openembedded.org,
+ openembedded-architecture@lists.openembedded.org
+Message-ID: <95d22879-3f51-466c-a544-91db3fff6dcd@bp.renesas.com>
+Subject: Re: [Openembedded-architecture] [RFC PATCH] Add genericarm64 MACHINE
+ using upstream defconfig
+References: <20240221105723.1501833-1-ross.burton@arm.com>
+In-Reply-To: <20240221105723.1501833-1-ross.burton@arm.com>
 
-Are the MACHINE configs and everything else I need already in OE-core
-or available somewhere that I can find ?
+--------------OSnyHBxn7NInbsG03EN9Am0A
+Content-Type: multipart/mixed; boundary="------------WiNo5PKznUooS1ETuenWnuCJ"
 
-Bruce
+--------------WiNo5PKznUooS1ETuenWnuCJ
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Feb 21, 2024 at 8:34=E2=80=AFAM Bruce Ashfield via
-lists.openembedded.org
-<bruce.ashfield=3Dgmail.com@lists.openembedded.org> wrote:
->
-> I'm quite simply a hard NACK on this.
->
-> Everyone can feel free to overrule me here, but I won't be able to
-> maintain this along with the other board that I test each -dev,
-> variant and -stable bump with.
->
-> There are tools, etc, that while gathering dust can help chop up a
-> config, and that's where we can spend the time, along with making sure
-> the fragments make sense and are usable.
->
-> We all agreed to hold the reference boards to a higher standard, and
-> now I see this. So as tired and frustrated as you say you are,
-> multiply that by two with me.
->
-> Cheers,
->
-> Bruce
->
->
-> On Wed, Feb 21, 2024 at 5:57=E2=80=AFAM Ross Burton <ross.burton@arm.com>=
- wrote:
-> >
-> > From: Ross Burton <ross.burton@arm.com>
-> >
-> > This is a new 64-bit "generic" Arm machine, that expects the hardware t=
+On 21/02/2024 10:57, Ross Burton wrote:
+> From: Ross Burton <ross.burton@arm.com>
+>=20
+> This is a new 64-bit "generic" Arm machine, that expects the hardware t=
 o
-> > be SystemReady IR compatible. This is slightly forward-leaning as there=
+> be SystemReady IR compatible. This is slightly forward-leaning as there=
 's
-> > not a _lot_ of SystemReady hardware in the wild, but most modern boards
-> > are and the number will only grow.  Also, this is the only way to have =
-a
-> > 'generic' machine as without standardised bootloaders and firmware it
-> > would be impossible.
-> >
-> > The base machine configuration isn't that exciting: it's a fully featur=
-ed
-> > machine that supports most things, booting via UEFI and an initramfs.
-> >
-> > However, the kernel is more interesting.  This RFC uses the upstream de=
-fconfig
-> > because unlike some other platforms, the arm64 defconfig is actively
-> > maintained with the goal of being a 'boots on most hardware' configurat=
-ion.
-> > My argument is: why would we duplicate that effort?
-> >
-> > The "linux-yocto way" is configuration fragments and after a week of
-> > hair-pulling I do actually have fragments that boot on a BeaglePlay, bu=
-t
-> > to say this was a tiresome and frustrating exercise would be understati=
-ng it.
-> >
-> > So, a request for comments: is it acceptable to use the upstream defcon=
-fig in
-> > a reference BSP?  Personally I'm torn: the Yocto way is fragments not m=
-onolithic
-> > configs, but repeating the effort to fragmentise the configuration and =
-then
-> > also have it sufficiently modular that it can be used in pieces - inste=
-ad of
-> > just being a large file split up into smaller files - is a lot of effor=
-t for
-> > what might end up being minimal gain.  My fear is we end up with a frag=
-mented
-> > configuration that can't be easily modified without breaking some platf=
-orms,
-> > and badly copies what the defconfig already does.
-> >
-> > Ross
-> > ---
-> >  meta-yocto-bsp/README.hardware.md             |  7 +++++
-> >  meta-yocto-bsp/conf/machine/genericarm64.conf | 26 +++++++++++++++++++
-> >  .../linux/linux-yocto_6.6.bbappend            |  9 +++++++
-> >  meta-yocto-bsp/wic/genericarm64.wks.in        | 11 ++++++++
-> >  4 files changed, 53 insertions(+)
-> >  create mode 100644 meta-yocto-bsp/conf/machine/genericarm64.conf
-> >  create mode 100644 meta-yocto-bsp/wic/genericarm64.wks.in
-> >
-> > diff --git a/meta-yocto-bsp/README.hardware.md b/meta-yocto-bsp/README.=
-hardware.md
-> > index a8f38cb21a6..58ebc328b56 100644
-> > --- a/meta-yocto-bsp/README.hardware.md
-> > +++ b/meta-yocto-bsp/README.hardware.md
-> > @@ -29,6 +29,7 @@ The following boards are supported by the meta-yocto-=
-bsp layer:
-> >
-> >    * Texas Instruments Beaglebone (beaglebone-yocto)
-> >    * General IA platforms (genericx86 and genericx86-64)
-> > +  * General 64-bit Arm SystemReady platforms (genericarm64)
-> >
-> >  For more information see the board's section below. The appropriate MA=
-CHINE
-> >  variable value corresponding to the board is given in brackets.
-> > @@ -126,6 +127,12 @@ USB Device:
-> >         dd command to write the image to a USB stick.
-> >
-> >
-> > +SystemReady Arm Platforms
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-> > +
-> > +TODO
-> > +
-> > +
-> >  Texas Instruments Beaglebone (beaglebone-yocto)
-> >  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >
-> > diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto=
--bsp/conf/machine/genericarm64.conf
-> > new file mode 100644
-> > index 00000000000..2ea270d8b06
-> > --- /dev/null
-> > +++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
-> > @@ -0,0 +1,26 @@
-> > +#@TYPE: Machine
-> > +#@NAME: genericarm64
-> > +#@DESCRIPTION: Generic Arm64 machine for typical SystemReady platforms=
-, which
-> > +#have working firmware and boot via EFI.
-> > +
-> > +require conf/machine/include/arm/arch-armv8a.inc
-> > +
-> > +# Arm Base System Architecture says v8.0+ is allowed, but FEAT_CRC32 i=
-s required
-> > +DEFAULTTUNE =3D "armv8a-crc"
-> > +
-> > +MACHINE_FEATURES =3D "acpi alsa bluetooth efi keyboard pci qemu-usermo=
-de rtc screen usbhost vfat wifi"
-> > +
-> > +# Install all the kernel modules and all the firmware
-> > +MACHINE_EXTRA_RRECOMMENDS +=3D "kernel-modules linux-firmware"
-> > +
-> > +KERNEL_IMAGETYPE =3D "Image"
-> > +PREFERRED_PROVIDER_virtual/kernel ?=3D "linux-yocto"
-> > +INITRAMFS_IMAGE ?=3D "core-image-initramfs-boot"
-> > +
-> > +IMAGE_FSTYPES ?=3D "wic"
-> > +WKS_FILE ?=3D "genericarm64.wks.in"
-> > +
-> > +EFI_PROVIDER ?=3D "${@bb.utils.contains("DISTRO_FEATURES", "systemd", =
-"systemd-boot", "grub-efi", d)}"
-> > +
-> > +# Try to bring up one physical serial console, or a virtualized serial=
- console
-> > +SERIAL_CONSOLES ?=3D "115200;ttyAMA0 115200;hvc0"
-> > diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappe=
-nd b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
-> > index 8e465c241e8..18f95de348f 100644
-> > --- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
-> > +++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
-> > @@ -1,19 +1,28 @@
-> >  KBRANCH:genericx86  =3D "v6.6/standard/base"
-> > +KBRANCH:genericarm64  =3D "v6.6/standard/base"
-> >  KBRANCH:genericx86-64  =3D "v6.6/standard/base"
-> >  KBRANCH:beaglebone-yocto =3D "v6.6/standard/beaglebone"
-> >
-> > +KMACHINE:genericarm64 ?=3D "genericarm64"
-> >  KMACHINE:genericx86 ?=3D "common-pc"
-> >  KMACHINE:genericx86-64 ?=3D "common-pc-64"
-> >  KMACHINE:beaglebone-yocto ?=3D "beaglebone"
-> >
-> > +SRCREV_machine:genericarm64 ?=3D "332d4668fcc32826907d4f3c493884520600=
-6089"
-> >  SRCREV_machine:genericx86 ?=3D "332d4668fcc32826907d4f3c49388452060060=
-89"
-> >  SRCREV_machine:genericx86-64 ?=3D "332d4668fcc32826907d4f3c49388452060=
-06089"
-> >  SRCREV_machine:beaglebone-yocto ?=3D "332d4668fcc32826907d4f3c49388452=
-06006089"
-> >
-> > +COMPATIBLE_MACHINE:genericarm64 =3D "genericarm64"
-> >  COMPATIBLE_MACHINE:genericx86 =3D "genericx86"
-> >  COMPATIBLE_MACHINE:genericx86-64 =3D "genericx86-64"
-> >  COMPATIBLE_MACHINE:beaglebone-yocto =3D "beaglebone-yocto"
-> >
-> > +LINUX_VERSION:genericarm64 =3D "6.6.15"
-> >  LINUX_VERSION:genericx86 =3D "6.6.15"
-> >  LINUX_VERSION:genericx86-64 =3D "6.6.15"
-> >  LINUX_VERSION:beaglebone-yocto =3D "6.6.15"
-> > +
-> > +# Use upstream defconfig for genericarm64
-> > +KBUILD_DEFCONFIG:genericarm64 =3D "defconfig"
-> > +KCONFIG_MODE:genericarm64 =3D "--alldefconfig"
-> > diff --git a/meta-yocto-bsp/wic/genericarm64.wks.in b/meta-yocto-bsp/wi=
-c/genericarm64.wks.in
-> > new file mode 100644
-> > index 00000000000..417d4d88104
-> > --- /dev/null
-> > +++ b/meta-yocto-bsp/wic/genericarm64.wks.in
-> > @@ -0,0 +1,11 @@
-> > +# short-description: Create an EFI disk image
-> > +# long-description: Creates a partitioned EFI disk image that the user
-> > +# can directly dd to boot media.
-> > +
-> > +part /boot --source bootimg-efi --sourceparams=3D"loader=3D${EFI_PROVI=
-DER},initrd=3D${INITRAMFS_IMAGE}-${MACHINE}.${INITRAMFS_FSTYPES}" --label b=
-oot --active --align 1024 --use-uuid
-> > +
-> > +part / --source rootfs --fstype=3Dext4 --label root --align 1024 --use=
--uuid
-> > +
-> > +part swap --size 44 --label swap --fstype=3Dswap --use-uuid
-> > +
-> > +bootloader --ptable gpt --timeout=3D5 --append=3D"rootwait rootfstype=
-=3Dext4"
-> > --
-> > 2.34.1
-> >
-> >
-> >
-> >
->
->
-> --
-> - Thou shalt not follow the NULL pointer, for chaos and madness await
-> thee at its end
-> - "Use the force Harry" - Gandalf, Star Trek II
->
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#195972): https://lists.openembedded.org/g/openembedde=
-d-core/message/195972
-> Mute This Topic: https://lists.openembedded.org/mt/104488028/1050810
-> Group Owner: openembedded-core+owner@lists.openembedded.org
-> Unsubscribe: https://lists.openembedded.org/g/openembedded-core/unsub [br=
-uce.ashfield@gmail.com]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
+> not a _lot_ of SystemReady hardware in the wild, but most modern boards=
 
+> are and the number will only grow.  Also, this is the only way to have =
+a
+> 'generic' machine as without standardised bootloaders and firmware it
+> would be impossible.
+>=20
+> The base machine configuration isn't that exciting: it's a fully featur=
+ed
+> machine that supports most things, booting via UEFI and an initramfs.
+>=20
+> However, the kernel is more interesting.  This RFC uses the upstream de=
+fconfig
+> because unlike some other platforms, the arm64 defconfig is actively
+> maintained with the goal of being a 'boots on most hardware' configurat=
+ion.
+> My argument is: why would we duplicate that effort?
+>=20
+> The "linux-yocto way" is configuration fragments and after a week of
+> hair-pulling I do actually have fragments that boot on a BeaglePlay, bu=
+t
+> to say this was a tiresome and frustrating exercise would be understati=
+ng it.
+>=20
+> So, a request for comments: is it acceptable to use the upstream defcon=
+fig in
+> a reference BSP?  Personally I'm torn: the Yocto way is fragments not m=
+onolithic
+> configs, but repeating the effort to fragmentise the configuration and =
+then
+> also have it sufficiently modular that it can be used in pieces - inste=
+ad of
+> just being a large file split up into smaller files - is a lot of effor=
+t for
+> what might end up being minimal gain.  My fear is we end up with a frag=
+mented
+> configuration that can't be easily modified without breaking some platf=
+orms,
+> and badly copies what the defconfig already does.
+
+I am in favour of this - I think the "genericarm64" machine should use
+the in-tree defconfig so that it can support the widest array of
+hardware. If someone wants to trim down the kernel for a particular
+platform then they should probably create a specific MACHINE anyway.
+
+If we take the other approach of building up the kernel config from
+fragments, how would we know that all SystemReady IR capable systems
+will be supported? Yocto Project doesn't have the resources to test
+every platform.
+
+For the Renesas RZ SoCs I work on these days, the in-tree defconfig is
+the configuration we test with the mainline kernel.
+
+Thanks,
 
 --=20
-- Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end
-- "Use the force Harry" - Gandalf, Star Trek II
+Paul Barker
+--------------WiNo5PKznUooS1ETuenWnuCJ
+Content-Type: application/pgp-keys; name="OpenPGP_0x27F4B3459F002257.asc"
+Content-Disposition: attachment; filename="OpenPGP_0x27F4B3459F002257.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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3D
+=3DsIIN
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------WiNo5PKznUooS1ETuenWnuCJ--
+
+--------------OSnyHBxn7NInbsG03EN9Am0A--
+
+--------------csoYlLXK53C5kKn8vpX7sq12
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wnsEABYIACMWIQSiu8gv1Xr0fIw/aoLbaV4Vf/JGvQUCZdYRcwUDAAAAAAAKCRDbaV4Vf/JGvU/8
+AP4sk1Z6JwTLMMafid/gTcEAZ2JeiMcrZxa2/xDe1Rlu9QD/f94Ku/ajrZkxsBATASdTHyt8Qutb
+lgFlkFHXmDgz4Q0=
+=g6cZ
+-----END PGP SIGNATURE-----
+
+--------------csoYlLXK53C5kKn8vpX7sq12--
 
