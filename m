@@ -1,91 +1,74 @@
-Return-Path: <mark.hatle@kernel.crashing.org>
+Return-Path: <aladyshev22@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B85FC54791
-	for <webhook@archiver.kernel.org>; Thu, 22 Feb 2024 17:59:59 +0000 (UTC)
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- by mx.groups.io with SMTP id smtpd.web10.19935.1708624792735353192
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45C09C54E4A
+	for <webhook@archiver.kernel.org>; Fri, 23 Feb 2024 10:38:06 +0000 (UTC)
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
+ by mx.groups.io with SMTP id smtpd.web11.7918.1708684676031815795
  for <poky@lists.yoctoproject.org>;
- Thu, 22 Feb 2024 09:59:53 -0800
+ Fri, 23 Feb 2024 02:37:56 -0800
 Authentication-Results: mx.groups.io;
- dkim=none (message not signed); spf=pass (domain: kernel.crashing.org, ip: 63.228.1.57, mailfrom: mark.hatle@kernel.crashing.org)
-Received: from [192.168.2.236] ([70.99.78.137])
-	by gate.crashing.org (8.14.1/8.14.1) with ESMTP id 41MHwmS6012402;
-	Thu, 22 Feb 2024 11:58:48 -0600
-Message-ID: <778ff323-f8b3-4991-86ef-5e2b3050c8d3@kernel.crashing.org>
-Date: Thu, 22 Feb 2024 11:58:44 -0600
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=nTslFq6o;
+ spf=pass (domain: gmail.com, ip: 209.85.217.49, mailfrom: aladyshev22@gmail.com)
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-4704750edd7so78664137.0;
+        Fri, 23 Feb 2024 02:37:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1708684675; x=1709289475; darn=lists.yoctoproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=loAZ3JDSEXHMxXlZL2N39UGr6Li/iEyyCoflPPCPSKo=;
+        b=nTslFq6o9fhEQw5IcGGQTkCW46tk2BaRNYVdc2VsyORW+OqCb7aBPs4eyiwQzTyQFA
+         4HeV73aZ/03umLgGqY9krVwwyaET+dy3EyJLJjJUSd+Vc7+SrBDO86A6XgfSd5fAcOlg
+         AzjaAsKCqZL7ixC94VJ41WvELERBmmxvuc8ltTgqaGdifCmfEocbkRs05LV507WRG4+U
+         yF/lTjf4G0upSdXBhj9qfkXhkoy/kKPHQqMNBtjuLX/+lFyF4PUrZQZVhGDtYWUM0gxr
+         /Dc/2D3S8qE5dPSzZ0YGAThrJ5+7bbaYRKXVfAKtH8mmBzuRE3NNLkyBVei55hRZoBiK
+         NMDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1708684675; x=1709289475;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=loAZ3JDSEXHMxXlZL2N39UGr6Li/iEyyCoflPPCPSKo=;
+        b=PwPpypIk/LAIdoMgJ9G9IwKDNQoLCIRK74GYzfZtQS6lCNE3Zu2cIiOGvEoRkHSufm
+         9BTpdiwu4LTjphEr+ncRh/el1HzMETvshSibOhxFC2s+bz+z50xVclbVwUlqTAIw2WbL
+         /4mY3GG4mVXbTgG4kHgGsvSYdM7qXQj2zohF5wyagAPSWdLmB2TJremdwCa/oC3jfTvd
+         sVVUGb+njywwTw+avJk0Xvb+o4IUk5UEuYYBbHzfTgRUjivCRXCxHYDQh75cZHWj2hKo
+         GewiS9kxrHyTTNSLe04P+Qj4fCnAcfjCzD7gEpiE8xRDOOSIML0DRmJUV/cBHjueUx19
+         N2Yw==
+X-Forwarded-Encrypted: i=1; AJvYcCX6HeD3hXVhZhsGO+gbXc1OdHyvLjxG0UCHgI2vROubJss+0FNbvrknKIDTvC1Y7G/qNeqmxzww5lpre0C1TXwsTXBgkzDruJuVjII=
+X-Gm-Message-State: AOJu0YzJJHU5d+IOizQXO+A3Qzl3+6/x8x7LxBEquGgdQ/jEvMlKKNsK
+	VGJWwIqumtXcrxZIQl+JRJhx4Er4NM0sqS9538ydSxGL8vUCiqiBYNy5fHJVZMPDqnei3LHxIcW
+	cO/fvFl3CuVf04vP5PkrbYChDGWEr4rBeErJoWQtq
+X-Google-Smtp-Source: AGHT+IGUefrX4Tok7olcc025NRIQ2zjFJLWeE0cdHzAjf7Rv7J8Z6tKARRg3MR0/eltPh9q6H76LQRycHYLJDt5g30M=
+X-Received: by 2002:a05:6102:2381:b0:470:5515:d8f4 with SMTP id
+ v1-20020a056102238100b004705515d8f4mr1413585vsr.31.1708684674727; Fri, 23 Feb
+ 2024 02:37:54 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [poky] clarification on 'gitsm://' fetcher.
-Content-Language: en-US
-To: vishwanath Chandapur <vishwavtu@gmail.com>, poky@lists.yoctoproject.org
-References: <ixbV.1708072376356310245.WNd3@lists.yoctoproject.org>
-From: Mark Hatle <mark.hatle@kernel.crashing.org>
-In-Reply-To: <ixbV.1708072376356310245.WNd3@lists.yoctoproject.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by gate.crashing.org id 41MHwmS6012402
+From: Konstantin Aladyshev <aladyshev22@gmail.com>
+Date: Fri, 23 Feb 2024 13:37:42 +0300
+Message-ID: <CACSj6VXH88d=oAw6KsancYXiW1B=oLgXD3uSxnentWJd4Dbi7Q@mail.gmail.com>
+Subject: 'kgit-s2q' doesn't remove 'rebase-apply' directory
+To: yocto@lists.yoctoproject.org, poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 22 Feb 2024 17:59:59 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13267
+ <poky@lists.yoctoproject.org>; Fri, 23 Feb 2024 10:38:06 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13268
 
+Hello!
 
+'kgit-s2q' in the linux recipe tries to use 'git apply' if 'git am' fails.
+In this case 'kgit-s2q' manually creates a ".git/rebase-apply"
+directory (https://git.yoctoproject.org/yocto-kernel-tools/tree/tools/kgit-s2q#n622)
+But it looks like this directory is not removed after the patches are
+applied. This creates a problem, since with this directory present git
+thinks that rebase operation is still in progress.
+Because of this bug 'devtool modify linux' can't perform its own
+rebase operations in the "devtool_post_patch" tasks
+https://git.yoctoproject.org/poky/tree/meta/classes/devtool-source.bbclass#n214
+In the end this creates a situation when the local patches are not applied.
 
-On 2/16/24 2:32 AM, vishwanath Chandapur wrote:
-> Hi
->=20
-> In recent grpc recipe has changed to gitsm:// from git:// because of wh=
-ich now=20
-> all submodules are downloaded even though all may not require.
->=20
-> My question not to grpc recipes but in general when a recipe uses=C2=A0=
-gitstm may=20
-> have these two issues.
->=20
-> 1. Unnecessarily some of the submodules/packages have to be maintained =
-in=20
-> localmirror even though it is not required.
-
-In gitsm mode, where the .submodules file is used, how/who defines what i=
-s and=20
-isn't required?  As far as I know it's used or it's not.
-
-To my knowledge, when you run git submodule, anything in .submodules is=20
-processed.  Thus they are all 'required'.  Move from gitsm:// to git:// s=
-ays=20
-"I'm never going to use the .submodule file", and thus moves this ownersh=
-ip from=20
-the repository owner (.submodule file) to the recipe owner.
-
-> 2. Most=C2=A0importantly, if a submodule/package is enabled by default =
-internally,=20
-> the package will not appear in the final manifest file and miss out in =
-the final=20
-> SBOM file.
-
-If the submodules are not part of the SBOM, then it's a bug in the SBOM=20
-creation.  This is a separate issue, one that should be identified and fi=
-xed.
-
---Mark
-
->=20
-> Regards
-> Vishwa
->=20
->=20
->=20
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13254): https://lists.yoctoproject.org/g/poky/messa=
-ge/13254
-> Mute This Topic: https://lists.yoctoproject.org/mt/104389390/3616948
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [mark.hatle@ke=
-rnel.crashing.org]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->=20
+Best regards,
+Konstantin Aladyshev
 
