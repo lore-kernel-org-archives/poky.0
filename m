@@ -1,129 +1,213 @@
-Return-Path: <peter.kjellerstedt@axis.com>
+Return-Path: <ross.burton@arm.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BDCA0C5478C
-	for <webhook@archiver.kernel.org>; Tue, 27 Feb 2024 20:59:00 +0000 (UTC)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com (EUR05-DB8-obe.outbound.protection.outlook.com [40.107.20.74])
- by mx.groups.io with SMTP id smtpd.web10.558.1709067535743088639
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 023BBC47DD9
+	for <webhook@archiver.kernel.org>; Wed, 28 Feb 2024 11:44:24 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by mx.groups.io with SMTP id smtpd.web10.11145.1709120659002826322
  for <poky@lists.yoctoproject.org>;
- Tue, 27 Feb 2024 12:58:56 -0800
+ Wed, 28 Feb 2024 03:44:19 -0800
 Authentication-Results: mx.groups.io;
- dkim=fail reason="dkim: body hash did not verify" header.i=@axis.com header.s=selector1 header.b=heY9cA5t;
- spf=pass (domain: axis.com, ip: 40.107.20.74, mailfrom: peter.kjellerstedt@axis.com)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z9y8apq2SKYYQ+cQYfljHoC07CppJmI6JHIUBPBu+ON6WZAQLjdNNGsi4/9rmP6RUjXsPRClpQ1EEj4CVg+TvhA2EVJ2tjACYR2W/j4fdBcJh1ziuPlVQdzmZ865vNH3Y19wPzvcrXTFtTqGvawYIzBiDu29z7FUEoKFWVa8hSClAbTL66iwWYcXOytSjAbIykUqJji1VSNWY+sYrWtT0Y/TYkSGighaPs7tDmTvqI1d75r7Qg7HEUe+Z/ndavgfiu3OjaWlERisQlQGKc4vhvsVaGc9FWT282hydAuSv5wqkCwbZuXcoEHRvR5MIyQygT5Vjt5pdyd0nH71Gjvatw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uAX0Hq0f3RG15Qc40TGpcYf6lEbruAQMDmaV7sMjFlA=;
- b=B3Q0gitKKYXBDr5T6nLvK2xhjrtf+V8erz07BrgmZttsQ+rPv8vTe023zkHuNXmRhaTQnUzZFZUq/ardOze9yO8m/QgQNrlyGpq13ihZlBJSHOpSc01qO16p5B4d+KG4VtvNafXx2UCsOsDt3YFdGGk19fIjomEr7SJIe33hja5MfsiTe6ls/W/Ghfxt96oheTAKw7M1G9p1TBz6AGbEHtl/e0zKs/q7R3QQAY6oGGvprbC6kEqfJo2EzArk2xFMw+GODaTV73Y77DI2zTUV2q9VcLho1FDz4q9BFcc5wWm+Mpf8qhKTiGkWM/ZKy5uPjMc108akKTMfDwVPnMVUgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 195.60.68.100) smtp.rcpttodomain=lists.yoctoproject.org
- smtp.mailfrom=axis.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=axis.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uAX0Hq0f3RG15Qc40TGpcYf6lEbruAQMDmaV7sMjFlA=;
- b=heY9cA5tmToPL5QBRHmjM2ZxXEWpjAUpB0QawkM/QjY+eOAnfcnUjFGfBh7B7gooNBQujzQf0d2cUFGXU56x6R+g+L0FbE8wMLsmy6mGzpwbVU0XuICK5dj68WZwDSJ5P5GFXHWlEraPNIVXZVZVB96ryEJgPE4zitp08oz205k=
-Received: from DUZPR01CA0234.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b4::25) by AS2PR02MB10375.eurprd02.prod.outlook.com
- (2603:10a6:20b:546::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.36; Tue, 27 Feb
- 2024 20:58:52 +0000
-Received: from DB1PEPF00050A01.eurprd03.prod.outlook.com
- (2603:10a6:10:4b4:cafe::d5) by DUZPR01CA0234.outlook.office365.com
- (2603:10a6:10:4b4::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7339.27 via Frontend
- Transport; Tue, 27 Feb 2024 20:58:52 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 195.60.68.100)
- smtp.mailfrom=axis.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=axis.com;
-Received-SPF: Fail (protection.outlook.com: domain of axis.com does not
- designate 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
- client-ip=195.60.68.100; helo=mail.axis.com;
-Received: from mail.axis.com (195.60.68.100) by
- DB1PEPF00050A01.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7292.25 via Frontend Transport; Tue, 27 Feb 2024 20:58:51 +0000
-Received: from SE-MAILARCH01W.axis.com (10.20.40.15) by se-mail02w.axis.com
- (10.20.40.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 27 Feb
- 2024 21:58:51 +0100
-Received: from se-mail02w.axis.com (10.20.40.8) by SE-MAILARCH01W.axis.com
- (10.20.40.15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 27 Feb
- 2024 21:58:51 +0100
-Received: from se-intmail01x.se.axis.com (10.0.5.60) by se-mail02w.axis.com
- (10.20.40.8) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 27 Feb 2024 21:58:51 +0100
-Received: from saur.se.axis.com (saur.se.axis.com [10.92.3.10])
-	by se-intmail01x.se.axis.com (Postfix) with ESMTP id 37268152FC
-	for <poky@lists.yoctoproject.org>; Tue, 27 Feb 2024 21:58:51 +0100 (CET)
-Received: from saur.se.axis.com (localhost [127.0.0.1])
-	by saur.se.axis.com (8.17.1/8.15.2) with ESMTPS id 41RKwpkp1291034
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
-	for <poky@lists.yoctoproject.org>; Tue, 27 Feb 2024 21:58:51 +0100
-Received: (from pkj@localhost)
-	by saur.se.axis.com (8.17.1/8.17.1/Submit) id 41RKjGaZ1290093
-	for poky@lists.yoctoproject.org; Tue, 27 Feb 2024 21:45:16 +0100
-From: Peter Kjellerstedt <pkj@axis.com>
-To: <poky@lists.yoctoproject.org>
-Subject: [PATCH] poky.conf: Set the distro name to "scarthgap"
-Date: Tue, 27 Feb 2024 21:45:12 +0100
-Message-ID: <20240227204512.1290078-1-pkj@axis.com>
-X-Mailer: git-send-email 2.40.1
+ dkim=none (message not signed); spf=pass (domain: arm.com, ip: 217.140.110.172, mailfrom: ross.burton@arm.com)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6326DC15
+	for <poky@lists.yoctoproject.org>; Wed, 28 Feb 2024 03:44:57 -0800 (PST)
+Received: from oss-tx204.lab.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 301183F762
+	for <poky@lists.yoctoproject.org>; Wed, 28 Feb 2024 03:44:18 -0800 (PST)
+From: ross.burton@arm.com
+To: poky@lists.yoctoproject.org
+Subject: [PATCH v3] Add genericarm64 MACHINE
+Date: Wed, 28 Feb 2024 11:44:15 +0000
+Message-Id: <20240228114415.345202-1-ross.burton@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF00050A01:EE_|AS2PR02MB10375:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1811388c-8e66-4275-06a9-08dc37d6e71d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	DVyeu1f/sKzjxmARLGMt3SAhv3ZXP/u19N58VPWaRZNcN3jOY7KGKlMG1wIQpVvkwkdx5Qhck3hfLqXspUhlgElKn3b7UJHS2MdO22Nvz+V9xFoN/vErGx2i4OtF44jlewIq4CJMGchPRnxeDDMlNnW+Rwuqxnic2U2Upp/0o0qjtjNEgfqc3R1waWyAgUgOxqlW+52yB06Pi7+0EpzXNIHeLPfHZYccc6zxXrNNKoSsm+Gna2vGikYFlDi6dxbDMMolptPkuiEOw2SywzCXWQWjuEcCg27G6+MqWyiJ/Uxv3NujEk8N0lfTOwa28WBBL9h2jgRhbTr7pFjXO6Q1Ng/bswxJVDXuh7pMbtcLzKQsFOut0Gp6aiYkL+/Zt5YM1VdxPi3c9pd0OFTmTRDKt0jtsRGKCKvZaEZGZHNqnPA+umKnOxfXpizJmK2v6HN713efCW/UlPhQOb/hm4xKsi44b5jaNkg9qpOgu+J+ktDIClTsFKZZWaDrUpjbUeO0q7ztQucO5Xz/54CekeQuYuA2cE8gODG9P/kg6Ij1BeCx0dSrGXwzS8awAsaQMW2eNp3UsPINMx5Gy7YxC4kF0VJ7NBZDf/eYv8a6YeqYuzzZtRQ5lO9Y/hkQUIeGR2Tlun9oqGgKhBYoOyoahZy0XIXihfw+PcsL+Dd7PW2BHILF2pP3LIg9lECjnLzouJZjRzwHyjlwhzony3PLiDeLmV5MDOhfCRRgH3XZhlPvYF6x0Ia9D8YNEnAq1CA5BRYN
-X-Forefront-Antispam-Report: 
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(82310400014)(36860700004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2024 20:58:51.8954
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1811388c-8e66-4275-06a9-08dc37d6e71d
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
-X-MS-Exchange-CrossTenant-AuthSource: 
-	DB1PEPF00050A01.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR02MB10375
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 27 Feb 2024 20:59:00 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13281
+ <poky@lists.yoctoproject.org>; Wed, 28 Feb 2024 11:44:24 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13282
 
-Signed-off-by: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+From: Ross Burton <ross.burton@arm.com>
+
+This is a new 64-bit "generic" Arm machine, that expects the hardware to
+be SystemReady IR compatible.
+
+Signed-off-by: Ross Burton <ross.burton@arm.com>
 ---
+ .../conf/templates/default/local.conf.sample  |  1 +
+ meta-yocto-bsp/README.hardware.md             | 18 +++++++++++-
+ meta-yocto-bsp/conf/machine/genericarm64.conf | 29 +++++++++++++++++++
+ .../linux/linux-yocto_6.6.bbappend            |  5 ++++
+ meta-yocto-bsp/wic/genericarm64.wks.in        | 11 +++++++
+ 5 files changed, 63 insertions(+), 1 deletion(-)
+ create mode 100644 meta-yocto-bsp/conf/machine/genericarm64.conf
+ create mode 100644 meta-yocto-bsp/wic/genericarm64.wks.in
 
-It's been a long time since this diverged from Nanbield.
+diff --git a/meta-poky/conf/templates/default/local.conf.sample b/meta-po=
+ky/conf/templates/default/local.conf.sample
+index 5fb6944f3f0..1a93c9bdcf3 100644
+--- a/meta-poky/conf/templates/default/local.conf.sample
++++ b/meta-poky/conf/templates/default/local.conf.sample
+@@ -31,6 +31,7 @@
+ # demonstration purposes:
+ #
+ #MACHINE ?=3D "beaglebone-yocto"
++#MACHINE ?=3D "genericarm64"
+ #MACHINE ?=3D "genericx86"
+ #MACHINE ?=3D "genericx86-64"
+ #
+diff --git a/meta-yocto-bsp/README.hardware.md b/meta-yocto-bsp/README.ha=
+rdware.md
+index a8f38cb21a6..bb8f57913fd 100644
+--- a/meta-yocto-bsp/README.hardware.md
++++ b/meta-yocto-bsp/README.hardware.md
+@@ -28,6 +28,7 @@ Hardware Reference Boards
+ The following boards are supported by the meta-yocto-bsp layer:
+=20
+   * Texas Instruments Beaglebone (beaglebone-yocto)
++  * General 64-bit Arm SystemReady platforms (genericarm64)
+   * General IA platforms (genericx86 and genericx86-64)
+=20
+ For more information see the board's section below. The appropriate MACH=
+INE
+@@ -55,7 +56,8 @@ Consumer Devices
+=20
+ The following consumer devices are supported by the meta-yocto-bsp layer=
+:
+=20
+-  * Intel x86 based PCs and devices (genericx86)
++  * Arm-based SystemReady devices (genericarm64)
++  * Intel x86 based PCs and devices (genericx86 and genericx86-64)
+=20
+ For more information see the device's section below. The appropriate MAC=
+HINE
+ variable value corresponding to the device is given in brackets.
+@@ -126,6 +128,20 @@ USB Device:
+        dd command to write the image to a USB stick.
+=20
+=20
++SystemReady Arm Platforms
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D
++
++The genericarm64 MACHINE is designed to work on standard SystemReady IR
++compliant boards with preinstalled firmware.
++
++The genericarm64 MACHINE is currently tested on the following platforms:
++
++  * Texas Instruments BeaglePlay
++
++The images built are EFI bootable disk images and can be written directl=
+y to a
++SD card for booting, for example.
++
++
+ Texas Instruments Beaglebone (beaglebone-yocto)
+ =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+=20
+diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-b=
+sp/conf/machine/genericarm64.conf
+new file mode 100644
+index 00000000000..83f1aca137a
+--- /dev/null
++++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
+@@ -0,0 +1,29 @@
++#@TYPE: Machine
++#@NAME: genericarm64
++#@DESCRIPTION: Generic Arm64 machine for typical SystemReady platforms, =
+which
++#have working firmware and boot via EFI.
++
++require conf/machine/include/arm/arch-armv8a.inc
++
++# Arm Base System Architecture says v8.0+ is allowed, but FEAT_CRC32 is =
+required
++DEFAULTTUNE =3D "armv8a-crc"
++
++MACHINE_FEATURES =3D "acpi alsa bluetooth efi keyboard pci qemu-usermode=
+ rtc screen usbhost vfat wifi"
++
++# Install all the kernel modules and all the firmware
++MACHINE_EXTRA_RRECOMMENDS +=3D "kernel-modules linux-firmware"
++
++KERNEL_IMAGETYPE =3D "Image"
++PREFERRED_PROVIDER_virtual/kernel ?=3D "linux-yocto"
++
++# Use an initramfs and populate it with the kernel modules
++INITRAMFS_IMAGE ?=3D "core-image-initramfs-boot"
++PACKAGE_INSTALL:append:pn-core-image-initramfs-boot =3D " kernel-modules=
+"
++
++IMAGE_FSTYPES ?=3D "wic"
++WKS_FILE ?=3D "genericarm64.wks.in"
++
++EFI_PROVIDER ?=3D "${@bb.utils.contains("DISTRO_FEATURES", "systemd", "s=
+ystemd-boot", "grub-efi", d)}"
++
++# Try to bring up one physical serial console, or a virtualized serial c=
+onsole
++SERIAL_CONSOLES ?=3D "115200;ttyAMA0 115200;hvc0"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend=
+ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
+index 8e465c241e8..ca7b2b09df7 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
+@@ -1,19 +1,24 @@
++KBRANCH:genericarm64  =3D "v6.6/standard/base"
+ KBRANCH:genericx86  =3D "v6.6/standard/base"
+ KBRANCH:genericx86-64  =3D "v6.6/standard/base"
+ KBRANCH:beaglebone-yocto =3D "v6.6/standard/beaglebone"
+=20
++KMACHINE:genericarm64 ?=3D "genericarm64"
+ KMACHINE:genericx86 ?=3D "common-pc"
+ KMACHINE:genericx86-64 ?=3D "common-pc-64"
+ KMACHINE:beaglebone-yocto ?=3D "beaglebone"
+=20
++SRCREV_machine:genericarm64 ?=3D "e064a7d658a30b027b999183e21cd37305caff=
+2a"
+ SRCREV_machine:genericx86 ?=3D "332d4668fcc32826907d4f3c4938845206006089=
+"
+ SRCREV_machine:genericx86-64 ?=3D "332d4668fcc32826907d4f3c4938845206006=
+089"
+ SRCREV_machine:beaglebone-yocto ?=3D "332d4668fcc32826907d4f3c4938845206=
+006089"
+=20
++COMPATIBLE_MACHINE:genericarm64 =3D "genericarm64"
+ COMPATIBLE_MACHINE:genericx86 =3D "genericx86"
+ COMPATIBLE_MACHINE:genericx86-64 =3D "genericx86-64"
+ COMPATIBLE_MACHINE:beaglebone-yocto =3D "beaglebone-yocto"
+=20
++LINUX_VERSION:genericarm64 =3D "6.6.18"
+ LINUX_VERSION:genericx86 =3D "6.6.15"
+ LINUX_VERSION:genericx86-64 =3D "6.6.15"
+ LINUX_VERSION:beaglebone-yocto =3D "6.6.15"
+diff --git a/meta-yocto-bsp/wic/genericarm64.wks.in b/meta-yocto-bsp/wic/=
+genericarm64.wks.in
+new file mode 100644
+index 00000000000..417d4d88104
+--- /dev/null
++++ b/meta-yocto-bsp/wic/genericarm64.wks.in
+@@ -0,0 +1,11 @@
++# short-description: Create an EFI disk image
++# long-description: Creates a partitioned EFI disk image that the user
++# can directly dd to boot media.
++
++part /boot --source bootimg-efi --sourceparams=3D"loader=3D${EFI_PROVIDE=
+R},initrd=3D${INITRAMFS_IMAGE}-${MACHINE}.${INITRAMFS_FSTYPES}" --label b=
+oot --active --align 1024 --use-uuid
++
++part / --source rootfs --fstype=3Dext4 --label root --align 1024 --use-u=
+uid
++
++part swap --size 44 --label swap --fstype=3Dswap --use-uuid
++
++bootloader --ptable gpt --timeout=3D5 --append=3D"rootwait rootfstype=3D=
+ext4"
+--=20
+2.34.1
 
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.c=
-onf
-index 3b7bc66780..e59ad974d0 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -1,7 +1,7 @@
- DISTRO =3D "poky"
- DISTRO_NAME =3D "Poky (Yocto Project Reference Distro)"
- DISTRO_VERSION =3D "4.3+snapshot-${METADATA_REVISION}"
--DISTRO_CODENAME =3D "nanbield"
-+DISTRO_CODENAME =3D "scarthgap"
- SDK_VENDOR =3D "-pokysdk"
- SDK_VERSION =3D "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADAT=
-A_REVISION}', 'snapshot')}"
- SDK_VERSION[vardepvalue] =3D "${SDK_VERSION}"
 
