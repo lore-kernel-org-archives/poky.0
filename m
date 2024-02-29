@@ -1,213 +1,91 @@
-Return-Path: <ross.burton@arm.com>
+Return-Path: <raj.khem@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 023BBC47DD9
-	for <webhook@archiver.kernel.org>; Wed, 28 Feb 2024 11:44:24 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by mx.groups.io with SMTP id smtpd.web10.11145.1709120659002826322
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 140CAC54798
+	for <webhook@archiver.kernel.org>; Thu, 29 Feb 2024 06:22:01 +0000 (UTC)
+Received: from mail-il1-f176.google.com (mail-il1-f176.google.com [209.85.166.176])
+ by mx.groups.io with SMTP id smtpd.web10.18528.1709187717239374226
  for <poky@lists.yoctoproject.org>;
- Wed, 28 Feb 2024 03:44:19 -0800
+ Wed, 28 Feb 2024 22:21:57 -0800
 Authentication-Results: mx.groups.io;
- dkim=none (message not signed); spf=pass (domain: arm.com, ip: 217.140.110.172, mailfrom: ross.burton@arm.com)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6326DC15
-	for <poky@lists.yoctoproject.org>; Wed, 28 Feb 2024 03:44:57 -0800 (PST)
-Received: from oss-tx204.lab.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 301183F762
-	for <poky@lists.yoctoproject.org>; Wed, 28 Feb 2024 03:44:18 -0800 (PST)
-From: ross.burton@arm.com
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=lGrryin3;
+ spf=pass (domain: gmail.com, ip: 209.85.166.176, mailfrom: raj.khem@gmail.com)
+Received: by mail-il1-f176.google.com with SMTP id e9e14a558f8ab-3650c7e0dd2so2008455ab.2
+        for <poky@lists.yoctoproject.org>; Wed, 28 Feb 2024 22:21:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1709187716; x=1709792516; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=dlPaoZjBZF6D9yFG4yAn92Lw1cqYFn3a1u3X/TRmfRw=;
+        b=lGrryin3XR/opuJ2KAtj6cDKHgO9c/4DOFDIO/1TPEfXDOHCyxqKnd58bUWRpnWFwX
+         EPz7MJzyKPmJAp9GU36OD/HYzZ5VsKtr9uqFPgvdC8SynFoJBPFaEgjpBmveOztjMSMd
+         3mFqzMtKogr+OB26yaM+Nn2CG0HeDwMK6646wBluPlQmlIeGBSFS5vA2muP94VTCm01j
+         2BNr2jebCia2VyqfeDr6e3irY6HcSXCeEhhVJP7GicXA/0pVjHTB77L2xVdhw4KjuwuO
+         VMBSOSIUDjdzsheWTiMvk6j3T08hd2mjt1iD9cHzKq6XZ1qTJpjrCdeCa3OYqyp/+i7N
+         Ri6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1709187716; x=1709792516;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dlPaoZjBZF6D9yFG4yAn92Lw1cqYFn3a1u3X/TRmfRw=;
+        b=miYQyzYsJBpL/YHprfQYwI5C3EVRYj2+a/vxUlZJOWg4Fe2PvYMYp3fyPC+AoLFJNm
+         xq+12mps32B1G7B+tTzRm6b72e0Jkba0/X3LJiebtTMPeUmWvojnr9Yg8RvyhFA/7FNh
+         mFre2ZqYa6N/QVt3JpnCyYVfM4yFTn6+lbFWICE6lyhkSf6rAxYy2ddT4qrCVHSKBrx9
+         6/JtoMMuWsfNjdS0eBBlawWOKAULOybAsW5vXO6h/2ut/keqMmyg2ejc+muz7w8dkHi6
+         1e9e8S6TEbGAk6BAXhH3lSFzs094Ad+LGQbzvZ4gcJ/DOWL4NlPsiNVoThmWaJ6RAkHx
+         JbiA==
+X-Gm-Message-State: AOJu0YzNdMXuXA/UcwU5i+Sk+3Tr5AqfFQR/98pDbilB2DExJdMu19Zf
+	U4OjPKDnwvb/D+wO22S+7s/3LH8d/kO3eI/sTgiaf7v4T2r670g+sd/RCIcQ/kQ=
+X-Google-Smtp-Source: AGHT+IGIoqevyY0Vl7NhbTeyzlGmoDov3zLLbYvg2Ss8BudBuc2jfEKrXmCs9+Z4l9WQdXWdTyyi7w==
+X-Received: by 2002:a92:db51:0:b0:365:a64c:e2be with SMTP id w17-20020a92db51000000b00365a64ce2bemr1647681ilq.15.1709187716208;
+        Wed, 28 Feb 2024 22:21:56 -0800 (PST)
+Received: from apollo.hsd1.ca.comcast.net ([2601:646:9d80:4380::9a3d])
+        by smtp.gmail.com with ESMTPSA id y19-20020a056a00191300b006e55016966fsm459216pfi.81.2024.02.28.22.21.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Feb 2024 22:21:55 -0800 (PST)
+From: Khem Raj <raj.khem@gmail.com>
 To: poky@lists.yoctoproject.org
-Subject: [PATCH v3] Add genericarm64 MACHINE
-Date: Wed, 28 Feb 2024 11:44:15 +0000
-Message-Id: <20240228114415.345202-1-ross.burton@arm.com>
-X-Mailer: git-send-email 2.34.1
+Cc: Khem Raj <raj.khem@gmail.com>
+Subject: [PATCH] poky-bleeding.bbclass: Remove use of SRCPV
+Date: Wed, 28 Feb 2024 22:21:53 -0800
+Message-ID: <20240229062153.831488-1-raj.khem@gmail.com>
+X-Mailer: git-send-email 2.44.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 28 Feb 2024 11:44:24 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13282
+ <poky@lists.yoctoproject.org>; Thu, 29 Feb 2024 06:22:01 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13283
 
-From: Ross Burton <ross.burton@arm.com>
-
-This is a new 64-bit "generic" Arm machine, that expects the hardware to
-be SystemReady IR compatible.
-
-Signed-off-by: Ross Burton <ross.burton@arm.com>
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
 ---
- .../conf/templates/default/local.conf.sample  |  1 +
- meta-yocto-bsp/README.hardware.md             | 18 +++++++++++-
- meta-yocto-bsp/conf/machine/genericarm64.conf | 29 +++++++++++++++++++
- .../linux/linux-yocto_6.6.bbappend            |  5 ++++
- meta-yocto-bsp/wic/genericarm64.wks.in        | 11 +++++++
- 5 files changed, 63 insertions(+), 1 deletion(-)
- create mode 100644 meta-yocto-bsp/conf/machine/genericarm64.conf
- create mode 100644 meta-yocto-bsp/wic/genericarm64.wks.in
+ meta-poky/classes/poky-bleeding.bbclass | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/meta-poky/conf/templates/default/local.conf.sample b/meta-po=
-ky/conf/templates/default/local.conf.sample
-index 5fb6944f3f0..1a93c9bdcf3 100644
---- a/meta-poky/conf/templates/default/local.conf.sample
-+++ b/meta-poky/conf/templates/default/local.conf.sample
-@@ -31,6 +31,7 @@
- # demonstration purposes:
+diff --git a/meta-poky/classes/poky-bleeding.bbclass b/meta-poky/classes/poky-bleeding.bbclass
+index e5f30687e4b..3bfdcf14540 100644
+--- a/meta-poky/classes/poky-bleeding.bbclass
++++ b/meta-poky/classes/poky-bleeding.bbclass
+@@ -1,5 +1,5 @@
  #
- #MACHINE ?=3D "beaglebone-yocto"
-+#MACHINE ?=3D "genericarm64"
- #MACHINE ?=3D "genericx86"
- #MACHINE ?=3D "genericx86-64"
+-# AUTOREV and PV containing SRCPV needs to be set early, before any anonymous python
++# AUTOREV and PV containing '+git' needs to be set early, before any anonymous python
+ # expands anything containing PV, else the parse process won't trigger the fetcher to
+ # cache the needed version data
  #
-diff --git a/meta-yocto-bsp/README.hardware.md b/meta-yocto-bsp/README.ha=
-rdware.md
-index a8f38cb21a6..bb8f57913fd 100644
---- a/meta-yocto-bsp/README.hardware.md
-+++ b/meta-yocto-bsp/README.hardware.md
-@@ -28,6 +28,7 @@ Hardware Reference Boards
- The following boards are supported by the meta-yocto-bsp layer:
-=20
-   * Texas Instruments Beaglebone (beaglebone-yocto)
-+  * General 64-bit Arm SystemReady platforms (genericarm64)
-   * General IA platforms (genericx86 and genericx86-64)
-=20
- For more information see the board's section below. The appropriate MACH=
-INE
-@@ -55,7 +56,8 @@ Consumer Devices
-=20
- The following consumer devices are supported by the meta-yocto-bsp layer=
-:
-=20
--  * Intel x86 based PCs and devices (genericx86)
-+  * Arm-based SystemReady devices (genericarm64)
-+  * Intel x86 based PCs and devices (genericx86 and genericx86-64)
-=20
- For more information see the device's section below. The appropriate MAC=
-HINE
- variable value corresponding to the device is given in brackets.
-@@ -126,6 +128,20 @@ USB Device:
-        dd command to write the image to a USB stick.
-=20
-=20
-+SystemReady Arm Platforms
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D
-+
-+The genericarm64 MACHINE is designed to work on standard SystemReady IR
-+compliant boards with preinstalled firmware.
-+
-+The genericarm64 MACHINE is currently tested on the following platforms:
-+
-+  * Texas Instruments BeaglePlay
-+
-+The images built are EFI bootable disk images and can be written directl=
-y to a
-+SD card for booting, for example.
-+
-+
- Texas Instruments Beaglebone (beaglebone-yocto)
- =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-=20
-diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-b=
-sp/conf/machine/genericarm64.conf
-new file mode 100644
-index 00000000000..83f1aca137a
---- /dev/null
-+++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
-@@ -0,0 +1,29 @@
-+#@TYPE: Machine
-+#@NAME: genericarm64
-+#@DESCRIPTION: Generic Arm64 machine for typical SystemReady platforms, =
-which
-+#have working firmware and boot via EFI.
-+
-+require conf/machine/include/arm/arch-armv8a.inc
-+
-+# Arm Base System Architecture says v8.0+ is allowed, but FEAT_CRC32 is =
-required
-+DEFAULTTUNE =3D "armv8a-crc"
-+
-+MACHINE_FEATURES =3D "acpi alsa bluetooth efi keyboard pci qemu-usermode=
- rtc screen usbhost vfat wifi"
-+
-+# Install all the kernel modules and all the firmware
-+MACHINE_EXTRA_RRECOMMENDS +=3D "kernel-modules linux-firmware"
-+
-+KERNEL_IMAGETYPE =3D "Image"
-+PREFERRED_PROVIDER_virtual/kernel ?=3D "linux-yocto"
-+
-+# Use an initramfs and populate it with the kernel modules
-+INITRAMFS_IMAGE ?=3D "core-image-initramfs-boot"
-+PACKAGE_INSTALL:append:pn-core-image-initramfs-boot =3D " kernel-modules=
-"
-+
-+IMAGE_FSTYPES ?=3D "wic"
-+WKS_FILE ?=3D "genericarm64.wks.in"
-+
-+EFI_PROVIDER ?=3D "${@bb.utils.contains("DISTRO_FEATURES", "systemd", "s=
-ystemd-boot", "grub-efi", d)}"
-+
-+# Try to bring up one physical serial console, or a virtualized serial c=
-onsole
-+SERIAL_CONSOLES ?=3D "115200;ttyAMA0 115200;hvc0"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend=
- b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
-index 8e465c241e8..ca7b2b09df7 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
-@@ -1,19 +1,24 @@
-+KBRANCH:genericarm64  =3D "v6.6/standard/base"
- KBRANCH:genericx86  =3D "v6.6/standard/base"
- KBRANCH:genericx86-64  =3D "v6.6/standard/base"
- KBRANCH:beaglebone-yocto =3D "v6.6/standard/beaglebone"
-=20
-+KMACHINE:genericarm64 ?=3D "genericarm64"
- KMACHINE:genericx86 ?=3D "common-pc"
- KMACHINE:genericx86-64 ?=3D "common-pc-64"
- KMACHINE:beaglebone-yocto ?=3D "beaglebone"
-=20
-+SRCREV_machine:genericarm64 ?=3D "e064a7d658a30b027b999183e21cd37305caff=
-2a"
- SRCREV_machine:genericx86 ?=3D "332d4668fcc32826907d4f3c4938845206006089=
-"
- SRCREV_machine:genericx86-64 ?=3D "332d4668fcc32826907d4f3c4938845206006=
-089"
- SRCREV_machine:beaglebone-yocto ?=3D "332d4668fcc32826907d4f3c4938845206=
-006089"
-=20
-+COMPATIBLE_MACHINE:genericarm64 =3D "genericarm64"
- COMPATIBLE_MACHINE:genericx86 =3D "genericx86"
- COMPATIBLE_MACHINE:genericx86-64 =3D "genericx86-64"
- COMPATIBLE_MACHINE:beaglebone-yocto =3D "beaglebone-yocto"
-=20
-+LINUX_VERSION:genericarm64 =3D "6.6.18"
- LINUX_VERSION:genericx86 =3D "6.6.15"
- LINUX_VERSION:genericx86-64 =3D "6.6.15"
- LINUX_VERSION:beaglebone-yocto =3D "6.6.15"
-diff --git a/meta-yocto-bsp/wic/genericarm64.wks.in b/meta-yocto-bsp/wic/=
-genericarm64.wks.in
-new file mode 100644
-index 00000000000..417d4d88104
---- /dev/null
-+++ b/meta-yocto-bsp/wic/genericarm64.wks.in
-@@ -0,0 +1,11 @@
-+# short-description: Create an EFI disk image
-+# long-description: Creates a partitioned EFI disk image that the user
-+# can directly dd to boot media.
-+
-+part /boot --source bootimg-efi --sourceparams=3D"loader=3D${EFI_PROVIDE=
-R},initrd=3D${INITRAMFS_IMAGE}-${MACHINE}.${INITRAMFS_FSTYPES}" --label b=
-oot --active --align 1024 --use-uuid
-+
-+part / --source rootfs --fstype=3Dext4 --label root --align 1024 --use-u=
-uid
-+
-+part swap --size 44 --label swap --fstype=3Dswap --use-uuid
-+
-+bootloader --ptable gpt --timeout=3D5 --append=3D"rootwait rootfstype=3D=
-ext4"
---=20
-2.34.1
+@@ -13,7 +13,7 @@ python pokybleeding_version_handler () {
+             bb.warn("Here 5 %s %s" % (d.getVar("PN"), bpn))
+         d.setVar("SRCREV", "${AUTOREV}")
+         if "+git" not in d.getVar("PV"):
+-            d.appendVar("PV", "+git${SRCPV}")
++            d.appendVar("PV", "+git")
+ }
+ 
+ addhandler pokybleeding_version_handler
+-- 
+2.44.0
 
 
