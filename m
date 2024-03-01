@@ -1,114 +1,130 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <trini@konsulko.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 86514C5478C
-	for <webhook@archiver.kernel.org>; Fri,  1 Mar 2024 13:16:44 +0000 (UTC)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
- by mx.groups.io with SMTP id smtpd.web10.22316.1709298999000915636
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A31DC5475B
+	for <webhook@archiver.kernel.org>; Fri,  1 Mar 2024 19:38:26 +0000 (UTC)
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+ by mx.groups.io with SMTP id smtpd.web11.33379.1709321896132827677
  for <poky@lists.yoctoproject.org>;
- Fri, 01 Mar 2024 05:16:39 -0800
+ Fri, 01 Mar 2024 11:38:16 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=Zj3+t9w5;
- spf=pass (domain: gmail.com, ip: 209.85.208.182, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-2d2991e8c12so20773271fa.0
-        for <poky@lists.yoctoproject.org>; Fri, 01 Mar 2024 05:16:38 -0800 (PST)
+ dkim=pass header.i=@konsulko.com header.s=google header.b=a0xoK0KV;
+ spf=pass (domain: konsulko.com, ip: 209.85.128.178, mailfrom: trini@konsulko.com)
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-60982a6d8a7so12303027b3.0
+        for <poky@lists.yoctoproject.org>; Fri, 01 Mar 2024 11:38:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709298997; x=1709903797; darn=lists.yoctoproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=2VINLsCmwi2g14OiW2i0M4YhchHY7h+mRV2nKcD51VA=;
-        b=Zj3+t9w5QfSaf38OvpraFs4eW05nysYZQXRC2VpL2XOcL740A6RrfFwta+uYWj4LGc
-         CzioTHDrymx+KytanFQlkiYfvWR4ua/Ezd4kTFHzspHBrHRg/iBERnwHAXW21u9CIIG1
-         NviBt3XI4TeLAJE2j1tVTqMuWCjRXvzNvaNS7i5n5LPNgbvGhU3VeiqDr2hFk3gX/bNj
-         uimdmDxNr7JRL4H4mhS29Wu8GUJ9uyrarpjm+ph/2tcPkX9kJ8l3fgHsaUghKGSB1CVW
-         TBeVgNIde46KzWG1jdR4n7XWCdDT4pyhWKL2Oisjq0rfz1mPRbCgJ0fCrKB6bsbxRgye
-         B+pw==
+        d=konsulko.com; s=google; t=1709321895; x=1709926695; darn=lists.yoctoproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=3ICWfQB4AGIgUESCBBdoqp5Rx36KsEQmMoqzT81hx2U=;
+        b=a0xoK0KV7MlqjhTCAvEWrg+qrqS4i73ZEoPNNVcLzWgFBUd4xGjEiPSXR5ov6F9KPz
+         PpN2HBAcl8nuA5uM2fzCPn/f7UcHN/hygJsXKJFYElWYoEz99FEVBpH7JgXWGV0xV8Pk
+         cmMqJtVxVJvFWqoccXZ5W8hWQ/NBId6yQJjqg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709298997; x=1709903797;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=2VINLsCmwi2g14OiW2i0M4YhchHY7h+mRV2nKcD51VA=;
-        b=pu+ypsNeB4LlGgZc/XcEfLNhAWCOjKpDQx8hU2W57A6gzs/AuvJsCXfIA9FI1skPJo
-         ttUORZ2CiXhtZZH1+Y42hZJEHuXx5t36sM+wzyO0wzcppN1/ZoOrWXOkf94yVF23hSMW
-         dmAgFlP3pqrTiDYFM7IxYzfkiWFLiLDVLee5l/R8P1w4n26d8SdiXdNDvwJ+88rp0aaA
-         wcnj8hNu1VBC/jjAWjSSPN3/GmVkBUzV6QOFbPER+CnSRjbGqe8RY+0gDm+EgkKuq4Wp
-         qdgkrek0OL4A649FWAdIcdPKeGOqASHYoKHkAu6k7sUGn3BHnQmspXRo0sq9CUnYTDWX
-         g/oA==
-X-Gm-Message-State: AOJu0Yzx8nL5jJnDVtlld/ZzVrB6/AEkmCzC5sz0GQ8arrha0Mxjtz6g
-	KTpp1cmIk3HSTn44smYI+BjcAQkzmQVoOR7enRu5wGcJNQBf2W/7atQNaMmKH2d/IZl612Cz8Ct
-	zeVF+J1Qb8YG0qXZMZ6bD9JcyWWs=
-X-Google-Smtp-Source: AGHT+IGKskx20Kn+m63cPHsVhiMvyHg3dKE790LU5/C/f/r8haeiYOsMaJ4ecmZT/3Vd4oiSwDkT65t8ElyE/XHejjA=
-X-Received: by 2002:a05:651c:2115:b0:2d2:3c72:f67d with SMTP id
- a21-20020a05651c211500b002d23c72f67dmr995431ljq.1.1709298996628; Fri, 01 Mar
- 2024 05:16:36 -0800 (PST)
+        d=1e100.net; s=20230601; t=1709321895; x=1709926695;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3ICWfQB4AGIgUESCBBdoqp5Rx36KsEQmMoqzT81hx2U=;
+        b=q2jAMrv/OU/Dy6hLG6II3uXpDKm1soeOn+Yd/OLtIG5SI+Hz889c/UglIWiN4HI6/i
+         UVjOxHEZBbtb9Aj6AzM2NKeU23fKr5/QWp/T0OMnmP/Oj+WeMr2FaiZGVLe0sx5sS26+
+         wUv7REPZo0NRZdEHR5yPQgDLitD2l/PeYi51Rdpi6KRiAiKaVu/Ek38Yz+yCUQZSZtYj
+         ns3klqJoMzbz/mdJwSRmeg3PwqJZpBBExTMiEsFQn8ifGxwpV585gqWv2GMqStmnoXAl
+         5dSryj8asQmsjiac+JLAAo/5HLcZbpi8CZRKvPNtSiyhb4YMzVwPpACbqpBlOiyrM6fT
+         lUyw==
+X-Forwarded-Encrypted: i=1; AJvYcCUCG5JhwCnz8Ms+aHunW0fm9dwDinjSwK/WnTBHKZM72KbbEXu0VV5Sx8b7iq1MS6juTuOv8AuCvgD1P5EPr+XU3QnnropXn2ZBcp8=
+X-Gm-Message-State: AOJu0YwZbvQMTQv8bdRk0Enf3d50VRexrC6xu41xG4FjDTthWmI4/8V4
+	5lLVB01zdSG2AYuvT7VcYwbuvkn7xnssSVVVGOKZ9O+lxbXKMFpNNOodDKhucGXCKYgnWPEnGze
+	Q
+X-Google-Smtp-Source: AGHT+IE6ANzS76l9EaTBi9mwnm9IS4GJicyKqnpXxok/LldrOI34/S0esgnF3YzHjhDdZEca6zg0Zw==
+X-Received: by 2002:a81:6d15:0:b0:609:879c:a72c with SMTP id i21-20020a816d15000000b00609879ca72cmr1923736ywc.42.1709321895272;
+        Fri, 01 Mar 2024 11:38:15 -0800 (PST)
+Received: from bill-the-cat (065-184-194-195.res.spectrum.com. [65.184.194.195])
+        by smtp.gmail.com with ESMTPSA id k125-20020a0dc883000000b00604863dc35csm1108221ywd.111.2024.03.01.11.38.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 01 Mar 2024 11:38:14 -0800 (PST)
+Date: Fri, 1 Mar 2024 14:38:12 -0500
+From: Tom Rini <trini@konsulko.com>
+To: Mark Hatle <mark.hatle@kernel.crashing.org>
+Cc: Ross Burton <ross.burton@arm.com>, poky@lists.yoctoproject.org
+Subject: Re: [poky] [PATCH v4] Add genericarm64 MACHINE
+Message-ID: <20240301193812.GG3040305@bill-the-cat>
+References: <20240229162440.4039352-1-ross.burton@arm.com>
+ <723718a0-d741-4791-8e62-4f82434b71f3@kernel.crashing.org>
 MIME-Version: 1.0
-References: <20240301130601.219034-1-michal.seben@siemens.com>
-In-Reply-To: <20240301130601.219034-1-michal.seben@siemens.com>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Fri, 1 Mar 2024 14:16:25 +0100
-Message-ID: <CANNYZj8Tsd1V=ptvo63ZyKCbiS0BPPkx9dO4obPSHNgqA63frw@mail.gmail.com>
-Subject: Re: [poky] [PATCH] testimage: allow to set runqemu bootparams option
-To: michal.seben@siemens.com
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <723718a0-d741-4791-8e62-4f82434b71f3@kernel.crashing.org>
+X-Clacks-Overhead: GNU Terry Pratchett
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 01 Mar 2024 13:16:44 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13291
+ <poky@lists.yoctoproject.org>; Fri, 01 Mar 2024 19:38:26 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13292
 
-Wrong mailing list. Should be sent to openembedded-core@lists.openembedded.org.
+On Thu, Feb 29, 2024 at 01:43:10PM -0600, Mark Hatle wrote:
+> On 2/29/24 10:24 AM, Ross Burton wrote:
+> > From: Ross Burton <ross.burton@arm.com>
+> > 
+> > This is a new 64-bit "generic" Arm machine, that expects the hardware to
+> > be SystemReady compatible.
+> > 
+> > Signed-off-by: Ross Burton <ross.burton@arm.com>
+> > ---
+> >   .../conf/templates/default/local.conf.sample  |  1 +
+> >   meta-yocto-bsp/README.hardware.md             | 18 ++++++++++-
+> >   meta-yocto-bsp/conf/machine/genericarm64.conf | 31 +++++++++++++++++++
+> >   .../linux/linux-yocto_6.6.bbappend            |  5 +++
+> >   meta-yocto-bsp/wic/genericarm64.wks.in        | 11 +++++++
+> >   5 files changed, 65 insertions(+), 1 deletion(-)
+> >   create mode 100644 meta-yocto-bsp/conf/machine/genericarm64.conf
+> >   create mode 100644 meta-yocto-bsp/wic/genericarm64.wks.in
+> 
+> ...
+> 
+> > +SystemReady Arm Platforms
+> > +=========================
+> > +
+> > +The genericarm64 MACHINE is designed to work on standard SystemReady IR/SR
+> > +compliant boards with preinstalled firmware.
+> > +
+> > +The genericarm64 MACHINE is currently tested on the following platforms:
+> > +
+> > +  * Texas Instruments BeaglePlay (IR)
+> > +
+> > +The images built are EFI bootable disk images and can be written directly to a
+> > +SD card for booting, for example.
+> > +
+> > +
+> >   Texas Instruments Beaglebone (beaglebone-yocto)
+> >   ===============================================
+> > diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-bsp/conf/machine/genericarm64.conf
+> > new file mode 100644
+> > index 00000000000..33ffa3fc019
+> > --- /dev/null
+> > +++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
+> > @@ -0,0 +1,31 @@
+> > +#@TYPE: Machine
+> > +#@NAME: genericarm64
+> > +#@DESCRIPTION: Generic Arm64 machine for typical SystemReady IR/ES platforms, which
+> > +#have working firmware and boot via EFI.
+> > +
+> > +require conf/machine/include/arm/arch-armv8a.inc
+> > +
+> > +# Arm Base System Architecture says v8.0+ is allowed, but FEAT_CRC32 is required
+> > +DEFAULTTUNE = "armv8a-crc"
+> > +
+> > +MACHINE_FEATURES = "acpi alsa bluetooth efi keyboard pci qemu-usermode rtc screen usbhost vfat wifi"
+> 
+> SystemReady IR supports u-boot booting, as far as I'm aware, but this looks
+> like it now requires (vs allows) EFI.  Is this the case, or am I reading it
+> wrong?
 
-Alex
+IR supports U-Boot because U-Boot does (a subset of) UEFI.
 
-On Fri, 1 Mar 2024 at 14:06, M. Seben via lists.yoctoproject.org
-<michal.seben=siemens.com@lists.yoctoproject.org> wrote:
->
-> From: michal seben <michal.seben@siemens.com>
->
-> Allow to set runqemu bootparams option using TEST_EXTRABOOTPARAMS
-> variable. This option can be used .e.g. to mask service only for
-> testimage task.
->
-> Signed-off-by: michal seben <michal.seben@siemens.com>
-> ---
->  meta/classes-recipe/testimage.bbclass | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/meta/classes-recipe/testimage.bbclass b/meta/classes-recipe/testimage.bbclass
-> index ad040ee8f0..6e2800e3c3 100644
-> --- a/meta/classes-recipe/testimage.bbclass
-> +++ b/meta/classes-recipe/testimage.bbclass
-> @@ -47,6 +47,8 @@ TESTIMAGE_FAILED_QA_ARTIFACTS += "${@bb.utils.contains('DISTRO_FEATURES', 'ptest
->  # TEST_QEMUBOOT_TIMEOUT can be used to set the maximum time in seconds the launch code will wait for the login prompt.
->  # TEST_OVERALL_TIMEOUT can be used to set the maximum time in seconds the tests will be allowed to run (defaults to no limit).
->  # TEST_QEMUPARAMS can be used to pass extra parameters to qemu, e.g. "-m 1024" for setting the amount of ram to 1 GB.
-> +# TEST_EXTRABOOTPARAMS can be used to set the 'bootparams' option for the runqemu script
-> +# e.g. "systemd.mask=NetworkManager-wait-online.service" to mask particular service
->  # TEST_RUNQEMUPARAMS can be used to pass extra parameters to runqemu, e.g. "gl" to enable OpenGL acceleration.
->  # QEMU_USE_KVM can be set to "" to disable the use of kvm (by default it is enabled if target_arch == build_arch or both of them are x86 archs)
->
-> @@ -358,7 +360,7 @@ def testimage_main(d):
->      try:
->          # We need to check if runqemu ends unexpectedly
->          # or if the worker send us a SIGTERM
-> -        tc.target.start(params=d.getVar("TEST_QEMUPARAMS"), runqemuparams=d.getVar("TEST_RUNQEMUPARAMS"))
-> +        tc.target.start(params=d.getVar("TEST_QEMUPARAMS"), extra_bootparams=d.getVar("TEST_EXTRABOOTPARAMS"), runqemuparams=d.getVar("TEST_RUNQEMUPARAMS"))
->          import threading
->          try:
->              threading.Timer(int(d.getVar("TEST_OVERALL_TIMEOUT")), handle_test_timeout, (int(d.getVar("TEST_OVERALL_TIMEOUT")),)).start()
-> --
-> 2.39.2
->
->
-> -=-=-=-=-=-=-=-=-=-=-=-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13290): https://lists.yoctoproject.org/g/poky/message/13290
-> Mute This Topic: https://lists.yoctoproject.org/mt/104662973/1686489
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gmail.com]
-> -=-=-=-=-=-=-=-=-=-=-=-
->
+As a tangent, ES is a harder ask for us but not out of the question.
+
+-- 
+Tom
 
