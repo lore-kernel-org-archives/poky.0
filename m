@@ -1,135 +1,75 @@
-Return-Path: <mark.hatle@kernel.crashing.org>
+Return-Path: <michal.seben@siemens.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E41F2C54798
-	for <webhook@archiver.kernel.org>; Thu, 29 Feb 2024 19:43:19 +0000 (UTC)
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
- by mx.groups.io with SMTP id smtpd.web10.4559.1709235795109506913
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82BC8C5478C
+	for <webhook@archiver.kernel.org>; Fri,  1 Mar 2024 13:06:24 +0000 (UTC)
+Received: from mta-64-228.siemens.flowmailer.net (mta-64-228.siemens.flowmailer.net [185.136.64.228])
+ by mx.groups.io with SMTP id smtpd.web11.22158.1709298375716222110
  for <poky@lists.yoctoproject.org>;
- Thu, 29 Feb 2024 11:43:15 -0800
+ Fri, 01 Mar 2024 05:06:17 -0800
 Authentication-Results: mx.groups.io;
- dkim=none (message not signed); spf=pass (domain: kernel.crashing.org, ip: 63.228.1.57, mailfrom: mark.hatle@kernel.crashing.org)
-Received: from [192.168.2.236] ([70.99.78.137])
-	by gate.crashing.org (8.14.1/8.14.1) with ESMTP id 41TJhB5G001894;
-	Thu, 29 Feb 2024 13:43:12 -0600
-Message-ID: <723718a0-d741-4791-8e62-4f82434b71f3@kernel.crashing.org>
-Date: Thu, 29 Feb 2024 13:43:10 -0600
+ dkim=pass header.i=michal.seben@siemens.com header.s=fm1 header.b=bb5l12Rn;
+ spf=pass (domain: rts-flowmailer.siemens.com, ip: 185.136.64.228, mailfrom: fm-1325011-202403011306128bc8dbc2436ff57630-qoajoy@rts-flowmailer.siemens.com)
+Received: by mta-64-228.siemens.flowmailer.net with ESMTPSA id 202403011306128bc8dbc2436ff57630
+        for <poky@lists.yoctoproject.org>;
+        Fri, 01 Mar 2024 14:06:12 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=michal.seben@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+ bh=MV+m3tGkncU9ikmAnF1OFHNrSmNnwueQled5ja4LM9Q=;
+ b=bb5l12RnuK1spLhS6AI+4IvbVFWfOKgdEnIsExSUE/7N7Rr/55G2izVEiG6YF39AAKeurB
+ ebTBhAHeSzG0Q3zVya8NhuyrpmsasqEfhZ64r/dYXG3t5xNK62pkVqfxBez7Ba86VMdgSf/M
+ jYGZZfFvEA/kTPg3L2Pb4PPcGZ2Mk=;
+From: "M. Seben" <michal.seben@siemens.com>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH] testimage: allow to set runqemu bootparams option
+Date: Fri,  1 Mar 2024 14:06:01 +0100
+Message-Id: <20240301130601.219034-1-michal.seben@siemens.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [poky] [PATCH v4] Add genericarm64 MACHINE
-Content-Language: en-US
-To: Ross Burton <ross.burton@arm.com>, poky@lists.yoctoproject.org
-References: <20240229162440.4039352-1-ross.burton@arm.com>
-From: Mark Hatle <mark.hatle@kernel.crashing.org>
-In-Reply-To: <20240229162440.4039352-1-ross.burton@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-1325011:519-21489:flowmailer
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 29 Feb 2024 19:43:19 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13289
+ <poky@lists.yoctoproject.org>; Fri, 01 Mar 2024 13:06:24 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13290
 
-On 2/29/24 10:24 AM, Ross Burton wrote:
-> From: Ross Burton <ross.burton@arm.com>
-> 
-> This is a new 64-bit "generic" Arm machine, that expects the hardware to
-> be SystemReady compatible.
-> 
-> Signed-off-by: Ross Burton <ross.burton@arm.com>
-> ---
->   .../conf/templates/default/local.conf.sample  |  1 +
->   meta-yocto-bsp/README.hardware.md             | 18 ++++++++++-
->   meta-yocto-bsp/conf/machine/genericarm64.conf | 31 +++++++++++++++++++
->   .../linux/linux-yocto_6.6.bbappend            |  5 +++
->   meta-yocto-bsp/wic/genericarm64.wks.in        | 11 +++++++
->   5 files changed, 65 insertions(+), 1 deletion(-)
->   create mode 100644 meta-yocto-bsp/conf/machine/genericarm64.conf
->   create mode 100644 meta-yocto-bsp/wic/genericarm64.wks.in
+From: michal seben <michal.seben@siemens.com>
 
-...
+Allow to set runqemu bootparams option using TEST_EXTRABOOTPARAMS
+variable. This option can be used .e.g. to mask service only for
+testimage task.
 
-> +SystemReady Arm Platforms
-> +=========================
-> +
-> +The genericarm64 MACHINE is designed to work on standard SystemReady IR/SR
-> +compliant boards with preinstalled firmware.
-> +
-> +The genericarm64 MACHINE is currently tested on the following platforms:
-> +
-> +  * Texas Instruments BeaglePlay (IR)
-> +
-> +The images built are EFI bootable disk images and can be written directly to a
-> +SD card for booting, for example.
-> +
-> +
->   Texas Instruments Beaglebone (beaglebone-yocto)
->   ===============================================
->   
-> diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-bsp/conf/machine/genericarm64.conf
-> new file mode 100644
-> index 00000000000..33ffa3fc019
-> --- /dev/null
-> +++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
-> @@ -0,0 +1,31 @@
-> +#@TYPE: Machine
-> +#@NAME: genericarm64
-> +#@DESCRIPTION: Generic Arm64 machine for typical SystemReady IR/ES platforms, which
-> +#have working firmware and boot via EFI.
-> +
-> +require conf/machine/include/arm/arch-armv8a.inc
-> +
-> +# Arm Base System Architecture says v8.0+ is allowed, but FEAT_CRC32 is required
-> +DEFAULTTUNE = "armv8a-crc"
-> +
-> +MACHINE_FEATURES = "acpi alsa bluetooth efi keyboard pci qemu-usermode rtc screen usbhost vfat wifi"
+Signed-off-by: michal seben <michal.seben@siemens.com>
+---
+ meta/classes-recipe/testimage.bbclass | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-SystemReady IR supports u-boot booting, as far as I'm aware, but this looks like 
-it now requires (vs allows) EFI.  Is this the case, or am I reading it wrong?
+diff --git a/meta/classes-recipe/testimage.bbclass b/meta/classes-recipe/testimage.bbclass
+index ad040ee8f0..6e2800e3c3 100644
+--- a/meta/classes-recipe/testimage.bbclass
++++ b/meta/classes-recipe/testimage.bbclass
+@@ -47,6 +47,8 @@ TESTIMAGE_FAILED_QA_ARTIFACTS += "${@bb.utils.contains('DISTRO_FEATURES', 'ptest
+ # TEST_QEMUBOOT_TIMEOUT can be used to set the maximum time in seconds the launch code will wait for the login prompt.
+ # TEST_OVERALL_TIMEOUT can be used to set the maximum time in seconds the tests will be allowed to run (defaults to no limit).
+ # TEST_QEMUPARAMS can be used to pass extra parameters to qemu, e.g. "-m 1024" for setting the amount of ram to 1 GB.
++# TEST_EXTRABOOTPARAMS can be used to set the 'bootparams' option for the runqemu script
++# e.g. "systemd.mask=NetworkManager-wait-online.service" to mask particular service
+ # TEST_RUNQEMUPARAMS can be used to pass extra parameters to runqemu, e.g. "gl" to enable OpenGL acceleration.
+ # QEMU_USE_KVM can be set to "" to disable the use of kvm (by default it is enabled if target_arch == build_arch or both of them are x86 archs)
+ 
+@@ -358,7 +360,7 @@ def testimage_main(d):
+     try:
+         # We need to check if runqemu ends unexpectedly
+         # or if the worker send us a SIGTERM
+-        tc.target.start(params=d.getVar("TEST_QEMUPARAMS"), runqemuparams=d.getVar("TEST_RUNQEMUPARAMS"))
++        tc.target.start(params=d.getVar("TEST_QEMUPARAMS"), extra_bootparams=d.getVar("TEST_EXTRABOOTPARAMS"), runqemuparams=d.getVar("TEST_RUNQEMUPARAMS"))
+         import threading
+         try:
+             threading.Timer(int(d.getVar("TEST_OVERALL_TIMEOUT")), handle_test_timeout, (int(d.getVar("TEST_OVERALL_TIMEOUT")),)).start()
+-- 
+2.39.2
 
-> +
-> +KERNEL_IMAGETYPE = "Image"
-> +PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
-> +
-> +# Install all the kernel modules into the rootfs
-> +MACHINE_EXTRA_RRECOMMENDS += "kernel-modules"
-> +# Install selected pieces of firmware
-> +MACHINE_EXTRA_RRECOMMENDS += "linux-firmware-wl12xx linux-firmware-wl18xx linux-firmware-wlcommon linux-firmware-rtl-nic"
-> +
-> +# Use an initramfs and populate it with the kernel modules and key firmware
-> +INITRAMFS_IMAGE ?= "core-image-initramfs-boot"
-> +PACKAGE_INSTALL:append:pn-core-image-initramfs-boot = " kernel-modules linux-firmware-rtl-nic"
-
-Is initramfs loading required?  Or is this for a specific
-
-> +
-> +IMAGE_FSTYPES ?= "wic"
-> +WKS_FILE ?= "genericarm64.wks.in"
-> +
-> +EFI_PROVIDER ?= "${@bb.utils.contains("DISTRO_FEATURES", "systemd", "systemd-boot", "grub-efi", d)}"
-> +
-> +# Try to bring up one physical serial console, or a virtualized serial console
-> +SERIAL_CONSOLES ?= "115200;ttyAMA0 115200;hvc0"
-
-> diff --git a/meta-yocto-bsp/wic/genericarm64.wks.in b/meta-yocto-bsp/wic/genericarm64.wks.in
-> new file mode 100644
-> index 00000000000..f76e5444be4
-> --- /dev/null
-> +++ b/meta-yocto-bsp/wic/genericarm64.wks.in
-> @@ -0,0 +1,11 @@
-> +# short-description: Create an EFI disk image
-> +# long-description: Creates a partitioned EFI disk image that the user
-> +# can directly dd to boot media.
-> +
-> +part /boot --source bootimg-efi --sourceparams="loader=${EFI_PROVIDER},initrd=${INITRAMFS_IMAGE}-${MACHINE}.${INITRAMFS_FSTYPES}" --label boot --active --align 1024 --use-uuid
-
-This makes me thing that the initrd IS required as is EFI.
-
-> +
-> +part swap --size 32 --label swap --fstype=swap --use-uuid
-> +
-> +part / --source rootfs --fstype=ext4 --label root --align 1024 --use-uuid
-> +
-> +bootloader --ptable gpt --timeout=5 --append="rootwait rootfstype=ext4"
 
