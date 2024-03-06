@@ -1,167 +1,217 @@
-Return-Path: <bruce.ashfield@gmail.com>
+Return-Path: <peter.kjellerstedt@axis.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3720CC54E41
-	for <webhook@archiver.kernel.org>; Wed,  6 Mar 2024 15:48:52 +0000 (UTC)
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
- by mx.groups.io with SMTP id smtpd.web10.15234.1709740125853105182
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E1C7CC5475B
+	for <webhook@archiver.kernel.org>; Wed,  6 Mar 2024 16:59:22 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com (EUR05-AM6-obe.outbound.protection.outlook.com [40.107.22.85])
+ by mx.groups.io with SMTP id smtpd.web11.17610.1709744355176072701
  for <poky@lists.yoctoproject.org>;
- Wed, 06 Mar 2024 07:48:45 -0800
+ Wed, 06 Mar 2024 08:59:15 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=YhQs9Hbl;
- spf=pass (domain: gmail.com, ip: 209.85.216.50, mailfrom: bruce.ashfield@gmail.com)
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-29a74c88f74so4764831a91.3
-        for <poky@lists.yoctoproject.org>; Wed, 06 Mar 2024 07:48:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1709740125; x=1710344925; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=k2nq6MZcSaKxVStxlA5WIIMtBWBBG44mHvW5k+MM144=;
-        b=YhQs9Hblp69W+AkA4j/Ao/xnHc9w4QNlVNVDb11UQTphZKVzXldJTKvLEYZ2clF3KC
-         D2jyb6FIHH0ZluR15ucZzVt9Ugnbw4ezgomyGeLnIQPxr8HySjI/drb9vxQo/pe/yerO
-         Gn6lIc2thwpzQyRX5g1M6b1i8hnwJYKLeHjASiRt5j15BpqJqdTo6PJ1XTwoLEGmUUmt
-         Qn4tuxb8S+Q7qBwab7G6iDnD9AeocKCdVa8s6loZ0kiReWckmTZUCxkj6zlMvewoN7/L
-         7JnUKfYE6cUP3br9Co9RUBjtSGWijdvVgIeQuKWRC4YH+8cEmhZDw4XOupmTVjNM+K3k
-         Augw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1709740125; x=1710344925;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=k2nq6MZcSaKxVStxlA5WIIMtBWBBG44mHvW5k+MM144=;
-        b=vtvfjl5Jz0kEMzCzpxCnQ7kOw1vWcqqV2SvZbzvMHDBuCyIyQejDFE+uq/NBRdfwpt
-         BIEmOYqaZzXh9XEcOen0l2JFXBLqtJ8QrGVDn6Xi1tOZDNgOUWZvvR3nPWhij8ISP/Vi
-         +EBVy58imDTXz39WJY7h30qe+zycx6rR/8m6nfTgzzWR1CfpoyKtyLnD4GrsbV4qyJhL
-         t7cLBkTo5sdDdK3kKcfWiGDncv55vQQZblEqb+JWjUwMB6xUEY0mB+dY/32fbPY/JIcv
-         lEsSWhnvZGBQgzDyOdbAgHsGhh72qtcCK024ZIyTm+eyUNBo7BB9So3cbc2beYlFrTgl
-         6LzQ==
-X-Gm-Message-State: AOJu0YwGfDuy4pFPOR3rk6j9tS4MfsTwAN5PysmQp2xH/PvfafVB2BA/
-	yACDbFxhNPPQiPUH+VNH5VmTuEKQ/q3B0Lc1t9UW9MXDPr6wQFwa3yGcG/n3zRkRovzoxrj4eK4
-	xT40jHarjds8cUcyyLFr0YEj5WW8=
-X-Google-Smtp-Source: AGHT+IHzcEcVaDcqJeNU9ClGdp/KyJYoBKaO1hOUZ9IipLPyHBEnAwAwc8eHE7Up0ab1X8k5dObfdLiMAX8fIADDgcM=
-X-Received: by 2002:a17:90a:7143:b0:29a:842b:d8b3 with SMTP id
- g3-20020a17090a714300b0029a842bd8b3mr12573903pjs.7.1709740125145; Wed, 06 Mar
- 2024 07:48:45 -0800 (PST)
+ dkim=pass header.i=@axis.com header.s=selector1 header.b=WY4A4kNy;
+ spf=pass (domain: axis.com, ip: 40.107.22.85, mailfrom: peter.kjellerstedt@axis.com)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LDcAzwYx/GPP12rNbJsDgnBCaOiGm5gWtBEQMam31PLEjcDXCaTBEzDsloCH42tB4W2cX2nBSLtJSUpLuLDFokh7PpxeEgFK3Isu31Oz8nE3HLrB240HELeYrTXr+I8D+D4qEpFOKEmI0uigAFVX0YQMmBi7F7GQq+4tI2hp0sTHV9qcWDDGqd+In4JnLZadQTnv1Aw/99X9sxPBcUoWGxfyPfhf1VXTiSQOp8xCJ5BNlEz8X/MQTveJeieMmyZKFB0UiQQrcuj/FiXf3RGOlZyRileqCWl+z6S69voh87/5zwMwLdXFW3P7EBToaDIsj/+gZOnDXd6uHGrdIG6eDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=n5yqd1m+9Bga56pWUZgR5pnCQQMzq/7t5QoJvKWA4wo=;
+ b=Ls3QIBJC1q+3CB9j/+Nxa60nlnF+t+Yqe1AZnTEu/oLe5htGk0jRV7FNfkSiGY475hyZNg+Jnx9O6HJ8AdlbtusnPvemqX6O0GmnTDk/XAxBasPYwsDnsNVGJ9srFRNX0f2QxP75zi+vfEcLE+ZtD3hPATHYHWDr7wG2F2U40CwVe4G86czO3P0QVPFg9pOwBcey3A/0Cd0jEL0gRAtCV/ucdK81MZ7N1y90RN4KS/O9iLa91b6qtgVFFL2ASrsjRm2XjuPSdSDzHeonWRsI1jFpVlkFYztZ5lw8G22TigF5gGYte+CLyeoqOugGy88UfXKAVGpHF+oQSBCuVV6MsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
+ dkim=pass header.d=axis.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=n5yqd1m+9Bga56pWUZgR5pnCQQMzq/7t5QoJvKWA4wo=;
+ b=WY4A4kNyHF5eKPdGOmJbYdHiX5ZofqtP7ZnNVEa/46V5ySau853RJ7dKchWt2QZap3zMIWFguXgkw92ddRbma95XEHX4rWNK9SISZ5nYBMX9olAMYi8Vq6LOjjUGZjFQf2h1mqkEF8aTWeY7FU3Fr5WLmPTAlQs/m8fHd1CSp7M=
+Received: from DB5PR02MB10213.eurprd02.prod.outlook.com (2603:10a6:10:4a8::17)
+ by DBAPR02MB5973.eurprd02.prod.outlook.com (2603:10a6:10:182::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7362.24; Wed, 6 Mar
+ 2024 16:59:11 +0000
+Received: from DB5PR02MB10213.eurprd02.prod.outlook.com
+ ([fe80::fa03:deff:aae:c4d0]) by DB5PR02MB10213.eurprd02.prod.outlook.com
+ ([fe80::fa03:deff:aae:c4d0%7]) with mapi id 15.20.7362.019; Wed, 6 Mar 2024
+ 16:59:11 +0000
+From: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
+To: Bruce Ashfield <bruce.ashfield@gmail.com>
+CC: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+Subject: RE: [poky] [PATCH] poky.conf: Set the distro name to "scarthgap"
+Thread-Topic: [poky] [PATCH] poky.conf: Set the distro name to "scarthgap"
+Thread-Index: AQHaab/KZwBtCTEGPUaSBpn6+87JMrEqyAKggAAKEQCAABD8MIAABO2AgAATuxA=
+Date: Wed, 6 Mar 2024 16:59:11 +0000
+Message-ID: 
+ <DB5PR02MB10213584D4F6702FA22DCD490EF212@DB5PR02MB10213.eurprd02.prod.outlook.com>
+References: <17B7D3DE94B664C2.7754@lists.yoctoproject.org>
+ <DB5PR02MB102132C194BE245CC559F17CCEF212@DB5PR02MB10213.eurprd02.prod.outlook.com>
+ <CADkTA4P67D7VXRXdpBhYQHUz0Q=kpii+FMLLS1aD8NuyMi7m+w@mail.gmail.com>
+ <DB5PR02MB102130C7347BAA23C2E9E9F03EF212@DB5PR02MB10213.eurprd02.prod.outlook.com>
+ <CADkTA4PnwoxsvrY_wcEapa4CNvE_NQaA31zzU-Zrj=-ZX+b1dg@mail.gmail.com>
+In-Reply-To: 
+ <CADkTA4PnwoxsvrY_wcEapa4CNvE_NQaA31zzU-Zrj=-ZX+b1dg@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axis.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB5PR02MB10213:EE_|DBAPR02MB5973:EE_
+x-ms-office365-filtering-correlation-id: 68bb4509-5de7-44ad-0874-08dc3dfebf39
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ xdaOvwzabVmHJyNwkvDExP6tUJQYukOb/fGQOCus4IxArlvKYBpdzlWPY0evwR6lkYxD2yY1Bw0DBLsIe7qsJ4/44dQOfJZeRh2usPSGGVN6qnG5qxh/n5zIX9vtLId0ZtWlOkaMlGQQGN38+a/bvVctDnCeGmPTOCoUL64gBjrTkaFmb6/dXUFtwGOrwDRzE/cqMKSrtEE67FN0KCe9CoVI4PJwPeNNgsUgQnaG6X8/3WrKCk4Bk63Jf2O0RVzn+UqoXOU5gkq9JY4VG2PMjZStlJPuAFUWGCOEVgQ/xda/IBILe90aF50saidH3TiSeiNgDrKPYlcSbCdZM1MRRqT3ymQjLkuBr49RgK5CAqP8oOizwxSYMJ6bqYNQsV6XjopD6WGDy/BkSlYyM0nVTCd43mtWDDT8SJnEKH+87wPqmxOWxAms/shH5Vl0ch92pX7fLgPzzLFlGhdsJaFdnZAG97y9dPmMsDRqVBnLjIypV7tz3ktOgQepvdfldSXmpx3aWQqgF3oga/kLZzQPS8Ws1vyUWQiHHzTHfxW74nLHv4lcJe5XOa/N2YGRKcQT/6qHLGZHHf2PDpP4ytMXe2GPGlBI4Ie6zR8GChgxpz2L0gMuhDLyTPazgGhpf8skFTnSHT8Kv0/NpajeF+TBW3oI8ZzoynZPWT/ndtFzNW63uLaFH9eZG5SBQz4EtBfNGlp3x3vfVuommBa04UUJn+Tvtv9dzhrIYDHB8MM3QOc=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB5PR02MB10213.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376005)(38070700009);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?aU12WDUzdUkwbkNZdjArcHliaEhhNExiMHZlVCtoSXBCcmpab0hWTXNqZHNQ?=
+ =?utf-8?B?VWdBVHRWR2w2SFFjeTJnQnBvY2YrdUpnUHQzZnpQMEdCZGVlcjZQMlBEWG0w?=
+ =?utf-8?B?dEJTbFRpbGVjYXljZ21ORHNVcm1kNTNWZFhNamVSZmhmRGlwOEtiZkFmek5k?=
+ =?utf-8?B?c3E0V2Z2VHE5RnNGTFFKL216STNoUDE4cHFybU5nZDhGSjBxbXFtZ1FnRlYz?=
+ =?utf-8?B?RVhrU25NS3VxdW1zMFcxd0R3ZlFScFk1TlJjK3hHdVFBb3lLbXQ3ZncrUzMy?=
+ =?utf-8?B?NzZUeUFQQlIwUHRmSUJCL3NrU1pYL0dOMkdKNEwzNmhWQnlsMXBpZnNaSy90?=
+ =?utf-8?B?SjhYUEpzSHE5NmpHOTdVdHZOdFc3SzNsTXRnbnBrc0lCelNwK25XcXNsTUsr?=
+ =?utf-8?B?TW9peWdCZlE5aXJqNjJTejJVTURVOFhnU2lVWDk5U2tuK2JsZ1A5TmtUaUlK?=
+ =?utf-8?B?bHRIRERHbUVqdTR6em9tMlVlakdOdVNJUTk3dDhRVjZiK2pETlhFOW42UnNp?=
+ =?utf-8?B?akhMdFBlOGxZWVhZZVVCd3hZY2d4ZzJJS0FCVVJDNzd1UjIyZnFiQS9ERnhH?=
+ =?utf-8?B?SStEYk1PaWVVd0ZHZUtkNEZ5WWJCYUZ6VWgyL09WSTBoZVhEb3pvSEZQM2JL?=
+ =?utf-8?B?anh4L0d6V2ZGYXdaMmlheDAzcHExZFFwTmRibWNJRjRNWjd3M2EvbDkrZzFH?=
+ =?utf-8?B?YnhDUmduQzBvMGoxY1NLQldFays3YzNEekY1YStBczdkWVdDUnBYSVBKeStH?=
+ =?utf-8?B?SVJQcFFPdldINE5ycGFiN3FZRGlmUytHWC8zQy8rdytIS25yNjN5clFaYi90?=
+ =?utf-8?B?cWxwOThMY3JyaTlXb1hSRDVPQU1UMHpCVTZWak9SVGVxaXJOZzRMVGFnZXQx?=
+ =?utf-8?B?TmxDbHRXTjQ0SldEemNhUFU5Ukhybm9qWUJCUjZmb2ZzR3BXd0NlVDZYVWNS?=
+ =?utf-8?B?M3Z4Nm9jeVZkcTNFN2MzTk1ScDM1UjZiczI1ajdERXJBdzlXajg0aXUvRUJ6?=
+ =?utf-8?B?R05aNnBWOHJ5ZlJnNmNMSkcyUExuWkpSSkR6RUY5b1pOb01DbEF2TVpFcVJi?=
+ =?utf-8?B?bWxjTzhiZTcybUdDNmN3V2JhZFM1NjFnaTNzUXdTL3I0TkYxMk0vWHpqWXlF?=
+ =?utf-8?B?QVF2RlBBTzBkU2g2YUI5RDBrREpWZ3VJYmdyK2M2aFU1dWdkdXYyRVRKUHFs?=
+ =?utf-8?B?dE53bTdPS3k4T05zN1JwZXNnSFptME9wMjZXWlpDY2pTaG5QKzJlMlNPeUZ2?=
+ =?utf-8?B?MjZ5bGtXWVpqNi9wakpZUFY2MTVEcXY5dVAzeW1KOVNQWnR2cXZqVWZ0UVJL?=
+ =?utf-8?B?S3IxZzQzL1JWQm42S28xVTVqL3pRNGpjTzJSMEVCQWwzbDZPQ1VXSjFkRk43?=
+ =?utf-8?B?bUo5OEYrZndMTFlrbklKTDdNdXkzMkFYRVdWZXhsOW5BVFFyaEN2R0lqN05z?=
+ =?utf-8?B?bHd0NUFlRzBJcmljMHA3aWUzdCtzNnFXa1RSQzR4QXArVVFUa1piclREd2Ro?=
+ =?utf-8?B?WWtFNzhISU1hSGRLdm1nM1MyVnRSaFhKbkxVS1NGNzNqUXBPTGNMc0tGbmwx?=
+ =?utf-8?B?QjdZWkxYVDAxUytJUW90NDJHQmZKa21Zejh6azdneXJPVDR6YlJuUmp1bEVx?=
+ =?utf-8?B?ZzJpQXkvN0ljclJtdmlKSGRBL3FYNitBSXNKczJrdkNCenNCS21iZkw0SWVS?=
+ =?utf-8?B?VHBsY1NFaCtTbEIyQzdmd1NYUm1QdGxRQjZSb3B5MWcwMmROcG9UWkJxZy9U?=
+ =?utf-8?B?ZThPbURDOFhRMjlVMkZ5OG1qemZzZ29aQnJsYVpWWmt6UmU1UU1qTTJvWEVr?=
+ =?utf-8?B?NGVKcDRJS0MvamlmRWVLblA0eHV2MDJIbGY2dUpLV2RMblFYQTJtdk5ybnRq?=
+ =?utf-8?B?OFNubHZ2dGFybVdLL2FnbmEyT1lOV0ZoVU82M1QrNDVKeWF1QVRiRDNFRmNP?=
+ =?utf-8?B?NzJCeEphYXRZcmhEWGRXdVdoTlYzcFgrZUpDUTk4RnlZd2d3NFgwUEh2c24y?=
+ =?utf-8?B?LytOZkJPQXRFOEJ0V1dsOXdGNm9sSC9yaTI5SmZTRW1Oa0twZmVBUmFRWWd0?=
+ =?utf-8?B?SnNHS0pBVkl2WHh3RTBxK2tidzFKV0pRR0dYd0lFbWRTdFV3MVdhRGRlVkQx?=
+ =?utf-8?Q?82XM=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <17B7D3DE94B664C2.7754@lists.yoctoproject.org> <DB5PR02MB102132C194BE245CC559F17CCEF212@DB5PR02MB10213.eurprd02.prod.outlook.com>
- <CADkTA4P67D7VXRXdpBhYQHUz0Q=kpii+FMLLS1aD8NuyMi7m+w@mail.gmail.com> <DB5PR02MB102130C7347BAA23C2E9E9F03EF212@DB5PR02MB10213.eurprd02.prod.outlook.com>
-In-Reply-To: <DB5PR02MB102130C7347BAA23C2E9E9F03EF212@DB5PR02MB10213.eurprd02.prod.outlook.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-Date: Wed, 6 Mar 2024 10:48:33 -0500
-Message-ID: <CADkTA4PnwoxsvrY_wcEapa4CNvE_NQaA31zzU-Zrj=-ZX+b1dg@mail.gmail.com>
-Subject: Re: [poky] [PATCH] poky.conf: Set the distro name to "scarthgap"
-To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
-Cc: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB5PR02MB10213.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68bb4509-5de7-44ad-0874-08dc3dfebf39
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Mar 2024 16:59:11.8868
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: DZcxgq41NXlM6r8YCNLK9VE6hAkAmLieP7jqr3cVEV1MbtwLBgFRwA9Bl9Moy1Kj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR02MB5973
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 06 Mar 2024 15:48:52 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13297
+ <poky@lists.yoctoproject.org>; Wed, 06 Mar 2024 16:59:22 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13298
 
-On Wed, Mar 6, 2024 at 10:30=E2=80=AFAM Peter Kjellerstedt
-<peter.kjellerstedt@axis.com> wrote:
->
-> > -----Original Message-----
-> > From: poky@lists.yoctoproject.org <poky@lists.yoctoproject.org> On Beha=
-lf Of Bruce Ashfield
-> > Sent: den 6 mars 2024 15:30
-> > To: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
-> > Cc: poky@lists.yoctoproject.org
-> > Subject: Re: [poky] [PATCH] poky.conf: Set the distro name to "scarthga=
-p"
-> >
-> > On Wed, Mar 6, 2024 at 9:11=E2=80=AFAM Peter Kjellerstedt <peter.kjelle=
-rstedt@axis.com> wrote:
-> > >
-> > > *ping*
-> > >
-> > > I can't speak for others, but at least we have started our preparatio=
-ns for
-> > > the Scarthgap upgrade so that we are ready when it is released, thus =
-it would
-> > > help if DISTRO_CODENAME reflected the reality better.
-> >
-> > I can't speak for Richard, but I know when I get patches like this
-> > for areas I maintain, they would have been better just as an email
-> > asking when it is expected that the codename / whatever will be
-> > updated.
-> >
-> > Making this change is obviously something Richard can more easily
-> > do himself when he's happy with the content and not dealing with
-> > bigger issues (when everything is burning and late, this is low on the
-> > priority list).
-> >
-> > Handling a patch for something that he's responsible for (declaring
-> > that the branch is almost ready for the release) is more effort than
-> > it is worth.
-> >
-> > Bruce
->
-> Well, the DISTRO_CODENAME is normally updated relatively soon after the
-> upgrade rather than just before the next upgrade, typically at the same
-> time as the DISTRO_VERSION is set to its post-upgrade value. I do not
-> know why that did not happen this time.
-
-I didn't say that asking the question wasn't valid, I said doing it
-with a patch, following by a *ping* email, comes across as not
-being particularly sensitive to the current (well known) issues with
-late merging features to M3.
-
-Richard obviously knows what has to be done to prepare for a
-release, and if it hasn't been done yet, there are likely reasons
-for that.
-
-Bruce
-
->
-> And the reason I ask for it to be updated to match the content is of
-> course that we sometimes use it when there is a need to differentiate
-> between how things are done in the current version and in the upcoming
-> release.
->
-> //Peter
->
-> > > //Peter
-> > >
-> > > > -----Original Message-----
-> > > > From: poky@lists.yoctoproject.org <poky@lists.yoctoproject.org> On =
-Behalf Of Peter Kjellerstedt
-> > > > Sent: den 27 februari 2024 21:45
-> > > > To: poky@lists.yoctoproject.org
-> > > > Subject: [poky] [PATCH] poky.conf: Set the distro name to "scarthga=
-p"
-> > > >
-> > > > Signed-off-by: Peter Kjellerstedt <peter.kjellerstedt@axis.com>
-> > > > ---
-> > > >
-> > > > It's been a long time since this diverged from Nanbield.
-> > > >
-> > > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > >
-> > > > diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distr=
-o/poky.conf
-> > > > index 3b7bc66780..e59ad974d0 100644
-> > > > --- a/meta-poky/conf/distro/poky.conf
-> > > > +++ b/meta-poky/conf/distro/poky.conf
-> > > > @@ -1,7 +1,7 @@
-> > > >  DISTRO =3D "poky"
-> > > >  DISTRO_NAME =3D "Poky (Yocto Project Reference Distro)"
-> > > >  DISTRO_VERSION =3D "4.3+snapshot-${METADATA_REVISION}"
-> > > > -DISTRO_CODENAME =3D "nanbield"
-> > > > +DISTRO_CODENAME =3D "scarthgap"
-> > > >  SDK_VENDOR =3D "-pokysdk"
-> > > >  SDK_VERSION =3D "${@d.getVar('DISTRO_VERSION').replace('snapshot-$=
-{METADATA_REVISION}', 'snapshot')}"
-> > > >  SDK_VERSION[vardepvalue] =3D "${SDK_VERSION}"
->
-
-
---=20
-- Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end
-- "Use the force Harry" - Gandalf, Star Trek II
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBwb2t5QGxpc3RzLnlvY3RvcHJv
+amVjdC5vcmcgPHBva3lAbGlzdHMueW9jdG9wcm9qZWN0Lm9yZz4gT24gQmVoYWxmDQo+IE9mIEJy
+dWNlIEFzaGZpZWxkDQo+IFNlbnQ6IGRlbiA2IG1hcnMgMjAyNCAxNjo0OQ0KPiBUbzogUGV0ZXIg
+S2plbGxlcnN0ZWR0IDxwZXRlci5ramVsbGVyc3RlZHRAYXhpcy5jb20+DQo+IENjOiBwb2t5QGxp
+c3RzLnlvY3RvcHJvamVjdC5vcmcNCj4gU3ViamVjdDogUmU6IFtwb2t5XSBbUEFUQ0hdIHBva3ku
+Y29uZjogU2V0IHRoZSBkaXN0cm8gbmFtZSB0byAic2NhcnRoZ2FwIg0KPiANCj4gT24gV2VkLCBN
+YXIgNiwgMjAyNCBhdCAxMDozMOKAr0FNIFBldGVyIEtqZWxsZXJzdGVkdA0KPiA8cGV0ZXIua2pl
+bGxlcnN0ZWR0QGF4aXMuY29tPiB3cm90ZToNCj4gPg0KPiA+ID4gLS0tLS1PcmlnaW5hbCBNZXNz
+YWdlLS0tLS0NCj4gPiA+IEZyb206IHBva3lAbGlzdHMueW9jdG9wcm9qZWN0Lm9yZyA8cG9reUBs
+aXN0cy55b2N0b3Byb2plY3Qub3JnPiBPbg0KPiBCZWhhbGYgT2YgQnJ1Y2UgQXNoZmllbGQNCj4g
+PiA+IFNlbnQ6IGRlbiA2IG1hcnMgMjAyNCAxNTozMA0KPiA+ID4gVG86IFBldGVyIEtqZWxsZXJz
+dGVkdCA8cGV0ZXIua2plbGxlcnN0ZWR0QGF4aXMuY29tPg0KPiA+ID4gQ2M6IHBva3lAbGlzdHMu
+eW9jdG9wcm9qZWN0Lm9yZw0KPiA+ID4gU3ViamVjdDogUmU6IFtwb2t5XSBbUEFUQ0hdIHBva3ku
+Y29uZjogU2V0IHRoZSBkaXN0cm8gbmFtZSB0bw0KPiAic2NhcnRoZ2FwIg0KPiA+ID4NCj4gPiA+
+IE9uIFdlZCwgTWFyIDYsIDIwMjQgYXQgOToxMeKAr0FNIFBldGVyIEtqZWxsZXJzdGVkdA0KPiA8
+cGV0ZXIua2plbGxlcnN0ZWR0QGF4aXMuY29tPiB3cm90ZToNCj4gPiA+ID4NCj4gPiA+ID4gKnBp
+bmcqDQo+ID4gPiA+DQo+ID4gPiA+IEkgY2FuJ3Qgc3BlYWsgZm9yIG90aGVycywgYnV0IGF0IGxl
+YXN0IHdlIGhhdmUgc3RhcnRlZCBvdXINCj4gcHJlcGFyYXRpb25zIGZvcg0KPiA+ID4gPiB0aGUg
+U2NhcnRoZ2FwIHVwZ3JhZGUgc28gdGhhdCB3ZSBhcmUgcmVhZHkgd2hlbiBpdCBpcyByZWxlYXNl
+ZCwgdGh1cw0KPiBpdCB3b3VsZA0KPiA+ID4gPiBoZWxwIGlmIERJU1RST19DT0RFTkFNRSByZWZs
+ZWN0ZWQgdGhlIHJlYWxpdHkgYmV0dGVyLg0KPiA+ID4NCj4gPiA+IEkgY2FuJ3Qgc3BlYWsgZm9y
+IFJpY2hhcmQsIGJ1dCBJIGtub3cgd2hlbiBJIGdldCBwYXRjaGVzIGxpa2UgdGhpcw0KPiA+ID4g
+Zm9yIGFyZWFzIEkgbWFpbnRhaW4sIHRoZXkgd291bGQgaGF2ZSBiZWVuIGJldHRlciBqdXN0IGFz
+IGFuIGVtYWlsDQo+ID4gPiBhc2tpbmcgd2hlbiBpdCBpcyBleHBlY3RlZCB0aGF0IHRoZSBjb2Rl
+bmFtZSAvIHdoYXRldmVyIHdpbGwgYmUNCj4gPiA+IHVwZGF0ZWQuDQo+ID4gPg0KPiA+ID4gTWFr
+aW5nIHRoaXMgY2hhbmdlIGlzIG9idmlvdXNseSBzb21ldGhpbmcgUmljaGFyZCBjYW4gbW9yZSBl
+YXNpbHkNCj4gPiA+IGRvIGhpbXNlbGYgd2hlbiBoZSdzIGhhcHB5IHdpdGggdGhlIGNvbnRlbnQg
+YW5kIG5vdCBkZWFsaW5nIHdpdGgNCj4gPiA+IGJpZ2dlciBpc3N1ZXMgKHdoZW4gZXZlcnl0aGlu
+ZyBpcyBidXJuaW5nIGFuZCBsYXRlLCB0aGlzIGlzIGxvdyBvbiB0aGUNCj4gPiA+IHByaW9yaXR5
+IGxpc3QpLg0KPiA+ID4NCj4gPiA+IEhhbmRsaW5nIGEgcGF0Y2ggZm9yIHNvbWV0aGluZyB0aGF0
+IGhlJ3MgcmVzcG9uc2libGUgZm9yIChkZWNsYXJpbmcNCj4gPiA+IHRoYXQgdGhlIGJyYW5jaCBp
+cyBhbG1vc3QgcmVhZHkgZm9yIHRoZSByZWxlYXNlKSBpcyBtb3JlIGVmZm9ydCB0aGFuDQo+ID4g
+PiBpdCBpcyB3b3J0aC4NCj4gPiA+DQo+ID4gPiBCcnVjZQ0KPiA+DQo+ID4gV2VsbCwgdGhlIERJ
+U1RST19DT0RFTkFNRSBpcyBub3JtYWxseSB1cGRhdGVkIHJlbGF0aXZlbHkgc29vbiBhZnRlciB0
+aGUNCj4gPiB1cGdyYWRlIHJhdGhlciB0aGFuIGp1c3QgYmVmb3JlIHRoZSBuZXh0IHVwZ3JhZGUs
+IHR5cGljYWxseSBhdCB0aGUgc2FtZQ0KPiA+IHRpbWUgYXMgdGhlIERJU1RST19WRVJTSU9OIGlz
+IHNldCB0byBpdHMgcG9zdC11cGdyYWRlIHZhbHVlLiBJIGRvIG5vdA0KPiA+IGtub3cgd2h5IHRo
+YXQgZGlkIG5vdCBoYXBwZW4gdGhpcyB0aW1lLg0KPiANCj4gSSBkaWRuJ3Qgc2F5IHRoYXQgYXNr
+aW5nIHRoZSBxdWVzdGlvbiB3YXNuJ3QgdmFsaWQsIEkgc2FpZCBkb2luZyBpdA0KPiB3aXRoIGEg
+cGF0Y2gsIGZvbGxvd2luZyBieSBhICpwaW5nKiBlbWFpbCwgY29tZXMgYWNyb3NzIGFzIG5vdA0K
+PiBiZWluZyBwYXJ0aWN1bGFybHkgc2Vuc2l0aXZlIHRvIHRoZSBjdXJyZW50ICh3ZWxsIGtub3du
+KSBpc3N1ZXMgd2l0aA0KPiBsYXRlIG1lcmdpbmcgZmVhdHVyZXMgdG8gTTMuDQoNCkkgYW0ganVz
+dCBmb2xsb3dpbmcgdGhlIGVzdGFibGlzaGVkIHByb2NlZHVyZSBmb3IgaW50ZWdyYXRpbmcgY2hh
+bmdlcyANCnRvIE9FOiBzZW5kIGEgcGF0Y2gsIHdhaXQgZm9yIGl0IHRvIGJlIGFjY2VwdGVkIG9y
+IHJlY2VpdmUgZmVlZGJhY2ssIA0KaWYgbm90aGluZyBoYXBwZW5zIHdpdGhpbiBhIHJlYXNvbmFi
+bGUgdGltZSBmcmFtZSAod2hlcmUgSSB0eXBpY2FsbHkgDQp3YWl0IGFib3V0IGEgd2VlayksIHRo
+ZW4gcGluZyB0aGUgcGF0Y2ggYXMgaXQgbWF5IGhhdmUgYmVlbiBtaXNzZWQuDQoNClNpbmNlIEkg
+ZXhwZWN0IHVzIHRvIGJlIHVzaW5nIE0zIHRvIGRvIG91ciBwcmVwYXJhdGlvbnMgZm9yIHRoZSB1
+cGNvbWluZyANCnJlbGVhc2UsIEkgdGhvdWdodCBpdCBhcHByb3ByaWF0ZSB0byBnaXZlIHRoZSBw
+YXRjaCBhIGxpdHRsZSBudWRnZSBzaW5jZSANCnNpbXBsZSB0aGluZ3MgbGlrZSB0aGlzIGFyZSBl
+YXNpbHkgb3Zlcmxvb2tlZCB3aGVuIGZvY3VzaW5nIG9uIHRoZSBtb3JlIA0KcHJvYmxlbWF0aWMg
+aW50ZWdyYXRpb25zLg0KDQpBbmQgdGhlIHJlYXNvbiBJIHNlbnQgaXQgYXMgYSBwYXRjaCByYXRo
+ZXIgdGhhbiBhIHJlcXVlc3QgdG8gZ28gYW5kIA0KY2hhbmdlIHRoZSB2YWx1ZSBpcyBiZWNhdXNl
+IEkgYXNzdW1lIGl0IGlzIGEgZmFzdGVyL2Vhc2llciBwcm9jZXNzIHRvIA0KdGFrZSBhIHByZXBh
+cmVkIHBhdGNoIHJhdGhlciB0aGFuIHRvIG1hbnVhbGx5IGRvIHRoZSBjaGFuZ2UgKGV2ZW4gaWYg
+DQppdCBpcyBqdXN0IGEgb25lIGxpbmUgY2hhbmdlIGxpa2UgdGhpcykuDQoNCj4gUmljaGFyZCBv
+YnZpb3VzbHkga25vd3Mgd2hhdCBoYXMgdG8gYmUgZG9uZSB0byBwcmVwYXJlIGZvciBhDQo+IHJl
+bGVhc2UsIGFuZCBpZiBpdCBoYXNuJ3QgYmVlbiBkb25lIHlldCwgdGhlcmUgYXJlIGxpa2VseSBy
+ZWFzb25zDQo+IGZvciB0aGF0Lg0KPiANCj4gQnJ1Y2UNCg0KLy9QZXRlcg0KDQo+ID4gQW5kIHRo
+ZSByZWFzb24gSSBhc2sgZm9yIGl0IHRvIGJlIHVwZGF0ZWQgdG8gbWF0Y2ggdGhlIGNvbnRlbnQg
+aXMgb2YNCj4gPiBjb3Vyc2UgdGhhdCB3ZSBzb21ldGltZXMgdXNlIGl0IHdoZW4gdGhlcmUgaXMg
+YSBuZWVkIHRvIGRpZmZlcmVudGlhdGUNCj4gPiBiZXR3ZWVuIGhvdyB0aGluZ3MgYXJlIGRvbmUg
+aW4gdGhlIGN1cnJlbnQgdmVyc2lvbiBhbmQgaW4gdGhlIHVwY29taW5nDQo+ID4gcmVsZWFzZS4N
+Cj4gPg0KPiA+IC8vUGV0ZXINCj4gPg0KPiA+ID4gPiAvL1BldGVyDQo+ID4gPiA+DQo+ID4gPiA+
+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPiA+ID4gPiBGcm9tOiBwb2t5QGxpc3Rz
+LnlvY3RvcHJvamVjdC5vcmcgPHBva3lAbGlzdHMueW9jdG9wcm9qZWN0Lm9yZz4gT24NCj4gQmVo
+YWxmIE9mIFBldGVyIEtqZWxsZXJzdGVkdA0KPiA+ID4gPiA+IFNlbnQ6IGRlbiAyNyBmZWJydWFy
+aSAyMDI0IDIxOjQ1DQo+ID4gPiA+ID4gVG86IHBva3lAbGlzdHMueW9jdG9wcm9qZWN0Lm9yZw0K
+PiA+ID4gPiA+IFN1YmplY3Q6IFtwb2t5XSBbUEFUQ0hdIHBva3kuY29uZjogU2V0IHRoZSBkaXN0
+cm8gbmFtZSB0bw0KPiAic2NhcnRoZ2FwIg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gU2lnbmVkLW9m
+Zi1ieTogUGV0ZXIgS2plbGxlcnN0ZWR0IDxwZXRlci5ramVsbGVyc3RlZHRAYXhpcy5jb20+DQo+
+ID4gPiA+ID4gLS0tDQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBJdCdzIGJlZW4gYSBsb25nIHRpbWUg
+c2luY2UgdGhpcyBkaXZlcmdlZCBmcm9tIE5hbmJpZWxkLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4g
+IDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0KPiA+ID4gPiA+
+DQo+ID4gPiA+ID4gZGlmZiAtLWdpdCBhL21ldGEtcG9reS9jb25mL2Rpc3Ryby9wb2t5LmNvbmYg
+Yi9tZXRhLQ0KPiBwb2t5L2NvbmYvZGlzdHJvL3Bva3kuY29uZg0KPiA+ID4gPiA+IGluZGV4IDNi
+N2JjNjY3ODAuLmU1OWFkOTc0ZDAgMTAwNjQ0DQo+ID4gPiA+ID4gLS0tIGEvbWV0YS1wb2t5L2Nv
+bmYvZGlzdHJvL3Bva3kuY29uZg0KPiA+ID4gPiA+ICsrKyBiL21ldGEtcG9reS9jb25mL2Rpc3Ry
+by9wb2t5LmNvbmYNCj4gPiA+ID4gPiBAQCAtMSw3ICsxLDcgQEANCj4gPiA+ID4gPiAgRElTVFJP
+ID0gInBva3kiDQo+ID4gPiA+ID4gIERJU1RST19OQU1FID0gIlBva3kgKFlvY3RvIFByb2plY3Qg
+UmVmZXJlbmNlIERpc3RybykiDQo+ID4gPiA+ID4gIERJU1RST19WRVJTSU9OID0gIjQuMytzbmFw
+c2hvdC0ke01FVEFEQVRBX1JFVklTSU9OfSINCj4gPiA+ID4gPiAtRElTVFJPX0NPREVOQU1FID0g
+Im5hbmJpZWxkIg0KPiA+ID4gPiA+ICtESVNUUk9fQ09ERU5BTUUgPSAic2NhcnRoZ2FwIg0KPiA+
+ID4gPiA+ICBTREtfVkVORE9SID0gIi1wb2t5c2RrIg0KPiA+ID4gPiA+ICBTREtfVkVSU0lPTiA9
+ICIke0BkLmdldFZhcignRElTVFJPX1ZFUlNJT04nKS5yZXBsYWNlKCdzbmFwc2hvdC0NCj4gJHtN
+RVRBREFUQV9SRVZJU0lPTn0nLCAnc25hcHNob3QnKX0iDQo+ID4gPiA+ID4gIFNES19WRVJTSU9O
+W3ZhcmRlcHZhbHVlXSA9ICIke1NES19WRVJTSU9OfSINCj4gPg0KPiANCj4gDQo+IC0tDQo+IC0g
+VGhvdSBzaGFsdCBub3QgZm9sbG93IHRoZSBOVUxMIHBvaW50ZXIsIGZvciBjaGFvcyBhbmQgbWFk
+bmVzcyBhd2FpdA0KPiB0aGVlIGF0IGl0cyBlbmQNCj4gLSAiVXNlIHRoZSBmb3JjZSBIYXJyeSIg
+LSBHYW5kYWxmLCBTdGFyIFRyZWsgSUkNCg==
 
