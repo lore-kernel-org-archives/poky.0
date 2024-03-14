@@ -1,140 +1,121 @@
-Return-Path: <bruce.ashfield@gmail.com>
+Return-Path: <martin.jansa@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 545E4C54E5D
-	for <webhook@archiver.kernel.org>; Wed, 13 Mar 2024 01:47:27 +0000 (UTC)
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
- by mx.groups.io with SMTP id smtpd.web10.6557.1710294447003085003
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4485C54E60
+	for <webhook@archiver.kernel.org>; Thu, 14 Mar 2024 18:32:51 +0000 (UTC)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+ by mx.groups.io with SMTP id smtpd.web10.406.1710441169484920570
  for <poky@lists.yoctoproject.org>;
- Tue, 12 Mar 2024 18:47:27 -0700
+ Thu, 14 Mar 2024 11:32:49 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=DOO0J8Wd;
- spf=pass (domain: gmail.com, ip: 209.85.215.173, mailfrom: bruce.ashfield@gmail.com)
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-53fa455cd94so5218598a12.2
-        for <poky@lists.yoctoproject.org>; Tue, 12 Mar 2024 18:47:26 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=cLQnGa02;
+ spf=pass (domain: gmail.com, ip: 209.85.221.49, mailfrom: martin.jansa@gmail.com)
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-33e95b68b3eso1106121f8f.1
+        for <poky@lists.yoctoproject.org>; Thu, 14 Mar 2024 11:32:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1710294446; x=1710899246; darn=lists.yoctoproject.org;
+        d=gmail.com; s=20230601; t=1710441168; x=1711045968; darn=lists.yoctoproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dSykmFckRi3Xc+uB+WMyBlf2NcnROHjgReoAqg97roA=;
-        b=DOO0J8Wd74/OTQxOFNKlYGpialPT0oXqE3VzXf6iuJuZgSSJBw3JqrDCg50vagWN+m
-         Q/mM1yK7nr+vEE4Op9CwoHJfbpQ8VhUElQzbd/JRVo5ycSerHqdFUpyZcUt+mSSnDLMB
-         CjqDnxzUr7sGZPoiUVTo6fEeZ/33YVA1dandbB6CaFzl5HDBqrNEeR0UsOvBaiI7Mr88
-         7nDu7dycrgXrfaNwlqnPBsbF8kEXQIQl3wR+k8Vm6vU7ZoiVt2xJM84Qopm4ryBUvijp
-         9Q9pDUXxL5paTLuz7/n1gpY+c4EErHu46G7mDa+PMG4zLxNkJ4UCHPOZAGcK1qCcAhap
-         PtQg==
+        bh=QD4Tq9OHmL3GZOKpQnAcOaz3Lc736s/zMUXL9ThNiJo=;
+        b=cLQnGa02HJAyqxTKtwJK7WDLXS2Gws+vpyU4YP364TOLGOyMrIsTbqv0UgmdeG7CHx
+         pZzsNaRoaTFpsGhZAd2MO/cyTIqj7iX5jQA3q5jti4O5MWWlDI44qcuULJaLwjvImtwW
+         O9HKh9CAo03mA9AFSZmw9tN9PwSIgOl+lTVi9m83qcE2ocYt9wK6dXgcYMIVJCwTmQdb
+         3BL5DqlfLLN/v/Xjq4xPEU+CrwlOKwO/qHwjif0nwZ6p0Pn0Vugw3zXEark1SXw4XhHZ
+         TsYHCMmhbp0Y/YmbqdGANlpFYsIz9XT5uLF9UaGsOMLomks05neCb/CUaGv8BY39DyVv
+         /XiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1710294446; x=1710899246;
+        d=1e100.net; s=20230601; t=1710441168; x=1711045968;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=dSykmFckRi3Xc+uB+WMyBlf2NcnROHjgReoAqg97roA=;
-        b=sTS7xea2CJiRDzujOUjhoRIB53sCpdHGexY3RM53Ctgcpbgf0FprqXrinEkCAzbk9I
-         BVlr86k55O0a/dsJBErp4ibveCfZIse5PtiBOHjkhJCWsV9QCR6IJ4ddjTycr1ZX0iXH
-         raBPHSprYfCUP6d7MgtxaO/L5xMqibBlTHF++p4n5W5cuena2nnzmnf9azxb06NhbrHp
-         s7hksqv0r4epzJ9YSMvzj9adbz3BasMQq5hrj3t68tBxLc913o+Y7is4R5+KLMCw6J5c
-         076L/yyvF2AcEpMgAM7PwC8hyg2YDacHdgv0Ypy3IIrNEYDyoEghMHzHBzAled4PWAGn
-         V2YQ==
-X-Gm-Message-State: AOJu0YxKFCCDv/EDMTDGqNg5fR3q4o0+kCIbVnBGA9DhYp+R4nINCjjP
-	eabLCH5zkzVWPNmHKpfHMjVq1TmCM8mb9AUC2bVPu8E9LHVuYLk2GGtCu2878p3S3d8yiSXTypA
-	n7/blbDTd8US/yvaqTXSo9EluWFOHqCCd
-X-Google-Smtp-Source: AGHT+IH/yd0RPR9bIurQQOjNIG9cWEOzHsK3ipkh+PCtPHQzDc4mpUMUfxDeT4KkWvpJV6C96jb/ne+p6jOUinNnaCM=
-X-Received: by 2002:a17:90a:e508:b0:29b:aee7:5937 with SMTP id
- t8-20020a17090ae50800b0029baee75937mr3684160pjy.23.1710294446316; Tue, 12 Mar
- 2024 18:47:26 -0700 (PDT)
+        bh=QD4Tq9OHmL3GZOKpQnAcOaz3Lc736s/zMUXL9ThNiJo=;
+        b=ptQ2EQ7rFxzwNMvXWxTJWq58KrOK54vM8OkXDXCZn0pvfAWhWhwdinYTGQCxw7Irhp
+         /VmXJS0T70TR3ZN4qISgDmfLpCRRYbkrmxJ2tL4hNEV04eZknNlnKt37XvlB1nZ4OUE2
+         tO6c9dGEXZP+yxFSQpnWQ2ssvzvowD3CTOUCcw/HquqQ4d3/Kz2FjKzqQOIKRcLf8bzH
+         +Q2V1DBPpO/o9H7NesDUE21IH7XG4pa1WlvViGKGfoDUMFaUwuzWe4ncG1wUok6+h55b
+         V6jvfXiriWeMNC7yNoNUOcj3/e7E4Im1Q9OiRutx1IfloAGAW/4839z9ZS8ZTrquwYwR
+         oK0Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUDRCjwWiVFMbfijzKaQeesn2l+8n3jJpauJTkA76F7k5m2xw2Lq+wwAvDTownOuH2nOsNYyBQlWSw1AYKPWftUpdOiCHaLtck5xx0=
+X-Gm-Message-State: AOJu0Yx3wwk1fL7x1OeeIOjkd80x6FNbiCctHA1YBwFrMYjqb3A9jpEC
+	AVOasopRo36VZCMPgDfpF0egpwrf6d1uW+i64C8h2Nk+9XWCqAPQaX6VIrV05C+vPOAVEGs7G6X
+	ymMxbNwbJ0ixqOi5FPcL+im5uF0I=
+X-Google-Smtp-Source: AGHT+IGsP8Lp0Hq+Cgku7azGo6gfh1HgbS8nAngVgYDlgkDr+NjZQUmKPlC+u+zUwdS7jo5lQaBX9v3tCvj9Ot6TwPY=
+X-Received: by 2002:adf:f105:0:b0:33e:8aab:fde7 with SMTP id
+ r5-20020adff105000000b0033e8aabfde7mr700723wro.28.1710441167689; Thu, 14 Mar
+ 2024 11:32:47 -0700 (PDT)
 MIME-Version: 1.0
-References: <20240312181115.3848230-1-ross.burton@arm.com> <20240312181115.3848230-2-ross.burton@arm.com>
-In-Reply-To: <20240312181115.3848230-2-ross.burton@arm.com>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-Date: Tue, 12 Mar 2024 21:47:15 -0400
-Message-ID: <CADkTA4OOYUVxp-qxVkOwHV6+MnS_eBJZg6pB7d-awVDjRdOVjw@mail.gmail.com>
-Subject: Re: [poky] [PATCH 2/2] linux-yocto: implicitly track oe-core's kernel
- version for genericarm64
+References: <20231020114845.100062-1-gs-yoctoproject.org@gluelogic.com>
+ <32D688B5-0765-4F89-B0FD-1BADD4458601@arm.com> <ZTJ4lpMInFmxKpVx@xps13> <10278B77-7E5C-43FB-94CC-A1E7E0C50B95@arm.com>
+In-Reply-To: <10278B77-7E5C-43FB-94CC-A1E7E0C50B95@arm.com>
+From: Martin Jansa <martin.jansa@gmail.com>
+Date: Thu, 14 Mar 2024 19:32:36 +0100
+Message-ID: <CA+chaQf_UikgzsLT+yCeF5Ce8ZNt=gHyp=jPZMjaNHK4YaWvdA@mail.gmail.com>
+Subject: Re: [poky] [PATCH 0/3] lighttpd-1.4.72
 To: Ross Burton <ross.burton@arm.com>
-Cc: poky@lists.yoctoproject.org
+Cc: "gs-yoctoproject.org@gluelogic.com" <gs-yoctoproject.org@gluelogic.com>, 
+	"poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 13 Mar 2024 01:47:27 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13309
+ <poky@lists.yoctoproject.org>; Thu, 14 Mar 2024 18:32:51 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13310
 
-On Tue, Mar 12, 2024 at 2:11=E2=80=AFPM Ross Burton <ross.burton@arm.com> w=
+On Fri, Oct 20, 2023 at 3:56=E2=80=AFPM Ross Burton <ross.burton@arm.com> w=
 rote:
 >
-> From: Ross Burton <ross.burton@arm.com>
+> On 20 Oct 2023, at 13:54, gs-yoctoproject.org@gluelogic.com wrote:
+> >
+> > On Fri, Oct 20, 2023 at 12:18:22PM +0000, Ross Burton wrote:
+> >> On 20 Oct 2023, at 12:48, Glenn Strauss via lists.yoctoproject.org <gs=
+-yoctoproject.org=3Dgluelogic.com@lists.yoctoproject.org> wrote:
+> >>> Glenn Strauss (3):
+> >>> lighttpd: upgrade 1.4.71 -> 1.4.72
+> >>> lighttpd: update init script
+> >>> lighttpd: modernize lighttpd.conf
+> >>
+> >> Poky is a generated repository that doesn=E2=80=99t actually have any =
+patches directly merged into it, so these should be sent to openembedded-co=
+re@lists.yoctoproject.org <mailto:openembedded-core@lists.yoctoproject.org>=
+.
+> >
+> > I'll re-send to the openembedded-core list.
+> > Thanks for the pointer, Richard and Ross.
+> >
+> > =3D=3D> Would someone please update the documentation?
+> >
+> > https://docs.yoctoproject.org/contributor-guide/submit-changes.html#fin=
+ding-a-suitable-mailing-list
+> > 4.4.3 Finding a Suitable Mailing List
+> > =E2=80=9Cmeta-*=E2=80=9D trees: These trees contain Metadata. Use the p=
+oky mailing list.
 >
-> Don't override KBRANCH/SRCREV/LINUX_VERSION, instead use the values in
-> the base oe-core linux-yocto recipe.
+> So we obviously need to make that list a bit clearer.  The relevant line =
+was two above:
 >
-> The advantage of this is that we don't need to update this file every
-> time the kernel is upgraded in oe-core.
+>     =E2=80=A2 Core Metadata: Send your patches to the openembedded-core m=
+ailing list. For example, a change to anything under the meta or scripts di=
+rectories should be sent to this mailing list.
+>
+> A better way to do that would be to just list the top level folders, I=E2=
+=80=99ll send a change.
 
-I'm ok with this as well, and in theory, we could probably do it for the
-other reference BSPs as well.
+I just talked with another person confused by '=E2=80=9Cmeta-*=E2=80=9D tre=
+es', can we
+change this to '=E2=80=9Cmeta-*=E2=80=9D trees inside poky repository', to =
+make it
+more clear that it doesn't apply e.g. to meta-oe?
 
-It would be even better if I could boot test this with qemu, but we'll
-worry about that part later.
+I guess then poky users still might get confused as add-layer meta-oe
+will add meta-oe into poky checkout (which isn't really inside poky
+repository) but still confusing.
 
-Bruce
+Or were you thinking about sending a change from '=E2=80=9Cmeta-*=E2=80=9D =
+trees' to
+'meta-yocto-bsp, meta-poky' and forgot to send that change?
 
->
-> Signed-off-by: Ross Burton <ross.burton@arm.com>
-> ---
->  meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend | 3 ---
->  1 file changed, 3 deletions(-)
->
-> diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend=
- b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
-> index 7a1fb6f245c..b404f827e7b 100644
-> --- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
-> +++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
-> @@ -3,7 +3,6 @@ COMPATIBLE_MACHINE:genericx86 =3D "genericx86"
->  COMPATIBLE_MACHINE:genericx86-64 =3D "genericx86-64"
->  COMPATIBLE_MACHINE:beaglebone-yocto =3D "beaglebone-yocto"
->
-> -KBRANCH:genericarm64  =3D "v6.6/standard/base"
->  KBRANCH:genericx86  =3D "v6.6/standard/base"
->  KBRANCH:genericx86-64  =3D "v6.6/standard/base"
->  KBRANCH:beaglebone-yocto =3D "v6.6/standard/beaglebone"
-> @@ -13,12 +12,10 @@ KMACHINE:genericx86 ?=3D "common-pc"
->  KMACHINE:genericx86-64 ?=3D "common-pc-64"
->  KMACHINE:beaglebone-yocto ?=3D "beaglebone"
->
-> -SRCREV_machine:genericarm64 ?=3D "e064a7d658a30b027b999183e21cd37305caff=
-2a"
->  SRCREV_machine:genericx86 ?=3D "332d4668fcc32826907d4f3c4938845206006089=
-"
->  SRCREV_machine:genericx86-64 ?=3D "332d4668fcc32826907d4f3c4938845206006=
-089"
->  SRCREV_machine:beaglebone-yocto ?=3D "332d4668fcc32826907d4f3c4938845206=
-006089"
->
-> -LINUX_VERSION:genericarm64 =3D "6.6.18"
->  LINUX_VERSION:genericx86 =3D "6.6.15"
->  LINUX_VERSION:genericx86-64 =3D "6.6.15"
->  LINUX_VERSION:beaglebone-yocto =3D "6.6.15"
-> --
-> 2.34.1
->
->
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13307): https://lists.yoctoproject.org/g/poky/message=
-/13307
-> Mute This Topic: https://lists.yoctoproject.org/mt/104890079/1050810
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [bruce.ashfield@=
-gmail.com]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
-
-
---=20
-- Thou shalt not follow the NULL pointer, for chaos and madness await
-thee at its end
-- "Use the force Harry" - Gandalf, Star Trek II
+Regards,
 
