@@ -1,291 +1,168 @@
-Return-Path: <quaresma.jose@gmail.com>
+Return-Path: <ross.burton@arm.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 74E5AC47DD9
-	for <webhook@archiver.kernel.org>; Fri, 22 Mar 2024 17:03:04 +0000 (UTC)
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
- by mx.groups.io with SMTP id smtpd.web11.460.1711126977980379709
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 80D3FC54E71
+	for <webhook@archiver.kernel.org>; Fri, 22 Mar 2024 17:09:44 +0000 (UTC)
+Received: from EUR02-AM0-obe.outbound.protection.outlook.com (EUR02-AM0-obe.outbound.protection.outlook.com [40.107.247.68])
+ by mx.groups.io with SMTP id smtpd.web11.668.1711127383586975953
  for <poky@lists.yoctoproject.org>;
- Fri, 22 Mar 2024 10:02:58 -0700
+ Fri, 22 Mar 2024 10:09:44 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=OlSKHZDf;
- spf=pass (domain: gmail.com, ip: 209.85.167.179, mailfrom: quaresma.jose@gmail.com)
-Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-3c37e87756dso1359411b6e.3
-        for <poky@lists.yoctoproject.org>; Fri, 22 Mar 2024 10:02:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1711126977; x=1711731777; darn=lists.yoctoproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=cKhT2jLDgllyxS4i36nQMw+RXKAjLA67rqMaUs0zjDo=;
-        b=OlSKHZDfDoN8DW6b2DqtMLxLJfIxwUvGyqqSFu6TxTrsbVqHYz1D/ml8KvP8Bg2ZYy
-         Ip8vKQdpZK9vebzlbp74t8zm0xYNAzwzLeQHxUxiGt87aYNKQXxhuYfxZzjjb4YtkjWd
-         JvWcAUK1LcIioJFZ7rTceFo+BYbIXCeB/31ERDbKgsLLG8HroFv3P0YPVHnVbIABlx3u
-         7/3hNzD0zD/+kc13AvV4mS8iEreZ6omKEdjCOq3kPlkOK/ncC2iAYsSnOAsODBQW36AA
-         IsEc0ZE+XNl9gAhYThwp0FqjJASbZeKAqlFcZSJu+BOuL3TOr1t7BiTJ7fLkAzNe6kgI
-         9wGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1711126977; x=1711731777;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=cKhT2jLDgllyxS4i36nQMw+RXKAjLA67rqMaUs0zjDo=;
-        b=Ejaq8g59rV2qDKF4miR4TMkw+l0d3DsmA+TkbRIp9QPfeE2qIFA1S5IjHpUW8u/fNM
-         IhLGLkgsn12LNCbD/pK1xw8POoOHCx9Zsy/ncXj2lsxUyU0lievSr7I4F6PlxIGYKZok
-         wkBJLmV7ZgZFbrl+/kzxa9k5WcswnVMtb3HdghL2ti/UnwAWkVDlDbx3j34nJy5ajbRV
-         QuNtyCrp5ST6ZB5L8GBcNmGIE2mU8FrWeMx1I0fi+PkrLNPFThwleBYEeadEYf2gc+VR
-         Uw4Sd2h60zmy0JYMMsvcC1H9CAGzaZn7yF41DfZnOL7ut9pk6MVsKFD21ojkkZXopkpm
-         4sBA==
-X-Gm-Message-State: AOJu0YykP87h7LmVUPY80Gs9GM/1Y0nTSC+GyGnC7/S+Y0L5gvTxmEEO
-	OU020wij+mg0mk/bYOiBSk9E1oPriZLilrMqvni8dQCe4JZYJ+3Y3UWcqOtXOYXe0UMHigh0jJz
-	lzIoZ8iR2omwZZmzYBCcsCyVzuu8=
-X-Google-Smtp-Source: AGHT+IFbM4h+8MwOOdD9zELho20WSg6JvTA+vpggYjfq5HJiC8omFZnz+K1JuykuoAsWacLmf9dVaT0JqvpSYaDuAfc=
-X-Received: by 2002:a05:6808:110:b0:3c3:8633:d13 with SMTP id
- b16-20020a056808011000b003c386330d13mr287255oie.32.1711126977155; Fri, 22 Mar
- 2024 10:02:57 -0700 (PDT)
-MIME-Version: 1.0
-References: <20240322165009.3704771-1-ross.burton@arm.com>
-In-Reply-To: <20240322165009.3704771-1-ross.burton@arm.com>
-From: Jose Quaresma <quaresma.jose@gmail.com>
-Date: Fri, 22 Mar 2024 17:02:40 +0000
-Message-ID: <CANPvuRm8sFizLvd0zd9cRaedD2bJLMf4nPZaVJdcWAWEfB24YA@mail.gmail.com>
+ dkim=pass header.i=@armh.onmicrosoft.com header.s=selector2-armh-onmicrosoft-com header.b=nrm1IhIq;
+ dkim=pass header.i=@armh.onmicrosoft.com header.s=selector2-armh-onmicrosoft-com header.b=nrm1IhIq;
+ spf=pass (domain: arm.com, ip: 40.107.247.68, mailfrom: ross.burton@arm.com)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=bzdExkSKyK5vmRn31iw6n38jyDIuIBILjZpM1AFyfC9jiFaObFrF15or3pGZoCF92r719OxNYuriNl3uWlJ1kubqjFy+9kigVs9EErvhlsIWooJpwMpTNHHFIh69Bn1OApUVuSxyXUXcuKhfY3G/wvwHWoHJIn7QqvTJyMR8rwoA9ptlUJiQLUlL1+nuh9MytPZ/J+pMPrVONIuVNVtUmlDRPAQZIqj6Y/JtOOgB5twciP+HWEPbWOc40OwqbEjHVKLJU7KVWTZ22qPfClm48J1mOIr8DsumuhvwJrgTt7+4b82ri2ZYnNoQHx+vUOT5F6Z+EdIK8eH/BXcQKFrSug==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7QakKQTnGW4pyfku8KSNcJ2lJANrxDV5/SioXcwjntk=;
+ b=AERCau5oLHp0z5SgHx6s0wW58WnCGrPIUbLXCFsetY3W4V/M8y0U3JXnIPO5G73llhLB0ocC2xQqPKMV8H3w3ambKr7OWokwXvgizVCcopbI/wKaPG468LElDvuUXwuGko3mQHXYlCvicppMF9hynPvA9vmJEMbtFTyzGFjxhkL8+Jh2CiXSnU+mnlX/P9k3Kb0YlPvAgoXOawxXICLo5K+yh/FYzrpD0VFfZhpJX+bRL8VFIIyOLGxvZDE+5rgrRq3PnEETpiDAHB4AWth+bQgjuqtl/4IZSsVaMBX32EB0XI3axPcsEyzsfcwYB7NtvPPNutb+XAUmHR3lm/d7lw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.yoctoproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7QakKQTnGW4pyfku8KSNcJ2lJANrxDV5/SioXcwjntk=;
+ b=nrm1IhIqBdNkcDxbIuIImX4A5nfZnqn15H3g2zaJvsUtJ7t6zmwRu71MfevtpeCOlb8vFsNrhTBrD0eFBzDnjgdXmHvAXLKFhxVgtUJx5p0a4a3ivH356+k+3svBtAjRTn2DDi3hOJKtYGJEQfyleT2rr9qJwYNeL3tfk0gy3eM=
+Received: from DUZPR01CA0273.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b9::14) by AS1PR08MB7636.eurprd08.prod.outlook.com
+ (2603:10a6:20b:478::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.15; Fri, 22 Mar
+ 2024 17:09:39 +0000
+Received: from DU6PEPF0000B61F.eurprd02.prod.outlook.com
+ (2603:10a6:10:4b9:cafe::de) by DUZPR01CA0273.outlook.office365.com
+ (2603:10a6:10:4b9::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.13 via Frontend
+ Transport; Fri, 22 Mar 2024 17:09:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DU6PEPF0000B61F.mail.protection.outlook.com (10.167.8.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7409.10 via Frontend Transport; Fri, 22 Mar 2024 17:09:39 +0000
+Received: ("Tessian outbound e26069fc76b9:v300"); Fri, 22 Mar 2024 17:09:39 +0000
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: a7f9825d5bc4c5e7
+X-CR-MTA-TID: 64aa7808
+Received: from defb4c0b14bc.1
+	by 64aa7808-outbound-1.mta.getcheckrecipient.com id 15801009-4758-45F4-A451-322213EAA8FA.1;
+	Fri, 22 Mar 2024 17:09:32 +0000
+Received: from EUR02-AM0-obe.outbound.protection.outlook.com
+    by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id defb4c0b14bc.1
+    (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+    Fri, 22 Mar 2024 17:09:32 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fR+/S52GvOZFu8qQqD93eLQXL1+D0QLxIoSFVCnR7J+xvoha5Il0ZITkvd4s7x2JoY+Ba6dfMSZLJyoYM79uwdYHQOQ0OzCoK9eZoQrby9Oc/meywg1u4YAyjSz+t7aH50WDupal9vyQtL+ic1681B5vbdd0XmRl/y6d0uqZURTR9+v8YZt2hTPb8YP3CCQ8kTQ1oSWeW4n8an/llV8lLbvGVexne78ROd2g9bHfs+/4JdsQGmzFRi62b9lYUSxSZoYe+zZssmK7mhDzK9VRHrt6AceUo0lYbRg2MuVMe1TkYGtcUvPjTw2DcQcLBCA5m7FwBCYiUQgdgJzbu0N54A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7QakKQTnGW4pyfku8KSNcJ2lJANrxDV5/SioXcwjntk=;
+ b=CJdVHxC7gBwrd6UY5h9zboUKP/MfZPgIwzUnJIeXFTruWBYGRCybYyHYgxP03ZXRlx1r2WFjJCOhCH1IB3qqLTxsjd8O20TZ9d1A/wF7NdQqPjAzdYEwYcJIn8+GpUznkmw/doELTg8gvDeCXIkEJ1J/zu+Ul4dLFsg9wSY4fD6LojqzFf0UuMlnYw1LRmpxeDv8YomgDwoVDRGSGUuTMXRQGtYFoObq9x1/XCx+5BRXkY5+6FiKEbMWPSwNdB/bJUbSw2VkYBUWdmBsHUrmHkrJj6ADIydDhz/T1CBLIjJEYm/tTx1+Rn+WnWwve5Eue3pwOjhjZXQZhtfAKAPSqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7QakKQTnGW4pyfku8KSNcJ2lJANrxDV5/SioXcwjntk=;
+ b=nrm1IhIqBdNkcDxbIuIImX4A5nfZnqn15H3g2zaJvsUtJ7t6zmwRu71MfevtpeCOlb8vFsNrhTBrD0eFBzDnjgdXmHvAXLKFhxVgtUJx5p0a4a3ivH356+k+3svBtAjRTn2DDi3hOJKtYGJEQfyleT2rr9qJwYNeL3tfk0gy3eM=
+Received: from PA4PR08MB7411.eurprd08.prod.outlook.com (2603:10a6:102:2a3::12)
+ by AS8PR08MB6535.eurprd08.prod.outlook.com (2603:10a6:20b:336::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7409.24; Fri, 22 Mar
+ 2024 17:09:30 +0000
+Received: from PA4PR08MB7411.eurprd08.prod.outlook.com
+ ([fe80::36de:39f1:4d:5228]) by PA4PR08MB7411.eurprd08.prod.outlook.com
+ ([fe80::36de:39f1:4d:5228%5]) with mapi id 15.20.7409.023; Fri, 22 Mar 2024
+ 17:09:30 +0000
+From: Ross Burton <Ross.Burton@arm.com>
+To: Jose Quaresma <quaresma.jose@gmail.com>
+CC: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
 Subject: Re: [poky] [PATCH] genericarm64: add qemuboot configuration
-To: Ross Burton <ross.burton@arm.com>
-Cc: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="000000000000a39b21061442cba2"
+Thread-Topic: [poky] [PATCH] genericarm64: add qemuboot configuration
+Thread-Index: AQHafHkLpvNR0/YxKkSOCFAjzfiVPrFD/IwAgAAB3QA=
+Date: Fri, 22 Mar 2024 17:09:30 +0000
+Message-ID: <5DE04BE0-19D1-4E46-B4F1-25B8AB26AC8E@arm.com>
+References: <20240322165009.3704771-1-ross.burton@arm.com>
+ <CANPvuRm8sFizLvd0zd9cRaedD2bJLMf4nPZaVJdcWAWEfB24YA@mail.gmail.com>
+In-Reply-To: 
+ <CANPvuRm8sFizLvd0zd9cRaedD2bJLMf4nPZaVJdcWAWEfB24YA@mail.gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Apple Mail (2.3774.400.31)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic: 
+	PA4PR08MB7411:EE_|AS8PR08MB6535:EE_|DU6PEPF0000B61F:EE_|AS1PR08MB7636:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc1a3e4e-9447-469a-5f19-08dc4a92dbba
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original: 
+ OAJS9QqGL/C3Jq1miop/FdMukL79hJlRgaIlozAQGHUjD8JZOA1snPgh+OObbRfSzy4KxM5gby8P03zFCfHrhU+6sNq8NptSByxd/FYhkrFDLunrsow2XXU4lG6TnDnr61Ev+xgcwhclW3S7l4AFpjuzELO9wC4kEDIL8p72N9x0IaAjJJvCRmTo+SHQcKyqJ0UwKK2t30Ul6x2f9/qbQpv9Gxcl31iu97o22mWu1RcDgGuI+L9NTZL8jwk6dEPN0lObdGyiG6zapbkWfUtnkRI31orEPm9IEePWgsDh9+BsTShHSa7Uy6vzSYXjLMu2qpsd8+SUOtT9ZC123moTrVqQyZzZSmvKQYucKj2Lg8Zllu3UAEAACvGCcDxs1URUPCJZW1ZE+lMdrsS+joCo7U5XCm6sfkLlFPbX9g+kGNB3otAqTM9Hp035J0Ow9baEqrm1LbMe4ojqCxvlgx7JyR0lnZp1pZa5cdMPB3igg3Ger1TW+udlO+hI1kJvt9EvZ/UtrF0M3HWfTNcY8+AruIrIVZBOL9XsN7j53T5VCMQiW402VzOVfauxZcp9aWM42LVOHaisYTQZ7Aid8MblvGimnTQBxchU3h1zaWmpI+4Pi2ylQmVzibZNpvcnpK4bGV0VzzI0JKw9iRO1M3NZbcVUROt4d+TTcybqS3gzthdid4/duK7E5LGsTuQO506TB56JqAcuuaeh+k593GUnEg==
+X-Forefront-Antispam-Report-Untrusted: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR08MB7411.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(1800799015)(366007)(376005)(38070700009);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <F2D828F588428443A26B92212ABE5A4D@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6535
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: 
+ DU6PEPF0000B61F.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 
+	2c9afe82-33ff-4b5c-3c4a-08dc4a92d689
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	FoO2KhJUm5Sfr0hdbWXed19tOL8phzthebw2Cg1hhqBo+jZYaIS0yobAYWvNVewlUjGdRnSviE8F7Z6exOfpss+mG4oFkXZzXB78LpoKkECqYd37Xtlt76sXJ7OLN494fyD2MRtGFYrYxf+CmK1e7kEuRecESWD4wTF/395diyBAPvWLfvsxsVaRl2hgesGD6sflNV9c1TJxZ9NY5hqrXmFKx1ZZ50tTJLJyCVxS/9tBUhUNaEWFngTeaXKi0ekyh0M7hTUrfih9TSTeZ9KBG11pPLniG0QB9BlqwVKYu5gGN56dPlpqZ9iTLh4zuZMIka8Pw5c1Q0sCBEbZPlg4Vht5PX9I9JDdkHpuvPCTb9qfHf4CK6IETxHXUoyvbCCPS9n646gxJUFQkltwFiJBqR4jSgul+qfPdQt6xn/5pnLtT1YLtI6phWDri2hSkPTx8il/Q7J2N8cZadGmUY6dBMRDFte3NtPLDcicjESH3mrFHJ9TpFrSBns4IYVNrsmvs+K91YCy3fy5BzEvoT/sB2q128xOzPJ5HpHgtZ1usZMVWeE18gQgDFiET07Q+DGtLEVtge/bPiX/ny1387pYfBBa8G8z/EjUKaxAmcvfOjn8TQBoxGn/uQr8LH0La/yZAHZIZXVgg8xaysgPgbfVp8bHac/5YLo59AZc6zXQRGvUXx4HRyNLFnawO0R8RhCTCOJHMYsUiNgv8K04CxmAQlCOziUDwVQYLWLs9HrkqLCJzvT8cHgsUjZJkRKD1Xar
+X-Forefront-Antispam-Report: 
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(1800799015)(376005)(36860700004)(82310400014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2024 17:09:39.1872
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc1a3e4e-9447-469a-5f19-08dc4a92dbba
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource: 
+	DU6PEPF0000B61F.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR08MB7636
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 22 Mar 2024 17:03:04 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13313
+ <poky@lists.yoctoproject.org>; Fri, 22 Mar 2024 17:09:44 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13314
 
---000000000000a39b21061442cba2
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Ross,
-
-Ross Burton <ross.burton@arm.com> escreveu (sexta, 22/03/2024 =C3=A0(s) 16:=
-50):
-
-> From: Ross Burton <ross.burton@arm.com>
->
-> A basic SystemReady IR system can be provided by qemu-system-aarch64
-> and u-boot, so tell u-boot to build the qemu_arm64 machine and configure
-> qemuboot to start that u-boot and search the virtio-attached wic image
-> for the EFI boot partition.
->
-> Currently this machine support emulated (Cortex-A76) and virtualised (KVM=
-)
-> execution, and virtio storage/network/console.  Display support will be
-> added shortly.
->
-> Note that this machine still doesn't build U-Boot by default, as a u-boot
-> binary for qemu in deploy would potentially confuse users who want to
-> boot on real hardware and think this u-boot is needed.  If you wish to
-> use genericarm64 with runqemu, you'll need to manually bitbake u-boot.
->
-
-Why not have a new genericarm64-qemu.conf machine which includes this
-machine
-and adds all the required qemu bits.
-In my opinion, this would be more friendly and clear.
-
-Jose
-
-
->
-> Signed-off-by: Ross Burton <ross.burton@arm.com>
-> ---
->  meta-yocto-bsp/conf/machine/genericarm64.conf | 27 +++++++++++++++++++
->  1 file changed, 27 insertions(+)
->
-> diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf
-> b/meta-yocto-bsp/conf/machine/genericarm64.conf
-> index 7c4c76ffe0c..4afd6c3a870 100644
-> --- a/meta-yocto-bsp/conf/machine/genericarm64.conf
-> +++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
-> @@ -29,3 +29,30 @@ EFI_PROVIDER ?=3D
-> "${@bb.utils.contains("DISTRO_FEATURES", "systemd", "systemd-boo
->
->  # Try to bring up one physical serial console, or a virtualized serial
-> console
->  SERIAL_CONSOLES ?=3D "115200;ttyAMA0 115200;hvc0"
-> +
-> +# Allow u-boot to be built for use with qemu-system-aarch64.
-> +# This u-boot is _not_ suitable for use with real hardware, and the
-> expectation
-> +# of this machine is that real hardware comes with the firmware
-> pre-loaded.
-> +UBOOT_MACHINE =3D "qemu_arm64_defconfig"
-> +
-> +# runqemu configuration to run a genericarm64 image inside a
-> qemu-system-aarch64. You will need
-> +# to build u-boot explicitly.
-> +IMAGE_CLASSES +=3D "qemuboot"
-> +QB_SYSTEM_NAME =3D "qemu-system-aarch64"
-> +# Boot the virtual machine with either an emulated Cortex-A76, or the
-> host if using KVM
-> +QB_MACHINE =3D "-machine virt"
-> +QB_CPU =3D "-cpu cortex-a76"
-> +QB_CPU_KVM =3D "-cpu host -machine gic-version=3D3"
-> +QB_SMP =3D "-smp 4"
-> +# Boot into U-Boot and let that scan the disk for the next step, don't
-> pass any kernel or filesystem hints
-> +QB_DEFAULT_BIOS =3D "u-boot.bin"
-> +QB_DEFAULT_KERNEL =3D "none"
-> +QB_DEFAULT_FSTYPE =3D "wic"
-> +QB_FSINFO =3D "wic:no-kernel-in-fs"
-> +# Mount the wic rootfs as a virtio block device
-> +QB_ROOTFS_OPT =3D "-drive id=3Droot,file=3D@ROOTFS@,if=3Dnone,format=3Dr=
-aw -device
-> virtio-blk-pci,drive=3Droot"
-> +# Virtio serial consoles
-> +QB_SERIAL_OPT =3D "-device virtio-serial-pci -chardev null,id=3Dvirtcon
-> -device virtconsole,chardev=3Dvirtcon"
-> +QB_TCPSERIAL_OPT =3D "-device virtio-serial-pci -chardev
-> socket,id=3Dvirtcon,port=3D@PORT@,host=3D127.0.0.1,nodelay=3Don -device
-> virtconsole,chardev=3Dvirtcon"
-> +# Virtio networking
-> +QB_TAP_OPT =3D "-netdev tap,id=3Dnet0,ifname=3D@TAP@,script=3Dno,downscr=
-ipt=3Dno"
-> --
-> 2.34.1
->
->
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13312):
-> https://lists.yoctoproject.org/g/poky/message/13312
-> Mute This Topic: https://lists.yoctoproject.org/mt/105089249/5052612
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [
-> quaresma.jose@gmail.com]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
->
-
---=20
-Best regards,
-
-Jos=C3=A9 Quaresma
-
---000000000000a39b21061442cba2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi Ross,</div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">Ross Burton &lt;<a href=3D"mailto:ross.burton=
-@arm.com">ross.burton@arm.com</a>&gt; escreveu (sexta, 22/03/2024 =C3=A0(s)=
- 16:50):<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">From: R=
-oss Burton &lt;<a href=3D"mailto:ross.burton@arm.com" target=3D"_blank">ros=
-s.burton@arm.com</a>&gt;<br>
-<br>
-A basic SystemReady IR system can be provided by qemu-system-aarch64<br>
-and u-boot, so tell u-boot to build the qemu_arm64 machine and configure<br=
->
-qemuboot to start that u-boot and search the virtio-attached wic image<br>
-for the EFI boot partition.<br>
-<br>
-Currently this machine support emulated (Cortex-A76) and virtualised (KVM)<=
-br>
-execution, and virtio storage/network/console.=C2=A0 Display support will b=
-e<br>
-added shortly.<br>
-<br>
-Note that this machine still doesn&#39;t build U-Boot by default, as a u-bo=
-ot<br>
-binary for qemu in deploy would potentially confuse users who want to<br>
-boot on real hardware and think this u-boot is needed.=C2=A0 If you wish to=
-<br>
-use genericarm64 with runqemu, you&#39;ll need to manually bitbake u-boot.<=
-br></blockquote><div><br></div><div>Why not have a new genericarm64-qemu.co=
-nf=C2=A0machine which includes this machine</div><div>and adds all the requ=
-ired=C2=A0qemu bits.<br>In my opinion, this would be more friendly and clea=
-r.<br><br>Jose</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">
-<br>
-Signed-off-by: Ross Burton &lt;<a href=3D"mailto:ross.burton@arm.com" targe=
-t=3D"_blank">ross.burton@arm.com</a>&gt;<br>
----<br>
-=C2=A0meta-yocto-bsp/conf/machine/genericarm64.conf | 27 ++++++++++++++++++=
-+<br>
-=C2=A01 file changed, 27 insertions(+)<br>
-<br>
-diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-bsp=
-/conf/machine/genericarm64.conf<br>
-index 7c4c76ffe0c..4afd6c3a870 100644<br>
---- a/meta-yocto-bsp/conf/machine/genericarm64.conf<br>
-+++ b/meta-yocto-bsp/conf/machine/genericarm64.conf<br>
-@@ -29,3 +29,30 @@ EFI_PROVIDER ?=3D &quot;${@bb.utils.contains(&quot;DISTR=
-O_FEATURES&quot;, &quot;systemd&quot;, &quot;systemd-boo<br>
-<br>
-=C2=A0# Try to bring up one physical serial console, or a virtualized seria=
-l console<br>
-=C2=A0SERIAL_CONSOLES ?=3D &quot;115200;ttyAMA0 115200;hvc0&quot;<br>
-+<br>
-+# Allow u-boot to be built for use with qemu-system-aarch64.<br>
-+# This u-boot is _not_ suitable for use with real hardware, and the expect=
-ation<br>
-+# of this machine is that real hardware comes with the firmware pre-loaded=
-.<br>
-+UBOOT_MACHINE =3D &quot;qemu_arm64_defconfig&quot;<br>
-+<br>
-+# runqemu configuration to run a genericarm64 image inside a qemu-system-a=
-arch64. You will need<br>
-+# to build u-boot explicitly.<br>
-+IMAGE_CLASSES +=3D &quot;qemuboot&quot;<br>
-+QB_SYSTEM_NAME =3D &quot;qemu-system-aarch64&quot;<br>
-+# Boot the virtual machine with either an emulated Cortex-A76, or the host=
- if using KVM<br>
-+QB_MACHINE =3D &quot;-machine virt&quot;<br>
-+QB_CPU =3D &quot;-cpu cortex-a76&quot;<br>
-+QB_CPU_KVM =3D &quot;-cpu host -machine gic-version=3D3&quot;<br>
-+QB_SMP =3D &quot;-smp 4&quot;<br>
-+# Boot into U-Boot and let that scan the disk for the next step, don&#39;t=
- pass any kernel or filesystem hints<br>
-+QB_DEFAULT_BIOS =3D &quot;u-boot.bin&quot;<br>
-+QB_DEFAULT_KERNEL =3D &quot;none&quot;<br>
-+QB_DEFAULT_FSTYPE =3D &quot;wic&quot;<br>
-+QB_FSINFO =3D &quot;wic:no-kernel-in-fs&quot;<br>
-+# Mount the wic rootfs as a virtio block device<br>
-+QB_ROOTFS_OPT =3D &quot;-drive id=3Droot,file=3D@ROOTFS@,if=3Dnone,format=
-=3Draw -device virtio-blk-pci,drive=3Droot&quot;<br>
-+# Virtio serial consoles<br>
-+QB_SERIAL_OPT =3D &quot;-device virtio-serial-pci -chardev null,id=3Dvirtc=
-on -device virtconsole,chardev=3Dvirtcon&quot;<br>
-+QB_TCPSERIAL_OPT =3D &quot;-device virtio-serial-pci -chardev socket,id=3D=
-virtcon,port=3D@PORT@,host=3D127.0.0.1,nodelay=3Don -device virtconsole,cha=
-rdev=3Dvirtcon&quot;<br>
-+# Virtio networking<br>
-+QB_TAP_OPT =3D &quot;-netdev tap,id=3Dnet0,ifname=3D@TAP@,script=3Dno,down=
-script=3Dno&quot;<br>
--- <br>
-2.34.1<br>
-<br>
-<br>
--=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
-Links: You receive all messages sent to this group.<br>
-View/Reply Online (#13312): <a href=3D"https://lists.yoctoproject.org/g/pok=
-y/message/13312" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctopr=
-oject.org/g/poky/message/13312</a><br>
-Mute This Topic: <a href=3D"https://lists.yoctoproject.org/mt/105089249/505=
-2612" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctoproject.org/m=
-t/105089249/5052612</a><br>
-Group Owner: <a href=3D"mailto:poky%2Bowner@lists.yoctoproject.org" target=
-=3D"_blank">poky+owner@lists.yoctoproject.org</a><br>
-Unsubscribe: <a href=3D"https://lists.yoctoproject.org/g/poky/unsub" rel=3D=
-"noreferrer" target=3D"_blank">https://lists.yoctoproject.org/g/poky/unsub<=
-/a> [<a href=3D"mailto:quaresma.jose@gmail.com" target=3D"_blank">quaresma.=
-jose@gmail.com</a>]<br>
--=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div><span class=3D"gmail_si=
-gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><d=
-iv dir=3D"ltr">Best regards,<div><br>Jos=C3=A9 Quaresma</div></div></div></=
-div>
-
---000000000000a39b21061442cba2--
+T24gMjIgTWFyIDIwMjQsIGF0IDE3OjAyLCBKb3NlIFF1YXJlc21hIDxxdWFyZXNtYS5qb3NlQGdt
+YWlsLmNvbT4gd3JvdGU6DQo+IFdoeSBub3QgaGF2ZSBhIG5ldyBnZW5lcmljYXJtNjQtcWVtdS5j
+b25mIG1hY2hpbmUgd2hpY2ggaW5jbHVkZXMgdGhpcyBtYWNoaW5lDQo+IGFuZCBhZGRzIGFsbCB0
+aGUgcmVxdWlyZWQgcWVtdSBiaXRzLg0KPiBJbiBteSBvcGluaW9uLCB0aGlzIHdvdWxkIGJlIG1v
+cmUgZnJpZW5kbHkgYW5kIGNsZWFyLg0KDQpCZWNhdXNlIHR3byBtYWNoaW5lcyBhcmUgbW9yZSBh
+bm5veWluZywgdGhlcmXigJlzIG5vIG5lZWQuICBUaGlzIGlzIHdoYXQgd2UgaGFkIGZvciBnZW5l
+cmljLWFybTY0IGFuZCBxZW11LWdlbmVyaWMtYXJtNjQgaW4gbWV0YS1hcm0sIGJ1dCB0aGF0IHdh
+cyBtYWlubHkgYmVjYXVzZSB0aGF0IGFsc28gYnVpbHQgVEYtQS9PUC1URUUvRURLMiwgYWxsIG9m
+IHdoaWNoIGlzIHBvaW50bGVzcyBpbiBhIHJlYWwgaGFyZHdhcmUgZW52aXJvbm1lbnQuIA0KDQpB
+cmd1YWJseSB3ZSBjb3VsZCBqdXN0IGFsd2F5cyBidWlsZCB1LWJvb3QgZm9yIHFlbXUgYW5kIGhv
+cGUgbm9ib2R5IGdldHMgY29uZnVzZWQgd2l0aCB0aGVyZSBiZWluZyBhIHUtYm9vdCBiaW5hcnkg
+aW4gdGhlIGRlcGxveSBkaXJlY3RvcnksIGJ1dCB0aGF0IGZlZWxzIGxpa2UgaXTigJlzIGFza2lu
+ZyBmb3IgdHJvdWJsZS4NCg0KUm9zcw==
 
