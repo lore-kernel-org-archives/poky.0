@@ -2,93 +2,86 @@ Return-Path: <jdmason@kudzu.us>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8324CD11C2
-	for <webhook@archiver.kernel.org>; Fri,  5 Apr 2024 13:57:07 +0000 (UTC)
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
- by mx.groups.io with SMTP id smtpd.web10.12540.1712325417820521782
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35308C67861
+	for <webhook@archiver.kernel.org>; Fri,  5 Apr 2024 15:41:58 +0000 (UTC)
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+ by mx.groups.io with SMTP id smtpd.web11.15723.1712331712780450839
  for <poky@lists.yoctoproject.org>;
- Fri, 05 Apr 2024 06:56:58 -0700
+ Fri, 05 Apr 2024 08:41:53 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@kudzu-us.20230601.gappssmtp.com header.s=20230601 header.b=dXz24v0L;
- spf=none, err=permanent DNS error (domain: kudzu.us, ip: 209.85.222.172, mailfrom: jdmason@kudzu.us)
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-78a60d10eeeso124572485a.2
-        for <poky@lists.yoctoproject.org>; Fri, 05 Apr 2024 06:56:57 -0700 (PDT)
+ dkim=pass header.i=@kudzu-us.20230601.gappssmtp.com header.s=20230601 header.b=wMNLep5d;
+ spf=none, err=permanent DNS error (domain: kudzu.us, ip: 209.85.160.175, mailfrom: jdmason@kudzu.us)
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-432f421c56bso11484991cf.2
+        for <poky@lists.yoctoproject.org>; Fri, 05 Apr 2024 08:41:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kudzu-us.20230601.gappssmtp.com; s=20230601; t=1712325417; x=1712930217; darn=lists.yoctoproject.org;
+        d=kudzu-us.20230601.gappssmtp.com; s=20230601; t=1712331711; x=1712936511; darn=lists.yoctoproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:to
          :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=B01iQfG6GrAcuVxW1eyRMwx5MRUAZUj8nsVzbi4X7iQ=;
-        b=dXz24v0L5BtkjtlvUkHW9m9evX4I1Ne30IFTJwp4nVxER8dJi3R9iIEpSrPsy+O6ay
-         VzAniA0V5mS7v9l6DsdRCExhnEdVjj7AsnS6xyVnzifZ08KAQrGvDWbZ6pZ4UDxCP+Os
-         CUhcmNzLOmzgkdy8YJMuqam+4FmofZQW+qmgW3JYb8WoRG2OyqEk4XQVALLryoqlRUwB
-         6A+1mKU5AkYQ4sIR0kAbGcTLRl44Vc0+fbqrrCRN/jRGXW2CCUefv955xxZMgY5gkgY8
-         /86eTB14Im706b0fYDyzRiNUt7pWf8VwUtka0REzmOEZqtKUGc0vf4AzELWdxpOHVmw2
-         RNhg==
+        bh=cd2ZD8VNxxRputxZMxIiSwZxKZB0mm5tad5Ckp0fTaE=;
+        b=wMNLep5dD3jqHEHsOh4von/9LZqx24sOqHO8My8d2yvdjjvz2Gj0Gt8QpNjAnmvD3f
+         pQ//bG38z+YXEg5pu2Z/IugTVqOp+J7/oVMvLbie8rCHfI3dHWMk0JGsBxjN/a6L+7Ns
+         n3Nl5en7D64gS9O1ugOuos/c1HYH20tqqm/f9nCNH7LRMJWmJf/SuCgMANQ/lTzZHhE7
+         BMQgdnjSFM2YKNtW2Yprt3SwybCTX6a0AU9rv7tA33VAhIqJm9XqDDfrLGRr7zVBmZ4J
+         TRiystYMqY1q9QQKPjNhOSZOaKmThLSW/S+uBNm5ReAgQuGkcxscrBe6RzXY84eGPw/H
+         vMzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712325417; x=1712930217;
+        d=1e100.net; s=20230601; t=1712331711; x=1712936511;
         h=content-transfer-encoding:mime-version:message-id:date:subject:to
          :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=B01iQfG6GrAcuVxW1eyRMwx5MRUAZUj8nsVzbi4X7iQ=;
-        b=GeMM8FV+Bpj+ijeL1MatCWzJHOmDteVoB/1YULpvvYcEtcNXv+W5Q16N6qoq+1KT5m
-         fM39//PVTb9bOaRmmcOPH5nCHKWRUJvAXFISeniYL+NNHTVet8scU/ZFR5nysLVnnE3r
-         qkvpxMtwYPZePY3vHlgy2jkHcZN3MJG23elG9TLMySlFpUxY9BJtHWoXheEgRAYdJ7ZE
-         GC+YQz53STtYEPf4aX+sHYTMfNVszpN3J0Rkrdhq2rI03qIJCehyYHNnZc8NqUDziUu6
-         bW5q0zBYE4ty2iUSLqmt5vzdp0B54dmdD529E1ONq7Z695i/xmoTCWeEI3tNgRRrITEQ
-         wFbQ==
-X-Gm-Message-State: AOJu0YyPZ+UAGISyPkeIWmeFK+RCsPPu3d5aYUJEXTma83kHu7dJBQiF
-	XuoKYe4Vk23TL42eI3thaqRqqZ3ie1C7UkH07StOHQc+nHu+Lg2/7Lzdcw+asoqh4aFF0WAQQ+c
+        bh=cd2ZD8VNxxRputxZMxIiSwZxKZB0mm5tad5Ckp0fTaE=;
+        b=MhQVf56KQajnPkuO1KEkdsvt2pL8TeJR7gV3fvSg2MqT4+EEFcqfVx3kvwmX3zHswB
+         IiOLGQYxFCjvhn8FEZVTkefQzs7YmetM9QxSwIWvgqctqInaBsZxxvEyccEeAwInOXFf
+         Dv1p9tCqBL14+KtWIgc+VaVq4qXAr65cePvdArxJFZlXs34u6MAjzBtX/++FU7nxAXMo
+         csgLUtkIpV+AUgOnQYt/I0bgGuIW1vJhXsDvxm8A0eTrWeE2HJfyMy/wOvi2zQk+mR7a
+         qU7DUy+DcoxdMHZMiJttXIYLYWOl+waSP2EIUVYe7x7xY+wJPcIHJK8B99UfmNKHuzZW
+         lkTA==
+X-Gm-Message-State: AOJu0YwnH6iuGN2QCMIGjtI2prf2jQ6/Eg6I2GcYeCEwPZKDTA++V6mM
+	ZRMTr/G0yYBGK6hAyY/9qLZlCS9uQRrOb+yw4OJHXZJqMkTvLxy5KMW70TYhRxWp/QAB6GTiTxU
 	=
-X-Google-Smtp-Source: AGHT+IF04IfloDPxXTl1g6LXcStpGQ/7eIsgiYdAhRTuE8SQZ1M/VYYPTnUvIndlXriOWSBXMIBsfw==
-X-Received: by 2002:a05:620a:5a60:b0:78b:dbba:49ab with SMTP id wx32-20020a05620a5a6000b0078bdbba49abmr1561968qkn.17.1712325416602;
-        Fri, 05 Apr 2024 06:56:56 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IGtOJrVs2tSP6ZUGs+48VYIMQgwIKOATet8CjvXBSJ3wCFgoy5J2p5NMzJ/7X4pxKTpg5Wycg==
+X-Received: by 2002:ac8:5d8b:0:b0:434:5898:f55 with SMTP id d11-20020ac85d8b000000b0043458980f55mr1905183qtx.23.1712331711635;
+        Fri, 05 Apr 2024 08:41:51 -0700 (PDT)
 Received: from localhost ([2605:a601:919e:c800:8ac9:b3ff:febf:a2f8])
-        by smtp.gmail.com with ESMTPSA id wx39-20020a05620a5a6700b0078a0774d1basm652616qkn.15.2024.04.05.06.56.56
+        by smtp.gmail.com with ESMTPSA id ef12-20020a05622a53cc00b00430b0f40532sm863957qtb.9.2024.04.05.08.41.51
         for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 05 Apr 2024 06:56:56 -0700 (PDT)
+        Fri, 05 Apr 2024 08:41:51 -0700 (PDT)
 From: Jon Mason <jdmason@kudzu.us>
 To: poky@lists.yoctoproject.org
-Subject: [PATCH] yocto-bsp/linux-yocto-dev: add genericarm64
-Date: Fri,  5 Apr 2024 09:56:49 -0400
-Message-Id: <20240405135649.2128367-1-jdmason@kudzu.us>
+Subject: [PATCH] yocto-bsp/genericarm64: add virtio-gpu
+Date: Fri,  5 Apr 2024 11:41:45 -0400
+Message-Id: <20240405154145.3841979-1-jdmason@kudzu.us>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 05 Apr 2024 13:57:07 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13318
+ <poky@lists.yoctoproject.org>; Fri, 05 Apr 2024 15:41:58 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13319
 
-For those crazy enough to want to use/test the latest development kernel
-for genericarm64, enable it by adding the COMPATIBLE_MACHINE and
-KMACHINE.
-
-NOTE: not using the KBRANCH, as neither does the linux-yocto_%.bbappend.
-It is taking the default one from the relevant recipe.
+testimage on core-image-sato fails in parselogs and xorg tests.  We can
+add the virtio gpu to address these issues (like what is being done in
+qemuarm, qemuarm64, and qemuarmv5).
 
 Signed-off-by: Jon Mason <jdmason@kudzu.us>
 ---
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend | 2 ++
+ meta-yocto-bsp/conf/machine/genericarm64.conf | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
-index 4a62ac952c46..5b1b736b1cc0 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
-@@ -2,10 +2,12 @@ KBRANCH:genericx86  = "standard/base"
- KBRANCH:genericx86-64  = "standard/base"
- KBRANCH:beaglebone-yocto = "standard/beaglebone"
- 
-+KMACHINE:genericarm64 ?= "genericarm64"
- KMACHINE:genericx86 ?= "common-pc"
- KMACHINE:genericx86-64 ?= "common-pc-64"
- KMACHINE:beaglebone-yocto ?= "beaglebone"
- 
-+COMPATIBLE_MACHINE:genericarm64 = "genericarm64"
- COMPATIBLE_MACHINE:genericx86 = "genericx86"
- COMPATIBLE_MACHINE:genericx86-64 = "genericx86-64"
- COMPATIBLE_MACHINE:beaglebone-yocto = "beaglebone-yocto"
+diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-bsp/conf/machine/genericarm64.conf
+index 4afd6c3a8703..4fa9395b31b9 100644
+--- a/meta-yocto-bsp/conf/machine/genericarm64.conf
++++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
+@@ -51,6 +51,8 @@ QB_DEFAULT_FSTYPE = "wic"
+ QB_FSINFO = "wic:no-kernel-in-fs"
+ # Mount the wic rootfs as a virtio block device
+ QB_ROOTFS_OPT = "-drive id=root,file=@ROOTFS@,if=none,format=raw -device virtio-blk-pci,drive=root"
++# Virtio graphics
++QB_GRAPHICS = "-device virtio-gpu-pci"
+ # Virtio serial consoles
+ QB_SERIAL_OPT = "-device virtio-serial-pci -chardev null,id=virtcon -device virtconsole,chardev=virtcon"
+ QB_TCPSERIAL_OPT = "-device virtio-serial-pci -chardev socket,id=virtcon,port=@PORT@,host=127.0.0.1,nodelay=on -device virtconsole,chardev=virtcon"
 -- 
 2.30.2
 
