@@ -1,305 +1,125 @@
-Return-Path: <ninette@thehoodiefirm.com>
+Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE329C4345F
-	for <webhook@archiver.kernel.org>; Fri, 12 Apr 2024 15:33:24 +0000 (UTC)
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
- by mx.groups.io with SMTP id smtpd.web10.50189.1712935991846794961
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DFDCFC4345F
+	for <webhook@archiver.kernel.org>; Mon, 15 Apr 2024 10:00:16 +0000 (UTC)
+Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
+ by mx.groups.io with SMTP id smtpd.web11.17270.1713175215478051822
  for <poky@lists.yoctoproject.org>;
- Fri, 12 Apr 2024 08:33:12 -0700
+ Mon, 15 Apr 2024 03:00:15 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@thehoodiefirm-com.20230601.gappssmtp.com header.s=20230601 header.b=hSuVZmcf;
- spf=neutral (domain: thehoodiefirm.com, ip: 209.85.208.43, mailfrom: ninette@thehoodiefirm.com)
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-56e1bbdb362so1105466a12.1
-        for <poky@lists.yoctoproject.org>; Fri, 12 Apr 2024 08:33:11 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=JD9pCXBy;
+ spf=pass (domain: gmail.com, ip: 209.85.208.178, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-2d8b2389e73so33071621fa.3
+        for <poky@lists.yoctoproject.org>; Mon, 15 Apr 2024 03:00:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thehoodiefirm-com.20230601.gappssmtp.com; s=20230601; t=1712935990; x=1713540790; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:reply-to:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=5w7rrdMjZnZxXfl9ys3hy3iZkzIt2s2nT86yUgu8POQ=;
-        b=hSuVZmcftgH2XPIsq5pfHG34yNOSTjw86RDdkCuasDBledU5UZPvlArht92Acy5cCV
-         hEqYtjaXy0VHZNzW0VGD9FVJbsMdC6l/XIQEEqFtkvGnmo4/p2HB3BrE0iszH8CDp6DB
-         NliaDjoXIcHfD/8Qd/bzNIW//Kk/xXUCb9wlqT7T+lCbGGHOj8aJUSs95vLtHevO5PCr
-         MRkuDbDiQJweLuCbY/drBM+K+slFXN4N7pP1R4pGmiytziBU7Eme9ANhKy/gG/nWeU+k
-         EvqE4mR1A5b3SHDO577+yvYJqpKefrWReDhXjZY+dTomQKlPnd+mzumvW1N8myhechn1
-         fOfQ==
+        d=gmail.com; s=20230601; t=1713175214; x=1713780014; darn=lists.yoctoproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=dh6L9hgzWZnREjj5Ahkj49tNPxKm6/VDJbJuztkjfts=;
+        b=JD9pCXBylkt9lw1FQNUGQh6t5RsAAmvA2iBaFv/FGgRKXjFYxaIUB467syG7SAYgWI
+         HvSRRuUoRlfXf8GFWWi//35CT/VPS05GT8cT9f53a0JAsKiY9QjAbdNAx2oGYkPppq4l
+         cX7QnMpklSuISCIV5UYu6ea5LYSrpPCBJ+Kj3l/VM8u/laGrdqtimKQPFNB9UcLC77yF
+         IaR++0/uY0HqHSta+sCSn+b5z+0Zci6HusMNJMX63l+VxN6JSYlJgvVL1qSxJwESMRok
+         rXbzjDamdhOUudTZGKy6ky+mHtd4/ChVzefqKI0hgbMQ0pU14qaWE7MFQ1KPfRWAyOQF
+         ag4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1712935990; x=1713540790;
-        h=content-transfer-encoding:mime-version:reply-to:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5w7rrdMjZnZxXfl9ys3hy3iZkzIt2s2nT86yUgu8POQ=;
-        b=jbdTZDBPy2SauUGKzdLqtpXF9VYY61iRNSY3ZkNbFqush3aBGpO2KA7riy3KJ1Txc9
-         xU7p//9bUMSLsZ+r0ytelkE3vz4QnuzX2Qg59z3eafemN4erUJ+8y0FLojjChAC7VpYQ
-         UdDJfjn6NstUcviVD42y1tXHqVja3b5moMWlJCaIQZAmky0zVuoounuBUIAFhWRH5Cvo
-         XQ/KYvO4/mb1fLtn2KwHUpUlmdUe7RlHNSn43k7aflICdaaPmi9qXttIsJn4uDI5msRl
-         M9t+5yI179xxExTjHvSlEZrVjPUrppdPnkPl5QC+n4c1ppV1tbRn1U3BWSN2tYF3KITf
-         hrgg==
-X-Gm-Message-State: AOJu0YzcYigA59WRLD7nmJOlXf3fube6Fayv4rfyXltxjSCy5BkAJkWT
-	lnLOS0bQStXCb7GONT8RzskWrzhYEWPUkkgnZz2YCcE2YswYvxUZpJq1Qb476Zmx1AVek2chUkY
-	i
-X-Google-Smtp-Source: AGHT+IEd8QBa0vraO71LN4ypEqcpCw3LcSQt4BGEU5Tv1HhEGu23f3/PBluIlSnATbeOxf2HR1tLPw==
-X-Received: by 2002:a50:d697:0:b0:568:b95f:5398 with SMTP id r23-20020a50d697000000b00568b95f5398mr2337929edi.38.1712935990186;
-        Fri, 12 Apr 2024 08:33:10 -0700 (PDT)
-Received: from localhost.localdomain ([95.90.238.88])
-        by smtp.gmail.com with ESMTPSA id j1-20020aa7de81000000b0056e62321eedsm1769567edv.17.2024.04.12.08.33.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 12 Apr 2024 08:33:09 -0700 (PDT)
-From: Ninette Adhikari <ninette@thehoodiefirm.com>
-To: poky@lists.yoctoproject.org
-Cc: Ninette Adhikari <13760198+ninetteadhikari@users.noreply.github.com>,
-	Ninette Adhikari <ninette@thehoodiefirm.com>
-Subject: [PATCH 3/3] oe-build-perf-report: Improve report styling and add descriptions
-Date: Fri, 12 Apr 2024 17:33:01 +0200
-Message-ID: <20240412153301.87391-4-ninette@thehoodiefirm.com>
-X-Mailer: git-send-email 2.44.0
-In-Reply-To: <20240412153301.87391-1-ninette@thehoodiefirm.com>
-References: <20240412153301.87391-1-ninette@thehoodiefirm.com>
-Reply-To: engineering@neighbourhood.ie
+        d=1e100.net; s=20230601; t=1713175214; x=1713780014;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dh6L9hgzWZnREjj5Ahkj49tNPxKm6/VDJbJuztkjfts=;
+        b=wFt+NUBPz7KtEHT2fWrIRzesXyIJCfvtft+0zxsTKvfsKB0JgwOXFkI0GSDlsorpYC
+         earM2amYLzxGz9lHVVy4PnX0DnmnosKAILNxLXe84LQGfBueTGMqdoEHVlPjQkhQb0+E
+         PcpxymyShTb34DT/TsW3S2nB/msXZa5WskacnCuu2npVUvopIY6M2/bY6HiTf0NJE0B+
+         ZkPahhSpTdWwVyaBUzk0XeSO4ZSWr/2ouGVetkb0MNXJ2v7lbG9noOL+sk4qMhxx9UVj
+         Gzkz+YPzjVejMpC5r1R6XIsNa9jH15pIhEHl8xd66jCZqoBZKOFXWBe85vAUwWnx1Ggn
+         wv0A==
+X-Gm-Message-State: AOJu0Yxf+UIcBb1PoASi7VS/0z3qqIU5rWjI3Oo7WxypLSGknckYtG2q
+	fGppYH1PZ/bUMzFw1M4s6kdWeZbcwQoT73OLLsK0Vz08BGJ9CyRoZroWLPjkMiLDrcw7fFmOD8M
+	bCmw/AQCzdSOXowYvJetKZgfpT9c=
+X-Google-Smtp-Source: AGHT+IFXkpQZhSEtFswcZGgAKnoojPLnGKCQ4UuqfII8cv+wFdWFkcgEnW+sXDEeLgZMI/WRkAnX2qcJPle8mZcP3Cs=
+X-Received: by 2002:a2e:b00a:0:b0:2d8:3a02:9113 with SMTP id
+ y10-20020a2eb00a000000b002d83a029113mr5682691ljk.12.1713175213271; Mon, 15
+ Apr 2024 03:00:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20240412153301.87391-1-ninette@thehoodiefirm.com>
+In-Reply-To: <20240412153301.87391-1-ninette@thehoodiefirm.com>
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Mon, 15 Apr 2024 12:00:01 +0200
+Message-ID: <CANNYZj-hF8PvDsLhaPf+iHyHqjcm7HoQePnz3u_bDvAo=NeexQ@mail.gmail.com>
+Subject: Re: [poky] [PATCH 0/3] Improvements for performance test report view
+To: engineering@neighbourhood.ie
+Cc: poky@lists.yoctoproject.org, Ninette Adhikari <ninette@thehoodiefirm.com>
+Content-Type: text/plain; charset="UTF-8"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 12 Apr 2024 15:33:24 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13323
+ <poky@lists.yoctoproject.org>; Mon, 15 Apr 2024 10:00:16 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13324
 
-From: Ninette Adhikari <13760198+ninetteadhikari@users.noreply.github.com>
+Thanks for the patchset, but it should be going to the openembedded-core list.
 
-Styling updates are added including page margin, labels for x and y axis, tooltip, and section descriptions.
+Alex
 
-Signed-off-by: Ninette Adhikari <ninette@thehoodiefirm.com>
----
- .../build_perf/html/measurement_chart.html    | 28 +++---
- scripts/lib/build_perf/html/report.html       | 90 +++++++++++++------
- 2 files changed, 78 insertions(+), 40 deletions(-)
-
-diff --git a/scripts/lib/build_perf/html/measurement_chart.html b/scripts/lib/build_perf/html/measurement_chart.html
-index ffec3d09db..9acb3785e2 100644
---- a/scripts/lib/build_perf/html/measurement_chart.html
-+++ b/scripts/lib/build_perf/html/measurement_chart.html
-@@ -13,8 +13,10 @@
-   // Convert raw data to the format: [time, value]
-   const data = rawData.map(([commit, value, time]) => {
-     return [
--      new Date(time * 1000).getTime(), // The Date object takes values in milliseconds rather than seconds. So to use a Unix timestamp we have to multiply it by 1000.
--      Array.isArray(value) ? convertToMinute(value) : value // Assuming the array values are duration in the format [hours, minutes, seconds, milliseconds]
-+      // The Date object takes values in milliseconds rather than seconds. So to use a Unix timestamp we have to multiply it by 1000.
-+      new Date(time * 1000).getTime(),
-+      // Assuming the array values are duration in the format [hours, minutes, seconds, milliseconds]
-+      Array.isArray(value) ? convertToMinute(value) : value
-     ]
-   });
- 
-@@ -22,16 +24,18 @@
-   const option = {
-     tooltip: {
-       trigger: 'axis',
--      position: function (pt) {
--        return [pt[0], '10%'];
--      },
--      valueFormatter: (value) => value.toFixed(2)
-+      valueFormatter: (value) => {
-+        const hours = Math.floor(value/60)
-+        const minutes = Math.floor(value % 60)
-+        const seconds = Math.floor((value * 60) % 60)
-+        return hours + ':' + minutes + ':' + seconds
-+      }
-     },
-     xAxis: {
-       type: 'time',
-     },
-     yAxis: {
--      name: '{{ measurement.value_type.quantity }}' == 'time' ? 'Duration (minutes)' : 'Disk size (MB)',
-+      name: '{{ measurement.value_type.quantity }}' == 'time' ? 'Duration in minutes' : 'Disk size in MB',
-       type: 'value',
-       min: function(value) {
-         return Math.round(value.min - 0.5);
-@@ -42,14 +46,10 @@
-     },
-     dataZoom: [
-       {
--        type: 'inside',
--        start: 0,
--        end: 100
-+        type: 'slider',
-+        xAxisIndex: 0,
-+        filterMode: 'none'
-       },
--      {
--        start: 0,
--        end: 100
--      }
-     ],
-     series: [
-       {
-diff --git a/scripts/lib/build_perf/html/report.html b/scripts/lib/build_perf/html/report.html
-index 653fd985bc..4cd240760a 100644
---- a/scripts/lib/build_perf/html/report.html
-+++ b/scripts/lib/build_perf/html/report.html
-@@ -24,23 +24,15 @@
-   text-align: left;
-   border-collapse: collapse;
- }
--.meta-table tr:nth-child(even){background-color: #f2f2f2}
--meta-table th, .meta-table td {
--  padding: 4px;
--}
- .summary {
--  margin: 0;
-   font-size: 14px;
-   text-align: left;
-   border-collapse: collapse;
- }
--summary th, .meta-table td {
--  padding: 4px;
--}
- .measurement {
-   padding: 8px 0px 8px 8px;
-   border: 2px solid #f0f0f0;
--  margin-bottom: 10px;
-+  margin: 1.5rem 0;
- }
- .details {
-   margin: 0;
-@@ -60,18 +52,58 @@ summary th, .meta-table td {
-   background-color: #f0f0f0;
-   margin-left: 10px;
- }
--hr {
--  color: #f0f0f0;
-+.card-container {
-+  border-bottom-width: 1px;
-+  padding: 1.25rem 3rem;
-+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-+  border-radius: 0.25rem;
-+}
-+body {
-+  font-family: 'Helvetica', sans-serif;
-+  margin: 3rem 8rem;
-+}
-+h1 {
-+  text-align: center;
- }
- h2 {
--  font-size: 20px;
-+  font-size: 1.5rem;
-   margin-bottom: 0px;
-   color: #707070;
-+  padding-top: 1.5rem;
- }
- h3 {
--  font-size: 16px;
-+  font-size: 1.3rem;
-   margin: 0px;
-   color: #707070;
-+  padding: 1.5rem 0;
-+}
-+h4 {
-+  font-size: 14px;
-+  font-weight: lighter;
-+  line-height: 1.2rem;
-+  margin: auto;
-+  padding-top: 1rem;
-+}
-+table {
-+  margin-top: 1.5rem;
-+  line-height: 2rem;
-+}
-+tr {
-+  border-bottom: 1px solid #e5e7eb;
-+}
-+tr:first-child {
-+  border-bottom: 1px solid #9ca3af;
-+}
-+tr:last-child {
-+  border-bottom: none;
-+}
-+a {
-+  text-decoration: none;
-+  font-weight: bold;
-+  color: #0000EE;
-+}
-+a:hover {
-+  color: #8080ff;
- }
- </style>
- 
-@@ -79,13 +111,14 @@ h3 {
- </head>
- 
- {% macro poky_link(commit) -%}
--    <a href="http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?id={{ commit }}">{{ commit[0:11] }}</a>
-+  <a href="http://git.yoctoproject.org/cgit/cgit.cgi/poky/log/?id={{ commit }}">{{ commit[0:11] }}</a>
- {%- endmacro %}
- 
--<body><div style="width: 700px">
-+<body><div>
-+  <h1 style="text-align: center;">Performance Test Report</h1>
-   {# Test metadata #}
-   <h2>General</h2>
--  <hr>
-+  <h4>The table provides an overview of the comparison between two selected commits from the same branch.</h4>
-   <table class="meta-table" style="width: 100%">
-     <tr>
-       <th></th>
-@@ -108,19 +141,21 @@ h3 {
- 
-   {# Test result summary #}
-   <h2>Test result summary</h2>
--  <hr>
-+  <h4>The test summary presents a thorough breakdown of each test conducted on the branch, including details such as build time and disk space consumption. Additionally, it gives insights into the average time taken for test execution, along with absolute and relative values for a better understanding.</h4>
-   <table class="summary" style="width: 100%">
-+    <tr>
-+      <th>Test name</th>
-+      <th>Measurement description</th>
-+      <th>Mean value</th>
-+      <th>Absolute difference</th>
-+      <th>Relative difference</th>
-+    </tr>
-     {% for test in test_data %}
--      {% if loop.index is even %}
--        {% set row_style = 'style="background-color: #f2f2f2"' %}
--      {% else %}
--        {% set row_style = 'style="background-color: #ffffff"' %}
--      {% endif %}
-       {% if test.status == 'SUCCESS' %}
-         {% for measurement in test.measurements %}
-           <tr {{ row_style }}>
-             {% if loop.index == 1 %}
--              <td>{{ test.name }}: {{ test.description }}</td>
-+              <td><a href=#{{test.name}}>{{ test.name }}: {{ test.description }}</a></td>
-             {% else %}
-               {# add empty cell in place of the test name#}
-               <td></td>
-@@ -149,10 +184,12 @@ h3 {
-   </table>
- 
-   {# Detailed test results #}
-+  <h2>Test details</h2>
-+  <h4>The following section provides details of each test, accompanied by charts representing build time and disk usage over time or by commit number.</h4>
-   {% for test in test_data %}
--  <h2>{{ test.name }}: {{ test.description }}</h2>
--  <hr>
-+  <h3 style="color: #000;" id={{test.name}}>{{ test.name }}: {{ test.description }}</h3>
-     {% if test.status == 'SUCCESS' %}
-+    <div class="card-container">
-       {% for measurement in test.measurements %}
-         <div class="measurement">
-           <h3>{{ measurement.description }}</h3>
-@@ -271,7 +308,8 @@ h3 {
-             {% endif %}
-           {% endif %}
-         </div>
--      {% endfor %}
-+        {% endfor %}
-+      </div>
-     {# Unsuccessful test #}
-     {% else %}
-       <span style="font-size: 150%; font-weight: bold; color: red;">{{ test.status }}
--- 
-2.44.0
-
+On Fri, 12 Apr 2024 at 17:33, Ninette Adhikari
+<ninette@thehoodiefirm.com> wrote:
+>
+> This work is done according to "Milestone 9: Build performance test report view" as stated in the Scope of Work with Sovereign Tech Fund (STF) (https://www.sovereigntechfund.de/).
+> The current report can be accessed here:
+> Performance test report HTML (https://autobuilder.yocto.io/pub/non-release/20240117-15/testresults/buildperf-alma8/perf-alma8_master_20240117090048_663f180574.html)
+> The report is created using the `oe-build-perf-report` script in the poky repository. This script generates a performance test report in HTML format using the data from the yocto-buildstats (https://git.yoctoproject.org/yocto-buildstats/) repository.
+> The report displays the performance test results in line chart format. The chart x-axis represents the commit numbers, and the y-axis represents the test duration in minutes.
+> The report also includes a table that displays the measurement statistics data for each test. The report is interactive and allows users to zoom in on specific sections of the line chart.
+>
+> The current report format required some updates to make it more interactive and user-friendly. And this patch addresses such improvements:
+>
+> - Add [Apache echart](https://echarts.apache.org/en/index.html) library to create oe build performance report charts and make them interactive.
+> - Restructure data to time and value array format to be used by echarts. It also converts test duration to minutes and adds zoom to the line charts.
+> - Update measurement statistics data to include `start_time` so that time can be displayed instead of commit numbers on the chart. It also updates default commit history length to 300.
+> - Add styling updates including page margin, labels for x and y axis, tooltip, and section descriptions.
+>
+> Updated report screenshots:
+> https://github.com/neighbourhoodie/poky/assets/13760198/65a1890c-fd2a-40d4-ac90-f13055735e53
+> https://github.com/neighbourhoodie/poky/assets/13760198/1ed43876-73a9-487e-aed3-ca0edf97514c
+>
+> For local setup, you can do the following:
+>
+> 1. Clone the yocto-buildstats (https://git.yoctoproject.org/yocto-buildstats/) and the poky repository (https://git.yoctoproject.org/poky/)
+>
+> 2. In the poky repository run the following to build the report HTML:
+> ```bash
+> ./scripts/oe-build-perf-report -r "LOCAL_PATH_TO_YOCTO_BUILDSTATS" --branch "master" --commit "663f1805742ff6fb6955719d0ab7846a425debcf" --branch2 "master" --html > test.html
+> ```
+> Note:
+> - Add your local path to the yocto-buildstats repo
+> - The above command builds the report in a file called `test.html`. You can access it in the root directory in poky.
+> - This exmaple report uses the commit `663f1805742ff6fb6955719d0ab7846a425debcf` from `master` branch.
+>
+>
+> Ninette Adhikari (3):
+>   oe-build-perf-report: Add apache echarts to make report interactive
+>   oe-build-perf-report: Display more than 300 commits and date instead
+>     of commit number
+>   oe-build-perf-report: Improve report styling and add descriptions
+>
+>  .../build_perf/html/measurement_chart.html    | 116 +++++++++++-------
+>  scripts/lib/build_perf/html/report.html       |  96 ++++++++++-----
+>  scripts/lib/build_perf/report.py              |   4 +-
+>  scripts/oe-build-perf-report                  |   6 +-
+>  4 files changed, 143 insertions(+), 79 deletions(-)
+>
+> --
+> 2.44.0
+>
+>
+> -=-=-=-=-=-=-=-=-=-=-=-
+> Links: You receive all messages sent to this group.
+> View/Reply Online (#13320): https://lists.yoctoproject.org/g/poky/message/13320
+> Mute This Topic: https://lists.yoctoproject.org/mt/105484739/1686489
+> Group Owner: poky+owner@lists.yoctoproject.org
+> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gmail.com]
+> -=-=-=-=-=-=-=-=-=-=-=-
+>
 
