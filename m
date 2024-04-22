@@ -1,262 +1,336 @@
-Return-Path: <hope.sneddon@outlook.com>
+Return-Path: <raj.khem@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C547CC4345F
-	for <webhook@archiver.kernel.org>; Mon, 22 Apr 2024 01:42:58 +0000 (UTC)
-Received: from SE2P216CU007.outbound.protection.outlook.com (SE2P216CU007.outbound.protection.outlook.com [52.103.74.0])
- by mx.groups.io with SMTP id smtpd.web10.8842.1713750172789205295
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 94F48C07E8F
+	for <webhook@archiver.kernel.org>; Mon, 22 Apr 2024 07:52:00 +0000 (UTC)
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
+ by mx.groups.io with SMTP id smtpd.web10.13118.1713772313545476990
  for <poky@lists.yoctoproject.org>;
- Sun, 21 Apr 2024 18:42:53 -0700
+ Mon, 22 Apr 2024 00:51:53 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@outlook.com header.s=selector1 header.b=XyZXrTj6;
- spf=pass (domain: outlook.com, ip: 52.103.74.0, mailfrom: hope.sneddon@outlook.com)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VGTxpaxsED9sXqYg2pAv6hn7amzJPwMBSRfMNh7vE4nxKPYFO4ReBfXV7Y6iOodBJvFtyEib8kfuUeObppIKCMiyc+VMidm9+GjWrsI/Qc3sC3+qwsmTJiybIhSZes+oNQ2J2xyrBxpjcKkf+vZJ5+wuvUndt9cF28AkBKKqTPuW1Vsn0YldUzi6ZVZELym5wHg9/1f3lGo/f8nUpeyPP4V0xpbY8jgcxgsECX70f4b4+wRAWwFDV2CAwb4+Q1q2k1ic2FVMgs4xlzhEM4OjPcyzqYG9/n1TFpHVM8kD5OmezfUJrl+jxCJJwzDjFkmC+u3xzsIlbNX37W/vWG2W+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=68DBmI69UOx2m3+PHqJ3hssGGvOUe5vGUNNxlV59Em0=;
- b=WJ2Bci80kIjCnYR6f+vr7h07c1WXJ27cnrldq2IC7M62hO0dXgvrn4aCfhiiSPlntJFKA8r/ke5zzjbRD/n67Ue7SbqxYvkaFs+TKgrdcMCbeT0t1lXnm5MlhZmfH+ofu8krcu4bq/2ZBh6aMSjW2uRELyx0icNrfaClBUWTyPWNG7jCFl2iOuZhJZaIiU4q1UNp71/3qbJwZDRpIQXPiwF3SEkGrMGb4AUXvE7rEumbsHhZMWrX5c3hQD+toIcOKXof670ii/QaDeAs5nl2g8RWffQkCVhD5sOnXlpF/C/zCo5p+2sTzJD54p8YrKd8zmw3oMxECg3sP1KAeeM38Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=68DBmI69UOx2m3+PHqJ3hssGGvOUe5vGUNNxlV59Em0=;
- b=XyZXrTj6Y9vIgjUFsCxHpaIO9hllp3DAsPgoehV0sLBaliTgCjZ6TkoUV/AfbUaEjQHiRM1KcqbLE/Wah2fXZ1ON2FXXDna7RUu2MAKTPHfj2+Zqz/9Eo7+Nms8lVWo5dY3t9CkDgkdotVbXX6o3R5lbmRcuYJFR3vqpwj9CGH3sRYR4SFXRxuXfWVgcj+s465TuuvDuvs1h6CyUMfQLPv8l2gqmij//wKNOkFLQVm2l3wipBn61N5LkrQrMvqf/uTAJynbNdSlKz4iJsjnECoIvylxAbTC5l7+eSkQsVZgXB2ao/9Q0G5v6FG6T+zFBI4OergRv6fsDmd+M2bS4+A==
-Received: from SL2P216MB1277.KORP216.PROD.OUTLOOK.COM (2603:1096:101:13::11)
- by SL2P216MB2766.KORP216.PROD.OUTLOOK.COM (2603:1096:101:286::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7472.44; Mon, 22 Apr
- 2024 01:42:49 +0000
-Received: from SL2P216MB1277.KORP216.PROD.OUTLOOK.COM
- ([fe80::5d7a:944a:639e:da1d]) by SL2P216MB1277.KORP216.PROD.OUTLOOK.COM
- ([fe80::5d7a:944a:639e:da1d%3]) with mapi id 15.20.7472.044; Mon, 22 Apr 2024
- 01:42:49 +0000
-From: Hope Sneddon <hope.sneddon@outlook.com>
-To: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-Subject: Compiling Poky with Clang and Clang Coverage Flags
-Thread-Topic: Compiling Poky with Clang and Clang Coverage Flags
-Thread-Index: AQHalFZh1zqhzfqD8EeZFUHq5l6qHw==
-Date: Mon, 22 Apr 2024 01:42:49 +0000
-Message-ID: 
- <SL2P216MB127763AD758C2A81F525573499122@SL2P216MB1277.KORP216.PROD.OUTLOOK.COM>
-Accept-Language: en-AU, en-US
-Content-Language: en-AU
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-tmn: [Ml3UJTMvdjnMC0pJaCByXYYxcX5fRVdF]
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SL2P216MB1277:EE_|SL2P216MB2766:EE_
-x-ms-office365-filtering-correlation-id: d26dc785-b07a-47b0-21b7-08dc626d845c
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- rNE807mL8UOXIDMwzC+x7Dhi2mfA4nK0jTeZSLuaJciuI2Op2L95WNyx2VJyITdQ7Gsr5SJc08eumy0d1/U2pjHGzbPLwFb9JqWecE+RuR7m+1ZzvdAdzx7qr38ynjIteBTd6irbzCKeHguBwcyBcEp4qy+Jw50FyKSH/zJh5/cBW6GHhn9YtE0r1Xh6s2cY0e1jwbH18pLt/EotJd12QgGsWYlqDywkLaCSAgnfwzZjsrxqu1p0JOWbZR2DTDXvRtwTL/glXmkAXpFTAw11brk3JvIwyBRTmJOy/xriibUmef4PaH5pJ3PwZQfOmR4qmsrGH53SE0e2fNBdxvsNZvXUNyesYiWLcpYqRTRrCrWc5FNoE0LV8qgc2As2rfF+15Db3uDM19XF+fCEo5dpuEWm5A4N7KmpRrYkJhEj/swTjNDk3F8pc/1YfRtG4wC7zMEbYnL5EOfkt40x3A/35rXSiArpoaJWyWMD5Ou+eihG6pEQgPZ1QIoM8Cg1tiwW+6bCoQrDm2bOSXnfmHQhw6rbMIHB/b1CbpwWrf7iGBpB8DTM55pTzRB7PDzZnu0m8RKCiLdaSJbp8BF7DIefJKmcst/YH2gtq1A0EJWUm+mrv+Mv+g8eTwY4CA32C2f8pan5DRNyjHl85hcwjt1v/C9Mr+jdna6SPVGiKh34k62ZVA2RpgPxzdyr49hbiFWe3hcH/BEC7nk7tYyOa7nKdeMqXtvsZXuMrCXDKOZszUOUcy/sSxfXC1wX/qxKRqpb
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?Z3prYm8relVJSE9mSlgyV0EzUlp5b0V2WHZ3ckp5ckZBNkhpUmZrV3UzNFRj?=
- =?utf-8?B?cGhTZ1ZLeTRnWk83dXpaVUxSQ0x1cWkwUllQMG1LZDN6QmhlcUFXeHZYeENR?=
- =?utf-8?B?a1FEL0UxbzZZbFRtL25FOVN5c1Ewc1NsWHVLRlpHd2dQb05sa29Yb2R5aFNh?=
- =?utf-8?B?RFpZNVppcWkwMDIrSTVvNnp4RUZoQjVSRlNaQUlzMVpzdDV6QXVoMkxsWU41?=
- =?utf-8?B?aEw1TXg2VVVzaU9xSVRUWEY4WHIxcDRkWFZJWkY0OEl4MWhmaHRZSXR5NDFK?=
- =?utf-8?B?dFBaTklQY0xwN0RwNkZZYnNDR3lmS3V1Wk0zL2s0MEplYUhjelM1eGtmdWdO?=
- =?utf-8?B?aVdFL05IdjdzN01QWEl3ek5YbXpiU0xsREhpQUdwdTFRZ21OMXN4MC82Uytn?=
- =?utf-8?B?K1JpdElRUzNXR28yZk5pWm81UTRmMzlhVFFmVmd5K05FMEEzTjBsUmI3dGJP?=
- =?utf-8?B?MUN3R0xpOGs4aklVNWN5NGZwR1JYQnE3dnFIU2lRQTE4c0hBMEtSUjF2Mjd2?=
- =?utf-8?B?cDMrZ1Zma2pSWjlldFQzSVk1RFdDay9VeVJ2cGtReFVqOWVoODYvWGlpc1pp?=
- =?utf-8?B?SDBzM1o1am4zZ1oycldiQmxDOWttMElDYmRKVlNtWURGTnBPYVlYNTZSK3FP?=
- =?utf-8?B?WDBzcXU3Zy9FS2FhRHArRmV6bS9QU2ZGVXB0UGJ1Mm51L3VqNHJZaGNjTEI5?=
- =?utf-8?B?dVlYT2pLTFVoYzRpdWhZNXQvZ1B5NEJ0MVdxT3FJcVBjZU9kUEZKNS9HeXR5?=
- =?utf-8?B?WlpiUkNxcHFwdlIxS2JCTjVFRlJuL2grejhPUGo4VEZKbmNvZVdKa3cxNE15?=
- =?utf-8?B?dmtPOEpSaWNoTmVsdUliOGhScXVtb05RaG9iZ0s0bHVYTmYyTWJxZ0piS2Rt?=
- =?utf-8?B?NmZmd2dmejN2bHNwT2M3N2FIdXJUek5hZWR2Y0w4V0hHSFhoWDg4MytJd1Ns?=
- =?utf-8?B?ZkhpQnhtazZ5a2dvU0NoRzY4bmZWMVk1bkY3M3JSN3U4OUhkY3VMNDVhbzUy?=
- =?utf-8?B?ZEp4L2RIcytLU0lsUGRudzljWWhmai9vdHpHcTk0Tytaa2dKOEtjMktkSnpX?=
- =?utf-8?B?Y1FYWWZyU2RYMzFIb1Y3T29uYjh5UUJzcHNwNUJBRlJaTFI5OWpYZ1pNbjd5?=
- =?utf-8?B?bnBFdUx3SG56UFJnRmxCQWlmN3lZZVhacXNoMWhJNU5Ka3pHS1dHcUtqUmZT?=
- =?utf-8?B?ZUZ3cm9tU1o5VmlXQTNQdkxBQ29SWEF4cUliMGxtOHhJQlJPTFdEa2RCWDlo?=
- =?utf-8?B?dElTZGxXMi9YUkhZYXcza3VxMENxRGR6UmVOditNekhkWEtpYS80QWd1Y1ZQ?=
- =?utf-8?B?UE0rTHQ0aEwvOENhWXY4bXU1UEZ1ckw0d1prWmYwK2ltcjZrVHFnQTU5TTJ6?=
- =?utf-8?B?RjZFcDljaldJazNHb3BlMVJ2eHBQUUlvUWY1SlRlTSszblg3eXQ3cFBMeXZn?=
- =?utf-8?B?Und4Tzc4VE5hd2FzVEFzdTdaQnYrNzlGMDRiMmsrR1FrVU0wV1dNRytSZ0My?=
- =?utf-8?B?M3FpRlhVNnl0U09VKzlQaE5MQW1zbWZyVk85R1ZLOWROR2FkeW00UmJkMzFX?=
- =?utf-8?B?dDFFYjg2RW9MOXdsdEZaMjYvc1pLMWhLN05XM2JRdU9jZmhlcFc0ajJUaWwx?=
- =?utf-8?Q?nrCuvbJstnAWvctp0ju286tNjdxjWo+vc1CSB06x0naQ=3D?=
-Content-Type: multipart/alternative;
-	boundary="_000_SL2P216MB127763AD758C2A81F525573499122SL2P216MB1277KORP_"
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=C4F/7PQT;
+ spf=pass (domain: gmail.com, ip: 209.85.160.42, mailfrom: raj.khem@gmail.com)
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-234cbd333f5so2829638fac.0
+        for <poky@lists.yoctoproject.org>; Mon, 22 Apr 2024 00:51:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1713772313; x=1714377113; darn=lists.yoctoproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=dpzbdvA+M6zqzZ6l1mNoFOS4BB9W2w3qQrY7EJtUTCg=;
+        b=C4F/7PQT1reNgyOjqePdyc4AeVKymlygAhdwfOZlL7Y8Lv3Kcin8K5kT8o3aC4Fxkb
+         MkidD/V7yECv1fBK0Yt+KnUHgPMycuNdMQelBypJF22H5aFcLOAY7swF1h90/7cXQ/R6
+         /5f/xdayuexL5uq1V+IDnWSigiC9gYUEeSMhzNa/G2uMCrooBC79H1FCATJZlDUUMH49
+         32M7RGd7rJL7kdcCxiyzR1qIM4hW/xZBpSokBSkdpFp3CzkdboKLBJdFgBW1B7L09hN6
+         HCApeNPC/8cN2X05YDRL9DRQTEI9vFgYyJof+O3YpnXyBQHAnZHoOgeJG15cMD5125YW
+         oufQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1713772313; x=1714377113;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dpzbdvA+M6zqzZ6l1mNoFOS4BB9W2w3qQrY7EJtUTCg=;
+        b=PtuY+CRNyNXrMYlxxFyVPg6P13+9NBFQCk+OiCNXl6EJolquXMW2tHoTQMDz9jecw4
+         PBnB/ExgPccp85oghO17roKc9sXvoqW8MvRsTIS9aM0LKy3hHAiJGpHaRaa+THeaksRN
+         /anFkifS028AUTyiYsVl73mbgRS4HqtltYJcDxI7ZmCMZ+sL6N+b8LDX3tacTgT7NWF8
+         9ujfz3ycVu4bLEoUtQbM2HlYL+sGl1uJ/xbOpU5rMUu6+EWN+5pDs11bj6DtHjGztIcc
+         TKlF3Y9E80bQzMLbjJKVQ9dBgVGQBuSE+gHTuWlDRYg7ss9DEb5079ucM7dYoJTYVR3H
+         3vqQ==
+X-Gm-Message-State: AOJu0Ywr3ZsnfLCM6y4nMnMXf28y7efC59UFKUcV0I78UaoOIVazXNvS
+	5XHbVM4QiJ62wv/zmOq1DveCIZEqsNDnDnx/+TygXWpaG153x43G0LRbnEHe0lAIB0N6RFI2cOx
+	wyBqvV/q8NtKiTVajBDl+/w3opoo=
+X-Google-Smtp-Source: AGHT+IET/JKcjtItAsmgrLMFXEsvY9N6Wa8lOcmE5pxUyefx7wu2PDJABnGzCtKfLczEc+v2bkoHKrgtB2XpfDNRY3o=
+X-Received: by 2002:a05:6870:30a:b0:22f:6ad0:20ee with SMTP id
+ m10-20020a056870030a00b0022f6ad020eemr5578946oaf.20.1713772312682; Mon, 22
+ Apr 2024 00:51:52 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SL2P216MB1277.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: d26dc785-b07a-47b0-21b7-08dc626d845c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Apr 2024 01:42:49.1238
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SL2P216MB2766
+References: <SL2P216MB127763AD758C2A81F525573499122@SL2P216MB1277.KORP216.PROD.OUTLOOK.COM>
+In-Reply-To: <SL2P216MB127763AD758C2A81F525573499122@SL2P216MB1277.KORP216.PROD.OUTLOOK.COM>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Mon, 22 Apr 2024 00:51:41 -0700
+Message-ID: <CAMKF1sqzzdZyasyPqiM_P2-4yzSOxDkTuLA8iqEOvxCHmoF+QA@mail.gmail.com>
+Subject: Re: [poky] Compiling Poky with Clang and Clang Coverage Flags
+To: hope.sneddon@outlook.com
+Cc: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="000000000000ec665d0616aab51b"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Mon, 22 Apr 2024 01:42:58 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13327
+ <poky@lists.yoctoproject.org>; Mon, 22 Apr 2024 07:52:00 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13328
 
---_000_SL2P216MB127763AD758C2A81F525573499122SL2P216MB1277KORP_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--000000000000ec665d0616aab51b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-77u/DQpIaSBQb2t5IENvbW11bml0eSwNCg0KSSBhbSB0cnlpbmcgdG8gYnVpbGQgYSBZb2N0byBj
-b2RlIGJhc2UgdXNpbmcgQ2xhbmcgYW5kIExMVk0gYXMgdGhlIGRlZmF1bHQgdG9vbGNoYWluIChp
-LmUuIG5vbmNsYW5nYWJsZXMgc3RpbGwgY29tcGlsZSB3aXRoIEdDQykgYXMgcGVyIHRoZSDigJxV
-c2luZyBDbGFuZyBDb21waWxlciB3aXRoIFlvY3RvIFByb2plY3TigJ0gcHJlc2VudGF0aW9uIGlu
-c3RydWN0aW9uczxodHRwczovL2VsaW51eC5vcmcvaW1hZ2VzL2YvZmYvWXBzMjAyMS4xMS1jbGFu
-Zy5wZGY+LiBUaGUgaXNzdWUgaXMgSSBuZWVkIHRvIGNvbXBpbGUgd2l0aCBjb2RlIGNvdmVyYWdl
-IHZpYSB0aGUgQ2xhbmcgY292ZXJhZ2UgZmxhZ3Mgd2hpY2ggZG8gbm90IHNlZW0gdG8gd29yayB3
-aXRoIFlvY3RvLyBQb2t5IGJ5IGRlZmF1bHQuIEkgaGF2ZSBzaW1wbGlmaWVkIG15IGFwcGxpY2F0
-aW9uIGFsbCB0aGUgd2F5IGJhY2sgdG8gYSBmcmVzaGx5IGNsb25lZCBQb2t5IHJlcG8gd2l0aCBv
-bmx5IHRoZSBmb2xsb3dpbmcgY2hhbmdlcyB0byByZXByb2R1Y2UgdGhlIGVycm9yLCBwcm92aW5n
-IGl0IGlzIG5vdCBhIHByb2JsZW0gY2F1c2VkIGJ5IGN1c3RvbSBjb25maWd1cmF0aW9ucy8gdXNl
-IGNhc2UgZGV2ZWxvcG1lbnQuDQoNClRoYXQgaXMsIHRvIHNob3cgdGhlIGlzc3VlLCBpbiBhIGZy
-ZXNoIGNsb25lIG9mIFBva3ksIHRoZSBmb2xsb3dpbmcgbGluZXMgYXJlIGFkZGVkIHRvIGxvY2Fs
-LmNvbmY6DQpUT09MQ0hBSU4gPSAiY2xhbmciDQpUQVJHRVRfQ1BQRkxBR1M6cHJlcGVuZCA9ICIt
-ZnByb2ZpbGUtaW5zdHItZ2VuZXJhdGUgLWZjb3ZlcmFnZS1tYXBwaW5nICINClJVTlRJTUUgPSAi
-bGx2bSINCkNMQU5HU0RLID0gIjEiDQoNClNpbXBsZSBDbGFuZyBjb21waWxhdGlvbiBvZiBQb2t5
-IHdvcmtzLCBob3dldmVyIEkgbmVlZCB0byBjb21waWxlIHdpdGggY29kZSBjb3ZlcmFnZSB3aGlj
-aCBkb2VzbuKAmXQgc2VlbSB0byBjdXJyZW50bHkgd29yayBieSBkZWZhdWx0IChpLmUuIGFkZCB0
-aGUgQ2xhbmcgY292ZXJhZ2UgZmxhZ3MgaW4gbG9jYWwuY29uZiB1c2luZyBUQVJHRVRfQ1BQRkxB
-R1M6cHJlcGVuZCA9ICItZnByb2ZpbGUtaW5zdHItZ2VuZXJhdGUgLWZjb3ZlcmFnZS1tYXBwaW5n
-ICIpLg0KDQpUbyBkZW1vbnN0cmF0ZSB0aGlzIEkgaGF2ZSBpbXBsZW1lbnRlZCBhIHNpbXBsZSDi
-gJxoZWxsby13b3JsZOKAnSByZWNpcGUgYXMgaGVsbG8td29ybGRfMS4wLjAuYmIgKGV4dHJhY3Qg
-YmVsb3cgZXhjbHVkZXMgcmVjaXBlIGhlYWRlciBsaW5lcyk6DQpTID0gIiR7V09SS0RJUn0vJHtQ
-Tn0tJHtQVn0iDQoNCnB5dGhvbiBkb19oZWxsb193b3JsZCgpew0KICAgIHByaW50KCJIZWxsbyBX
-b3JsZFxuIikNCn0NCg0KYWRkdGFzayBkb19oZWxsb193b3JsZA0KDQpDb21waWxpbmcgdGhpcyB2
-aWEgdGhlIGNvbW1hbmQgYml0YmFrZSBoZWxsby13b3JsZCBmYWlscy4NCg0KRmFpbHVyZSBpcyBj
-YXVzZWQgYnkgdGhlIGRvX2NvbXBpbGUgc3RlcCB0byBmYWlsaW5nIGR1ZSB0byBvZV9ydW5tYWtl
-IGZhaWxpbmc6DQpFUlJPUjogZ2NjLWNyb3NzLXg4Nl82NC0xMS40LjAtcjAgZG9fY29tcGlsZTog
-b2VfcnVubWFrZSBmYWlsZWQuDQoNClRoZSBsb2cgZGF0YSBmcm9tIG9lX3J1bm1ha2UgaW5kaWNh
-dGVzIHRoZSBmYWlsdXJlIGlzIGluZHVjZWQgYXQgdGhlIGZvbGxvd2luZyBvZV9ydW5tYWtlIHN0
-ZXAgKGxvZyBvdXRwdXQpOg0KY2hlY2tpbmcgZm9yIHN1ZmZpeCBvZiBvYmplY3QgZmlsZXMuLi4g
-Y29uZmlndXJlOiBlcnJvcjogaW4gYC9ob21lL2Rldi9wb2t5L2J1aWxkL3RtcC93b3JrL3g4Nl82
-NC1saW51eC9nY2MtY3Jvc3MteDg2XzY0LzExLjQuMC1yMC9nY2MtMTEuNC4wL2J1aWxkLng4Nl82
-NC1saW51eC54ODZfNjQtcG9reS1saW51eC94ODZfNjQtcG9reS1saW51eC9saWJnY2MnOg0KfCBj
-b25maWd1cmU6IGVycm9yOiBjYW5ub3QgY29tcHV0ZSBzdWZmaXggb2Ygb2JqZWN0IGZpbGVzOiBj
-YW5ub3QgY29tcGlsZQ0KDQpUaGUgZmFpbHVyZSBvZiBnY2NfY3Jvc3MgZG9lcyBub3Qgc2VlbSB0
-byBiZSByZXByZXNlbnRhdGl2ZSBvZiB0aGUgYWN0dWFsIHJvb3Qgb2YgdGhlIGlzc3VlLCBzbyBk
-ZWJ1Z2dpbmcgdGhpcyBpcyBwcm92aW5nIGRpZmZpY3VsdC4gQW55IGd1aWRhbmNlIG9uIGhvdyB0
-byBnZXQgQ2xhbmcgY292ZXJhZ2Ugd29ya2luZyB3b3VsZCBiZSBncmVhdGx5IGFwcHJlY2lhdGVk
-IGFzIG15IGFwcGxpY2F0aW9uIHJlcXVpcmVzIHRoZSBlbXBsb3ltZW50IG9mIGEgbG90IG9mIHRo
-ZSBsbHZtLWNvdiB0b29sc2V0ICh0aGUgbW90aXZhdGlvbiBmb3Igc3Vic3RpdHV0aW5nIGNvbXBp
-bGVyIGluIHRoZSBmaXJzdCBwbGFjZSkuDQoNClRoYW5rIHlvdSwNCg0KSG9wZQ0K
+Can you try something like this
 
---_000_SL2P216MB127763AD758C2A81F525573499122SL2P216MB1277KORP_
-Content-Type: text/html; charset="utf-8"
-Content-ID: 
- <2F28744C77BD984289CF49F9A7A8540F@sct-15-20-4755-11-msonline-outlook-0555f.templateTenant>
-Content-Transfer-Encoding: base64
+*TARGET_CPPFLAGS:prepend:class-target:toolchain-clang =3D
+"-fprofile-instr-generate -fcoverage-mapping "*
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IGRpcj0iYXV0byI+DQo8
-ZGl2IGRpcj0ibHRyIj7vu78NCjxibG9ja3F1b3RlIHR5cGU9ImNpdGUiPg0KPGRpdiBkaXI9Imx0
-ciI+DQo8ZGl2IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNw
-YW4gc3R5bGU9ImZvbnQtc2l6ZTogMTFwdDsiPkhpIFBva3kgQ29tbXVuaXR5LDwvc3Bhbj48L3A+
-DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+SSBhbSB0cnlp
-bmcgdG8gYnVpbGQgYSBZb2N0byBjb2RlIGJhc2UgdXNpbmcgQ2xhbmcgYW5kIExMVk0gYXMgdGhl
-IGRlZmF1bHQgdG9vbGNoYWluIChpLmUuIG5vbmNsYW5nYWJsZXMgc3RpbGwgY29tcGlsZSB3aXRo
-IEdDQykgYXMgcGVyIHRoZQ0KPGEgaHJlZj0iaHR0cHM6Ly9lbGludXgub3JnL2ltYWdlcy9mL2Zm
-L1lwczIwMjEuMTEtY2xhbmcucGRmIj7igJxVc2luZyBDbGFuZyBDb21waWxlciB3aXRoIFlvY3Rv
-IFByb2plY3TigJ0gcHJlc2VudGF0aW9uIGluc3RydWN0aW9uczwvYT4uIFRoZSBpc3N1ZSBpcyBJ
-IG5lZWQgdG8gY29tcGlsZSB3aXRoIGNvZGUgY292ZXJhZ2UgdmlhIHRoZSBDbGFuZyBjb3ZlcmFn
-ZSBmbGFncyB3aGljaCBkbyBub3Qgc2VlbSB0byB3b3JrIHdpdGggWW9jdG8vIFBva3kNCiBieSBk
-ZWZhdWx0LiBJIGhhdmUgc2ltcGxpZmllZCBteSBhcHBsaWNhdGlvbiBhbGwgdGhlIHdheSBiYWNr
-IHRvIGEgZnJlc2hseSBjbG9uZWQgUG9reSByZXBvIHdpdGggb25seSB0aGUgZm9sbG93aW5nIGNo
-YW5nZXMgdG8gcmVwcm9kdWNlIHRoZSBlcnJvciwgcHJvdmluZyBpdCBpcyBub3QgYSBwcm9ibGVt
-IGNhdXNlZCBieSBjdXN0b20gY29uZmlndXJhdGlvbnMvIHVzZSBjYXNlIGRldmVsb3BtZW50Lg0K
-PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwv
-cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlRoYXQgaXMsIHRvIHNob3cgdGhlIGlzc3VlLCBpbiBh
-IGZyZXNoIGNsb25lIG9mIFBva3ksIHRoZSBmb2xsb3dpbmcgbGluZXMgYXJlIGFkZGVkIHRvDQo8
-Yj48aT5sb2NhbC5jb25mPC9pPjwvYj46PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9y
-bWFsIiBzdHlsZT0iYmFja2dyb3VuZDojRDlEOUQ5Ij48Yj48aT5UT09MQ0hBSU4gPSAmcXVvdDtj
-bGFuZyZxdW90OzxvOnA+PC9vOnA+PC9pPjwvYj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBz
-dHlsZT0iYmFja2dyb3VuZDojRDlEOUQ5Ij48Yj48aT5UQVJHRVRfQ1BQRkxBR1M6cHJlcGVuZCA9
-ICZxdW90Oy1mcHJvZmlsZS1pbnN0ci1nZW5lcmF0ZSAtZmNvdmVyYWdlLW1hcHBpbmcgJnF1b3Q7
-PG86cD48L286cD48L2k+PC9iPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNr
-Z3JvdW5kOiNEOUQ5RDkiPjxiPjxpPlJVTlRJTUUgPSAmcXVvdDtsbHZtJnF1b3Q7PG86cD48L286
-cD48L2k+PC9iPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOiNE
-OUQ5RDkiPjxiPjxpPkNMQU5HU0RLID0gJnF1b3Q7MSZxdW90OzwvaT48L2I+PGk+PG86cD48L286
-cD48L2k+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8
-cCBjbGFzcz0iTXNvTm9ybWFsIj5TaW1wbGUgQ2xhbmcgY29tcGlsYXRpb24gb2YgUG9reSB3b3Jr
-cywgaG93ZXZlciBJIG5lZWQgdG8gY29tcGlsZSB3aXRoIGNvZGUgY292ZXJhZ2Ugd2hpY2ggZG9l
-c27igJl0IHNlZW0gdG8gY3VycmVudGx5IHdvcmsgYnkgZGVmYXVsdCAoaS5lLiBhZGQgdGhlIENs
-YW5nIGNvdmVyYWdlIGZsYWdzIGluDQo8Yj5sb2NhbC5jb25mPC9iPiB1c2luZyA8Yj48aT5UQVJH
-RVRfQ1BQRkxBR1M6cHJlcGVuZCA9ICZxdW90Oy1mcHJvZmlsZS1pbnN0ci1nZW5lcmF0ZSAtZmNv
-dmVyYWdlLW1hcHBpbmcgJnF1b3Q7PC9pPjwvYj4pLg0KPG86cD48L286cD48L3A+DQo8cCBjbGFz
-cz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
-PlRvIGRlbW9uc3RyYXRlIHRoaXMgSSBoYXZlIGltcGxlbWVudGVkIGEgc2ltcGxlIOKAnGhlbGxv
-LXdvcmxk4oCdIHJlY2lwZSBhcw0KPGI+PGk+aGVsbG8td29ybGRfMS4wLjAuYmI8L2k+PC9iPiAo
-ZXh0cmFjdCBiZWxvdyBleGNsdWRlcyByZWNpcGUgaGVhZGVyIGxpbmVzKTo8bzpwPjwvbzpwPjwv
-cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOiNEOUQ5RDkiPjxiPjxp
-PlMgPSAmcXVvdDske1dPUktESVJ9LyR7UE59LSR7UFZ9JnF1b3Q7PG86cD48L286cD48L2k+PC9i
-PjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOiNEOUQ5RDkiPjxi
-PjxpPjxvOnA+Jm5ic3A7PC9vOnA+PC9pPjwvYj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBz
-dHlsZT0iYmFja2dyb3VuZDojRDlEOUQ5Ij48Yj48aT5weXRob24gZG9faGVsbG9fd29ybGQoKXs8
-bzpwPjwvbzpwPjwvaT48L2I+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tn
-cm91bmQ6I0Q5RDlEOSI+PGI+PGk+Jm5ic3A7Jm5ic3A7Jm5ic3A7IHByaW50KCZxdW90O0hlbGxv
-IFdvcmxkXG4mcXVvdDspPG86cD48L286cD48L2k+PC9iPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiIHN0eWxlPSJiYWNrZ3JvdW5kOiNEOUQ5RDkiPjxiPjxpPn08bzpwPjwvbzpwPjwvaT48L2I+
-PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91bmQ6I0Q5RDlEOSI+PGI+
-PGk+PG86cD4mbmJzcDs8L286cD48L2k+PC9iPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0
-eWxlPSJiYWNrZ3JvdW5kOiNEOUQ5RDkiPjxiPjxpPmFkZHRhc2sgZG9faGVsbG9fd29ybGQ8bzpw
-PjwvbzpwPjwvaT48L2I+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286
-cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5Db21waWxpbmcgdGhpcyB2aWEgdGhlIGNvbW1h
-bmQgPGI+PGk+Yml0YmFrZSBoZWxsby13b3JsZDwvaT48L2I+IGZhaWxzLjxvOnA+PC9vOnA+PC9w
-Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0i
-TXNvTm9ybWFsIj5GYWlsdXJlIGlzIGNhdXNlZCBieSB0aGUgPGI+PGk+ZG9fY29tcGlsZSA8L2k+
-PC9iPnN0ZXAgdG8gZmFpbGluZyBkdWUgdG8NCjxiPjxpPm9lX3J1bm1ha2U8L2k+PC9iPiBmYWls
-aW5nOjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJhY2tncm91
-bmQ6I0Q5RDlEOSI+PGI+PGk+RVJST1I6IGdjYy1jcm9zcy14ODZfNjQtMTEuNC4wLXIwIGRvX2Nv
-bXBpbGU6IG9lX3J1bm1ha2UgZmFpbGVkLg0KPG86cD48L286cD48L2k+PC9iPjwvcD4NCjxwIGNs
-YXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1h
-bCI+VGhlIGxvZyBkYXRhIGZyb20gPGI+PGk+b2VfcnVubWFrZTwvaT48L2I+IGluZGljYXRlcyB0
-aGUgZmFpbHVyZSBpcyBpbmR1Y2VkIGF0IHRoZSBmb2xsb3dpbmcNCjxiPjxpPm9lX3J1bm1ha2U8
-L2k+PC9iPiBzdGVwIChsb2cgb3V0cHV0KTogPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNv
-Tm9ybWFsIiBzdHlsZT0iYmFja2dyb3VuZDojRDlEOUQ5Ij48Yj48aT5jaGVja2luZyBmb3Igc3Vm
-Zml4IG9mIG9iamVjdCBmaWxlcy4uLiBjb25maWd1cmU6IGVycm9yOiBpbiBgL2hvbWUvZGV2L3Bv
-a3kvYnVpbGQvdG1wL3dvcmsveDg2XzY0LWxpbnV4L2djYy1jcm9zcy14ODZfNjQvMTEuNC4wLXIw
-L2djYy0xMS40LjAvYnVpbGQueDg2XzY0LWxpbnV4Lng4Nl82NC1wb2t5LWxpbnV4L3g4Nl82NC1w
-b2t5LWxpbnV4L2xpYmdjYyc6PG86cD48L286cD48L2k+PC9iPjwvcD4NCjxwIGNsYXNzPSJNc29O
-b3JtYWwiIHN0eWxlPSJiYWNrZ3JvdW5kOiNEOUQ5RDkiPjxiPjxpPnwgY29uZmlndXJlOiBlcnJv
-cjogY2Fubm90IGNvbXB1dGUgc3VmZml4IG9mIG9iamVjdCBmaWxlczogY2Fubm90IGNvbXBpbGU8
-L2k+PG86cD48L286cD48L2I+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8
-L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5UaGUgZmFpbHVyZSBvZiBnY2NfY3Jvc3Mg
-ZG9lcyBub3Qgc2VlbSB0byBiZSByZXByZXNlbnRhdGl2ZSBvZiB0aGUgYWN0dWFsIHJvb3Qgb2Yg
-dGhlIGlzc3VlLCBzbyBkZWJ1Z2dpbmcgdGhpcyBpcyBwcm92aW5nIGRpZmZpY3VsdC4gQW55IGd1
-aWRhbmNlIG9uIGhvdyB0byBnZXQgQ2xhbmcgY292ZXJhZ2Ugd29ya2luZyB3b3VsZCBiZSBncmVh
-dGx5IGFwcHJlY2lhdGVkIGFzIG15IGFwcGxpY2F0aW9uIHJlcXVpcmVzDQogdGhlIGVtcGxveW1l
-bnQgb2YgYSBsb3Qgb2YgdGhlIGxsdm0tY292IHRvb2xzZXQgKHRoZSBtb3RpdmF0aW9uIGZvciBz
-dWJzdGl0dXRpbmcgY29tcGlsZXIgaW4gdGhlIGZpcnN0IHBsYWNlKS48bzpwPjwvbzpwPjwvcD4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1z
-b05vcm1hbCI+PHNwYW4gbGFuZz0iRU4tQVUiIHN0eWxlPSJtc28tZmFyZWFzdC1sYW5ndWFnZTpF
-Ti1BVSI+VGhhbmsgeW91LDxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPjxiPjxpPjxzcGFuIGxhbmc9IkVOLUFVIiBzdHlsZT0iZm9udC1zaXplOjEyLjBwdDtmb250
-LWZhbWlseTomcXVvdDtIZWx2ZXRpY2EmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjpuYXZ5O21zby1m
-YXJlYXN0LWxhbmd1YWdlOkVOLUFVIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L2k+PC9iPjwv
-cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkhvcGU8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9k
-aXY+DQo8L2Jsb2NrcXVvdGU+DQo8c3R5bGU+QGZvbnQtZmFjZSB7IGZvbnQtZmFtaWx5OiBIZWx2
-ZXRpY2E7IH0NCkBmb250LWZhY2UgeyBmb250LWZhbWlseTogIkNhbWJyaWEgTWF0aCI7IH0NCkBm
-b250LWZhY2UgeyBmb250LWZhbWlseTogQ2FsaWJyaTsgfQ0KcC5Nc29Ob3JtYWwsIGxpLk1zb05v
-cm1hbCwgZGl2Lk1zb05vcm1hbCB7IG1hcmdpbjogMGNtIDBjbSAwLjAwMDFwdDsgZm9udC1zaXpl
-OiAxMXB0OyBmb250LWZhbWlseTogQ2FsaWJyaSwgc2Fucy1zZXJpZjsgfQ0KYTpsaW5rLCBzcGFu
-Lk1zb0h5cGVybGluayB7IGNvbG9yOiByZ2IoNSwgOTksIDE5Myk7IHRleHQtZGVjb3JhdGlvbjog
-dW5kZXJsaW5lOyB9DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQgeyBjb2xv
-cjogcmdiKDE0OSwgNzksIDExNCk7IHRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lOyB9DQpzcGFu
-LkVtYWlsU3R5bGUxNyB7IGZvbnQtZmFtaWx5OiBDYWxpYnJpLCBzYW5zLXNlcmlmOyBjb2xvcjog
-d2luZG93dGV4dDsgfQ0KLk1zb0NocERlZmF1bHQgeyB9DQpAcGFnZSBXb3JkU2VjdGlvbjEgeyBz
-aXplOiA2MTJwdCA3OTJwdDsgbWFyZ2luOiA3MnB0OyB9DQpkaXYuV29yZFNlY3Rpb24xIHsgcGFn
-ZTogV29yZFNlY3Rpb24xOyB9PC9zdHlsZT48L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
---_000_SL2P216MB127763AD758C2A81F525573499122SL2P216MB1277KORP_--
+
+
+On Mon, Apr 22, 2024 at 3:42=E2=80=AFAM Hope Sneddon via lists.yoctoproject=
+.org
+<hope.sneddon=3Doutlook.com@lists.yoctoproject.org> wrote:
+
+> =EF=BB=BF
+>
+> Hi Poky Community,
+>
+>
+>
+> I am trying to build a Yocto code base using Clang and LLVM as the defaul=
+t
+> toolchain (i.e. nonclangables still compile with GCC) as per the =E2=80=
+=9CUsing
+> Clang Compiler with Yocto Project=E2=80=9D presentation instructions
+> <https://elinux.org/images/f/ff/Yps2021.11-clang.pdf>. The issue is I
+> need to compile with code coverage via the Clang coverage flags which do
+> not seem to work with Yocto/ Poky by default. I have simplified my
+> application all the way back to a freshly cloned Poky repo with only the
+> following changes to reproduce the error, proving it is not a problem
+> caused by custom configurations/ use case development.
+>
+>
+>
+> That is, to show the issue, in a fresh clone of Poky, the following lines
+> are added to *local.conf*:
+>
+> *TOOLCHAIN =3D "clang"*
+>
+> *TARGET_CPPFLAGS:prepend =3D "-fprofile-instr-generate -fcoverage-mapping=
+ "*
+>
+> *RUNTIME =3D "llvm"*
+>
+> *CLANGSDK =3D "1"*
+>
+>
+>
+> Simple Clang compilation of Poky works, however I need to compile with
+> code coverage which doesn=E2=80=99t seem to currently work by default (i.=
+e. add the
+> Clang coverage flags in *local.conf* using *TARGET_CPPFLAGS:prepend =3D
+> "-fprofile-instr-generate -fcoverage-mapping "*).
+>
+>
+>
+> To demonstrate this I have implemented a simple =E2=80=9Chello-world=E2=
+=80=9D recipe as *hello-world_1.0.0.bb
+> <http://hello-world_1.0.0.bb>* (extract below excludes recipe header
+> lines):
+>
+> *S =3D "${WORKDIR}/${PN}-${PV}"*
+>
+>
+>
+> *python do_hello_world(){*
+>
+> *    print("Hello World\n")*
+>
+> *}*
+>
+>
+>
+> *addtask do_hello_world*
+>
+>
+>
+> Compiling this via the command *bitbake hello-world* fails.
+>
+>
+>
+> Failure is caused by the *do_compile *step to failing due to *oe_runmake*
+> failing:
+>
+> *ERROR: gcc-cross-x86_64-11.4.0-r0 do_compile: oe_runmake failed. *
+>
+>
+>
+> The log data from *oe_runmake* indicates the failure is induced at the
+> following *oe_runmake* step (log output):
+>
+> *checking for suffix of object files... configure: error: in
+> `/home/dev/poky/build/tmp/work/x86_64-linux/gcc-cross-x86_64/11.4.0-r0/gc=
+c-11.4.0/build.x86_64-linux.x86_64-poky-linux/x86_64-poky-linux/libgcc':*
+>
+> *| configure: error: cannot compute suffix of object files: cannot compil=
+e*
+>
+>
+>
+> The failure of gcc_cross does not seem to be representative of the actual
+> root of the issue, so debugging this is proving difficult. Any guidance o=
+n
+> how to get Clang coverage working would be greatly appreciated as my
+> application requires the employment of a lot of the llvm-cov toolset (the
+> motivation for substituting compiler in the first place).
+>
+>
+>
+> Thank you,
+>
+>
+>
+> Hope
+>
+>
+> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
+> Links: You receive all messages sent to this group.
+> View/Reply Online (#13327):
+> https://lists.yoctoproject.org/g/poky/message/13327
+> Mute This Topic: https://lists.yoctoproject.org/mt/105662464/1997914
+> Group Owner: poky+owner@lists.yoctoproject.org
+> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [
+> raj.khem@gmail.com]
+> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
+>
+>
+
+--000000000000ec665d0616aab51b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Can you try something like this</div><div dir=3D"auto"><b=
+r></div><div dir=3D"auto"><div><blockquote style=3D"color:rgb(49,49,49);fon=
+t-family:&#39;-apple-system&#39;,&#39;helvetica neue&#39;;font-size:16px;fo=
+nt-style:normal;font-weight:400;letter-spacing:normal;text-indent:0px;text-=
+transform:none;white-space:normal;word-spacing:1px;text-decoration:none"><d=
+iv dir=3D"ltr"><div><p style=3D"background:rgb(217,217,217)" dir=3D"auto"><=
+b><i style=3D"font-size:1rem">TARGET_CPPFLAGS:prepend:class-target:toolchai=
+n-clang =3D &quot;-fprofile-instr-generate -fcoverage-mapping &quot;</i></b=
+></p></div></div></blockquote></div><br></div><div dir=3D"auto"><br></div><=
+div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On=
+ Mon, Apr 22, 2024 at 3:42=E2=80=AFAM Hope Sneddon via <a href=3D"http://li=
+sts.yoctoproject.org">lists.yoctoproject.org</a> &lt;hope.sneddon=3D<a href=
+=3D"mailto:outlook.com@lists.yoctoproject.org">outlook.com@lists.yoctoproje=
+ct.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"m=
+argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+
+
+
+<div dir=3D"auto">
+<div dir=3D"ltr">=EF=BB=BF
+<blockquote type=3D"cite">
+<div dir=3D"ltr">
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Hi Poky Community,</s=
+pan></p>
+<p class=3D"MsoNormal"><u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">I am trying to build a Yocto code base using Clang a=
+nd LLVM as the default toolchain (i.e. nonclangables still compile with GCC=
+) as per the
+<a href=3D"https://elinux.org/images/f/ff/Yps2021.11-clang.pdf" target=3D"_=
+blank">=E2=80=9CUsing Clang Compiler with Yocto Project=E2=80=9D presentati=
+on instructions</a>. The issue is I need to compile with code coverage via =
+the Clang coverage flags which do not seem to work with Yocto/ Poky
+ by default. I have simplified my application all the way back to a freshly=
+ cloned Poky repo with only the following changes to reproduce the error, p=
+roving it is not a problem caused by custom configurations/ use case develo=
+pment.
+<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">That is, to show the issue, in a fresh clone of Poky=
+, the following lines are added to
+<b><i>local.conf</i></b>:<u></u><u></u></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i>TOOLCHAIN =3D &qu=
+ot;clang&quot;<u></u><u></u></i></b></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i>TARGET_CPPFLAGS:p=
+repend =3D &quot;-fprofile-instr-generate -fcoverage-mapping &quot;<u></u><=
+u></u></i></b></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i>RUNTIME =3D &quot=
+;llvm&quot;<u></u><u></u></i></b></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i>CLANGSDK =3D &quo=
+t;1&quot;</i></b><i><u></u><u></u></i></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Simple Clang compilation of Poky works, however I ne=
+ed to compile with code coverage which doesn=E2=80=99t seem to currently wo=
+rk by default (i.e. add the Clang coverage flags in
+<b>local.conf</b> using <b><i>TARGET_CPPFLAGS:prepend =3D &quot;-fprofile-i=
+nstr-generate -fcoverage-mapping &quot;</i></b>).
+<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">To demonstrate this I have implemented a simple =E2=
+=80=9Chello-world=E2=80=9D recipe as
+<b><i><a href=3D"http://hello-world_1.0.0.bb" target=3D"_blank">hello-world=
+_1.0.0.bb</a></i></b> (extract below excludes recipe header lines):<u></u><=
+u></u></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i>S =3D &quot;${WOR=
+KDIR}/${PN}-${PV}&quot;<u></u><u></u></i></b></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i><u></u>=C2=A0<u><=
+/u></i></b></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i>python do_hello_w=
+orld(){<u></u><u></u></i></b></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i>=C2=A0=C2=A0=C2=
+=A0 print(&quot;Hello World\n&quot;)<u></u><u></u></i></b></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i>}<u></u><u></u></=
+i></b></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i><u></u>=C2=A0<u><=
+/u></i></b></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i>addtask do_hello_=
+world<u></u><u></u></i></b></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Compiling this via the command <b><i>bitbake hello-w=
+orld</i></b> fails.<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Failure is caused by the <b><i>do_compile </i></b>st=
+ep to failing due to
+<b><i>oe_runmake</i></b> failing:<u></u><u></u></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i>ERROR: gcc-cross-=
+x86_64-11.4.0-r0 do_compile: oe_runmake failed.
+<u></u><u></u></i></b></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">The log data from <b><i>oe_runmake</i></b> indicates=
+ the failure is induced at the following
+<b><i>oe_runmake</i></b> step (log output): <u></u><u></u></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i>checking for suff=
+ix of object files... configure: error: in `/home/dev/poky/build/tmp/work/x=
+86_64-linux/gcc-cross-x86_64/11.4.0-r0/gcc-11.4.0/build.x86_64-linux.x86_64=
+-poky-linux/x86_64-poky-linux/libgcc&#39;:<u></u><u></u></i></b></p>
+<p class=3D"MsoNormal" style=3D"background:#d9d9d9"><b><i>| configure: erro=
+r: cannot compute suffix of object files: cannot compile</i><u></u><u></u><=
+/b></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">The failure of gcc_cross does not seem to be represe=
+ntative of the actual root of the issue, so debugging this is proving diffi=
+cult. Any guidance on how to get Clang coverage working would be greatly ap=
+preciated as my application requires
+ the employment of a lot of the llvm-cov toolset (the motivation for substi=
+tuting compiler in the first place).<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-AU">Thank you,<u></u><u></u></span>=
+</p>
+<p class=3D"MsoNormal"><b><i><span lang=3D"EN-AU" style=3D"font-size:12.0pt=
+;font-family:&quot;Helvetica&quot;,sans-serif;color:navy"><u></u>=C2=A0<u><=
+/u></span></i></b></p>
+<p class=3D"MsoNormal">Hope<u></u><u></u></p>
+</div>
+</div>
+</blockquote>
+</div>
+</div>
+
+<br>
+-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
+Links: You receive all messages sent to this group.<br>
+View/Reply Online (#13327): <a href=3D"https://lists.yoctoproject.org/g/pok=
+y/message/13327" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctopr=
+oject.org/g/poky/message/13327</a><br>
+Mute This Topic: <a href=3D"https://lists.yoctoproject.org/mt/105662464/199=
+7914" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctoproject.org/m=
+t/105662464/1997914</a><br>
+Group Owner: <a href=3D"mailto:poky%2Bowner@lists.yoctoproject.org" target=
+=3D"_blank">poky+owner@lists.yoctoproject.org</a><br>
+Unsubscribe: <a href=3D"https://lists.yoctoproject.org/g/poky/unsub" rel=3D=
+"noreferrer" target=3D"_blank">https://lists.yoctoproject.org/g/poky/unsub<=
+/a> [<a href=3D"mailto:raj.khem@gmail.com" target=3D"_blank">raj.khem@gmail=
+.com</a>]<br>
+-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
+<br>
+</blockquote></div></div>
+
+--000000000000ec665d0616aab51b--
 
