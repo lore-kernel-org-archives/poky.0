@@ -1,81 +1,86 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <nicolas.wirth@speedgoat.ch>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC208C25B75
-	for <webhook@archiver.kernel.org>; Wed, 15 May 2024 12:19:52 +0000 (UTC)
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
- by mx.groups.io with SMTP id smtpd.web11.13396.1715775590260861365
- for <poky@lists.yoctoproject.org>;
- Wed, 15 May 2024 05:19:50 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=JsEffEq+;
- spf=pass (domain: gmail.com, ip: 209.85.167.54, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-51f1bf83f06so8467471e87.1
-        for <poky@lists.yoctoproject.org>; Wed, 15 May 2024 05:19:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1715775588; x=1716380388; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hT+l+pbkW31IJFP2rkdGVQLj7E+lpzSuhVIPsh0DKSg=;
-        b=JsEffEq+mvIP3/uMeu95tK8Nv4lJnC7vxwOsyX2V/Ppv2Y5ii/0le2StOdbKI4fkDO
-         8ABwWG3Bay6arZVdUz945GYoOacWq0M1nHvdtQLK5529yd0sIl2PXxRt/yBJIvgWi1TC
-         mW3XztLqYtMmHylog2OpIqx1F1Kjy0/v1QhMOjgEPsGJ5itwXOjlm79Z4FRRnTDGqp+Q
-         m5HZTWwnOV7xVbUw4Eij3ICfGlSfrnXygtk6ajtOhj+cn7Cse6sOCZIpOEFT9fEdasqo
-         LWpd8GHNeKuHQ1o4tnnkV9Elha55fAqlPv8Qp4YF6Purf4Hvdes5T6FhBKcNgh+S1Cj+
-         MSoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1715775588; x=1716380388;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=hT+l+pbkW31IJFP2rkdGVQLj7E+lpzSuhVIPsh0DKSg=;
-        b=ZAU5ExPCQ7phtCD6f86NkDI41CD2ayCOq2C5bEr1Ix83cXu9aEXujQPWR0FPXvxRap
-         Tr3T8Jfvyjofqqnc5mOwCTxjSZtUjV3G77rqEDkdIKuj8GgTCha5rqWiaWfGv1TBfsVM
-         KJEeJi1mZ44TjX1aC9pNwAU7o69IAYvlmuNik4R/LFFsmeVI8ZsKnhgbxywJXWIKw7KM
-         sMVubd1tjrj0n9XtYihTpYh0H3840AjEJ9n5xtANfczYfzvSW8wp/e/JqUKWAnt7qrZ9
-         wtXOq2dZcoP2+tMgbYMifdRvnCLxXeXeobCaEKDzeOony2yx3jWaOarI/myQfxcsN1hD
-         9zMw==
-X-Gm-Message-State: AOJu0Yzm3NSJzWUxXlYYjewWOhfUX3lI/x+B5txGUbLrveWHTEIwSgar
-	eZcsGR7Z/zDaCpWdKkpsyrjR5tSjdoV3MBFinVHgEOyqC0fjB7ee8D/Pi6MhYi7/dgCOT1739IZ
-	+M7zkxb51VwP7VFqY/TLcqCCcuJexoA==
-X-Google-Smtp-Source: AGHT+IF0gN+qp+8UrmNY8T4UymZa55x5jJb16UozsYwq8QRTySTGsqTJaPV0gD1XcliRv19hpAxk7L7kq1Cwl/lAKa8=
-X-Received: by 2002:a19:2d0e:0:b0:51b:567e:7ea4 with SMTP id
- 2adb3069b0e04-5220fc7945cmr10209245e87.26.1715775588167; Wed, 15 May 2024
- 05:19:48 -0700 (PDT)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B94BAC25B7B
+	for <webhook@archiver.kernel.org>; Wed, 15 May 2024 12:34:12 +0000 (UTC)
+Subject: Re: Running chroot-like command in Yocto #yocto
+To: poky@lists.yoctoproject.org
+From: "Nicolas Wirth" <nicolas.wirth@speedgoat.ch>
+X-Originating-Location: Baechli, Nidwalden, CH (146.4.107.86)
+X-Originating-Platform: Windows Chrome 124
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-References: <fhmz.1715775242631282768.NneV@lists.yoctoproject.org>
-In-Reply-To: <fhmz.1715775242631282768.NneV@lists.yoctoproject.org>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Wed, 15 May 2024 14:19:36 +0200
-Message-ID: <CANNYZj_14fsnt6RV1cZyf0qSFD=58MBh59LammMkrGx53DHXng@mail.gmail.com>
-Subject: Re: [poky] Running chroot-like command in Yocto #yocto
-To: nicolas.wirth@speedgoat.ch
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Wed, 15 May 2024 05:34:07 -0700
+References: <CANNYZj_14fsnt6RV1cZyf0qSFD=58MBh59LammMkrGx53DHXng@mail.gmail.com>
+In-Reply-To: <CANNYZj_14fsnt6RV1cZyf0qSFD=58MBh59LammMkrGx53DHXng@mail.gmail.com>
+Message-ID: <19808.1715776447222316220@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="dD0f1LBXWIPEsYLEmKHM"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 15 May 2024 12:19:52 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13350
+ <poky@lists.yoctoproject.org>; Wed, 15 May 2024 12:34:12 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13351
 
-On Wed, 15 May 2024 at 14:14, Nicolas Wirth via lists.yoctoproject.org
-<nicolas.wirth=3Dspeedgoat.ch@lists.yoctoproject.org> wrote:
-> I would like to run a command that has to use my target-generated tools a=
-nd on my target-generated rootfs. For example, I would like to install an u=
-tility such as IMAGE_INSTALL =3D "unzip" and then run a command such as "${=
-IMAGE_ROOTFS}/usr/bin/unzip ${IMAGE_ROOTFS}/home/user/test.zip" in ROOTFS_P=
-OSTPROCESS_COMMAND or IMAGE_POSTPROCESS_COMMAND .
->
-> Do you have any advices ?
+--dD0f1LBXWIPEsYLEmKHM
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-It would be good to understand why this can't be done in a recipe, and
-why you need to run target unzip and not native one. E.g. you can
-unpack the zip in a recipe, then package the contents and install
-those packages into the image, where they will be unpacked in
-do_rootfs as any other packages are.
+Really good point, my example can be misleading. I didn't wanted to add con=
+fusion by fully explaining my goal.
 
-Alex
+The goal is to run extlinux --install ${IMAGE_ROOTFS} /boot/syslinux, as I'=
+ve understood, this command install the sylinux required file but also does=
+ write some bytes at the start of the partition, for the MBR. In debbos, I =
+could do that using the following code and now I'm trying to reproduce that=
+ in the Yocto build system:
+
+- action : run
+description : Set up Syslinux
+chroot : true
+command : extlinux --install /boot/syslinux
+
+--dD0f1LBXWIPEsYLEmKHM
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<p>Really good point, my example can be misleading. I didn't wanted to add =
+confusion by fully explaining my goal.<br /><br />The goal is to run extlin=
+ux --install <span style=3D"color: #333333; font-family: system-ui, 'Segoe =
+UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-=
+serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Colo=
+r Emoji'; font-size: 16px; font-style: normal; font-variant-ligatures: norm=
+al; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; or=
+phans: 2; text-align: start; text-indent: 0px; text-transform: none; widows=
+: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal=
+; background-color: #ffffff; text-decoration-thickness: initial; text-decor=
+ation-style: initial; text-decoration-color: initial; display: inline !impo=
+rtant; float: none;">${IMAGE_ROOTFS}</span>/boot/syslinux, as I've understo=
+od, this command install the sylinux required file but also does write some=
+ bytes at the start of the partition, for the MBR. In debbos, I could do th=
+at using the following code and now I'm trying to reproduce that in the Yoc=
+to build system:</p>
+<div style=3D"color: #333333; background-color: #f5f5f5; font-family: 'JetB=
+rains Mono', Consolas, 'Courier New', monospace; font-weight: normal; font-=
+size: 14px; line-height: 19px; white-space: pre;">
+<div><span style=3D"color: #333333;">&nbsp; </span><span style=3D"color: #7=
+77777;">-</span><span style=3D"color: #333333;"> </span><span style=3D"colo=
+r: #4b69c6;">action</span><span style=3D"color: #777777;">:</span><span sty=
+le=3D"color: #333333;"> </span><span style=3D"color: #448c27;">run</span></=
+div>
+<div><span style=3D"color: #333333;">&nbsp; &nbsp; </span><span style=3D"co=
+lor: #4b69c6;">description</span><span style=3D"color: #777777;">:</span><s=
+pan style=3D"color: #333333;"> </span><span style=3D"color: #448c27;">Set u=
+p Syslinux</span></div>
+<div><span style=3D"color: #333333;">&nbsp; &nbsp; </span><span style=3D"co=
+lor: #4b69c6;">chroot</span><span style=3D"color: #777777;">:</span><span s=
+tyle=3D"color: #333333;"> </span><span style=3D"color: #9c5d27;">true</span=
+></div>
+<div><span style=3D"color: #333333;">&nbsp; &nbsp; </span><span style=3D"co=
+lor: #4b69c6;">command</span><span style=3D"color: #777777;">:</span><span =
+style=3D"color: #333333;"> </span><span style=3D"color: #448c27;">extlinux =
+--install /boot/syslinux</span></div>
+</div>
+
+--dD0f1LBXWIPEsYLEmKHM--
 
