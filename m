@@ -1,97 +1,77 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <peter.marko@siemens.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A04EC3064D
-	for <webhook@archiver.kernel.org>; Tue, 25 Jun 2024 13:56:59 +0000 (UTC)
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
- by mx.groups.io with SMTP id smtpd.web11.173386.1719323818469572494
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06EFFC30653
+	for <webhook@archiver.kernel.org>; Tue, 25 Jun 2024 19:40:25 +0000 (UTC)
+Received: from mta-64-226.siemens.flowmailer.net (mta-64-226.siemens.flowmailer.net [185.136.64.226])
+ by mx.groups.io with SMTP id smtpd.web11.6079.1719344424198578364
  for <poky@lists.yoctoproject.org>;
- Tue, 25 Jun 2024 06:56:58 -0700
+ Tue, 25 Jun 2024 12:40:24 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=Ci1XZAME;
- spf=pass (domain: gmail.com, ip: 209.85.208.177, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-2ec002caeb3so71147801fa.2
-        for <poky@lists.yoctoproject.org>; Tue, 25 Jun 2024 06:56:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719323817; x=1719928617; darn=lists.yoctoproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=GFDws918Tz4SXTYUdfuYk9qZG0fB4PT1e16DzcIk/D0=;
-        b=Ci1XZAMERiLci3Au73t14vMveAN5fY4XI4UpsWGIhXZjLnynY0Tc50bBbp6wlldY4S
-         PZXNObPzXO5RVDqbsMONrNzuy0jFS82iXMJxUirZrxgtA6LM/rPmfoDmjqSEV/o6XxCe
-         nrIiuI3SXCKqSsirwSPnI3TWibQOl/YG64sWbmxPAo/Yt6fiJFwevpjogHscRiPfWIS7
-         iU0qhH0Pgfb5xmH4UWapRT61xo3XxtmGbri7oiiU92iRz8HNl253s4RmAzKbPp9IrcK8
-         BgbxwZXPiYaahGLs/VGzx/FRWUNglydKn0rKJJ4YZC0Jjhfcau6+QXw82gPqudqPT2lM
-         YD4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719323817; x=1719928617;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=GFDws918Tz4SXTYUdfuYk9qZG0fB4PT1e16DzcIk/D0=;
-        b=k2vtrXdWCT9PeMAA3Qy7JWoWdpDk80B7s1XZS+F7DrMGPpAyks+quJD+kkthtP4rpE
-         1BBuVUIlYK4dLMgvUmsxQi2MEvdIBPEo0g+3B4TdxsMIZRhijRArtveyrdBe6+TKuk6L
-         HalgVkc9qlPawdU/6x0NKntiJXVoZV8XZuWcLkxtcZRfpj1l3Vg+Q8eL5jYELJAkDFyz
-         CLcwLK3xDeWH8C2WhOZjTyYVJCVwjd9fJOEwC8ZbTTMXGwjhBPKCsW+hMZPd36iabV8Q
-         gE/yAWx3Kvs03R5n7U4kFZrhkHsSsw7kBkB7939K9NOHMW9hKBGGJgw6keQvAesIBPxO
-         ApoQ==
-X-Gm-Message-State: AOJu0YxnyxpzCip2mGoHKXsCoaUhWjoPpoOssAhFsPKz9f//JNtt1vyI
-	NLTKq9otTZgK5MM2BHZ7urYxJMRVE6FIDCw/3dZLXEJH7AdMKQz4BiTzHZd+GIkAi01PBRXhaOO
-	K/8MRMYtSckI/H9afwsHphu0CXlY=
-X-Google-Smtp-Source: AGHT+IFIpaujD8J1A4Gi0qLsWwNFkiAY6SMTDxM/82yY+pgRF25YD/alwDqiVoHo2ERty32fpJQzaJp4Sg4M/nfhigE=
-X-Received: by 2002:a2e:3817:0:b0:2ec:5172:dbc4 with SMTP id
- 38308e7fff4ca-2ec57978cb8mr50239971fa.12.1719323816339; Tue, 25 Jun 2024
- 06:56:56 -0700 (PDT)
+ dkim=pass header.i=peter.marko@siemens.com header.s=fm2 header.b=PjCYju3F;
+ spf=pass (domain: rts-flowmailer.siemens.com, ip: 185.136.64.226, mailfrom: fm-256628-202406251940217a4f0e3f671e1f7aba-homogp@rts-flowmailer.siemens.com)
+Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id 202406251940217a4f0e3f671e1f7aba
+        for <poky@lists.yoctoproject.org>;
+        Tue, 25 Jun 2024 21:40:21 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
+ d=siemens.com; i=peter.marko@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=UzWkzIXyuLfI/qhQWObAG7eLRM7y4dElvB+LH3T4ays=;
+ b=PjCYju3Fndu9poBcJVMMqEwydubHljvQz5a8QTI/GajSCw7r6jJ8ZnkzruWE+x/IXl6txo
+ m0HPDaC86RdGpKAYHFni4ug05wGB3GANnrK4QcmASDb+cswW0sBq1AEpw4Kk+3uRge1SzYaT
+ XULt0lT8NcK8sIECYSAsOYG7hkJkg=;
+From: Peter Marko <peter.marko@siemens.com>
+To: poky@lists.yoctoproject.org
+Cc: Peter Marko <peter.marko@siemens.com>
+Subject: [master][scarthgap][PATCH] poky-sanity: remove True option to getVar calls
+Date: Tue, 25 Jun 2024 21:39:33 +0200
+Message-Id: <20240625193933.1799800-1-peter.marko@siemens.com>
 MIME-Version: 1.0
-References: <CANNYZj_7bwTBr_P-2TnYhtAEr4wRhb2XsLwJS_63HnKwJ5g=Xw@mail.gmail.com>
- <2056.1719322997165543913@lists.yoctoproject.org>
-In-Reply-To: <2056.1719322997165543913@lists.yoctoproject.org>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Tue, 25 Jun 2024 15:56:44 +0200
-Message-ID: <CANNYZj_EKyhoTsvSEH5=6T35F20sGHVEgVT5k5bXXWGZhD1jQg@mail.gmail.com>
-Subject: Re: [poky] execute pkg_postinst_ontarget when read-only-rootfs-delayed-postinsts
- is set for a read only rootfs
-To: Tobias.Gassner.ext@karlstorz.com
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-256628:519-21489:flowmailer
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 25 Jun 2024 13:56:59 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13394
+ <poky@lists.yoctoproject.org>; Tue, 25 Jun 2024 19:40:25 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13395
 
-Right. I know nothing about it, I would only suggest to grep the poky
-tree for read-only-rootfs-delayed-postinsts to see how it's
-implemented, and whether tests exist for it (and if they do, then how
-do they set things up). Then you have the full picture.
+From: Peter Marko <peter.marko@siemens.com>
 
-Alex
+Layer cleanup similar to
+https://git.openembedded.org/openembedded-core/commit/?id=26c74fd10614582e177437608908eb43688ab510
 
-On Tue, 25 Jun 2024 at 15:43, Gassner, Tobias.ext via
-lists.yoctoproject.org
-<Tobias.Gassner.ext=karlstorz.com@lists.yoctoproject.org> wrote:
->
-> Hi,
->
-> (sent again, to post on group as well)
->
-> the docu on read-only-rootfs-delayed-postinsts says:
->
-> read-only-rootfs-delayed-postinsts: when specified in conjunction with read-only-rootfs, [...]
->
-> so I guess I have to specify both.
->
-> Greetings
-> -Tobias
->
->
-> -=-=-=-=-=-=-=-=-=-=-=-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13393): https://lists.yoctoproject.org/g/poky/message/13393
-> Mute This Topic: https://lists.yoctoproject.org/mt/106869018/1686489
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gmail.com]
-> -=-=-=-=-=-=-=-=-=-=-=-
->
+Signed-off-by: Peter Marko <peter.marko@siemens.com>
+---
+ meta-poky/classes/poky-sanity.bbclass | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/meta-poky/classes/poky-sanity.bbclass b/meta-poky/classes/poky-sanity.bbclass
+index 81cd2eb..a068c73 100644
+--- a/meta-poky/classes/poky-sanity.bbclass
++++ b/meta-poky/classes/poky-sanity.bbclass
+@@ -1,8 +1,8 @@
+ # Provide some extensions to sanity.bbclass to handle poky-specific conf file upgrades
+ 
+ python poky_update_bblayersconf() {
+-    current_version = int(d.getVar('POKY_BBLAYERS_CONF_VERSION', True) or -1)
+-    latest_version = int(d.getVar('REQUIRED_POKY_BBLAYERS_CONF_VERSION', True) or -1)
++    current_version = int(d.getVar('POKY_BBLAYERS_CONF_VERSION') or -1)
++    latest_version = int(d.getVar('REQUIRED_POKY_BBLAYERS_CONF_VERSION') or -1)
+     if current_version == -1 or latest_version == -1:
+         # one or the other missing => malformed configuration
+         raise NotImplementedError("You need to update bblayers.conf manually for this version transition")
+@@ -11,7 +11,7 @@ python poky_update_bblayersconf() {
+ 
+     # check for out of date templateconf.cfg file
+     lines = []
+-    fn = os.path.join(d.getVar('TOPDIR', True), 'conf/templateconf.cfg')
++    fn = os.path.join(d.getVar('TOPDIR'), 'conf/templateconf.cfg')
+ 
+     lines = sanity_conf_read(fn)
+     index, meta_yocto_line = sanity_conf_find_line(r'^meta-yocto/', lines)
+-- 
+2.30.2
+
 
