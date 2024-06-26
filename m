@@ -1,179 +1,86 @@
-Return-Path: <Tobias.Gassner.ext@karlstorz.com>
+Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E80AC30653
-	for <webhook@archiver.kernel.org>; Wed, 26 Jun 2024 08:03:08 +0000 (UTC)
-Subject: Re: execute pkg_postinst_ontarget when read-only-rootfs-delayed-postinsts is set for a read only rootfs
-To: poky@lists.yoctoproject.org
-From: "Gassner, Tobias.ext" <Tobias.Gassner.ext@karlstorz.com>
-X-Originating-Location: CH (147.161.136.109)
-X-Originating-Platform: Linux Chrome 126
-User-Agent: GROUPS.IO Web Poster
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0ADBEC27C4F
+	for <webhook@archiver.kernel.org>; Wed, 26 Jun 2024 09:47:19 +0000 (UTC)
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+ by mx.groups.io with SMTP id smtpd.web11.22221.1719395230328256346
+ for <poky@lists.yoctoproject.org>;
+ Wed, 26 Jun 2024 02:47:10 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=DzJ2Y9l7;
+ spf=pass (domain: gmail.com, ip: 209.85.208.177, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-2eabd22d3f4so78998561fa.1
+        for <poky@lists.yoctoproject.org>; Wed, 26 Jun 2024 02:47:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1719395228; x=1720000028; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nre067cNeyJGC1DTPsci4xMzwqivDdmFSrzWxdhtF5w=;
+        b=DzJ2Y9l7OQltdlpoEFw2lR9IIv8l3xOKSsTL0BT3qSvh4F4MJZmFi3Ooyk6oRAJC9I
+         mBq97bpxD/0xXFycFdJSphWs6To3HFZ0nE8aK7iGTqceMK2xkdoPocHcQvVMVxmL7O0Y
+         MWGO2wGKw/v/wna+9BuxgTIUloQfUgFT9VjWD3XqWkhYqdmVAWlWgZO+Z/uxfaj8BUoJ
+         W2aSdJ+ZaoRVPIrbzA5Ns++R+TKKF0PhQvvLsJ2pqOAE6viGsGRjJfoXI4qACqd9WQlm
+         JLfvrlbeaWhOvE71l6Zs/Ka4egPQMwKLmUFCVngwLHaZnWfRNvKQcYgdLeNZIEOmv/Hv
+         8n8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1719395228; x=1720000028;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nre067cNeyJGC1DTPsci4xMzwqivDdmFSrzWxdhtF5w=;
+        b=WrQU+o51WGYgceqe3BX7I3ZdDMCbvoAIpsRNJ0lX/8vXscOYIYw4czAc35d0rnua92
+         T2cxLiQVjdhFzYrbaGewdSH6+uGYJlGWMRjxy2PWpaOOzESQXjHoI0VTBJb1oAjYSMZ8
+         plnYdQbRkNsPsiUoRv83CSmmonKPEl1PC8tf3eA20zy/DsTjQf7F812hqYiGFz6EVIPw
+         Nc/h5T6FQgZFsYJ37tSmBa4I/5AUByBpgzX6FvQs0gYdZZq4UgkyJ3KHIbWuYuUzDKKb
+         m7zYsf51i8CHF6yux9N0w9c9q3saor53hbVcpvJ8o4J7rDiNlwwjXHPGA9VEDayHtLE+
+         ws9A==
+X-Gm-Message-State: AOJu0Yzmf7HIYX5eu02c39/lBGVkwYeqnWy/dJbiAEsc+aovpW8IrBJ9
+	yp185hS0BbLgzVjuNUFvCwaZNVaVnZFTBW/liODERbM+S+7CvPkzoY8HJTCM7xkh8EuzLIzrNUT
+	VPjMJErccqWwCjbhnsnXsUe2Hxnw=
+X-Google-Smtp-Source: AGHT+IEIQRqRMyLKNfE7y7w3qUxCi1G6ECbH8MaunDPPCTi2vlTct/+lMXDnZIpT3u5EFM1FeMpDlSZ/IktPcPvaZgc=
+X-Received: by 2002:a2e:b046:0:b0:2ec:4d98:c9d6 with SMTP id
+ 38308e7fff4ca-2ec5b2b1d23mr53287231fa.29.1719395228100; Wed, 26 Jun 2024
+ 02:47:08 -0700 (PDT)
 MIME-Version: 1.0
-Date: Wed, 26 Jun 2024 01:02:59 -0700
 References: <CANNYZj_EKyhoTsvSEH5=6T35F20sGHVEgVT5k5bXXWGZhD1jQg@mail.gmail.com>
-In-Reply-To: <CANNYZj_EKyhoTsvSEH5=6T35F20sGHVEgVT5k5bXXWGZhD1jQg@mail.gmail.com>
-Message-ID: <8366.1719388979063893614@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="PkZdzAGqy9HZzPgOClaQ"
+ <8366.1719388979063893614@lists.yoctoproject.org>
+In-Reply-To: <8366.1719388979063893614@lists.yoctoproject.org>
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Wed, 26 Jun 2024 11:46:56 +0200
+Message-ID: <CANNYZj9c8jhhESsnxiMZZOBT6Or-cpJNT3Xe+rm-2KLg38nOPQ@mail.gmail.com>
+Subject: Re: [poky] execute pkg_postinst_ontarget when read-only-rootfs-delayed-postinsts
+ is set for a read only rootfs
+To: Tobias.Gassner.ext@karlstorz.com
+Cc: poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 26 Jun 2024 08:03:08 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13396
+ <poky@lists.yoctoproject.org>; Wed, 26 Jun 2024 09:47:19 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13397
 
---PkZdzAGqy9HZzPgOClaQ
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Alex,
-
->=20
-> I would only suggest to grep the poky tree for
-> read-only-rootfs-delayed-postinsts to see how it's implemented
->=20
-
-already did before my first post. Basically, the only place in all of poky =
-where this feature is used is in rootfs.py to turn off a bb.fatal when you =
-have a delayed postinstall script and a read-only rootfs. This is also what=
- the doc says
-
->=20
+On Wed, 26 Jun 2024 at 10:03, Gassner, Tobias.ext via
+lists.yoctoproject.org
+<Tobias.Gassner.ext=3Dkarlstorz.com@lists.yoctoproject.org> wrote:
 > read-only-rootfs-delayed-postinsts: when specified in conjunction with re=
-ad-only-rootfs
-> , specifies that post-install scripts are still permitted (this assumes
-> that the root filesystem will be made writeable for the first boot; *this
-> feature does not do anything to ensure that - it just disables the check
-> for post-install scripts* )
+ad-only-rootfs, specifies that post-install scripts are still permitted (th=
+is assumes that the root filesystem will be made writeable for the first bo=
+ot; this feature does not do anything to ensure that - it just disables the=
+ check for post-install scripts)
+>
+> The _uninstall_unneeded method in rootfs.py removes packages with postins=
+tall steps if read-only-rootfs is set. However, as I suggested in my patch,=
+ the check should also take into account the read-only-rootfs-delayed-posti=
+nsts feature, which allows postinstall code even for read-only rootfs.
 
-The _uninstall_unneeded method in rootfs.py removes packages with postinsta=
-ll steps if read-only-rootfs is set. However, as I suggested in my patch, t=
-he check should also take into account the read-only-rootfs-delayed-postins=
-ts feature, which allows postinstall code even for read-only rootfs.
+It's possible this used to work when it was first added, then
+regressed via lack of tests. Can you check if this can be
+added/modified in meta/lib/oeqa/selftest/cases/buildoptions.py or
+meta/lib/oeqa/selftest/cases/overlayfs.py ?
 
---PkZdzAGqy9HZzPgOClaQ
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Alex,<br /><br />
-<blockquote><span style=3D"color: #333333; font-family: system-ui, 'Segoe U=
-I', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-s=
-erif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color=
- Emoji'; font-size: 16px; font-style: normal; font-variant-ligatures: norma=
-l; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orp=
-hans: 2; text-align: start; text-indent: 0px; text-transform: none; widows:=
- 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: pre-wra=
-p; background-color: #ffffff; text-decoration-thickness: initial; text-deco=
-ration-style: initial; text-decoration-color: initial; display: inline !imp=
-ortant; float: none;">I would only suggest to grep the poky </span><span st=
-yle=3D"color: #333333; font-family: system-ui, 'Segoe UI', Roboto, 'Helveti=
-ca Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color E=
-moji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: =
-16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps=
-: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align:=
- start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0p=
-x; -webkit-text-stroke-width: 0px; white-space: pre-wrap; background-color:=
- #ffffff; text-decoration-thickness: initial; text-decoration-style: initia=
-l; text-decoration-color: initial; display: inline !important; float: none;=
-">tree for read-only-rootfs-delayed-postinsts to see how it's </span><span =
-style=3D"color: #333333; font-family: system-ui, 'Segoe UI', Roboto, 'Helve=
-tica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color=
- Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size=
-: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-ca=
-ps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-alig=
-n: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: =
-0px; -webkit-text-stroke-width: 0px; white-space: pre-wrap; background-colo=
-r: #ffffff; text-decoration-thickness: initial; text-decoration-style: init=
-ial; text-decoration-color: initial; display: inline !important; float: non=
-e;">implemented<br /></span></blockquote>
-<span style=3D"color: #333333; font-family: system-ui, 'Segoe UI', Roboto, =
-'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple=
- Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; fon=
-t-size: 16px; font-style: normal; font-variant-ligatures: normal; font-vari=
-ant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; tex=
-t-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spa=
-cing: 0px; -webkit-text-stroke-width: 0px; white-space: pre-wrap; backgroun=
-d-color: #ffffff; text-decoration-thickness: initial; text-decoration-style=
-: initial; text-decoration-color: initial; display: inline !important; floa=
-t: none;"><span style=3D"color: #333333; font-family: system-ui, 'Segoe UI'=
-, Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-ser=
-if, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color E=
-moji'; font-size: 16px; font-style: normal; font-variant-ligatures: normal;=
- font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orpha=
-ns: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2=
-; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: pre-wrap;=
- background-color: #ffffff; text-decoration-thickness: initial; text-decora=
-tion-style: initial; text-decoration-color: initial; display: inline !impor=
-tant; float: none;">already did before my first post. Basically, the only p=
-lace in all of poky where this feature is used is in rootfs.py to turn off =
-a bb.fatal when you have a delayed postinstall script and a read-only rootf=
-s. This is also what the doc says<span style=3D"color: #333333; font-family=
-: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation=
- Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI=
- Symbol', 'Noto Color Emoji'; font-size: 16px; font-style: normal; font-var=
-iant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter=
--spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-tra=
-nsform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;=
- white-space: normal; background-color: #fafafa; text-decoration-thickness:=
- initial; text-decoration-style: initial; text-decoration-color: initial; d=
-isplay: inline !important; float: none;"><br /><br /></span></span></span>
-<blockquote><span style=3D"color: #333333; font-family: system-ui, 'Segoe U=
-I', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-s=
-erif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color=
- Emoji'; font-size: 16px; font-style: normal; font-variant-ligatures: norma=
-l; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orp=
-hans: 2; text-align: start; text-indent: 0px; text-transform: none; widows:=
- 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: pre-wra=
-p; background-color: #ffffff; text-decoration-thickness: initial; text-deco=
-ration-style: initial; text-decoration-color: initial; display: inline !imp=
-ortant; float: none;"><em style=3D"box-sizing: border-box; font-weight: bol=
-d; color: #333333; font-family: Verdana, Sans, sans-serif; font-size: 16px;=
- font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing:=
- normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: no=
-ne; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-spa=
-ce: normal; background-color: #fcfcfc; text-decoration-thickness: initial; =
-text-decoration-style: initial; text-decoration-color: initial;">read-only-=
-rootfs-delayed-postinsts:</em><span style=3D"color: #333333; font-family: V=
-erdana, Sans, sans-serif; font-size: 16px; font-style: normal; font-variant=
--ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spa=
-cing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transfor=
-m: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; whit=
-e-space: normal; background-color: #fcfcfc; text-decoration-thickness: init=
-ial; text-decoration-style: initial; text-decoration-color: initial; displa=
-y: inline !important; float: none;"><span>&nbsp;</span>when specified in co=
-njunction with<span>&nbsp;</span></span><code class=3D"docutils literal not=
-ranslate" style=3D"box-sizing: border-box; font-family: SFMono-Regular, Men=
-lo, Monaco, Consolas, 'Liberation Mono', 'Courier New', Courier, monospace;=
- font-size: 13.6px; white-space: normal; max-width: 100%; background-image:=
- inherit; background-position: inherit; background-size: inherit; backgroun=
-d-repeat: inherit; background-attachment: inherit; background-origin: inher=
-it; background-clip: inherit; background-color: #fcfcfc; border: none; padd=
-ing: unset; color: #333333; overflow-x: auto; font-style: normal; font-vari=
-ant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-=
-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-trans=
-form: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; t=
-ext-decoration-thickness: initial; text-decoration-style: initial; text-dec=
-oration-color: initial;"><span class=3D"pre" style=3D"box-sizing: border-bo=
-x; font-size: medium; font-family: Courier, monospace;">read-only-rootfs</s=
-pan></code><span style=3D"color: #333333; font-family: Verdana, Sans, sans-=
-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal;=
- font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orpha=
-ns: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2;=
- word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; ba=
-ckground-color: #fcfcfc; text-decoration-thickness: initial; text-decoratio=
-n-style: initial; text-decoration-color: initial; display: inline !importan=
-t; float: none;">, specifies that post-install scripts are still permitted =
-(this assumes that the root filesystem will be made writeable for the first=
- boot; <strong>this feature does not do anything to ensure that - it just d=
-isables the check for post-install scripts</strong>)</span></span></blockqu=
-ote>
-The <span style=3D"font-family: courier_newregular, courier;">_uninstall_un=
-needed</span> method in rootfs.py removes packages with postinstall steps i=
-f <span style=3D"font-family: courier_newregular, courier;">read-only-rootf=
-s</span> is set. However, as I suggested in my patch, the check should also=
- take into account the <span style=3D"font-family: courier_newregular, cour=
-ier;">read-only-rootfs-delayed-postinsts</span> feature, which allows posti=
-nstall code even for read-only rootfs.
-
---PkZdzAGqy9HZzPgOClaQ--
+Alex
 
