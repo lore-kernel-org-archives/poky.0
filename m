@@ -1,208 +1,246 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <Tobias.Gassner.ext@karlstorz.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7175AC2BD09
-	for <webhook@archiver.kernel.org>; Mon,  1 Jul 2024 09:31:44 +0000 (UTC)
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
- by mx.groups.io with SMTP id smtpd.web11.15826.1719826298463534833
- for <poky@lists.yoctoproject.org>;
- Mon, 01 Jul 2024 02:31:38 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=aWj1WMSc;
- spf=pass (domain: gmail.com, ip: 209.85.208.179, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-2ec58040f39so26807701fa.2
-        for <poky@lists.yoctoproject.org>; Mon, 01 Jul 2024 02:31:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1719826296; x=1720431096; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PxXMaXDXuD05R8IXCvB1mtBb7iN82mdGFHoV7KBclUI=;
-        b=aWj1WMSc1KIZkasGZLZ+TZciADl0s6mPKQ3kFG4djXih/n58jrmpJiXaqoJXY2GCTZ
-         BUTkYH1BbAivztMb18zh0JGpx3TEZo8wrrYtJuX0NOcXE5uCxwPUCtuvVI16+PEdtt25
-         WoBtKEu/DyVSy5wRvHDM1y2FegvU/2lc2JkUUWMwxh0P96H/NYymLGftYwMKuLQftqlY
-         xkZNYZGmrs9JBI01dFHQjWL+uMI3Uxh109Bw+A9Ibw8ojwp2MMp8wFMSWaaGSRIxMruP
-         K5OfsmD4Gkptu/8v0nmJ9VJCFhxDmIY1sHju2FPy/C3rRLzpWbvVvSLADYifn6bqPGFQ
-         qoQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1719826296; x=1720431096;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=PxXMaXDXuD05R8IXCvB1mtBb7iN82mdGFHoV7KBclUI=;
-        b=B+hcOBUZtwSfpa41VMQgognWdGXyB0/fLFn1ekR/w5VPXBPSBdaWka+GSKh2rqRv+Q
-         Y0PEu0bR0d3gKFI6fpirqCDPLrJ4pQvMz9GDgu4mWzWzaDvwOJvVEoOEIRX+bt4ITTPK
-         GkM+VqucF+8c9L1+aVe87zSy1tk90t19s9VTC921Mubxyhl7ZycMguANc/qZY9fcCPCW
-         5PTkQaF7C84awYKYnQcfoDpj9iyf+2jM0LJKNxMigiFJ4M/Vt1Pro8bT5VwywKjHUtnP
-         E7uIaaMc3rzKVE+eMtTQE6GclQ/6dbR5Sxmxj3G7pfW1E7WTNoNzxYojADQdUART2mdz
-         vyog==
-X-Forwarded-Encrypted: i=1; AJvYcCWmLlNaT6eHMi6q0JQhnQPZ7aLwl5w8PBmkBYYm87veqyrLsL/Rq4JnKaEv7ETg+elu3WJZVhSFP7m+qgNakEd+TJhN4T9wQLybgDY=
-X-Gm-Message-State: AOJu0Yz917xTtGYtfk+WIAJWDemKiXctbksJ3DommHEXq/M2YAndGxDg
-	Y5Ufz6TA4SFb8iYgnHNhJ29X+g/cA7J4CnNGdEgj3ns9k3WQnCjQafnHd7KWnVdVKD4cY52fsUg
-	2UD/j+2h7XoNZuK/YqXZaK7rVv9k=
-X-Google-Smtp-Source: AGHT+IEeiFv5cHRibchtN1NhFb2iy3/JhPEEkkUL/80aG8G+GdjkyYmQIUNeexkkRWsUA9kLq/XYAqN/wBLD58D0ShE=
-X-Received: by 2002:a2e:a595:0:b0:2ea:91cf:a5f0 with SMTP id
- 38308e7fff4ca-2ee5e37a488mr39551641fa.19.1719826296174; Mon, 01 Jul 2024
- 02:31:36 -0700 (PDT)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B398C3064D
+	for <webhook@archiver.kernel.org>; Tue,  2 Jul 2024 13:08:09 +0000 (UTC)
+Subject: Re: execute pkg_postinst_ontarget when read-only-rootfs-delayed-postinsts is set for a read only rootfs
+To: poky@lists.yoctoproject.org
+From: "Gassner, Tobias.ext" <Tobias.Gassner.ext@karlstorz.com>
+X-Originating-Location: CH (147.161.136.86)
+X-Originating-Platform: Linux Chrome 126
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-References: <20240604114647.2897172-1-ecordonnier@snap.com>
- <2024060817352536c2c18d@mail.local> <17D7A530C052D9E2.15678@lists.yoctoproject.org>
- <CAHUKmYZpZYbmrZ4jmnUU2LZ0WTkgv+Dti5DhnXONVLtJQnheug@mail.gmail.com>
-In-Reply-To: <CAHUKmYZpZYbmrZ4jmnUU2LZ0WTkgv+Dti5DhnXONVLtJQnheug@mail.gmail.com>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Mon, 1 Jul 2024 11:31:25 +0200
-Message-ID: <CANNYZj_4JEfKYx06bLu8nxMVhShTfsrBAU9cQ9uG1po79FEkNw@mail.gmail.com>
-Subject: Re: [poky] [PATCH] poky-alt: enable minidebuginfo
-To: ecordonnier@snap.com
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Tue, 02 Jul 2024 06:08:04 -0700
+References: <CANNYZj9c8jhhESsnxiMZZOBT6Or-cpJNT3Xe+rm-2KLg38nOPQ@mail.gmail.com>
+In-Reply-To: <CANNYZj9c8jhhESsnxiMZZOBT6Or-cpJNT3Xe+rm-2KLg38nOPQ@mail.gmail.com>
+Message-ID: <28357.1719925684756220288@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="wLIIEu2NxsVOnlmndxnh"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Mon, 01 Jul 2024 09:31:44 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13400
+ <poky@lists.yoctoproject.org>; Tue, 02 Jul 2024 13:08:09 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13401
 
-In general we try to have the fullest feature set in poky, yes. If
-things aren't enabled, they will regress.
+--wLIIEu2NxsVOnlmndxnh
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Alex
+Hi Alex,
 
-On Mon, 1 Jul 2024 at 11:28, Etienne Cordonnier via
-lists.yoctoproject.org <ecordonnier=3Dsnap.com@lists.yoctoproject.org>
-wrote:
->
-> Hi,
-> the fix has been merged to main [1], so this shouldn't cause test failure=
-s any more, and a self-test which always runs (independently of whether the=
- feature is enabled in a distro) was added, so this should limit the bitrot=
-.
-> Richard also had indicated that he gets nervous about blanket distro chan=
-ges [2].
->
-> Is there still some value in enabling this feature per default in some DI=
-STRO? Having symbolicated core-stacks during development is practical IMO.
->
-> [1]: https://git.yoctoproject.org/poky/commit/?id=3Dd87082efa5daecac35bff=
-3391d06d5d37de48cc4
-> [2]: https://lists.openembedded.org/g/openembedded-core/message/200332
->
-> =C3=89tienne
->
->
-> On Mon, Jun 10, 2024 at 2:43=E2=80=AFPM Etienne Cordonnier via lists.yoct=
-oproject.org <ecordonnier=3Dsnap.com@lists.yoctoproject.org> wrote:
->>
->> Hi Alexandre,
->> I was able to reproduce locally with MACHINE=3D"qemuarm64". I sent this =
-fix: https://lists.openembedded.org/g/openembedded-core/message/200473
->>
->> =C3=89tienne
->>
->> On Sat, Jun 8, 2024 at 7:35=E2=80=AFPM Alexandre Belloni <alexandre.bell=
-oni@bootlin.com> wrote:
->>>
->>>
->>> Hello,
->>>
->>> This causes failures on anything that is not x86:
->>>
->>> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__autobuilder.yoct=
-oproject.org_typhoon_-23_builders_107_builds_6257_steps_15_logs_stdio&d=3DD=
-wIBAg&c=3DncDTmphkJTvjIDPh0hpF_4vCHvabgGkICC2epckfdiw&r=3DAhkbNonVuMIGRfPx_=
-Qj9TsRih1DULJTKUkSGa66m67E&m=3DoxembljGFjRIOzwJphKXtbNChi4g37E-X5UUfnO5m9A2=
-RnmvWzRS9uztqEu2aqKn&s=3D_D19schknEkv6i6PAZB3GKG-CN-Pgdt1Ft0ZH5_JtcM&e=3D
->>> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__autobuilder.yoct=
-oproject.org_typhoon_-23_builders_102_builds_6204_steps_15_logs_stdio&d=3DD=
-wIBAg&c=3DncDTmphkJTvjIDPh0hpF_4vCHvabgGkICC2epckfdiw&r=3DAhkbNonVuMIGRfPx_=
-Qj9TsRih1DULJTKUkSGa66m67E&m=3DoxembljGFjRIOzwJphKXtbNChi4g37E-X5UUfnO5m9A2=
-RnmvWzRS9uztqEu2aqKn&s=3DoUIbGxdw3lPq0WMLI8seut-iU1VfEuI1ZjgbU-xoT4Q&e=3D
->>> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__autobuilder.yoct=
-oproject.org_typhoon_-23_builders_131_builds_4448_steps_15_logs_stdio&d=3DD=
-wIBAg&c=3DncDTmphkJTvjIDPh0hpF_4vCHvabgGkICC2epckfdiw&r=3DAhkbNonVuMIGRfPx_=
-Qj9TsRih1DULJTKUkSGa66m67E&m=3DoxembljGFjRIOzwJphKXtbNChi4g37E-X5UUfnO5m9A2=
-RnmvWzRS9uztqEu2aqKn&s=3D3n6zz9lJFpumjJYHK0aMu1xMCHuWAJTh39y9HuWpUz0&e=3D
->>> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__autobuilder.yoct=
-oproject.org_typhoon_-23_builders_110_builds_7960_steps_14_logs_stdio&d=3DD=
-wIBAg&c=3DncDTmphkJTvjIDPh0hpF_4vCHvabgGkICC2epckfdiw&r=3DAhkbNonVuMIGRfPx_=
-Qj9TsRih1DULJTKUkSGa66m67E&m=3DoxembljGFjRIOzwJphKXtbNChi4g37E-X5UUfnO5m9A2=
-RnmvWzRS9uztqEu2aqKn&s=3Drem_GsMJdA3Hyepv7n34eaFrsrl7fEeaRYE1UwGd6dc&e=3D
->>>
->>> Traceback (most recent call last):
->>>   File "/home/pokybuild/yocto-worker/qemuarm64-alt/build/meta/lib/oeqa/=
-core/decorator/__init__.py", line 35, in wrapped_f
->>>     return func(*args, **kwargs)
->>>            ^^^^^^^^^^^^^^^^^^^^^
->>>   File "/home/pokybuild/yocto-worker/qemuarm64-alt/build/meta/lib/oeqa/=
-core/decorator/__init__.py", line 35, in wrapped_f
->>>     return func(*args, **kwargs)
->>>            ^^^^^^^^^^^^^^^^^^^^^
->>>   File "/home/pokybuild/yocto-worker/qemuarm64-alt/build/meta/lib/oeqa/=
-core/decorator/__init__.py", line 35, in wrapped_f
->>>     return func(*args, **kwargs)
->>>            ^^^^^^^^^^^^^^^^^^^^^
->>>   File "/home/pokybuild/yocto-worker/qemuarm64-alt/build/meta/lib/oeqa/=
-runtime/cases/systemd.py", line 159, in test_systemd_coredump_minidebuginfo
->>>     self.assertEqual(status, 0, msg=3D'MiniDebugInfo Test failed: %s' %=
- output)
->>> AssertionError: 1 !=3D 0 : MiniDebugInfo Test failed: No match found.
->>> -- Notice: 1 systemd-coredump@.service unit is running, output may be i=
-ncomplete.
->>>
->>> On 04/06/2024 13:46:47+0200, Etienne Cordonnier via lists.yoctoproject.=
-org wrote:
->>> > From: Etienne Cordonnier <ecordonnier@snap.com>
->>> >
->>> > Enable minidebuginfo in poky-alt in order to increase test coverage i=
-n CI and reduce potential bitrotting.
->>> >
->>> > Signed-off-by: Etienne Cordonnier <ecordonnier@snap.com>
->>> > ---
->>> >  meta-poky/conf/distro/include/poky-distro-alt-test-config.inc | 2 +-
->>> >  1 file changed, 1 insertion(+), 1 deletion(-)
->>> >
->>> > diff --git a/meta-poky/conf/distro/include/poky-distro-alt-test-confi=
-g.inc b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
->>> > index 3e10251..b38a332 100644
->>> > --- a/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
->>> > +++ b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
->>> > @@ -1,5 +1,5 @@
->>> >  # Add extra DISTRO_FEATUREs
->>> > -DISTRO_FEATURES:append =3D " pam usrmerge"
->>> > +DISTRO_FEATURES:append =3D " minidebuginfo pam usrmerge"
->>> >
->>> >  # Use our alternate kernel version
->>> >  PREFERRED_VERSION_linux-yocto =3D "6.6%"
->>> > --
->>> > 2.36.1.vfs.0.0
->>> >
->>>
->>> >
->>> >
->>> >
->>>
->>>
->>> --
->>> Alexandre Belloni, co-owner and COO, Bootlin
->>> Embedded Linux and Kernel engineering
->>> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__bootlin.com&d=3D=
-DwIBAg&c=3DncDTmphkJTvjIDPh0hpF_4vCHvabgGkICC2epckfdiw&r=3DAhkbNonVuMIGRfPx=
-_Qj9TsRih1DULJTKUkSGa66m67E&m=3DoxembljGFjRIOzwJphKXtbNChi4g37E-X5UUfnO5m9A=
-2RnmvWzRS9uztqEu2aqKn&s=3DzPYLCfPUxLIkMEoi0O1aguJhBfKHex_dusgPiEc-4lY&e=3D
->>
->>
->>
->>
->
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13399): https://lists.yoctoproject.org/g/poky/message=
-/13399
-> Mute This Topic: https://lists.yoctoproject.org/mt/106480591/1686489
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gm=
-ail.com]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
+I wrote a test in meta/lib/oeqa/selftest/cases/buildoptions.py that fails w=
+ithout my patch and passes with my patch. Please review if the test as spec=
+ified makes sense to you:
+
+From e125ef8504a83cedd014d275387a16f519880eb5 Mon Sep 17 00:00:00 2001
+From: "Gassner, Tobias.ext" <tobias.gassner.ext@karlstorz.com>
+Date: Tue, 2 Jul 2024 14:53:04 +0200
+Subject: [PATCH] Test that pkg_postinst_ontarget task is executed on
+read-only-rootfs, when read-only-rootfs-delayed-postinsts is specified
+
+Signed-off-by: Gassner, Tobias.ext <tobias.gassner.ext@karlstorz.com>
+---
+meta/lib/oeqa/selftest/cases/buildoptions.py | 39 +++++++++++++++++++-
+1 file changed, 38 insertions(+), 1 deletion(-)
+
+diff --git a/meta/lib/oeqa/selftest/cases/buildoptions.py b/meta/lib/oeqa/s=
+elftest/cases/buildoptions.py
+index 31dafaa9c5..f166de89dd 100644
+--- a/meta/lib/oeqa/selftest/cases/buildoptions.py
++++ b/meta/lib/oeqa/selftest/cases/buildoptions.py
+@@ -12,7 +12,7 @@ import tempfile
+from oeqa.selftest.case import OESelftestTestCase
+from oeqa.selftest.cases.buildhistory import BuildhistoryBase
+from oeqa.core.decorator.data import skipIfMachine
+-from oeqa.utils.commands import bitbake, get_bb_var, get_bb_vars
++from oeqa.utils.commands import bitbake, get_bb_var, get_bb_vars, runqemu
+import oeqa.utils.ftools as ftools
+from oeqa.core.decorator import OETestTag
+
+@@ -59,6 +59,43 @@ class ImageOptionsTests(OESelftestTestCase):
+bitbake("core-image-sato core-image-weston")
+# do_image will fail if there are any pending postinsts
+
++ =C2=A0 =C2=A0def test_postinst_ontarget_executes_on_read_only_image(self)=
+:
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0# Test checks that pkg_postinst_ontarget task =
+is executed even
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0# for read-only-rootfs, when read-only-rootfs-=
+delayed-postinsts
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0# is specified as well
++
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0# Define a recipe that touches a file in its p=
+ostinst ontarget step
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0emptytest_inc =3D """
++SUMMARY =3D "summary"
++DESCRIPTION =3D "description"
++LICENSE:forcevariable =3D "CLOSED"
++
++ALLOW_EMPTY:${PN} =3D "1"
++
++inherit allarch
++
++pkg_postinst_ontarget:${PN} () {
++ =C2=A0 =C2=A0touch /tmp/ro_rootfs_postinst_ontarget
++}
++"""
++
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0self.write_recipeinc('emptytest', emptytest_in=
+c)
++
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0# Make rootfs read-only, but allow postinst on=
+target task
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0self.write_config('IMAGE_FEATURES +=3D "read-o=
+nly-rootfs"')
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0self.append_config('IMAGE_FEATURES +=3D "read-=
+only-rootfs-delayed-postinsts"')
++
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0self.append_config('IMAGE_INSTALL:append =3D "=
+ emptytest"')
++
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0self.append_config('INIT_MANAGER =3D "systemd"=
+')
++
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0bitbake("core-image-minimal")
++
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0with runqemu('core-image-minimal') as qemu:
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0# Check that the file, touched i=
+n postinst ontarget task exists
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0status, output =3D qemu.run_seri=
+al("[ -f /tmp/ro_rootfs_postinst_ontarget ] && echo 1 || echo 0")
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0self.assertTrue("1" in output, m=
+sg=3Doutput)
++
+class DiskMonTest(OESelftestTestCase):
+
+def test_stoptask_behavior(self):
+--
+2.45.2
+
+--wLIIEu2NxsVOnlmndxnh
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Alex,<br /><br />I wrote a test in <span style=3D"color: #333333; font-f=
+amily: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liber=
+ation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Seg=
+oe UI Symbol', 'Noto Color Emoji'; font-size: 16px; font-style: normal; fon=
+t-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; l=
+etter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; tex=
+t-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width:=
+ 0px; white-space: pre-wrap; background-color: #ffffff; text-decoration-thi=
+ckness: initial; text-decoration-style: initial; text-decoration-color: ini=
+tial; display: inline !important; float: none;">meta/lib/oeqa/selftest/case=
+s/buildoptions.py that fails without my patch and passes with my patch. Ple=
+ase review if the test as specified makes sense to you:<br /><br /><span st=
+yle=3D"font-family: courier_newregular, courier;">From e125ef8504a83cedd014=
+d275387a16f519880eb5 Mon Sep 17 00:00:00 2001</span><br /><span style=3D"fo=
+nt-family: courier_newregular, courier;">From: "Gassner, Tobias.ext" &lt;to=
+bias.gassner.ext@karlstorz.com&gt;</span><br /><span style=3D"font-family: =
+courier_newregular, courier;">Date: Tue, 2 Jul 2024 14:53:04 +0200</span><b=
+r /><span style=3D"font-family: courier_newregular, courier;">Subject: [PAT=
+CH] Test that pkg_postinst_ontarget task is executed on</span><br /><span s=
+tyle=3D"font-family: courier_newregular, courier;">&nbsp;read-only-rootfs, =
+when read-only-rootfs-delayed-postinsts is specified</span><br /><br /><spa=
+n style=3D"font-family: courier_newregular, courier;">Signed-off-by: Gassne=
+r, Tobias.ext &lt;tobias.gassner.ext@karlstorz.com&gt;</span><br /><span st=
+yle=3D"font-family: courier_newregular, courier;">---</span><br /><span sty=
+le=3D"font-family: courier_newregular, courier;">&nbsp;meta/lib/oeqa/selfte=
+st/cases/buildoptions.py | 39 +++++++++++++++++++-</span><br /><span style=
+=3D"font-family: courier_newregular, courier;">&nbsp;1 file changed, 38 ins=
+ertions(+), 1 deletion(-)</span><br /><br /><span style=3D"font-family: cou=
+rier_newregular, courier;">diff --git a/meta/lib/oeqa/selftest/cases/buildo=
+ptions.py b/meta/lib/oeqa/selftest/cases/buildoptions.py</span><br /><span =
+style=3D"font-family: courier_newregular, courier;">index 31dafaa9c5..f166d=
+e89dd 100644</span><br /><span style=3D"font-family: courier_newregular, co=
+urier;">--- a/meta/lib/oeqa/selftest/cases/buildoptions.py</span><br /><spa=
+n style=3D"font-family: courier_newregular, courier;">+++ b/meta/lib/oeqa/s=
+elftest/cases/buildoptions.py</span><br /><span style=3D"font-family: couri=
+er_newregular, courier;">@@ -12,7 +12,7 @@ import tempfile</span><br /><spa=
+n style=3D"font-family: courier_newregular, courier;">&nbsp;from oeqa.selft=
+est.case import OESelftestTestCase</span><br /><span style=3D"font-family: =
+courier_newregular, courier;">&nbsp;from oeqa.selftest.cases.buildhistory i=
+mport BuildhistoryBase</span><br /><span style=3D"font-family: courier_newr=
+egular, courier;">&nbsp;from oeqa.core.decorator.data import skipIfMachine<=
+/span><br /><span style=3D"font-family: courier_newregular, courier;">-from=
+ oeqa.utils.commands import bitbake, get_bb_var, get_bb_vars</span><br /><s=
+pan style=3D"font-family: courier_newregular, courier;">+from oeqa.utils.co=
+mmands import bitbake, get_bb_var, get_bb_vars, runqemu</span><br /><span s=
+tyle=3D"font-family: courier_newregular, courier;">&nbsp;import oeqa.utils.=
+ftools as ftools</span><br /><span style=3D"font-family: courier_newregular=
+, courier;">&nbsp;from oeqa.core.decorator import OETestTag</span><br /><sp=
+an style=3D"font-family: courier_newregular, courier;">&nbsp;</span><br /><=
+span style=3D"font-family: courier_newregular, courier;">@@ -59,6 +59,43 @@=
+ class ImageOptionsTests(OESelftestTestCase):</span><br /><span style=3D"fo=
+nt-family: courier_newregular, courier;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+bitbake("core-image-sato core-image-weston")</span><br /><span style=3D"fon=
+t-family: courier_newregular, courier;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;#=
+ do_image will fail if there are any pending postinsts</span><br /><span st=
+yle=3D"font-family: courier_newregular, courier;">&nbsp;</span><br /><span =
+style=3D"font-family: courier_newregular, courier;">+ &nbsp; &nbsp;def test=
+_postinst_ontarget_executes_on_read_only_image(self):</span><br /><span sty=
+le=3D"font-family: courier_newregular, courier;">+ &nbsp; &nbsp; &nbsp; &nb=
+sp;# Test checks that pkg_postinst_ontarget task is executed even</span><br=
+ /><span style=3D"font-family: courier_newregular, courier;">+ &nbsp; &nbsp=
+; &nbsp; &nbsp;# for read-only-rootfs, when read-only-rootfs-delayed-postin=
+sts</span><br /><span style=3D"font-family: courier_newregular, courier;">+=
+ &nbsp; &nbsp; &nbsp; &nbsp;# is specified as well</span><br /><span style=
+=3D"font-family: courier_newregular, courier;">+</span><br /><span style=3D=
+"font-family: courier_newregular, courier;">+ &nbsp; &nbsp; &nbsp; &nbsp;# =
+Define a recipe that touches a file in its postinst ontarget step</span><br=
+ /><span style=3D"font-family: courier_newregular, courier;">+ &nbsp; &nbsp=
+; &nbsp; &nbsp;emptytest_inc =3D """</span><br /><span style=3D"font-family=
+: courier_newregular, courier;">+SUMMARY =3D "summary"</span><br /><span st=
+yle=3D"font-family: courier_newregular, courier;">+DESCRIPTION =3D "descrip=
+tion"</span><br /><span style=3D"font-family: courier_newregular, courier;"=
+>+LICENSE:forcevariable =3D "CLOSED"</span><br /><span style=3D"font-family=
+: courier_newregular, courier;">+</span><br /><span style=3D"font-family: c=
+ourier_newregular, courier;">+ALLOW_EMPTY:${PN} =3D "1"</span><br /><span s=
+tyle=3D"font-family: courier_newregular, courier;">+</span><br /><span styl=
+e=3D"font-family: courier_newregular, courier;">+inherit allarch</span><br =
+/><span style=3D"font-family: courier_newregular, courier;">+</span><br /><=
+span style=3D"font-family: courier_newregular, courier;">+pkg_postinst_onta=
+rget:${PN} () {</span><br /><span style=3D"font-family: courier_newregular,=
+ courier;">+ &nbsp; &nbsp;touch /tmp/ro_rootfs_postinst_ontarget</span><br =
+/><span style=3D"font-family: courier_newregular, courier;">+}</span><br />=
+<span style=3D"font-family: courier_newregular, courier;">+"""</span><br />=
+<span style=3D"font-family: courier_newregular, courier;">+</span><br /><sp=
+an style=3D"font-family: courier_newregular, courier;">+ &nbsp; &nbsp; &nbs=
+p; &nbsp;self.write_recipeinc('emptytest', emptytest_inc)</span><br /><span=
+ style=3D"font-family: courier_newregular, courier;">+</span><br /><span st=
+yle=3D"font-family: courier_newregular, courier;">+ &nbsp; &nbsp; &nbsp; &n=
+bsp;# Make rootfs read-only, but allow postinst ontarget task</span><br /><=
+span style=3D"font-family: courier_newregular, courier;">+ &nbsp; &nbsp; &n=
+bsp; &nbsp;self.write_config('IMAGE_FEATURES +=3D "read-only-rootfs"')</spa=
+n><br /><span style=3D"font-family: courier_newregular, courier;">+ &nbsp; =
+&nbsp; &nbsp; &nbsp;self.append_config('IMAGE_FEATURES +=3D "read-only-root=
+fs-delayed-postinsts"')</span><br /><span style=3D"font-family: courier_new=
+regular, courier;">+</span><br /><span style=3D"font-family: courier_newreg=
+ular, courier;">+ &nbsp; &nbsp; &nbsp; &nbsp;self.append_config('IMAGE_INST=
+ALL:append =3D " emptytest"')</span><br /><span style=3D"font-family: couri=
+er_newregular, courier;">+</span><br /><span style=3D"font-family: courier_=
+newregular, courier;">+ &nbsp; &nbsp; &nbsp; &nbsp;self.append_config('INIT=
+_MANAGER =3D "systemd"')</span><br /><span style=3D"font-family: courier_ne=
+wregular, courier;">+</span><br /><span style=3D"font-family: courier_newre=
+gular, courier;">+ &nbsp; &nbsp; &nbsp; &nbsp;bitbake("core-image-minimal")=
+</span><br /><span style=3D"font-family: courier_newregular, courier;">+</s=
+pan><br /><span style=3D"font-family: courier_newregular, courier;">+ &nbsp=
+; &nbsp; &nbsp; &nbsp;with runqemu('core-image-minimal') as qemu:</span><br=
+ /><span style=3D"font-family: courier_newregular, courier;">+ &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp;# Check that the file, touched in postinst ont=
+arget task exists</span><br /><span style=3D"font-family: courier_newregula=
+r, courier;">+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;status, output =3D =
+qemu.run_serial("[ -f /tmp/ro_rootfs_postinst_ontarget ] &amp;&amp; echo 1 =
+|| echo 0")</span><br /><span style=3D"font-family: courier_newregular, cou=
+rier;">+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;self.assertTrue("1" in ou=
+tput, msg=3Doutput)</span><br /><span style=3D"font-family: courier_newregu=
+lar, courier;">+</span><br /><span style=3D"font-family: courier_newregular=
+, courier;">&nbsp;class DiskMonTest(OESelftestTestCase):</span><br /><span =
+style=3D"font-family: courier_newregular, courier;">&nbsp;</span><br /><spa=
+n style=3D"font-family: courier_newregular, courier;">&nbsp; &nbsp; &nbsp;d=
+ef test_stoptask_behavior(self):</span><br /><span style=3D"font-family: co=
+urier_newregular, courier;">--&nbsp;</span><br /><span style=3D"font-family=
+: courier_newregular, courier;">2.45.2</span><br /><br /><br /></span>
+
+--wLIIEu2NxsVOnlmndxnh--
 
