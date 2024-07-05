@@ -1,153 +1,201 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <Tobias.Gassner.ext@karlstorz.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 62C3CC30658
-	for <webhook@archiver.kernel.org>; Fri,  5 Jul 2024 08:08:36 +0000 (UTC)
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
- by mx.groups.io with SMTP id smtpd.web10.12599.1720166906058352196
- for <poky@lists.yoctoproject.org>;
- Fri, 05 Jul 2024 01:08:26 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=fBx6RBxg;
- spf=pass (domain: gmail.com, ip: 209.85.167.43, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-52e9944764fso1624890e87.3
-        for <poky@lists.yoctoproject.org>; Fri, 05 Jul 2024 01:08:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720166904; x=1720771704; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xLczAhOrrcnAH9ybUghx8D3PWXBjsc5WZ1nJACnDxb0=;
-        b=fBx6RBxgJRAtICP/5buWl4hV5BK5+0caFp8ehvEJh+DqMQjAN5ioQiaunK1XFYA/uk
-         3sWkZmNIvr3F0/650TDsIqwpa8if9Dq16IGs5Aa70PK9ZQd4sA6gsVwBej/LvvZofqMR
-         b+vrHQ8xnWc58V7G+pM9skD8Xryqr2XqdaKihreE7J6SNbU90B8FeLKvnUj210iAImJ/
-         cXYLBlRxwDw1j/aYoIZwv5EWGfg1OTEPJ7ThqXbJ0jt22fJdqBAlrDBMf9wsmneJR9lX
-         xpYogjUlRbPv0tRQ8eIqYwAAbC2IpXZztQTwo53SADnJcUPvlBp9OICrym0bx4jC/R9v
-         II1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720166904; x=1720771704;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xLczAhOrrcnAH9ybUghx8D3PWXBjsc5WZ1nJACnDxb0=;
-        b=TiZ8xy6ox0ipY09TO8etaI3bS4SprHTHXhauxTlgILEoM+bG0Tk5oCXrJczwSTDTOo
-         p9tXbENbaYLoGqJVKKvUnN+sHRvvRKKJD15GzIKB4+nztJ3xQ2QRkX+zyDxrul21LtUe
-         HI5cL6Mu1FgGziqGBGMrKhJwVyKm5dcWzN3Nv3clQN6BLuZbc2TCilX109MeBWezEirh
-         /1GR723Lg8rW4hMHQKY2BL5s+iyTQA7fa9+OBPYcaAwgOxqPETBRzUeL8q+9ZoGh8dth
-         rOH8AWEjJtgJQ9cKnI8YpCEAWuDgQInGr6t6B7/zCyoy/v1GYyV5cbrbd2ckmjmWTaOv
-         hLpg==
-X-Gm-Message-State: AOJu0Yx7iv8vmfu6OotmUeIvWUY2lBRpQe8Mpqzm1aedYncuSYrmEdNe
-	IlWN45SRTOk1u0lHKNw79/ocbXdBr8LR6Z3fusI8vWqREF9OLAA9l8xJwPjrwsILdnVb2/bv9nn
-	PY0bImQFxR13TuE0HPts2impZdcw=
-X-Google-Smtp-Source: AGHT+IHiGh0/F2ihkxmKKZ2PXbG1yFZ+H0oPZUs3T+W37qmjw6NmjRfOd8sOL7xyDmkks+eXCOkPQwa1rpZcvcQw4Uk=
-X-Received: by 2002:ac2:5eda:0:b0:52c:9e51:c3f with SMTP id
- 2adb3069b0e04-52ea06b85a9mr2514892e87.42.1720166903302; Fri, 05 Jul 2024
- 01:08:23 -0700 (PDT)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 626D1C30658
+	for <webhook@archiver.kernel.org>; Fri,  5 Jul 2024 13:58:08 +0000 (UTC)
+Subject: Re: execute pkg_postinst_ontarget when read-only-rootfs-delayed-postinsts is set for a read only rootfs
+To: poky@lists.yoctoproject.org
+From: "Gassner, Tobias.ext" <Tobias.Gassner.ext@karlstorz.com>
+X-Originating-Location: CH (147.161.138.106)
+X-Originating-Platform: Linux Chrome 126
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-References: <CANNYZj-g32zPpD_eQHgpfgQnpV-6HnPUeD-9OHH4j=n9afdMhg@mail.gmail.com>
- <3010.1720166328001833441@lists.yoctoproject.org>
-In-Reply-To: <3010.1720166328001833441@lists.yoctoproject.org>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Fri, 5 Jul 2024 10:08:11 +0200
-Message-ID: <CANNYZj_-hX-LCvZmOgzJXhsaX1F9TRJExij5fL9gQu0YAJ4sDw@mail.gmail.com>
-Subject: Re: [poky] execute pkg_postinst_ontarget when read-only-rootfs-delayed-postinsts
- is set for a read only rootfs
-To: Tobias.Gassner.ext@karlstorz.com
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Fri, 05 Jul 2024 06:57:59 -0700
+References: <CANNYZj_-hX-LCvZmOgzJXhsaX1F9TRJExij5fL9gQu0YAJ4sDw@mail.gmail.com>
+In-Reply-To: <CANNYZj_-hX-LCvZmOgzJXhsaX1F9TRJExij5fL9gQu0YAJ4sDw@mail.gmail.com>
+Message-ID: <20061.1720187879685682356@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="jMlswGieEpQ64Ia6WRbI"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 05 Jul 2024 08:08:36 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13409
+ <poky@lists.yoctoproject.org>; Fri, 05 Jul 2024 13:58:08 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13410
 
-Here's an idea. How about adding (or extending) one of the tests in
-selftest/cases/overlayfs.py? I see there's plenty of examples there
-with /etc mounted that way (there's a whole class for it), and it
-might be a simple tweak to check for postinst as well.
+--jMlswGieEpQ64Ia6WRbI
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Alex
+Hi Alex,
 
-On Fri, 5 Jul 2024 at 09:58, Gassner, Tobias.ext via
-lists.yoctoproject.org
-<Tobias.Gassner.ext=3Dkarlstorz.com@lists.yoctoproject.org> wrote:
->
-> I digged a bit into the hanging issue by starting-up poky outside the tes=
-t environment, but with the same configuration (rpm, no systemd, read-only-=
-rootfs and read-only-rootfs-delayed-postinsts set, plus my first patch). Af=
-ter the kernel boot log messages I get the following (for testing purposes =
-I use opkg-keyrings, as it provides a pkg_postinst_ontarget task):
->
-> Configuring packages on first boot....
->  (This may take several minutes. Please do not power off the machine.)
-> Running postinst /etc/rpm-postinsts/100-opkg-keyrings...
-> rm: remove '/etc/rpm-postinsts/100-opkg-keyrings'?
->
-> Since I have to type 'yes' into the console and press enter to continue t=
-he test execution hangs on that line.
->
-> The behavior (and hence the log messages) at that point are determined by=
- the following script: https://git.openembedded.org/openembedded-core/tree/=
-meta/recipes-devtools/run-postinsts/run-postinsts/run-postinsts
->
-> When I apply the following patch
->
-> From c144a7dcad403f41dd33b4429fe6481188512bb0 Mon Sep 17 00:00:00 2001
-> From: "Gassner, Tobias.ext" <tobias.gassner.ext@karlstorz.com>
-> Date: Fri, 5 Jul 2024 09:51:25 +0200
-> Subject: [PATCH] adding force to remove postinst on target script
->
-> Signed-off-by: Gassner, Tobias.ext <tobias.gassner.ext@karlstorz.com>
-> ---
->  meta/recipes-devtools/run-postinsts/run-postinsts/run-postinsts | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/meta/recipes-devtools/run-postinsts/run-postinsts/run-postin=
-sts b/meta/recipes-devtools/run-postinsts/run-postinsts/run-postinsts
-> index 1f3e692029..7f197bf89b 100755
-> --- a/meta/recipes-devtools/run-postinsts/run-postinsts/run-postinsts
-> +++ b/meta/recipes-devtools/run-postinsts/run-postinsts/run-postinsts
-> @@ -68,7 +68,7 @@ exec_postinst_scriptlets() {
->          [ "$POSTINST_LOGGING" =3D "1" ] && eval echo "Running postinst $=
-i..." $append_log
->          if [ -x $i ]; then
->              (sh -c $i $append_log)
-> -            rm $i
-> +            rm -f $i
->          else
->              echo "ERROR: postinst $i failed."
->              [ "$POSTINST_LOGGING" =3D "1" ] && eval echo "ERROR: postins=
-t $i failed." $append_log
-> --
-> 2.45.2
->
-> I get the following output, and the test executes without hanging for rpm=
-:
->
-> Configuring packages on first boot....
->  (This may take several minutes. Please do not power off the machine.)
-> Running postinst /etc/rpm-postinsts/100-opkg-keyrings...
-> rm: can't remove '/etc/rpm-postinsts/100-opkg-keyrings': Read-only file s=
-ystem
-> update-rc.d: /etc/init.d/run-postinsts exists during rc.d purge (continui=
-ng)
->  Removing any system startup links for run-postinsts ...
->   /etc/rcS.d/S99run-postinsts
-> rm: can't remove '/etc/rcS.d/S99run-postinsts': Read-only file system
->
-> Note: Since overlayFS is not configured for this test, the postinst ontar=
-get script file cannot be removed, but this is expected. This specific test=
- does not rely on the fact that the file can be removed so the test passes.
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13408): https://lists.yoctoproject.org/g/poky/message=
-/13408
-> Mute This Topic: https://lists.yoctoproject.org/mt/106869018/1686489
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gm=
-ail.com]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
+I looked into overlayfs.py but I'm not convinced that this is the right pat=
+h. First of all, basically all relevant tests that could be used as a start=
+ing point use systemd as well which doesn't make them more generic compared=
+ to my test in runtime_test.py. Secondly, when I set IMAGE_FEATURES +=3D "r=
+ead-only-rootfs" in the test_correct_image_fstab test case, qemu also hangs=
+ during boot.
+
+Again, I build a poky with the same configuration as the test case and got =
+the following log messages during boot:
+
+[FAILED] Failed to mount /mnt/overlay.
+See 'systemctl status mnt-overlay.mount' for details.
+[DEPEND] Dependency failed for Local File Systems.
+[DEPEND] Dependency failed for Overlayfs directories setup.
+[DEPEND] Dependency failed for Overlayfs mount unit.
+[DEPEND] Dependency failed for Overlayfs directories setup.
+[DEPEND] Dependency failed for Overlayfs mount unit.
+
+and it start hanging at the following line:
+
+You are in emergency mode. After logging in, type "journalctl -xb" to view
+system logs, "systemctl reboot" to reboot, or "exit"
+to continue bootup.
+Press Enter for maintenance
+(or press Control-D to continue):
+
+when I enter systemctl status mnt-overlay.mount , I get:
+
+Jul 05 13:49:39 qemux86-64 mount[138]: mount: /mnt/overlay: mount point doe=
+s not=C2=A0exist.
+
+/mnt/overlay is the mount point that is configured by the test. When I make=
+ the rootfs read only, the mount point can not be created and I get the err=
+or message. For a test, I changed the mount point to /tmp (which is writabl=
+e even for a read-only rootfs), with that change, the system boots and the =
+test passes.
+
+Overall, I would say that such a kind of test is even worse and in no way m=
+ore generic than my previous test implementation in runtime_test.py. What d=
+o you think?
+
+--jMlswGieEpQ64Ia6WRbI
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Alex,<br /><br />I looked into <span style=3D"color: #333333; font-famil=
+y: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberatio=
+n Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe U=
+I Symbol', 'Noto Color Emoji'; font-size: 16px; font-style: normal; font-va=
+riant-ligatures: normal; font-variant-caps: normal; font-weight: 400; lette=
+r-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-tr=
+ansform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px=
+; white-space: pre-wrap; background-color: #ffffff; text-decoration-thickne=
+ss: initial; text-decoration-style: initial; text-decoration-color: initial=
+; display: inline !important; float: none;"><span style=3D"color: #333333; =
+font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', =
+'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'=
+, 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 16px; font-style: norma=
+l; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: =
+400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0p=
+x; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-=
+width: 0px; white-space: pre-wrap; background-color: #ffffff; text-decorati=
+on-thickness: initial; text-decoration-style: initial; text-decoration-colo=
+r: initial; display: inline !important; float: none;"><span style=3D"color:=
+ #333333; font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', 'No=
+to Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe=
+ UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; font-size: 16px; font-st=
+yle: normal; font-variant-ligatures: normal; font-variant-caps: normal; fon=
+t-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-=
+indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-te=
+xt-stroke-width: 0px; white-space: pre-wrap; background-color: #ffffff; tex=
+t-decoration-thickness: initial; text-decoration-style: initial; text-decor=
+ation-color: initial; display: inline !important; float: none;">overlayfs.p=
+y but I'm not convinced that this is the right path. First of all, basicall=
+y all relevant tests that could be used as a starting point use systemd as =
+well which doesn't make them more generic compared to my test in <span styl=
+e=3D"color: #333333; font-family: courier_newregular, courier; font-size: 1=
+6px; font-style: normal; font-variant-ligatures: normal; font-variant-caps:=
+ normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: =
+start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px=
+; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f=
+fffff; text-decoration-thickness: initial; text-decoration-style: initial; =
+text-decoration-color: initial; display: inline !important; float: none;">r=
+untime_test.py<span style=3D"font-family: system-ui, 'helvetica neue';">. S=
+econdly, when I set </span></span></span></span></span><span style=3D"color=
+: #a31515; background-color: #ffffff; font-family: 'Droid Sans Mono', 'mono=
+space', monospace; font-size: 14px; white-space: pre;">IMAGE_FEATURES +=3D =
+"read-only-rootfs"<span style=3D"font-family: system-ui, 'helvetica neue'; =
+color: #000000;"> in the </span></span><span style=3D"color: #795e26; backg=
+round-color: #ffffff; font-family: 'Droid Sans Mono', 'monospace', monospac=
+e; font-size: 14px; white-space: pre;">test_correct_image_fstab<span style=
+=3D"font-family: system-ui, 'helvetica neue'; color: #000000;"> test case, =
+qemu also hangs during boot.<br /><br />Again, I build a poky with the same=
+ configuration as the test case and got the following log messages during b=
+oot:<br /><br /><span style=3D"font-family: courier_newregular, courier;">[=
+FAILED] Failed to mount /mnt/overlay.</span><br /><span style=3D"font-famil=
+y: courier_newregular, courier;">See 'systemctl status mnt-overlay.mount' f=
+or details.</span><br /><span style=3D"font-family: courier_newregular, cou=
+rier;">[DEPEND] Dependency failed for Local File Systems.</span><br /><span=
+ style=3D"font-family: courier_newregular, courier;">[DEPEND] Dependency fa=
+iled for Overlayfs directories setup.</span><br /><span style=3D"font-famil=
+y: courier_newregular, courier;">[DEPEND] Dependency failed for Overlayfs m=
+ount unit.</span><br /><span style=3D"font-family: courier_newregular, cour=
+ier;">[DEPEND] Dependency failed for Overlayfs directories setup.</span><br=
+ /><span style=3D"font-family: courier_newregular, courier;">[DEPEND] Depen=
+dency failed for Overlayfs mount unit.</span><br /><br />and it start hangi=
+ng at the following line:<br /><br /><span style=3D"font-family: courier_ne=
+wregular, courier;">You are in emergency mode. After logging in, type "jour=
+nalctl -xb" to view</span><br /><span style=3D"font-family: courier_newregu=
+lar, courier;">system logs, "systemctl reboot" to reboot, or "exit"</span><=
+br /><span style=3D"font-family: courier_newregular, courier;">to continue =
+bootup.</span><br /><span style=3D"font-family: courier_newregular, courier=
+;">Press Enter for maintenance</span><br /><span style=3D"font-family: cour=
+ier_newregular, courier;">(or press Control-D to continue):&nbsp;</span><br=
+ /><br />when I enter <span style=3D"color: #795e26; background-color: #fff=
+fff; font-family: 'Droid Sans Mono', 'monospace', monospace; font-size: 14p=
+x; white-space: pre;"><span style=3D"font-family: system-ui, 'helvetica neu=
+e'; color: #000000;"><span style=3D"font-family: courier_newregular, courie=
+r;">systemctl status mnt-overlay.mount<span style=3D"font-family: system-ui=
+, 'helvetica neue';">, I get:</span></span></span></span><br /><br /><span =
+style=3D"font-family: courier_newregular, courier;">Jul 05 13:49:39 qemux86=
+-64 mount[138]: mount: /mnt/overlay: mount point does not&nbsp;exist.</span=
+><br /><br /><span style=3D"color: #795e26; background-color: #ffffff; font=
+-family: 'Droid Sans Mono', 'monospace', monospace; font-size: 14px; white-=
+space: pre;"><span style=3D"font-family: system-ui, 'helvetica neue'; color=
+: #000000;"><span style=3D"font-family: courier_newregular, courier;">/mnt/=
+overlay </span></span></span>is the mount point that is configured by the t=
+est. When I make the rootfs read only, the mount point can not be created a=
+nd I get the error message. For a test, I changed the mount point to /tmp (=
+which is writable even for a read-only rootfs), with that change, the syste=
+m boots and the test passes.<br /><br />Overall, I would say that such a ki=
+nd of test is even worse and in no way more generic than my previous test i=
+mplementation in <span style=3D"color: #333333; font-family: system-ui, 'Se=
+goe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, s=
+ans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto =
+Color Emoji'; font-size: 16px; font-style: normal; font-variant-ligatures: =
+normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal=
+; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; wi=
+dows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: pr=
+e-wrap; background-color: #ffffff; text-decoration-thickness: initial; text=
+-decoration-style: initial; text-decoration-color: initial; display: inline=
+ !important; float: none;"><span style=3D"color: #333333; font-family: syst=
+em-ui, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans'=
+, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbo=
+l', 'Noto Color Emoji'; font-size: 16px; font-style: normal; font-variant-l=
+igatures: normal; font-variant-caps: normal; font-weight: 400; letter-spaci=
+ng: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform=
+: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white=
+-space: pre-wrap; background-color: #ffffff; text-decoration-thickness: ini=
+tial; text-decoration-style: initial; text-decoration-color: initial; displ=
+ay: inline !important; float: none;"><span style=3D"color: #333333; font-fa=
+mily: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Libera=
+tion Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Sego=
+e UI Symbol', 'Noto Color Emoji'; font-size: 16px; font-style: normal; font=
+-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; le=
+tter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text=
+-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: =
+0px; white-space: pre-wrap; background-color: #ffffff; text-decoration-thic=
+kness: initial; text-decoration-style: initial; text-decoration-color: init=
+ial; display: inline !important; float: none;"><span style=3D"color: #33333=
+3; font-family: courier_newregular, courier; font-size: 16px; font-style: n=
+ormal; font-variant-ligatures: normal; font-variant-caps: normal; font-weig=
+ht: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent=
+: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-str=
+oke-width: 0px; white-space: normal; background-color: #ffffff; text-decora=
+tion-thickness: initial; text-decoration-style: initial; text-decoration-co=
+lor: initial; display: inline !important; float: none;">runtime_test.py</sp=
+an></span></span></span>. What do you think?</span></span>
+
+--jMlswGieEpQ64Ia6WRbI--
 
