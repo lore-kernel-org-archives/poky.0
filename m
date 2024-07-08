@@ -1,138 +1,105 @@
-Return-Path: <chris.vd.kruit@certhon.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A312C3271E
-	for <webhook@archiver.kernel.org>; Mon,  8 Jul 2024 10:08:57 +0000 (UTC)
-Subject: Licence error in openssh
-To: poky@lists.yoctoproject.org
-From: chris.vd.kruit@certhon.com
-X-Originating-Location: Spijkenisse, South Holland, NL (92.68.185.136)
-X-Originating-Platform: Windows Chrome 126
-User-Agent: GROUPS.IO Web Poster
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 694A0C3DA42
+	for <webhook@archiver.kernel.org>; Mon,  8 Jul 2024 10:56:47 +0000 (UTC)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+ by mx.groups.io with SMTP id smtpd.web10.77000.1720436199976987387
+ for <poky@lists.yoctoproject.org>;
+ Mon, 08 Jul 2024 03:56:40 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=hU0HK/EM;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.52, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-36798ea618bso2431233f8f.0
+        for <poky@lists.yoctoproject.org>; Mon, 08 Jul 2024 03:56:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1720436198; x=1721040998; darn=lists.yoctoproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aQ2hfTd0P8tLD4Djb4iyoRu+dm1Oyz8eXoP33/ug3n8=;
+        b=hU0HK/EMMcqJQDcPtXUwSbTl0ffrPrVsiIbYuXIwqIKpbMyB0eoRL7eMApXnsf9orI
+         /oEkBALwmb2FaKdO58xWzLgDnqD1q/mni8tjtkX39eOERXd/I8veY6rVxbGn8XmySzIJ
+         7LmYPJg7nxSo/U6Z0tiuZtNb9XexeMuyWoYLg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1720436198; x=1721040998;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=aQ2hfTd0P8tLD4Djb4iyoRu+dm1Oyz8eXoP33/ug3n8=;
+        b=RUDaF35RBeF+GwwX1n8uLtZmsNsy0g5jxIzlc48U3rSGz9J4aDsH9exjW8YgCIeDKv
+         7CADm9yCbUtUrERnF+lRvXaVAkA6bEIHHZpeiyZnwSflHRVBbCxcoTPQ+5XDpNOqyX0O
+         mkB9Rcu+LSkK/MIrgQGeCn46BYl8Os6aKsjqkTAVKGSfe5IFJcsvJx9f5EDwj6Zya4l2
+         OfMTJxpNCKtnW8UOIHids53rKFM7JzNIma+opmCKvTw1BWLMRM9Mc/UPPS2GJN4j+OJG
+         NRLk+8wGetuM16iTzok27JSERp1KZRtHHzxiDXfte+ASyqaUDLvd9Hm5e4hingBQjSIn
+         yoyw==
+X-Forwarded-Encrypted: i=1; AJvYcCWkQqTQnY9M/PivG7tL3SjbS6ecp1AqUj6pkRLU/5ht/gwZ+3wjgxIuoVqhUAaIpQjLyxM/RMnU82cR/cqjF8jNxONJjAECe1LBtZY=
+X-Gm-Message-State: AOJu0YyNTB1hOjL9GPK3y55H2QuCWc3Kohic8KvRM79yGC4gi3FO1mM8
+	uT7xAGDNnzjBLPCHapKncva5wFU3FBYPUUmYB9BO7Qw0aMJjehs/AUE2Xp9xrKs=
+X-Google-Smtp-Source: AGHT+IGgGG/mtIItIBOx7BlxryExxDddHRt1qXnIUUXMfvgxJNeA3s6f4dwz+iCN9xZpNvntyHrC9g==
+X-Received: by 2002:a05:6000:12c3:b0:367:9bc8:f3ee with SMTP id ffacd0b85a97d-3679dd0d302mr7669341f8f.4.1720436197982;
+        Mon, 08 Jul 2024 03:56:37 -0700 (PDT)
+Received: from ?IPv6:2001:8b0:aba:5f3c:1a38:17b2:9986:6eea? ([2001:8b0:aba:5f3c:1a38:17b2:9986:6eea])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-367900fd1e5sm13981966f8f.63.2024.07.08.03.56.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 08 Jul 2024 03:56:37 -0700 (PDT)
+Message-ID: <fc84d485caf7ebcc549256d3916a2164c968916a.camel@linuxfoundation.org>
+Subject: Re: [poky] Licence error in openssh
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: chris.vd.kruit@certhon.com, poky@lists.yoctoproject.org
+Date: Mon, 08 Jul 2024 11:56:36 +0100
+In-Reply-To: <nauN.1720433331746704508.jsS2@lists.yoctoproject.org>
+References: <nauN.1720433331746704508.jsS2@lists.yoctoproject.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.52.0-1build2 
 MIME-Version: 1.0
-Date: Mon, 08 Jul 2024 03:08:51 -0700
-Message-ID: <nauN.1720433331746704508.jsS2@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="9JVSQddrefUHagTFqoUz"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Mon, 08 Jul 2024 10:08:57 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13412
+ <poky@lists.yoctoproject.org>; Mon, 08 Jul 2024 10:56:47 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13413
 
---9JVSQddrefUHagTFqoUz
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+T24gTW9uLCAyMDI0LTA3LTA4IGF0IDAzOjA4IC0wNzAwLCBjaHJpcy52ZC5rcnVpdCB2aWEgbGlz
+dHMueW9jdG9wcm9qZWN0Lm9yZyB3cm90ZToKPiBJJ20gbm90IHN1cmUgaWYgdGhpcyBpcyB0aGUg
+Y29ycmVjdCBwbGFjZSB0byByZXBvcnQgdGhpcy4gSSBnb3QgYW4gZXJyb3IgbWVzc2FnZSBidWls
+ZGluZyBvcGVuc3NoLTkuOFAxLXIwLCByZWdhcmRpbmcgdGhlIGxpY2Vuc2UgZmlsZS4gSXQgc2Vl
+bXMgbGlrZSB0aGUgTUQ1U1VNIGluIHRoZSByZWNpcGUgZmlsZSBpcyB3cm9uZy4KPiAKPiBJIGdv
+dCB0aGUgZm9sbG93aW5nIGVycm9yIGR1cmluZyBidWlsZC4KPiAKPiBFUlJPUjogb3BlbnNzaC05
+LjhwMS1yMCBkb19wb3B1bGF0ZV9saWM6IFFBIElzc3VlOiBvcGVuc3NoOiBUaGUgTElDX0ZJTEVT
+X0NIS1NVTSBkb2VzIG5vdCBtYXRjaCBmb3IgZmlsZTovL0xJQ0VOQ0U7bWQ1PThiYWYzNjU2MTRj
+OWJkZDYzNzA1ZjI5OGM5YWZiZmI5Cj4gb3BlbnNzaDogVGhlIG5ldyBtZDUgY2hlY2tzdW0gaXMg
+MDcyOTc5MDY0ZTY5MWQzNDIwMDJmNDNjZDg5YzAzOTQKPiBvcGVuc3NoOiBIZXJlIGlzIHRoZSBz
+ZWxlY3RlZCBsaWNlbnNlIHRleHQ6Cj4gdnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2
+dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dsKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgCj4gVGhpcyBmaWxlIGlzIHBhcnQgb2YgdGhlIE9wZW5TU0ggc29mdHdhcmUuwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIAo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAKPiBUaGUgbGljZW5jZXMgd2hpY2ggY29tcG9uZW50
+cyBvZiB0aGlzIHNvZnR3YXJlIGZhbGwgdW5kZXIgYXJlIGFzwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCAKPiBmb2xsb3dzLsKgIEZpcnN0LCB3ZSB3aWxsIHN1bW1hcml6
+ZSBhbmQgc2F5IHRoYXQgYWxsIGNvbXBvbmVudHPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCAKPiBhcmUgdW5kZXIgYSBCU0QgbGljZW5jZSwgb3IgYSBsaWNlbmNl
+IG1vcmUgZnJlZSB0aGFuIHRoYXQuCj4gCj4gSSBnZW5lcmF0ZWQgdGhlIE1ENVNVTSBvZiB0aGUg
+TElDRU5DRSBmaWxlIGFuZCBpdCBpcyB0aGUgbnVtYmVyIHJlcG9ydGVkIGluIHRleHQgYWJvdmUs
+IHNvIGkganVzdCBjaGFuZ2VkIHRoZSByZWNpcGUgYW5kIHRoZW4gaXQgd29ya2VkLsKgCj4gTWF5
+YmUgdGhlIHNvdXJjZSBuZWVkcyB0byBiZSBjaGFuZ2VkLCBidXQgaSBkb24ndCBrbm93IGhvdyB0
+byBkbyB0aGlzLgoKV2Ugc3RpbGwgaGF2ZSA5LjdwMSBpbiBtYXN0ZXIgd2l0aCBhIGJhY2twb3J0
+IGZvciB0aGUgcmVjZW50IENWRS4gV2hlcmUKZGlkIHlvdSBnZXQgOS44cDEgZnJvbT8gQXQgdGhl
+IHNhbWUgdGltZSBpdCB3YXMgdXBncmFkZWQsIGl0IHdvdWxkCmxpa2VseSBuZWVkIHRoZSBsaWNl
+bnNlIGNoZWNrc3VtIGZpeC4KCkNoZWVycywKClJpY2hhcmQKCg==
 
-I'm not sure if this is the correct place to report this. I got an error me=
-ssage building openssh-9.8P1-r0, regarding the license file. It seems like =
-the MD5SUM in the recipe file is wrong.
-
-I got the following error during build.
-
-ERROR: openssh-9.8p1-r0 do_populate_lic: QA Issue: openssh: The LIC_FILES_C=
-HKSUM does not match for file://LICENCE;md5=3D8baf365614c9bdd63705f298c9afb=
-fb9
-
-openssh: The new md5 checksum is 072979064e691d342002f43cd89c0394
-
-openssh: Here is the selected license text:
-
-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-
-This file is part of the OpenSSH software.
-
-The licences which components of this software fall under are as
-
-follows. First, we will summarize and say that all components
-
-are under a BSD licence, or a licence more free than that.
-
-I generated the MD5SUM of the LICENCE file and it is the number reported in=
- text above, so i just changed the recipe and then it worked.
-Maybe the source needs to be changed, but i don't know how to do this.
-
---9JVSQddrefUHagTFqoUz
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><span lang=3D"EN-US" s=
-tyle=3D"mso-ansi-language: EN-US;">I&#39;m not sure if this is the correct =
-place to report this. I got an error message building openssh-9.8P1-r0, reg=
-arding the license file. It seems like the MD5SUM in the recipe file is wro=
-ng.<br/><br/>I got the following error during build.<br/><br/></span></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
-S" style=3D"mso-ansi-language: EN-US;">ERROR: openssh-9.8p1-r0 do_populate_=
-lic: QA Issue: openssh: The LIC_FILES_CHKSUM does not match for file://LICE=
-NCE;md5=3D8baf365614c9bdd63705f298c9afbfb9</span></em></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
-S" style=3D"mso-ansi-language: EN-US;">openssh: The new md5 checksum is 072=
-979064e691d342002f43cd89c0394</span></em></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
-S" style=3D"mso-ansi-language: EN-US;">openssh: Here is the selected licens=
-e text:</span></em></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
-S" style=3D"mso-ansi-language: EN-US;">vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv=
-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv<span style=3D"mso-spacerun: yes;">=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 </span></span></em></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
-S" style=3D"mso-ansi-language: EN-US;">This file is part of the OpenSSH sof=
-tware.<span style=3D"mso-spacerun: yes;">=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 </span></span></em></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
-S" style=3D"mso-ansi-language: EN-US;"><span style=3D"mso-spacerun: yes;">=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 </span></span></em></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
-S" style=3D"mso-ansi-language: EN-US;">The licences which components of thi=
-s software fall under are as<span style=3D"mso-spacerun: yes;">=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- </span></span></em></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
-S" style=3D"mso-ansi-language: EN-US;">follows.<span style=3D"mso-spacerun:=
- yes;">=C2=A0 </span>First, we will summarize and say that all components<s=
-pan style=3D"mso-spacerun: yes;">=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 </span></span></e=
-m></p>
-<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
-S" style=3D"mso-ansi-language: EN-US;">are under a BSD licence, or a licenc=
-e more free than that.<br/><br/></span></em><span lang=3D"EN-US" style=3D"m=
-so-ansi-language: EN-US;">I generated the MD5SUM of the LICENCE file and it=
- is the number reported in text above, so i just changed the recipe and the=
-n it worked.=C2=A0<br/>Maybe the source needs to be changed, but i don&#39;=
-t know how to do this.</span></p>
-
---9JVSQddrefUHagTFqoUz--
 
