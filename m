@@ -1,93 +1,138 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <chris.vd.kruit@certhon.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A81C9C38150
-	for <webhook@archiver.kernel.org>; Fri,  5 Jul 2024 15:38:18 +0000 (UTC)
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
- by mx.groups.io with SMTP id smtpd.web11.19983.1720193897294705718
- for <poky@lists.yoctoproject.org>;
- Fri, 05 Jul 2024 08:38:17 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=k5Rr700W;
- spf=pass (domain: gmail.com, ip: 209.85.208.181, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-2ee910d6a9dso14511421fa.1
-        for <poky@lists.yoctoproject.org>; Fri, 05 Jul 2024 08:38:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1720193895; x=1720798695; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=p4RnZMVzCJGXJBPQ9ZlSbUb5ElNN8MBM3BKPtWUITGM=;
-        b=k5Rr700WKa52vVpu0UasdRP4Ps+CX8uf0j3yba5JxBdeolj6Mf5KVz2MwAwm0j0odP
-         XopKKRGKxFLWO1k4QVtWlrNRgZ9WeSEdshHzdoF22UyFhbSgjDiAOj3ImYtJRNfpIpTZ
-         +ih/gDKhg1gifWfL3pg0RXu/k0Oqpw6hg3J7nEK/jP1jzXgtPWM5u8b55zWLuYOVysVh
-         0Qk7OJWKntiGjR/X7pU+nKVfUiss8NYbmVwJ9uO7XzVXFRIJkGCjGv+GNH7tyLgN1RpM
-         HWVvJFf6KkCdqZDXPJpHGNZCk6BnR6zHyyhMbNoqKgL4sA4rtyZBEWcZIxM0xysGktKE
-         zG7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1720193895; x=1720798695;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=p4RnZMVzCJGXJBPQ9ZlSbUb5ElNN8MBM3BKPtWUITGM=;
-        b=PxK/1oWwdTDB7poOsP1BK9OrCqlqQBAF08VtNI4Id7jcSkN4VaOO963F+OKVb4fZSV
-         4EWaqZc1AnnBSbRrekyG7bcEc/Ujo8jEiLzwnCbyeQ4H2IWQs9OlqhJS+UQYMJzZNPFc
-         gvOqnFIxlrOUf9jrc1aQGed84SbF5tWc3OhKUsHaN57OlCNhbp10M/P12LDVhuNOEXMy
-         Wcm9KgSTU5egu2yria2bxacoH8sKVfb4kefPGuy/YJ6gEnPr+ceTEB6NSRVAUt05Vfck
-         p091t2uPR9sYEReBesEuUGjLHlj1ZVnypsLNZMAqbEW7C6auRqXF1K8dbffYfGO+TR6+
-         Cg8Q==
-X-Gm-Message-State: AOJu0Yx5YzEGHB+IosJEpLDaMC17V8aEXQCZjGs2aNxSvQIjqj40Drhg
-	OCXaAPiXxhfgQpy1sTV/Ns8x8tGKH8wO35EfuqLYjbNa7qYshH48r/mSrER0Qs61dHK7TaknLTq
-	kam+6/yIgfYOax1oFDgll+s4PCOQ=
-X-Google-Smtp-Source: AGHT+IEH9vhRPFrnXvogD82g5vc//8zIxmIvlrNzlTYcJT9qnW4WtV5f8Roac/sJ0Ff1wPKzwfuQd0z+4hzhMPu0vnY=
-X-Received: by 2002:a05:651c:11c5:b0:2ee:8701:787e with SMTP id
- 38308e7fff4ca-2ee8ed62fb2mr33513271fa.1.1720193895014; Fri, 05 Jul 2024
- 08:38:15 -0700 (PDT)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A312C3271E
+	for <webhook@archiver.kernel.org>; Mon,  8 Jul 2024 10:08:57 +0000 (UTC)
+Subject: Licence error in openssh
+To: poky@lists.yoctoproject.org
+From: chris.vd.kruit@certhon.com
+X-Originating-Location: Spijkenisse, South Holland, NL (92.68.185.136)
+X-Originating-Platform: Windows Chrome 126
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-References: <CANNYZj_-hX-LCvZmOgzJXhsaX1F9TRJExij5fL9gQu0YAJ4sDw@mail.gmail.com>
- <20061.1720187879685682356@lists.yoctoproject.org>
-In-Reply-To: <20061.1720187879685682356@lists.yoctoproject.org>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Fri, 5 Jul 2024 17:38:03 +0200
-Message-ID: <CANNYZj-2MRP66dbONLGHmacwJjFNTuQ-CfyQLAF0-q=WY+BKmg@mail.gmail.com>
-Subject: Re: [poky] execute pkg_postinst_ontarget when read-only-rootfs-delayed-postinsts
- is set for a read only rootfs
-To: Tobias.Gassner.ext@karlstorz.com
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Mon, 08 Jul 2024 03:08:51 -0700
+Message-ID: <nauN.1720433331746704508.jsS2@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="9JVSQddrefUHagTFqoUz"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 05 Jul 2024 15:38:18 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13411
+ <poky@lists.yoctoproject.org>; Mon, 08 Jul 2024 10:08:57 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13412
 
-On Fri, 5 Jul 2024 at 15:58, Gassner, Tobias.ext via
-lists.yoctoproject.org
-<Tobias.Gassner.ext=3Dkarlstorz.com@lists.yoctoproject.org> wrote:
-> I looked into overlayfs.py but I'm not convinced that this is the right p=
-ath. First of all, basically all relevant tests that could be used as a sta=
-rting point use systemd as well which doesn't make them more generic compar=
-ed to my test in runtime_test.py. Secondly, when I set IMAGE_FEATURES +=3D =
-"read-only-rootfs" in the test_correct_image_fstab test case, qemu also han=
-gs during boot.
+--9JVSQddrefUHagTFqoUz
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-...
+I'm not sure if this is the correct place to report this. I got an error me=
+ssage building openssh-9.8P1-r0, regarding the license file. It seems like =
+the MD5SUM in the recipe file is wrong.
 
-> /mnt/overlay is the mount point that is configured by the test. When I ma=
-ke the rootfs read only, the mount point can not be created and I get the e=
-rror message. For a test, I changed the mount point to /tmp (which is writa=
-ble even for a read-only rootfs), with that change, the system boots and th=
-e test passes.
+I got the following error during build.
 
-I think these are the tests in the wrong class (OverlayFSTests). I was
-referring to class OverlayFSEtcRunTimeTests and the tests in it (those
-are specifically setting up /etc as the overlay and the rest of the
-image as read only).
+ERROR: openssh-9.8p1-r0 do_populate_lic: QA Issue: openssh: The LIC_FILES_C=
+HKSUM does not match for file://LICENCE;md5=3D8baf365614c9bdd63705f298c9afb=
+fb9
 
-Wherever the test ends up, it needs to work in a way that allows
-deleting the postinst.
+openssh: The new md5 checksum is 072979064e691d342002f43cd89c0394
 
-Alex
+openssh: Here is the selected license text:
+
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+This file is part of the OpenSSH software.
+
+The licences which components of this software fall under are as
+
+follows. First, we will summarize and say that all components
+
+are under a BSD licence, or a licence more free than that.
+
+I generated the MD5SUM of the LICENCE file and it is the number reported in=
+ text above, so i just changed the recipe and then it worked.
+Maybe the source needs to be changed, but i don't know how to do this.
+
+--9JVSQddrefUHagTFqoUz
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><span lang=3D"EN-US" s=
+tyle=3D"mso-ansi-language: EN-US;">I&#39;m not sure if this is the correct =
+place to report this. I got an error message building openssh-9.8P1-r0, reg=
+arding the license file. It seems like the MD5SUM in the recipe file is wro=
+ng.<br/><br/>I got the following error during build.<br/><br/></span></p>
+<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
+S" style=3D"mso-ansi-language: EN-US;">ERROR: openssh-9.8p1-r0 do_populate_=
+lic: QA Issue: openssh: The LIC_FILES_CHKSUM does not match for file://LICE=
+NCE;md5=3D8baf365614c9bdd63705f298c9afbfb9</span></em></p>
+<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
+S" style=3D"mso-ansi-language: EN-US;">openssh: The new md5 checksum is 072=
+979064e691d342002f43cd89c0394</span></em></p>
+<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
+S" style=3D"mso-ansi-language: EN-US;">openssh: Here is the selected licens=
+e text:</span></em></p>
+<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
+S" style=3D"mso-ansi-language: EN-US;">vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv=
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv<span style=3D"mso-spacerun: yes;">=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 </span></span></em></p>
+<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
+S" style=3D"mso-ansi-language: EN-US;">This file is part of the OpenSSH sof=
+tware.<span style=3D"mso-spacerun: yes;">=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 </span></span></em></p>
+<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
+S" style=3D"mso-ansi-language: EN-US;"><span style=3D"mso-spacerun: yes;">=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 </span></span></em></p>
+<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
+S" style=3D"mso-ansi-language: EN-US;">The licences which components of thi=
+s software fall under are as<span style=3D"mso-spacerun: yes;">=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ </span></span></em></p>
+<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
+S" style=3D"mso-ansi-language: EN-US;">follows.<span style=3D"mso-spacerun:=
+ yes;">=C2=A0 </span>First, we will summarize and say that all components<s=
+pan style=3D"mso-spacerun: yes;">=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 </span></span></e=
+m></p>
+<p class=3D"DefangedMsoNormal" style=3D"margin:0px;"><em><span lang=3D"EN-U=
+S" style=3D"mso-ansi-language: EN-US;">are under a BSD licence, or a licenc=
+e more free than that.<br/><br/></span></em><span lang=3D"EN-US" style=3D"m=
+so-ansi-language: EN-US;">I generated the MD5SUM of the LICENCE file and it=
+ is the number reported in text above, so i just changed the recipe and the=
+n it worked.=C2=A0<br/>Maybe the source needs to be changed, but i don&#39;=
+t know how to do this.</span></p>
+
+--9JVSQddrefUHagTFqoUz--
 
