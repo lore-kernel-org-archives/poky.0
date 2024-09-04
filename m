@@ -1,99 +1,95 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <tamara.schmitz@kernelconcepts.de>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C421BC5472D
-	for <webhook@archiver.kernel.org>; Wed, 28 Aug 2024 07:28:10 +0000 (UTC)
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
- by mx.groups.io with SMTP id smtpd.web10.7826.1724830082622667832
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 05762CA0ED3
+	for <webhook@archiver.kernel.org>; Wed,  4 Sep 2024 09:35:47 +0000 (UTC)
+Received: from mail.kernelconcepts.de (mail.kernelconcepts.de [188.40.83.200])
+ by mx.groups.io with SMTP id smtpd.web11.45843.1725442541635803696
  for <poky@lists.yoctoproject.org>;
- Wed, 28 Aug 2024 00:28:02 -0700
+ Wed, 04 Sep 2024 02:35:41 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=Rf+MuyJL;
- spf=pass (domain: gmail.com, ip: 209.85.208.179, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-2f4f2868621so61722171fa.0
-        for <poky@lists.yoctoproject.org>; Wed, 28 Aug 2024 00:28:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1724830081; x=1725434881; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=3grQ8jYkuGHDgffyOVBmT/yclNspsx+p9LgIMSTp+JA=;
-        b=Rf+MuyJLurioA9f6nM8zx0yMQlZlTCuJ38YCtwzAG1qp7CcELx5lIJF/4P3WvW11r7
-         kwVxuB5Ie/tyd62KhXXqP2MEJocvV+aB/oRKymjrsC1XeHTn7utMaIqMf047XjtMPGdb
-         2mFjD1FnPGkZtsO7iwyqxAAUajjuD5KNF4RcaBeeg9htryeCR6VTfvP+PCyf1zlZEanO
-         1NWShCduWN/QXtU3pbxSoxJLzC6JXe6Qn3sNmi2HTu/xgComTmq++JTNvA3oAqzGZMkG
-         oAjcJOhGAwaWu6tCGmNrT5fSSx7+Gh6UbirMOjhYs6GY8+EaelFYJqAteQcT8+z5/pzp
-         JGLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724830081; x=1725434881;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=3grQ8jYkuGHDgffyOVBmT/yclNspsx+p9LgIMSTp+JA=;
-        b=OVyCoc0994fYUxa8ntBw1kv6ysAr59DPR+gezpxax+ayeMFGRNChSGQ6DPRcDKjIix
-         SmYo+X9kiN0uHxB0zLjvTAlEH9dLcEJmEjMhy1ixvR+Utx2UWS4zvi4Pq4ZGIhy0lUp8
-         H/7TmYzgoAFyTG6cAkncPkCd0zJEmW6ZabtKkb4Fcf5mq0FLI1kXHrAs6vUEjs4mkKSx
-         S6SIWPSyiodLfhZd/64YbD89IdxJA2ZzK3m1azEa+FrzkforssZyNgOfhqe4z2LO/Hm8
-         OYkV0aEcK33VGFZs4E1hSdSH5TLZDJ+kuDpEWnDkW0mj23QvbJNUqc+uofkWw0XE1tUb
-         Xqgw==
-X-Gm-Message-State: AOJu0YxUKjK646i9MKTk71TYnfmV5WpmE77ZiS6RfuJQGcLhushQWxBa
-	Lv4oxfNujETbOQqgBhic5UegfBeiQH3YvuVmuTOLVztU7jtcqKfoTDaKky5RrFzBYRlOSelNeXO
-	ipSFVwKaXWqAylFUMLdcMzk4joCSZrA==
-X-Google-Smtp-Source: AGHT+IFh4FI3+Z/JAFfa9+83zI8jw6n8a4FUokNEyyIomhcTHRSY07w7UK8BCSu5golU5v9xHLGtc2//Yf/wWjGAyO0=
-X-Received: by 2002:a2e:f09:0:b0:2f0:20cd:35fc with SMTP id
- 38308e7fff4ca-2f4f573a316mr109455991fa.7.1724830080039; Wed, 28 Aug 2024
- 00:28:00 -0700 (PDT)
+ dkim=none (message not signed); spf=pass (domain: kernelconcepts.de, ip: 188.40.83.200, mailfrom: tamara.schmitz@kernelconcepts.de)
+Received: from [217.146.132.69] (helo=dhcp88.kc.loc)
+	by mail.kernelconcepts.de with esmtpsa (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <tamara.schmitz@kernelconcepts.de>)
+	id 1slmQN-0006vV-Mu
+	for poky@lists.yoctoproject.org; Wed, 04 Sep 2024 11:35:39 +0200
+Message-ID: <87fe05839a90d96222d1afb0811fa8eca72a977d.camel@kernelconcepts.de>
+Subject: Poky calls host pzstd with uninative's libstdc++.so.6 instead of
+ the host library
+From: Tamara Schmitz <tamara.schmitz@kernelconcepts.de>
+To: poky@lists.yoctoproject.org
+Date: Wed, 04 Sep 2024 11:32:41 +0200
+Autocrypt: addr=tamara.schmitz@kernelconcepts.de; prefer-encrypt=mutual;
+ keydata=mDMEZtXF7hYJKwYBBAHaRw8BAQdA2JIROcPL/iy4Do0VQAkZAHW2diLaevQhZPm2/4ngd
+ HS0MVRhbWFyYSBTY2htaXR6IDx0YW1hcmEuc2NobWl0ekBrZXJuZWxjb25jZXB0cy5kZT6IjgQTFg
+ oANhYhBDqlibF/vw6j/f6W6Au9z5d9PxhVBQJm1cXuAhsDBAsJCAcEFQoJCAUWAwIBAAIeBQIXgAA
+ KCRALvc+XfT8YVbv9APsGwb/1aqebRbFsY6aG/bzzrz/nGj1qhFNeqTTpI+SAZwD/f8YXArP6LlAH
+ Rma/819Cta7hQlh8mBICDgD72UgEVQi0KVRhbWFyYSBTY2htaXR6IDx0YW1hcmFAa2VybmVsY29uY
+ 2VwdHMuZGU+iI4EExYKADYWIQQ6pYmxf78Oo/3+lugLvc+XfT8YVQUCZtXPTwIbAwQLCQgHBBUKCQ
+ gFFgMCAQACHgUCF4AACgkQC73Pl30/GFW6HgEA5mxfnoGj1OPX2LpkwJ6j2udebPIArvKbTV1K5fa
+ EWu4BAK82FXs2P5VjSKblm1WrHkt2XKOAXUu9WPV1nJYSy0UNtCVUYW1hcmEgU2NobWl0eiA8dHNA
+ a2VybmVsY29uY2VwdHMuZGU+iI4EExYKADYWIQQ6pYmxf78Oo/3+lugLvc+XfT8YVQUCZtXPWwIbA
+ wQLCQgHBBUKCQgFFgMCAQACHgUCF4AACgkQC73Pl30/GFXqFAD/UUq1aWtjK/NPDdZhRLyOu9/oIN
+ Pg2tDgupwjvBHaUAwA/2McPrrVf1s61htscJNoWnxemAeTR9f6x9A8RGe4HtQK
+Organization: kernel concepts GmbH
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-LlEVBj+P7HErQupJmSFd"
+User-Agent: Evolution 3.52.4 (3.52.4-1.fc40) 
 MIME-Version: 1.0
-References: <R3R3.1722259968114512623.2es7@lists.yoctoproject.org> <31109.1724829852993038505@lists.yoctoproject.org>
-In-Reply-To: <31109.1724829852993038505@lists.yoctoproject.org>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Wed, 28 Aug 2024 09:27:48 +0200
-Message-ID: <CANNYZj_cQNPWbPxpz6JcctP2gDiGe9ggg-WrD4jPr_wGTJsiGA@mail.gmail.com>
-Subject: Re: [poky] Issues with Extensible SDK: Checksum Mismatch and Sstate Warnings
-To: nicolas.wirth@speedgoat.ch
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Resent-From: Tamara Schmitz <tamara.schmitz@kernelconcepts.de>
+Resent-To: poky@lists.yoctoproject.org
+Resent-Date: Wed, 04 Sep 2024 11:35:39 +0200
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 28 Aug 2024 07:28:10 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13428
+ <poky@lists.yoctoproject.org>; Wed, 04 Sep 2024 09:35:47 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13429
+Resent-Message-Id: <20240904093547.05762CA0ED3@smtp.lore.kernel.org>
 
-You need to start with a plain poky build, produce an esdk from one of
-the standard poky images, and see if the issue is still there.
-Otherwise if no one can see the issue on their side, no one can help
-either, because we don't have time for a guessing game.
 
-Alex
+--=-LlEVBj+P7HErQupJmSFd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 28 Aug 2024 at 09:24, Nicolas Wirth via lists.yoctoproject.org
-<nicolas.wirth=3Dspeedgoat.ch@lists.yoctoproject.org> wrote:
->
-> Hi,
->
-> I wanted to follow up on my earlier post regarding the issues with the Ex=
-tensible SDK (eSDK). I'm still experiencing challenges, particularly with t=
-he first-time build of a recipe. The process is taking a significant amount=
- of time as it fetches the sources instead of utilizing the sstate, which I=
- suspect is related to the issues mentioned earlier.
->
-> Any insights or suggestions on how to resolve these problems would be gre=
-atly appreciated.
->
-> Thank you for your help!
-> Best regards,
-> Nicolas
->
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13427): https://lists.yoctoproject.org/g/poky/message=
-/13427
-> Mute This Topic: https://lists.yoctoproject.org/mt/107608539/1686489
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gm=
-ail.com]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
+Hello,
+
+I'm a newbie to Yocto Linux and I am attempting to build a vendor BSP
+on an unsupported distribution: Fedora 40.
+
+The OS' libstdc++.so.6 provides CXXABI_1.3.15 vs uninative's which
+provides up to CXXABI_1.3.14. That would be fine, if the
+sstate_archive_package would not attempt to attempt to run it in an ENV
+that forces uninative's library.
+
+Question 1:
+Using bitbake -e and reading the logs I was already able to get this
+far. How can I understand what the ENV, that the script executes in
+looks like?
+
+Question 2:
+Is this a bug in the vendor BSP or is Poky just silly mixing and
+matching host tools build against the OS toolchain and uninative's
+libraries as it pleases?
+
+Regards
+
+Tamara Schmitz
+
+--=-LlEVBj+P7HErQupJmSFd
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iJcEABYKAD8WIQQ6pYmxf78Oo/3+lugLvc+XfT8YVQUCZtgpOSEcdGFtYXJhLnNj
+aG1pdHpAa2VybmVsY29uY2VwdHMuZGUACgkQC73Pl30/GFUJAAEA+2MD4VJL0vW1
+Gv2Nx1RB/N0rLurpwskDf3JDm1g40dEA/0l9KbDEs3lo5T6dr3ijAGFiDK5jn9Ve
++0GnvOa3o2gM
+=Ji4Q
+-----END PGP SIGNATURE-----
+
+--=-LlEVBj+P7HErQupJmSFd--
 
