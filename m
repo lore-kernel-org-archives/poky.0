@@ -1,81 +1,133 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <thomas.epperson@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5808DC35FEC
-	for <webhook@archiver.kernel.org>; Tue, 17 Sep 2024 07:18:47 +0000 (UTC)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
- by mx.groups.io with SMTP id smtpd.web11.15612.1726557517158353148
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14549CF9C6F
+	for <webhook@archiver.kernel.org>; Mon, 23 Sep 2024 15:08:45 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+ by mx.groups.io with SMTP id smtpd.web11.38961.1727104120629880871
  for <poky@lists.yoctoproject.org>;
- Tue, 17 Sep 2024 00:18:37 -0700
+ Mon, 23 Sep 2024 08:08:40 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=GqXU9Bs2;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.42, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-374b25263a3so2715472f8f.0
-        for <poky@lists.yoctoproject.org>; Tue, 17 Sep 2024 00:18:36 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=VUWj5Ns0;
+ spf=pass (domain: gmail.com, ip: 209.85.216.46, mailfrom: thomas.epperson@gmail.com)
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-2d8a7c50607so2893181a91.1
+        for <poky@lists.yoctoproject.org>; Mon, 23 Sep 2024 08:08:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1726557515; x=1727162315; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hwfC7Cq1Kk2uqo7/ExsO8jPTwdRdhTjPtihrSNnI0Lo=;
-        b=GqXU9Bs2WcIku+bVkGQ+e3v1ihRdHoWd36Z/fF3E4Lo9JDqk8a1HBqZNEO12OsmoHd
-         nANBLiumK+NvSFx14cU6oqdINNTs8BR2wmUUJiCQsr3+5/2h3soeoQ25HCcNI5kBiO55
-         8PIAVHcRmLp26Bcf3XgtaSF14AVug0eRqU6M4=
+        d=gmail.com; s=20230601; t=1727104120; x=1727708920; darn=lists.yoctoproject.org;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=8ZRxXBw0kTZHpeKoYkO72gTMpUNze3hBYwk3cOsY64c=;
+        b=VUWj5Ns0ePjyJghD+BeZecC6KjKdezt1DQ6ZzwAtQntoV5VauLAtzXzqsXIMZPycG0
+         dqJDhpylXOKvD7WVZs55P4pKvCulEW8QKNMYpiXCMJNn/CYO3nfHmHxp8fR78KUNa7vu
+         o5YwdP2Zu0ZqpdfAuCGew+vuq06n7rJ8XXEdqd3jHqVOv/uXsSTTyhFFyc5M1b+CGLAj
+         bLN4j9prs8tEuNAisYyrKLcPXWQ06/bId1ywXXLuhuQpu4zdLZqAit1CIBVKRH7H/7e4
+         dPRBrZQxrglJSnkt8+nmXyLbG6Ow52chPfFv2RlR4t+78qmjPT9x9rMZwq3Ui7lAVg+P
+         fSjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1726557515; x=1727162315;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hwfC7Cq1Kk2uqo7/ExsO8jPTwdRdhTjPtihrSNnI0Lo=;
-        b=cyzK03VVAQjg07ap1ylzVvbCp9uHROfzMvvwKfQWtbeBdAk8rvaVKjGy0+6VRi9HrV
-         ugxg/gnVJ6tL1MVLA7YPYy00SxtD2ODpOgpG6l1mhCCgmamWmeSBwDxUk3PBJPBEeVPZ
-         vKJchcMqDq1jETSDjRqzyPXXJJ6E0X/ti09Al+rKGzuNpxFU1hCDxKE95ho2/2KtK84f
-         l11FW4K+zWxJYa13xScGU71WixmquUBph8Q5BofXQ7QwvhG7g9rPjUSOIjc8veOFVAJD
-         ARsk4hxHEj4fpEVDGPhmwKZMwRM4U8mQ1wj4MXNMKNRKdE4VFLO0KrqJ+itNy4NvGVzd
-         xb8A==
-X-Gm-Message-State: AOJu0YylejyHS9KfUWpJSRcXljZ9n7/rj/KUsgFFDBzbbWo77H6SbrJI
-	wp1Fum5q0XoR6mJg5tzdZYsqZteCvJilzdJxzMj86rMKtoZM7P4aJx8bet39mIB7mJd7Jxcbya0
-	l
-X-Google-Smtp-Source: AGHT+IHoi3GVi0FHQZkqm/v2FnFyXVqTvSglbtKz082TLO4CRt0rvpsJ6oHPG4osgN1PQLriZ4V6ew==
-X-Received: by 2002:a05:6000:1292:b0:364:6c08:b9b2 with SMTP id ffacd0b85a97d-378d623badfmr7711998f8f.45.1726557514843;
-        Tue, 17 Sep 2024 00:18:34 -0700 (PDT)
-Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:7c97:abb4:726a:74dd])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-378e73f9a17sm8752136f8f.64.2024.09.17.00.18.34
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Sep 2024 00:18:34 -0700 (PDT)
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: poky@lists.yoctoproject.org
-Subject: [PATCH] poky-tiny: Drop TCLIBCAPPEND
-Date: Tue, 17 Sep 2024 08:18:33 +0100
-Message-ID: <20240917071833.3558105-1-richard.purdie@linuxfoundation.org>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20230601; t=1727104120; x=1727708920;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8ZRxXBw0kTZHpeKoYkO72gTMpUNze3hBYwk3cOsY64c=;
+        b=vmrgoa6om1yBMUD6wI9JPArnzlyZXap6JWKCVx2I/PgY0DvZd6kytOoKciyszptAiL
+         H/+B42xbG6Y4CJ+RL5cj8qRuSsMLTpGLhyFEXSdNvVTS8XpW9Ach22zhFzmeTSXVsrnm
+         wn99IkSzaEo30Q/e9+hHdv3o5HhSo7jngg+GStm/YjDjR3Q7pRWlNsEKuZ224DvFD/sG
+         7AAp5f4mnzDMSdNi96N/V7oZeUjVglaszryYOpBcRs09Zw7VhH5ps4Za/et3UZ3WoGFq
+         Yp+B44tOa11qCQnkohoyDV4mGrZ7lLe3ey7c21JQhduakbENA8Oxp/7jhY7CSX433b3g
+         Mk8Q==
+X-Gm-Message-State: AOJu0YwMXaTz9Qch5IxltbX1OOuzOeJgF1aXbmIYSnFMmPc6PJw0lsFO
+	bfuGNE/1mppaCrSThtLtT9HtLamnQYDYLe1DkL1qsaPAmLrlXyxPYjwvMPJvSjN1zEWT8qcXxp1
+	RdUw3P0rFwvr7G1eiJoJWVaD3eoZk+GQw
+X-Google-Smtp-Source: AGHT+IHPEAwz/Uqt420OjiNPwRTmCyi9zhL/yuBYhbODcrAfmiRzq1FpwC48YYaNcER8leYz/OJ4sQOe1Mt9gB/qaK0=
+X-Received: by 2002:a17:90b:4a8d:b0:2d3:ce76:4af2 with SMTP id
+ 98e67ed59e1d1-2dd80c4cb43mr13745290a91.18.1727104119703; Mon, 23 Sep 2024
+ 08:08:39 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Thomas Epperson <thomas.epperson@gmail.com>
+Date: Mon, 23 Sep 2024 10:08:28 -0500
+Message-ID: <CAKHbFk2SJ9nGjbVkqG-birNnPzK=Rx9j8b+BJsCOqLT=yRxyMQ@mail.gmail.com>
+Subject: cargo patch override
+To: poky@lists.yoctoproject.org
+Content-Type: multipart/mixed; boundary="0000000000008bb7da0622cac35e"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 17 Sep 2024 07:18:47 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13442
+ <poky@lists.yoctoproject.org>; Mon, 23 Sep 2024 15:08:45 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13443
 
-This is no longer needed/supported. That solves the FIXME I guess!
+--0000000000008bb7da0622cac35e
+Content-Type: multipart/alternative; boundary="0000000000008bb7d90622cac35c"
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- meta-poky/conf/distro/poky-tiny.conf | 3 ---
- 1 file changed, 3 deletions(-)
+--0000000000008bb7d90622cac35c
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
-index 29588e49130..fd17097b56d 100644
---- a/meta-poky/conf/distro/poky-tiny.conf
-+++ b/meta-poky/conf/distro/poky-tiny.conf
-@@ -51,9 +51,6 @@ PREFERRED_VERSION_linux-yocto-tiny ?= "6.10%"
- # Drop kernel-module-af-packet from RRECOMMENDS
- POKY_DEFAULT_EXTRA_RRECOMMENDS = ""
- 
--# FIXME: what should we do with this?
--TCLIBCAPPEND = ""
--
- # Disable wide char support for ncurses as we don't include it in
- # in the LIBC features below.
- # Leave native enable to avoid build failures
+Some crates when built from git require additional handling in the
+cargo_common bbclass because there is more than one crate in the git
+repository (egui and related crates in my case).
+
+I'm open to the special variable being a different name if something else
+makes more sense.
+
+I wanted to get initial thoughts before I added the documentation updates
+for the class change.
+
+
+-- 
+Thomas Epperson
+Build a man a fire, and he'll be warm for a day. Set a man on fire, and
+he'll be warm for the rest of his life. - Terry Pratchett.
+
+--0000000000008bb7d90622cac35c
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Some crates when built from git require additional ha=
+ndling in the=20
+cargo_common bbclass because there is more than one crate in the git=20
+repository (egui and related crates in my case).</div><div><br></div><div>I=
+&#39;m open to the special variable being a different name if something els=
+e makes more sense.<br></div><div><br></div><div>I wanted to get initial th=
+oughts before I added the documentation updates for the class change.<font =
+color=3D"#888888"><br></font></div><br clear=3D"all"><br><span class=3D"gma=
+il_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signatur=
+e" data-smartmail=3D"gmail_signature">Thomas Epperson<br>Build a man a fire=
+, and he&#39;ll be warm for a day. Set a man on fire, and he&#39;ll be warm=
+ for the rest of his life. - Terry Pratchett.</div></div>
+
+--0000000000008bb7d90622cac35c--
+
+--0000000000008bb7da0622cac35e
+Content-Type: text/x-patch; charset="US-ASCII"; 
+	name="0001-cargo-Add-ability-to-override-the-patch-elements.patch"
+Content-Disposition: attachment; 
+	filename="0001-cargo-Add-ability-to-override-the-patch-elements.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_m1f56w9v0>
+X-Attachment-Id: f_m1f56w9v0
+
+RnJvbSBjMTY2MDM1YWIwOGZhZWFiM2NlZTc5Y2RkYWE0Y2E1OWI2MGFlYzcxIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBUaG9tYXMgRXBwZXJzb24gPHRob21hcy5lcHBlcnNvbkBnbWFp
+bC5jb20+CkRhdGU6IE1vbiwgMjMgU2VwIDIwMjQgMDk6NTg6MDYgLTA1MDAKU3ViamVjdDogW1BB
+VENIXSBjYXJnbzogQWRkIGFiaWxpdHkgdG8gb3ZlcnJpZGUgdGhlIHBhdGNoIGVsZW1lbnRzCgot
+LS0KIG1ldGEvY2xhc3Nlcy1yZWNpcGUvY2FyZ29fY29tbW9uLmJiY2xhc3MgfCAxMSArKysrKysr
+KystLQogMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRp
+ZmYgLS1naXQgYS9tZXRhL2NsYXNzZXMtcmVjaXBlL2NhcmdvX2NvbW1vbi5iYmNsYXNzIGIvbWV0
+YS9jbGFzc2VzLXJlY2lwZS9jYXJnb19jb21tb24uYmJjbGFzcwppbmRleCBjNTI4YWU3ZjM5Li5j
+OWQxODExZDM1IDEwMDY0NAotLS0gYS9tZXRhL2NsYXNzZXMtcmVjaXBlL2NhcmdvX2NvbW1vbi5i
+YmNsYXNzCisrKyBiL21ldGEvY2xhc3Nlcy1yZWNpcGUvY2FyZ29fY29tbW9uLmJiY2xhc3MKQEAg
+LTE1Niw4ICsxNTYsMTUgQEAgcHl0aG9uIGNhcmdvX2NvbW1vbl9kb19wYXRjaF9wYXRocygpIHsK
+ICAgICB3aXRoIG9wZW4oY2FyZ29fY29uZmlnLCAiYSsiKSBhcyBjb25maWc6CiAgICAgICAgIGZv
+ciBrLCB2IGluIHBhdGNoZXMuaXRlbXMoKToKICAgICAgICAgICAgIHByaW50KCdcbltwYXRjaC4i
+JXMiXScgJSBrLCBmaWxlPWNvbmZpZykKLSAgICAgICAgICAgIGZvciBuYW1lIGluIHY6Ci0gICAg
+ICAgICAgICAgICAgcHJpbnQobmFtZSwgZmlsZT1jb25maWcpCisgICAgICAgICAgICBzcGVjaWFs
+ID0gZC5nZXRWYXIoJ1JVU1RTUEVDSUFMQ1JBVEVTXyVzJyAlIGspCisgICAgICAgICAgICBpZiBz
+cGVjaWFsIGlzIG5vdCBOb25lOgorICAgICAgICAgICAgICAgIHNwZWNpYWxzID0gc3BlY2lhbC5z
+cGxpdCgnLCcpCisgICAgICAgICAgICAgICAgZm9yIHMgaW4gc3BlY2lhbHM6CisgICAgICAgICAg
+ICAgICAgCXNzID0gcy5zcGxpdCgnOicpCisgICAgICAgICAgICAgICAgCXByaW50KCclcyA9IHsg
+cGF0aCA9ICIlcyIgfScgJSAoc3NbMF0sIG9zLnBhdGguam9pbih3b3JrZGlyLCBkZXN0c3VmZml4
+LCBzc1sxXSkpLCBmaWxlPWNvbmZpZykKKyAgICAgICAgICAgIGVsc2U6CisgICAgICAgICAgICAg
+ICAgZm9yIG5hbWUgaW4gdjoKKyAgICAgICAgICAgICAgICAgICAgcHJpbnQobmFtZSwgZmlsZT1j
+b25maWcpCiAKICAgICBpZiBub3QgcGF0Y2hlczoKICAgICAgICAgcmV0dXJuCi0tIAoyLjM0LjEK
+Cg==
+--0000000000008bb7da0622cac35e--
 
