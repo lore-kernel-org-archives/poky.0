@@ -1,87 +1,91 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F39FCF9C71
-	for <webhook@archiver.kernel.org>; Tue, 24 Sep 2024 08:06:32 +0000 (UTC)
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
- by mx.groups.io with SMTP id smtpd.web11.8616.1727165184634152100
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B803CE7D01
+	for <webhook@archiver.kernel.org>; Tue,  1 Oct 2024 09:41:18 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+ by mx.groups.io with SMTP id smtpd.web11.77455.1727775673204298151
  for <poky@lists.yoctoproject.org>;
- Tue, 24 Sep 2024 01:06:24 -0700
+ Tue, 01 Oct 2024 02:41:13 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=b9NEGLYp;
- spf=pass (domain: gmail.com, ip: 209.85.167.49, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5365aec6fc1so5582765e87.3
-        for <poky@lists.yoctoproject.org>; Tue, 24 Sep 2024 01:06:24 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=JXv+tcw1;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.46, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-42cafda818aso50924545e9.2
+        for <poky@lists.yoctoproject.org>; Tue, 01 Oct 2024 02:41:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1727165183; x=1727769983; darn=lists.yoctoproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=rC8pfTzmK7FcuFx4taric2z6CY8Pl47oLBR7kfHYSNQ=;
-        b=b9NEGLYpCRJNDPi4n/HHvWvLFF51hxUWeXgvZmShT1Fod2vvaDZZU3hT52PZS/p/57
-         HaetfEAAsbdxMBvtT+Q5Ox2a9uCMI9E6Y9XwGuQI3MAJceub9VqLa2ZxknABtmfX9KD1
-         W+2bbhEr3wds3wJdbBCZdrc3i1jLBJbqwP5JxAxmNHUJvfrA2s0xwaSi+QGkxthNszfm
-         pVWrn26l1Pvo0NR56yl4/BNDod4b4aj6/xIgJi+tsPvolsQ4MUX1JaFb4I3+KCrnJWmK
-         Fasdnl3aIszsWtasEbZEMBIvKQ/ICJL/oj4tszeHbCKJmZXksozcXeOEeysBy/2rZ1s9
-         wRdg==
+        d=linuxfoundation.org; s=google; t=1727775671; x=1728380471; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=29OvKWg/QuOErKJNDsZKSIZWsV82QJATb7/1ogSJMMw=;
+        b=JXv+tcw1gKrcHtr5nqW3S3sXISxRXGVwmUV5Dwr/CPEIe1EQ9ePtQk7+aPgJg+MoLX
+         bKL8EfwltUYyZhHDFUSr9LQJWUFMfREcXTM4fiyBXHB+eBREJgx9zHRPzjmGyVpfurxW
+         J/GWRdORXwUEpxg2pYsZ6lJ4O3fltX4TuAoQo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1727165183; x=1727769983;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rC8pfTzmK7FcuFx4taric2z6CY8Pl47oLBR7kfHYSNQ=;
-        b=IILbtRlDAwdCCQXWDn5HXM642CfOBXGog4Pbz1wFuMkLwl2JUp/jdbdMK8HFSU4ijf
-         rtZ6KXV4SIMSLu7+HVx7BjswATS6QuQNlxXqmM27dQNeZM8XYyreDo0BAwKbHR2noHOh
-         jE1VeZDEc7TLhfQsTEJqhJN09rv4P7lmJG1KGMImsN0G3dllhWQLrKTeNZTWp2ui0SHQ
-         IlKhDH4t/wIljpeNZ7w+XujaRNFUH+qIsxEKuPNjuqaUuNhRf4fkevwhBN/mly1lMC/K
-         iJwq8oSgWAoNh/w9b5NOqn57VQowsqqJMXSgU4GWLSAyd4vNqsckYe2jwPkNyJ/KXf/0
-         l46Q==
-X-Gm-Message-State: AOJu0Yy/EkV9J+AglNfEROnge+xnpD4+nhEcnUVhnFxu+ZLA6Vci+3k/
-	6Vc+SjGfNc9EREXjHYZ7Ir/Zy5kJIFwvO0urtv2ILaeXJhnH8rHDllBBhHgBS/7EkchZGtbrSk5
-	ejpm37LEX9CaAaq8skdzRBKSSW4w=
-X-Google-Smtp-Source: AGHT+IFfNKjSJLMFjKfv6TDwS9XB3i47f2IIX7qjtjCVl63JpaFS7sfnyyl3t9u6sqblJd9muz3GzGbi5Mh03m3uVn8=
-X-Received: by 2002:a05:6512:1110:b0:536:7ccf:cb12 with SMTP id
- 2adb3069b0e04-536ac3409a6mr6679859e87.58.1727165182485; Tue, 24 Sep 2024
- 01:06:22 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1727775671; x=1728380471;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=29OvKWg/QuOErKJNDsZKSIZWsV82QJATb7/1ogSJMMw=;
+        b=KkyFv3mePEZUziqE3kAvSTwPyBzcMcXn7tj6caPgk0vdYTRYi3BEfRUiXfc9DQURjn
+         tBiHoeRN3aKziiT4ZlGZF8Q1eKUwG7qu3pI4KPCoOHc0miehkGB7vO6TEgs3xsFxDBE4
+         PlHLBCyMGGd0zG+lWLnyW9lPZmTAfhLXonasJcI0sb4/pVG05Hs74jIYFd7+/y8d9y5C
+         Q1wpq43gcW3Aynw1MnS2hGQG57LIx34fLmMFMcdIWsd7GxoAXtYMH+yGVcd3OkoC5ezq
+         THOUa0PzuzCrbRy9wto7dYgrlvuRVYQ8wye6wpK8huNy1Anf5EFjq1TypYzXp52ubo50
+         5+uA==
+X-Gm-Message-State: AOJu0YwXA9KLhdtKO4TTbR+wIm9FxqPa8uMaQuSxxI7fre0ddJxy5C9a
+	kZ2McufP3oM6YdUvRCgBtJwtVam03qJxDLWKtNKP3jJzDD1Zo7OOLplCMvWbAfychWnLlXOEs1l
+	Z
+X-Google-Smtp-Source: AGHT+IFUJDbw3Fu72doNZGXUEGejq0xdmhVOelk+K57Pd22RizuXdB08STCAJjt2eAi7OswsV/ghSg==
+X-Received: by 2002:a05:600c:190d:b0:42c:d74b:eb26 with SMTP id 5b1f17b1804b1-42f5844ce98mr121145715e9.21.1727775670958;
+        Tue, 01 Oct 2024 02:41:10 -0700 (PDT)
+Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:85a4:e3cc:bdf8:640d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-42f57dec110sm128806415e9.25.2024.10.01.02.41.10
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Oct 2024 02:41:10 -0700 (PDT)
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH] layer.conf: Update to new release series
+Date: Tue,  1 Oct 2024 10:41:09 +0100
+Message-ID: <20241001094109.2862936-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <CAKHbFk2SJ9nGjbVkqG-birNnPzK=Rx9j8b+BJsCOqLT=yRxyMQ@mail.gmail.com>
- <30082.1727124849235538032@lists.yoctoproject.org>
-In-Reply-To: <30082.1727124849235538032@lists.yoctoproject.org>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Tue, 24 Sep 2024 10:06:10 +0200
-Message-ID: <CANNYZj87wNcEcaLwDjvv_bJ+S=qHB3QzzZ-jFk8NNgmSXgJKVg@mail.gmail.com>
-Subject: Re: [poky] cargo patch override
-To: Emmanuel_Jee@trimble.com, thomas.epperson@gmail.com
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 24 Sep 2024 08:06:32 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13445
+ <poky@lists.yoctoproject.org>; Tue, 01 Oct 2024 09:41:18 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13446
 
-Hello,
+Switch styhead -> walnascar post release.
 
-sending patches as attachments to poky list will not get the needed
-attention to the problem/solution. The correct way is to use
-openembedded-core list, and send patches as emails (e.g. git
-send-email).
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/conf/layer.conf      | 2 +-
+ meta-yocto-bsp/conf/layer.conf | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Alex
-
-On Mon, 23 Sept 2024 at 22:54, Emmanuel_Jee via lists.yoctoproject.org
-<Emmanuel_Jee=trimble.com@lists.yoctoproject.org> wrote:
->
-> Running into the same issue when using bitbake with a repo with multiple crates.  We had to add a 'cratedir' parameter to temporarily work around this problem.  We can try your patch
->
-> - Emmanuel Jee
->
-> -=-=-=-=-=-=-=-=-=-=-=-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13444): https://lists.yoctoproject.org/g/poky/message/13444
-> Mute This Topic: https://lists.yoctoproject.org/mt/108609661/1686489
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gmail.com]
-> -=-=-=-=-=-=-=-=-=-=-=-
->
+diff --git a/meta-poky/conf/layer.conf b/meta-poky/conf/layer.conf
+index 289ae48bbd5..483046b6d36 100644
+--- a/meta-poky/conf/layer.conf
++++ b/meta-poky/conf/layer.conf
+@@ -9,7 +9,7 @@ BBFILE_COLLECTIONS += "yocto"
+ BBFILE_PATTERN_yocto = "^${LAYERDIR}/"
+ BBFILE_PRIORITY_yocto = "5"
+ 
+-LAYERSERIES_COMPAT_yocto = "styhead"
++LAYERSERIES_COMPAT_yocto = "walnascar"
+ 
+ # This should only be incremented on significant changes that will
+ # cause compatibility issues with other layers
+diff --git a/meta-yocto-bsp/conf/layer.conf b/meta-yocto-bsp/conf/layer.conf
+index 0ebf1c4f763..f229cdec5ee 100644
+--- a/meta-yocto-bsp/conf/layer.conf
++++ b/meta-yocto-bsp/conf/layer.conf
+@@ -9,4 +9,4 @@ BBFILE_COLLECTIONS += "yoctobsp"
+ BBFILE_PATTERN_yoctobsp = "^${LAYERDIR}/"
+ BBFILE_PRIORITY_yoctobsp = "5"
+ LAYERVERSION_yoctobsp = "4"
+-LAYERSERIES_COMPAT_yoctobsp = "styhead"
++LAYERSERIES_COMPAT_yoctobsp = "walnascar"
 
