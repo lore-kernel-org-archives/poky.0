@@ -1,136 +1,125 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <yumx@amazon.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B1BECF8866
-	for <webhook@archiver.kernel.org>; Sat,  5 Oct 2024 00:30:24 +0000 (UTC)
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
- by mx.groups.io with SMTP id smtpd.web11.2968.1728088219488947279
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 23C67CF8868
+	for <webhook@archiver.kernel.org>; Sat,  5 Oct 2024 00:37:54 +0000 (UTC)
+Received: from smtp-fw-52005.amazon.com (smtp-fw-52005.amazon.com [52.119.213.156])
+ by mx.groups.io with SMTP id smtpd.web11.3082.1728088669070241566
  for <poky@lists.yoctoproject.org>;
- Fri, 04 Oct 2024 17:30:19 -0700
+ Fri, 04 Oct 2024 17:37:49 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=ErcwNt1D;
- spf=pass (domain: gmail.com, ip: 209.85.160.47, mailfrom: raj.khem@gmail.com)
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-27e1f62e30eso1479359fac.0
-        for <poky@lists.yoctoproject.org>; Fri, 04 Oct 2024 17:30:19 -0700 (PDT)
+ dkim=pass header.i=@amazon.com header.s=amazon201209 header.b=udAjtPXh;
+ spf=pass (domain: amazon.com, ip: 52.119.213.156, mailfrom: prvs=00128c0f3=yumx@amazon.com)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1728088219; x=1728693019; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=W88EjXbOsge8/sP28Wg/TP2DGrnnzTEDbXgahnQmzCY=;
-        b=ErcwNt1D80WkLqcCHyaYaiHRXsJ+5PPm7HfeAsz4hUau4dyZWP11zj/UyKsgML7w46
-         NjUp1Dnxzdp6c4xi0r0nTz7gtopAnwRQMlCg7crzHaLl0Bp+hIyp7GdFg2ZPm4MT2Lrj
-         JKLmPqOYyAT9ua+oG4Q2YcrgST5uMeZ8BBQequM3e0SFqaJtcR26t6nLaLi6dFSOOWMU
-         i1sw30EaUG2YdmzNDUctpNcM+vtvFHrPyjug93UfXnej2x2XjyBWliC9qWni0uv7pg3k
-         9UkVOpcRAk/O5dmkZKwoAyGydK9Pl16ltubqQQizR7QgJPhO1GbIX9quyFlmSoIRWMeA
-         YUbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1728088219; x=1728693019;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=W88EjXbOsge8/sP28Wg/TP2DGrnnzTEDbXgahnQmzCY=;
-        b=mUWAvALS1olu7omgGCCAT3MiNmdoMN2m/00e6YZW5Yg8Pf5u4DXs6DygvOnqa+uSxO
-         qvHM0gqCiRkC+XoL2bzKOiYjWHSrFsEohu/FKGwQqdJeuCACJTKHVC0V1XfMCc52iYF4
-         Kvx4ywyBnJi2qt/Obkk+beg5K9DqPgzD2FHKyE52Zi6kMkdc11UanDQmajKVVc4Wt4ak
-         WBi1YCmsm7aUo58NWRGvRT8Hs6NdKfkLiGefUkn+km7ah1vzuiTOmw2az/kSPLL6FMzh
-         7gUcoYe4usUSO4kF+NBj4DCQhjw3JkRu+Kxe+H42EK/94kYj+RzSg4dtk1BkE1tTU8g2
-         r/pg==
-X-Gm-Message-State: AOJu0Yzg5e0WKB1tJRcNdA+Uj8erv19kfd0hMF1kLWNondmf17dHiV7b
-	PRKs8gMlB8OZ/EejHfyyUIgXsYq14uhGilopUePH5kiqa9mS2G0C4EuRawHwzKTCW6ML/Mp3juU
-	oKoIPDLD1NiW2/0p3atFRxTEyxOQ=
-X-Google-Smtp-Source: AGHT+IGNk5JeJxgt0qsUttQ4JWkgvj3S5c7BDDS4pVD3aZ9grsi0EFEQHdF0qUUwnifNwCZBa3fWgiXm/ZuKGVB5lIM=
-X-Received: by 2002:a05:6870:494f:b0:265:b32b:c465 with SMTP id
- 586e51a60fabf-287a3e35cb5mr5434105fac.9.1728088218741; Fri, 04 Oct 2024
- 17:30:18 -0700 (PDT)
-MIME-Version: 1.0
-References: <20241005001606.51818-1-yumx@amazon.com>
-In-Reply-To: <20241005001606.51818-1-yumx@amazon.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Fri, 4 Oct 2024 17:29:52 -0700
-Message-ID: <CAMKF1sqdvShd4N7RLSf-K+6sNKybzrBfASF_Pq4yHBa3WZz1sw@mail.gmail.com>
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1728088669; x=1759624669;
+  h=from:to:cc:date:message-id:references:in-reply-to:
+   content-id:content-transfer-encoding:mime-version:subject;
+  bh=XhhUw5jUJNbVMVBziXJDAIkGefbVR5QuEHC5lwS0gXQ=;
+  b=udAjtPXhwPcGBderNboXr9FqAKCuIb/TzuMrGIoHWOIoX71Tsj1N9WqX
+   IRicfgKRmfY4TTkaW158Q0YBzap2CvsgnpUPikTGSEs6AKSaNJi4qFWMe
+   zc0PHJLRmvjFNXuoQNaDxBFfcOTHVFCX09F7/9OnP2CuxJcFEns33lCjS
+   Y=;
+X-IronPort-AV: E=Sophos;i="6.11,178,1725321600"; 
+   d="scan'208";a="685250852"
 Subject: Re: [poky] [PATCH] sstate: remove corrupted artifacts from local mirror
-To: yumx@amazon.com
-Cc: poky@lists.yoctoproject.org, Przemyslaw Sobon <psobon@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thread-Topic: [poky] [PATCH] sstate: remove corrupted artifacts from local mirror
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO smtpout.prod.us-west-2.prod.farcaster.email.amazon.dev) ([10.43.8.6])
+  by smtp-border-fw-52005.iad7.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2024 00:37:48 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [10.0.38.20:27951]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.18:2525] with esmtp (Farcaster)
+ id c53ebe56-ac9c-44c8-8a36-97693752ca88; Sat, 5 Oct 2024 00:37:47 +0000 (UTC)
+X-Farcaster-Flow-ID: c53ebe56-ac9c-44c8-8a36-97693752ca88
+Received: from EX19D007UWA001.ant.amazon.com (10.13.138.244) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1258.34;
+ Sat, 5 Oct 2024 00:37:47 +0000
+Received: from EX19D020UWC002.ant.amazon.com (10.13.138.147) by
+ EX19D007UWA001.ant.amazon.com (10.13.138.244) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1258.34;
+ Sat, 5 Oct 2024 00:37:47 +0000
+Received: from EX19D020UWC002.ant.amazon.com ([fe80::25b5:6dfd:9e72:d82]) by
+ EX19D020UWC002.ant.amazon.com ([fe80::25b5:6dfd:9e72:d82%5]) with mapi id
+ 15.02.1258.034; Sat, 5 Oct 2024 00:37:47 +0000
+From: "Yu, Max" <yumx@amazon.com>
+To: Khem Raj <raj.khem@gmail.com>
+CC: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>, "Sobon,
+ Przemyslaw" <psobon@amazon.com>
+Thread-Index: AQHbFrvHxFXkNYQJL0+iXOKdEGsa7LJ3TesA//+M3AA=
+Date: Sat, 5 Oct 2024 00:37:47 +0000
+Message-ID: <24BA91DB-1797-484B-9578-0CFE6A9A8FDD@amazon.com>
+References: <20241005001606.51818-1-yumx@amazon.com>
+ <CAMKF1sqdvShd4N7RLSf-K+6sNKybzrBfASF_Pq4yHBa3WZz1sw@mail.gmail.com>
+In-Reply-To: <CAMKF1sqdvShd4N7RLSf-K+6sNKybzrBfASF_Pq4yHBa3WZz1sw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.106.239.32]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C0074DB5AC641443A0DC0118C73FDE34@amazon.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Sat, 05 Oct 2024 00:30:24 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13450
+ <poky@lists.yoctoproject.org>; Sat, 05 Oct 2024 00:37:54 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13451
 
-On Fri, Oct 4, 2024 at 5:16=E2=80=AFPM Yu, Max via lists.yoctoproject.org
-<yumx=3Damazon.com@lists.yoctoproject.org> wrote:
->
-> We observe sstate cache corruptions sometimes which cause rebuilds. That =
-is not
-> a fatal error as the package has to be rebuilt and updated artifact needs=
- to be
-> pushed to remote sstate cache mirror. Currently, Yocto does not handle
-> corruptions properly, where the corrupted artifact is not deleted or
-> renamed. Later, after the package is built the same corrupted artifact is=
- pushed
-> to remote mirror and the same procedure is circled again and again.
->
-> This change verifies the outcome of the unpacking action and renames the
-> artifact if a fatal error occurred ("tar" tool returns error 2). In such =
-case we
-> rename the artifact what causes that a proper one is created and uploaded
-> overwriting the exisiting one - the corrupted one - in the remote mirror.=
- That
-> way we break the loop of uploading corrupted file again and again.
->
-
-Thanks for contributing and trying to make the yocto project better.
-I think the patch seems ok to me. However, please send it to
-openembedded-core mailing list
-openembedded-core@lists.openembedded.org since this is part of oe-core
-which poky uses.
-I would also suggest to peruse through -
-https://docs.yoctoproject.org/dev/contributor-guide/submit-changes.html
-
-> Suggested-by: Przemyslaw Sobon <psobon@amazon.com>
-> Signed-off-by: Max Yu <yumx@amazon.com>
-> ---
->  meta/classes-global/sstate.bbclass | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/meta/classes-global/sstate.bbclass b/meta/classes-global/sst=
-ate.bbclass
-> index 11bb892a42..5a7ce35341 100644
-> --- a/meta/classes-global/sstate.bbclass
-> +++ b/meta/classes-global/sstate.bbclass
-> @@ -937,7 +937,12 @@ sstate_unpack_package () {
->                 ZSTD=3D"pzstd -p ${ZSTD_THREADS}"
->         fi
->
-> -       tar -I "$ZSTD" -xvpf ${SSTATE_PKG}
-> +       if ! tar -I "$ZSTD" -xvpf ${SSTATE_PKG}; then
-> +               echo "Fatal error extracting sstate cache artifacts, file=
- might be corrupted or truncated, renaming"
-> +               mv ${SSTATE_PKG} ${SSTATE_PKG}.unpack_error
-> +               exit 2
-> +       fi
-> +
->         # update .siginfo atime on local/NFS mirror if it is a symbolic l=
-ink
->         [ ! -h ${SSTATE_PKG}.siginfo ] || [ ! -e ${SSTATE_PKG}.siginfo ] =
-|| touch -a ${SSTATE_PKG}.siginfo 2>/dev/null || true
->         # update each symbolic link instead of any referenced file
-> --
-> 2.40.1
->
->
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13449): https://lists.yoctoproject.org/g/poky/message=
-/13449
-> Mute This Topic: https://lists.yoctoproject.org/mt/108827961/1997914
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [raj.khem@gmail.=
-com]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
+R290Y2hhLCB3aWxsIGRvLCB0aGFua3MhDQoNCk1heA0KDQoNCu+7v09uIDEwLzQvMjQsIDU6MzAg
+UE0sICJwb2t5QGxpc3RzLnlvY3RvcHJvamVjdC5vcmcgPG1haWx0bzpwb2t5QGxpc3RzLnlvY3Rv
+cHJvamVjdC5vcmc+IG9uIGJlaGFsZiBvZiBLaGVtIFJhaiIgPHBva3lAbGlzdHMueW9jdG9wcm9q
+ZWN0Lm9yZyA8bWFpbHRvOnBva3lAbGlzdHMueW9jdG9wcm9qZWN0Lm9yZz4gb24gYmVoYWxmIG9m
+IHJhai5raGVtQGdtYWlsLmNvbSA8bWFpbHRvOnJhai5raGVtQGdtYWlsLmNvbT4+IHdyb3RlOg0K
+DQoNCkNBVVRJT046IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgb2YgdGhlIG9y
+Z2FuaXphdGlvbi4gRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0YWNobWVudHMgdW5sZXNz
+IHlvdSBjYW4gY29uZmlybSB0aGUgc2VuZGVyIGFuZCBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUu
+DQoNCg0KDQoNCg0KDQpPbiBGcmksIE9jdCA0LCAyMDI0IGF0IDU6MTYgUE0gWXUsIE1heCB2aWEg
+bGlzdHMueW9jdG9wcm9qZWN0Lm9yZw0KPHl1bXg9YW1hem9uLmNvbUBsaXN0cy55b2N0b3Byb2pl
+Y3Qub3JnIDxtYWlsdG86YW1hem9uLmNvbUBsaXN0cy55b2N0b3Byb2plY3Qub3JnPj4gd3JvdGU6
+DQo+DQo+IFdlIG9ic2VydmUgc3N0YXRlIGNhY2hlIGNvcnJ1cHRpb25zIHNvbWV0aW1lcyB3aGlj
+aCBjYXVzZSByZWJ1aWxkcy4gVGhhdCBpcyBub3QNCj4gYSBmYXRhbCBlcnJvciBhcyB0aGUgcGFj
+a2FnZSBoYXMgdG8gYmUgcmVidWlsdCBhbmQgdXBkYXRlZCBhcnRpZmFjdCBuZWVkcyB0byBiZQ0K
+PiBwdXNoZWQgdG8gcmVtb3RlIHNzdGF0ZSBjYWNoZSBtaXJyb3IuIEN1cnJlbnRseSwgWW9jdG8g
+ZG9lcyBub3QgaGFuZGxlDQo+IGNvcnJ1cHRpb25zIHByb3Blcmx5LCB3aGVyZSB0aGUgY29ycnVw
+dGVkIGFydGlmYWN0IGlzIG5vdCBkZWxldGVkIG9yDQo+IHJlbmFtZWQuIExhdGVyLCBhZnRlciB0
+aGUgcGFja2FnZSBpcyBidWlsdCB0aGUgc2FtZSBjb3JydXB0ZWQgYXJ0aWZhY3QgaXMgcHVzaGVk
+DQo+IHRvIHJlbW90ZSBtaXJyb3IgYW5kIHRoZSBzYW1lIHByb2NlZHVyZSBpcyBjaXJjbGVkIGFn
+YWluIGFuZCBhZ2Fpbi4NCj4NCj4gVGhpcyBjaGFuZ2UgdmVyaWZpZXMgdGhlIG91dGNvbWUgb2Yg
+dGhlIHVucGFja2luZyBhY3Rpb24gYW5kIHJlbmFtZXMgdGhlDQo+IGFydGlmYWN0IGlmIGEgZmF0
+YWwgZXJyb3Igb2NjdXJyZWQgKCJ0YXIiIHRvb2wgcmV0dXJucyBlcnJvciAyKS4gSW4gc3VjaCBj
+YXNlIHdlDQo+IHJlbmFtZSB0aGUgYXJ0aWZhY3Qgd2hhdCBjYXVzZXMgdGhhdCBhIHByb3BlciBv
+bmUgaXMgY3JlYXRlZCBhbmQgdXBsb2FkZWQNCj4gb3ZlcndyaXRpbmcgdGhlIGV4aXNpdGluZyBv
+bmUgLSB0aGUgY29ycnVwdGVkIG9uZSAtIGluIHRoZSByZW1vdGUgbWlycm9yLiBUaGF0DQo+IHdh
+eSB3ZSBicmVhayB0aGUgbG9vcCBvZiB1cGxvYWRpbmcgY29ycnVwdGVkIGZpbGUgYWdhaW4gYW5k
+IGFnYWluLg0KPg0KDQoNClRoYW5rcyBmb3IgY29udHJpYnV0aW5nIGFuZCB0cnlpbmcgdG8gbWFr
+ZSB0aGUgeW9jdG8gcHJvamVjdCBiZXR0ZXIuDQpJIHRoaW5rIHRoZSBwYXRjaCBzZWVtcyBvayB0
+byBtZS4gSG93ZXZlciwgcGxlYXNlIHNlbmQgaXQgdG8NCm9wZW5lbWJlZGRlZC1jb3JlIG1haWxp
+bmcgbGlzdA0Kb3BlbmVtYmVkZGVkLWNvcmVAbGlzdHMub3BlbmVtYmVkZGVkLm9yZyA8bWFpbHRv
+Om9wZW5lbWJlZGRlZC1jb3JlQGxpc3RzLm9wZW5lbWJlZGRlZC5vcmc+IHNpbmNlIHRoaXMgaXMg
+cGFydCBvZiBvZS1jb3JlDQp3aGljaCBwb2t5IHVzZXMuDQpJIHdvdWxkIGFsc28gc3VnZ2VzdCB0
+byBwZXJ1c2UgdGhyb3VnaCAtDQpodHRwczovL2RvY3MueW9jdG9wcm9qZWN0Lm9yZy9kZXYvY29u
+dHJpYnV0b3ItZ3VpZGUvc3VibWl0LWNoYW5nZXMuaHRtbCA8aHR0cHM6Ly9kb2NzLnlvY3RvcHJv
+amVjdC5vcmcvZGV2L2NvbnRyaWJ1dG9yLWd1aWRlL3N1Ym1pdC1jaGFuZ2VzLmh0bWw+DQoNCg0K
+PiBTdWdnZXN0ZWQtYnk6IFByemVteXNsYXcgU29ib24gPHBzb2JvbkBhbWF6b24uY29tIDxtYWls
+dG86cHNvYm9uQGFtYXpvbi5jb20+Pg0KPiBTaWduZWQtb2ZmLWJ5OiBNYXggWXUgPHl1bXhAYW1h
+em9uLmNvbSA8bWFpbHRvOnl1bXhAYW1hem9uLmNvbT4+DQo+IC0tLQ0KPiBtZXRhL2NsYXNzZXMt
+Z2xvYmFsL3NzdGF0ZS5iYmNsYXNzIHwgNyArKysrKystDQo+IDEgZmlsZSBjaGFuZ2VkLCA2IGlu
+c2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4NCj4gZGlmZiAtLWdpdCBhL21ldGEvY2xhc3Nl
+cy1nbG9iYWwvc3N0YXRlLmJiY2xhc3MgYi9tZXRhL2NsYXNzZXMtZ2xvYmFsL3NzdGF0ZS5iYmNs
+YXNzDQo+IGluZGV4IDExYmI4OTJhNDIuLjVhN2NlMzUzNDEgMTAwNjQ0DQo+IC0tLSBhL21ldGEv
+Y2xhc3Nlcy1nbG9iYWwvc3N0YXRlLmJiY2xhc3MNCj4gKysrIGIvbWV0YS9jbGFzc2VzLWdsb2Jh
+bC9zc3RhdGUuYmJjbGFzcw0KPiBAQCAtOTM3LDcgKzkzNywxMiBAQCBzc3RhdGVfdW5wYWNrX3Bh
+Y2thZ2UgKCkgew0KPiBaU1REPSJwenN0ZCAtcCAke1pTVERfVEhSRUFEU30iDQo+IGZpDQo+DQo+
+IC0gdGFyIC1JICIkWlNURCIgLXh2cGYgJHtTU1RBVEVfUEtHfQ0KPiArIGlmICEgdGFyIC1JICIk
+WlNURCIgLXh2cGYgJHtTU1RBVEVfUEtHfTsgdGhlbg0KPiArIGVjaG8gIkZhdGFsIGVycm9yIGV4
+dHJhY3Rpbmcgc3N0YXRlIGNhY2hlIGFydGlmYWN0cywgZmlsZSBtaWdodCBiZSBjb3JydXB0ZWQg
+b3IgdHJ1bmNhdGVkLCByZW5hbWluZyINCj4gKyBtdiAke1NTVEFURV9QS0d9ICR7U1NUQVRFX1BL
+R30udW5wYWNrX2Vycm9yDQo+ICsgZXhpdCAyDQo+ICsgZmkNCj4gKw0KPiAjIHVwZGF0ZSAuc2ln
+aW5mbyBhdGltZSBvbiBsb2NhbC9ORlMgbWlycm9yIGlmIGl0IGlzIGEgc3ltYm9saWMgbGluaw0K
+PiBbICEgLWggJHtTU1RBVEVfUEtHfS5zaWdpbmZvIF0gfHwgWyAhIC1lICR7U1NUQVRFX1BLR30u
+c2lnaW5mbyBdIHx8IHRvdWNoIC1hICR7U1NUQVRFX1BLR30uc2lnaW5mbyAyPi9kZXYvbnVsbCB8
+fCB0cnVlDQo+ICMgdXBkYXRlIGVhY2ggc3ltYm9saWMgbGluayBpbnN0ZWFkIG9mIGFueSByZWZl
+cmVuY2VkIGZpbGUNCj4gLS0NCj4gMi40MC4xDQo+DQo+DQo+DQo+DQoNCg0KDQo=
 
