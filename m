@@ -2,8 +2,8 @@ Return-Path: <jjvazha@yahoo.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 64F88CFC5F6
-	for <webhook@archiver.kernel.org>; Thu, 10 Oct 2024 18:54:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DA4ECFC5F8
+	for <webhook@archiver.kernel.org>; Thu, 10 Oct 2024 18:58:52 +0000 (UTC)
 Subject: ln -rs throws suntax error in do_populate_sysroot:append()
 To: poky@lists.yoctoproject.org
 From: "Jojan" <jjvazha@yahoo.com>
@@ -11,20 +11,22 @@ X-Originating-Location: Irvine, California, US (192.19.222.250)
 X-Originating-Platform: Linux Firefox 131
 User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Date: Thu, 10 Oct 2024 11:54:45 -0700
+Date: Thu, 10 Oct 2024 11:58:46 -0700
 Message-ID: <LpIP.1728586485106072829.hLnO@lists.yoctoproject.org>
+X-Old-Date: Thu, 10 Oct 2024 11:54:45 -0700
 Content-Type: multipart/alternative; boundary="lwzD5bwne5YiHxLjAkEs"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 10 Oct 2024 18:54:52 -0000
+ <poky@lists.yoctoproject.org>; Thu, 10 Oct 2024 18:58:52 -0000
 X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13452
+Message-ID: <20241010185846.R1sSxe-ZZbOoZDVnv-QTC9x7hT60lRCoPNwPSGYAfXE@z>
 
 --lwzD5bwne5YiHxLjAkEs
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-I have a sysroot provide glibc-external
+I have a sysroot provider=C2=A0 glibc-external
 sysroot_stage_dirs function does not stage links=C2=A0 correctly
 in my do_install append I added ln -rs ${D}${libdir} ${D}${prefix_native}/l=
 ib64 =C2=A0 link of lib64 to /usr/lib
@@ -63,10 +65,10 @@ work , becuase it only created empty directory . Any idea why ln command th=
 rows syntax error in do_populate_sysroot:append()
 
 --lwzD5bwne5YiHxLjAkEs
-Content-Type: text/html; charset="utf-8"
+Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-<div>I have a sysroot provide glibc-external</div>
+<div>I have a sysroot provider&nbsp; glibc-external</div>
 <div>sysroot_stage_dirs function does not stage links&nbsp; correctly</div>
 <div>in my do_install append I added ln -rs ${D}${libdir} ${D}${prefix_nati=
 ve}/lib64 &nbsp; link of lib64 to /usr/lib</div>
