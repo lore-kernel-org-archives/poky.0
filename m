@@ -1,173 +1,132 @@
-Return-Path: <michael.krasnyk@gmail.com>
+Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41AA9D3E18D
-	for <webhook@archiver.kernel.org>; Fri, 18 Oct 2024 22:32:55 +0000 (UTC)
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
- by mx.groups.io with SMTP id smtpd.web11.34164.1729290765275302396
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 77632D0E6DD
+	for <webhook@archiver.kernel.org>; Mon, 21 Oct 2024 10:10:47 +0000 (UTC)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+ by mx.groups.io with SMTP id smtpd.web11.42638.1729505443311042209
  for <poky@lists.yoctoproject.org>;
- Fri, 18 Oct 2024 15:32:45 -0700
+ Mon, 21 Oct 2024 03:10:43 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=YrPvyFHi;
- spf=pass (domain: gmail.com, ip: 209.85.160.47, mailfrom: michael.krasnyk@gmail.com)
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-288d74b3a91so1586093fac.0
-        for <poky@lists.yoctoproject.org>; Fri, 18 Oct 2024 15:32:45 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=C4pIs/R+;
+ spf=pass (domain: gmail.com, ip: 209.85.167.53, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-539f6e1f756so4907308e87.0
+        for <poky@lists.yoctoproject.org>; Mon, 21 Oct 2024 03:10:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1729290764; x=1729895564; darn=lists.yoctoproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=7munNqxr9rjSXzDOYZctb9ImrHCkQYzRfgFVjXf76UU=;
-        b=YrPvyFHidheChfhXN6IttAnTmXGEulrn3P2a0I/SHbD7NPFt1dhqujthDF1hMwKxdS
-         savLrOgwdIU84sVjZv8DtsciZc9L1G47hawebSnnuOTEs2tfXEbHpygmeSqbFGFULNC+
-         14Ffa7C/NrZWN6Xt+pIUaleZnFVWe02zq68E6wLRieKhKdBT10TquJdtU+CkNhFQYmby
-         r6X0eOpvWIAtI4evXP5Ov/LTVnOqCGHr3Xc64VOutzdY67M9of9bSM8rXKbfcPYC/MMT
-         AYE/Zn5/vaqtAtzCEIki0P54+SzV81Nzj5BdW7Ph8b8DLQhPKaljAfebSyLFUofTFoe4
-         OoQw==
+        d=gmail.com; s=20230601; t=1729505441; x=1730110241; darn=lists.yoctoproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=xh/Ol7CvzUJ6gXAwRXFiPNoJvurvI8BVGcHrT95wpWA=;
+        b=C4pIs/R+M3z4AX9WJlvSszcSxVyJQVWT0OeaxVYhsb7fnrygsJnEKOfkYeMK2AVUgH
+         UGgjUFJeWxrBlx/+zcE8iRQijwQ4gQn++fsu67CRfoVlN/OZekKaK2UMaGDbb2XAsJyr
+         RWzosBoEwLOYIZgEVlYiqchDUJiLJh6BxCfQMf/kXQ1UslztiPMtIxyqXUo9gshaJ6fa
+         nE3K45N4HZPIG/+H26APXxlvDK9QjMxe6MIBsXJ820HgXAU7qR+jfXD2NG9Aq49vs1yv
+         hZleKWIqyp4KRvb8rpJ83uQedIfzHumeDWEO7glqX+22dYptxbSgDWS7zxs2Gj6ofOm7
+         FHMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1729290764; x=1729895564;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=7munNqxr9rjSXzDOYZctb9ImrHCkQYzRfgFVjXf76UU=;
-        b=mxRFkGnOMxyTIHBFGHhV/VvUZB+VC8J72U9WTrTQj1rOp8xZMOdPEOTzIt8Mp7LctP
-         3DLfP5P7QGCHvP0PgiKpkJE5ipa6fX3vMDV22K9NSTggoCIquvoU45WsEMgMIQXX+aoE
-         YxJTTJttw0T+4eXFLi0M8AsfhbZRSMPgsTafIvE+QFpKM8Z7NWpBkoufb/CP03EG+x3V
-         lAdjx4uiQDdHcxAdU/efwqLtodMIBZVhP+wYJX7hUTjHYqlz4RhXqG2ZHnZLgtPDXGy/
-         AjyYfWacig5m50YRoyhKPVivBIMu3H2aqj9T/8H5a5HuX98CAiJ10wr1CmlGQuv8oLXK
-         GVzw==
-X-Gm-Message-State: AOJu0YzVuinox7PfgUeKWi2GbXBqpJnWPRfONTBxWoYozEMijMeMc9W4
-	QlYx1hn4iCnYNlRl9u5ZZz+lNjQf6wffdHRz9iZYq1P21zAKSk9Jj+zDvK8lR4jCpjJf+Wvcrse
-	fVkOwgEEjWM4mYg8CDJhNxDSuAyNOHwbB
-X-Google-Smtp-Source: AGHT+IFlEaKg6DcAgV2bwo6uJy0puNgwksw50zYt8weuDWTa42wSwkPbuUgt86KhLCxcG+Lb+yYZpvjGEtNXKDKxuzU=
-X-Received: by 2002:a05:6870:b4a4:b0:288:2906:6882 with SMTP id
- 586e51a60fabf-2892c49ea8emr3932908fac.29.1729290764531; Fri, 18 Oct 2024
- 15:32:44 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1729505441; x=1730110241;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xh/Ol7CvzUJ6gXAwRXFiPNoJvurvI8BVGcHrT95wpWA=;
+        b=m9o3vNqRDSp+apOcIjeIqZTg9UOohJqGNq0N/YffTdf3/qVHu2iZPy4LgEO+FqWWxm
+         srApnR/YgYNZbTVlpafRYp8Wb8CkPIycYM8UgZZSWkorPN7EYrURIxtSb5Iu2t7qbhRT
+         DCvWDB+LpIFZ69+jBs+HdrF+KEyEYr23ddzlDZxJcXQkCszyMfZ6UCsI9jhU2nGrKDmu
+         E8NdwWwyPjF6ZU1YZj2QT1UjrOfLpCHY3sH7RMIqRVIZ1TQTw/s0eiBEzTRF36niu6Ps
+         3zyn1ottsEswplPCH00DZCtaqjxyuzYz80seACKxJchN1HgvXCWqXzPzAsKta1HSScTb
+         +86Q==
+X-Gm-Message-State: AOJu0Yzmk/bE7SVtWeBSeNGlmXAvNgKC9c05IDqPjlzp5DkG1SV7xwch
+	iOExhJUXwtUilFFfFvFQwq9FFVx9Jpmx+4hQADCzGEy//UoU16QruDlekiy7HBEQSdk5MwxeeQj
+	FYaxjkyi2lZwzZIwI/nbdcHTpNQ0=
+X-Google-Smtp-Source: AGHT+IHrXHrjhnU6+Xidkn9naPYHdLjYsecdTo3eKFms3Atva4xd0/N+B3Pe/fUFDWz05ivZY5fk1Gp4qXmj84l2DLU=
+X-Received: by 2002:a05:6512:2356:b0:539:e317:b05f with SMTP id
+ 2adb3069b0e04-53a15229d00mr5343665e87.28.1729505441109; Mon, 21 Oct 2024
+ 03:10:41 -0700 (PDT)
 MIME-Version: 1.0
-From: Michael Krasnyk <michael.krasnyk@gmail.com>
-Date: Sat, 19 Oct 2024 00:32:33 +0200
-Message-ID: <CAL-AFs1GQ+TFJwSax6s2CoVbqBou=BzcJNGYcNFvpffyCpziwQ@mail.gmail.com>
-Subject: [PATCH] feat: don't use sub-processes to filter FIXME variables and
-To: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="000000000000bbc6c50624c7e11d"
+References: <CAL-AFs1GQ+TFJwSax6s2CoVbqBou=BzcJNGYcNFvpffyCpziwQ@mail.gmail.com>
+In-Reply-To: <CAL-AFs1GQ+TFJwSax6s2CoVbqBou=BzcJNGYcNFvpffyCpziwQ@mail.gmail.com>
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Mon, 21 Oct 2024 12:10:29 +0200
+Message-ID: <CANNYZj9dDARjDGLH-6f_h2ANahUGBtEzq-BsiAndVA-jC4=2QA@mail.gmail.com>
+Subject: Re: [poky] [PATCH] feat: don't use sub-processes to filter FIXME
+ variables and
+To: michael.krasnyk@gmail.com
+Cc: poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 18 Oct 2024 22:32:55 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13458
+ <poky@lists.yoctoproject.org>; Mon, 21 Oct 2024 10:10:47 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13459
 
---000000000000bbc6c50624c7e11d
-Content-Type: text/plain; charset="UTF-8"
+Thanks, the correct mailing list for this is openembedded-core.
 
-From a75040b2a197c0ddb55a047dcc0d834606ddf284 Mon Sep 17 00:00:00 2001
-From: Michael Krasnyk <michael.krasnyk@gmail.com>
-Date: Fri, 18 Oct 2024 23:50:12 +0200
-Subject: [PATCH] feat: don't use sub-processes to filter FIXME variables and
- use only Python
+Alex
 
----
- meta/classes-global/staging.bbclass | 26 ++++++++++++++++++--------
- 1 file changed, 18 insertions(+), 8 deletions(-)
-
-diff --git a/meta/classes-global/staging.bbclass
-b/meta/classes-global/staging.bbclass
-index c0f5e3ebb6..896592fb7e 100644
---- a/meta/classes-global/staging.bbclass
-+++ b/meta/classes-global/staging.bbclass
-@@ -176,16 +176,26 @@ def staging_copydir(c, target, dest, seendirs):
-         seendirs.add(dest)
-
- def staging_processfixme(fixme, target, recipesysroot,
-recipesysrootnative, d):
--    import subprocess
--
-     if not fixme:
-         return
--    cmd = "sed -e 's:^[^/]*/:%s/:g' %s | xargs sed -i -e
-'s:FIXMESTAGINGDIRTARGET:%s:g; s:FIXMESTAGINGDIRHOST:%s:g'" % (target, "
-".join(fixme), recipesysroot, recipesysrootnative)
--    for fixmevar in ['PSEUDO_SYSROOT', 'HOSTTOOLS_DIR', 'PKGDATA_DIR',
-'PSEUDO_LOCALSTATEDIR', 'LOGFIFO']:
--        fixme_path = d.getVar(fixmevar)
--        cmd += " -e 's:FIXME_%s:%s:g'" % (fixmevar, fixme_path)
--    bb.debug(2, cmd)
--    subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
-+
-+    import re
-+
-+    fixme_vars = {re.escape("FIXME_" + fixmevar): 'd.getVar(fixmevar)' for
-fixmevar in ['PSEUDO_SYSROOT', 'HOSTTOOLS_DIR', 'PKGDATA_DIR',
-'PSEUDO_LOCALSTATEDIR', 'LOGFIFO']}
-+    fixme_path = {"FIXMESTAGINGDIRTARGET": recipesysroot,
-"FIXMESTAGINGDIRHOST": recipesysrootnative, **fixme_vars}
-+    target_re = re.compile(r"^[^/]*(?=/)")
-+    fixme_re = re.compile("|".join(fixme_path.keys()))
-+    fixme_files = set()
-+    # Read fixme files
-+    for path in fixme:
-+        with open(path) as fixme_file:
-+            fixme_files.update(target_re.sub(target, line.strip()) for
-line in fixme_file.readlines())
-+    # Fix files in-place
-+    for path in fixme_files:
-+        with open(path, "r+") as fixed_file:
-+            text = fixme_re.sub(lambda m:
-fixme_path[re.escape(m.group(0))], fixed_file.read())
-+            fixed_file.seek(0)
-+            fixed_file.write(text)
-
-
- def staging_populate_sysroot_dir(targetsysroot, nativesysroot, native, d):
--- 
-2.39.3 (Apple Git-146)
-
---000000000000bbc6c50624c7e11d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">From a75040b2a197c0ddb55a047dcc0d834606ddf284 Mon Sep 17 0=
-0:00:00 2001<br>From: Michael Krasnyk &lt;<a href=3D"mailto:michael.krasnyk=
-@gmail.com">michael.krasnyk@gmail.com</a>&gt;<br>Date: Fri, 18 Oct 2024 23:=
-50:12 +0200<br>Subject: [PATCH] feat: don&#39;t use sub-processes to filter=
- FIXME variables and<br>=C2=A0use only Python<br><br>---<br>=C2=A0meta/clas=
-ses-global/staging.bbclass | 26 ++++++++++++++++++--------<br>=C2=A01 file =
-changed, 18 insertions(+), 8 deletions(-)<br><br>diff --git a/meta/classes-=
-global/staging.bbclass b/meta/classes-global/staging.bbclass<br>index c0f5e=
-3ebb6..896592fb7e 100644<br>--- a/meta/classes-global/staging.bbclass<br>++=
-+ b/meta/classes-global/staging.bbclass<br>@@ -176,16 +176,26 @@ def stagin=
-g_copydir(c, target, dest, seendirs):<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-seendirs.add(dest)<br>=C2=A0<br>=C2=A0def staging_processfixme(fixme, targe=
-t, recipesysroot, recipesysrootnative, d):<br>- =C2=A0 =C2=A0import subproc=
-ess<br>-<br>=C2=A0 =C2=A0 =C2=A0if not fixme:<br>=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return<br>- =C2=A0 =C2=A0cmd =3D &quot;sed -e &#39;s:^[^/]*/:%s/:=
-g&#39; %s | xargs sed -i -e &#39;s:FIXMESTAGINGDIRTARGET:%s:g; s:FIXMESTAGI=
-NGDIRHOST:%s:g&#39;&quot; % (target, &quot; &quot;.join(fixme), recipesysro=
-ot, recipesysrootnative)<br>- =C2=A0 =C2=A0for fixmevar in [&#39;PSEUDO_SYS=
-ROOT&#39;, &#39;HOSTTOOLS_DIR&#39;, &#39;PKGDATA_DIR&#39;, &#39;PSEUDO_LOCA=
-LSTATEDIR&#39;, &#39;LOGFIFO&#39;]:<br>- =C2=A0 =C2=A0 =C2=A0 =C2=A0fixme_p=
-ath =3D d.getVar(fixmevar)<br>- =C2=A0 =C2=A0 =C2=A0 =C2=A0cmd +=3D &quot; =
--e &#39;s:FIXME_%s:%s:g&#39;&quot; % (fixmevar, fixme_path)<br>- =C2=A0 =C2=
-=A0bb.debug(2, cmd)<br>- =C2=A0 =C2=A0subprocess.check_output(cmd, shell=3D=
-True, stderr=3Dsubprocess.STDOUT)<br>+<br>+ =C2=A0 =C2=A0import re<br>+<br>=
-+ =C2=A0 =C2=A0fixme_vars =3D {re.escape(&quot;FIXME_&quot; + fixmevar): &#=
-39;d.getVar(fixmevar)&#39; for fixmevar in [&#39;PSEUDO_SYSROOT&#39;, &#39;=
-HOSTTOOLS_DIR&#39;, &#39;PKGDATA_DIR&#39;, &#39;PSEUDO_LOCALSTATEDIR&#39;, =
-&#39;LOGFIFO&#39;]}<br>+ =C2=A0 =C2=A0fixme_path =3D {&quot;FIXMESTAGINGDIR=
-TARGET&quot;: recipesysroot, &quot;FIXMESTAGINGDIRHOST&quot;: recipesysroot=
-native, **fixme_vars}<br>+ =C2=A0 =C2=A0target_re =3D re.compile(r&quot;^[^=
-/]*(?=3D/)&quot;)<br>+ =C2=A0 =C2=A0fixme_re =3D re.compile(&quot;|&quot;.j=
-oin(fixme_path.keys()))<br>+ =C2=A0 =C2=A0fixme_files =3D set()<br>+ =C2=A0=
- =C2=A0# Read fixme files<br>+ =C2=A0 =C2=A0for path in fixme:<br>+ =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0with open(path) as fixme_file:<br>+ =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0fixme_files.update(target_re.sub(target, line.strip=
-()) for line in fixme_file.readlines())<br>+ =C2=A0 =C2=A0# Fix files in-pl=
-ace<br>+ =C2=A0 =C2=A0for path in fixme_files:<br>+ =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0with open(path, &quot;r+&quot;) as fixed_file:<br>+ =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0text =3D fixme_re.sub(lambda m: fixme_path[re.escap=
-e(m.group(0))], fixed_file.read())<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0fixed_file.seek(0)<br>+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fixe=
-d_file.write(text)<br>=C2=A0<br>=C2=A0<br>=C2=A0def staging_populate_sysroo=
-t_dir(targetsysroot, nativesysroot, native, d):<br>-- <br>2.39.3 (Apple Git=
--146)<br><br></div>
-
---000000000000bbc6c50624c7e11d--
+On Sat, 19 Oct 2024 at 00:32, Michael Krasnyk via
+lists.yoctoproject.org
+<michael.krasnyk=gmail.com@lists.yoctoproject.org> wrote:
+>
+> From a75040b2a197c0ddb55a047dcc0d834606ddf284 Mon Sep 17 00:00:00 2001
+> From: Michael Krasnyk <michael.krasnyk@gmail.com>
+> Date: Fri, 18 Oct 2024 23:50:12 +0200
+> Subject: [PATCH] feat: don't use sub-processes to filter FIXME variables and
+>  use only Python
+>
+> ---
+>  meta/classes-global/staging.bbclass | 26 ++++++++++++++++++--------
+>  1 file changed, 18 insertions(+), 8 deletions(-)
+>
+> diff --git a/meta/classes-global/staging.bbclass b/meta/classes-global/staging.bbclass
+> index c0f5e3ebb6..896592fb7e 100644
+> --- a/meta/classes-global/staging.bbclass
+> +++ b/meta/classes-global/staging.bbclass
+> @@ -176,16 +176,26 @@ def staging_copydir(c, target, dest, seendirs):
+>          seendirs.add(dest)
+>
+>  def staging_processfixme(fixme, target, recipesysroot, recipesysrootnative, d):
+> -    import subprocess
+> -
+>      if not fixme:
+>          return
+> -    cmd = "sed -e 's:^[^/]*/:%s/:g' %s | xargs sed -i -e 's:FIXMESTAGINGDIRTARGET:%s:g; s:FIXMESTAGINGDIRHOST:%s:g'" % (target, " ".join(fixme), recipesysroot, recipesysrootnative)
+> -    for fixmevar in ['PSEUDO_SYSROOT', 'HOSTTOOLS_DIR', 'PKGDATA_DIR', 'PSEUDO_LOCALSTATEDIR', 'LOGFIFO']:
+> -        fixme_path = d.getVar(fixmevar)
+> -        cmd += " -e 's:FIXME_%s:%s:g'" % (fixmevar, fixme_path)
+> -    bb.debug(2, cmd)
+> -    subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
+> +
+> +    import re
+> +
+> +    fixme_vars = {re.escape("FIXME_" + fixmevar): 'd.getVar(fixmevar)' for fixmevar in ['PSEUDO_SYSROOT', 'HOSTTOOLS_DIR', 'PKGDATA_DIR', 'PSEUDO_LOCALSTATEDIR', 'LOGFIFO']}
+> +    fixme_path = {"FIXMESTAGINGDIRTARGET": recipesysroot, "FIXMESTAGINGDIRHOST": recipesysrootnative, **fixme_vars}
+> +    target_re = re.compile(r"^[^/]*(?=/)")
+> +    fixme_re = re.compile("|".join(fixme_path.keys()))
+> +    fixme_files = set()
+> +    # Read fixme files
+> +    for path in fixme:
+> +        with open(path) as fixme_file:
+> +            fixme_files.update(target_re.sub(target, line.strip()) for line in fixme_file.readlines())
+> +    # Fix files in-place
+> +    for path in fixme_files:
+> +        with open(path, "r+") as fixed_file:
+> +            text = fixme_re.sub(lambda m: fixme_path[re.escape(m.group(0))], fixed_file.read())
+> +            fixed_file.seek(0)
+> +            fixed_file.write(text)
+>
+>
+>  def staging_populate_sysroot_dir(targetsysroot, nativesysroot, native, d):
+> --
+> 2.39.3 (Apple Git-146)
+>
+>
+> -=-=-=-=-=-=-=-=-=-=-=-
+> Links: You receive all messages sent to this group.
+> View/Reply Online (#13458): https://lists.yoctoproject.org/g/poky/message/13458
+> Mute This Topic: https://lists.yoctoproject.org/mt/109092733/1686489
+> Group Owner: poky+owner@lists.yoctoproject.org
+> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gmail.com]
+> -=-=-=-=-=-=-=-=-=-=-=-
+>
 
