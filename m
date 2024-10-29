@@ -2,57 +2,59 @@ Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 31875D5B164
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36C06D5B155
 	for <webhook@archiver.kernel.org>; Tue, 29 Oct 2024 08:06:20 +0000 (UTC)
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
- by mx.groups.io with SMTP id smtpd.web11.14115.1730189169806904202
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+ by mx.groups.io with SMTP id smtpd.web10.14236.1730189175450804659
  for <poky@lists.yoctoproject.org>;
- Tue, 29 Oct 2024 01:06:10 -0700
+ Tue, 29 Oct 2024 01:06:15 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=jlbjiy31;
- spf=pass (domain: linaro.org, ip: 209.85.167.45, mailfrom: mikko.rapeli@linaro.org)
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-53a0c160b94so5698515e87.2
-        for <poky@lists.yoctoproject.org>; Tue, 29 Oct 2024 01:06:09 -0700 (PDT)
+ dkim=pass header.i=@linaro.org header.s=google header.b=QMTqayzn;
+ spf=pass (domain: linaro.org, ip: 209.85.167.49, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-539f84907caso5459412e87.3
+        for <poky@lists.yoctoproject.org>; Tue, 29 Oct 2024 01:06:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1730189168; x=1730793968; darn=lists.yoctoproject.org;
+        d=linaro.org; s=google; t=1730189174; x=1730793974; darn=lists.yoctoproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=asH290j0ypKIOxir/B/9wYxLAY5jEgjHEVhdmBo8vv8=;
-        b=jlbjiy31SBYivp+oUlqmlWsHL1wIHhN7GXis478ND5nW+jrfWL5JL97p6xhvtf52bc
-         yI/ovXZwzx7hjfPrnIdzBQRr4TTBn+S3+WI3SUEGJV6mNPqtciwgClnjtxn5PvRHUZt2
-         bAO2cRJyt0RSsRIkv3uq10BzPTxrzN+XCl6zCYwHB15FtUwh0dlMi4YPIH+PhqosVSO+
-         xwPeC8Qn17goSdnCi44SQCEnpVspsGlR8H9C7H7gotT3mfHiMKAbfk4wAoK8NrdgbPfd
-         7JX/ocdGRU4T6SwceI4dxkXYJR1EsuORFHsvwmrt8VBcg1YPQo51tb7TT47orB2RzH3C
-         JMLA==
+        bh=jjP8IqAxS29m78mtA/zeAoViLFNa+DKJ77woMACCx5w=;
+        b=QMTqayznYBHdzoaoYbiifK+V/Yc5txXLLsdL63CLCEEGxhrpFfg1JNrTQWrzwkGH6N
+         UzwiOrxPGHd26m32ccnpxxPC/GpfW8w+wXXyvkD/GZaoNhBKwFjrbIS7gEKVEpp3rux6
+         kE06oDNyuhE8Yl49A++H6l9UDy3vnio/DqJaDtV7JD//ELY9ZvfvqDS/1PuWf/0BPfI0
+         pws6/NkLBdJEFL3Ex9vYFdYkK2xtABXpzHEzuwMYCiz+wcjCuOdzAOrXEl1McOcVMFaJ
+         Z6+/o2cfP2nLt00BPopdKB2aMahE207gDck0moYAiwtRA48117U485TFwJoAWvs5ES6a
+         IwIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730189168; x=1730793968;
+        d=1e100.net; s=20230601; t=1730189174; x=1730793974;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=asH290j0ypKIOxir/B/9wYxLAY5jEgjHEVhdmBo8vv8=;
-        b=juU7k8P/PN/cpznzf5GyHSqS2wkdfxoNkps+hS88wpXH6qPO26ov5WRr5aBPgK+rbA
-         3DtP5gOL97gX5ZTCHdGSyyAYPY8IaHRTqYLZASIGQYhi7eWLzIKcSF9IQdhnxuBbQ/gM
-         2ecF+ztWTKpMJxOQbrjv16FP5bem3SgtMB2RjwZU1o5RUiAKMgjspmQa0TfQnLj9y4cb
-         q4Et+4NfuvxpGbb+tD7U0wS/g2+S2KSi+jpATgFuUJGxr48Yc5COjyd8i8c7+zK3oQc+
-         JNg7UyM+Z+ZiYsWhJbNNtfeMO0VPPJ+S6Bd4tYW44wTFDqQiwiCd8zUe3xuo7aCaszKt
-         UYbw==
-X-Gm-Message-State: AOJu0Yx5Jk++Jb/6Mu/88hCCUw4QjwAKsY9PRjWsgQ4YgbWmmNVBvAWm
-	iNoNMV07qSbUaZqY0qdg0s/OQQYHlcS+7Ylsa5j78sqAQBss+tRosREq4y6A3lACMhgqTiTpC3O
-	ZB/A=
-X-Google-Smtp-Source: AGHT+IFsDVu/GurTrMO6ILQ93SxqIM6Mb1w9ZUiCdxjM+m2cfWj83PnlCl/bIegbG/vw84C2DxTDig==
-X-Received: by 2002:a05:6512:398d:b0:535:68ab:7fdd with SMTP id 2adb3069b0e04-53b348ceb33mr5157577e87.19.1730189166664;
-        Tue, 29 Oct 2024 01:06:06 -0700 (PDT)
+        bh=jjP8IqAxS29m78mtA/zeAoViLFNa+DKJ77woMACCx5w=;
+        b=Uqqs/9Bhfoa/CzHSML8CnsYMxH9oWAd8u9ya/JA0hIMAAmVj5q1YkAM6gPnMH+FDAr
+         /qqCaoAbhyHhi7VdZm3LaOqp29PE4uE0ZYk5XKPOTWILh8UU8NIXVG22g0aLqNLBDTwJ
+         73S9ywYWiDxUedsqEM3dp2Ifv+vW1q7j4RZVDHEwFveiZ9KhtaU8bihAopobQhfF6jwh
+         mOkKcFlRVOToNRvBO/NrLRJz1vAIFqEMXwxnoqkTPwVQF7XzHiUO+cRQ+rmyXGhAvDe4
+         OFmqEcvNEsTi2FR52J9KhfnCaT7eGpbTLs7v3QbKB/37o5TTZeqK0tB1V/4a/O03Plva
+         r2Cw==
+X-Gm-Message-State: AOJu0YzdY+j3+POzbTZM6UC5ZoHrpCLD+gwZ0RKlN6Ymjo1iX5orl3yY
+	x53PP8+53ZAPE7yAQqzDU5YV/djUcErWRCzGQBLUZN7jV2CZA9suzrGtV5sH8zGOzcJeN9v6efs
+	UG2Y=
+X-Google-Smtp-Source: AGHT+IEHTGUbTMQHXfQoI8eNnZsGAaNEHmj1LANbJBnbqlEPBufMjP1oX7TVY5xegdSG9b32rh387w==
+X-Received: by 2002:a05:6512:39cd:b0:535:3ca5:daa with SMTP id 2adb3069b0e04-53b348ebf88mr4578991e87.7.1730189173517;
+        Tue, 29 Oct 2024 01:06:13 -0700 (PDT)
 Received: from localhost.localdomain (78-27-76-97.bb.dnainternet.fi. [78.27.76.97])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-53b2e10a4b2sm1277274e87.52.2024.10.29.01.06.03
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-53b2e10a4b2sm1277274e87.52.2024.10.29.01.06.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 29 Oct 2024 01:06:04 -0700 (PDT)
+        Tue, 29 Oct 2024 01:06:11 -0700 (PDT)
 From: Mikko Rapeli <mikko.rapeli@linaro.org>
 To: poky@lists.yoctoproject.org
-Cc: Mikko Rapeli <mikko.rapeli@linaro.org>
-Subject: [PATCH 2/4] genericarm64.conf: add AMD Kria KV260 serial consoles
-Date: Tue, 29 Oct 2024 10:05:42 +0200
-Message-ID: <20241029080544.5486-2-mikko.rapeli@linaro.org>
+Cc: Mikko Rapeli <mikko.rapeli@linaro.org>,
+	Bill Mills <bill.mills@linaro.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>
+Subject: [PATCH 4/4] README.hardware.md: add myself to genericarm64 maintainers
+Date: Tue, 29 Oct 2024 10:05:44 +0200
+Message-ID: <20241029080544.5486-4-mikko.rapeli@linaro.org>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20241029080544.5486-1-mikko.rapeli@linaro.org>
 References: <20241029080544.5486-1-mikko.rapeli@linaro.org>
@@ -62,35 +64,37 @@ List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
  <poky@lists.yoctoproject.org>; Tue, 29 Oct 2024 08:06:20 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13461
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13463
 
-Current practice is to add new device serial devices to
-SERIAL_CONSOLES. Enables testing and test automation with
-the board. Note that SERIAL_CONSOLES get added to /etc/inittab
-and missing physical serial consoles causes respawn warnings
-at runtime:
+I will be testing genericarm64 images on AMD Kria KV260 devices.
 
-INIT: Id "S0" respawning too fast: disabled for 5 minutes
-INIT: Id "S1" respawning too fast: disabled for 5 minutes
-
+Cc: Bill Mills <bill.mills@linaro.org>
+Cc: Ilias Apalodimas <ilias.apalodimas@linaro.org>
 Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
 ---
- meta-yocto-bsp/conf/machine/genericarm64.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ meta-yocto-bsp/README.hardware.md | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-bsp/conf/machine/genericarm64.conf
-index b6dfb8042d..a77ffb0431 100644
---- a/meta-yocto-bsp/conf/machine/genericarm64.conf
-+++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
-@@ -28,7 +28,7 @@ WKS_FILE ?= "genericarm64.wks.in"
- EFI_PROVIDER ?= "${@bb.utils.contains("DISTRO_FEATURES", "systemd", "systemd-boot", "grub-efi", d)}"
+diff --git a/meta-yocto-bsp/README.hardware.md b/meta-yocto-bsp/README.hardware.md
+index 0c460ef669..d2cc05f909 100644
+--- a/meta-yocto-bsp/README.hardware.md
++++ b/meta-yocto-bsp/README.hardware.md
+@@ -136,6 +136,7 @@ compliant boards with preinstalled firmware.
+ The genericarm64 MACHINE is currently tested on the following platforms:
  
- # Try to bring up a selection of physical or virtual serial consoles
--SERIAL_CONSOLES ?= "115200;ttyAMA0 115200;hvc0 115200;ttyS0 115200;ttyS1 115200;ttyS2"
-+SERIAL_CONSOLES ?= "115200;ttyPS0 115200;ttyPS1 115200;ttyAMA0 115200;hvc0 115200;ttyS0 115200;ttyS1 115200;ttyS2"
+   * Texas Instruments BeaglePlay
++  * AMD Kria KV260
  
- # Allow u-boot to be built for use with qemu-system-aarch64.
- # This u-boot is _not_ suitable for use with real hardware, and the expectation
+ The images built are EFI bootable disk images and can be written directly to a
+ SD card for booting, for example.
+@@ -147,6 +148,7 @@ firmware (note that this firmware will _not_ boot on real hardware), then use
+ 
+ Maintainers:
+ * Ross Burton <Ross.Burton@arm.com>
++* Mikko Rapeli <mikko.rapeli@linaro.org>
+ 
+ Texas Instruments Beaglebone (beaglebone-yocto)
+ -----------------------------------------------
 -- 
 2.34.1
 
