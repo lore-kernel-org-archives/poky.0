@@ -1,90 +1,86 @@
-Return-Path: <steve@sakoman.com>
+Return-Path: <star@gmx.li>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB79CD6B6C4
-	for <webhook@archiver.kernel.org>; Wed, 30 Oct 2024 19:07:00 +0000 (UTC)
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
- by mx.groups.io with SMTP id smtpd.web10.23719.1730315212759825735
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81CB3D12680
+	for <webhook@archiver.kernel.org>; Tue,  5 Nov 2024 10:51:28 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ by mx.groups.io with SMTP id smtpd.web11.14889.1730803887711091087
  for <poky@lists.yoctoproject.org>;
- Wed, 30 Oct 2024 12:06:52 -0700
+ Tue, 05 Nov 2024 02:51:28 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@sakoman-com.20230601.gappssmtp.com header.s=20230601 header.b=g/aCbxCH;
- spf=softfail (domain: sakoman.com, ip: 209.85.210.169, mailfrom: steve@sakoman.com)
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-71e681bc315so159090b3a.0
-        for <poky@lists.yoctoproject.org>; Wed, 30 Oct 2024 12:06:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sakoman-com.20230601.gappssmtp.com; s=20230601; t=1730315212; x=1730920012; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Y3H9CGjk0ldWsYg90u+k9/8l6oNMh2WexctAwH0Fq6Y=;
-        b=g/aCbxCHlq1IdgNPWeCdMfMdGnxwM/HMAYcz9Z3Q12QcYX02cEgYggXNpdRUYdiouB
-         yKceKYYcMiFzUkv6Bm3Yfpyo7BFHC5hTOSiJ4KdYVWMktcW1Bb9f0pDJsNtkw9itUQy5
-         VOn9tW50TUwc5qQl5iIkbSyxl2IoUd5AJr0JqwD/1wAiJc3pzCTQVrtpGyTwFmJlJwkG
-         ZI5WYBN5EqGcNjtFF8Rm//iRCt6LvwqHRmXI1kjEiDvtN0Y5M1/9SV8a6VVLpJhDzyTH
-         PCftJ23ZEKpIaG/AYxEWvUgKdrzmFdJE/LtXcnVvdnF3se0Dz/E4qsNLh7XpVrih1SSv
-         08PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730315212; x=1730920012;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Y3H9CGjk0ldWsYg90u+k9/8l6oNMh2WexctAwH0Fq6Y=;
-        b=HTSxWSkU+63BHpVnoqpyIU/vyYwcH/PWr6AWS3OUfRylq75FYGCweKrQQOKutowhqj
-         ElF1eutJEkGY+qK9KxydM3mXEYTUxHs9fXyJU4q4FyJCX5xx4iqtF4jg6KXhyTzRT1r4
-         NPGW495jrebYvx22ZjmK9kk4huP08GR0k8F5muBOmcxxVAv46FEaobGaM7hw9QhdgbtY
-         XB4WmAY3DWBguikj1+DJ4Lx8Le5c2dTmdWvEAc9kdl1Fdq4Z6seLuhoEIySz7KtfYKd/
-         ZX4l2QfCHpAxPIjFgXTttehMMjKHXjvAsWJDsvEBN4bvOe1dc+eqdPE7rdpLCt+gYHn4
-         ewaw==
-X-Gm-Message-State: AOJu0YyGfAdWNUTdIaN2CmKG9NEdwAn6fnZoTlLjb8TNEYwu4O9PHmHj
-	VFmGJC5CNa7SpejeouyU990dOyLu9Gc+dleoXJbpVTpPfnfbs0LJddhYVQCpEOtzHDLZ9NTiJ99
-	N
-X-Google-Smtp-Source: AGHT+IEnv3CKKJzyA4gTpX8wI7InbwmcYu1xN3ALx9245cm0KCnV3pp0XA1S1O/4kLUmM2NfgNDTGg==
-X-Received: by 2002:a05:6a00:1809:b0:71e:40cd:b607 with SMTP id d2e1a72fcca58-720ad254131mr5517080b3a.11.1730315211764;
-        Wed, 30 Oct 2024 12:06:51 -0700 (PDT)
-Received: from hexa.. ([98.142.47.158])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-7205793192csm9619503b3a.46.2024.10.30.12.06.51
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Oct 2024 12:06:51 -0700 (PDT)
-From: Steve Sakoman <steve@sakoman.com>
-To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][kirkstone 1/1] local.conf.sample: update BB_HASHSERVE_UPSTREAM for new infrastructure
-Date: Wed, 30 Oct 2024 12:06:45 -0700
-Message-Id: <d56ba3e1ec46668999e64e967765f186e287d792.1730315170.git.steve@sakoman.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1730315170.git.steve@sakoman.com>
-References: <cover.1730315170.git.steve@sakoman.com>
+ dkim=fail reason="dkim: signature did not verify: crypto/rsa: verification error" header.i=star@gmx.li header.s=s31663417 header.b=OG7KdLUJ;
+ spf=pass (domain: gmx.li, ip: 212.227.17.20, mailfrom: star@gmx.li)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.li;
+	s=s31663417; t=1730803886; x=1731408686; i=star@gmx.li;
+	bh=mfYpBDOrY6LlSKI5wCftaya9WmEutND1CrT6794CjtY=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:From:Subject:
+	 Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=OG7KdLUJuYtlCNa0QM3BVH6+aI0gvZUFwAtWw1zrZJqRKbiCYQptF6+nKwTuUBqt
+	 5PzKPhXBL+0udxWNNybQs2cD+J9KD5RvNSXn7SnzJBDyooaeHnGQKGDSdKc6PP8vU
+	 i71oK+6SJvrCLNKKibtwfPIJsdiNh6al1QaBuWYanBn71rBOxhkjJlzqPOqkYBhEZ
+	 JiKlbYc6mWzEUUGdcaIUb8NZmHXpOPAmWN7+tYZ7ZUlQu+j1B3injhMHX5e10qeaz
+	 ygnXsRKzMasAMA6NjUUxHvaIGLCZpej7HtoWRtrwEuLl+HRgjh+s3BjA22KwY8VSG
+	 dFmszTLDrkh0SDYHtw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [192.168.3.21] ([217.225.88.88]) by mail.gmx.net (mrgmx104
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1MY6Cb-1tJybr0UGb-00PvC9 for
+ <poky@lists.yoctoproject.org>; Tue, 05 Nov 2024 11:51:26 +0100
+Message-ID: <9d150f03-34b6-4a6e-93d9-2530f12ba3e4@gmx.li>
+Date: Tue, 5 Nov 2024 11:51:25 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+From: Arno Steffens <star@gmx.li>
+Subject: One recipe for fetch a bigger repo, multiple recipes to build parts
+ of it
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:YkQyfqnsA1MZBz5yNBdHoxhvm8BK54HrNiSHV/mKxt6WCDJUHdj
+ s1Gb/1HgUHBMjzeNNbKglZqOHCnfe4Hr5ZXs/s3QvcJVYNOjliJPfTn1t1cOAqImJyTOm9m
+ M4AA4ovsyBmWgPu3S8GM+JTD597osY7haVMcAsYky5duQOt+Hq3HZpp+31k7EKlQwGsq+YQ
+ /ASwuu3VR47qpD+ET/R1Q==
+UI-OutboundReport: notjunk:1;M01:P0:+0jev3TGuBw=;ZUO2J2XQr7NDgsgRJp3ZXjULihz
+ N+o1GGQ3Cov9dRc3U9yfY5xmG/5KT60irnrVlDNZDw3xxMOrwBGtq9rT0CaUW7Q2lLXiEOAm0
+ lLvzVLLPwYjWnHN8PCxuwaGEJO7dH+mgLsL0jc1X1Gvc8A22oARaGQlIwI+VhMlyin2s9/Eaj
+ Zr4eAGbGug7+AOHKF3qnQbx83VcoewT5Aj5jt5UWwVtHGa5f1vAMn4jEIPAdsRGCqPZBds24J
+ ZY0zu0fq8gL8NLoRLlwkM/CTy4ZO/SoJrLI2i+of0PTBgtNLG9mepDuCdMuA6fWPCVQmiB9/A
+ JQ7YdICkzy0F2NhoOH7xnjbPeWMrplmvSARJOkQaooC18Lew4qJsyeZIkYy2EIHE0uo1CAE+W
+ CHy2jKPyzM7Kz+Hrp+UaVjRBEUoCZA8HThe8KOOZ8FE64+yERc0jwPonJHnkcw+ZYsKlwntr7
+ MxIkxAb/SOGbGWiQjHQVSITjRi0YWn61M13vXxHQk8QmYgwMyk1x9CPfMv4ughUBJH6SxKlNS
+ 1imvHzOFYeKqR8/y64h2LdQJqUb6L4sVP+xdLEA0v56WI1fzM9iKNyH7hAwpuLcvSu/20SayO
+ GdMwQIE4NLyhM0DUcyoeRg5o6FQ5v4PS+cGdaKKGvxrfFkgM46lDTvu/+/LqQBqSmXvooPClX
+ bdqZkotStTtdqwwvzni3njY6KX0JFg6jzieIKnpWINAQ7j19hAksgj7Bk5kQshNskglzKjBDc
+ oW8RDMF0EQfmgcWny1GiQR6M3dQf9ZMYz13v1HHxHqoKfIFAjweeXvw/tXGgo0EWzQ/XD5oAr
+ 0QIWYPTHAjtKW+fCYGF7HgIw==
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 30 Oct 2024 19:07:00 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13472
+ <poky@lists.yoctoproject.org>; Tue, 05 Nov 2024 10:51:28 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13473
 
-Public hashserver is now at hashserv.yoctoproject.org:8686
+Hello,
 
-Signed-off-by: Steve Sakoman <steve@sakoman.com>
----
- meta-poky/conf/local.conf.sample | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Do have a bigger repo with submodules. Before each submodule gets its
+tag - so I did have mutliple recipes and need to fetch only parts.
 
-diff --git a/meta-poky/conf/local.conf.sample b/meta-poky/conf/local.conf.sample
-index ef491d4..97d9450 100644
---- a/meta-poky/conf/local.conf.sample
-+++ b/meta-poky/conf/local.conf.sample
-@@ -229,7 +229,7 @@ BB_DISKMON_DIRS ??= "\
- # which will depend on your network.
- # Note: For this to work you also need hash-equivalence passthrough to the matching server
- #
--#BB_HASHSERVE_UPSTREAM = "hashserv.yocto.io:8687"
-+#BB_HASHSERVE_UPSTREAM = "hashserv.yoctoproject.org:8686"
- #SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
- 
- #
--- 
-2.34.1
+Now there is just one(!) tag for the main repo. Anyhow it was a pain to
+clone that repo and submodules multiple times.
+So I think about one recipe for just fetching data and multiple recipes
+that (depend on download-recipe)  work on the fetched data to compile part=
+s?
 
+Problem is, that I have a huge git repo (with submodules / gitsm) and
+the download is via gitsm with branch and tag. Than the download folder
+is some recipe-name/<tag>+gitAUTOINC+<git-hash> and other recipes can't
+know that hash to access this folder.
+
+What is a solution for this? I think about creating a link to the level
+below - but that doesn't sound save or clever. What would your approach
+
+Thanks,
+Arno
 
