@@ -1,139 +1,80 @@
-Return-Path: <star@gmx.li>
+Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C955BD12695
-	for <webhook@archiver.kernel.org>; Tue,  5 Nov 2024 12:01:48 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by mx.groups.io with SMTP id smtpd.web10.16199.1730808098066790664
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D6AC5D12699
+	for <webhook@archiver.kernel.org>; Tue,  5 Nov 2024 12:06:48 +0000 (UTC)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+ by mx.groups.io with SMTP id smtpd.web10.16493.1730808398922980571
  for <poky@lists.yoctoproject.org>;
- Tue, 05 Nov 2024 04:01:38 -0800
+ Tue, 05 Nov 2024 04:06:39 -0800
 Authentication-Results: mx.groups.io;
- dkim=fail reason="dkim: signature did not verify: crypto/rsa: verification error" header.i=star@gmx.li header.s=s31663417 header.b=fDY7wVaO;
- spf=pass (domain: gmx.li, ip: 212.227.15.19, mailfrom: star@gmx.li)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.li;
-	s=s31663417; t=1730808096; x=1731412896; i=star@gmx.li;
-	bh=LW3554OCMZrUIjAiZrnK+thK4lion46W5texql0Jzhc=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=fDY7wVaOgNpdKVtL67oCcALGS0zC/E5lTpyTGDOPMo3CsNvkS0vOGQvPPHZlhYBb
-	 IM8a2MIyAhCwWFK6+vR0TjNfZ4dHb1lyuwUlBzDJMBpB2xEaPYcNElkFy92jipvon
-	 JpAp0yUwhRDtVH1S+Z1k2eYueSDyJlF/StAuNNEMG33Q3Zfru2vFvfqQxUH0/raWK
-	 eTt46guqaj/Nm2RdUrdnQHQ/D76PhvxDSlrGcKe2eTo40Hl40e2iwel253lFNK0UW
-	 EjCbsW1P3pyexAm2TrVj8Z47dtHPOGiH6E2sd8EFCt4+Z9bs6u8eC/uf7bRgbNcu6
-	 r8z6KKVnwXiJffmdxA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.3.21] ([217.225.88.88]) by mail.gmx.net (mrgmx004
- [212.227.17.184]) with ESMTPSA (Nemesis) id 1MRmfo-1tERKc21Qg-00YyLw for
- <poky@lists.yoctoproject.org>; Tue, 05 Nov 2024 13:01:36 +0100
-Message-ID: <47da8641-7a74-4d64-afc4-84c81ba713b0@gmx.li>
-Date: Tue, 5 Nov 2024 13:01:36 +0100
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=ckZ163pG;
+ spf=pass (domain: gmail.com, ip: 209.85.208.173, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-2fb443746b8so46984671fa.0
+        for <poky@lists.yoctoproject.org>; Tue, 05 Nov 2024 04:06:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1730808397; x=1731413197; darn=lists.yoctoproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=6g2GmfzDb4SCbTydydmh1bPKzjzGf65lvjJjP90OPZ0=;
+        b=ckZ163pGeuL3o34JhmUri9/USoU5tPCNyIWEAwFR0mVd+eM4JARrPN8wgsF/ibL6Aw
+         k7O8CdA5zTXB64tC21kv5tqglRbGhX8NLEnXKtE5BNaxzEXe8MXsVP9LVMvOyWmMpY9a
+         es+HXoLrBxLiO0+uYfK7xwk033sm+aGdanhS8+vymp/Z3o4VIV+NlCDZnxL5ZV2Co6rB
+         xbTh1HhmQB01gCQiDpJTW7w9hfuYuE6j81fOZ3x9NHFAmRPKsYnPdEDMpkN+41GtAE3/
+         8QS09lMJ1hRgldPKhD+TSV1HA1LBCeJ+FeZrdSaBZS+XjndxhJQUIFSW4TKAHBSdZaoO
+         vBqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1730808397; x=1731413197;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=6g2GmfzDb4SCbTydydmh1bPKzjzGf65lvjJjP90OPZ0=;
+        b=vcEvfwLeIYLyvahCDq3JhPM5t+12eMrQVaJakQAT3tfYYd9zwVI67qjpEyAb0aUdGd
+         k3hnjiNxX064tob6XC3LCLqaEw51itB/Q2ufuI6jovJ3CMbHTQ1CV41GbkIzIOG3EyFU
+         w6JpWWrEpCygmQEcIqIUDuogKcLDnsUmZ4RXZC+yhy8kqOESRWVw3hPkk7/ZZIKZEttN
+         R2hgKgbMp9ItnUfxtoWA4WUjh+JwDJiMcBhUg6r/DUUAXRc67Yl/8eSiwzmbfFNB/yu1
+         ccuXtow9OtEL2ogvoTXKT3CmLlVKFLY5YlyCftHYyIXWCF7IownbBSTS77hqIDuYdPKG
+         cP2g==
+X-Gm-Message-State: AOJu0YyvEFW7sfSSzLvFZJXUISjPhTJWwibeogkl/ugw+zRJTFTGtXA/
+	IJr0e9kqbf+pblFi+kQ6tvkCwgblr4Dj+1mGgU/NveyrgPO6/K/2izb3cihcjvaDM+CzXhw+CWQ
+	G0fGbW/pzUKdmOIB+fZ5Af/5QNzw=
+X-Google-Smtp-Source: AGHT+IE8UTGDTIaCJCNKM1W3HqNkWXYl05RkEjBXk4TgSHrHn/4DfCSkf13oFOAHYNBuiHQYWGcCSMFcl1Fc0BqbZrM=
+X-Received: by 2002:a2e:80a:0:b0:2fb:5ac6:90f0 with SMTP id
+ 38308e7fff4ca-2fcbe09ad70mr135671791fa.34.1730808396752; Tue, 05 Nov 2024
+ 04:06:36 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+References: <9d150f03-34b6-4a6e-93d9-2530f12ba3e4@gmx.li> <CANNYZj_i=Wg_S2dXNRMUVZ0v0AzkWRwrNASBSxHMoe9SqDv4zQ@mail.gmail.com>
+ <47da8641-7a74-4d64-afc4-84c81ba713b0@gmx.li>
+In-Reply-To: <47da8641-7a74-4d64-afc4-84c81ba713b0@gmx.li>
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Tue, 5 Nov 2024 13:06:25 +0100
+Message-ID: <CANNYZj8RpypOLJKRMbpL1ZESu2urWHFmr2yhL2pXXCwKiDWwgQ@mail.gmail.com>
 Subject: Re: [poky] One recipe for fetch a bigger repo, multiple recipes to
  build parts of it
-To: poky@lists.yoctoproject.org
-References: <9d150f03-34b6-4a6e-93d9-2530f12ba3e4@gmx.li>
- <CANNYZj_i=Wg_S2dXNRMUVZ0v0AzkWRwrNASBSxHMoe9SqDv4zQ@mail.gmail.com>
-Content-Language: en-US
-From: Arno Steffens <star@gmx.li>
-In-Reply-To: <CANNYZj_i=Wg_S2dXNRMUVZ0v0AzkWRwrNASBSxHMoe9SqDv4zQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:VRE69YKByaCpGBLKZ2OYJUo8CW/tfZ5OsvP6RXns9HaGVKFIhjx
- um2lwt1JXyMm8q9TQBZyVvsl6sc6ajd/0ledDXbBpoLhVzJ9WY98WNARtaCZ1FrnvpslwAM
- /1706E9KPUTJ1w8GaU4VHZeDU4zLL4eLvYTFzrl+inAAHNEqacABOekZF+6JAqMrwaspy8M
- h/VG2zZ6FzD5rlPPghDWg==
-UI-OutboundReport: notjunk:1;M01:P0:GyU1NmpN9OY=;e+2zUz3itowKRELGRQGep7nkexJ
- WLq/pWz/IKsfAr38A6oNGzXNmAq2sEAvCl/HJ2wKctll0jrDxuNK2UZHMj4fC8fTWPsrN7QAX
- W/sRNvYzq9ey2b65N/yin2BijsbG5BdHDlJ94wcUpiFBme2EijvrZEbooVE3/EYr9HwZca8Rr
- 7ONYxWygfoZ//DeszjxabVEH08EmNm3UHav2LMEKk4aLpZ/3QpNmV8wIGViCU29/Zzi5evZGn
- ZY18GJRsO76DPQIDyf5pbN1wzCo/YCMyMpC4ULNVEThUeg88DucdDsiCsfmYSJDQu2b1M57NN
- nvASeG5W4iS4m8O8AVmI3JcTW5ydJIZbxIQTPX955DRGYqKLaj7DDj0cHtm6NZXGkTZur9CzC
- 0RfceZbtJoaGmbVCvf6B/x43k+O1ZmO4zn8S9VDA1ns7gGGGo7pq0piYiV0vZ85s5erLJtYoA
- ONLAkoJMGCbyGYk1+7wDcOYU8+NbtySvw4K7SmMZk7Kh8v+De0/BFZTNNE/MMU3Nv4GaKwzxI
- ygk3Fe1tMA7bqq4xWRnMkTtTIa4VKMSn/ML+LLR4wmWS9/3lKvQm1Wrr36gVaFuoogSeW4JK/
- yG39NHcQDQlD+IQ0v0lvmXhrECw2UKRcY73+aoeJnBs9Tn0xAPWYT+/AakB4mNeaRwLEU8V4M
- sshkOoQAczE360eVKot0ai8UN/cDexTZI3abgQ9+UJP2SdsxuasZHqM3a7yT1UMXnnInTMCWq
- 4FFYrORcJ54hRg1Ok/IojAZJ21JxhZG5s092h11uO81qbPSFX0wVGN7EDIpJ+gwE3ZBxbyVqv
- lsSrobJg1RbH6QFqf3q/L48Q==
+To: star@gmx.li
+Cc: poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 05 Nov 2024 12:01:48 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13475
+ <poky@lists.yoctoproject.org>; Tue, 05 Nov 2024 12:06:48 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13476
 
-Hi Alex,
-well download may indeed happened just once, but isn't in each recipe
-the git folder with it's complete content?
-Maybe I described it misleading:
-So it is not about download, but about the amount of storage needed for
-each recipe. Assuming 10 recipes using same main repo, in each of the
-../build/tmp/<recipe-name>/<tag>+gitAUTOINC+<git-hash>/git
-I see the full checked out repo.
-Best regards,
+On Tue, 5 Nov 2024 at 13:01, Steve via lists.yoctoproject.org
+<star=gmx.li@lists.yoctoproject.org> wrote:
+> well download may indeed happened just once, but isn't in each recipe
+> the git folder with it's complete content?
+> Maybe I described it misleading:
+> So it is not about download, but about the amount of storage needed for
+> each recipe. Assuming 10 recipes using same main repo, in each of the
+> ../build/tmp/<recipe-name>/<tag>+gitAUTOINC+<git-hash>/git
+> I see the full checked out repo.
 
+If you want to use individual submodules, then the best would be
+probably to have an external script that determines SRCREV for each of
+them from what is recorded in the parent repo, and writes that into
+recipes.
 
-
-
-On 11/5/24 12:44, Alexander Kanavin via lists.yoctoproject.org wrote:
-> If SRC_URI is the same in multiple recipes then it will be cloned just
-> once and then reused from the download folder. Not sure what=E2=80=99s e=
-xactly
-> happening on your side, you need to demonstrate how that is not working,
-> and where mutiple clones are happening.
->
-> Alex
->
-> On Tue 5. Nov 2024 at 11.51, Steve via lists.yoctoproject.org <http://
-> lists.yoctoproject.org> <star=3Dgmx.li@lists.yoctoproject.org
-> <mailto:gmx.li@lists.yoctoproject.org>> wrote:
->
->     Hello,
->
->     Do have a bigger repo with submodules. Before each submodule gets it=
-s
->     tag - so I did have mutliple recipes and need to fetch only parts.
->
->     Now there is just one(!) tag for the main repo. Anyhow it was a pain=
- to
->     clone that repo and submodules multiple times.
->     So I think about one recipe for just fetching data and multiple reci=
-pes
->     that (depend on download-recipe)=C2=A0 work on the fetched data to
->     compile parts?
->
->     Problem is, that I have a huge git repo (with submodules / gitsm) an=
-d
->     the download is via gitsm with branch and tag. Than the download fol=
-der
->     is some recipe-name/<tag>+gitAUTOINC+<git-hash> and other recipes ca=
-n't
->     know that hash to access this folder.
->
->     What is a solution for this? I think about creating a link to the le=
-vel
->     below - but that doesn't sound save or clever. What would your appro=
-ach
->
->     Thanks,
->     Arno
->
->
->
->
->
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13474): https://lists.yoctoproject.org/g/poky/messag=
-e/13474
-> Mute This Topic: https://lists.yoctoproject.org/mt/109403571/3618575
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [star@gmx.li]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
-
+Alex
 
