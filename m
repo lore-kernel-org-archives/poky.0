@@ -1,225 +1,299 @@
-Return-Path: <bruce.ashfield@gmail.com>
+Return-Path: <star@gmx.li>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C41AD2B925
-	for <webhook@archiver.kernel.org>; Tue,  5 Nov 2024 13:17:49 +0000 (UTC)
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
- by mx.groups.io with SMTP id smtpd.web11.17671.1730812668737830773
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 18769D44D49
+	for <webhook@archiver.kernel.org>; Wed,  6 Nov 2024 10:49:16 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+ by mx.groups.io with SMTP id smtpd.web11.43053.1730890151220475554
  for <poky@lists.yoctoproject.org>;
- Tue, 05 Nov 2024 05:17:48 -0800
+ Wed, 06 Nov 2024 02:49:11 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=nYKrYdrm;
- spf=pass (domain: gmail.com, ip: 209.85.215.181, mailfrom: bruce.ashfield@gmail.com)
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-7f3da2c2cb5so1648305a12.2
-        for <poky@lists.yoctoproject.org>; Tue, 05 Nov 2024 05:17:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1730812668; x=1731417468; darn=lists.yoctoproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=dySJW5Z/hLxJHSDxPFfm/wPkQEUoAQeAgGQLK8Y1ECE=;
-        b=nYKrYdrmEwLle/QhDi6crlWvRgLpaazuKo10lNvGGzbf9sw8IhuRNKHwROBsmiVTK5
-         VYFnUsNJ8SU+lbSWudQpK/bIgnv2CEf8wWpkXHzUc6I/h91WQrvn2tA8GUfMCFp/8sTh
-         6W10wzxEUW+iQ/PVRGelho9cFq1CBMsMXkb+SvNrgxcIiAFDrUWAbHSnlytc9PXYMJEa
-         q0/x7pkaKlamlHxp/QZBh7gJa1pmiGPpGF0G24n7G4TmD4p3Oe3tvSAHSPDqsC2C/+Xe
-         pXlvNkodWR8pSOlCsUyIGT2jUpb3B0DbAvWxsV//oim5eLCy0e2xAUGX/hah9dpIkrdL
-         FPsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1730812668; x=1731417468;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dySJW5Z/hLxJHSDxPFfm/wPkQEUoAQeAgGQLK8Y1ECE=;
-        b=lxyUC3xo9/I1UBT9cc4iZU0srkySqqxi1tVs6ZIln+ZQC3TUFKNWQ7WhV76DO4fO2g
-         K6N8biEDOMLslUYMB7ZKE/yoTetwyzXbIiJN1x1wmei/qg2FKthBLtYaInV6/rFCINyI
-         sIdaJlrpHYxWEifYoIbWAZ0agHO2YVZl0t5XSE6CAQNFHwtAyTC5xDdW/T6MKY5b49fa
-         ARduOXnVXeOfhps5Tx9Dig7UVZitGmC1AZiP4Kk/oLN2BbLl/6i6kuRHKMSGsN2qtIbd
-         psKq0UQJRrwwnMMktsHyGUpIQ2VfICUi9ynJtHpekv1BvzcL9Me7bSxN/tT8pUt3P67U
-         5EsQ==
-X-Gm-Message-State: AOJu0YyS346SENcgR2R4I7Rmn+xs1SyDlOU6QfFSdr/2LFKgSnuZPhkd
-	cu4rKrcAoD6K/i6dqri+R7U59MASUgUhVK/mMD9JEyrOetjZFZpglRGhNz25OhB7csXzmXrhpBn
-	djGZNckgmUrKkZr6ga7n7rRs3chU=
-X-Google-Smtp-Source: AGHT+IHdE57/4f5baHFw7lEG6a/RtaMQNDSmyNKjyNytO7v3Ml6rfrVjITd+KWws0u2qR73t3a/MZVg03+SDyUxwRck=
-X-Received: by 2002:a05:6a21:9999:b0:1db:f89a:c6fe with SMTP id
- adf61e73a8af0-1dbf89ac713mr1359706637.32.1730812667667; Tue, 05 Nov 2024
- 05:17:47 -0800 (PST)
+ dkim=fail reason="dkim: signature did not verify: crypto/rsa: verification error" header.i=star@gmx.li header.s=s31663417 header.b=S9vDGtV3;
+ spf=pass (domain: gmx.li, ip: 212.227.15.18, mailfrom: star@gmx.li)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.li;
+	s=s31663417; t=1730890149; x=1731494949; i=star@gmx.li;
+	bh=O7jOfnkB2XeqxkzhCJtNGe0dZtKdndLNA4NUw4tEnGI=;
+	h=X-UI-Sender-Class:Date:From:To:CC:Subject:In-Reply-To:References:
+	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=S9vDGtV3yag4G0cwQ2OkjJYjBC1jQ89mAXRdqNx8ZN8DVT8xh/XRyiLCfty4uYEH
+	 iR4p6J2VmKa+x4uqaP+ysvBSBQndQE3JVZqHhVJsLschCov79ppG7iFtMhNLIaZ34
+	 obR9pZpjf9LICjJbQ8Gd3IIx7oxd5JHzNHcCPljmlt+StPtQBsSYutXmTW4oBiKXF
+	 w6FOQ+h3gEVTMSd5PC7cEjSoIAC/Z214MlSCCOH0tOAcmbTH1EeYKC/PfthGGFKfE
+	 g1UFSgfqSz+9lF7Ze/hx9TcbFD+0vFkbcO1oi/XS4arFftIpLQidhPUzGldbysOgx
+	 wjLwvVjEUB7mmb1CNg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from [127.0.0.1] ([217.225.94.249]) by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1N0XCw-1u51Xs3Rpc-00t3fU; Wed, 06
+ Nov 2024 11:49:08 +0100
+Date: Wed, 06 Nov 2024 11:49:07 +0100
+From: star@gmx.li
+To: bruce.ashfield@gmail.com,
+ "Bruce Ashfield via lists.yoctoproject.org" <bruce.ashfield=gmail.com@lists.yoctoproject.org>
+CC: poky@lists.yoctoproject.org
+Subject: =?US-ASCII?Q?Re=3A_=5Bpoky=5D_One_recipe_for_fetch_a_bigger_r?=
+ =?US-ASCII?Q?epo=2C_multiple_recipes_to_build_parts_of_it?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <CADkTA4PkbOgqwNoN4TjXZ5JeEgheo3mHNuOH3p6O6+1WC2D=ng@mail.gmail.com>
+References: <9d150f03-34b6-4a6e-93d9-2530f12ba3e4@gmx.li> <CANNYZj_i=Wg_S2dXNRMUVZ0v0AzkWRwrNASBSxHMoe9SqDv4zQ@mail.gmail.com> <47da8641-7a74-4d64-afc4-84c81ba713b0@gmx.li> <CANNYZj8RpypOLJKRMbpL1ZESu2urWHFmr2yhL2pXXCwKiDWwgQ@mail.gmail.com> <7fb2177d-8d4a-47fe-9458-919c19631d15@gmx.li> <CADkTA4PkbOgqwNoN4TjXZ5JeEgheo3mHNuOH3p6O6+1WC2D=ng@mail.gmail.com>
+Message-ID: <1AC79676-8721-4811-8EDD-4137CB6E5C78@gmx.li>
 MIME-Version: 1.0
-References: <9d150f03-34b6-4a6e-93d9-2530f12ba3e4@gmx.li> <CANNYZj_i=Wg_S2dXNRMUVZ0v0AzkWRwrNASBSxHMoe9SqDv4zQ@mail.gmail.com>
- <47da8641-7a74-4d64-afc4-84c81ba713b0@gmx.li> <CANNYZj8RpypOLJKRMbpL1ZESu2urWHFmr2yhL2pXXCwKiDWwgQ@mail.gmail.com>
- <7fb2177d-8d4a-47fe-9458-919c19631d15@gmx.li>
-In-Reply-To: <7fb2177d-8d4a-47fe-9458-919c19631d15@gmx.li>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-Date: Tue, 5 Nov 2024 08:17:36 -0500
-Message-ID: <CADkTA4PkbOgqwNoN4TjXZ5JeEgheo3mHNuOH3p6O6+1WC2D=ng@mail.gmail.com>
-Subject: Re: [poky] One recipe for fetch a bigger repo, multiple recipes to
- build parts of it
-To: star@gmx.li
-Cc: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="0000000000003aae5606262a3a61"
+Content-Type: multipart/alternative;
+ boundary=----TC35A6D3FXW4NI0ORIQYXIOOQEZXLC
+Content-Transfer-Encoding: 7bit
+X-Provags-ID: V03:K1:acqffMn+cgJUNjyGNGxbNnjuHyd8Z4SM5DxZH7OkOt3eo3q/oX0
+ IQXGU9VN0xtDQ6TgevC+CcObpzVG8OqUDdQQOuH9vvF0LRa1owmd4A+qBFIWGIUcaQ0688a
+ WqKpA6935oLuBg0VJ8P0a3LpKy1WQk19+aAfyNGY9LSMXfgNnqOTqQdlUFNlW6SdCgdp7DR
+ Kuf93c84WotFbLn2mBhtg==
+UI-OutboundReport: notjunk:1;M01:P0:O5cgsGt85xk=;HwBn/kpFXjvOaEqSQ6Toe2AOLtr
+ g9Wd4g0HhYJIzHkjsGfX5XJxYKaukT/WGJTOjDpN28tkYhWqt7c4JP2Rxq/X8S5Dx8CG1wyMm
+ OzmkMJJSSFAZkDDUIF6WJ4nz+LkryVo89obluldXn9yu2dGRwXZglgsaSsFozWMroFrN/pjlY
+ AZrxQPIt/RxZuml6L8UFH72jnUCqO6zj5oL9Jspgrnj+CewMbvNQkoIY/F2Vq4B6aWNu/haPJ
+ n7ZlDHLnpFFG1bOvvf3PQunmTs/DErYVK0op6FnzpR+9Z1DhM6IheqknaVO0Za99xQLzvSlpa
+ URXk79r7QphbcgNG8PJkogO23i04FRWiQ5lK3EhYQk6iNv3gtIiIBeavAtv6CfGyH8mHD+XT0
+ +tCBc8UbVCZKeL6dA17qu5j5hkcAG/oIkm0dCMKHvyXPVR3+Z5yVvWqNJonJJvR4JE0ajJnC+
+ evOhui38MwXEpfFS7E2CITLClqZE5zeEarOLUq94aU6jo1gHydLgPS+Rmz8jmA4s7Im8nimh/
+ lStXThDTQ/7AL3Tm+hO4j6qimXrcnS4wz1uupK5/SPyZvFUC0P3eU23l12y7ojfHefj+yr+QN
+ OR8Ju/vrAChLUDYgoyF+odPiPMKn9am5LBs73iHkqxr5nQdkrgINN5a9aGETkV/ZOUxPnKCpX
+ dp1XVUny65BqDgkSkQqR1qzx6Nt1m3WT2dgKY6GCWfTsM9hj798NG3zjtXAW8r/mRh6bD9Ttl
+ s7cA37zUaEBR50XwefjwdPC7OgcTLpgT3rEuU7pFf/8VWlrqwXPCMrBveKlOuVvcY1bf079x2
+ 7KRRRBqpYBNoMQsrVMZqiRzw==
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 05 Nov 2024 13:17:49 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13478
+ <poky@lists.yoctoproject.org>; Wed, 06 Nov 2024 10:49:16 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13479
 
---0000000000003aae5606262a3a61
-Content-Type: text/plain; charset="UTF-8"
+------TC35A6D3FXW4NI0ORIQYXIOOQEZXLC
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 5, 2024 at 7:48=E2=80=AFAM Steve via lists.yoctoproject.org <st=
-ar=3D
-gmx.li@lists.yoctoproject.org> wrote:
+Well, the idea with work-shared sounds good=2E But I didn't figure out what=
+ param makes fetcher to checkout into work-shared?
+Just modify $S doesn't help, it is checked out still to tmp/work/<my-arch>=
+/my-fw/${TAG}+git${SRCPV}/git
+To workaround that for the moment I create a link, but that doesn't work r=
+eliable=2E
 
-> On 11/5/24 13:06, Alexander Kanavin via lists.yoctoproject.org wrote:
-> > On Tue, 5 Nov 2024 at 13:01, Steve via lists.yoctoproject.org
-> > <star=3Dgmx.li@lists.yoctoproject.org> wrote:
-> >> well download may indeed happened just once, but isn't in each recipe
-> >> the git folder with it's complete content?
-> >> Maybe I described it misleading:
-> >> So it is not about download, but about the amount of storage needed fo=
-r
-> >> each recipe. Assuming 10 recipes using same main repo, in each of the
-> >> ../build/tmp/<recipe-name>/<tag>+gitAUTOINC+<git-hash>/git
-> >> I see the full checked out repo.
-> >
-> > If you want to use individual submodules, then the best would be
-> > probably to have an external script that determines SRCREV for each of
-> > them from what is recorded in the parent repo, and writes that into
-> > recipes.
-> >
-> > Alex
->
-> True - that is one way.
-> But that doesn't sound easy with external scripts.
-> And the approach to use one recipe for checkout and multiple recipes to
-> access this cloned git is more effective in terms of storage usage,
-> isn't it?
-> How a recipeB, C, ... can know the path below - where the git-has is the
-> unknown component in this case.
-> To workaround the path
-> ../build/tmp/>arch>/<recipe-nameA>/<tag>+gitAUTOINC+<git-hash>/git
->
+Recipe my-fw=2Ebb looks like:
 
-Have you looked at the work-shared technique we use for the kernel
-and gcc ?
+SRC_URI =3D "gitsm://git@gitlab=2Exxxx=2Egit;protocol=3Dssh;branch=3D${BRA=
+NCH_FW};tag=3D${TAG};lfs=3D0"
+PV =3D "${TAG}+git${SRCPV}"
 
-Bruce
+S =3D "${TMPDIR}/work-shared/${PN}-${TAG}"
+
+do_configure () {
+}
+
+do_compile () {
+}
+
+do_install () {
+rm -rf ${S}
+ln -sf ${WORKDIR}/git ${S}
+
+}
+
+FILES:${PN}:append =3D " \
+"
 
 
+A recipe my-test using that and really creates a package that would be ins=
+talled looks like that:
 
->
-> I guess an DEPENDS=3DrecipeA needs also be part of all recipes using it.
-> Well, the recipes B,C,D might need to evaluate that git-hash, but I
-> don't know how in a recipe.
->
-> Thanks
->
->
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13477):
-> https://lists.yoctoproject.org/g/poky/message/13477
-> Mute This Topic: https://lists.yoctoproject.org/mt/109403571/1050810
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [
-> bruce.ashfield@gmail.com]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
->
 
---=20
-- Thou shalt not follow the NULL pointer, for chaos and madness await thee
-at its end
-- "Use the force Harry" - Gandalf, Star Trek II
+S =3D "${TMPDIR}/work-shared/my-fw-${TAG}/ "
 
---0000000000003aae5606262a3a61
-Content-Type: text/html; charset="UTF-8"
+RDEPENDS:${PN} =3D "net-snmp-lib-netsnmp net-snmp-lib-agent net-snmp-lib-m=
+ibs"
+RDEPENDS:${PN} +=3D "my-fw"
+
+do_configure () {
+}
+
+do_compile () {
+}
+
+do_install:microzed-zynq7 () {
+install -d ${D}/opt/lib
+install -m 666 ${S}/lib/arm/release/yyyy=2Eso ${D}/opt/lib/
+${TARGET_PREFIX}strip ${D}/opt/lib/yyyy=2Eso
+}
+
+But what not happened is, that calling bitbake my-test is causing to run b=
+itbake my-fw before=2E=2E=2E=2E
+You see, there are some open points=2E
+
+
+Am 5=2E November 2024 14:17:36 MEZ schrieb "Bruce Ashfield via lists=2Eyoc=
+toproject=2Eorg" <bruce=2Eashfield=3Dgmail=2Ecom@lists=2Eyoctoproject=2Eorg=
+>:
+>On Tue, Nov 5, 2024 at 7:48=E2=80=AFAM Steve via lists=2Eyoctoproject=2Eo=
+rg <star=3D
+>gmx=2Eli@lists=2Eyoctoproject=2Eorg> wrote:
+>
+>> On 11/5/24 13:06, Alexander Kanavin via lists=2Eyoctoproject=2Eorg wrot=
+e:
+>> > On Tue, 5 Nov 2024 at 13:01, Steve via lists=2Eyoctoproject=2Eorg
+>> > <star=3Dgmx=2Eli@lists=2Eyoctoproject=2Eorg> wrote:
+>> >> well download may indeed happened just once, but isn't in each recip=
+e
+>> >> the git folder with it's complete content?
+>> >> Maybe I described it misleading:
+>> >> So it is not about download, but about the amount of storage needed =
+for
+>> >> each recipe=2E Assuming 10 recipes using same main repo, in each of =
+the
+>> >> =2E=2E/build/tmp/<recipe-name>/<tag>+gitAUTOINC+<git-hash>/git
+>> >> I see the full checked out repo=2E
+>> >
+>> > If you want to use individual submodules, then the best would be
+>> > probably to have an external script that determines SRCREV for each o=
+f
+>> > them from what is recorded in the parent repo, and writes that into
+>> > recipes=2E
+>> >
+>> > Alex
+>>
+>> True - that is one way=2E
+>> But that doesn't sound easy with external scripts=2E
+>> And the approach to use one recipe for checkout and multiple recipes to
+>> access this cloned git is more effective in terms of storage usage,
+>> isn't it?
+>> How a recipeB, C, =2E=2E=2E can know the path below - where the git-has=
+ is the
+>> unknown component in this case=2E
+>> To workaround the path
+>> =2E=2E/build/tmp/>arch>/<recipe-nameA>/<tag>+gitAUTOINC+<git-hash>/git
+>>
+>
+>Have you looked at the work-shared technique we use for the kernel
+>and gcc ?
+>
+>Bruce
+>
+>
+>
+>>
+>> I guess an DEPENDS=3DrecipeA needs also be part of all recipes using it=
+=2E
+>> Well, the recipes B,C,D might need to evaluate that git-hash, but I
+>> don't know how in a recipe=2E
+>>
+>> Thanks
+>>
+>>
+>>=20
+>>
+>>
+>
+>--=20
+>- Thou shalt not follow the NULL pointer, for chaos and madness await the=
+e
+>at its end
+>- "Use the force Harry" - Gandalf, Star Trek II
+
+------TC35A6D3FXW4NI0ORIQYXIOOQEZXLC
+Content-Type: text/html;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fon=
-t-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Tue, Nov 5, 2024 at 7:48=E2=80=AFAM Steve via <a=
- href=3D"http://lists.yoctoproject.org">lists.yoctoproject.org</a> &lt;star=
-=3D<a href=3D"mailto:gmx.li@lists.yoctoproject.org">gmx.li@lists.yoctoproje=
-ct.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left=
-:1ex">On 11/5/24 13:06, Alexander Kanavin via <a href=3D"http://lists.yocto=
-project.org" rel=3D"noreferrer" target=3D"_blank">lists.yoctoproject.org</a=
-> wrote:<br>
-&gt; On Tue, 5 Nov 2024 at 13:01, Steve via <a href=3D"http://lists.yoctopr=
-oject.org" rel=3D"noreferrer" target=3D"_blank">lists.yoctoproject.org</a><=
-br>
-&gt; &lt;star=3D<a href=3D"mailto:gmx.li@lists.yoctoproject.org" target=3D"=
-_blank">gmx.li@lists.yoctoproject.org</a>&gt; wrote:<br>
-&gt;&gt; well download may indeed happened just once, but isn&#39;t in each=
- recipe<br>
-&gt;&gt; the git folder with it&#39;s complete content?<br>
+<html><head></head><body><div dir=3D"auto">Well, the idea with work-shared =
+sounds good=2E But I didn't figure out what param makes fetcher to checkout=
+ into work-shared?<br>Just modify $S doesn't help, it is checked out still =
+to tmp/work/&lt;my-arch&gt;/my-fw/${TAG}+git${SRCPV}/git<br>To workaround t=
+hat for the moment I create a link, but that doesn't work reliable=2E<br><b=
+r>Recipe my-fw=2Ebb looks like:<br><br>SRC_URI =3D "gitsm://git@gitlab=2Exx=
+xx=2Egit;protocol=3Dssh;branch=3D${BRANCH_FW};tag=3D${TAG};lfs=3D0"<br>PV =
+=3D "${TAG}+git${SRCPV}"<br><br>S =3D "${TMPDIR}/work-shared/${PN}-${TAG}"<=
+br><br>do_configure () {<br>}<br><br>do_compile () {<br>}<br><br>do_install=
+ () {<br>rm -rf ${S}<br>ln -sf ${WORKDIR}/git ${S}<br><br>}<br><br>FILES:${=
+PN}:append =3D " \<br>"<br><br><br>A recipe my-test using that and really c=
+reates a package that would be installed looks like that:<br><br><br>S =3D =
+"${TMPDIR}/work-shared/my-fw-${TAG}/ "<br><br>RDEPENDS:${PN} =3D "net-snmp-=
+lib-netsnmp net-snmp-lib-agent net-snmp-lib-mibs"<br>RDEPENDS:${PN} +=3D "m=
+y-fw"<br><br>do_configure () {<br>}<br><br>do_compile () {<br>}<br><br>do_i=
+nstall:microzed-zynq7 () {<br>install -d ${D}/opt/lib<br>install -m 666 ${S=
+}/lib/arm/release/yyyy=2Eso ${D}/opt/lib/<br>${TARGET_PREFIX}strip ${D}/opt=
+/lib/yyyy=2Eso<br>}<br><br>But what not happened is, that calling bitbake m=
+y-test is causing to run bitbake my-fw before=2E=2E=2E=2E<br>You see, there=
+ are some open points=2E<br></div><br><br><div class=3D"gmail_quote"><div d=
+ir=3D"auto">Am 5=2E November 2024 14:17:36 MEZ schrieb "Bruce Ashfield via =
+lists=2Eyoctoproject=2Eorg" &lt;bruce=2Eashfield=3Dgmail=2Ecom@lists=2Eyoct=
+oproject=2Eorg&gt;:</div><blockquote class=3D"gmail_quote" style=3D"margin:=
+ 0pt 0pt 0pt 0=2E8ex; border-left: 1px solid rgb(204, 204, 204); padding-le=
+ft: 1ex;">
+<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_default" style=3D"fo=
+nt-size:small"><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"l=
+tr" class=3D"gmail_attr">On Tue, Nov 5, 2024 at 7:48=E2=80=AFAM Steve via <=
+a href=3D"http://lists=2Eyoctoproject=2Eorg">lists=2Eyoctoproject=2Eorg</a>=
+ &lt;star=3D<a href=3D"mailto:gmx=2Eli@lists=2Eyoctoproject=2Eorg">gmx=2Eli=
+@lists=2Eyoctoproject=2Eorg</a>&gt; wrote:<br></div><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0px 0px 0px 0=2E8ex;border-left:1px solid rgb(20=
+4,204,204);padding-left:1ex">On 11/5/24 13:06, Alexander Kanavin via <a hre=
+f=3D"http://lists=2Eyoctoproject=2Eorg" rel=3D"noreferrer" target=3D"_blank=
+">lists=2Eyoctoproject=2Eorg</a> wrote:<br>
+&gt; On Tue, 5 Nov 2024 at 13:01, Steve via <a href=3D"http://lists=2Eyoct=
+oproject=2Eorg" rel=3D"noreferrer" target=3D"_blank">lists=2Eyoctoproject=
+=2Eorg</a><br>
+&gt; &lt;star=3D<a href=3D"mailto:gmx=2Eli@lists=2Eyoctoproject=2Eorg" tar=
+get=3D"_blank">gmx=2Eli@lists=2Eyoctoproject=2Eorg</a>&gt; wrote:<br>
+&gt;&gt; well download may indeed happened just once, but isn't in each re=
+cipe<br>
+&gt;&gt; the git folder with it's complete content?<br>
 &gt;&gt; Maybe I described it misleading:<br>
-&gt;&gt; So it is not about download, but about the amount of storage neede=
-d for<br>
-&gt;&gt; each recipe. Assuming 10 recipes using same main repo, in each of =
-the<br>
-&gt;&gt; ../build/tmp/&lt;recipe-name&gt;/&lt;tag&gt;+gitAUTOINC+&lt;git-ha=
-sh&gt;/git<br>
-&gt;&gt; I see the full checked out repo.<br>
+&gt;&gt; So it is not about download, but about the amount of storage need=
+ed for<br>
+&gt;&gt; each recipe=2E Assuming 10 recipes using same main repo, in each =
+of the<br>
+&gt;&gt; =2E=2E/build/tmp/&lt;recipe-name&gt;/&lt;tag&gt;+gitAUTOINC+&lt;g=
+it-hash&gt;/git<br>
+&gt;&gt; I see the full checked out repo=2E<br>
 &gt;<br>
 &gt; If you want to use individual submodules, then the best would be<br>
-&gt; probably to have an external script that determines SRCREV for each of=
-<br>
-&gt; them from what is recorded in the parent repo, and writes that into<br=
->
-&gt; recipes.<br>
+&gt; probably to have an external script that determines SRCREV for each o=
+f<br>
+&gt; them from what is recorded in the parent repo, and writes that into<b=
+r>
+&gt; recipes=2E<br>
 &gt;<br>
 &gt; Alex<br>
 <br>
-True - that is one way.<br>
-But that doesn&#39;t sound easy with external scripts.<br>
-And the approach to use one recipe for checkout and multiple recipes to<br>
+True - that is one way=2E<br>
+But that doesn't sound easy with external scripts=2E<br>
+And the approach to use one recipe for checkout and multiple recipes to<br=
+>
 access this cloned git is more effective in terms of storage usage,<br>
-isn&#39;t it?<br>
-How a recipeB, C, ... can know the path below - where the git-has is the<br=
->
-unknown component in this case.<br>
+isn't it?<br>
+How a recipeB, C, =2E=2E=2E can know the path below - where the git-has is=
+ the<br>
+unknown component in this case=2E<br>
 To workaround the path<br>
-../build/tmp/&gt;arch&gt;/&lt;recipe-nameA&gt;/&lt;tag&gt;+gitAUTOINC+&lt;g=
-it-hash&gt;/git<br></blockquote><div><br></div><div><div class=3D"gmail_def=
-ault" style=3D"font-size:small">Have you looked at the work-shared techniqu=
-e=C2=A0we use for the kernel</div><div class=3D"gmail_default" style=3D"fon=
-t-size:small">and gcc ?</div><div class=3D"gmail_default" style=3D"font-siz=
-e:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small">B=
-ruce</div><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">
+=2E=2E/build/tmp/&gt;arch&gt;/&lt;recipe-nameA&gt;/&lt;tag&gt;+gitAUTOINC+=
+&lt;git-hash&gt;/git<br></blockquote><div><br></div><div><div class=3D"gmai=
+l_default" style=3D"font-size:small">Have you looked at the work-shared tec=
+hnique&nbsp;we use for the kernel</div><div class=3D"gmail_default" style=
+=3D"font-size:small">and gcc ?</div><div class=3D"gmail_default" style=3D"f=
+ont-size:small"><br></div><div class=3D"gmail_default" style=3D"font-size:s=
+mall">Bruce</div><br></div><div>&nbsp;</div><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0px 0px 0px 0=2E8ex;border-left:1px solid rgb(204,204,20=
+4);padding-left:1ex">
 <br>
-I guess an DEPENDS=3DrecipeA needs also be part of all recipes using it.<br=
->
+I guess an DEPENDS=3DrecipeA needs also be part of all recipes using it=2E=
+<br>
 Well, the recipes B,C,D might need to evaluate that git-hash, but I<br>
-don&#39;t know how in a recipe.<br>
+don't know how in a recipe=2E<br>
 <br>
 Thanks<br>
 <br>
 <br>
--=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
-Links: You receive all messages sent to this group.<br>
-View/Reply Online (#13477): <a href=3D"https://lists.yoctoproject.org/g/pok=
-y/message/13477" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctopr=
-oject.org/g/poky/message/13477</a><br>
-Mute This Topic: <a href=3D"https://lists.yoctoproject.org/mt/109403571/105=
-0810" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctoproject.org/m=
-t/109403571/1050810</a><br>
-Group Owner: <a href=3D"mailto:poky%2Bowner@lists.yoctoproject.org" target=
-=3D"_blank">poky+owner@lists.yoctoproject.org</a><br>
-Unsubscribe: <a href=3D"https://lists.yoctoproject.org/g/poky/unsub" rel=3D=
-"noreferrer" target=3D"_blank">https://lists.yoctoproject.org/g/poky/unsub<=
-/a> [<a href=3D"mailto:bruce.ashfield@gmail.com" target=3D"_blank">bruce.as=
-hfield@gmail.com</a>]<br>
--=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
 <br>
-</blockquote></div><div><br clear=3D"all"></div><div><br></div><span class=
-=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_s=
-ignature">- Thou shalt not follow the NULL pointer, for chaos and madness a=
-wait thee at its end<br>- &quot;Use the force Harry&quot; - Gandalf, Star T=
-rek II<br><br></div></div>
-
---0000000000003aae5606262a3a61--
+<br>
+</blockquote></div><div><br clear=3D"all"></div><div><br></div></div>
+</blockquote></div></body></html>
+------TC35A6D3FXW4NI0ORIQYXIOOQEZXLC--
 
