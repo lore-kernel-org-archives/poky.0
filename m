@@ -1,148 +1,119 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F12ED743FE
-	for <webhook@archiver.kernel.org>; Fri, 22 Nov 2024 09:49:35 +0000 (UTC)
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
- by mx.groups.io with SMTP id smtpd.web11.20989.1732268973436204040
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C665D75E22
+	for <webhook@archiver.kernel.org>; Fri, 22 Nov 2024 10:29:15 +0000 (UTC)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+ by mx.groups.io with SMTP id smtpd.web10.21040.1732271350608901160
  for <poky@lists.yoctoproject.org>;
- Fri, 22 Nov 2024 01:49:33 -0800
+ Fri, 22 Nov 2024 02:29:10 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=gbux6Gwv;
- spf=pass (domain: gmail.com, ip: 209.85.219.46, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-6d405853c0fso12394346d6.0
-        for <poky@lists.yoctoproject.org>; Fri, 22 Nov 2024 01:49:33 -0800 (PST)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=QNUzhfdY;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.54, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4316f3d3c21so16592345e9.3
+        for <poky@lists.yoctoproject.org>; Fri, 22 Nov 2024 02:29:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1732268972; x=1732873772; darn=lists.yoctoproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=gk7OleklA2fK2hATWzSEo1di8kAgRzdyNnpOUaUBJsQ=;
-        b=gbux6GwvbGSSQ4M3fvTMB4UxKT9ydw3Sn41j0eysQMH2uy/NSSsT3k6DaQASc3IBsw
-         W0aOJSIlJSdi1edEcA8YS5sBB+pulzSWziTsnYdAAnVYbq/C7oSR3eFLvFaxCnxal/Bb
-         wnCY14y6Y6OjOnZJuGp7EIEB5226CgOBOehQbckQI3eHAfx/uDu0qmbGLAeKtzVwZWZa
-         E/yX0Jr1Ysr40z0/9vYNgvW3HJg8sUPFIKTtP+zN+LNZ1JDomXAo/qovfiMnrJ80vL/3
-         szSuj39j9l3I7YRhxTLh5/eeAqgL3TdyelSuwVneSzgveJ8DkGXf67whRyV+ABYIIvEl
-         vebg==
+        d=linuxfoundation.org; s=google; t=1732271349; x=1732876149; darn=lists.yoctoproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=pJIBceEyNp7ayWUDbllRaXgKh+RohUCjZrqV7+peXzI=;
+        b=QNUzhfdYHeM1KTcSFGDkbMsGaSaov5HU9DlhArBJlW7IWopmTkuiDreyH6KdgM2KlY
+         qsN977rEr54U9VeRUoKJ04K9DymeewSxMcb4RCWw9SQmgXW3mULzzoh6V1995gPKz1yl
+         ywJZJdxIQ2/sTmtGuoshORA5VnEuTQEiaDkgg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1732268972; x=1732873772;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gk7OleklA2fK2hATWzSEo1di8kAgRzdyNnpOUaUBJsQ=;
-        b=btqhnWwcU9U+PBWneJsX17WVcInfBRhrA9qOFknA5UCNLt3Hj6Lv6x6K8mlubcNE5l
-         j+vNwu5SBw4gIZaFCBJZJNa+ItJcyEUak9AxSBJpQ31KTz2fIGPR+pqcF5E6EbRGjI4A
-         5hcgY55l1zT+pXd4k+ioxSlJceZuiRYI+qypG2QjxHhaYqkNT2M1cvO5fcMFh3nv5geF
-         uz323T4BDbLBauGW/2UKs0RI44PyI4tibE8lo7ez0GmSMMM34UH7XS/KpwahLiMwfEt7
-         4I6MRHXKKAR7bWnJad79cmN7Q/PCbd/gkwBlxu8hhZN17SCzvm7BBKCmxSoSMxnkmj5Y
-         EcPA==
-X-Gm-Message-State: AOJu0Yw5j/u5UtQIkJhzb0alRNQlpT+l61tGRU9dARVnKIS92R/HGin1
-	dZ9wIsHOSsLGJphmVkhIQ9thZOkApknq5njZbgNWCE9aRB1HyOJSPLRESol9z/kAbMkLPlhVE3y
-	sPK6IkjZPchTjDoi8VtD2taxiUk0=
-X-Gm-Gg: ASbGncvJlfZDNm1HiD2ShYIr6yqKmhtTXF0Pcn3ec4IUrDFpNbMFnlONgwIXq1Apxfi
-	hXtR1CVmIAmlW2uMbWyKFjlyUKnRvv6Ay3BYX80mBOq0NSfahrfdAV06kVs13VSA+0Q==
-X-Google-Smtp-Source: AGHT+IE8OBUhpNkT3seFDKNzRx8DO9gbvLdoFvkRvWe9tN3Wv2vhX2kqxhhePyYrIhTvsIyCShSYoUDoRyFsMze9AI0=
-X-Received: by 2002:a05:6214:5004:b0:6cb:600f:568b with SMTP id
- 6a1803df08f44-6d450e6ae19mr33208116d6.8.1732268972333; Fri, 22 Nov 2024
- 01:49:32 -0800 (PST)
-MIME-Version: 1.0
-References: <9b605f6d8bdb4f6bb3194d5049bc0db6@diehl.com>
-In-Reply-To: <9b605f6d8bdb4f6bb3194d5049bc0db6@diehl.com>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Fri, 22 Nov 2024 10:49:21 +0100
-Message-ID: <CANNYZj_FCBE1CCX_=eQDRf-FmbCyFvGyvGSOFBxN+3mxnT+tDg@mail.gmail.com>
+        d=1e100.net; s=20230601; t=1732271349; x=1732876149;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=pJIBceEyNp7ayWUDbllRaXgKh+RohUCjZrqV7+peXzI=;
+        b=UKprxCWhQMIZkrfIjLXBPYcQr5qWeqR0/Uf5lm34GGZrewnQKejc9N+U9S43vEKfWT
+         bsVZLL0b60g88UigQMtjrj+MgbFcMhH+mXAv+L3WMGCa3tNJCnGZXu7YDBBx3cjSfMo1
+         4ifIZHyzdu83Cehdd5mqgGMkZUuaX7tkrji2mnnJlN3ZxxV6f93Cm8HALDGwpkOH/0tr
+         CGvtEldjqaLGAfYLUdSajpINdVxnVUes4EkWyR+HVE55PZYAi3XuNmaCOig+QXpgUeMQ
+         33GAY47zMWALDTf+RMu2gt6gVMfPZ+B7EeVYdJe2kUpf2wHNG1KIGfNEi2/1ORxnGuxu
+         Bfeg==
+X-Forwarded-Encrypted: i=1; AJvYcCXNv/Il+kb7PL5jNwpvzmH7aOtJ7AQt6UAhH9zre99IAefw76fcxmVdiqpJmYG+/BhGnr8N@lists.yoctoproject.org
+X-Gm-Message-State: AOJu0YzLGhBhh+mKMLeBjrpIg8IUJISHnYpW9Rdmx8zOcUdnRwtZXFTk
+	Pjp/X+oTv5x3bxI8Y7lg5OWzy76mmH31oHoDiHDDZEWYhJ9lGMnQ+AKSCu4Lqrk=
+X-Gm-Gg: ASbGnct7d+nK2Si845BtEG6Kse8eMl8xe3jKtABMYNyY1Xkl9VbCP7TmsIg1q3KkE88
+	IRJWqDeMf1l45sW8pqLWZGQPBEpCbbaP3CVd6FU9/s5Qbtq81oiCIj0sLmHYXWxMOdHygl3/GHJ
+	s/gb77cjM7DMmh6BkmLQkrNUXU31t1Q7ADJ03hRVGRAd70cN7P5tzo+jAg3IuYAnFIuN2We1CRq
+	2IQ5BM/J8nacc1jWU95+z7v8KS6TAzEgd9w2pcT2OiuLC+1FDsZkRD+/wvcWxjwLAuHY+2tbtVs
+	OcQIIinMqYbwIRxZsPdtD3lkbbT/WXZSFGvjotI=
+X-Google-Smtp-Source: AGHT+IF9X9ZNysnCndj/AKxOenBzRJhh+59FpBJVs0+xFX/7X/7Ji+LpuRGRanOs3LhXsoeFxJzqlQ==
+X-Received: by 2002:a5d:5f8c:0:b0:382:39a7:3995 with SMTP id ffacd0b85a97d-38260b5b5a5mr1842303f8f.17.1732271348835;
+        Fri, 22 Nov 2024 02:29:08 -0800 (PST)
+Received: from ?IPv6:2001:8b0:aba:5f3c:87e7:ee61:98f2:6cd2? ([2001:8b0:aba:5f3c:87e7:ee61:98f2:6cd2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3825fb53858sm1987583f8f.62.2024.11.22.02.29.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 22 Nov 2024 02:29:08 -0800 (PST)
+Message-ID: <ee234eecb6b9a633b57148e425fe969480da71fd.camel@linuxfoundation.org>
 Subject: Re: [poky] [PATCH] licenses: add GPL-2.0-with-Linux-syscall-note
-To: denis.osterland@diehl.com
-Cc: "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: denis.osterland@diehl.com, "poky@lists.yoctoproject.org"
+	 <poky@lists.yoctoproject.org>
+Cc: Alexander Kanavin <alex.kanavin@gmail.com>, Joshua Watt
+	 <JPEWhacker@gmail.com>
+Date: Fri, 22 Nov 2024 10:29:07 +0000
+In-Reply-To: <9b605f6d8bdb4f6bb3194d5049bc0db6@diehl.com>
+References: <9b605f6d8bdb4f6bb3194d5049bc0db6@diehl.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.54.0-1 
+MIME-Version: 1.0
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 22 Nov 2024 09:49:35 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13492
+ <poky@lists.yoctoproject.org>; Fri, 22 Nov 2024 10:29:15 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13493
 
-This is a patch for openembedded-core, and should go to the
-openembedded-core@lists.openembedded.org.
-
-Alex
-
-On Fri, 22 Nov 2024 at 10:29, Denis OSTERLAND-HEIM via
-lists.yoctoproject.org
-<denis.osterland=diehl.com@lists.yoctoproject.org> wrote:
->
+On Fri, 2024-11-22 at 10:28 +0100, Denis OSTERLAND-HEIM via lists.yoctoproj=
+ect.org wrote:
 > According to Linux copying notice[^1] the SPDX copyright should be
 > `GPL-2.0 WITH Linux-syscall-note`.
 > AFAIK there is no `WITH` operator in yocto yet, so I created
 > GPL-2.0-with-Linux-syscall-note based on SPDX[^2] and Linux[^3].
-> spdx.org/licenses does not list this license, because of the prefered use of
+> spdx.org/licenses does not list this license, because of the prefered use=
+ of
 > WITH operator.
 > For example GPL-2.0-with-autoconf-exception[^4] is now marked deprecated.
->
-> It would be good to have something like `LICENSE = "GPL2.0-only +
+>=20
+> It would be good to have something like `LICENSE =3D "GPL2.0-only +
 > Linux-syscall-note"`
 > in the future.
->
+>=20
 > [^1]:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/COPY
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/C=
+OPY
 > ING
 > [^2]: https://spdx.org/licenses/Linux-syscall-note.html
 > [^3]:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/LICE
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/L=
+ICE
 > NSES/exceptions/Linux-syscall-note
 > [^4]: https://spdx.org/licenses/GPL-2.0-with-autoconf-exception.html
->
+>=20
 > Signed-off-by: Denis Osterland-Heim <denis.osterland@diehl.com>
 > ---
->  .../GPL-2.0-with-Linux-syscall-note               | 15 +++++++++++++++
->  meta/recipes-kernel/linux/linux-yocto.inc         |  2 +-
->  2 files changed, 16 insertions(+), 1 deletion(-)
->  create mode 100644
+> =C2=A0.../GPL-2.0-with-Linux-syscall-note=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 15 +++++++++++++++
+> =C2=A0meta/recipes-kernel/linux/linux-yocto.inc=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> =C2=A02 files changed, 16 insertions(+), 1 deletion(-)
+> =C2=A0create mode 100644
 > meta/files/common-licenses/GPL-2.0-with-Linux-syscall-note
->
-> diff --git a/meta/files/common-licenses/GPL-2.0-with-Linux-syscall-note
-> b/meta/files/common-licenses/GPL-2.0-with-Linux-syscall-note
-> new file mode 100644
-> index 0000000000..7fc191baf1
-> --- /dev/null
-> +++ b/meta/files/common-licenses/GPL-2.0-with-Linux-syscall-note
-> @@ -0,0 +1,15 @@
-> +insert GPL v2 text here
-> +
-> +   NOTE! This copyright does *not* cover user programs that use kernel
-> + services by normal system calls - this is merely considered normal use
-> + of the kernel, and does *not* fall under the heading of "derived work".
-> + Also note that the GPL below is copyrighted by the Free Software
-> + Foundation, but the instance of code that it refers to (the Linux
-> + kernel) is copyrighted by me and others who actually wrote it.
-> +
-> + Also note that the only valid version of the GPL as far as the kernel
-> + is concerned is _this_ particular version of the license (ie v2, not
-> + v2.2 or v3.x or whatever), unless explicitly otherwise stated.
-> +
-> +                       Linus Torvalds
-> +
-> diff --git a/meta/recipes-kernel/linux/linux-yocto.inc
-> b/meta/recipes-kernel/linux/linux-yocto.inc
-> index 0132fcffb3..1765974666 100644
-> --- a/meta/recipes-kernel/linux/linux-yocto.inc
-> +++ b/meta/recipes-kernel/linux/linux-yocto.inc
-> @@ -1,6 +1,6 @@
->  SUMMARY = "Linux kernel"
->  SECTION = "kernel"
-> -LICENSE = "GPL-2.0-only"
-> +LICENSE = "GPL-2.0-with-Linux-syscall-note"
->  HOMEPAGE = "https://www.yoctoproject.org/"
->
->  LIC_FILES_CHKSUM ?= "file://COPYING;md5=d7810fab7487fb0aad327b76f1be7cd7"
-> --
-> 2.45.2
->
-> -=-=-=-=-=-=-=-=-=-=-=-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13491): https://lists.yoctoproject.org/g/poky/message/13491
-> Mute This Topic: https://lists.yoctoproject.org/mt/109719806/1686489
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gmail.com]
-> -=-=-=-=-=-=-=-=-=-=-=-
->
+
+As Alex mentioned, this is the wrong list for this patch. There is also
+a bigger issue in that your change removes the main GPLv2 license text
+from the kernel license field. I'm not sure we can do that as is
+becomes a fairly serious oversight.
+
+I think we probably need to add dedicated WITH support to our license
+code to resolve this.
+
+Cheers,
+
+Richard
 
