@@ -1,81 +1,70 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <peter-simon.dieterich@vaillant-group.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8E70E7719F
-	for <webhook@archiver.kernel.org>; Mon, 13 Jan 2025 13:17:46 +0000 (UTC)
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
- by mx.groups.io with SMTP id smtpd.web10.16342.1736774264096267213
- for <poky@lists.yoctoproject.org>;
- Mon, 13 Jan 2025 05:17:44 -0800
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=Nx1qosVK;
- spf=pass (domain: gmail.com, ip: 209.85.219.54, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-6d89a727a19so48761826d6.0
-        for <poky@lists.yoctoproject.org>; Mon, 13 Jan 2025 05:17:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1736774263; x=1737379063; darn=lists.yoctoproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=i+B1AydLiiNH/DYeMutyfyz1z/iJSsVdWgeDLFfDTFs=;
-        b=Nx1qosVK79Eg5RrvSPQPTw39aqG0J+EQZ0RnKPTvXJ/9aeFMtgS6bHJEyzV3wfQ0cT
-         20tlMbNjcH0i3USzg37HtnmcBVPpPvf1t32kGM3cuU+dGPZWWnGgs8Nw4LVf1fEwhKKz
-         wwWpeO/hm5B6ewnt0t3/sbJTudlz5rKUntPaPggwmjkWfOfdzALnY/FYThonB7UkB9s3
-         kpYmEGWl/4K+PHxfm6X5eekNEILcd81INPmzJkkEM0abdUZ9P9gEjupwArsjJ8qyHWKJ
-         ik/kZVWZgI4YilRPL8JIlhiaaZacD1WVzQJ1Fa0O/z7RPVwnc8mMxc8ZAaXPZjGQI4pZ
-         h9Hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1736774263; x=1737379063;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=i+B1AydLiiNH/DYeMutyfyz1z/iJSsVdWgeDLFfDTFs=;
-        b=BMa5ckDKPtnB1kYiG65NDvRSkmniNMGWqfpwBTaV5ZZBbq4cZl+KGdwBecFGZWmMcb
-         UiNAm2QuT0R/aK2dM/es6eELh6dQz/1PAJe82BxVF27v0hqoCnOe2YlSuPq71XpGSbhF
-         Ir+LW4oHIAP3EoY77CAtTa/CnBsK1HozGUoEFT4gGxrhpGlUNQvmF/vw97/5Vls1Q5J6
-         gkit8/m+yuYNM3NvQLQkuKoxzfmwvMpnmkwlWDZY1cPwwIL9N5BlwdEcSlAKyzqw7LZC
-         ezJo8lK4WbdNPsP00mVP6Z2Lu0UjDJrfnllh4e1CnM6PgCc5s4tf/lRjio/q/a4gaGrn
-         US5g==
-X-Gm-Message-State: AOJu0YxSFdTmTlL4v4t4G5HFZ9iOwPnlzZW0N5/lHl6AMhWC80+ARtpn
-	SCIcuLaEnwagCE5Yazhej7bORh+eawqFxm9hGVtEtsUQxNj2prc7msThSNNPgQSqGKlxQOM3rlw
-	fapDPbLR9xcHpotEYEYPhjfwRfVw=
-X-Gm-Gg: ASbGnctsYbmpKHv7e22L4Jern2IsQzMTVO5ATGPztB5ZvnmzoQB4nR9H9OSUDV/UkIU
-	jBUe75qes/BAR5tV+BvpcuWWuRflynJmQqDvNVymDiySIVKVB3g0upm2ST9VRrdH4jAI0IaKD
-X-Google-Smtp-Source: AGHT+IF6QGiek0ujy51fWepNQm3EgSJHvoRPFxdzicFVIh5AZ/h3CvpA/qg+kI4y2n9zEDsItqgo7bBd/2tjK255wpA=
-X-Received: by 2002:a05:6214:5f04:b0:6d8:a258:68bc with SMTP id
- 6a1803df08f44-6dfbaa09340mr123204266d6.11.1736774263134; Mon, 13 Jan 2025
- 05:17:43 -0800 (PST)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E9932C02183
+	for <webhook@archiver.kernel.org>; Mon, 13 Jan 2025 14:15:26 +0000 (UTC)
+Subject: Re: #package #poky #yocto connman: Bug in connman causing endless write to file
+To: poky@lists.yoctoproject.org
+From: "Dieterich, Peter-Simon" <peter-simon.dieterich@vaillant-group.com>
+X-Originating-Location: =?UTF-8?B?S2lwcGVuaGVpbSwgQmFkZW4tV8O8cnR0ZW1iZXJnLCBERQ==?= (79.199.250.188)
+X-Originating-Platform: Linux Firefox 134
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-References: <gwtb.1736773617531475991.iGrZ@lists.yoctoproject.org>
-In-Reply-To: <gwtb.1736773617531475991.iGrZ@lists.yoctoproject.org>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Mon, 13 Jan 2025 14:17:32 +0100
-X-Gm-Features: AbW1kvZdwDrveP4rIma3DDViFctdaF4vQ628H2QTAfbtZLqCaljDFkKG25t2org
-Message-ID: <CANNYZj_tTFbO36CEeaVqZJROhb8LK6jFpCegD6TYFNejFcQ_XA@mail.gmail.com>
-Subject: Re: [poky] #package #poky #yocto connman: Bug in connman causing
- endless write to file
-To: peter-simon.dieterich@vaillant-group.com
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 13 Jan 2025 06:15:16 -0800
+References: <CANNYZj_tTFbO36CEeaVqZJROhb8LK6jFpCegD6TYFNejFcQ_XA@mail.gmail.com>
+In-Reply-To: <CANNYZj_tTFbO36CEeaVqZJROhb8LK6jFpCegD6TYFNejFcQ_XA@mail.gmail.com>
+Message-ID: <31827.1736777716848119510@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="6JwkdXgYr410LQk0pUKO"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Mon, 13 Jan 2025 13:17:46 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13503
+ <poky@lists.yoctoproject.org>; Mon, 13 Jan 2025 14:15:26 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13504
 
-On Mon, 13 Jan 2025 at 14:06, Dieterich, Peter-Simon via
-lists.yoctoproject.org
-<peter-simon.dieterich=vaillant-group.com@lists.yoctoproject.org>
-wrote:
-> Our solution was to disable the stats module. We think it would be best to have the stats module disabled by default as it is a functionality that most users won't need.
->
-> Should I send the patch in a separate message?
+--6JwkdXgYr410LQk0pUKO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-First please find out whether it's possible to solve the data format
-issue with an upstream fix. Disabling something because of a bug
-triggered by a very corner case isn't a great idea, particularly when
-justified by broad, difficult to verify statements like 'most users
-don't need this'.
+On Mon, Jan 13, 2025 at 05:17 AM, Alexander Kanavin wrote:
 
-Alex
+>=20
+> First please find out whether it's possible to solve the data format
+> issue with an upstream fix. Disabling something because of a bug
+> triggered by a very corner case isn't a great idea, particularly when
+> justified by broad, difficult to verify statements like 'most users
+> don't need this'.
+
+Will do. I agree that the statement is very broad. To be honest, I don't kn=
+ow the exact use case of this feature. From what I've seen it saves connect=
+ion statistics that look very much like debug information, for which you al=
+so need special binaries to analyze.
+
+Concerning the very corner case, I'd like to point out that this issue affe=
+cts all users using connman and migrating existing systems from previous yo=
+cto versions without 64-bit support to a current version with 64-bit suppor=
+t.
+
+--6JwkdXgYr410LQk0pUKO
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>On Mon, Jan 13, 2025 at 05:17 AM, Alexander Kanavin wrote:</div>
+<div>
+<blockquote>First please find out whether it's possible to solve the data f=
+ormat<br />issue with an upstream fix. Disabling something because of a bug=
+<br />triggered by a very corner case isn't a great idea, particularly when=
+<br />justified by broad, difficult to verify statements like 'most users<b=
+r />don't need this'.</blockquote>
+Will do. I agree that the statement is very broad. To be honest, I don't kn=
+ow the exact use case of this feature. From what I've seen it saves connect=
+ion statistics that look very much like debug information, for which you al=
+so need special binaries to analyze.</div>
+<div>&nbsp;</div>
+<div>Concerning the very corner case, I'd like to point out that this issue=
+ affects all users using connman and migrating existing systems from previo=
+us yocto versions without 64-bit support to a current version with 64-bit s=
+upport.</div>
+
+--6JwkdXgYr410LQk0pUKO--
 
