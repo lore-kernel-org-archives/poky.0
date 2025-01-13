@@ -1,107 +1,81 @@
-Return-Path: <peter-simon.dieterich@vaillant-group.com>
+Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9DDA7C02180
-	for <webhook@archiver.kernel.org>; Mon, 13 Jan 2025 13:07:06 +0000 (UTC)
-Subject: #package #poky #yocto connman: Bug in connman causing endless write to file
-To: poky@lists.yoctoproject.org
-From: "Dieterich, Peter-Simon" <peter-simon.dieterich@vaillant-group.com>
-X-Originating-Location: =?UTF-8?B?S2lwcGVuaGVpbSwgQmFkZW4tV8O8cnR0ZW1iZXJnLCBERQ==?= (79.199.250.188)
-X-Originating-Platform: Linux Firefox 134
-User-Agent: GROUPS.IO Web Poster
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8E70E7719F
+	for <webhook@archiver.kernel.org>; Mon, 13 Jan 2025 13:17:46 +0000 (UTC)
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+ by mx.groups.io with SMTP id smtpd.web10.16342.1736774264096267213
+ for <poky@lists.yoctoproject.org>;
+ Mon, 13 Jan 2025 05:17:44 -0800
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=Nx1qosVK;
+ spf=pass (domain: gmail.com, ip: 209.85.219.54, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-6d89a727a19so48761826d6.0
+        for <poky@lists.yoctoproject.org>; Mon, 13 Jan 2025 05:17:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1736774263; x=1737379063; darn=lists.yoctoproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=i+B1AydLiiNH/DYeMutyfyz1z/iJSsVdWgeDLFfDTFs=;
+        b=Nx1qosVK79Eg5RrvSPQPTw39aqG0J+EQZ0RnKPTvXJ/9aeFMtgS6bHJEyzV3wfQ0cT
+         20tlMbNjcH0i3USzg37HtnmcBVPpPvf1t32kGM3cuU+dGPZWWnGgs8Nw4LVf1fEwhKKz
+         wwWpeO/hm5B6ewnt0t3/sbJTudlz5rKUntPaPggwmjkWfOfdzALnY/FYThonB7UkB9s3
+         kpYmEGWl/4K+PHxfm6X5eekNEILcd81INPmzJkkEM0abdUZ9P9gEjupwArsjJ8qyHWKJ
+         ik/kZVWZgI4YilRPL8JIlhiaaZacD1WVzQJ1Fa0O/z7RPVwnc8mMxc8ZAaXPZjGQI4pZ
+         h9Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1736774263; x=1737379063;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=i+B1AydLiiNH/DYeMutyfyz1z/iJSsVdWgeDLFfDTFs=;
+        b=BMa5ckDKPtnB1kYiG65NDvRSkmniNMGWqfpwBTaV5ZZBbq4cZl+KGdwBecFGZWmMcb
+         UiNAm2QuT0R/aK2dM/es6eELh6dQz/1PAJe82BxVF27v0hqoCnOe2YlSuPq71XpGSbhF
+         Ir+LW4oHIAP3EoY77CAtTa/CnBsK1HozGUoEFT4gGxrhpGlUNQvmF/vw97/5Vls1Q5J6
+         gkit8/m+yuYNM3NvQLQkuKoxzfmwvMpnmkwlWDZY1cPwwIL9N5BlwdEcSlAKyzqw7LZC
+         ezJo8lK4WbdNPsP00mVP6Z2Lu0UjDJrfnllh4e1CnM6PgCc5s4tf/lRjio/q/a4gaGrn
+         US5g==
+X-Gm-Message-State: AOJu0YxSFdTmTlL4v4t4G5HFZ9iOwPnlzZW0N5/lHl6AMhWC80+ARtpn
+	SCIcuLaEnwagCE5Yazhej7bORh+eawqFxm9hGVtEtsUQxNj2prc7msThSNNPgQSqGKlxQOM3rlw
+	fapDPbLR9xcHpotEYEYPhjfwRfVw=
+X-Gm-Gg: ASbGnctsYbmpKHv7e22L4Jern2IsQzMTVO5ATGPztB5ZvnmzoQB4nR9H9OSUDV/UkIU
+	jBUe75qes/BAR5tV+BvpcuWWuRflynJmQqDvNVymDiySIVKVB3g0upm2ST9VRrdH4jAI0IaKD
+X-Google-Smtp-Source: AGHT+IF6QGiek0ujy51fWepNQm3EgSJHvoRPFxdzicFVIh5AZ/h3CvpA/qg+kI4y2n9zEDsItqgo7bBd/2tjK255wpA=
+X-Received: by 2002:a05:6214:5f04:b0:6d8:a258:68bc with SMTP id
+ 6a1803df08f44-6dfbaa09340mr123204266d6.11.1736774263134; Mon, 13 Jan 2025
+ 05:17:43 -0800 (PST)
 MIME-Version: 1.0
-Date: Mon, 13 Jan 2025 05:06:57 -0800
-Message-ID: <gwtb.1736773617531475991.iGrZ@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="9y3bJPP4iMkJnqVHtgdk"
+References: <gwtb.1736773617531475991.iGrZ@lists.yoctoproject.org>
+In-Reply-To: <gwtb.1736773617531475991.iGrZ@lists.yoctoproject.org>
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Mon, 13 Jan 2025 14:17:32 +0100
+X-Gm-Features: AbW1kvZdwDrveP4rIma3DDViFctdaF4vQ628H2QTAfbtZLqCaljDFkKG25t2org
+Message-ID: <CANNYZj_tTFbO36CEeaVqZJROhb8LK6jFpCegD6TYFNejFcQ_XA@mail.gmail.com>
+Subject: Re: [poky] #package #poky #yocto connman: Bug in connman causing
+ endless write to file
+To: peter-simon.dieterich@vaillant-group.com
+Cc: poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Mon, 13 Jan 2025 13:07:06 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13502
+ <poky@lists.yoctoproject.org>; Mon, 13 Jan 2025 13:17:46 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13503
 
---9y3bJPP4iMkJnqVHtgdk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-Dear maintainers of poky,
-
-we found a bug in connman (https://lore.kernel.org/connman/AM0PR09MB4500BF2=
-A13FBACE6E7046E23881F2@AM0PR09MB4500.eurprd09.prod.outlook.com/) that can c=
-ause high-cpu load and an endless write to a file in /var/lib/connman/ on s=
-ystems that have been updated from a yocto version with 32-bit time_t to yo=
-cto versions that have 64-bit time_t support enabled (https://patchwork.yoc=
-toproject.org/project/oe-core/patch/20230426095036.2632847-9-alex@linutroni=
-x.de/). In our case, we went from Dunfell to Scarthgap.
-
-Our solution was to disable the stats module. We think it would be best to =
-have the stats module disabled by default as it is a functionality that mos=
-t users won't need.
-
-Should I send the patch in a separate message?
-
-Best,
-Peter
-
-Signed-off-by: Peter-Simon Dieterich <peter-simon.dieterich@vaillant-group.=
-com>
----
-meta/recipes-connectivity/connman/connman.inc | 1 +
-1 file changed, 1 insertion(+)
-diff --git a/meta/recipes-connectivity/connman/connman.inc b/meta/recipes-c=
-onnectivity/connman/connman.inc
-index 073061eeda..45f1621088 100644
---- a/meta/recipes-connectivity/connman/connman.inc
-+++ b/meta/recipes-connectivity/connman/connman.inc
-@@ -28,6 +28,7 @@ EXTRA_OECONF +=3D "\
---enable-tools \
---disable-polkit \
---runstatedir=3D/run \
-+ =C2=A0 =C2=A0--disable-stats \
-"
-# For smooth operation it would be best to start only one wireless daemon a=
-t a time.
-# If wpa-supplicant is running, connman will use it preferentially.
-
---9y3bJPP4iMkJnqVHtgdk
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div>
-<div>
-<div>Dear maintainers of poky,</div>
-<div>&nbsp;</div>
-<div>we found a bug in connman (https://lore.kernel.org/connman/AM0PR09MB45=
-00BF2A13FBACE6E7046E23881F2@AM0PR09MB4500.eurprd09.prod.outlook.com/) that =
-can cause high-cpu load and an endless write to a file in /var/lib/connman/=
- on systems that have been updated from a yocto version with 32-bit time_t =
-to yocto versions that have 64-bit time_t support enabled (https://patchwor=
-k.yoctoproject.org/project/oe-core/patch/20230426095036.2632847-9-alex@linu=
-tronix.de/). In our case, we went from Dunfell to Scarthgap.</div>
-<div>&nbsp;</div>
-<div>Our solution was to disable the stats module. We think it would be bes=
-t to have the stats module disabled by default as it is a functionality tha=
-t most users won't need.&nbsp;</div>
-<div>&nbsp;</div>
-<div>Should I send the patch in a separate message?</div>
-<div>&nbsp;</div>
-<div>Best,<br />Peter</div>
-</div>
-<div>&nbsp;</div>
-<div>Signed-off-by: Peter-Simon Dieterich &lt;peter-simon.dieterich@vaillan=
-t-group.com&gt;<br />---<br />&nbsp;meta/recipes-connectivity/connman/connm=
-an.inc | 1 +<br />&nbsp;1 file changed, 1 insertion(+)</div>
-<div>diff --git a/meta/recipes-connectivity/connman/connman.inc b/meta/reci=
-pes-connectivity/connman/connman.inc<br />index 073061eeda..45f1621088 1006=
-44<br />--- a/meta/recipes-connectivity/connman/connman.inc<br />+++ b/meta=
-/recipes-connectivity/connman/connman.inc<br />@@ -28,6 +28,7 @@ EXTRA_OECO=
-NF +=3D "\<br />&nbsp; &nbsp; &nbsp;--enable-tools \<br />&nbsp; &nbsp; &nb=
-sp;--disable-polkit \<br />&nbsp; &nbsp; &nbsp;--runstatedir=3D/run \<br />=
-+ &nbsp; &nbsp;--disable-stats \<br />&nbsp;"<br />&nbsp;# For smooth opera=
-tion it would be best to start only one wireless daemon at a time.<br />&nb=
-sp;# If wpa-supplicant is running, connman will use it preferentially.</div=
+On Mon, 13 Jan 2025 at 14:06, Dieterich, Peter-Simon via
+lists.yoctoproject.org
+<peter-simon.dieterich=vaillant-group.com@lists.yoctoproject.org>
+wrote:
+> Our solution was to disable the stats module. We think it would be best to have the stats module disabled by default as it is a functionality that most users won't need.
 >
-</div>
+> Should I send the patch in a separate message?
 
---9y3bJPP4iMkJnqVHtgdk--
+First please find out whether it's possible to solve the data format
+issue with an upstream fix. Disabling something because of a bug
+triggered by a very corner case isn't a great idea, particularly when
+justified by broad, difficult to verify statements like 'most users
+don't need this'.
+
+Alex
 
