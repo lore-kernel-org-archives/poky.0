@@ -1,158 +1,164 @@
-Return-Path: <michael.opdenacker@rootcommit.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F25EC02188
-	for <webhook@archiver.kernel.org>; Mon, 27 Jan 2025 12:14:00 +0000 (UTC)
-Received: from earwig.ash.relay.mailchannels.net (earwig.ash.relay.mailchannels.net [23.83.222.54])
- by mx.groups.io with SMTP id smtpd.web10.50287.1737980032394698355
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D6F4DC0218F
+	for <webhook@archiver.kernel.org>; Fri, 31 Jan 2025 14:38:41 +0000 (UTC)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+ by mx.groups.io with SMTP id smtpd.web10.20579.1738334313364797965
  for <poky@lists.yoctoproject.org>;
- Mon, 27 Jan 2025 04:13:52 -0800
+ Fri, 31 Jan 2025 06:38:33 -0800
 Authentication-Results: mx.groups.io;
- dkim=fail reason="dkim: body hash did not verify" header.i=@rootcommit.com header.s=hostingermail-a header.b=CLDHSfua;
- spf=pass (domain: rootcommit.com, ip: 23.83.222.54, mailfrom: michael.opdenacker@rootcommit.com)
-X-Sender-Id: hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 35007183BA0;
-	Mon, 27 Jan 2025 12:13:51 +0000 (UTC)
-Received: from nl-srv-smtpout7.hostinger.io (100-117-137-138.trex-nlb.outbound.svc.cluster.local [100.117.137.138])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id 52597183B3B;
-	Mon, 27 Jan 2025 12:13:50 +0000 (UTC)
-ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1737980030; a=rsa-sha256;
-	cv=none;
-	b=Xci6EuYZwYyywAAKZOBsocGqv7zFqh+IuuB1fXtpCcEfF6nFGlerFI1irnOX7Xv79ndpM+
-	EQplqVCBRfmU8MxwWLp5nzSRJzm9JIjrli2uOZ1rBy94udeY7hpHFl/sFg2u9jB6Z6oX8u
-	0k03KM6lbJdBYLZWaC+d6LslFQejrzlJILcnFNm3Pcgl6qVH7reihwPmop9o3nsVAvk/OW
-	7CBWHI5OCGoxX6dEEUxi/dAWJmpPHpEl3x5NaitVogz2s8o3EVFDkYb9nBljZNRy6O4DQx
-	lJpPumRf6PVZlAFRgIyvZE/VEpTC1jkEJiU7wDGBJDBokqri7jHDooVSjopJ8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1737980030;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=rmduNghGdHthfOu7RXdNzfChKZbKxvHlmPUYAujjOg8=;
-	b=VBFwNoxUa/5Pz3pttHn4vGpykViJDjjiFxR8Q5yf2I7eOYfS/BRclDag+7sivH33MxnT9s
-	HEX3X/CkhjR/1SosaOETcr03lAKKVOSi/uRhXNxbGD5rBDaNySatvyIdHhFh2X6XbJwnEu
-	83W6P+W35Bhg0pjrb6u3SB+d17l+Og1zLNGvDi4yu8MlS5gev4HnVMH0ZQFfxCki4Gzge0
-	AzTB6qHAPfFju6xd/3kgm0NaM6MYjlw7Q3x6bpRlKeEMACGW4PNjwchweF8CtTfKTDsXs5
-	VubIMSKpOpBZ0Dwz8HCmbG3VcVJII++Y4my5HtsGUgVOIp4LRhsSZmIbmNiPhw==
-ARC-Authentication-Results: i=1;
-	rspamd-dd4dc9979-gdhdf;
-	auth=pass smtp.auth=hostingeremail
- smtp.mailfrom=michael.opdenacker@rootcommit.com
-X-Sender-Id: hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: 
- hostingeremail|x-authuser|michael.opdenacker@rootcommit.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Whistle-Oafish: 160a840d7dc9eb13_1737980031001_3760524462
-X-MC-Loop-Signature: 1737980031001:2179592017
-X-MC-Ingress-Time: 1737980031001
-Received: from nl-srv-smtpout7.hostinger.io (nl-srv-smtpout7.hostinger.io
- [45.87.82.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.117.137.138 (trex/7.0.2);
-	Mon, 27 Jan 2025 12:13:51 +0000
-Message-ID: <9d6991b5-368f-4870-93c6-35e7e4c6fade@rootcommit.com>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rootcommit.com;
-	s=hostingermail-a; t=1737980028;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rmduNghGdHthfOu7RXdNzfChKZbKxvHlmPUYAujjOg8=;
-	b=CLDHSfuauVsWDINo5kOv6m+eiYZaP3P5IFaR08FQw22Bayz8vjttNLJfh2NJWnQm15wOke
-	bpP4nh0ES3CIlWG9WHp/8J4rGNhp+4zjbsXmSCvA2X1t6sqs59pmTraXu3NfQ4bnCgIyXa
-	zMD3/NbjzhVyxN9gXZl/yqwl8uD6lOKuiKY9I/AYrPpjB42DhagJS8NEzWY9LFGwncgWNe
-	la3I2ndTJadV1nTiQKkJkq6QcS5Gd/7DViyZVsY7bVUzJt4iFfJRA3v7IdliNE8WJ0vaHx
-	hgmjJf/3JGWDCwO3W6AKgfWd4GJWxXS4GsmsnbF2Aws+F+0Cg/hSDVt/G1bYHg==
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: michael.opdenacker@rootcommit.com,
- "poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-Subject: Re: [poky] runqemu on genericarm64: "u-boot.bin not found" error
-To: Ross Burton <Ross.Burton@arm.com>
-References: <30b7ea7f-6793-4150-8551-ddc9b093255a@rootcommit.com>
- <EFE01A51-DF3E-422C-AE1D-4F66EF1AA916@arm.com>
-Content-Language: en-US, fr
-From: Michael Opdenacker <michael.opdenacker@rootcommit.com>
-Organization: Root Commit
-In-Reply-To: <EFE01A51-DF3E-422C-AE1D-4F66EF1AA916@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Date: Mon, 27 Jan 2025 12:13:47 +0000 (UTC)
-X-CM-Envelope: MS4xfN1qA2dm0Aq813b8rt9z8Ihgq9H9jxHSAUZHWmHeiBQwe6Wk/Zz+UDcU0F6buphZUIKlqOaqSOrCcj78yzGOxVyqd1HA7YmvM19Yj1dIyHbG0aF+CQ1Z SiSMlov/B7577db4LQlsq7uaL5bOPNXFUD0JsxpQT9RKLkltLdlh/VTfSOcCxF5dT/cofP7CBlPakShZBHyjOmL/+qhknNuGn1VropN39xnM2cJWSBr1TwV7 Eha0nHF/y7nVusHjNChnKn1z5728Qo2ECDP01O15VSLrw670fTsW+pNBT1IzkjWroZ/ww44BkWygsEq4jOX7ZqAEAm7OCpHyrDWP2RQSJiyILW+1KE3wGwD5 jwpOitDPE4DQbrnaAXgOONeT6lnSZm+A/A37QtbXfUl2DAs7pyU=
-X-CM-Analysis: v=2.4 cv=cZqArWDM c=1 sm=1 tr=0 ts=6797787c a=3XTf6zRxMfjOcVCVQRW2hw==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=d70CFdQeAAAA:8 a=iGHA9ds3AAAA:8 a=0g83e8dFb6OWGsSzTNsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=NcxpMcIZDGm-g932nG_k:22 a=nM-MV4yxpKKO9kiQg6Ot:22
-X-AuthUser: michael.opdenacker@rootcommit.com
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=QznYt9oE;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.50, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-385f07cd1a4so1818303f8f.1
+        for <poky@lists.yoctoproject.org>; Fri, 31 Jan 2025 06:38:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1738334312; x=1738939112; darn=lists.yoctoproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5EP3d+p4JIF4DGT28DMrCpz9xBzZ+7nROQSy51YhWgQ=;
+        b=QznYt9oEz5OJcc0SSVrk70dEXPArEzQiJa1qKi731WT456c43utHf6ioSz35JnXc9f
+         UZyshAxnyasKsn2jXT3ODifZd+lSdmuFI0s9Z+NAtrQSWoZAsE/rPuQhjP9poRC4UjwD
+         i1mmvBGQQgxZOi3KyzPpe41CJWGnP7X/B+pXg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738334312; x=1738939112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=5EP3d+p4JIF4DGT28DMrCpz9xBzZ+7nROQSy51YhWgQ=;
+        b=XzxRVKwEIe2GVAz+aIFebgt5cyncRpbkA+qUqUE53zlZj7Sko4keh/7zs5irwGFfby
+         O6ttD7Am/0eOQ6ORXyXTrbErev7Lhw+wrpCEC77YBivqU9yVmZ5/s0q4qn1YHo+JOg6y
+         UFQSGpc+ynE9lsdHWGvpj8TBWgTpmooKOi06IIgFyBeQeN9N6VOKB4myUFRsbC/abFa4
+         a7pfmeIY7fQjOdEsSOmGmJThuEmcnp8gXed8eD4ildEVUddRUyWUkrWX5htuEDp9u37q
+         4Hr1CB7zE4Ckgmgmx2lJ6tQIzNa5uuDy3Rbt/jm89WYLGp1eRRXb4MIquPxz6IqwcmyL
+         X6Dw==
+X-Forwarded-Encrypted: i=1; AJvYcCWa54g0qHnqoGqX/tXqA9ijXrSdyf2fy0YQmKjBPUa+jB/ZcRiow3UwBtGHSsPt6LYdAKU+@lists.yoctoproject.org
+X-Gm-Message-State: AOJu0Yx5TrK5mOIXirCt04piITzGVCIVaoEek0iHK1qrQxfaVuEsjNIa
+	b7okH4tP5N4mHDOC1r843UDni83h5NtChaaQWrxNjVRMpEAo4Hv45Ylkpl6kzQYV0IJ3AntgKCw
+	a
+X-Gm-Gg: ASbGncu8ZxCKRt5dzeocucIJ7hpZmpFNPDrGCL+ETc8KxoF27BgF438eg+TP++B/Awx
+	tTmIhtSHIzpyUfhtfEOo83jukCSnmh6585Wwp7X4ux7gMO4yOfY2k4vSHtPRizU0MrWa4idjU/F
+	qA5JW9cKcajedBI1yfWV6KH3whO2xMSo3DkQSfOftVL+uoKx9yiThheSowoA8QBrqETMg1Sugol
+	q3G45SZk6I57eRDuQUEHR07oP7zjzU32zvTm/QHVAd6hcCrc6QJFJzSLtblKsztOzUkC6m3+VsM
+	vwp8sRXTPKHTgLa4a5rfou4UsQBScsiy2d8SwPi5xxPnsIp9rYI4Ie39q/JoPRs4nc5+4W3Rbdp
+	ZaOmf
+X-Google-Smtp-Source: AGHT+IGv7+gpyRPVUNdHxEhMCtcHnmzocFx+1aIDXka2ctvU2GuiVJVew9WopxS6eAqrwDzIMS11cw==
+X-Received: by 2002:a5d:64a6:0:b0:38a:8888:c0b6 with SMTP id ffacd0b85a97d-38c52095e0amr10870139f8f.51.1738334311271;
+        Fri, 31 Jan 2025 06:38:31 -0800 (PST)
+Received: from ?IPv6:2001:8b0:aba:5f3c:bcf2:8577:8e76:da28? ([2001:8b0:aba:5f3c:bcf2:8577:8e76:da28])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-38c5c102e19sm4907394f8f.36.2025.01.31.06.38.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jan 2025 06:38:30 -0800 (PST)
+Message-ID: <b19ccd384dc2816bf44add397deb0c4bdfd60cf4.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH RFC] add basic support for b4 contribution
+ workflow
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Quentin Schulz <quentin.schulz@cherry.de>, foss@0leil.net, 
+	poky@lists.yoctoproject.org
+Date: Fri, 31 Jan 2025 14:38:29 +0000
+In-Reply-To: <056bd5b1-c64f-47d7-91ba-15aa0dca4dd7@cherry.de>
+References: <20250123-b4-support-v1-1-4841f52eccbb@cherry.de>
+	 <1b89daa292508bd4aa9621616b7164b1b0523be7.camel@linuxfoundation.org>
+	 <056bd5b1-c64f-47d7-91ba-15aa0dca4dd7@cherry.de>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.54.0-1 
+MIME-Version: 1.0
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Mon, 27 Jan 2025 12:14:00 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13517
+ <poky@lists.yoctoproject.org>; Fri, 31 Jan 2025 14:38:41 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13518
 
-Hi Ross,
+On Fri, 2025-01-24 at 19:06 +0100, Quentin Schulz wrote:
+> Hi Richard,
+>=20
+> On 1/24/25 6:48 PM, Richard Purdie wrote:
+> > On Thu, 2025-01-23 at 16:44 +0100, Quentin Schulz via lists.yoctoprojec=
+t.org wrote:
+> > > From: Quentin Schulz <quentin.schulz@cherry.de>
+> > >=20
+> > > b4[1] is a very nice tool for mail-based contribution. A config[2] fi=
+le
+> > > exists to set up a few defaults. We can use it to set the Cc recipien=
+ts
+> > > to always add, in our case the mailing list.
+> > >=20
+> > > This also adds a wrapper script that is called by b4 to check that ea=
+ch
+> > > patch in the series is only for one project. Indeed, poky is actually
+> > > a "collection" of multiple repositories, namely BitBake,
+> > > OpenEmbedded-Core and the Yocto Docs. One patch should therefore not
+> > > make changes in multiple of those projects otherwise it cannot be
+> > > merged.
+> > > Additionally, a check is added to make sure that a series only touche=
+s
+> > > files from one project to avoid having to figure out which patch is t=
+o
+> > > be merged by which maintainer in which project repo.
+> > >=20
+> > > Moreover, it is not uncommon to have people develop patches for those
+> > > projects from within poky. This wrapper figures out which mailing lis=
+ts
+> > > to send patches to based on the files that are modified in the series=
+.
+> > > Considering that patches to the bitbake/doc/ directory need to be sen=
+t
+> > > to both the bitbake and yocto-docs mailing list, this wrapper handles
+> > > that. A limitation of the script (lsdiff actually) is that it doesn't
+> > > know how to handle empty files, but those should be of rather rare
+> > > occurrences.
+> > >=20
+> > > Note that this script requires hardcoding of paths that are handled b=
+y
+> > > different projects to map files to projects. Anything not mapped is
+> > > assumed part of OE-Core.
+> > >=20
+> > > [1] https://pypi.org/project/b4/
+> > > [2] https://b4.docs.kernel.org/en/latest/config.html
+> > >=20
+> > > Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+> > > ---
+> [...]
+> > I'm not against this but I would like to:
+> >=20
+> > a) Put the script into OE-Core, just so that we don't have "magic"
+> > things in poky.
+>=20
+> It is very poky-specific though. I don't have anything in mind right now=
+=20
+> but I could imagine we could need a b4 wrapper for openembedded-core at=
+=20
+> some point as well. b4-wrapper-oe-core.py and b4-wrapper-poky.py could=
+=20
+> coexistthough and be pointed at specifically by each repo's .b4-config.
+>=20
+> Don't mind it, just find it a bit odd.
 
-Thanks for these details!
+It is a little unusual but I'd rather this than adding poky specific
+content. I'm find with either a poky specific script or a parameter to
+put it into "poky" mode.
 
-On 1/27/25 12:47, Ross Burton wrote:
-> On 27 Jan 2025, at 11:27, Michael Opdenacker via lists.yoctoproject.org=
- <michael.opdenacker=3Drootcommit.com@lists.yoctoproject.org> wrote:
->> Ross, all,
->>
->> Probably not a surprise for some of you, but I figured it's good to re=
-port this somewhere:
->>
->> I generated an image for the "genericarm64" machine, and when trying t=
-o use the "runqemu" command, I get this error:
->>
->> $ runqemu nographic slirp
->> runqemu - INFO - Running bitbake -e  ...
->> runqemu - ERROR - BIOS /home/mike/work/yocto/master/poky/build-generic=
-arm64/tmp/deploy/images/genericarm64/u-boot.bin not found
->> runqemu - INFO - Cleaning up
->> runqemu - INFO - Host uptime: 670446.07
->>
->> That's not a surprise, as the bootloader for this image is based on gr=
-ub.
->>
->> I tried to modify meta-yocto-bsp/conf/machine/genericarm64.conf to use=
- the "grub-efi-bootaa64.efi" file instead. However, while runqemu doesn't=
- complain any more, the virtual machine doesn't seem to boot.
->>
->> Any workaround for testing the "genericarm64" machine through the "run=
-qemu" script?
->>
->> In the long run, it would be great if the normal "runqemu" command wor=
-ked out of the box.
->  From the genericarm64 README:
->
-> There is also limited support for booting a genericarm64 image inside Q=
-EMU. When
-> building the image also build the `u-boot` recipe to build the required
-> firmware (note that this firmware will _not_ boot on real hardware), th=
-en use
-> `runqemu` as usual.
->
-> That uboot will then chainload into grub.
->
-> I don=E2=80=99t think it=E2=80=99s appropriate to always build the uboo=
-t because there=E2=80=99s a risk that people will think it=E2=80=99s suit=
-able for the target hardware, when it=E2=80=99s only useful with a qemu.
+> I haven't checked if b4 follows symlink, but if it can, would you want=
+=20
+> .b4-config.poky in OE-Core too and then we do the same dance as with the=
+=20
+> README.md in OE-Core/poky?
 
+I think that would be confusing, I'm find with two different files and
+combo-layer can handle that easily.
 
-Understood! Indeed the following does the trick:
-IMAGE_INSTALL:append =3D " u-boot"
+> > b) Perhaps name it something a little more poky specific
+>=20
+> b4-wrapper-poky.py? b4-wrapper-poky.py to match README.poky.md for=20
+> example? My brain has already decided it's the weekend so not very=20
+> creative right now :)
 
-Thanks again
-Michael.
+Something like that. I'm also not feeling very creative atm!
 
---=20
-Michael Opdenacker
-Root Commit
-Yocto Project and OpenEmbedded Training course - Learn by doing:
-https://rootcommit.com/training/yocto/
+Cheers,
 
+Richard
 
