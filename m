@@ -1,112 +1,135 @@
-Return-Path: <foss@0leil.net>
+Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1342EC02192
-	for <webhook@archiver.kernel.org>; Mon,  3 Feb 2025 15:21:40 +0000 (UTC)
-Received: from smtp-42af.mail.infomaniak.ch (smtp-42af.mail.infomaniak.ch [84.16.66.175])
- by mx.groups.io with SMTP id smtpd.web11.90101.1738596096727649227
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D576C02194
+	for <webhook@archiver.kernel.org>; Tue,  4 Feb 2025 14:11:08 +0000 (UTC)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+ by mx.groups.io with SMTP id smtpd.web10.117230.1738678263262676424
  for <poky@lists.yoctoproject.org>;
- Mon, 03 Feb 2025 07:21:37 -0800
+ Tue, 04 Feb 2025 06:11:03 -0800
 Authentication-Results: mx.groups.io;
- dkim=none (message not signed); spf=pass (domain: 0leil.net, ip: 84.16.66.175, mailfrom: foss+yocto@0leil.net)
-Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4YmqwH1yVGztKV;
-	Mon,  3 Feb 2025 16:21:35 +0100 (CET)
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4YmqwG2x1GzVfM;
-	Mon,  3 Feb 2025 16:21:34 +0100 (CET)
-From: Quentin Schulz <foss+yocto@0leil.net>
-Date: Mon, 03 Feb 2025 16:21:23 +0100
-Subject: [PATCH RFC v2] add basic support for b4 contribution workflow
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250203-b4-support-v2-1-cf1194bf3aad@cherry.de>
-X-B4-Tracking: v=1; b=H4sIAPLeoGcC/22NwQ6CMBBEf4Xs2Zpuaa16MjHxA7waDtAu0guQL
- RIJ4d+teDHR48zkvZkhEgeKcMxmYBpDDF2bgtpk4JqyvZMIPmVQUhmJaEWlRXz0fceDIO1caUu
- fo9xBAnqmOjxX2Q2ulzMUqWxCHDqe1oMR1+mfa0SBQhrpyJC32h5OriHmaevprf4gKv9B9F5jb
- RQ5V1VfSLEsywsV20Pm3AAAAA==
-X-Change-ID: 20250117-b4-support-e4cca7ad3106
+ dkim=pass header.i=@linaro.org header.s=google header.b=oilFD/+P;
+ spf=pass (domain: linaro.org, ip: 209.85.208.181, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3078fb1fa28so53732871fa.3
+        for <poky@lists.yoctoproject.org>; Tue, 04 Feb 2025 06:11:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1738678261; x=1739283061; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9bCHfk4ZY0c/bCABeC25Cj5qk+XjMuLtvRBJLReqqzQ=;
+        b=oilFD/+PtlO22WuIXgA/LeF4MAnWJq2zD3pnq5zjwxXkJwnZKNT4k1haL0n9e3Uxx2
+         aWe0AlxtX1e7CRRDqVzJh9TDQaG2pPNHyTJjIt5xS2cjJSciRyK07Dzq4V06vqIUyucs
+         4wATA37A9dAETwbB50pdA3ZJKC3prkMMIQiVB1ULOdIN6vmYTRME2DllNIabQq3UnnOK
+         fC39mTrKO7Vob3kC5OedA1tGU18byPFNUfGWl7OGbACmThSFC9mvsIFJmIhnHvQduivO
+         Q6iVMvXzSucPWIW7NkUO/QOkR+XgqZYx2UhBp0pNYq4m8FHeFTvcJIoha4V6vO5/YOKj
+         W9pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738678261; x=1739283061;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9bCHfk4ZY0c/bCABeC25Cj5qk+XjMuLtvRBJLReqqzQ=;
+        b=fFVwwDJ190YrF3kDJxzffDe3gu/eL6ogyYAIkE3whTcZg20o78fMqq5TbrBN3V/E4C
+         hdvCtiytWdqQlAohbJRrp2ALPgpnRyk4FWOLkd0bKkrvB4GYF6ml1VwGWOksJJ27f21s
+         HCl4ew2fZptdU4OC1ufBh6FQcKcVJqUQpYZghcfSOKrP5C9racV+kiDcLynXuKk47//H
+         7Pno/BLobVH3B/L0aTkDckRGN/3DLvS6Hrey66z5rC6fU8HNkaT1AC4MBjZwOCZiNW4Z
+         ZeTDDGoIfXTBJgPZ1PIO8HROUPHj26tkHLshXO0Z0uxXK6YrqrXApES/s2gPqjNO3N71
+         XDYA==
+X-Gm-Message-State: AOJu0YxXsfEV2+0tw5DsR/Ola0wyLCLkiLQ9dlB0AY9ufVPOlcufdfxa
+	lXWmhjJM7Qm7POrgjg59gKcA6NtpDd3lUMTf+yjwOymw+osn3sooG4OvbGihcI3Ef9h4UbcC5WD
+	oGU4=
+X-Gm-Gg: ASbGncvQRDpTsEbKPJqStkBZi7vw/Pvx1+7R0sx6U6NZwK20GiVBO21A5dB0HA0KIiF
+	uHqphCkqc1qZEEEZsShRyu+D13vqD7Ummb5neMGBduDMHe1plMO7Sx1RWM/58NvZQZmuoA5xc8T
+	SUOzPHDUJvVS0udbRNvD2wPn7AhGVqAM7E73ETb7cBW8cC2m6fnTB1zyzC2l8lA2/YWUTlcD54j
+	I9cFH1iqFu0+KniYsVghGI8p0Qp6kpIwDvSUCnDrVBAdA0cW3ZMWCOkfTcuQhq1BVpDB7OPXztn
+	OQxIVMVVOBr8/jOw1LgmafvoQ1m4DW1EnVTdXE9vg9j5DI+Tetq3m3+WS7RE
+X-Google-Smtp-Source: AGHT+IHvDMJ9r5im7XBqQZSIpwGNVpBr50ZwTKnysFUhaBUGeXL+/PLdl6fKDcLHyZH9brgdedSOrQ==
+X-Received: by 2002:a2e:9a0e:0:b0:300:16c0:b67 with SMTP id 38308e7fff4ca-307968dbde8mr87796171fa.33.1738678260925;
+        Tue, 04 Feb 2025 06:11:00 -0800 (PST)
+Received: from localhost.localdomain (78-27-76-97.bb.dnainternet.fi. [78.27.76.97])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-307a33f6aebsm18447541fa.73.2025.02.04.06.11.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Feb 2025 06:11:00 -0800 (PST)
+From: Mikko Rapeli <mikko.rapeli@linaro.org>
 To: poky@lists.yoctoproject.org
-Cc: Quentin Schulz <quentin.schulz@cherry.de>
-X-Mailer: b4 0.14.2
-X-Infomaniak-Routing: alpha
+Cc: Mikko Rapeli <mikko.rapeli@linaro.org>
+Subject: [PATCH] genericarm64.conf: allow overriding u-boot and qemuboot variables
+Date: Tue,  4 Feb 2025 16:10:49 +0200
+Message-ID: <20250204141049.1221660-1-mikko.rapeli@linaro.org>
+X-Mailer: git-send-email 2.47.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Mon, 03 Feb 2025 15:21:40 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13519
+ <poky@lists.yoctoproject.org>; Tue, 04 Feb 2025 14:11:08 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13520
 
-From: Quentin Schulz <quentin.schulz@cherry.de>
+Assignment in machine config can not be overwritten in local.conf
+because former is evaluated later than latter. Use ?= conditional
+assignment for u-boot and qemuboot variables so that they can be
+overwritten in local.conf if a different test setup is wanted
+for kernel, initrd and rootfs built for genericarm64 machine
+config.
 
-b4[1] is a very nice tool for mail-based contribution. A config[2] file
-exists to set up a few defaults. We can use it to set the Cc recipients
-to always add, in our case the mailing list.
-
-This uses the b4-wrapper-poky.py script for checking that each patch in
-the series is only for one project. Indeed, poky is actually a
-"collection" of multiple repositories, namely BitBake, OpenEmbedded-Core
-and the Yocto Docs. One patch should therefore not make changes in
-multiple of those projects otherwise it cannot be merged.
-
-Additionally, a check is added to make sure that a series only touches
-files from one project to avoid having to figure out which patch is to
-be merged by which maintainer in which project repo.
-
-Moreover, it is not uncommon to have people develop patches for those
-projects from within poky. This wrapper figures out which mailing lists
-to send patches to based on the files that are modified in the series.
-Considering that patches to the bitbake/doc/ directory need to be sent
-to both the bitbake and yocto-docs mailing list, this wrapper handles
-that. A limitation of the script (lsdiff actually) is that it doesn't
-know how to handle empty files, but those should be of rather rare
-occurrences.
-
-Note that this script requires hardcoding of paths that are handled by
-different projects to map files to projects. Anything not mapped is
-assumed part of OE-Core.
-
-[1] https://pypi.org/project/b4/
-[2] https://b4.docs.kernel.org/en/latest/config.html
-
-Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
 ---
-This is marked as RFC for two reasons:
-- this depends on the following patch series for OE-Core:
-  https://lore.kernel.org/openembedded-core/20250203-b4-support-v2-0-848008ad29ea@cherry.de/T/#m24b6594da5d57d0715e16636ad2936b1478f08ae
-- this depends on the script used to merge OE-Core into poky to NOT
-  overwrite .b4-config from poky added in this patch series with the one
-  from OE-Core,
+ meta-yocto-bsp/conf/machine/genericarm64.conf | 30 +++++++++----------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
-Note that b4 will not work for modifications made to .b4-config for poky
-as it'll detect that as being for OE-Core. Since the file will
-eventually exist in both repos, I have no clue how to handle that.
----
-Changes in v2:
-- moved script to OE-Core repo (in another patch series now)
-- updated path to reflect new location in OE-Core (scripts/) and name
-  (b4-wrapper-poky.py instead of b4-wrapper.py),
-- Link to v1: https://lore.kernel.org/r/20250123-b4-support-v1-1-4841f52eccbb@cherry.de
----
- .b4-config | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/.b4-config b/.b4-config
-new file mode 100644
-index 0000000000000000000000000000000000000000..bdcdff0ca21fa9197be34fc910d3b9200da63905
---- /dev/null
-+++ b/.b4-config
-@@ -0,0 +1,3 @@
-+[b4]
-+  prep-perpatch-check-cmd = ./scripts/b4-wrapper-poky.py prep-perpatch-check-cmd
-+  send-auto-cc-cmd = ./scripts/b4-wrapper-poky.py send-auto-cc-cmd
-
----
-base-commit: 66f6a6f59b2f0b282376b2752fa86f03d0e848e2
-change-id: 20250117-b4-support-e4cca7ad3106
-
-Best regards,
+diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-bsp/conf/machine/genericarm64.conf
+index b6dfb8042d..f5000402e5 100644
+--- a/meta-yocto-bsp/conf/machine/genericarm64.conf
++++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
+@@ -33,31 +33,31 @@ SERIAL_CONSOLES ?= "115200;ttyAMA0 115200;hvc0 115200;ttyS0 115200;ttyS1 115200;
+ # Allow u-boot to be built for use with qemu-system-aarch64.
+ # This u-boot is _not_ suitable for use with real hardware, and the expectation
+ # of this machine is that real hardware comes with the firmware pre-loaded.
+-UBOOT_MACHINE = "qemu_arm64_defconfig"
++UBOOT_MACHINE ?= "qemu_arm64_defconfig"
+ 
+ # runqemu configuration to run a genericarm64 image inside a qemu-system-aarch64. You will need
+ # to build u-boot explicitly.
+ IMAGE_CLASSES += "qemuboot"
+-QB_SYSTEM_NAME = "qemu-system-aarch64"
++QB_SYSTEM_NAME ?= "qemu-system-aarch64"
+ # Boot the virtual machine with either an emulated Cortex-A76, or the host if using KVM
+-QB_MACHINE = "-machine virt"
+-QB_CPU = "-cpu cortex-a76"
+-QB_CPU_KVM = "-cpu host -machine gic-version=3"
+-QB_SMP = "-smp 4"
++QB_MACHINE ?= "-machine virt"
++QB_CPU ?= "-cpu cortex-a76"
++QB_CPU_KVM ?= "-cpu host -machine gic-version=3"
++QB_SMP ?= "-smp 4"
+ # Boot into U-Boot and let that scan the disk for the next step, don't pass any kernel or filesystem hints
+-QB_DEFAULT_BIOS = "u-boot.bin"
+-QB_DEFAULT_KERNEL = "none"
+-QB_DEFAULT_FSTYPE = "wic"
+-QB_FSINFO = "wic:no-kernel-in-fs"
++QB_DEFAULT_BIOS ?= "u-boot.bin"
++QB_DEFAULT_KERNEL ?= "none"
++QB_DEFAULT_FSTYPE ?= "wic"
++QB_FSINFO ?= "wic:no-kernel-in-fs"
+ # Mount the wic rootfs as a virtio block device
+-QB_ROOTFS_OPT = "-drive id=root,file=@ROOTFS@,if=none,format=raw -device virtio-blk-pci,drive=root"
++QB_ROOTFS_OPT ?= "-drive id=root,file=@ROOTFS@,if=none,format=raw -device virtio-blk-pci,drive=root"
+ # Virtio graphics
+-QB_GRAPHICS = "-device virtio-gpu-pci"
++QB_GRAPHICS ?= "-device virtio-gpu-pci"
+ # Virtio serial consoles
+-QB_SERIAL_OPT = "-device virtio-serial-pci -chardev null,id=virtcon -device virtconsole,chardev=virtcon"
+-QB_TCPSERIAL_OPT = "-device virtio-serial-pci -chardev socket,id=virtcon,port=@PORT@,host=127.0.0.1,nodelay=on -device virtconsole,chardev=virtcon"
++QB_SERIAL_OPT ?= "-device virtio-serial-pci -chardev null,id=virtcon -device virtconsole,chardev=virtcon"
++QB_TCPSERIAL_OPT ?= "-device virtio-serial-pci -chardev socket,id=virtcon,port=@PORT@,host=127.0.0.1,nodelay=on -device virtconsole,chardev=virtcon"
+ # Virtio networking
+-QB_TAP_OPT = "-netdev tap,id=net0,ifname=@TAP@,script=no,downscript=no"
++QB_TAP_OPT ?= "-netdev tap,id=net0,ifname=@TAP@,script=no,downscript=no"
+ 
+ # If we're running testimage then we're in a qemu, so ensure u-boot is build
+ TESTIMAGEDEPENDS:append = " u-boot:do_deploy"
 -- 
-Quentin Schulz <quentin.schulz@cherry.de>
+2.43.0
 
 
