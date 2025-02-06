@@ -1,120 +1,109 @@
-Return-Path: <foss@0leil.net>
+Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 935D0C02194
-	for <webhook@archiver.kernel.org>; Wed,  5 Feb 2025 15:13:18 +0000 (UTC)
-Received: from smtp-8fa8.mail.infomaniak.ch (smtp-8fa8.mail.infomaniak.ch [83.166.143.168])
- by mx.groups.io with SMTP id smtpd.web11.14359.1738768390109361192
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B8B43C02194
+	for <webhook@archiver.kernel.org>; Thu,  6 Feb 2025 14:43:55 +0000 (UTC)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+ by mx.groups.io with SMTP id smtpd.web10.42635.1738853028872584835
  for <poky@lists.yoctoproject.org>;
- Wed, 05 Feb 2025 07:13:10 -0800
+ Thu, 06 Feb 2025 06:43:49 -0800
 Authentication-Results: mx.groups.io;
- dkim=none (message not signed); spf=pass (domain: 0leil.net, ip: 83.166.143.168, mailfrom: foss+yocto@0leil.net)
-Received: from smtp-3-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246c])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4Yp3dc2r8bzrYN;
-	Wed,  5 Feb 2025 16:13:08 +0100 (CET)
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4Yp3db5vh9zVgw;
-	Wed,  5 Feb 2025 16:13:07 +0100 (CET)
-From: Quentin Schulz <foss+yocto@0leil.net>
-Date: Wed, 05 Feb 2025 16:12:56 +0100
-Subject: [PATCH RFC v3] add basic support for b4 contribution workflow
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250205-b4-support-v3-1-014b37c462ff@cherry.de>
-X-B4-Tracking: v=1; b=H4sIAPd/o2cC/23NQQ6CMBAF0KuQrq3ptMWKKxMTD+DWuCjtIN0Aa
- bGREO5uwYUYXf6ZvP9HEtA7DOSQjcRjdMG1TQpikxFT6+aO1NmUCWc8ZwCKlpKGR9e1vqcojdF
- KWwFsRxLoPFbuuZRdyeV8Ird0rF3oWz8sAxGW17+uCBQoy5nBHK2SqjiaGr0fthbn6jfh4ofIv
- YQq52hMWa7IvBz5Z42zb8oTNRVAIctKaG3XdJqmF/CGaOoXAQAA
-X-Change-ID: 20250117-b4-support-e4cca7ad3106
+ dkim=pass header.i=@linaro.org header.s=google header.b=O4Rz6T0S;
+ spf=pass (domain: linaro.org, ip: 209.85.167.46, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-54411e3c610so497556e87.1
+        for <poky@lists.yoctoproject.org>; Thu, 06 Feb 2025 06:43:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1738853027; x=1739457827; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LrPRIYfGUDQ7ZjVY+VhkwnAaMgX6/brWIdLLNvoK174=;
+        b=O4Rz6T0SUpVC9NV66NWLyaDBo22z9dNFE0Bk7vS48aFNDbkNzuokeS2ewFQejSxckJ
+         RekNnNMxkuEG8R7faFCujphhFjL8WoxtII2jTGQoICqMrn5eINgUs6Ig7ceQoWIZf/Pv
+         Svyku2u7Umi3lf6+VD/AgRyiVtahEDhQTQzpn4YfYEBzelksWqtwXEZawLwTwlBDKNYL
+         w1Lx4Qczctm6JBJIp4WtDXaewto6sIxzxxMQG+3eCvhGP+hoR+9lb16u4y0IPYJ5ik4P
+         Y8gtnmEGQnhszPUha+2XgILZT9oAtdId7YZUPk6S5r1bh6yRYlLyUFZkR4sRjhGBM6nx
+         txUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1738853027; x=1739457827;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LrPRIYfGUDQ7ZjVY+VhkwnAaMgX6/brWIdLLNvoK174=;
+        b=qg70GvFFWSYnuCLKCJA9qEbOxHpDcQ1ZoyGenkyHUWVu9l1fVLwKqN5kxpHnr/10pe
+         UaTyt/rQcbLyouJyvQ5s8RwvVI7x4igrKy+eT7NdjiT0WQRcJHsbEkW0KSWXeRaBDMqN
+         K2zmwUmrvogR/YWp90Pm2QbE2QG2wI82gSi6jNh5M7KQGoq2/rlV7Dm5aqqCXZNnRp6z
+         V6r9ma44CBCH9sEyaa/A8L6sTC6Rueq/cIvwGNKDsPQo8q0cldKPFUMK8AfECTYQlLpH
+         YkfH5vbbTkAhRfC46wuZFgHx0A2md/DPUNGb4mqXUxvixXjBdCWXOHq2yt6bJp65eSao
+         YASQ==
+X-Gm-Message-State: AOJu0Yw3ICfaNfEg3FiAvz1upx5XbAAgaqPBzaXuZJYdlvQkMbv0IzOL
+	eBYFEGwTB855l4KdFpapLHijZPxz+Q2DNVyZIPNeRlCTjjaHe6KcIngngsO2U4fudTDIzOxQcVu
+	O7d4=
+X-Gm-Gg: ASbGncvMuy/fyhF4oMqFZETABOcVd0kTry3TCYUOar8PxeciIcjc1rfVEoBp2hv/hzs
+	hXm2lMtHeA1KsORjYR4LxKS+urrferyCC2s8YUkVZ1S3PinRkAwItIgVNSgh8KjewZ+A8dNdHjC
+	aYEi3xN3PAeLOhhtcMRHRnYtKWh3WTa0oQdg/f1pXNR+Sx+//X6BcKPvOXikxl2jON0rzgt3SH+
+	y04yQlgNFB9Zg7+0NRshZ6KgM5dWhXsl2Okug9xWiKUwceWGg+ifKuK2sePqgovvJ23mnbmDrI7
+	LfEI4hXXAvB/3h292M9Z66Rzml5sutBCXhrfMpCa28DI9YbRx3mz+V/+NRBB
+X-Google-Smtp-Source: AGHT+IF1VJLgJV//WIpAa+s8CtBCfSTXldvWN4G6yFIfBpsQpIhuYOmgnIvjVkjp2SiNMDg1wSLXxg==
+X-Received: by 2002:a2e:bea2:0:b0:306:501:4752 with SMTP id 38308e7fff4ca-307cf2f6a38mr28893411fa.11.1738853026729;
+        Thu, 06 Feb 2025 06:43:46 -0800 (PST)
+Received: from localhost.localdomain (78-27-76-97.bb.dnainternet.fi. [78.27.76.97])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-307de2b98c0sm1446241fa.69.2025.02.06.06.43.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Feb 2025 06:43:46 -0800 (PST)
+From: Mikko Rapeli <mikko.rapeli@linaro.org>
 To: poky@lists.yoctoproject.org
-Cc: Quentin Schulz <quentin.schulz@cherry.de>
-X-Mailer: b4 0.14.2
-X-Infomaniak-Routing: alpha
+Cc: openembedded-core@lists.openembedded.org,
+	Mikko Rapeli <mikko.rapeli@linaro.org>
+Subject: [PATCH 1/2] systemd: use serial-getty-generator on genericarm64
+Date: Thu,  6 Feb 2025 16:43:12 +0200
+Message-ID: <20250206144312.1328179-1-mikko.rapeli@linaro.org>
+X-Mailer: git-send-email 2.47.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 05 Feb 2025 15:13:18 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13521
+ <poky@lists.yoctoproject.org>; Thu, 06 Feb 2025 14:43:55 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13522
 
-From: Quentin Schulz <quentin.schulz@cherry.de>
+systemd-serialgetty recipe sets serial consoles based
+on SERIAL_CONSOLES build time variable. These fail to
+be detected on multiple devices including qemu and the
+resulting failures delay boot to systemd "running" state
+by one minute on an example aarch64 build machine and qemu.
+Serial console login works with both since udev will
+trigger agetty on correct devices. Using systemd side
+serial-getty-generator disables systemd-serialgetty.
 
-b4[1] is a very nice tool for mail-based contribution. A config[2] file
-exists to set up a few defaults. We can use it to provide the Cc and To
-recipient list for the series.
+qemu-system-aarch64 core-image-base boot time with
+systemd-serialgetty before this patch:
 
-This uses the b4-wrapper-poky.py script for checking that each patch in
-the series is only for one project. Indeed, poky is actually a
-"collection" of multiple repositories, namely BitBake, OpenEmbedded-Core
-and the Yocto Docs. One patch should therefore not make changes in
-multiple of those projects otherwise it cannot be merged.
+$ systemd-analyze
+Startup finished in 8.314s (firmware) + 9.805s (loader) + 14.338s (kernel) + 1min 34.392s (userspace) = 2min 6.851s
+multi-user.target reached after 1min 34.387s in userspace.
 
-Additionally, a check is added to make sure that a series only touches
-files from one project to avoid having to figure out which patch is to
-be merged by which maintainer in which project repo.
+with this patch:
 
-Moreover, it is not uncommon to have people develop patches for those
-projects from within poky. This wrapper figures out which mailing lists
-to send patches to based on the files that are modified in the series.
-Considering that patches to the bitbake/doc/ directory need to be sent
-to both the bitbake and yocto-docs mailing list (To recipient for the
-former, Cc recipient for the latter) this wrapper handles that.
-A limitation of the script (lsdiff actually) is that it doesn't know how
-to handle empty files, but those should be of rather rare occurrences.
+Startup finished in 8.312s (firmware) + 9.804s (loader) + 14.295s (kernel) + 29.808s (userspace) = 1min 2.220s
+multi-user.target reached after 29.802s in userspace.
 
-Note that this script requires hardcoding of paths that are handled by
-different projects to map files to projects. Anything not mapped is
-assumed part of OE-Core.
-
-[1] https://pypi.org/project/b4/
-[2] https://b4.docs.kernel.org/en/latest/config.html
-
-Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
 ---
-This is marked as RFC for two reasons:
-- this depends on the following patch series for OE-Core:
-  https://lore.kernel.org/openembedded-core/20250205-b4-support-v3-0-f8b1456ae1c2@cherry.de/T/#ma4eac2488b318119393ae76e71a7d597253dd874
-- this depends on the script used to merge OE-Core into poky to NOT
-  overwrite .b4-config from poky added in this patch series with the one
-  from OE-Core,
+ meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend | 3 +++
+ 1 file changed, 3 insertions(+)
+ create mode 100644 meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend
 
-Note that b4 will not work for modifications made to .b4-config for poky
-as it'll detect that as being for OE-Core. Since the file will
-eventually exist in both repos, I have no clue how to handle that.
----
-Changes in v3:
-- call the b4 wrapper script also for both Cc and To recipient lists, to
-  handle the special case of yocto-docs in Cc for bitbake/doc patches,
-  and also because we're supposed to use To recipient list for all other
-  mailing lists,
-- Link to v2: https://lore.kernel.org/r/20250203-b4-support-v2-1-cf1194bf3aad@cherry.de
-
-Changes in v2:
-- moved script to OE-Core repo (in another patch series now)
-- updated path to reflect new location in OE-Core (scripts/) and name
-  (b4-wrapper-poky.py instead of b4-wrapper.py),
-- Link to v1: https://lore.kernel.org/r/20250123-b4-support-v1-1-4841f52eccbb@cherry.de
----
- .b4-config | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/.b4-config b/.b4-config
+diff --git a/meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend b/meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend
 new file mode 100644
-index 0000000000000000000000000000000000000000..683b816ffaa92163c6bb9da6368889dc20d0d1f3
+index 0000000000..f23852a351
 --- /dev/null
-+++ b/.b4-config
-@@ -0,0 +1,4 @@
-+[b4]
-+  prep-perpatch-check-cmd = ./scripts/b4-wrapper-poky.py prep-perpatch-check-cmd
-+  send-auto-cc-cmd = ./scripts/b4-wrapper-poky.py send-auto-cc-cmd
-+  send-auto-to-cmd = ./scripts/b4-wrapper-poky.py send-auto-to-cmd
-
----
-base-commit: 1d777d0fe4d0517a3b31207da7f92c3b72e388ee
-change-id: 20250117-b4-support-e4cca7ad3106
-
-Best regards,
++++ b/meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend
+@@ -0,0 +1,3 @@
++# auto detection instead of build time configured via SERIAL_CONSOLES
++# to support multiple devices
++PACKAGECONFIG:append:genericarm64 = " serial-getty-generator"
 -- 
-Quentin Schulz <quentin.schulz@cherry.de>
+2.43.0
 
 
