@@ -2,107 +2,187 @@ Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8B43C02194
-	for <webhook@archiver.kernel.org>; Thu,  6 Feb 2025 14:43:55 +0000 (UTC)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
- by mx.groups.io with SMTP id smtpd.web10.42635.1738853028872584835
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A56B2C02199
+	for <webhook@archiver.kernel.org>; Thu,  6 Feb 2025 14:44:35 +0000 (UTC)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+ by mx.groups.io with SMTP id smtpd.web11.42924.1738853067673670298
  for <poky@lists.yoctoproject.org>;
- Thu, 06 Feb 2025 06:43:49 -0800
+ Thu, 06 Feb 2025 06:44:28 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=O4Rz6T0S;
- spf=pass (domain: linaro.org, ip: 209.85.167.46, mailfrom: mikko.rapeli@linaro.org)
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-54411e3c610so497556e87.1
-        for <poky@lists.yoctoproject.org>; Thu, 06 Feb 2025 06:43:48 -0800 (PST)
+ dkim=pass header.i=@linaro.org header.s=google header.b=oEBbDEXP;
+ spf=pass (domain: linaro.org, ip: 209.85.167.51, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-54024aa9febso1062205e87.1
+        for <poky@lists.yoctoproject.org>; Thu, 06 Feb 2025 06:44:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1738853027; x=1739457827; darn=lists.yoctoproject.org;
+        d=linaro.org; s=google; t=1738853066; x=1739457866; darn=lists.yoctoproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=LrPRIYfGUDQ7ZjVY+VhkwnAaMgX6/brWIdLLNvoK174=;
-        b=O4Rz6T0SUpVC9NV66NWLyaDBo22z9dNFE0Bk7vS48aFNDbkNzuokeS2ewFQejSxckJ
-         RekNnNMxkuEG8R7faFCujphhFjL8WoxtII2jTGQoICqMrn5eINgUs6Ig7ceQoWIZf/Pv
-         Svyku2u7Umi3lf6+VD/AgRyiVtahEDhQTQzpn4YfYEBzelksWqtwXEZawLwTwlBDKNYL
-         w1Lx4Qczctm6JBJIp4WtDXaewto6sIxzxxMQG+3eCvhGP+hoR+9lb16u4y0IPYJ5ik4P
-         Y8gtnmEGQnhszPUha+2XgILZT9oAtdId7YZUPk6S5r1bh6yRYlLyUFZkR4sRjhGBM6nx
-         txUg==
+        bh=v3k2E360cSwEGwtHk2vivgdYS88g5eIEgAPvtq9morc=;
+        b=oEBbDEXPpFsKaxTgC/d7s11s4QylLAtDjvjeoGIRsnvNMbVXkDAsFYhzh3RFNODDbW
+         0FrNKEx6u7ZYh+aWgIcKI9wgIa2sw5FfObrzU53/iQrBbOufOT17XpJAcJmA1pZUYK9N
+         SKyEl2ul/SuqmQypIQLKbOGF6cXqCqYHGjpjap3RciYpDXFCsngTNI2rbZNMTQGbBJHy
+         hCZ5aDjvvoM9RIvnv3vie0j855BDeU8mwUFRyq8ROd4IdEaXmwoPlvp8Le7Fgat9hslK
+         kyD3WQA9n/aN0FJn1FsBnrxF4aNV1AY9WYj6H7TypE/CB2eUOon8NrY5YuK7udLJ79Xh
+         UYqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738853027; x=1739457827;
+        d=1e100.net; s=20230601; t=1738853066; x=1739457866;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=LrPRIYfGUDQ7ZjVY+VhkwnAaMgX6/brWIdLLNvoK174=;
-        b=qg70GvFFWSYnuCLKCJA9qEbOxHpDcQ1ZoyGenkyHUWVu9l1fVLwKqN5kxpHnr/10pe
-         UaTyt/rQcbLyouJyvQ5s8RwvVI7x4igrKy+eT7NdjiT0WQRcJHsbEkW0KSWXeRaBDMqN
-         K2zmwUmrvogR/YWp90Pm2QbE2QG2wI82gSi6jNh5M7KQGoq2/rlV7Dm5aqqCXZNnRp6z
-         V6r9ma44CBCH9sEyaa/A8L6sTC6Rueq/cIvwGNKDsPQo8q0cldKPFUMK8AfECTYQlLpH
-         YkfH5vbbTkAhRfC46wuZFgHx0A2md/DPUNGb4mqXUxvixXjBdCWXOHq2yt6bJp65eSao
-         YASQ==
-X-Gm-Message-State: AOJu0Yw3ICfaNfEg3FiAvz1upx5XbAAgaqPBzaXuZJYdlvQkMbv0IzOL
-	eBYFEGwTB855l4KdFpapLHijZPxz+Q2DNVyZIPNeRlCTjjaHe6KcIngngsO2U4fudTDIzOxQcVu
-	O7d4=
-X-Gm-Gg: ASbGncvMuy/fyhF4oMqFZETABOcVd0kTry3TCYUOar8PxeciIcjc1rfVEoBp2hv/hzs
-	hXm2lMtHeA1KsORjYR4LxKS+urrferyCC2s8YUkVZ1S3PinRkAwItIgVNSgh8KjewZ+A8dNdHjC
-	aYEi3xN3PAeLOhhtcMRHRnYtKWh3WTa0oQdg/f1pXNR+Sx+//X6BcKPvOXikxl2jON0rzgt3SH+
-	y04yQlgNFB9Zg7+0NRshZ6KgM5dWhXsl2Okug9xWiKUwceWGg+ifKuK2sePqgovvJ23mnbmDrI7
-	LfEI4hXXAvB/3h292M9Z66Rzml5sutBCXhrfMpCa28DI9YbRx3mz+V/+NRBB
-X-Google-Smtp-Source: AGHT+IF1VJLgJV//WIpAa+s8CtBCfSTXldvWN4G6yFIfBpsQpIhuYOmgnIvjVkjp2SiNMDg1wSLXxg==
-X-Received: by 2002:a2e:bea2:0:b0:306:501:4752 with SMTP id 38308e7fff4ca-307cf2f6a38mr28893411fa.11.1738853026729;
-        Thu, 06 Feb 2025 06:43:46 -0800 (PST)
+        bh=v3k2E360cSwEGwtHk2vivgdYS88g5eIEgAPvtq9morc=;
+        b=QI/jh+BmoGGiGmkDQF6g3EM4h/ERTnkbytzbLeOfO+rg59uef7GvYG4EgNcJH5TJpu
+         UVs5KJLWF3fyUtYYLIQb1HITeZz6oTU5rovWQsGvdj+bXb2EUuTepmZXaOJY8tRWYtHs
+         fTI4Ieg/b2lQdd3yEcdRv/Tt40p+Aq1gVNDYkO1YZoJh4wYCAL7RfU+x8jNc+mJwnbQi
+         pd9Th3qJLHfQgHrr/oGQDSi/Gg4mFgoDl+OPJm0CYPJVJru3p/Yzbbix0ck1W4TFQD0f
+         mMYyPNnFlv1c281vEzrmtjyczL6UAJukLfsMwvOq8ta6Ky8R8B3syTzUw02Rqyd9fN/A
+         tnEw==
+X-Gm-Message-State: AOJu0YwHhJZGROa0VgnP0yvd1vrcyqe4CFilcUuc7rCpPMu7bq/jH1T7
+	DC4Fv6JNbzMbRULHV+F1gLW+t4/en5ZrCI5xFv0yCpDkZrHem6I6QxNsI7NcMHQ=
+X-Gm-Gg: ASbGncs0RfQk9GRBXcHtEN9CleNElmGqWFznGVwVBvbWoGq8hAdFi97r80OJ8yw0eO+
+	CqI0jHAcwyHdwiXeb2PO9pgGrcv2BnlUMqqgNLi4EG2JwYTbRSWt2tLh1CbzedzuvsK2sYnlIAQ
+	ca3bsl5a3UOUQ4YDyncOit8v1GQKu72+D6Ls+DWF9V0LePcJQOljTnqb5ZADtOzvBBs2nsKtnDZ
+	ANFO1V0txRuwAZ+UlSzCoYGQn6DgCBq9T7LstO4firyKMNiW6eenLWEB9QaRwVO74fuN1Bl+yxU
+	ANMYtO69mkrZQm8V82+tDQ62b7N/53aba1hTKxMATO3bJIK4i81XoVMpM8pd
+X-Google-Smtp-Source: AGHT+IERrxwf2DNCzpqbtls71TRCy0winpdXF5GRM2YVfyvUct8KHx/NOrq34AlHL6F/IdgA5o4t6A==
+X-Received: by 2002:a05:6512:2343:b0:544:124f:1721 with SMTP id 2adb3069b0e04-544124f1842mr614312e87.6.1738853065750;
+        Thu, 06 Feb 2025 06:44:25 -0800 (PST)
 Received: from localhost.localdomain (78-27-76-97.bb.dnainternet.fi. [78.27.76.97])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-307de2b98c0sm1446241fa.69.2025.02.06.06.43.44
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-544106040b4sm147434e87.226.2025.02.06.06.44.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Feb 2025 06:43:46 -0800 (PST)
+        Thu, 06 Feb 2025 06:44:24 -0800 (PST)
 From: Mikko Rapeli <mikko.rapeli@linaro.org>
-To: poky@lists.yoctoproject.org
-Cc: openembedded-core@lists.openembedded.org,
+To: openembedded-core@lists.openembedded.org
+Cc: poky@lists.yoctoproject.org,
 	Mikko Rapeli <mikko.rapeli@linaro.org>
-Subject: [PATCH 1/2] systemd: use serial-getty-generator on genericarm64
-Date: Thu,  6 Feb 2025 16:43:12 +0200
-Message-ID: <20250206144312.1328179-1-mikko.rapeli@linaro.org>
+Subject: [PATCH 2/2] psplash: start via udev if framebuffer device detected
+Date: Thu,  6 Feb 2025 16:44:06 +0200
+Message-ID: <20250206144406.1328276-1-mikko.rapeli@linaro.org>
 X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 06 Feb 2025 14:43:55 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13522
+ <poky@lists.yoctoproject.org>; Thu, 06 Feb 2025 14:44:35 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13523
 
-systemd-serialgetty recipe sets serial consoles based
-on SERIAL_CONSOLES build time variable. These fail to
-be detected on multiple devices including qemu and the
-resulting failures delay boot to systemd "running" state
-by one minute on an example aarch64 build machine and qemu.
-Serial console login works with both since udev will
-trigger agetty on correct devices. Using systemd side
-serial-getty-generator disables systemd-serialgetty.
+psplash-start.service expected to find /dev/fb0 and failed
+if device was not found. This failure breaks systemd
+oeqa runtime test with "runqemu nographic". Starting
+psplash based on detected framebuffer device fixes systemd
+boot status and systemd oeqa runtime tests for qemu
+boots with and without graphics support.
 
-qemu-system-aarch64 core-image-base boot time with
-systemd-serialgetty before this patch:
+Note that psplash-systemd.service still depends on /dev/fb0
+so startup with multiple framebuffer devices may not work
+correctly. I don't have devices with multiple framebuffer
+devices to test with.
 
-$ systemd-analyze
-Startup finished in 8.314s (firmware) + 9.805s (loader) + 14.338s (kernel) + 1min 34.392s (userspace) = 2min 6.851s
-multi-user.target reached after 1min 34.387s in userspace.
-
-with this patch:
-
-Startup finished in 8.312s (firmware) + 9.804s (loader) + 14.295s (kernel) + 29.808s (userspace) = 1min 2.220s
-multi-user.target reached after 29.802s in userspace.
+On qemu machine with graphics, psplash displays yocto
+logo correctly and boot progress bar as well. Once boot completes
+to systemd "running" state, the logo is replaced by login prompt.
+On qemu machine without graphics, boot completes without psplash
+or failures and login over serial console works normally.
+Tested with genericarm64 machine poky-altcfg distro and core-image-base
+image on qemu. AMD kv260 tested as well but graphics stack is not yet
+working there so boot is similar to qemu without graphics.
 
 Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
 ---
- meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend | 3 +++
- 1 file changed, 3 insertions(+)
- create mode 100644 meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend
+ meta/recipes-core/psplash/files/fb.rules                 | 1 +
+ .../{psplash-start.service => psplash-start@.service}    | 5 ++---
+ meta/recipes-core/psplash/files/psplash-systemd.service  | 8 +++-----
+ meta/recipes-core/psplash/psplash_git.bb                 | 9 ++++++---
+ 4 files changed, 12 insertions(+), 11 deletions(-)
+ create mode 100644 meta/recipes-core/psplash/files/fb.rules
+ rename meta/recipes-core/psplash/files/{psplash-start.service => psplash-start@.service} (84%)
 
-diff --git a/meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend b/meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend
+diff --git a/meta/recipes-core/psplash/files/fb.rules b/meta/recipes-core/psplash/files/fb.rules
 new file mode 100644
-index 0000000000..f23852a351
+index 0000000000..accdb8386c
 --- /dev/null
-+++ b/meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend
-@@ -0,0 +1,3 @@
-+# auto detection instead of build time configured via SERIAL_CONSOLES
-+# to support multiple devices
-+PACKAGECONFIG:append:genericarm64 = " serial-getty-generator"
++++ b/meta/recipes-core/psplash/files/fb.rules
+@@ -0,0 +1 @@
++SUBSYSTEM=="graphics", KERNEL=="fb[0-9]*", TAG+="systemd", ENV{SYSTEMD_WANTS}+="psplash-start@%k.service psplash-systemd.service"
+diff --git a/meta/recipes-core/psplash/files/psplash-start.service b/meta/recipes-core/psplash/files/psplash-start@.service
+similarity index 84%
+rename from meta/recipes-core/psplash/files/psplash-start.service
+rename to meta/recipes-core/psplash/files/psplash-start@.service
+index bec9368427..1bc3642fc2 100644
+--- a/meta/recipes-core/psplash/files/psplash-start.service
++++ b/meta/recipes-core/psplash/files/psplash-start@.service
+@@ -3,11 +3,10 @@ Description=Start psplash boot splash screen
+ DefaultDependencies=no
+ RequiresMountsFor=/run
+ ConditionFileIsExecutable=/usr/bin/psplash
++After=dev-%i.device
++Wants=dev-%i.device
+ 
+ [Service]
+ Type=notify
+ ExecStart=/usr/bin/psplash
+ RemainAfterExit=yes
+-
+-[Install]
+-WantedBy=sysinit.target
+diff --git a/meta/recipes-core/psplash/files/psplash-systemd.service b/meta/recipes-core/psplash/files/psplash-systemd.service
+index e93e3deb35..f9aaa2db3d 100644
+--- a/meta/recipes-core/psplash/files/psplash-systemd.service
++++ b/meta/recipes-core/psplash/files/psplash-systemd.service
+@@ -1,14 +1,12 @@
+ [Unit]
+ Description=Start psplash-systemd progress communication helper
+ DefaultDependencies=no
+-After=psplash-start.service
+-Requires=psplash-start.service
++After=psplash-start@fb0.service
++Requires=psplash-start@fb0.service
+ RequiresMountsFor=/run
+ ConditionFileIsExecutable=/usr/bin/psplash
++ConditionFileExists=/run/psplash_fifo
+ 
+ [Service]
+ ExecStart=/usr/bin/psplash-systemd
+ RemainAfterExit=yes
+-
+-[Install]
+-WantedBy=sysinit.target
+diff --git a/meta/recipes-core/psplash/psplash_git.bb b/meta/recipes-core/psplash/psplash_git.bb
+index 30cf61a2cb..fce5995efe 100644
+--- a/meta/recipes-core/psplash/psplash_git.bb
++++ b/meta/recipes-core/psplash/psplash_git.bb
+@@ -11,8 +11,9 @@ PV = "0.1+git"
+ 
+ SRC_URI = "git://git.yoctoproject.org/${BPN};branch=master;protocol=https \
+            file://psplash-init \
+-           file://psplash-start.service \
++           file://psplash-start@.service \
+            file://psplash-systemd.service \
++           file://fb.rules \
+            ${SPLASH_IMAGES}"
+ UPSTREAM_CHECK_COMMITS = "1"
+ 
+@@ -112,8 +113,10 @@ do_install:append() {
+ 
+ 	if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
+ 		install -d ${D}${systemd_system_unitdir}
+-		install -m 644 ${UNPACKDIR}/psplash-start.service ${D}/${systemd_system_unitdir}
++		install -m 644 ${UNPACKDIR}/psplash-start@.service ${D}/${systemd_system_unitdir}
+ 		install -m 644 ${UNPACKDIR}/psplash-systemd.service ${D}/${systemd_system_unitdir}
++		install -d ${D}${sysconfdir}/udev/rules.d
++		install -m 0644 ${UNPACKDIR}/fb.rules ${D}${sysconfdir}/udev/rules.d/
+ 	fi
+ 
+ 	install -d ${D}${bindir}
+@@ -124,7 +127,7 @@ do_install:append() {
+ }
+ 
+ SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
+-SYSTEMD_SERVICE:${PN} += "${@bb.utils.contains('PACKAGECONFIG', 'systemd', 'psplash-start.service psplash-systemd.service', '', d)}"
++SYSTEMD_SERVICE:${PN} += "${@bb.utils.contains('PACKAGECONFIG', 'systemd', 'psplash-start@.service psplash-systemd.service', '', d)}"
+ 
+ INITSCRIPT_NAME = "psplash.sh"
+ INITSCRIPT_PARAMS = "start 0 S . stop 20 0 1 6 ."
 -- 
 2.43.0
 
