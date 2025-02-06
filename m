@@ -1,189 +1,266 @@
-Return-Path: <mikko.rapeli@linaro.org>
+Return-Path: <ross.burton@arm.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A56B2C02199
-	for <webhook@archiver.kernel.org>; Thu,  6 Feb 2025 14:44:35 +0000 (UTC)
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
- by mx.groups.io with SMTP id smtpd.web11.42924.1738853067673670298
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BB50C02194
+	for <webhook@archiver.kernel.org>; Thu,  6 Feb 2025 17:25:06 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by mx.groups.io with SMTP id smtpd.web11.47623.1738862704006095646
  for <poky@lists.yoctoproject.org>;
- Thu, 06 Feb 2025 06:44:28 -0800
+ Thu, 06 Feb 2025 09:25:04 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=oEBbDEXP;
- spf=pass (domain: linaro.org, ip: 209.85.167.51, mailfrom: mikko.rapeli@linaro.org)
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-54024aa9febso1062205e87.1
-        for <poky@lists.yoctoproject.org>; Thu, 06 Feb 2025 06:44:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1738853066; x=1739457866; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=v3k2E360cSwEGwtHk2vivgdYS88g5eIEgAPvtq9morc=;
-        b=oEBbDEXPpFsKaxTgC/d7s11s4QylLAtDjvjeoGIRsnvNMbVXkDAsFYhzh3RFNODDbW
-         0FrNKEx6u7ZYh+aWgIcKI9wgIa2sw5FfObrzU53/iQrBbOufOT17XpJAcJmA1pZUYK9N
-         SKyEl2ul/SuqmQypIQLKbOGF6cXqCqYHGjpjap3RciYpDXFCsngTNI2rbZNMTQGbBJHy
-         hCZ5aDjvvoM9RIvnv3vie0j855BDeU8mwUFRyq8ROd4IdEaXmwoPlvp8Le7Fgat9hslK
-         kyD3WQA9n/aN0FJn1FsBnrxF4aNV1AY9WYj6H7TypE/CB2eUOon8NrY5YuK7udLJ79Xh
-         UYqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1738853066; x=1739457866;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=v3k2E360cSwEGwtHk2vivgdYS88g5eIEgAPvtq9morc=;
-        b=QI/jh+BmoGGiGmkDQF6g3EM4h/ERTnkbytzbLeOfO+rg59uef7GvYG4EgNcJH5TJpu
-         UVs5KJLWF3fyUtYYLIQb1HITeZz6oTU5rovWQsGvdj+bXb2EUuTepmZXaOJY8tRWYtHs
-         fTI4Ieg/b2lQdd3yEcdRv/Tt40p+Aq1gVNDYkO1YZoJh4wYCAL7RfU+x8jNc+mJwnbQi
-         pd9Th3qJLHfQgHrr/oGQDSi/Gg4mFgoDl+OPJm0CYPJVJru3p/Yzbbix0ck1W4TFQD0f
-         mMYyPNnFlv1c281vEzrmtjyczL6UAJukLfsMwvOq8ta6Ky8R8B3syTzUw02Rqyd9fN/A
-         tnEw==
-X-Gm-Message-State: AOJu0YwHhJZGROa0VgnP0yvd1vrcyqe4CFilcUuc7rCpPMu7bq/jH1T7
-	DC4Fv6JNbzMbRULHV+F1gLW+t4/en5ZrCI5xFv0yCpDkZrHem6I6QxNsI7NcMHQ=
-X-Gm-Gg: ASbGncs0RfQk9GRBXcHtEN9CleNElmGqWFznGVwVBvbWoGq8hAdFi97r80OJ8yw0eO+
-	CqI0jHAcwyHdwiXeb2PO9pgGrcv2BnlUMqqgNLi4EG2JwYTbRSWt2tLh1CbzedzuvsK2sYnlIAQ
-	ca3bsl5a3UOUQ4YDyncOit8v1GQKu72+D6Ls+DWF9V0LePcJQOljTnqb5ZADtOzvBBs2nsKtnDZ
-	ANFO1V0txRuwAZ+UlSzCoYGQn6DgCBq9T7LstO4firyKMNiW6eenLWEB9QaRwVO74fuN1Bl+yxU
-	ANMYtO69mkrZQm8V82+tDQ62b7N/53aba1hTKxMATO3bJIK4i81XoVMpM8pd
-X-Google-Smtp-Source: AGHT+IERrxwf2DNCzpqbtls71TRCy0winpdXF5GRM2YVfyvUct8KHx/NOrq34AlHL6F/IdgA5o4t6A==
-X-Received: by 2002:a05:6512:2343:b0:544:124f:1721 with SMTP id 2adb3069b0e04-544124f1842mr614312e87.6.1738853065750;
-        Thu, 06 Feb 2025 06:44:25 -0800 (PST)
-Received: from localhost.localdomain (78-27-76-97.bb.dnainternet.fi. [78.27.76.97])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-544106040b4sm147434e87.226.2025.02.06.06.44.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Feb 2025 06:44:24 -0800 (PST)
-From: Mikko Rapeli <mikko.rapeli@linaro.org>
-To: openembedded-core@lists.openembedded.org
-Cc: poky@lists.yoctoproject.org,
-	Mikko Rapeli <mikko.rapeli@linaro.org>
-Subject: [PATCH 2/2] psplash: start via udev if framebuffer device detected
-Date: Thu,  6 Feb 2025 16:44:06 +0200
-Message-ID: <20250206144406.1328276-1-mikko.rapeli@linaro.org>
-X-Mailer: git-send-email 2.47.1
+ dkim=none (message not signed); spf=pass (domain: arm.com, ip: 217.140.110.172, mailfrom: ross.burton@arm.com)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A00D712FC
+	for <poky@lists.yoctoproject.org>; Thu,  6 Feb 2025 09:25:26 -0800 (PST)
+Received: from cesw-amp-gbt-1s-m12830-04.oss.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 13CE73F63F
+	for <poky@lists.yoctoproject.org>; Thu,  6 Feb 2025 09:25:02 -0800 (PST)
+From: Ross Burton <ross.burton@arm.com>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH][meta-yocto-bsp] linux-yocto: revert omap8250 power management changes on genericarm64
+Date: Thu,  6 Feb 2025 17:24:51 +0000
+Message-ID: <20250206172451.3843991-1-ross.burton@arm.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 06 Feb 2025 14:44:35 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13523
+ <poky@lists.yoctoproject.org>; Thu, 06 Feb 2025 17:25:06 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13524
 
-psplash-start.service expected to find /dev/fb0 and failed
-if device was not found. This failure breaks systemd
-oeqa runtime test with "runqemu nographic". Starting
-psplash based on detected framebuffer device fixes systemd
-boot status and systemd oeqa runtime tests for qemu
-boots with and without graphics support.
+The genericarm64 machine sets SERIAL_CONSOLES to a number of potential
+devices:
 
-Note that psplash-systemd.service still depends on /dev/fb0
-so startup with multiple framebuffer devices may not work
-correctly. I don't have devices with multiple framebuffer
-devices to test with.
+SERIAL_CONSOLES ?=3D "115200;ttyAMA0 115200;hvc0 115200;ttyS0 115200;ttyS=
+1 115200;ttyS2"
 
-On qemu machine with graphics, psplash displays yocto
-logo correctly and boot progress bar as well. Once boot completes
-to systemd "running" state, the logo is replaced by login prompt.
-On qemu machine without graphics, boot completes without psplash
-or failures and login over serial console works normally.
-Tested with genericarm64 machine poky-altcfg distro and core-image-base
-image on qemu. AMD kv260 tested as well but graphics stack is not yet
-working there so boot is similar to qemu without graphics.
+With sysvinit this turns into getty lines in inittab, and with systemd
+the systemd-serialgetty recipe creates explicit units to spawn gettys.
 
-Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
+This worked fine with 6.6, but since "serial: 8250_omap: Drop
+pm_runtime_irq_safe()"[1] in 6.7 onwards we see kernel hangs:
+
+BUG: scheduling while atomic: getty/957/0x00000002
+Call trace:
+ dump_stack+0x1c/0x30
+ __schedule_bug+0x60/0x90
+ __schedule+0x83c/0xcf8
+ schedule+0x40/0x158
+ schedule_timeout+0xb0/0x1b0
+ wait_for_completion_timeout+0x84/0x188
+ ti_sci_set_device_state+0x134/0x220
+ ti_sci_cmd_get_device_exclusive+0x24/0x40
+ ti_sci_pd_power_on+0x34/0x68 [ti_sci_pm_domains]
+ _genpd_power_on+0xa4/0x178
+ genpd_power_on+0xb4/0x190
+ genpd_runtime_resume+0xc8/0x260
+ __rpm_callback+0x54/0x200
+ rpm_callback+0x78/0x90
+ rpm_resume+0x420/0x690
+ __pm_runtime_resume+0x5c/0xb0
+ omap8250_set_mctrl+0x38/0xe0 [8250_omap]
+ serial8250_set_mctrl+0x2c/0x60
+ uart_update_mctrl+0x98/0x120
+ uart_shutdown+0x124/0x180
+ uart_hangup+0x7c/0x180
+ __tty_hangup.part.0+0x408/0x440
+ tty_vhangup_session+0x24/0x40
+ disassociate_ctty.part.0+0x48/0x1b0
+ disassociate_ctty+0x30/0x48
+(full backtrace elided)
+
+With many thanks to TI, my understanding is that it was determined that
+the problem here is that we have a getty connected to ttyS1 which is
+actually the expansion port uart and on the BeaglePlay wired up to the
+wifi controller's debug port. The getty receives noise it doesn't know
+what to do with, and at some point the power management code does a
+suspend/result cycle of the device.  The serial drivers assume that
+child nodes use the serdev driver and they manage runtime_pm, but the
+getty opening the tty breaks a series of bad assumptions in the drivers.
+
+So, there are two bugs:
+1) The kernel shouldn't crash if this tty is opened
+2) The only serial port for a console on the BeaglePlay is ttyS2,
+   despite others existing.
+
+TI are looking at (1) and other patches to follow will deal with (2).
+Until one of these is resolved entirely, reverting this change to power
+management stops the crashes.
+
+[ YOCTO #15704 ]
+[1] linux 8700a7ea5519fb0b3bad2362adfeac358c2119ce
+
+Signed-off-by: Ross Burton <ross.burton@arm.com>
 ---
- meta/recipes-core/psplash/files/fb.rules                 | 1 +
- .../{psplash-start.service => psplash-start@.service}    | 5 ++---
- meta/recipes-core/psplash/files/psplash-systemd.service  | 8 +++-----
- meta/recipes-core/psplash/psplash_git.bb                 | 9 ++++++---
- 4 files changed, 12 insertions(+), 11 deletions(-)
- create mode 100644 meta/recipes-core/psplash/files/fb.rules
- rename meta/recipes-core/psplash/files/{psplash-start.service => psplash-start@.service} (84%)
+ ...l-8250_omap-Drop-pm_runtime_irq_safe.patch | 130 ++++++++++++++++++
+ .../linux/linux-yocto_6.12.bbappend           |   2 +
+ 2 files changed, 132 insertions(+)
+ create mode 100644 meta-yocto-bsp/recipes-kernel/linux/files/0001-Revert=
+-serial-8250_omap-Drop-pm_runtime_irq_safe.patch
 
-diff --git a/meta/recipes-core/psplash/files/fb.rules b/meta/recipes-core/psplash/files/fb.rules
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/files/0001-Revert-serial=
+-8250_omap-Drop-pm_runtime_irq_safe.patch b/meta-yocto-bsp/recipes-kernel=
+/linux/files/0001-Revert-serial-8250_omap-Drop-pm_runtime_irq_safe.patch
 new file mode 100644
-index 0000000000..accdb8386c
+index 00000000000..8837dd23464
 --- /dev/null
-+++ b/meta/recipes-core/psplash/files/fb.rules
-@@ -0,0 +1 @@
-+SUBSYSTEM=="graphics", KERNEL=="fb[0-9]*", TAG+="systemd", ENV{SYSTEMD_WANTS}+="psplash-start@%k.service psplash-systemd.service"
-diff --git a/meta/recipes-core/psplash/files/psplash-start.service b/meta/recipes-core/psplash/files/psplash-start@.service
-similarity index 84%
-rename from meta/recipes-core/psplash/files/psplash-start.service
-rename to meta/recipes-core/psplash/files/psplash-start@.service
-index bec9368427..1bc3642fc2 100644
---- a/meta/recipes-core/psplash/files/psplash-start.service
-+++ b/meta/recipes-core/psplash/files/psplash-start@.service
-@@ -3,11 +3,10 @@ Description=Start psplash boot splash screen
- DefaultDependencies=no
- RequiresMountsFor=/run
- ConditionFileIsExecutable=/usr/bin/psplash
-+After=dev-%i.device
-+Wants=dev-%i.device
- 
- [Service]
- Type=notify
- ExecStart=/usr/bin/psplash
- RemainAfterExit=yes
--
--[Install]
--WantedBy=sysinit.target
-diff --git a/meta/recipes-core/psplash/files/psplash-systemd.service b/meta/recipes-core/psplash/files/psplash-systemd.service
-index e93e3deb35..f9aaa2db3d 100644
---- a/meta/recipes-core/psplash/files/psplash-systemd.service
-+++ b/meta/recipes-core/psplash/files/psplash-systemd.service
-@@ -1,14 +1,12 @@
- [Unit]
- Description=Start psplash-systemd progress communication helper
- DefaultDependencies=no
--After=psplash-start.service
--Requires=psplash-start.service
-+After=psplash-start@fb0.service
-+Requires=psplash-start@fb0.service
- RequiresMountsFor=/run
- ConditionFileIsExecutable=/usr/bin/psplash
-+ConditionFileExists=/run/psplash_fifo
- 
- [Service]
- ExecStart=/usr/bin/psplash-systemd
- RemainAfterExit=yes
--
--[Install]
--WantedBy=sysinit.target
-diff --git a/meta/recipes-core/psplash/psplash_git.bb b/meta/recipes-core/psplash/psplash_git.bb
-index 30cf61a2cb..fce5995efe 100644
---- a/meta/recipes-core/psplash/psplash_git.bb
-+++ b/meta/recipes-core/psplash/psplash_git.bb
-@@ -11,8 +11,9 @@ PV = "0.1+git"
- 
- SRC_URI = "git://git.yoctoproject.org/${BPN};branch=master;protocol=https \
-            file://psplash-init \
--           file://psplash-start.service \
-+           file://psplash-start@.service \
-            file://psplash-systemd.service \
-+           file://fb.rules \
-            ${SPLASH_IMAGES}"
- UPSTREAM_CHECK_COMMITS = "1"
- 
-@@ -112,8 +113,10 @@ do_install:append() {
- 
- 	if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
- 		install -d ${D}${systemd_system_unitdir}
--		install -m 644 ${UNPACKDIR}/psplash-start.service ${D}/${systemd_system_unitdir}
-+		install -m 644 ${UNPACKDIR}/psplash-start@.service ${D}/${systemd_system_unitdir}
- 		install -m 644 ${UNPACKDIR}/psplash-systemd.service ${D}/${systemd_system_unitdir}
-+		install -d ${D}${sysconfdir}/udev/rules.d
-+		install -m 0644 ${UNPACKDIR}/fb.rules ${D}${sysconfdir}/udev/rules.d/
- 	fi
- 
- 	install -d ${D}${bindir}
-@@ -124,7 +127,7 @@ do_install:append() {
- }
- 
- SYSTEMD_PACKAGES = "${@bb.utils.contains('DISTRO_FEATURES','systemd','${PN}','',d)}"
--SYSTEMD_SERVICE:${PN} += "${@bb.utils.contains('PACKAGECONFIG', 'systemd', 'psplash-start.service psplash-systemd.service', '', d)}"
-+SYSTEMD_SERVICE:${PN} += "${@bb.utils.contains('PACKAGECONFIG', 'systemd', 'psplash-start@.service psplash-systemd.service', '', d)}"
- 
- INITSCRIPT_NAME = "psplash.sh"
- INITSCRIPT_PARAMS = "start 0 S . stop 20 0 1 6 ."
--- 
++++ b/meta-yocto-bsp/recipes-kernel/linux/files/0001-Revert-serial-8250_o=
+map-Drop-pm_runtime_irq_safe.patch
+@@ -0,0 +1,130 @@
++From cc255f5132cf39e9154340cf58780f8c763c6481 Mon Sep 17 00:00:00 2001
++From: Ross Burton <ross.burton@arm.com>
++Date: Thu, 23 Jan 2025 17:06:08 +0000
++Subject: [PATCH] Revert "serial: 8250_omap: Drop pm_runtime_irq_safe()"
++
++This reverts commit 8700a7ea5519fb0b3bad2362adfeac358c2119ce.
++
++Upstream-Status: Inappropriate
++Signed-off-by: Ross Burton <ross.burton@arm.com>
++---
++ drivers/tty/serial/8250/8250_omap.c | 29 ++++++++---------------------
++ 1 file changed, 8 insertions(+), 21 deletions(-)
++
++diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/82=
+50/8250_omap.c
++index 0dd68bdbfbcf7..db24d7d1dcb67 100644
++--- a/drivers/tty/serial/8250/8250_omap.c
+++++ b/drivers/tty/serial/8250/8250_omap.c
++@@ -8,7 +8,6 @@
++  *
++  */
++=20
++-#include <linux/atomic.h>
++ #include <linux/clk.h>
++ #include <linux/device.h>
++ #include <linux/io.h>
++@@ -134,7 +133,6 @@ struct omap8250_priv {
++=20
++ 	u8 tx_trigger;
++ 	u8 rx_trigger;
++-	atomic_t active;
++ 	bool is_suspending;
++ 	int wakeirq;
++ 	u32 latency;
++@@ -636,23 +634,14 @@ static irqreturn_t omap8250_irq(int irq, void *dev=
+_id)
++ 	unsigned int iir, lsr;
++ 	int ret;
++=20
++-	pm_runtime_get_noresume(port->dev);
++-
++-	/* Shallow idle state wake-up to an IO interrupt? */
++-	if (atomic_add_unless(&priv->active, 1, 1)) {
++-		priv->latency =3D priv->calc_latency;
++-		schedule_work(&priv->qos_work);
++-	}
++-
++ #ifdef CONFIG_SERIAL_8250_DMA
++ 	if (up->dma) {
++ 		ret =3D omap_8250_dma_handle_irq(port);
++-		pm_runtime_mark_last_busy(port->dev);
++-		pm_runtime_put(port->dev);
++ 		return IRQ_RETVAL(ret);
++ 	}
++ #endif
++=20
+++	serial8250_rpm_get(up);
++ 	lsr =3D serial_port_in(port, UART_LSR);
++ 	iir =3D serial_port_in(port, UART_IIR);
++ 	ret =3D serial8250_handle_irq(port, iir);
++@@ -701,8 +690,7 @@ static irqreturn_t omap8250_irq(int irq, void *dev_i=
+d)
++ 		schedule_delayed_work(&up->overrun_backoff, delay);
++ 	}
++=20
++-	pm_runtime_mark_last_busy(port->dev);
++-	pm_runtime_put(port->dev);
+++	serial8250_rpm_put(up);
++=20
++ 	return IRQ_RETVAL(ret);
++ }
++@@ -1314,8 +1302,11 @@ static int omap_8250_dma_handle_irq(struct uart_p=
+ort *port)
++ 	u16 status;
++ 	u8 iir;
++=20
+++	serial8250_rpm_get(up);
+++
++ 	iir =3D serial_port_in(port, UART_IIR);
++ 	if (iir & UART_IIR_NO_INT) {
+++		serial8250_rpm_put(up);
++ 		return IRQ_HANDLED;
++ 	}
++=20
++@@ -1348,6 +1339,7 @@ static int omap_8250_dma_handle_irq(struct uart_po=
+rt *port)
++=20
++ 	uart_unlock_and_check_sysrq(port);
++=20
+++	serial8250_rpm_put(up);
++ 	return 1;
++ }
++=20
++@@ -1539,6 +1531,8 @@ static int omap8250_probe(struct platform_device *=
+pdev)
++ 	if (!of_get_available_child_count(pdev->dev.of_node))
++ 		pm_runtime_set_autosuspend_delay(&pdev->dev, -1);
++=20
+++	pm_runtime_irq_safe(&pdev->dev);
+++
++ 	pm_runtime_get_sync(&pdev->dev);
++=20
++ 	omap_serial_fill_features_erratas(&up, priv);
++@@ -1776,7 +1770,6 @@ static int omap8250_runtime_suspend(struct device =
+*dev)
++=20
++ 	priv->latency =3D PM_QOS_CPU_LATENCY_DEFAULT_VALUE;
++ 	schedule_work(&priv->qos_work);
++-	atomic_set(&priv->active, 0);
++=20
++ 	return 0;
++ }
++@@ -1786,10 +1779,6 @@ static int omap8250_runtime_resume(struct device =
+*dev)
++ 	struct omap8250_priv *priv =3D dev_get_drvdata(dev);
++ 	struct uart_8250_port *up =3D NULL;
++=20
++-	/* Did the hardware wake to a device IO interrupt before a wakeirq? */
++-	if (atomic_read(&priv->active))
++-		return 0;
++-
++ 	if (priv->line >=3D 0)
++ 		up =3D serial8250_get_port(priv->line);
++=20
++@@ -1805,10 +1794,8 @@ static int omap8250_runtime_resume(struct device =
+*dev)
++ 		uart_port_unlock_irq(&up->port);
++ 	}
++=20
++-	atomic_set(&priv->active, 1);
++ 	priv->latency =3D priv->calc_latency;
++ 	schedule_work(&priv->qos_work);
++-
++ 	return 0;
++ }
++=20
++--=20
++2.43.0
++
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappen=
+d b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappend
+index 1ffd2194d96..79bf2157460 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappend
+@@ -7,3 +7,5 @@ KMACHINE:beaglebone-yocto ?=3D "beaglebone"
+ KMACHINE:genericx86 ?=3D "common-pc"
+ KMACHINE:genericx86-64 ?=3D "common-pc-64"
+=20
++FILESEXTRAPATHS:prepend :=3D "${THISDIR}/files:"
++SRC_URI:append:genericarm64 =3D " file://0001-Revert-serial-8250_omap-Dr=
+op-pm_runtime_irq_safe.patch"
+--=20
 2.43.0
 
 
