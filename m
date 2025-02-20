@@ -1,125 +1,171 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C7E51C021AA
-	for <webhook@archiver.kernel.org>; Wed, 19 Feb 2025 16:00:04 +0000 (UTC)
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
- by mx.groups.io with SMTP id smtpd.web10.25983.1739980802653143550
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FA5DC021B3
+	for <webhook@archiver.kernel.org>; Thu, 20 Feb 2025 08:36:11 +0000 (UTC)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+ by mx.groups.io with SMTP id smtpd.web11.45110.1740040560481035345
  for <poky@lists.yoctoproject.org>;
- Wed, 19 Feb 2025 08:00:02 -0800
+ Thu, 20 Feb 2025 00:36:00 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=WsiKP89d;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.54, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-38f5fc33602so94713f8f.0
-        for <poky@lists.yoctoproject.org>; Wed, 19 Feb 2025 08:00:02 -0800 (PST)
+ dkim=pass header.i=@linaro.org header.s=google header.b=Tw+3Ad39;
+ spf=pass (domain: linaro.org, ip: 209.85.167.48, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5462a2b9dedso749734e87.1
+        for <poky@lists.yoctoproject.org>; Thu, 20 Feb 2025 00:36:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1739980801; x=1740585601; darn=lists.yoctoproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=tuBJ/TNR2vv7329Fz1mUa1Xlz/2iSXwbzjr46QR+Cno=;
-        b=WsiKP89d1s4poKpUFfEcMlJ3ZPHOono7rUm+TofdXNTm7wq1OUDe+DZAXIGx0OMbY0
-         XWf+PYPLWPnJS8Vl//k/Gl8N47rqKNhNI85rb4CBxhl/6J4FS+4NWsnNMwpbqaE5cs6v
-         g5vgzY5ycnwAbD13cmX85wlyDurMyGqpjeBls=
+        d=linaro.org; s=google; t=1740040558; x=1740645358; darn=lists.yoctoproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=IXuHRIj/zAYvsT+dPBFzM+vi5aSycPpsR49oR4Zm3K0=;
+        b=Tw+3Ad39e+nKXbtfpufbjDTZQ4NvW2+EOAF+r1UKghLofWOxiKEKcS/TXcy6+T0IRg
+         Og428ztQWJIKuIihSd+H3bMUXUJVB+vX6Wa4e4M7KzSAgMJIjsxt9W8mVU40F3LEVpYy
+         h0OI9+a19W5+2V3lMJrayCfaZltBDNiLqvt70g8GzrJoryl0z4004A81TsjunZ3Q5VnG
+         9pj8QZBGJPg8Pltg6Jynav+jsSCot9WPZ0Y/z/iife4rQYqy+UBzT+KwTWFcZ+1KfRDL
+         k+k4qxITvwsatNSfEl0dGju+FOn2TkgzCSg7wDACSvRYpQrKFzv5O8Ek39FfSgdKEgV6
+         /qew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1739980801; x=1740585601;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=tuBJ/TNR2vv7329Fz1mUa1Xlz/2iSXwbzjr46QR+Cno=;
-        b=JqRfYaoNYk/C1BFwTxwRJ4buiof83icH+G5q3ASa0J8BFt5BKGDgGreZK2CrGuSHg5
-         Cl7Y+ADxZzOR41D5ve0ksHIQMGTb5J42zUIkAIscm/xnZyKXAxbGj761mQZT2I5cslvL
-         sM7CbDvm26ZNjH+gVJv37JuSmPRtiSjnWzzP1gdpCuqzFxlFlq8SQFynmuNPjMSdzcYP
-         SvTE4x8bi+rCJal4vm+KojYwy83CFy4kkVx0BN4gb62hllkEJ5+QpSQMX9wBBSIloK7e
-         kGbbf2GX4ov3FmjGX4LYu2YHiKHGa04EiA+Llp5hVAtGJYfXC6U1bm3eN/nfC8wA5WBj
-         37lg==
-X-Gm-Message-State: AOJu0YwrIH2e7QIHJDn2IDzddq7E3u7w/JqPQqLwMctu7aD43Z88/VpI
-	i2lrA/Np6kupalQ5XqLQ/CVwY5ST7E9XAXomLaGEA2iJkY5E8Dhdeky8bW/hRxs=
-X-Gm-Gg: ASbGnctieXxorErfceSTwxUYGaPA0+C7bYxQKEKXeGG9WfoNuRORjRefHJ2k20yP6Wv
-	+y4KRNEGMZGJcpvRLag0LGRTwEi6ruO3s1OZnJLZP+Okym83pn4ZFr35JxtkS94A1exX2bFcNfX
-	Z79I6p1WHRZ4yBBLTJCB8zx3ZNBIY+kSW2gxWPZawjKxNUpzGvgfyKK4snzU0ptmi86oSWdQANj
-	F3bb7ErKGUOaNa1hoQgm05WlBzNB33UqAYXves3uO/B3iOMuY0wSDx5BuVJXBtf5t/iRHozEqlL
-	Df0ds3MB5DEKGokew5pBvE7kLSKQHtzdGtAmJFY033JEfhBteXcm4wbyj7/5UncpMv6lLcf2snz
-	lmacX
-X-Google-Smtp-Source: AGHT+IG3IzCkxJsKfgw4/HrxmRc4tIzjp7PEOyA05vWm+xAHQtRjisJBmMmtdNPJz1ytlq6KFN4Lvg==
-X-Received: by 2002:a05:6000:401e:b0:38d:ba8e:7327 with SMTP id ffacd0b85a97d-38f57c086d3mr4251551f8f.8.1739980801031;
-        Wed, 19 Feb 2025 08:00:01 -0800 (PST)
-Received: from ?IPv6:2001:8b0:aba:5f3c:4146:2030:963a:7035? ([2001:8b0:aba:5f3c:4146:2030:963a:7035])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-38f259f7979sm17943312f8f.83.2025.02.19.07.59.59
+        d=1e100.net; s=20230601; t=1740040558; x=1740645358;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=IXuHRIj/zAYvsT+dPBFzM+vi5aSycPpsR49oR4Zm3K0=;
+        b=DT3kGyUeP1uCabn4dAYk/pgm1lGXK8JRQMGPB02XFR1Vc3umZHEyYKTq3F7CQfWWM8
+         fLwwBUZ16PGo4PKjoqWaNJRQ0Ou4p4Jrhe41dhHPzEpYCTE/VZbsc1OGKLbeRt5tVNsZ
+         wWrSxWVrYYKeiaIIFrGfJ+/a7NE6EhS32v7pnB54pDIfApBnXQM/1qV0NGw58146yzQb
+         JilfCV+Sg7H38WEOtj5ub5m0wXiEPzqmI0DU+TbjBlZ5tCD0i+YQHjfR4BgrxtvLWJ1I
+         UJRWUk42PbqhKSU9af2uCVVW1Re87Y/tWFNoJqgf00sGEt1Yewos4dlj8dH6BfbrENuj
+         pEUg==
+X-Forwarded-Encrypted: i=1; AJvYcCUVTZr7f3bVt6cZREoCNw7JYM4kdC/GgCGB/chy9+XBWjgfo9WTWyKUJj8pGC2PoYOHgCQk@lists.yoctoproject.org
+X-Gm-Message-State: AOJu0YyL/tYVE8cqBl9a4ggn1FuKN+nJRIkxejI3qQzzGrua2PitH1+a
+	Ges7qnI6bx/fnesrjpLcD1bESNgZhpBiAMw4oqaosUyqdykZYXja2zspou/B9y8=
+X-Gm-Gg: ASbGnctKRUe09jig7nqSHJ91/hSh2QRQIhZaXWUMtZVbycBaXuWUDzc1zJJ4Ass1Unf
+	CWuoBmXVbRkUSFlG9B6a6+b1lvYXxznZoF4qlDuFa94HiqhZrsSXRYXg8JCOANN+32841nttXn+
+	ys2OzcXZjZYM+8fzgN050/cDdYyFIAlj634NBYy0jrUYyZjdIdSCt4GNdh0xWyOibR3Ky1/9pR+
+	tNO/s+adPktNlI58EhyCJKKa2GH+Khwf400v2zvllqPkNicTHTCMO7WYL41XadTkx7Mnuw1Ah56
+	XPzPyg8PljgTif253H11alhPcxvngk5GxlYBxhuq
+X-Google-Smtp-Source: AGHT+IEhdCM+kkp/WaEBkgmXnvQdNmuJc9ZRbhXBr7Cu1y8XQHaiW6FZJohK1HvGT6wWuVhZteD1tA==
+X-Received: by 2002:a05:6512:31d3:b0:545:2b24:c711 with SMTP id 2adb3069b0e04-5452fe3f5b4mr7223275e87.21.1740040558427;
+        Thu, 20 Feb 2025 00:35:58 -0800 (PST)
+Received: from nuoska (78-27-76-97.bb.dnainternet.fi. [78.27.76.97])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5452860d6cesm2036519e87.145.2025.02.20.00.35.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Feb 2025 08:00:00 -0800 (PST)
-Message-ID: <a7821314c57220b19a189530d48a64934c4b4820.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH 2/2] psplash: start via udev if framebuffer
- device detected
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: mikko.rapeli@linaro.org, openembedded-core@lists.openembedded.org
-Cc: poky@lists.yoctoproject.org, Mathieu Dubois-Briand	
- <mathieu.dubois-briand@bootlin.com>, Jon Mason <Jon.Mason@arm.com>, Ross
- Burton	 <ross.burton@arm.com>
-Date: Wed, 19 Feb 2025 15:59:59 +0000
-In-Reply-To: <20250206144406.1328276-1-mikko.rapeli@linaro.org>
+        Thu, 20 Feb 2025 00:35:56 -0800 (PST)
+Date: Thu, 20 Feb 2025 10:35:53 +0200
+From: Mikko Rapeli <mikko.rapeli@linaro.org>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: openembedded-core@lists.openembedded.org, poky@lists.yoctoproject.org,
+	Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>,
+	Jon Mason <Jon.Mason@arm.com>, Ross Burton <ross.burton@arm.com>
+Subject: Re: [poky] [PATCH 2/2] psplash: start via udev if framebuffer device
+ detected
+Message-ID: <Z7bpaerggUQ4vgqK@nuoska>
 References: <20250206144406.1328276-1-mikko.rapeli@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.0-1 
+ <a7821314c57220b19a189530d48a64934c4b4820.camel@linuxfoundation.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a7821314c57220b19a189530d48a64934c4b4820.camel@linuxfoundation.org>
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 19 Feb 2025 16:00:04 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13533
+ <poky@lists.yoctoproject.org>; Thu, 20 Feb 2025 08:36:11 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13534
 
-On Thu, 2025-02-06 at 16:44 +0200, Mikko Rapeli via lists.yoctoproject.org =
-wrote:
-> psplash-start.service expected to find /dev/fb0 and failed
-> if device was not found. This failure breaks systemd
-> oeqa runtime test with "runqemu nographic". Starting
-> psplash based on detected framebuffer device fixes systemd
-> boot status and systemd oeqa runtime tests for qemu
-> boots with and without graphics support.
->=20
-> Note that psplash-systemd.service still depends on /dev/fb0
-> so startup with multiple framebuffer devices may not work
-> correctly. I don't have devices with multiple framebuffer
-> devices to test with.
->=20
-> On qemu machine with graphics, psplash displays yocto
-> logo correctly and boot progress bar as well. Once boot completes
-> to systemd "running" state, the logo is replaced by login prompt.
-> On qemu machine without graphics, boot completes without psplash
-> or failures and login over serial console works normally.
-> Tested with genericarm64 machine poky-altcfg distro and core-image-base
-> image on qemu. AMD kv260 tested as well but graphics stack is not yet
-> working there so boot is similar to qemu without graphics.
->=20
-> Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
-> ---
-> =C2=A0meta/recipes-core/psplash/files/fb.rules=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 1 +
-> =C2=A0.../{psplash-start.service =3D> psplash-start@.service}=C2=A0=C2=A0=
-=C2=A0 | 5 ++---
-> =C2=A0meta/recipes-core/psplash/files/psplash-systemd.service=C2=A0 | 8 +=
-++-----
-> =C2=A0meta/recipes-core/psplash/psplash_git.bb=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 9 +=
-+++++---
-> =C2=A04 files changed, 12 insertions(+), 11 deletions(-)
-> =C2=A0create mode 100644 meta/recipes-core/psplash/files/fb.rules
-> =C2=A0rename meta/recipes-core/psplash/files/{psplash-start.service =3D> =
-psplash-start@.service} (84%)
+Hi,
 
-Unfortunately I think this has introduced an intermittent QA test
-failure showing up in meta-arm in particular. Examples:
+On Wed, Feb 19, 2025 at 03:59:59PM +0000, Richard Purdie wrote:
+> On Thu, 2025-02-06 at 16:44 +0200, Mikko Rapeli via lists.yoctoproject.org wrote:
+> > psplash-start.service expected to find /dev/fb0 and failed
+> > if device was not found. This failure breaks systemd
+> > oeqa runtime test with "runqemu nographic". Starting
+> > psplash based on detected framebuffer device fixes systemd
+> > boot status and systemd oeqa runtime tests for qemu
+> > boots with and without graphics support.
+> > 
+> > Note that psplash-systemd.service still depends on /dev/fb0
+> > so startup with multiple framebuffer devices may not work
+> > correctly. I don't have devices with multiple framebuffer
+> > devices to test with.
+> > 
+> > On qemu machine with graphics, psplash displays yocto
+> > logo correctly and boot progress bar as well. Once boot completes
+> > to systemd "running" state, the logo is replaced by login prompt.
+> > On qemu machine without graphics, boot completes without psplash
+> > or failures and login over serial console works normally.
+> > Tested with genericarm64 machine poky-altcfg distro and core-image-base
+> > image on qemu. AMD kv260 tested as well but graphics stack is not yet
+> > working there so boot is similar to qemu without graphics.
+> > 
+> > Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
+> > ---
+> > �meta/recipes-core/psplash/files/fb.rules���������������� | 1 +
+> > �.../{psplash-start.service => psplash-start@.service}��� | 5 ++---
+> > �meta/recipes-core/psplash/files/psplash-systemd.service� | 8 +++-----
+> > �meta/recipes-core/psplash/psplash_git.bb���������������� | 9 ++++++---
+> > �4 files changed, 12 insertions(+), 11 deletions(-)
+> > �create mode 100644 meta/recipes-core/psplash/files/fb.rules
+> > �rename meta/recipes-core/psplash/files/{psplash-start.service => psplash-start@.service} (84%)
+> 
+> Unfortunately I think this has introduced an intermittent QA test
+> failure showing up in meta-arm in particular. Examples:
+> 
+> https://autobuilder.yoctoproject.org/valkyrie/#/builders/75/builds/994/steps/22/logs/stdio
 
-https://autobuilder.yoctoproject.org/valkyrie/#/builders/75/builds/994/step=
-s/22/logs/stdio
-https://gitlab.com/jonmason00/meta-arm/-/jobs/9155263483
+Feb 19 01:26:42 sbsa-ref psplash-systemd[261]: Error unable to open fifo
 
-but it doesn't always fail. There were other failures if you look
-through the meta-arm builds.
+This means psplash.service did not start or did not yet create it. Can I somehow see the
+build and boot configuration?
+
+Feb 19 01:27:12 sbsa-ref systemd[1]: /usr/lib/systemd/system/psplash-systemd.service:8: Unknown key 'ConditionFileExists' in section [Unit], ignoring.
+Feb 19 01:27:26 sbsa-ref systemd[1]: /usr/lib/systemd/system/psplash-systemd.service:8: Unknown key 'ConditionFileExists' in section [Unit], ignoring.
+
+psplash.service is of type notify and fifo is created before systemd is notified, but
+the fifo creation could also fail due to other reasons which I can't see from the logs.
+
+Fixing the condition will fix the systemd test failure but plsplash and progress
+bar may have functional failures.
+
+I will send a patch.
+
+> https://gitlab.com/jonmason00/meta-arm/-/jobs/9155263483
+
+This looks like something completely different:
+
+2025-02-17 22:43:20 - INFO     - AssertionError: 3 != 0 : SYSTEMD_BUS_TIMEOUT=240s systemctl status --full --failed
+2025-02-17 22:43:20 - INFO     - x dev-disk-by\x2duuid-38d0b388\x2d9989\x2d4744\x2d8a0a\x2d3e6be1135f5a.swap - /dev/disk/by-uuid/38d0b388-9989-4744-8a0a-3e6be1135f5a
+2025-02-17 22:43:20 - INFO     - Loaded: loaded (/etc/fstab; generated)
+2025-02-17 22:43:20 - INFO     - Active: failed (Result: exit-code) since Mon 2025-02-17 22:41:32 UTC; 20min left
+2025-02-17 22:43:20 - INFO     - Invocation: 6e51ad1d846f4e8cbb129f05d75ac240
+2025-02-17 22:43:20 - INFO     - What: /dev/disk/by-uuid/38d0b388-9989-4744-8a0a-3e6be1135f5a
+2025-02-17 22:43:20 - INFO     - Docs: man:fstab(5)
+2025-02-17 22:43:20 - INFO     - man:systemd-fstab-generator(8)
+2025-02-17 22:43:20 - INFO     - Mem peak: 1.7M
+2025-02-17 22:43:20 - INFO     - CPU: 198ms
+2025-02-17 22:43:20 - INFO     - 
+2025-02-17 22:43:20 - INFO     - Feb 17 22:41:32 sbsa-ref systemd[1]: Activating swap /dev/disk/by-uuid/38d0b388-9989-4744-8a0a-3e6be1135f5a...
+2025-02-17 22:43:20 - INFO     - Feb 17 22:41:32 sbsa-ref swapon[210]: swapon: /dev/sda3: swap format pagesize does not match.
+2025-02-17 22:43:20 - INFO     - Feb 17 22:41:32 sbsa-ref swapon[210]: swapon: /dev/sda3: reinitializing the swap.
+2025-02-17 22:43:20 - INFO     - Feb 17 22:41:32 sbsa-ref swapon[212]: mkswap: invalid option -- 'U'
+2025-02-17 22:43:20 - INFO     - Feb 17 22:41:32 sbsa-ref swapon[212]: BusyBox v1.37.0 () multi-call binary.
+2025-02-17 22:43:20 - INFO     - Feb 17 22:41:32 sbsa-ref swapon[212]: Usage: mkswap [-L LBL] BLOCKDEV [KBYTES]
+2025-02-17 22:43:20 - INFO     - Feb 17 22:41:32 sbsa-ref systemd[1]: dev-disk-by\x2duuid-38d0b388\x2d9989\x2d4744\x2d8a0a\x2d3e6be1135f5a.swap: Swap process exited, code=exited, status=255/EXCEPTION
+2025-02-17 22:43:20 - INFO     - Feb 17 22:41:32 sbsa-ref systemd[1]: dev-disk-by\x2duuid-38d0b388\x2d9989\x2d4744\x2d8a0a\x2d3e6be1135f5a.swap: Failed with result 'exit-code'.
+2025-02-17 22:43:20 - INFO     - Feb 17 22:41:32 sbsa-ref systemd[1]: Failed to activate swap /dev/disk/by-uuid/38d0b388-9989-4744-8a0a-3e6be1135f5a.
+
+So these could be fixed by adding util-linux-mkswap to the images instead of
+relying on busybox?
+
+I will send a patch.
+
+> but it doesn't always fail. There were other failures if you look
+> through the meta-arm builds.
+
+Link to the builds?
 
 Cheers,
 
-Richard
+-Mikko
 
