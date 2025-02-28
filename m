@@ -1,113 +1,108 @@
-Return-Path: <jdowd@slashdevslashnull.org>
+Return-Path: <semc.2042@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CC25EC021B2
-	for <webhook@archiver.kernel.org>; Tue, 25 Feb 2025 22:21:14 +0000 (UTC)
-Subject: Unable to add a dbus user session as a service to raspberry Pi zero 2 W image
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 44AFBC19776
+	for <webhook@archiver.kernel.org>; Fri, 28 Feb 2025 14:44:39 +0000 (UTC)
+Subject: glibc run-built-tests not working as expected when set to 'no'
 To: poky@lists.yoctoproject.org
-From: "John" <jdowd@slashdevslashnull.org>
-X-Originating-Location: Ottawa, Ontario, CA (184.175.41.163)
+From: "rajmohan r" <semc.2042@gmail.com>
+X-Originating-Location: US (136.226.245.19)
 X-Originating-Platform: Linux Chrome 133
 User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
-Date: Tue, 25 Feb 2025 14:21:12 -0800
-Message-ID: <lp6U.1740522072227851753.VtjX@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="wVF2lWkFYNLWk2N7UB1O"
+Date: Fri, 28 Feb 2025 06:44:37 -0800
+Message-ID: <lWid.1740753877103406696.l8x3@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="UuhT7bz5lxKiw1bKBNRe"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 25 Feb 2025 22:21:14 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13543
+ <poky@lists.yoctoproject.org>; Fri, 28 Feb 2025 14:44:39 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13544
 
---wVF2lWkFYNLWk2N7UB1O
+--UuhT7bz5lxKiw1bKBNRe
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-I've been trying to add pulseaudio as a service to my raspberry Pi image (c=
-ore-image-minimal) for a few days now. As pulseaudio apparently requires to=
- be added as a d-bus user session only, I then tried to start a user sessio=
-n in systemd. No Joy!
+Hi All
 
-I have dbus running as a service but it is a system level service and not a=
- user level service:
+For glibc-y2038-tests recipe, when 'bitbake -c do_check glibc-y2038-tests'
+is executed, could see that the tests binaries are also run.
 
-root@raspberrypi0-64-wf:~# systemctl status dbus.service
-=E2=97=8F dbus.service - D-Bus System Message Bus
-Loaded: loaded (/usr/lib/systemd/system/dbus.service; static)
-Active: active (running) since Tue 2025-02-25 21:28:52 UTC; 2min 40s ago
-Invocation: 95ded9e8656b41abb16c48c6e1ace29c
-TriggeredBy: =E2=97=8F dbus.socket
-Docs: man:dbus-daemon(1)
-Main PID: 217 (dbus-daemon)
-Tasks: 1 (limit: 249)
-CPU: 222ms
-CGroup: /system.slice/dbus.service
-=E2=94=94=E2=94=80217 /usr/bin/dbus-daemon --system --address=3Dsystemd: --=
-nofork --nopidfile --systemd-activation --syslog-only
+Below is the do_check() contents from glibc-y2038-tests_2.39.bb
 
-When I try to start a user session:
+# Just build tests for target - do not run them
+do_check:append () {
+oe_runmake -i check run-built-tests=3Dno
+}
 
->=20
-> root@raspberrypi0-64-wf:~# systemctl --user enable dbus.service
-> Failed to connect to user scope bus via local transport:
-> $DBUS_SESSION_BUS_ADDRESS and $XDG_RUNTIME_DIR not defined (consider usin=
-g
-> --machine=3D<user>@.host --user to connect to bus of other user)
->=20
+On completion of do_check stage, test binaries are also run and test summar=
+y
+details are present at the end of 'log.do_check' file and is given below:
+from log.do_check and time it takes to complete the do_check() stage is
+12min to 13min for scarthgap branch.
+=3D=3D=3D Summary of results =3D=3D=3D
+74 FAIL
+1172 PASS
+15 XFAIL
 
-I've not managed to find any examples of d-bus running as a user session.
+Option 'run-built-tests' is not working as expected as said in the recipe
+like build only the tests binaries but do not run tests binaries.
 
-Is there some secret sauce that I'm missing?
+please let me know why test binaries are also been run when 'run-built-test=
+s'
+is set to 'no' for 'bitbake -c do_check glibc-y2038-tests' or running the
+tests binaries is an expected behaviour for the above do_check() stage.
 
-I did try to run pulseaudio as a system service, it was a blood bath (I ref=
-er to the amount of red error messages)
+Thanks for reading the message.
+regards
+rajmohan
 
-Cheers!!
-
---wVF2lWkFYNLWk2N7UB1O
+--UuhT7bz5lxKiw1bKBNRe
 Content-Type: text/html; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div>I've been trying to add pulseaudio as a service to my raspberry Pi ima=
-ge (core-image-minimal) for a few days now. As pulseaudio apparently requir=
-es to be added as a d-bus user session only, I then tried to start a user s=
-ession in systemd. No Joy!</div>
+<div>Hi All</div>
 <div>&nbsp;</div>
-<div>I have dbus running as a service but it is a system level service and =
-not a user level service:</div>
+<div>For glibc-y2038-tests recipe, when 'bitbake -c do_check glibc-y2038-te=
+sts'</div>
+<div>is executed, could see that the tests binaries are also run.</div>
 <div>&nbsp;</div>
-<div>root@raspberrypi0-64-wf:~# systemctl status dbus.service<br />=E2=97=
-=8F dbus.service - D-Bus System Message Bus<br />&nbsp; &nbsp; &nbsp;Loaded=
-: loaded (/usr/lib/systemd/system/dbus.service; static)<br />&nbsp; &nbsp; =
-&nbsp;Active: active (running) since Tue 2025-02-25 21:28:52 UTC; 2min 40s =
-ago<br />&nbsp;Invocation: 95ded9e8656b41abb16c48c6e1ace29c<br />TriggeredB=
-y: =E2=97=8F dbus.socket<br />&nbsp; &nbsp; &nbsp; &nbsp;Docs: man:dbus-dae=
-mon(1)<br />&nbsp; &nbsp;Main PID: 217 (dbus-daemon)<br />&nbsp; &nbsp; &nb=
-sp; Tasks: 1 (limit: 249)<br />&nbsp; &nbsp; &nbsp; &nbsp; CPU: 222ms<br />=
-&nbsp; &nbsp; &nbsp;CGroup: /system.slice/dbus.service<br />&nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=E2=94=94=E2=94=80217 /usr/bin/dbus-daemon=
- --system --address=3Dsystemd: --nofork --nopidfile --systemd-activation --=
-syslog-only</div>
+<div>Below is the do_check() contents from glibc-y2038-tests_2.39.bb</div>
 <div>&nbsp;</div>
-<div>When I try to start a user session:</div>
-<blockquote>
-<div>root@raspberrypi0-64-wf:~# systemctl --user enable dbus.service<br />F=
-ailed to connect to user scope bus via local transport: $DBUS_SESSION_BUS_A=
-DDRESS and $XDG_RUNTIME_DIR not defined (consider using --machine=3D&lt;use=
-r&gt;@.host --user to connect to bus of other user)</div>
-</blockquote>
+<div># Just build tests for target - do not run them</div>
+<div>do_check:append () {</div>
+<div>&nbsp; &nbsp; oe_runmake -i check run-built-tests=3Dno</div>
+<div>}</div>
 <div>&nbsp;</div>
-<div>I've not managed to find any examples of d-bus running as a user sessi=
-on.</div>
+<div>On completion of do_check stage, test binaries are also run and test s=
+ummary</div>
+<div>details are present at the end of 'log.do_check' file and is given bel=
+ow:</div>
+<div>from log.do_check and time it takes to complete the do_check() stage i=
+s</div>
+<div>12min to 13min for scarthgap branch.</div>
+<div><span style=3D"white-space: normal;"><span style=3D"white-space: pre;"=
+> </span>=3D=3D=3D Summary of results =3D=3D=3D</span></div>
+<div>&nbsp; &nbsp; &nbsp;74 FAIL</div>
+<div>&nbsp; &nbsp;1172 PASS</div>
+<div>&nbsp; &nbsp; &nbsp;15 XFAIL</div>
 <div>&nbsp;</div>
-<div>Is there some secret sauce that I'm missing?</div>
+<div>Option 'run-built-tests' is not working as expected as said in the rec=
+ipe</div>
+<div>like build only the tests binaries but do not run tests binaries.</div=
+>
 <div>&nbsp;</div>
-<div>I did try to run pulseaudio as a system service, it was a blood bath (=
-I refer to the amount of red error messages)</div>
+<div>please let me know why test binaries are also been run when 'run-built=
+-tests'</div>
+<div>is set to 'no' for 'bitbake -c do_check glibc-y2038-tests' or running =
+the</div>
+<div>tests binaries is an expected behaviour for the above do_check() stage=
+.</div>
 <div>&nbsp;</div>
-<div>Cheers!!</div>
-<div>&nbsp;</div>
+<div>Thanks for reading the message.</div>
+<div>regards</div>
+<div>rajmohan</div>
 
---wVF2lWkFYNLWk2N7UB1O--
+--UuhT7bz5lxKiw1bKBNRe--
 
