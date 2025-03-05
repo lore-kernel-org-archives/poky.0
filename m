@@ -1,133 +1,96 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2D2BC021B8
-	for <webhook@archiver.kernel.org>; Tue,  4 Mar 2025 17:31:26 +0000 (UTC)
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
- by mx.groups.io with SMTP id smtpd.web10.27857.1741109477557053211
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2BCCC19F32
+	for <webhook@archiver.kernel.org>; Wed,  5 Mar 2025 09:11:51 +0000 (UTC)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+ by mx.groups.io with SMTP id smtpd.web11.9447.1741165908839612613
  for <poky@lists.yoctoproject.org>;
- Tue, 04 Mar 2025 09:31:17 -0800
+ Wed, 05 Mar 2025 01:11:49 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=MoGeq0LQ;
- spf=pass (domain: gmail.com, ip: 209.85.160.48, mailfrom: raj.khem@gmail.com)
-Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-2bcbfad2f8cso2893883fac.1
-        for <poky@lists.yoctoproject.org>; Tue, 04 Mar 2025 09:31:17 -0800 (PST)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Ve9mOR8M;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.50, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-43bbb440520so34593905e9.2
+        for <poky@lists.yoctoproject.org>; Wed, 05 Mar 2025 01:11:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1741109477; x=1741714277; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sD5ixwErCOren+rlNoD3JwmlsC+20CtDXbaNlvu/7ak=;
-        b=MoGeq0LQVLG+1OZFOgyFJuBXFP/arZY+cUAiFgEQAFBiNSu4l56AUpZqqJs18vQ7Mr
-         GRlEah7G4HgBM6qt7yJ4HQyXuYgR9Tjy2ZCpEWNiHSHaiasn6aUljrqNGVSRAYqM4m28
-         2M+UlHyF13hU4nKqZw0ZqmuC3hkCA+wcywzkrTppyC0hJJXv+bNWND/6opahfB+JnVCT
-         oBCr5R2feavl3COX+B8s2KKwWUKdL3g5o9eJXQAZXJ9dnjRVkuQ2H1gOS8kZlWcSJDKS
-         8mkyrVxjbULGwib88wjKPHaalmT2k+OHtWe2O31Ad74bP44WvF0TSZ+oVupcXCc+W0mV
-         bfQA==
+        d=linuxfoundation.org; s=google; t=1741165907; x=1741770707; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=SaP0XRCWwnqzFjHV58cHtUh3xpeP2v8NnCpVuSooO1M=;
+        b=Ve9mOR8M26vRvfs9K2zKfnmIVqgW6iCjY7hZrh0UOLJigOZPOA6q+kvkUU+CBWUrO6
+         xq6Kw7oR9LZsZOPIR3bTvGOL7ZBD/phxfiqvJ0nxuOn4qsqBXNXyVhJ+Ux2E1ofAgA9j
+         /sw3W1G9aGUMPNmbHa5DPS0r/TUtP/8G4WzFY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741109477; x=1741714277;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=sD5ixwErCOren+rlNoD3JwmlsC+20CtDXbaNlvu/7ak=;
-        b=PAFq3NiIlUkwSjeSxBx3M54d6fgoihYS6Xhn4JnUbwlj/BFU5bjyWQSwQpf8m5sXGF
-         /QFi3rI4X/vc46w0FMN1COrY/R+1dH3jTXZU4EDtwVKMO+tlIsQlfOARyvWnITy70+CE
-         pgqdjgx02KyA/k1G0zcUnRtnNor2Ne2P18CBdpkBKTdauyBRcCcvnMn1WgNEFj8grNd8
-         oJuo/m1Q8fYDC4lurwQGULrLuSDDwMzsZGQyQSfEt8mSeCkQZ5L8lB0eANhM1UHEJhic
-         a8mskUA0AiJBLz5YfU6Zf1PBDN3xPY9fVSqlNlgdhA7N2nYDzMAkGWh1hbNz+pS0Y8TO
-         aI3A==
-X-Gm-Message-State: AOJu0YzAWC0Z6kNTGQzV4fjMAVj2PoiujS1LZZM0WdX5jE0M00ozIQw4
-	j8oR+tIZ/cAr1ej2B7hFvt//X8Q8BzMZ6kknOzkPonavULf0nZ8ObCbjUPuiGWQfvtPJp7CfeId
-	J1Xv9lVPmEaLMkNtDU2Xg2RZZJmrSiqtwlKM=
-X-Gm-Gg: ASbGncsL6G9laVt7mUsUzctoufe/KU5x6RJZDS/WuZpKgeIE2Fu7w/ofCMmvFj+8+bq
-	jiEzmuS5tJfAKxU3LJYrgCko/e4jUo6m8HtxrotG7fcrPtLFCboqWozdHRTYg2rMQRKGcrbTGtM
-	8Y0FoJLbKVJ670ErJleyFBXwsM2MR42J6PyJ6mSgwBIF1EIK0uGlXfCn5w
-X-Google-Smtp-Source: AGHT+IHGeWmPdYhGWXDqNyghRP4xDOB+buFBlR0SyURpVm6c+iE3s1G7lx2Wa26rEp3CLtk2U5UiAds6kiH/ITcdjEQ=
-X-Received: by 2002:a05:6870:6b96:b0:2c1:ade0:26a0 with SMTP id
- 586e51a60fabf-2c1ade033ecmr7152541fac.10.1741109476645; Tue, 04 Mar 2025
- 09:31:16 -0800 (PST)
+        d=1e100.net; s=20230601; t=1741165907; x=1741770707;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=SaP0XRCWwnqzFjHV58cHtUh3xpeP2v8NnCpVuSooO1M=;
+        b=B06PArW32XMJf1fluyPyJqZSrBmvQHWbl16vopIZstpDmv78SGnot4a9qVlHVP/K3x
+         Mlzqj7XOEmaRi9aUkDkDPu9xAsp1w9HiS4oTvD8wkI5/0CThrPrkhXws1eGncLl/ftY8
+         bS+RIFZ/mi6foqG6XGmlYt+sSeW1459+arkJm6DcvB0hNDnTFuEEa4xbe2uGbzPqPU10
+         egYdNS8RqNhgxpze4m9MFuQKVQQRsgSKJslNVBEsGEhQEB8CX7eSn4/1Aw6sKE2oy17I
+         xLc41vjpYl6qdXpJklsfVMbw0cg5SFnvyKWB8BAU/WdfeG4ijlElZ7oeaLGlGIrf0xU3
+         bUMQ==
+X-Gm-Message-State: AOJu0YyprQY0xGg6cZloKdzv27niUC81mafZu7Ry2PZkvGUoWTB8p24k
+	OJJAbBvSXtPziUMEGfuKBnJz9UhN61Gkyy2qL/lJCq1HBMUnx/IfYpZ3oGJQH8nCUZAIxa935kc
+	f
+X-Gm-Gg: ASbGncsi8EVgwA6+u6iXSnfg1tmkM8U4RcdRzZjPR49QPV/w9EVPu5QCVgiDisa0uKe
+	cSbYRXJf2iFhjAemaBQnLoBMnJeuZTWe2MzPEvLJjYWPlcGXajJ3IY/HQeIuLcN/FoVk2tnfK2B
+	KIsAdSLMvrSQJX0jsp7UOgA7AxQv8lwdmBfCom2VlOLuCmYcS4l4pnt4gdG38IyXKXs4L06kSV9
+	Yv5kx4fr7dSU4cGkuHrPe0lRbUgX4VEPuDa3axB8bh8NHwh/bt64UgmVlpW7gTXgjCmcaTUYkne
+	lO5GJLsMod9xd7VXO68zlRGbsFNam2NhxWZwR34dgBktf3P0olDvdlEePf9XGGsJQbdjlPzWhQ=
+	=
+X-Google-Smtp-Source: AGHT+IG5z+lAD+gcURzVYjA6zfgK5bFNKcsmcyxPZuHT6t+KMCa8/wLlwHXoOILpcagfGPBBcwxNeA==
+X-Received: by 2002:a05:600c:3b9e:b0:43b:cb74:2c0c with SMTP id 5b1f17b1804b1-43bd28946admr18924675e9.0.1741165905184;
+        Wed, 05 Mar 2025 01:11:45 -0800 (PST)
+Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:939e:c44d:2366:e8da])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-390e47b7d69sm20779047f8f.60.2025.03.05.01.11.44
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Mar 2025 01:11:44 -0800 (PST)
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH] poky: Update SANITY_TESTED_DISTROS
+Date: Wed,  5 Mar 2025 09:11:43 +0000
+Message-ID: <20250305091143.2024358-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-References: <npf1.1740865335355684020.Dc5N@lists.yoctoproject.org>
-In-Reply-To: <npf1.1740865335355684020.Dc5N@lists.yoctoproject.org>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Tue, 4 Mar 2025 12:30:49 -0500
-X-Gm-Features: AQ5f1Jq04OkorHdHduuf4gCCnC_WmI30P58hTK2VDSkI1P7Pm_BDSmhjjXUdmFQ
-Message-ID: <CAMKF1so0mv6XRO8oU15LVmFW4=oOi7mCQMgcO2NFS0kskeHO6g@mail.gmail.com>
-Subject: Re: [poky] Creating a hash of a password for my recipe to add a user
-To: jdowd@slashdevslashnull.org
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 04 Mar 2025 17:31:26 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13556
+ <poky@lists.yoctoproject.org>; Wed, 05 Mar 2025 09:11:51 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13557
 
-see
+Update the distros list to match what the autobuilder has available as configured
+and tested workers.
 
-https://github.com/YoeDistro/yoe-distro/blob/master/sources/meta-yoe/recipe=
-s-core/images/yoe-simple-image.bb#L37-L50
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/conf/distro/poky.conf | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-On Sat, Mar 1, 2025 at 4:42=E2=80=AFPM John via lists.yoctoproject.org
-<jdowd=3Dslashdevslashnull.org@lists.yoctoproject.org> wrote:
->
-> I tried the extrausers class and I didn't get any errors but I also got n=
-o joy. Nothing was created on the target and I moved onto using the adduser=
- example from the meta-skeleton directories. I have joy now, the additional=
- user is created and I can see the user's home directory various entries re=
-quired in all of the relevant files. yay!
->
-> However I have this line in my recipe (ignore the underline):
->
->
-> NEWGUY_PASSWORD =3D "\$6\$zap5cUSDzKQyKfmL\$g8RRKqDw8U9BlmQFO2GLDPvcGe5mW=
-SnwhMtYbDeKpPEDULJ2yLUhI6oHP4xq/p7fbE2SftFy4bvPd.ZsHVS55."
->
->
-> I then have this to set the parameters for the added user:
->
->
-> USERADD_PARAM:${PN} =3D " -d /home/newguy \
->                         -m \
->                         -G tty,audio \
->                         -p ${NEWGUY_PASSWORD} \
->                         -U newguy \
->                       "
->
-> I can't login to the board using the password I created using the command=
-:
->
-> mkpasswd -m sha512crypt <yeah right... nice try>
->
->
-> I escaped the character '$' as you can see and cut & pasted it to my reci=
-pe file. When I boot the board, I can't login using those credentials (logi=
-n via ssh). I then login via the root account and here is what I find in th=
-e "/etc/shadow" file:
->
-> newguy:/p7fbE2SftFy4bvPd.ZsHVS55.:15069:0:99999:7:::
->
->
-> Now I presume the actual hash is the part that I've underlined and I gues=
-s the rest is the SALT(?). Is there some other thing I have to do to the ha=
-sh to make it usable by the login application?
->
-> Thanks in advance for any advice.
->
-> Cheers!!
->
->
->
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13548): https://lists.yoctoproject.org/g/poky/message=
-/13548
-> Mute This Topic: https://lists.yoctoproject.org/mt/111460955/1997914
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [raj.khem@gmail.=
-com]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index eeaacd7b88f..99bd6407bc4 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -40,14 +40,15 @@ SANITY_TESTED_DISTROS ?= " \
+             fedora-38 \n \
+             fedora-39 \n \
+             fedora-40 \n \
+-            centosstream-8 \n \
++            fedora-41 \n \
++            centosstream-9 \n \
+             debian-11 \n \
+             debian-12 \n \
+-            opensuseleap-15.4 \n \
+             opensuseleap-15.5 \n \
+             opensuseleap-15.6 \n \
+             almalinux-8.8 \n \
+             almalinux-9.2 \n \
++            rocky-8 \n \
+             rocky-9 \n \
+             "
+ # add poky sanity bbclass
 
