@@ -1,115 +1,92 @@
-Return-Path: <mikko.rapeli@linaro.org>
+Return-Path: <frederikbraendstrup@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7686EC282EC
-	for <webhook@archiver.kernel.org>; Fri, 14 Mar 2025 11:22:34 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
- by mx.groups.io with SMTP id smtpd.web10.11924.1741951352623047914
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 961F4C282EC
+	for <webhook@archiver.kernel.org>; Fri, 14 Mar 2025 14:46:15 +0000 (UTC)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+ by mx.groups.io with SMTP id smtpd.web10.16385.1741963566998504653
  for <poky@lists.yoctoproject.org>;
- Fri, 14 Mar 2025 04:22:32 -0700
+ Fri, 14 Mar 2025 07:46:07 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=tE2/rhh+;
- spf=pass (domain: linaro.org, ip: 209.85.167.53, mailfrom: mikko.rapeli@linaro.org)
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-54963160818so2387374e87.2
-        for <poky@lists.yoctoproject.org>; Fri, 14 Mar 2025 04:22:32 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=KBdS9jgD;
+ spf=pass (domain: gmail.com, ip: 209.85.218.47, mailfrom: frederikbraendstrup@gmail.com)
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-ac298c8fa50so409828266b.1
+        for <poky@lists.yoctoproject.org>; Fri, 14 Mar 2025 07:46:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1741951351; x=1742556151; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=AK8nMh0RFc9VWODTCuiY5Wm+0L8cBbjVb7Duc6PWdzc=;
-        b=tE2/rhh+j9RXeeJg5fDXxtT26SJNmXkJ0rLJZbhBvHjqGccP95N25POgC1HDTp1jTk
-         mo12pV/YERJ28yVCLGAyjOJanShzhmeGsJzEbGR0+lgBebp1i+PNsLjjN+lSCMx1h1py
-         OjmugQOVMBKuis+sb661Lb6q5JOn/WB2qWt4ndcnQcXeiTXk2UROwFsJoshM9AoHWOji
-         cXlUL+JBYcd3ztQOXaR7p9SYz1VvVOgGTvNRmrewiEjz+HgwjhgGOBnRJaZQoQbCvVpA
-         DmCRb8VvmvznxGIck5EgCFGQVTqDzNOwwt9R7W3ND0HcUJNgZzfCqtXj5T5+jCV5WZL3
-         4Lvw==
+        d=gmail.com; s=20230601; t=1741963565; x=1742568365; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=xkNRMbEL1aMJs6zPIBTatH0rDadBFTSGBQPdmB1c8vM=;
+        b=KBdS9jgDirAzQgN4pNli2pUjpaUwRfmHbADtwqiY9dWcJoc8zgCC3x6xrTS1cy1dYp
+         KrhEJsXtRAhkIK2x96JBzG3CMn7d12OALVa8rRO1MDlc2kvhfnSR3MOSdy23p2cztqYu
+         zyyAd7kR/597ubsRKg5uK7JfXJQ2/ER+K5Y1jxqIXm045Z/9hvnDykwfWqHWXc90CSSc
+         sm8UFCOeuekeKtuheAToeBmsV5yK891wLLiHLxkEuI8+U8PgaAI6TMP3MKg+C0ob4vjE
+         HqxOFV3OXIR2E0W6UTCJvFD2iwrk3JhisMJSkf1AXqFpPPqxPFftcrNKfvKV0rx/aZCZ
+         s86A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1741951351; x=1742556151;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=AK8nMh0RFc9VWODTCuiY5Wm+0L8cBbjVb7Duc6PWdzc=;
-        b=Mz83v5m7vV/NyUJd/6805l937gysRBKzCzSSJmpfeztmrdaT10VI8HUdoWFCHQxsEw
-         wSp6yT5SWd/qhYAAK2vPyNTUktdTqIgdKgKU5XZSXHlLjR5W4DTbzBWCIbPrmISheWzm
-         0uITDjRQJmjYeyT+swEBvI77KNXxIdUszWpelBNzSWk6XjYfzDhqlEgP+ILZNYqG8viq
-         OcK+cL+mFfeK/AEbcVxWpfnVNCrHRKJ07MPOXcvrkYUTi6s+6wdRgqflNEzhppHGfdQQ
-         JY9k+YCxty5ML/mUwFgLMhf14UqZAcR/C6Qb1JMIgXtP/h4x3uEHwralMKj5TAosY/1H
-         7YgA==
-X-Gm-Message-State: AOJu0YxUKHMmC5dZra80VdG+PKK/1AchTaMY+wZaxiW2ScCMxJF4BzAY
-	BBGCm8JqfiL8Fj5gp10CzeD1dmXXYEJbMem8TFIwEbV6zjR6olqWIiucPa8I6HWTdk+2CuRsvMV
-	9cDo=
-X-Gm-Gg: ASbGncsmOP7O8+3+VCmjq/Lm9Phrsz2YrSNaREKPZLh4uWVISSWgAdd96U4Qsw8de6f
-	ZJSjbRi37wqUP73iciGpN3yACHF961v0GA0FdBCAWpkUGPmaIuM2OQRCzRsm/B3HQFzKad0Yyu4
-	XJUvWVYQBy5+/XpXMZNdmkuPNDaZxb15lVIOEB1zrnuh4eJLPCR4mm/UVaQcPyyUb0eF4EVBq94
-	rejYwm4pybnCyFNpuGaOcYUbQU02ELOe4rCFsItrtQMVm4KjY4QgxfqKezIvoVt9k1TuelTmvdT
-	WgbBqxLCFKXYXs47RlLA/mhOdgFYYRFyzDfdB5dV+ntQa0m1gvirW34PcCIJ4riGNu7g3VEd8SM
-	/fEkc6lmnK8A1ug==
-X-Google-Smtp-Source: AGHT+IFe5WWg0LBBMd+uw2J3U5j3+DZi2wUnJ6o2AG8ysZ68XviVgmgH01eG1qZdAoiuNVlkR+ZepQ==
-X-Received: by 2002:a05:6512:1392:b0:549:4d73:641a with SMTP id 2adb3069b0e04-549c39af674mr675149e87.45.1741951350688;
-        Fri, 14 Mar 2025 04:22:30 -0700 (PDT)
-Received: from localhost.localdomain (78-27-76-97.bb.dnainternet.fi. [78.27.76.97])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-549ba8821f6sm484702e87.176.2025.03.14.04.22.28
+        d=1e100.net; s=20230601; t=1741963565; x=1742568365;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xkNRMbEL1aMJs6zPIBTatH0rDadBFTSGBQPdmB1c8vM=;
+        b=EQZlCz8ced/9zkMVBFmgfwvWFRRamJK8pfZBDFl4oVhKhmbhmLaMm8TRuJP/k4Tagh
+         1wWN5FdJdWRm8blUE4kWswKG+jqe0VaSmv2YFWIdi0OI1d+LtgQbIIBKhLDTFza27ye2
+         NVEF0Y2ED5tt3EoEGa5+SWA6A3Vnvmst9SMXxSF4QkhUDrggg6EdqcMA0YqpcuOQVMr/
+         nLV4dxGQXIa2kXXciw7AzarNo7HFNB0Y7fpwBQ6jfL8nC/GtM9j06eE/NynzwYDZ2BDL
+         DhmFjjjYmMUPuovmDUa9EKez1A89yoBdj0P6ghoKl/LvPuavtzEDcS4uAcY+oIYgFOBZ
+         MzeA==
+X-Gm-Message-State: AOJu0YxdBRNPcWpfXDDj/9rfp4f06YLn6BYr05v4bIQ8aVvb24i4H86X
+	Al9zKhs+Q+q6RZLa2ERRtyB5L6DJ05kGzzSKBEd/MO3xiAKPSLjPRU6OCgJe
+X-Gm-Gg: ASbGncuPzEjbuBgrsdnswc8OdJ818Gp86Gw25er/1GaD7RQ131DfqRFVQ82k8TKDBqc
+	gulWTWrI+IYiCIC1Z5siGQZY3dQYeVSQTmOaZeEu1AGvDqrda9ChNaMSSDdGe1RdlmT0JO4xmzQ
+	PxdRuh4V82I8FYBxrQF5z28cszp90DjawrK8Ir82EPDR2vSaYIk4PB7vzbQgpx8R1t5E1WZQATA
+	WfrGQ0rSBnFHazFmOSxZkwhf4fEmQSI5Bn//9qSMS8TWZsbH8IHGngShXeFBx9bQgX/2dK84AWE
+	R2+RqVXaP5MVxvoHRX9UBSW9J7ZIyrj4x1Tf55tdOQgjQVYgv8UkGhOJBsxSomL0wuM7
+X-Google-Smtp-Source: AGHT+IHgVJjRWLy8q8PlhKxOXRR2o3yoTg+DWBaUpMxoqFh0bMjUaH9jsmkbw4naMpZy05WBcwz6KQ==
+X-Received: by 2002:a17:907:9713:b0:abf:5f3c:58e7 with SMTP id a640c23a62f3a-ac3301e0b4cmr327715666b.3.1741963565130;
+        Fri, 14 Mar 2025 07:46:05 -0700 (PDT)
+Received: from ws.taila4487.ts.net ([212.98.121.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-ac3146af05esm236256466b.16.2025.03.14.07.46.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Mar 2025 04:22:29 -0700 (PDT)
-From: Mikko Rapeli <mikko.rapeli@linaro.org>
+        Fri, 14 Mar 2025 07:46:04 -0700 (PDT)
+From: Frede Braendstrup <frederikbraendstrup@gmail.com>
 To: poky@lists.yoctoproject.org
-Cc: openembedded-core@lists.openembedded.org,
-	Mikko Rapeli <mikko.rapeli@linaro.org>
-Subject: [PATCH v2 1/6] systemd: use serial-getty-generator on genericarm64
-Date: Fri, 14 Mar 2025 13:21:57 +0200
-Message-ID: <20250314112158.305010-1-mikko.rapeli@linaro.org>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20250314111942.304800-1-mikko.rapeli@linaro.org>
-References: <20250314111942.304800-1-mikko.rapeli@linaro.org>
+Cc: Frede Braendstrup <frederikbraendstrup@gmail.com>
+Subject: [PATCH] Check if version is actually a file
+Date: Fri, 14 Mar 2025 15:45:35 +0100
+Message-ID: <20250314144539.2885974-1-frederikbraendstrup@gmail.com>
+X-Mailer: git-send-email 2.47.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 14 Mar 2025 11:22:34 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13566
+ <poky@lists.yoctoproject.org>; Fri, 14 Mar 2025 14:46:15 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13567
 
-systemd-serialgetty recipe sets serial consoles based
-on SERIAL_CONSOLES build time variable. These fail to
-be detected on multiple devices including qemu and the
-resulting failures delay boot to systemd "running" state
-by one minute on an example aarch64 build machine and qemu.
-Serial console login works with both since udev will
-trigger agetty on correct devices. Using systemd side
-serial-getty-generator disables systemd-serialgetty.
+Recipetool incorrectly made the assumption that version is always a
+file, but when it's a directory, the call to open fails
 
-qemu-system-aarch64 core-image-base boot time with
-systemd-serialgetty before this patch:
-
-$ systemd-analyze
-Startup finished in 8.314s (firmware) + 9.805s (loader) + 14.338s (kernel) + 1min 34.392s (userspace) = 2min 6.851s
-multi-user.target reached after 1min 34.387s in userspace.
-
-with this patch:
-
-Startup finished in 8.312s (firmware) + 9.804s (loader) + 14.295s (kernel) + 29.808s (userspace) = 1min 2.220s
-multi-user.target reached after 29.802s in userspace.
-
-Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
+Signed-off-by: Frede Braendstrup <frederikbraendstrup@gmail.com>
 ---
- meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend | 3 +++
- 1 file changed, 3 insertions(+)
- create mode 100644 meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend
+ scripts/lib/recipetool/create_buildsys.py | 2 ++
+ 1 file changed, 2 insertions(+)
 
-v1: https://lists.yoctoproject.org/g/poky/message/13522
-
-diff --git a/meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend b/meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend
-new file mode 100644
-index 0000000000..f23852a351
---- /dev/null
-+++ b/meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend
-@@ -0,0 +1,3 @@
-+# auto detection instead of build time configured via SERIAL_CONSOLES
-+# to support multiple devices
-+PACKAGECONFIG:append:genericarm64 = " serial-getty-generator"
+diff --git a/scripts/lib/recipetool/create_buildsys.py b/scripts/lib/recipetool/create_buildsys.py
+index ec9d510e23..0a08fc64ca 100644
+--- a/scripts/lib/recipetool/create_buildsys.py
++++ b/scripts/lib/recipetool/create_buildsys.py
+@@ -808,6 +808,8 @@ class VersionFileRecipeHandler(RecipeHandler):
+             version = None
+             for fileitem in filelist:
+                 linecount = 0
++                if not os.path.isfile(fileitem):
++                    continue
+                 with open(fileitem, 'r', errors='surrogateescape') as f:
+                     for line in f:
+                         line = line.rstrip().strip('"\'')
 -- 
-2.43.0
+2.47.2
 
 
