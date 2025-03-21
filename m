@@ -1,262 +1,109 @@
-Return-Path: <JPEWhacker@gmail.com>
+Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F3576C36000
-	for <webhook@archiver.kernel.org>; Thu, 20 Mar 2025 14:01:48 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
- by mx.groups.io with SMTP id smtpd.web11.8392.1742479300604336088
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BECCC36000
+	for <webhook@archiver.kernel.org>; Fri, 21 Mar 2025 13:36:50 +0000 (UTC)
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
+ by mx.groups.io with SMTP id smtpd.web11.21306.1742564206875127922
  for <poky@lists.yoctoproject.org>;
- Thu, 20 Mar 2025 07:01:40 -0700
+ Fri, 21 Mar 2025 06:36:47 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=fuTzurM9;
- spf=pass (domain: gmail.com, ip: 209.85.167.48, mailfrom: jpewhacker@gmail.com)
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-54991d85f99so2142869e87.1
-        for <poky@lists.yoctoproject.org>; Thu, 20 Mar 2025 07:01:40 -0700 (PDT)
+ dkim=pass header.i=@linaro.org header.s=google header.b=XpnaxKDf;
+ spf=pass (domain: linaro.org, ip: 209.85.208.175, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-30bf8f5dde5so18258151fa.2
+        for <poky@lists.yoctoproject.org>; Fri, 21 Mar 2025 06:36:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1742479299; x=1743084099; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RLo50r4z+9n4KL1biEzMVnur5IPXFxrO0thmRNuKCKI=;
-        b=fuTzurM9K+ub6VCxaPaVo7g8S98iNBMVJnCHbsPouNxKjEBDx47BO6LsLHXNa03mMU
-         JKATTdxFkwXN6OMTIDRFJsIbhKwM4pgh0aVAMCQlXtjbCd1mHdyOQ6rKodiy6MPvDiyR
-         Kvmzc5SDKENGJWPglwE/eEOwkh9H26tzoNvrjPxqG54fjsYvVP+3CMxywQybmY+hMitB
-         ovPoysC77imRaR9IlN25Zznh1LoPW4Zci63ikq0c9YEiOMGTIzXPsyuyxGNz7Z7v6UUa
-         1Z9SvRVmf5xDKXpmCbPh9pVPwCvfOVc63pwlJ0WqUcb7WL27TPlI4lTu0YendJUC7Uf/
-         NLUw==
+        d=linaro.org; s=google; t=1742564205; x=1743169005; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LrPRIYfGUDQ7ZjVY+VhkwnAaMgX6/brWIdLLNvoK174=;
+        b=XpnaxKDf3gWs/hh7v2YQdexN+8BXaYY5mrPccHWygaJu7FdPn3fIyeKyLeq8dC4P4y
+         lIb8m2aqDJIERTD7W0GTouKGAPjt/R4dsBbWLJ7mjlHG2IiDoyYzLOSMYobyE+jnLPs3
+         A6+/jGp4MX/E9uuTUmTMuD/8D+jBcjctSS/EsKJNZUMGwVvtu0ZRraYD7xJfXrdk16tx
+         f8AzhxOyC0iR6dpczUtkGaJcw9A+ke0qj9uYKMXNmUosdEWYmnHUlQ5o1Xmxvj7G4qR3
+         dRAjCv8dxNyjldAi0qalah4RuxDL3P5ql8kzjVrn0nrtLtI3IOhAQB+u4tVdBDsTaZjo
+         lBJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1742479299; x=1743084099;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=RLo50r4z+9n4KL1biEzMVnur5IPXFxrO0thmRNuKCKI=;
-        b=mtGTn2xNa5rSdZ3tMbTNjquOTbL7/0EBcYzV7saeEbCWV3C9sAB/23YsGQvvTBKg3L
-         z6HFYpOItcHr11H6qToEpikMDo+3YSOI5Xai8JMfZzDtSzM2jHEDcIRruOdLQhvcru+d
-         YfOjbyNetlefSo5SFKrm2JU8H8hFlisAEh58G73gTu/g979HgjyVvjZBT2tvVtrUhXIQ
-         k2cy5gloo/ENNlCNHPB6T8msAMnLhe68CDY62nMcKTqdcxYMI8SKjUfGgS4hfkZElHXD
-         DN5uqjiTVdelWtvmadCBSTR0Eoyzvu7BiAeMGrWPiXCMWZmyzu+OW/LCpc4Mm8LRb4ur
-         ZkLA==
-X-Forwarded-Encrypted: i=1; AJvYcCVg2Blp7Tul+gr4jtMj4mJhwedpDXqWNgfvJOq/ilfjK53SJtyAhut1xokphRsZpSAK3DF+@lists.yoctoproject.org
-X-Gm-Message-State: AOJu0YwQURBUYe+fjo1YJYOjM85wQp8/Zz4ZiYksTClBb+7ut4n4TFcd
-	gzGw4W5oqnSnhwnFe3KW+N1mk3KngWE0OvaTE4n8HOpMs7jyq6+KhU9nK5vhJOTul6GCLh0ZdNr
-	3oOJ0Ojcn/+a+HrzCpjI9Dk9TZjY=
-X-Gm-Gg: ASbGncupvrCtv/F2XlF1ABb0PH3OATXKoGi7BtdpCRKwN2Oy/8LFitUg/1pDSnfFPGb
-	LUNzgzDLAIo9zd3v17JW1nDfIIZZLoVG1Hwjkzu3H2tEBQ9Ce1mHsNwRHJZ2RksrdGDuldW3L5n
-	4QhKMOB64QRcs3a7PQbfzIlnsqpvY=
-X-Google-Smtp-Source: AGHT+IGWzHODzrok+ZmMlpRXDNAck1Rg1PqEZhwBCZTkYmC2BsVplwUmQbq27FkSoB1zoqHRmoapw1xDRZlfvKsdaeU=
-X-Received: by 2002:a05:6512:e9c:b0:545:2474:2c9b with SMTP id
- 2adb3069b0e04-54acfac93ecmr1596054e87.22.1742479296702; Thu, 20 Mar 2025
- 07:01:36 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1742564205; x=1743169005;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LrPRIYfGUDQ7ZjVY+VhkwnAaMgX6/brWIdLLNvoK174=;
+        b=LcX217cH+PtPXCXAcmqYXMS4VCFMHfRmtXqWkFaHFIGKwtL1pkpIJ+Yv8N/8F1i5hr
+         IR1dEkXr2W0Kq4BYfpiUWVTDGco33irLxrTJSPIed8x82tW0mZCG/tDuJtxDp4mvfI5u
+         8wP0ODaJx4kGOzOnYZBpxzRukqSQ+CFfJJlyZOko6njknAmm8S2ivKaTLAdkKyqMx0uk
+         tptLv8UhdHGDjY2mHlJmJtOAbzzctfB/yvg0vRw78rvtPqHQoF6+ysDzL0CPvbnF9/vP
+         eCSgKIyWAy/Tn8iN8ugXp9T7MusJOLyOwu+0p8k93tc+7S8qq54pDJcdWHIwbGhptN+L
+         yr0g==
+X-Gm-Message-State: AOJu0Yw/SWcT7KCgKX7uNr+nVkw0bbVTlYEMS1WY09jxY5/YErhzeQOw
+	rBSefarIkBOKqUrJrWt2ROJuC5YnIPuu9LQ9scEJYvec0aD3KFRrZLYiwESB+dOdI4kMqeBvTwe
+	JjLs=
+X-Gm-Gg: ASbGnctp066TdCJVP7Augh9zH0EBaE73a4cXJUfqj44xhhdUgn6Vx+LCZFzs9VGgrKP
+	7DCJxiaKUeM1WRgggXwX/zj42NHNs/BhcY8iPzpF80NPN64k3c5vPqTVfvJgilfdgS7lKnIgXCi
+	MvJnf2QC9EM99R7+s8h0aCPP49gQP0/a9xDLNaohWJnkk7CvNfwH/dpPaCCCtzo7JxZgqG81baE
+	cQr2SYv7BbW/N4dWi7XzfqUXb9kDLAKFzF6yJX9/P2+8G5D/b+b/Hett9DHCXVJfAN6vwSiL6tX
+	BfnZ6mwnU5IwbYxg5ffsU8qu+nic3rpI25N+WTi9yiljwuln06IiqPKQ2/0vjAWsme0KBdn6Mf7
+	vDIBdNg3ll/199FI+q39pOji03fgGvAlO
+X-Google-Smtp-Source: AGHT+IHAc6kAmOlT7lBG/2tKcdYPddywQUEaqiQ92iSyZMfqgyBqeKHGyWu5yhEtnX3zHmCkgO5erw==
+X-Received: by 2002:a05:651c:b0d:b0:30b:d44d:e756 with SMTP id 38308e7fff4ca-30d7e2a2256mr11555671fa.29.1742564204953;
+        Fri, 21 Mar 2025 06:36:44 -0700 (PDT)
+Received: from localhost.localdomain (87-100-218-141.bb.dnainternet.fi. [87.100.218.141])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-30d7d7fe7cbsm2464501fa.55.2025.03.21.06.36.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 21 Mar 2025 06:36:44 -0700 (PDT)
+From: Mikko Rapeli <mikko.rapeli@linaro.org>
+To: poky@lists.yoctoproject.org
+Cc: Mikko Rapeli <mikko.rapeli@linaro.org>
+Subject: [PATCH v3] systemd: use serial-getty-generator on genericarm64
+Date: Fri, 21 Mar 2025 15:36:32 +0200
+Message-ID: <20250321133632.671208-1-mikko.rapeli@linaro.org>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-References: <8OKr.1742469855469420609.ChUh@lists.yoctoproject.org> <AS1PR10MB5697E40D7D3212866F3BAF7FFDD82@AS1PR10MB5697.EURPRD10.PROD.OUTLOOK.COM>
-In-Reply-To: <AS1PR10MB5697E40D7D3212866F3BAF7FFDD82@AS1PR10MB5697.EURPRD10.PROD.OUTLOOK.COM>
-From: Joshua Watt <jpewhacker@gmail.com>
-Date: Thu, 20 Mar 2025 08:01:24 -0600
-X-Gm-Features: AQ5f1Jq9nDCBxh94RKc3QunO__7CwGgZHSDYHsw0pSQVLExhZ6jP9YAa4fQzLgY
-Message-ID: <CAJdd5GbdqvuxwLTxhK_FLCtxTtet+S7VsY1jZVY91BKnmP0yPg@mail.gmail.com>
-Subject: Re: [poky] Problem creating spdx #poky #bitbake #spdx
-To: "Marko, Peter" <Peter.Marko@siemens.com>
-Cc: "thomas-kilian@gmx.net" <thomas-kilian@gmx.net>, 
-	"poky@lists.yoctoproject.org" <poky@lists.yoctoproject.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 20 Mar 2025 14:01:48 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13574
+ <poky@lists.yoctoproject.org>; Fri, 21 Mar 2025 13:36:50 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13575
 
-On Thu, Mar 20, 2025 at 6:27=E2=80=AFAM Marko, Peter <Peter.Marko@siemens.c=
-om> wrote:
->
-> I have sent a patch for spdx-3.
->
->
->
-> Spdx-2.2 was broken by https://git.openembedded.org/openembedded-core/com=
-mit/?id=3Deb597bf61cbcb0a4d43149404c93eec0894fb4c7
+systemd-serialgetty recipe sets serial consoles based
+on SERIAL_CONSOLES build time variable. These fail to
+be detected on multiple devices including qemu and the
+resulting failures delay boot to systemd "running" state
+by one minute on an example aarch64 build machine and qemu.
+Serial console login works with both since udev will
+trigger agetty on correct devices. Using systemd side
+serial-getty-generator disables systemd-serialgetty.
 
-I can update the SPDX 2.2 code to use the deps
+qemu-system-aarch64 core-image-base boot time with
+systemd-serialgetty before this patch:
 
->
-> This commit seems to have more things wrong:
->
-> * not adapting spdx-2.2 codebase
->
-> * importing spdx30_tasks in init even if spdx-2.2 (or no spdx) is used
+$ systemd-analyze
+Startup finished in 8.314s (firmware) + 9.805s (loader) + 14.338s (kernel) + 1min 34.392s (userspace) = 2min 6.851s
+multi-user.target reached after 1min 34.387s in userspace.
 
-This is needed so that bitbake can properly track the variable
-dependencies in the Python code used by SPDX 3. It shouldn't affect
-any output, regardless of whether SPDX 3, SPDX 2.2, or no SPDX is
-used.
+with this patch:
 
->
-> Unless there is an easy fix, it should be probably reverted.
+Startup finished in 8.312s (firmware) + 9.804s (loader) + 14.295s (kernel) + 29.808s (userspace) = 1min 2.220s
+multi-user.target reached after 29.802s in userspace.
 
-It should be an easy fix.
+Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
+---
+ meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend | 3 +++
+ 1 file changed, 3 insertions(+)
+ create mode 100644 meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend
 
->
->
->
-> Problem with spdx-2.2 is that it=E2=80=99s not enabled so also not tested=
-.
->
-> I think it should be either added to tests or removed completely as it wi=
-ll get broken a lot when extending spdx-3 code.
+diff --git a/meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend b/meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend
+new file mode 100644
+index 0000000000..f23852a351
+--- /dev/null
++++ b/meta-yocto-bsp/recipes-core/systemd/systemd_%.bbappend
+@@ -0,0 +1,3 @@
++# auto detection instead of build time configured via SERIAL_CONSOLES
++# to support multiple devices
++PACKAGECONFIG:append:genericarm64 = " serial-getty-generator"
+-- 
+2.43.0
 
-It has tests, see meta/lib/oeqa/selftest/cases/spdx.py. I'm not sure
-why the test case didn't catch this though; I'll take a look at that
-also.
-
->
->
->
-> Peter
->
->
->
->
->
-> From: poky@lists.yoctoproject.org <poky@lists.yoctoproject.org> On Behalf=
- Of Thomas Kilian via lists.yoctoproject.org
-> Sent: Thursday, March 20, 2025 12:24
-> To: poky@lists.yoctoproject.org
-> Subject: [poky] Problem creating spdx #poky #bitbake #spdx
->
->
->
-> Hi,
->
->
->
-> On Poky master when I have a root filesystem containing symlinks i get th=
-e following spdx creation error:
->
->
->
-> ERROR: image-debug-1.0-r0 do_create_rootfs_spdx: Error executing a python=
- function in exec_func_python() autogenerated:
->
-> The stack trace of python calls that resulted in this exception/failure w=
-as:
-> File: 'exec_func_python() autogenerated', lineno: 2, function: <module>
->      0001:
->  *** 0002:do_create_rootfs_spdx(d)
->      0003:
-> File: '/workspaces/build/../sources/poky/meta/classes-recipe/create-spdx-=
-image-3.0.bbclass', lineno: 31, function: do_create_rootfs_spdx
->      0027:ROOTFS_POSTUNINSTALL_COMMAND =3D+ "spdx_collect_rootfs_packages=
-"
->      0028:
->      0029:python do_create_rootfs_spdx() {
->      0030:    import oe.spdx30_tasks
->  *** 0031:    oe.spdx30_tasks.create_rootfs_spdx(d)
->      0032:}
->      0033:addtask do_create_rootfs_spdx after do_rootfs before do_image
->      0034:SSTATETASKS +=3D "do_create_rootfs_spdx"
->      0035:do_create_rootfs_spdx[sstate-inputdirs] =3D "${SPDXROOTFSDEPLOY=
-}"
-> File: '/workspaces/build/../sources/poky/meta/lib/oe/spdx30_tasks.py', li=
-neno: 1071, function: create_rootfs_spdx
->      1067:        dirnames.sort()
->      1068:        filenames.sort()
->      1069:        for fn in filenames:
->      1070:            fpath =3D Path(dirpath) / fn
->  *** 1071:            if not fpath.is_file() or fpath.is_symlink():
->      1072:                continue
->      1073:
->      1074:            relpath =3D str(fpath.relative_to(image_rootfs))
->      1075:            h =3D bb.utils.sha256_file(fpath)
-> File: '/usr/lib/python3.12/pathlib.py', lineno: 894, function: is_file
->      0890:        Whether this path is a regular file (also True for syml=
-inks pointing
->      0891:        to regular files).
->      0892:        """
->      0893:        try:
->  *** 0894:            return S_ISREG(self.stat().st_mode)
->      0895:        except OSError as e:
->      0896:            if not _ignore_error(e):
->      0897:                raise
->      0898:            # Path doesn't exist or is a broken symlink
-> File: '/usr/lib/python3.12/pathlib.py', lineno: 842, function: stat
->      0838:        """
->      0839:        Return the result of the stat() system call on this pat=
-h, like
->      0840:        os.stat() does.
->      0841:        """
->  *** 0842:        return os.stat(self, follow_symlinks=3Dfollow_symlinks)
->      0843:
->      0844:    def lstat(self):
->      0845:        """
->      0846:        Like stat(), except if the path points to a symlink, th=
-e symlink's
-> Exception: PermissionError: [Errno 13] Permission denied: '/workspaces/bu=
-ild/tmp/work/poky-linux/image-debug/1.0/rootfs/root/.vs-debugger/vs2019'
->
->
->
-> This could be fixed if the check order in spdx30_tasks.py is switched to
->
-> 1071:            if not fpath.is_symlink() or fpath.is_file():
->
->
->
-> If I use "create-spdx-2.2.bbclass" I get the following error:
->
->
->
-> ERROR: m4-native-1.4.19-r0 do_create_spdx: Error executing a python funct=
-ion in exec_func_python() autogenerated:
->
-> The stack trace of python calls that resulted in this exception/failure w=
-as:
-> File: 'exec_func_python() autogenerated', lineno: 2, function: <module>
->      0001:
->  *** 0002:do_create_spdx(d)
->      0003:
-> File: '/workspaces/build/../sources/poky/meta/classes/create-spdx-2.2.bbc=
-lass', lineno: 509, function: do_create_spdx
->      0505:
->      0506:            if archive is not None:
->      0507:                recipe.packageFileName =3D str(recipe_archive.n=
-ame)
->      0508:
->  *** 0509:    dep_recipes =3D collect_dep_recipes(d, doc, recipe)
->      0510:
->      0511:    doc_sha1 =3D oe.sbom.write_doc(d, doc, pkg_arch, "recipes",=
- indent=3Dget_json_indent(d))
->      0512:    dep_recipes.append(oe.sbom.DepRecipe(doc, doc_sha1, recipe)=
-)
->      0513:
-> File: '/workspaces/build/../sources/poky/meta/classes/create-spdx-2.2.bbc=
-lass', lineno: 282, function: collect_dep_recipes
->      0278:    dep_recipes =3D []
->      0279:
->      0280:    deps =3D oe.spdx_common.get_spdx_deps(d)
->      0281:
->  *** 0282:    for dep_pn, dep_hashfn, in_taskhash in deps:
->      0283:        # If this dependency is not calculated in the taskhash =
-skip it.
->      0284:        # Otherwise, it can result in broken links since this t=
-ask won't
->      0285:        # rebuild and see the new SPDX ID if the dependency cha=
-nges
->      0286:        if not in_taskhash:
-> Exception: TypeError: cannot unpack non-iterable Dep object
->
-> ERROR: Logfile of failure stored in: /workspaces/build/tmp/work/x86_64-li=
-nux/m4-native/1.4.19/temp/log.do_create_spdx.213270
-> ERROR: Task (/workspaces/build/../sources/poky/meta/recipes-devtools/m4/m=
-4-native_1.4.19.bb:do_create_spdx) failed with exit code '1'
->
-> What can I do to get the spdx creation working again?
->
->
->
->
->
-> Greetings,
->
-> Thomas Kilian
 
