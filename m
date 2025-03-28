@@ -1,108 +1,64 @@
-Return-Path: <semc.2042@gmail.com>
+Return-Path: <peter.marko@siemens.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8130BC28B20
-	for <webhook@archiver.kernel.org>; Fri, 28 Mar 2025 12:48:06 +0000 (UTC)
-Subject: Re: glibc run-built-tests not working as expected when set to 'no'
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D643BC28B20
+	for <webhook@archiver.kernel.org>; Fri, 28 Mar 2025 19:33:30 +0000 (UTC)
+Received: from mta-65-225.siemens.flowmailer.net (mta-65-225.siemens.flowmailer.net [185.136.65.225])
+ by mx.groups.io with SMTP id smtpd.web10.2616.1743190403598863678
+ for <poky@lists.yoctoproject.org>;
+ Fri, 28 Mar 2025 12:33:24 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=peter.marko@siemens.com header.s=fm2 header.b=CkzEZgXU;
+ spf=pass (domain: rts-flowmailer.siemens.com, ip: 185.136.65.225, mailfrom: fm-256628-202503281933208f93d8fd3b881d4a9c-vjcuxz@rts-flowmailer.siemens.com)
+Received: by mta-65-225.siemens.flowmailer.net with ESMTPSA id 202503281933208f93d8fd3b881d4a9c
+        for <poky@lists.yoctoproject.org>;
+        Fri, 28 Mar 2025 20:33:21 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
+ d=siemens.com; i=peter.marko@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=xVlz7Zj9i0uB0AJjv4KEnfCOXxpqT3UrxhrSRbMAAJw=;
+ b=CkzEZgXUKiQW20FBWjNHcpNMj0y/CAMF1nfRFsEjVXGQudrwzKwhQyoRpCgHpA1PbMeVpX
+ dZDXdy5tpY8gl8mNjNVxiICPOM+9LlP/wmZ9B6znDCoHKHBr9EAZD84h6NhhI83XaaTUJ579
+ XOPDR/OXWUt5Xw0L1ip3ZgrSYV6/ChvSmyB361z0LzpGGs9v1D4druiweXH+7CG89Mkqrj0L
+ m79xDMS7SJjA7KT0yWT1tEHdqSW6Ys2fIISCjkGVED/CPhrlIwGr6xCSQ65+SBDjtM9UzuVC
+ +0i7a3wPMi9aMnxa6NdC45+zYkMxyFWotzevYDh5UVMbJZQnCWI+Te1Q==;
+From: Peter Marko <peter.marko@siemens.com>
 To: poky@lists.yoctoproject.org
-From: "rajmohan r" <semc.2042@gmail.com>
-X-Originating-Location: US (136.226.245.34)
-X-Originating-Platform: Linux Chrome 134
-User-Agent: GROUPS.IO Web Poster
+Cc: Peter Marko <peter.marko@siemens.com>
+Subject: [poky][PATCH] poky-tiny: correct override syntax in poky-tiny.conf
+Date: Fri, 28 Mar 2025 20:32:33 +0100
+Message-Id: <20250328193233.21309-1-peter.marko@siemens.com>
 MIME-Version: 1.0
-Date: Fri, 28 Mar 2025 05:48:02 -0700
-References: <CANNYZj8=wWszFdsmqzP=pg7s1sT1hgsTR2aEf50n7CWcwvg08A@mail.gmail.com>
-In-Reply-To: <CANNYZj8=wWszFdsmqzP=pg7s1sT1hgsTR2aEf50n7CWcwvg08A@mail.gmail.com>
-Message-ID: <28798.1743166082327319045@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="aeKYvTejLZONq82AMT9b"
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-256628:519-21489:flowmailer
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 28 Mar 2025 12:48:06 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13581
+ <poky@lists.yoctoproject.org>; Fri, 28 Mar 2025 19:33:30 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13582
 
---aeKYvTejLZONq82AMT9b
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+From: Peter Marko <peter.marko@siemens.com>
 
-On Fri, Mar 28, 2025 at 09:22 AM, Alexander Kanavin wrote:
+it's a comment but should be anyway migrated to new override syntax
 
->=20
-> On Fri, 28 Mar 2025 at 09:15, rajmohan r via lists.yoctoproject.org
-> <semc.2042=3Dgmail.com@lists.yoctoproject.org> wrote:
->=20
->> Attached the patch file
->> (0001-glibc-y2038-tests-add-tests-special-in-run-built-tes.patch),
->> which shall generate only binaries and will not run the binaries.
->> Please review and let me know if you any info to share.
->=20
-> Please send the patch with git send-email to openembedded-core mailing
-> list. Poky list is the wrong place for it, and patch attachments are
-> generally not reviewed, as it is difficult to comment on specific
-> content of the patch.
->=20
-> Alex
+Signed-off-by: Peter Marko <peter.marko@siemens.com>
+---
+ meta-poky/conf/distro/poky-tiny.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Fri, Mar 28, 2025 at 09:22 AM, Alexander Kanavin wrote:
-
->=20
-> On Fri, 28 Mar 2025 at 09:15, rajmohan r via lists.yoctoproject.org
-> <semc.2042=3Dgmail.com@lists.yoctoproject.org> wrote:
->=20
->> Attached the patch file
->> (0001-glibc-y2038-tests-add-tests-special-in-run-built-tes.patch),
->> which shall generate only binaries and will not run the binaries.
->> Please review and let me know if you any info to share.
->=20
-> Please send the patch with git send-email to openembedded-core mailing
-> list. Poky list is the wrong place for it, and patch attachments are
-> generally not reviewed, as it is difficult to comment on specific
-> content of the patch.
-
-My bad. I have send email and the patch detail is here https://lists.openem=
-bedded.org/g/openembedded-core/topic/scarthgap_patch/111953097
-
->=20
->=20
-> Alex
-
---aeKYvTejLZONq82AMT9b
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div>On Fri, Mar 28, 2025 at 09:22 AM, Alexander Kanavin wrote:</div>
-<div>
-<blockquote>On Fri, 28 Mar 2025 at 09:15, rajmohan r via lists.yoctoproject=
-.org<br />&lt;semc.2042=3Dgmail.com@lists.yoctoproject.org&gt; wrote:<br />
-<blockquote>Attached the patch file (0001-glibc-y2038-tests-add-tests-speci=
-al-in-run-built-tes.patch),<br />which shall generate only binaries and wil=
-l not run the binaries.<br />Please review and let me know if you any info =
-to share.</blockquote>
-Please send the patch with git send-email to openembedded-core mailing<br /=
->list. Poky list is the wrong place for it, and patch attachments are<br />=
-generally not reviewed, as it is difficult to comment on specific<br />cont=
-ent of the patch.<br /><br />Alex</blockquote>
-</div>
-<div>On Fri, Mar 28, 2025 at 09:22 AM, Alexander Kanavin wrote:</div>
-<div>
-<blockquote>On Fri, 28 Mar 2025 at 09:15, rajmohan r via lists.yoctoproject=
-.org<br />&lt;semc.2042=3Dgmail.com@lists.yoctoproject.org&gt; wrote:<br />
-<blockquote>Attached the patch file (0001-glibc-y2038-tests-add-tests-speci=
-al-in-run-built-tes.patch),<br />which shall generate only binaries and wil=
-l not run the binaries.<br />Please review and let me know if you any info =
-to share.</blockquote>
-Please send the patch with git send-email to openembedded-core mailing<br /=
->list. Poky list is the wrong place for it, and patch attachments are<br />=
-generally not reviewed, as it is difficult to comment on specific<br />cont=
-ent of the patch.</blockquote>
-My bad. I have send email and the patch detail is here <a href=3D"https://l=
-ists.openembedded.org/g/openembedded-core/topic/scarthgap_patch/111953097" =
-target=3D"_blank" rel=3D"noopener">https://lists.openembedded.org/g/openemb=
-edded-core/topic/scarthgap_patch/111953097</a></div>
-<div>
-<blockquote><br />Alex</blockquote>
-</div>
-
---aeKYvTejLZONq82AMT9b--
+diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
+index 20c13e6f60..075702a32c 100644
+--- a/meta-poky/conf/distro/poky-tiny.conf
++++ b/meta-poky/conf/distro/poky-tiny.conf
+@@ -39,7 +39,7 @@ TCLIBC = "musl"
+ FULL_OPTIMIZATION = "-Os"
+ 
+ # FIXME: consider adding a new "tiny" feature
+-#DISTRO_FEATURES_append = " tiny"
++#DISTRO_FEATURES:append = " tiny"
+ 
+ # Distro config is evaluated after the machine config, so we have to explicitly
+ # set the kernel provider to override a machine config.
 
