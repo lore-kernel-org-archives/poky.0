@@ -1,111 +1,86 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 641FCC28B20
-	for <webhook@archiver.kernel.org>; Fri, 28 Mar 2025 20:56:14 +0000 (UTC)
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
- by mx.groups.io with SMTP id smtpd.web11.359.1743195366427884486
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E98CC36008
+	for <webhook@archiver.kernel.org>; Sat, 29 Mar 2025 15:35:47 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+ by mx.groups.io with SMTP id smtpd.web11.12913.1743262544267319785
  for <poky@lists.yoctoproject.org>;
- Fri, 28 Mar 2025 13:56:06 -0700
+ Sat, 29 Mar 2025 08:35:44 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=bxP/zTIR;
- spf=pass (domain: gmail.com, ip: 209.85.161.50, mailfrom: raj.khem@gmail.com)
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-601b6146b9cso1420293eaf.0
-        for <poky@lists.yoctoproject.org>; Fri, 28 Mar 2025 13:56:06 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=VrmLDbLP;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.41, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-43cfba466b2so30791295e9.3
+        for <poky@lists.yoctoproject.org>; Sat, 29 Mar 2025 08:35:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1743195365; x=1743800165; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=irfDYXk1pozoSpNjHMJAUv2PMgdGGbUwgaD9XkMYiz8=;
-        b=bxP/zTIRFfMHAruq3RjPoabM7sT//SBIvK8XH4WAfldPwISu7CaJ830P9yNxhOaLGS
-         j1HF1eV1FTdEUmWoH1h3KS7BzHPzXJDV8PjXSQNkKJgxcx6nTZ4WAzKKAGPeF/P/bxDV
-         VhKLMPdXd11YkixwCWIYWbcGUONbWAoQseOArezhwgmXAavBP3TaGn/QLgGH9AOPWapi
-         0FHxmM35s3V+ZOYoxCI1ZSgZH3U8CWLsimvbaZLmDwggAhf3zwTvfBSJy5gi/th3MQn9
-         dKfetXo3Gl7MM+OMCn0JYmcYtfV8CiU36vpaUKEHOHQD1/jUrNQYqUVe0cVmKXdSM7RS
-         4G4A==
+        d=linuxfoundation.org; s=google; t=1743262542; x=1743867342; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=mh1Ux3zDUcEKmLjGoqfh/MrHWVUmelwjOSCLU1wcN0c=;
+        b=VrmLDbLP3LBvesV8HU/blaePOJxsEZE3+oelDotLTve8qPO6F+fRjPqF5D9XGouvV7
+         5iVIqo0w/eYxrkcUWtVbMfhqJHg1YhQoVufixP9zui9pxA6EXI7Vjh2mHG0WcnPF3BcT
+         nilsD7JTMRlB2hjHa+9muVTHmcurBV/eBtC28=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1743195365; x=1743800165;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=irfDYXk1pozoSpNjHMJAUv2PMgdGGbUwgaD9XkMYiz8=;
-        b=VzC3GVjVDYmmV3h5Dfq9AYOjf21l5YOsIKNd/jllJtnVeK0oQCK9vN5Xe85MBZwhKT
-         U83UVEvLXFodqMzy9AOThi6ijJA7y3uTFLuhmxz6FBLwM8i3krdLSS2QpUP9UlJ6OP+q
-         L1pGJoUSK71sVPldVyVVF3nAQS8Q+xapFLica+XwyFsON/N9LmHX5tuG4NTjCZV7rwWn
-         kpilbfzTMzyoe9CPE0nyV9w/Q3AMqJurON5UIo7Pp56uhDO8s10/XT3+Nw9z+w+aivxF
-         T+FD3cZt+dfRTej59V2rc3f9yNcyahxGRJtwG4AbSQ7QaaCde93mJorX/UxiXlvMG4cY
-         nRDA==
-X-Gm-Message-State: AOJu0YyI8Qzz20yS+1NIf5HtxxGEQs9znFQE1pSY9we9Z/sjNQyJxHL8
-	2C8idTG5RO18tWNVwpcZRb1LZJc33JtXSeBRTMrSacer9nNnExpY32BQORTvZItZN+HGPgv4ehO
-	OUsrCnb6KjK4vi9HTWIfDPbpwa6A=
-X-Gm-Gg: ASbGncs4MgUBOjLk5SOeyAa6sRnaTDasyAA7UuMfTRrcb4LadbUV1c42KegxTJB7tNG
-	MyZiXeL0/HSPT0bO1a1y4VYSreI+8Gt4tr92eORDP0c4znNvy5tHnf/81sNcDM9RCpR6s8VvEDI
-	fN3UsXWpeoOavRhOFyJtjHkMJgDg==
-X-Google-Smtp-Source: AGHT+IHTZDB65L7hOAyibtyMB/K/1pEnEL/HKC1rMoZ7ka/Ey2ofy4KHNJmpwlIvzgFKIAQw7sTq8PriWlAlfU3HQ88=
-X-Received: by 2002:a05:6820:206:b0:602:85a6:5c8c with SMTP id
- 006d021491bc7-60290fc9bbamr399588eaf.8.1743195365513; Fri, 28 Mar 2025
- 13:56:05 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1743262542; x=1743867342;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=mh1Ux3zDUcEKmLjGoqfh/MrHWVUmelwjOSCLU1wcN0c=;
+        b=rAn07AkeThSZA2XfawWqT2njBXOymItC5YXJKbx0qnbcmu8ek6Qmt80BXND9onhOuD
+         5xr3NCIzCdNQ2ZExvvd6n6l6jKK0HdouipxQG2zVDJrWlnOb+UikoFJTQ7SSST8OoaK+
+         a9rPQFwtQbqE1Ap3gn+To+wVlp4dYBbfuKzl3xWKlKnmJaVTaXEYcr6AmENxX1DECZP1
+         ZfBmbupLZkTOdCeibRx41bBeencHiVJCNUYE9pG6INFCMDiLo12MEIreU311RMniLTOb
+         tNLZTlTYcOLBoM4geW1C2nFk6YFt0jLsVGrQUaWtMliaQ3HkpPbJLH/qSlDnO5WuFWbV
+         Ha3A==
+X-Gm-Message-State: AOJu0YwnwHimyEJJ/Q+vmNAz3Jkol/J5He26N5/2xulN2gdjoP6VDbPT
+	E7ibloO8xXC07svYkZZHiJRl0npCTtb41LZjC9nSlKc774gZlMUV0sOsfJipeo+Krf84XPAajMw
+	B
+X-Gm-Gg: ASbGncsdMNmZjYQfWrdnrL38SqgfkNdG+XzpSDOZTrm3mphtXuQC55FaQkQ3cGeEQLk
+	mg+aJ14yY870uWZSYxfmVVVck/vNQbn+jsuELHLAHjF4gi1DRZ36jOu+MsJCfkOW2cSvSgxo/b0
+	OJIgS9QD3+6UoB4j8ICwuNKTtxUZlZ8VN/+HoeqIw5ua12guDCk9tHP3Mg/c0b0300gjWS7f9GG
+	bHiUB6F/rdMUkWM5rzc0Y9lXbDUDhYxuLSt2faz5I0J6Ssf+vOqL0Odise+woG+c4jzaQZJh2Ck
+	ZxYIJoT9KjjSDYErToow7gyrkEs9llPmiXnUNbX++T0I+XjAGzEASwToAAAIhrg2EjA+YqQ=
+X-Google-Smtp-Source: AGHT+IFKvMNXQC7brzX2LhAa0zhT+U/A1zwjLq1IOc/LzXgio7iGy1Nkuw99nQsksFUm/HpQphzMaw==
+X-Received: by 2002:a5d:47c8:0:b0:390:eb6f:46bf with SMTP id ffacd0b85a97d-39c120cb921mr2705268f8f.5.1743262541905;
+        Sat, 29 Mar 2025 08:35:41 -0700 (PDT)
+Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:aa52:226c:d1da:79])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-39c0b662c1csm5967673f8f.28.2025.03.29.08.35.40
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 29 Mar 2025 08:35:41 -0700 (PDT)
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: poky@lists.yoctoproject.org
+Subject: [PATCH] poky-tiny: Drop obsolete/broken comment
+Date: Sat, 29 Mar 2025 15:35:40 +0000
+Message-ID: <20250329153540.1613718-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-References: <20250328193233.21309-1-peter.marko@siemens.com>
-In-Reply-To: <20250328193233.21309-1-peter.marko@siemens.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Fri, 28 Mar 2025 13:55:39 -0700
-X-Gm-Features: AQ5f1JoZkFpTZZqg5tWmSeM0jWiKu7efPubIQUBlXbRmgiPG1mfD9EQ9lEsGrVw
-Message-ID: <CAMKF1srBGW11rYvEyZDmHbG=VQJ-X4xmA3KpBBNY9LBea_+cuw@mail.gmail.com>
-Subject: Re: [poky][PATCH] poky-tiny: correct override syntax in poky-tiny.conf
-To: peter.marko@siemens.com
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 28 Mar 2025 20:56:14 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13583
+ <poky@lists.yoctoproject.org>; Sat, 29 Mar 2025 15:35:47 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13584
 
-On Fri, Mar 28, 2025 at 12:33=E2=80=AFPM Peter Marko via
-lists.yoctoproject.org
-<peter.marko=3Dsiemens.com@lists.yoctoproject.org> wrote:
->
-> From: Peter Marko <peter.marko@siemens.com>
->
-> it's a comment but should be anyway migrated to new override syntax
->
-> Signed-off-by: Peter Marko <peter.marko@siemens.com>
-> ---
->  meta-poky/conf/distro/poky-tiny.conf | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro=
-/poky-tiny.conf
-> index 20c13e6f60..075702a32c 100644
-> --- a/meta-poky/conf/distro/poky-tiny.conf
-> +++ b/meta-poky/conf/distro/poky-tiny.conf
-> @@ -39,7 +39,7 @@ TCLIBC =3D "musl"
->  FULL_OPTIMIZATION =3D "-Os"
->
->  # FIXME: consider adding a new "tiny" feature
+The comment is obsolete and contains old override syntax, drop it.
 
-Is this comment still valid, I wonder. I know its in there from day 1
-of this file.
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/conf/distro/poky-tiny.conf | 3 ---
+ 1 file changed, 3 deletions(-)
 
-> -#DISTRO_FEATURES_append =3D " tiny"
-> +#DISTRO_FEATURES:append =3D " tiny"
->
->  # Distro config is evaluated after the machine config, so we have to exp=
-licitly
->  # set the kernel provider to override a machine config.
->
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13582): https://lists.yoctoproject.org/g/poky/message=
-/13582
-> Mute This Topic: https://lists.yoctoproject.org/mt/111960658/1997914
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [raj.khem@gmail.=
-com]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
+diff --git a/meta-poky/conf/distro/poky-tiny.conf b/meta-poky/conf/distro/poky-tiny.conf
+index 20c13e6f600..d3c0a781e4b 100644
+--- a/meta-poky/conf/distro/poky-tiny.conf
++++ b/meta-poky/conf/distro/poky-tiny.conf
+@@ -38,9 +38,6 @@ TCLIBC = "musl"
+ 
+ FULL_OPTIMIZATION = "-Os"
+ 
+-# FIXME: consider adding a new "tiny" feature
+-#DISTRO_FEATURES_append = " tiny"
+-
+ # Distro config is evaluated after the machine config, so we have to explicitly
+ # set the kernel provider to override a machine config.
+ PREFERRED_PROVIDER_virtual/kernel = "linux-yocto-tiny"
 
