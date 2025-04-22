@@ -2,99 +2,116 @@ Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF367C369C2
-	for <webhook@archiver.kernel.org>; Tue, 22 Apr 2025 06:59:42 +0000 (UTC)
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
- by mx.groups.io with SMTP id smtpd.web11.34215.1745305171351967468
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E9B1EC369C2
+	for <webhook@archiver.kernel.org>; Tue, 22 Apr 2025 14:46:16 +0000 (UTC)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+ by mx.groups.io with SMTP id smtpd.web10.41787.1745333170744523103
  for <poky@lists.yoctoproject.org>;
- Mon, 21 Apr 2025 23:59:31 -0700
+ Tue, 22 Apr 2025 07:46:11 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=xIPKI0Kz;
- spf=pass (domain: linaro.org, ip: 209.85.167.47, mailfrom: mikko.rapeli@linaro.org)
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-549963b5551so5115004e87.2
-        for <poky@lists.yoctoproject.org>; Mon, 21 Apr 2025 23:59:31 -0700 (PDT)
+ dkim=pass header.i=@linaro.org header.s=google header.b=iJteIzbB;
+ spf=pass (domain: linaro.org, ip: 209.85.167.51, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-54298ec925bso7698056e87.3
+        for <poky@lists.yoctoproject.org>; Tue, 22 Apr 2025 07:46:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1745305169; x=1745909969; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=R4QzTM6yZ0yHqbDWSuzmWl8a39TMzNcWQx6BtlF/eqQ=;
-        b=xIPKI0KzbUfslRCciOfQPGy5mKY9b5ujIVvReAIKKayh9a3NGcYjF++egHR2o89eM3
-         iq/kx4/s9gKOQ/a38R/67j1U5LEj2EgR0Za4/PxA9sKina07vSZie+jZ5Kpn14x5vms6
-         LD3iWBTyPU6PaFke+MNGsTcVWTKeOneiGXhFxEvzUX0Sewtw88lqQPiAQnlecQQCtA7Z
-         C3loiyx6wuw1s+qHqsusjp5gZpN+2sXow4nFYSWshEpMVmooTsYBliBX9lrXbL1n4Lzv
-         N0sHBxQaLHk0GVCsHV0ECmsOXtW+J9tE0BRkfauhxxwmTHwDXkGcTlQ54bDnhk0kUMfm
-         31KQ==
+        d=linaro.org; s=google; t=1745333169; x=1745937969; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vVpsXTohc152hYkidOUqMjAySOP1W9akjeQTQyAFQOk=;
+        b=iJteIzbBbeX6Fqn1KPqFdvKVLYEcuH5Haqmd50nm0BmezWMr//Kmi9H1sPFVH+NNFG
+         PiasavtQbjQ1q/QH8E330pWyIdNg0uVx3kVpvaG5yPS0iITCKOhgIi+CRYxt7D8aZAwv
+         yY4roMEpnNEq4a6fvVFSLU5Z3XeuQysTcEd2HIQj/yd/AbbLl96jkGq0QJMMyQz6xaOm
+         Sth66GcJ6XoJgJ60z91NEkuun7EmwGn0dLWryFvZmHoaTsPtD/POdouGgeNVAjMVPDl1
+         mkrRmhrfZEZWzMUYOCkoRHF6zh5dPyyLoaEvmgwg9JNCljSUeVd9SeRdrycdwHPuBzrV
+         WaBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745305169; x=1745909969;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=R4QzTM6yZ0yHqbDWSuzmWl8a39TMzNcWQx6BtlF/eqQ=;
-        b=gblcGkzBDkGQA8EjQ0dY9SikqcV4WID1U4jMjuD1652YX3O597MuytOwhYfGRxduzX
-         X94cEnyMjbSyRzP8S9RTmhLaC+lyJ7xgp27hMDRFqpOVaSa9dg2vAChZSs2wnpEApAhD
-         pfObXyX7lyPu27h1w0MdUNqDEu4iCIrwdcmd7D1UtIXkVVfyLI4faG83Z4eI7uObgVEa
-         A1gVm+2aPzYbC4yLr/2egNB7gRx1DzWLsBYyPT/TqSBksP6BzZGdnjyPgBCY2RCQIxc6
-         vroFCb/EUCXqJRaL+xjJEWf35erI3gwIqacCEVqyTYcbiH89q/hjlTpnqsYZm+GuagMo
-         40mw==
-X-Gm-Message-State: AOJu0YwQ9Jn9pVKWh82ndXA8bPB2OUDxUX/shFfNkiUujYtMhfhmCea9
-	dwtS1CXIdnvx2sFV1GlDCvTKkerIvr6KoWvcrHC5gOZth5sqJlJ3D67enL0mQz51JtJ5SkUWs7K
-	OXvo=
-X-Gm-Gg: ASbGncsgMbXvmtacqLwJovzJlKj1u8Grapd32Nwb/5Os86ZjUuqdFYcO9En6gxh+4yo
-	V8WNJwqey0wGZ8XWrJqn04+9b2ioASUjaOoO7TaRWV+t9ubXewSmnO6MCFNSj9iqEPSKFzhRiGh
-	lCAH378BP5LbLVMGNflX42e+APWhmqesVVyjgMICD7pY+tudeeiKXoMOZ36LZkcupFYH05E/A+u
-	vsMSlGd90Rb2+lUgfSkbaozE2Rs+x5CGsoau6Epiz4m36jGA55XkdQYVv/wk+DL6eMbaeBFELhm
-	sr6IrwlGmd6Uk/TjF8S9Xva0mrCB4GqtFE6iVi6pd1i9+ldULxIa/xWVDx9GFB2GWueAgnvZEVC
-	QqQdJynMh+wL674K26g==
-X-Google-Smtp-Source: AGHT+IGvqW/fWVRdWMLt6MpSWB7rPrbFCACY+a+OrX1RvwM2S0e74tCkKVLbX24e1soH70LZrTvsWA==
-X-Received: by 2002:a05:6512:684:b0:549:8ed4:fb4c with SMTP id 2adb3069b0e04-54d6e6302abmr4104949e87.24.1745305169279;
-        Mon, 21 Apr 2025 23:59:29 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1745333169; x=1745937969;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=vVpsXTohc152hYkidOUqMjAySOP1W9akjeQTQyAFQOk=;
+        b=ehBMtnDGOW6aiEEOajTtEoadfSKSICnrKuQxVTNIWCZVJqDZ7QgzdbP0EsrufjSKrs
+         hYJsQH6DfcEmZmQGU+ggdigMIkR+dCRdY2KMBSSl9fj/XURKNskBxfI6wPFIVT7Urj5x
+         DEchCQ2aIdny9p0Bz1uC0Dtf0j4UsUUjhN2h/5kLNKMM2hWD8YXBU5q4+2n9bNj73n7E
+         gpDtuKgowMKuReADw1vXD9xwu2R8/zLYodNdle9rWhW8B85HFLF4i3b2qru7mRrbcVtB
+         JWWa768A09yGss07zr0VSSutsEq+oVQPZPv2r8/MUDxpG4QRGJMQWHvwtfUsexZA2qxZ
+         pGVQ==
+X-Gm-Message-State: AOJu0YyEV3X6mucB3yXFMIOX1BzkTNIbphzaQBHR98uxh2h4ZIdTMH8M
+	/LC533kta39FarE/oPwEsdxB7i1MB7naf6wPNTzpHEKzh0gAXbBcj9uyGpmjMLJNf7R3vNXIghp
+	HUeY=
+X-Gm-Gg: ASbGncsBm75rK6LJoEvsUzM01jaOAxg4WwEKNZg2w+KqCVV89bbzYeKUG5j2Ph25ev5
+	DHaH+IWFsmbhB68ETXDxGEsGy0Amr+ntzkTr5jWpa9km0vTydY7lgCkjUl4yZel4oBwXP829hXx
+	FQlK1p+sIhEkC/WZVnlzdyP274kbu9CoNUMzuUaNVcbx3/hw/bRUCK0EYYfD0c6sL7619rC02Y9
+	8AcO50+HZSp6+rii48zMoaSWsPqTLBsagFjzE5W0o6g9VuLPzTRR7oWfyjrNicv3Hxw75QbLbdD
+	7trauXlxdJ9RWA3bOf0CvD/COpRQmRppWa3r8fFHuGMUkuruX5HRgmIEODidJsITO2yq4ELrW+/
+	WGDnvn8PuN3ozm+/V3g==
+X-Google-Smtp-Source: AGHT+IEI0wzw1ctMDcmduW2E76JKoXq2+6LxWLqMq248m+Yk9JmRZJbk6ZgTzLIB7NdIjdRfNRnPUQ==
+X-Received: by 2002:a05:6512:2395:b0:545:2efc:745d with SMTP id 2adb3069b0e04-54d6e658a45mr4321272e87.46.1745333168920;
+        Tue, 22 Apr 2025 07:46:08 -0700 (PDT)
 Received: from localhost.localdomain (87-100-218-141.bb.dnainternet.fi. [87.100.218.141])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-54d6e5f516bsm1127387e87.221.2025.04.21.23.59.28
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-54d6e5f515bsm1244639e87.222.2025.04.22.07.46.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Apr 2025 23:59:29 -0700 (PDT)
+        Tue, 22 Apr 2025 07:46:08 -0700 (PDT)
 From: Mikko Rapeli <mikko.rapeli@linaro.org>
-To: poky@lists.yoctoproject.org
-Cc: Mikko Rapeli <mikko.rapeli@linaro.org>
-Subject: [PATCH] genericarm64.conf: increase INITRAMFS_MAXSIZE
-Date: Tue, 22 Apr 2025 09:59:07 +0300
-Message-ID: <20250422065907.9855-1-mikko.rapeli@linaro.org>
+To: linux-yocto@lists.yoctoproject.org
+Cc: poky@lists.yoctoproject.org,
+	Mikko Rapeli <mikko.rapeli@linaro.org>
+Subject: [PATCH 2/3] kernel-yocto.bbclass: support modular kernel configs
+Date: Tue, 22 Apr 2025 17:45:46 +0300
+Message-ID: <20250422144547.101765-2-mikko.rapeli@linaro.org>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250422144547.101765-1-mikko.rapeli@linaro.org>
+References: <20250422144547.101765-1-mikko.rapeli@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 22 Apr 2025 06:59:42 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13594
+ <poky@lists.yoctoproject.org>; Tue, 22 Apr 2025 14:46:16 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13596
 
-Since pmem kernel drivers were enabled as modules, the initrd
-size limit is hit. On genericarm64 all kernel modules and some
-firmware files get installed to initrd by default which make
-the thing large. I'm working on patches to reduce the kernel drivers
-installed to initrd and to make the kernel in general more modular
-(btrfs 5 Mb etc built into kernel by default). For now just increase
-the size limit to unblock genericarm64 builds and testing.
+Compile many kernel drivers as modules when recipe sets
 
-Fixes: https://bugzilla.yoctoproject.org/show_bug.cgi?id=15833
+MODULAR_KERNEL = "true"
+
+This likely requires support for initramfs which includes
+kernel modules needed to mount the rootfs.
+
+SCC_OPTS can be used to add arguments to scc kernel config
+generation call.
 
 Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
 ---
- meta-yocto-bsp/conf/machine/genericarm64.conf | 2 ++
- 1 file changed, 2 insertions(+)
+ meta/classes-recipe/kernel-yocto.bbclass | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-bsp/conf/machine/genericarm64.conf
-index f5000402e5..78f7cb5b79 100644
---- a/meta-yocto-bsp/conf/machine/genericarm64.conf
-+++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
-@@ -17,6 +17,8 @@ PREFERRED_PROVIDER_virtual/kernel ?= "linux-yocto"
- MACHINE_EXTRA_RRECOMMENDS += "kernel-modules"
- # Install selected pieces of firmware
- MACHINE_EXTRA_RRECOMMENDS += "linux-firmware-wl12xx linux-firmware-wl18xx linux-firmware-rtl-nic"
-+# increase default size since we install a lot of kernel drivers and firmware by default
-+INITRAMFS_MAXSIZE = "200000"
+diff --git a/meta/classes-recipe/kernel-yocto.bbclass b/meta/classes-recipe/kernel-yocto.bbclass
+index cef6b9ec3f..f98720bcec 100644
+--- a/meta/classes-recipe/kernel-yocto.bbclass
++++ b/meta/classes-recipe/kernel-yocto.bbclass
+@@ -26,6 +26,12 @@ KCONF_BSP_AUDIT_LEVEL ?= "0"
+ KMETA_AUDIT ?= "yes"
+ KMETA_AUDIT_WERROR ?= ""
  
- # Use an initramfs and populate it with the kernel modules and key firmware
- INITRAMFS_IMAGE ?= "core-image-initramfs-boot"
++# most drivers as built in (default), or as modules
++MODULAR_KERNEL = "false"
++
++# options to scc
++SCC_OPTS ?= "${@bb.utils.contains('MODULAR_KERNEL', 'true', '-DMODULE_OR_Y=m', '', d)}"
++
+ # returns local (absolute) path names for all valid patches in the
+ # src_uri
+ def find_patches(d,subdir):
+@@ -298,7 +304,7 @@ do_kernel_metadata() {
+ 		elements="`echo -n ${bsp_definition} $sccs_defconfig ${sccs} ${patches} $KERNEL_FEATURES_FINAL`"
+ 		if [ -n "${elements}" ]; then
+ 			echo "${bsp_definition}" > ${S}/${meta_dir}/bsp_definition
+-			scc --force -o ${S}/${meta_dir}:cfg,merge,meta ${includes} $sccs_defconfig $bsp_definition $sccs $patches $KERNEL_FEATURES_FINAL
++			scc ${SCC_OPTS} --force -o ${S}/${meta_dir}:cfg,merge,meta ${includes} $sccs_defconfig $bsp_definition $sccs $patches $KERNEL_FEATURES_FINAL
+ 			if [ $? -ne 0 ]; then
+ 				bbfatal_log "Could not generate configuration queue for ${KMACHINE}."
+ 			fi
 -- 
 2.43.0
 
