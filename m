@@ -2,116 +2,100 @@ Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 31C38C369D3
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D67FC369D9
 	for <webhook@archiver.kernel.org>; Wed, 23 Apr 2025 08:03:25 +0000 (UTC)
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com [209.85.208.178])
- by mx.groups.io with SMTP id smtpd.web11.3478.1745395403412394767
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+ by mx.groups.io with SMTP id smtpd.web10.3322.1745395401700163272
  for <poky@lists.yoctoproject.org>;
- Wed, 23 Apr 2025 01:03:23 -0700
+ Wed, 23 Apr 2025 01:03:22 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=l9PLIG7f;
- spf=pass (domain: linaro.org, ip: 209.85.208.178, mailfrom: mikko.rapeli@linaro.org)
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-30effbfaf4aso59924801fa.3
-        for <poky@lists.yoctoproject.org>; Wed, 23 Apr 2025 01:03:23 -0700 (PDT)
+ dkim=pass header.i=@linaro.org header.s=google header.b=nrkyadVu;
+ spf=pass (domain: linaro.org, ip: 209.85.208.179, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-30de488cf81so61078251fa.1
+        for <poky@lists.yoctoproject.org>; Wed, 23 Apr 2025 01:03:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1745395401; x=1746000201; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vVpsXTohc152hYkidOUqMjAySOP1W9akjeQTQyAFQOk=;
-        b=l9PLIG7f2xZQK0JigZmr6mJG+N4cP/gjiMrWHsrLH8KLPajJ/LrJoWCwnSU4CS+R48
-         FFlhAeWjYrsXfTz1ksnk0dNWCcrojyRTkF4Mtf3gm4MA9qQ71upjmVvWOUhk0eVVAxO4
-         VqDmTyDjndVAddzMr/3Je+HAEzZ1+LmAzzA28XUyqWHxCJfymeJFrMpWMYYhOgAYRxle
-         g3ALFbd4fXQ0PLWT6ocV/k9FX5X1jydlN8BpwfeICgKvBTmKRqZxMxWt0Hd7P1gs0Ap/
-         SQfR1MqCkdaO54Vqa75rm7NetvJORUSTbzzO5ADiPiYU91bXeBjS1pgIRcJA+3DEn5qw
-         WIyQ==
+        d=linaro.org; s=google; t=1745395400; x=1746000200; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wY8bXYDaE/DimIPtmSu7MmZlSzDnkhFQb615lJNlis4=;
+        b=nrkyadVut5DwoCu8kG+6ou5IZgVn4iUkyyjNzYJg/TnUCovsaVDyKZqxx01uf1+BKO
+         4ALGjmRfjWJZW7TcxLhY3wZVkH1OMevy6eVy6YMgTX3oS2fd9JYhTica/KvOnZGi1Kaz
+         lvxcCu6QbQtDDy8H6+whMlpq5ijpWtIx0GaO1Wbg4wgpm/IbBWbfb3zl+7mk4Habr8hh
+         v//4Fh9cKodHf/fzfwnxBgWKQcKNUDVzhNC6zCkG8ZuqsMIDsReTV+TUSzVnOKySm9jX
+         NSaIV8bROBaaaQBLX1lAiub8pMxORG9d4SUv5lOlr2TV3CoImiAczAASxVIqC7aIrHeh
+         VYLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745395401; x=1746000201;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vVpsXTohc152hYkidOUqMjAySOP1W9akjeQTQyAFQOk=;
-        b=C6FuYY6WFlWm5rpxfLD8r/YBNGMg7TDkbDES4jOW5UpbZf0u41xX8zbysjIRBSi59t
-         DLw5VahTKFaaJT9Vag2IMoE4VVfDw9oorXnqueAYdb/VuFH294ZXpOQ446Gwsza1der6
-         aaypZFk+GbOQrp8FgBGyGJhMnmr3E+rSXq/6fMiA8oGjj6t7R4MGXsq6LvqQR0geR1xj
-         X+Bkk79en1qTmsECKoWDl3iVBa9z2y17I1CmsiM85UJEfhXW8ogywuUTyODwcGhh4te9
-         foQcJtGz/0eiuVVI4rMhAVbOXz/bTuqRqRLZh473dnWxnWFrFNr8WyTo+OVPJA8KjBdp
-         /GSw==
-X-Gm-Message-State: AOJu0YxV6qT6hY1GhKuay2dvFA1ADfNZKryCWM9tNre5yEr7ZiiaC7j3
-	j2JkR0fNXk/fhs47gVgs6ZeIuu1wd/b59qZEWZXFQp+oFjtOvYDcjUpAw/r/lUUCSpsd6OXcBzo
-	QwM0=
-X-Gm-Gg: ASbGncunnCaPZ1bf78UcvQSO2YxAMPdcMSNSyNXKF5V1H4b72cF18RsMqgfuCcYAFhk
-	s7/wYjzVAqjA/HiXl2R5BMDu9bf/5F88H63nm6esYAcUnnkYNKT842CF3dlVA0M5Zb50nuk+u7C
-	HPj2TDMDa+bxEbxBWm+DTkFrXYxHKZlwSIPZyLCtY0FLp+/SswyEfQ6uFWn+eIeO5lQpAVhx+fd
-	QqHBTFppVyjLvhFV33BBkp77jqt8gl2k5CDioAo5f7fAa30LANShmV5opZiMFsaUEnd7Ld3XLex
-	nF3+SfwZPkceYbw3hI4iaCxaVPgIXZJFvcX5q4/sjJi6QzU2EXpskuWl5ylGQ84LWriHhWPIsDJ
-	f70rKad3PJx7AAovZrA==
-X-Google-Smtp-Source: AGHT+IGuMhc2JdThrnSy57+oee34XOWET8K51MV8zGH6H9Q9IRWUlxcd7Cpcxf81dsxwv6o/QwJFWw==
-X-Received: by 2002:a2e:bc29:0:b0:30c:1002:faa8 with SMTP id 38308e7fff4ca-310904c63eemr47848231fa.7.1745395401487;
-        Wed, 23 Apr 2025 01:03:21 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1745395400; x=1746000200;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wY8bXYDaE/DimIPtmSu7MmZlSzDnkhFQb615lJNlis4=;
+        b=J3jnOheMK2GffdwXP3kaXq+qrWhpNX3WCYGF3d8jPahKEwkjUZyxfic2p6fyQ/nJZ+
+         yZuuLAtDKTGof85a48nk5cFxIgDO5KUXeMSU87qmFIr2WChof/ef4dEPTjSu9V/bRVUN
+         0dWhuYqYLOvpY0oJaGHRHpytqLIMAOIBrDyPwGlPJ718ANoxIxueSf2EZ6cqPPfenscQ
+         dgGRxZ2zAABUaZ/mOvg1TokzbrnrjqAnC9XeHJz07hh5nqxXKwInc+kcK+owxUlpTydI
+         ypZEwFvcm9kyw2BlnM4d2Q9TC32Zh9uFF8Op5dISkbkd/WR7lA8L6H9lLatxektz8qrd
+         TEaw==
+X-Gm-Message-State: AOJu0YxYgy8ouxrYp5ixz4uHVwTEtYMz1OsJhUfwR7C6QdSysfncqmtY
+	XqFYmlkyZSpFsFk+nVkisO62oaXRfpI6L9BEsSsaz4fkhsfe5ZSnx9parGqS9f3Y87NvCBxLIpB
+	HKQs=
+X-Gm-Gg: ASbGncsE8c3+pAkbaSC9Xp/TuZ/t7/2mpzUIQygiddERf5u3tQYqhmhUuDtfAFTB9uB
+	vmUef2eQZ5TZNl2hduacHgtPrCH4wP8XuiGXl3F6BKNcvc9bkqrZP2tC+eU4oH2Nu+WdBtzNQTe
+	Z3teaC7riHaqk7q7dEZkE5AEcP/I+hNMIZZnXxZcnDqHbmlDcoxFm5VZUQNc/w8QN5lJDnpRjMb
+	4OBpypMdW036/0s9hdw6KmFerdN0+Q5QaENr9Brw/8mye5TJtZX19ci47VsXWPVGO8jwWCo9xCH
+	STDgfij0Yrl3EwGU/1y1Qv7RAyS/nt/OUiUxognXHQq+IScV1gVvCPCa8axzhQ9Po8n9EixHYd1
+	5Bl6svRuGHcAwyWaHJQ==
+X-Google-Smtp-Source: AGHT+IFQbJKeHeGn5dtj/LY6zix/1o3NjCzq3M2zRfC3XIez4la0Jkca2LaSuGrA6cTxz9UTTbW+4Q==
+X-Received: by 2002:a05:651c:1581:b0:308:df1e:24c4 with SMTP id 38308e7fff4ca-31090553ecbmr67551291fa.29.1745395399600;
+        Wed, 23 Apr 2025 01:03:19 -0700 (PDT)
 Received: from localhost.localdomain (87-100-218-141.bb.dnainternet.fi. [87.100.218.141])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3109075f2aesm16951581fa.23.2025.04.23.01.03.21
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3109075f2aesm16951581fa.23.2025.04.23.01.03.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Apr 2025 01:03:21 -0700 (PDT)
+        Wed, 23 Apr 2025 01:03:19 -0700 (PDT)
 From: Mikko Rapeli <mikko.rapeli@linaro.org>
 To: openembedded-core@lists.openembedded.org
 Cc: poky@lists.yoctoproject.org,
 	Mikko Rapeli <mikko.rapeli@linaro.org>
-Subject: [PATCH 2/3] kernel-yocto.bbclass: support modular kernel configs
-Date: Wed, 23 Apr 2025 11:02:45 +0300
-Message-ID: <20250423080246.128723-2-mikko.rapeli@linaro.org>
+Subject: [PATCH 1/3] kern-tools-native: update to support modular kernel builds
+Date: Wed, 23 Apr 2025 11:02:44 +0300
+Message-ID: <20250423080246.128723-1-mikko.rapeli@linaro.org>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250423080246.128723-1-mikko.rapeli@linaro.org>
-References: <20250423080246.128723-1-mikko.rapeli@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
  <poky@lists.yoctoproject.org>; Wed, 23 Apr 2025 08:03:25 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13599
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13598
 
-Compile many kernel drivers as modules when recipe sets
+After this update scc tool can compile options as modules
+conditionally without duplicating config fragments when
+the options contain a comment like:
 
-MODULAR_KERNEL = "true"
+CONFIG_LEDS_GPIO=y # OVERRIDE:$MODULE_OR_Y
 
-This likely requires support for initramfs which includes
-kernel modules needed to mount the rootfs.
+Then "scc -DMODULE_OR_Y=m" converts these into
 
-SCC_OPTS can be used to add arguments to scc kernel config
-generation call.
+CONFIG_LEDS_GPIO=m
 
 Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
 ---
- meta/classes-recipe/kernel-yocto.bbclass | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ meta/recipes-kernel/kern-tools/kern-tools-native_git.bb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/meta/classes-recipe/kernel-yocto.bbclass b/meta/classes-recipe/kernel-yocto.bbclass
-index cef6b9ec3f..f98720bcec 100644
---- a/meta/classes-recipe/kernel-yocto.bbclass
-+++ b/meta/classes-recipe/kernel-yocto.bbclass
-@@ -26,6 +26,12 @@ KCONF_BSP_AUDIT_LEVEL ?= "0"
- KMETA_AUDIT ?= "yes"
- KMETA_AUDIT_WERROR ?= ""
+diff --git a/meta/recipes-kernel/kern-tools/kern-tools-native_git.bb b/meta/recipes-kernel/kern-tools/kern-tools-native_git.bb
+index 6dd19f1f09..20b1bcaf37 100644
+--- a/meta/recipes-kernel/kern-tools/kern-tools-native_git.bb
++++ b/meta/recipes-kernel/kern-tools/kern-tools-native_git.bb
+@@ -11,7 +11,7 @@ LIC_FILES_CHKSUM = "\
  
-+# most drivers as built in (default), or as modules
-+MODULAR_KERNEL = "false"
-+
-+# options to scc
-+SCC_OPTS ?= "${@bb.utils.contains('MODULAR_KERNEL', 'true', '-DMODULE_OR_Y=m', '', d)}"
-+
- # returns local (absolute) path names for all valid patches in the
- # src_uri
- def find_patches(d,subdir):
-@@ -298,7 +304,7 @@ do_kernel_metadata() {
- 		elements="`echo -n ${bsp_definition} $sccs_defconfig ${sccs} ${patches} $KERNEL_FEATURES_FINAL`"
- 		if [ -n "${elements}" ]; then
- 			echo "${bsp_definition}" > ${S}/${meta_dir}/bsp_definition
--			scc --force -o ${S}/${meta_dir}:cfg,merge,meta ${includes} $sccs_defconfig $bsp_definition $sccs $patches $KERNEL_FEATURES_FINAL
-+			scc ${SCC_OPTS} --force -o ${S}/${meta_dir}:cfg,merge,meta ${includes} $sccs_defconfig $bsp_definition $sccs $patches $KERNEL_FEATURES_FINAL
- 			if [ $? -ne 0 ]; then
- 				bbfatal_log "Could not generate configuration queue for ${KMACHINE}."
- 			fi
+ DEPENDS += "git-replacement-native"
+ 
+-SRCREV = "c8c1f17867d0cc7d04be225ba4901f2373428be2"
++SRCREV = "fe67c98d2e9b74af44d0c4b660fa18e3a95e7edd"
+ PV = "0.3+git"
+ 
+ inherit native
 -- 
 2.43.0
 
