@@ -1,192 +1,94 @@
-Return-Path: <bruce.ashfield@gmail.com>
+Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0C94C369D1
-	for <webhook@archiver.kernel.org>; Wed, 23 Apr 2025 12:32:06 +0000 (UTC)
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
- by mx.groups.io with SMTP id smtpd.web10.7280.1745411525287338206
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D627BC369D1
+	for <webhook@archiver.kernel.org>; Wed, 23 Apr 2025 12:41:06 +0000 (UTC)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+ by mx.groups.io with SMTP id smtpd.web10.7462.1745412056991022661
  for <poky@lists.yoctoproject.org>;
- Wed, 23 Apr 2025 05:32:05 -0700
+ Wed, 23 Apr 2025 05:40:57 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=AGkrbxpx;
- spf=pass (domain: gmail.com, ip: 209.85.210.179, mailfrom: bruce.ashfield@gmail.com)
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-7370a2d1981so5138544b3a.2
-        for <poky@lists.yoctoproject.org>; Wed, 23 Apr 2025 05:32:05 -0700 (PDT)
+ dkim=pass header.i=@linaro.org header.s=google header.b=JAG8hAbm;
+ spf=pass (domain: linaro.org, ip: 209.85.167.50, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5499659e669so6935152e87.3
+        for <poky@lists.yoctoproject.org>; Wed, 23 Apr 2025 05:40:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1745411525; x=1746016325; darn=lists.yoctoproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=qN/ZOJJzKk+pRM42gha4rkVVb/ynmpIhh8ry+E290NQ=;
-        b=AGkrbxpxr7GME06ROcyvRakqQjY9Zok/2l0m0p7U3xBTeRzKFbRWgZdORNidiJHmb+
-         4+bFo58YyRU4rZbX3dgwUW0isdOqNeUXBbzclAJHaah+eqmWFAmk+64Ug02KVovdyflj
-         MVWv2tMGknJjbNoNQsGoFmwLECKqOvJe4VsZ2GYqEKyxIxFxF0uW0/Ooejz19ARG2MuZ
-         Xi5yKavJ8O+QNyoWCIH5b1PTViu7b9z8vMv4GMWlU6ki1WE0w76JyXSYc+DQaAtwWHS2
-         zV5q3m6pT696Md2/JTWsz5WrGUuV70uu6NWD7qYteYemr41UVHX7pBzz31IEoF4IXtQN
-         iLaQ==
+        d=linaro.org; s=google; t=1745412055; x=1746016855; darn=lists.yoctoproject.org;
+        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=FKQvI63GNQkTeMnVCw3Z3rqE2M2+l3Q1Q7MlRVPDoDE=;
+        b=JAG8hAbmgQQYhEHfAfWBfQCLnA5LcON9k8ENjml4OzW0bfaQwFY3XeCjLECoTucM1J
+         iI+0Bla2kb4Ycfsn1BwZoZmN27tPeqxxCsRiMbuhWUPOBSwJIdkPUIBBXfykI0nhVj/z
+         Mb3j0JBP1wjGtZ/nHCMvqDZhFzhRkXG04rOrZzxuzY6HIz23DdeCaRkjy86EEIM7MlKc
+         429++XvAjwfwFi3c7hw1Yj33DungiLvhC7AVF4lnw2SwRYkgkqI9cdSkFf9oxx8eMWPd
+         wAc8FTZ/pdsNBMkPr0lcZ+Ln6pvLBl+2VOi4fyrMoQoKBqorek6TCbTpkuDjaaKhMR5U
+         pU6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1745411525; x=1746016325;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1745412055; x=1746016855;
+        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=qN/ZOJJzKk+pRM42gha4rkVVb/ynmpIhh8ry+E290NQ=;
-        b=REK7qlM5eSxYSm/olO9F32loT4lZlH4YnE+eIyLXdLAO8rPNmAVUQU+dGj+GnoHfU2
-         G1XzeGM5DmSya7ERwJvwp2Z4TFwcxYV3Imr/ToZbJ5d7TFKoMhHQpEfN8OEw/aaik2vs
-         kTl5chumLwF29Dg6ERdgjayuCN7HYTA/2iXQNkZ5maIyBLG7jfBrLEG+C8CjQtEuVFGC
-         Dv/a44O/XUXP8csCp/WnCh0+zbli7q8nRmYjcYZA5hScG/dxq5lyIpmkqdnLP4oRFqnF
-         W/TltJa1uzucAhozG2FIfsKrR6fVf4XC9zS6jo78W85J/JKX2AI3zuFc3J6kkuBqAiXf
-         5xqQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX46JaWnXsioMC5yMsCAtudzSu43QqcxkV2YdDxtWdLz56Q8q4bDfPTCz0cqzv1vi+QdVg5@lists.yoctoproject.org
-X-Gm-Message-State: AOJu0YwtMKOxEJC3Xa7n5hGpmhQEYFu3NClg8JYK4YstUXaqdWpn1V+4
-	Tt84cmVQVqNcsjkz0S9DiiHVEuuNvzRj0vUTi/oMNioL+U8uox3DuIUJgircSyaTTyP2CuLajDv
-	A8J5JQOKo1lxGDDLqNufar2qOB4A=
-X-Gm-Gg: ASbGncudvNx0NKtmRp64z6WFYiaHblWwVkFQY4EAGXf9Wk7TXMjcKyRaxkc4aEtFpcZ
-	wOkQS9yNAv12wn8uO0Y4wMSToCTdz38cJFNRdNDxFKfWajOtS3c/9/xV8WoYT1OqJiXR/q4NNtd
-	Tnz/Yz9aKWuS/DSzTnF7eYSzI=
-X-Google-Smtp-Source: AGHT+IHamMdkcXbyxA+EJL8tcok0w/roPIf+XdoIvV6oAjJojyUv1whSTHtR72DgaRC8op/Z8RBPWKItZIcrkkevBr8=
-X-Received: by 2002:a17:90a:c887:b0:2fa:15ab:4df5 with SMTP id
- 98e67ed59e1d1-3087bccb042mr23419757a91.34.1745411524526; Wed, 23 Apr 2025
- 05:32:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250423080246.128723-1-mikko.rapeli@linaro.org> <20250423080246.128723-3-mikko.rapeli@linaro.org>
-In-Reply-To: <20250423080246.128723-3-mikko.rapeli@linaro.org>
-From: Bruce Ashfield <bruce.ashfield@gmail.com>
-Date: Wed, 23 Apr 2025 08:31:53 -0400
-X-Gm-Features: ATxdqUFRxspxUfiyz0UyWNL9mzSBW1lGpWae5asd3UpaZHchQXF2Z-J1-Ermgjw
-Message-ID: <CADkTA4OM83dmNKO-ocCRmoVzaMWCxvN0SYz7Yi3th58uPoSqHw@mail.gmail.com>
-Subject: Re: [OE-core] [PATCH 3/3] linux-yocto: build modular kernel on genericarm64
-To: mikko.rapeli@linaro.org
+        bh=FKQvI63GNQkTeMnVCw3Z3rqE2M2+l3Q1Q7MlRVPDoDE=;
+        b=soH+SEJHowdpWykQ6DxATJfDcUu87xwTHbbEiwayIrjti4m3r3E0wVhYP4dCX4j2TF
+         DoB9MkHvePK44WUpHZjV5Kje8fCfg5D1jH9kVtDKseGDdkZG8MRyduxtDdbRGY1WGqBc
+         ePrh0eM/ic+4hGJEcIEMo5jEHk2GnatwW/dDfMYXZbbsuBUdv3uYwnGthmiXkAxARenU
+         haGmPfjmdtLHdhEMD1vXUltxnDDNfCYbBDSddIkH4z4YKD+dEeaot3TogO20p4bff9jn
+         bxnchH4SvsIlmhr50bcF3ZnWS4V+NJmArztJ6XOXK8OpGXi2+aWwPUKmNbttEF8wRrVZ
+         mbeQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXyVVcwVSKXXVrS2ip1G/p7cphmuqxVgMHzSQeiVBujzNLWgfz/yOcZlMcTaGxgWp2Sj/8k@lists.yoctoproject.org
+X-Gm-Message-State: AOJu0Yw8/gezoOWmNORLZy9H4sRHiMwey2dGAOExq0da3W0x8eOLUfdV
+	kwrgSTrhWf4mOJYVsQ8QCAHBpihIfQv4ISppU22Ks4rRSNdTO6DPXUV32rIlM0o=
+X-Gm-Gg: ASbGnctWUQrPcVcvyTjIKW4sxLNAnqp9BuyU02IA8VAUfjLTuzHxXm2SXHfaYrxYtnY
+	00o4YcdH5zCLl2e0XwZ1eM6BDc0Jl7LjHBGiXL2z7L6Wk58JnRunLy61CtGEdB2ryEHNn/i4GL7
+	M66eBic85xI4FX56IjBbRlR3Q4csBwk7aGsGEhG1+V2cc53hLTDad99sxVT36zPz5PRjfeYjlC6
+	J4sQqlcmsnj8qTwlQ6Euo4CnF9jF56how5a7VoOXbGCNpUyC9gCsi9jul/GXMN3pVtEPlh7RwdF
+	p/TIxJnAfig/4hpe/XDEK6pQ96DlxYbnK+dsJYw6JdNbdGnc5YDE2c9izQKYYOkVvkDDyhn14Sc
+	2zln/+g1Y
+X-Google-Smtp-Source: AGHT+IE1gBDX1upyAalJ6FAhHLWqQujqdIhNX0FB/SaQdbXtDpDGYNZ0HYADGwCnImfWH68YB/JRjw==
+X-Received: by 2002:a05:6512:10c4:b0:54b:117b:b54d with SMTP id 2adb3069b0e04-54d6e66d9e3mr5722013e87.56.1745412055035;
+        Wed, 23 Apr 2025 05:40:55 -0700 (PDT)
+Received: from nuoska (87-100-218-141.bb.dnainternet.fi. [87.100.218.141])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-54d6e5e5472sm1509075e87.192.2025.04.23.05.40.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Apr 2025 05:40:54 -0700 (PDT)
+Date: Wed, 23 Apr 2025 15:40:52 +0300
+From: Mikko Rapeli <mikko.rapeli@linaro.org>
+To: Bruce Ashfield <bruce.ashfield@gmail.com>
 Cc: openembedded-core@lists.openembedded.org, poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="000000000000e80d0006337149c2"
+Subject: Re: [poky] [PATCH 2/3] kernel-yocto.bbclass: support modular kernel
+ configs
+Message-ID: <aAjf1EfWpWQt_RZ2@nuoska>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CADkTA4OM83dmNKO-ocCRmoVzaMWCxvN0SYz7Yi3th58uPoSqHw@mail.gmail.com>
+ <CADkTA4PjYn55Udo7KxJwQi_SK08r+a_6EwMyo=e1-Y1vDKtxYA@mail.gmail.com>
+ <CADkTA4MUkWtgpj=FG2rGN+kHQqkGLWjLPMDiyBi3TUct+Th4EQ@mail.gmail.com>
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 23 Apr 2025 12:32:06 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13603
+ <poky@lists.yoctoproject.org>; Wed, 23 Apr 2025 12:41:06 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13604
 
---000000000000e80d0006337149c2
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-This is not the variable we'll be using for this, so again, do not apply
-this patch.
+On Wed, Apr 23, 2025 at 08:30:50AM -0400, Bruce Ashfield wrote:
+> I already have patches for this, and they have not been sent on purpose.
+> 
+> Please do not apply this patch, consider this a nack.
 
-Bruce
+Ok, no worries.
 
-On Wed, Apr 23, 2025 at 4:03=E2=80=AFAM Mikko Rapeli via lists.openembedded=
-.org
-<mikko.rapeli=3Dlinaro.org@lists.openembedded.org> wrote:
+If you have the draft patches somewhere I can try them out on genericarm64
+builds and test on a few devices, if that helps.
 
-> genericarm64 inteds to support many devices which are not even
-> know at compile time and uses initramfs by default. Thus many
-> drivers can be build as modules to reduce kernel binary size
-> and boot time.
->
-> Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
-> ---
->  meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappend | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappen=
-d
-> b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappend
-> index 831cb556be..cda7fef449 100644
-> --- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappend
-> +++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappend
-> @@ -9,3 +9,5 @@ KMACHINE:genericx86-64 ?=3D "common-pc-64"
->
->  FILESEXTRAPATHS:prepend:genericarm64 :=3D "${THISDIR}/files:"
->  SRC_URI:append:genericarm64 =3D "
-> file://0001-Revert-serial-8250_omap-Drop-pm_runtime_irq_safe.patch"
-> +
-> +MODULAR_KERNEL:genericarm64 =3D "true"
-> --
-> 2.43.0
->
->
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#215266):
-> https://lists.openembedded.org/g/openembedded-core/message/215266
-> Mute This Topic: https://lists.openembedded.org/mt/112410523/1050810
-> Group Owner: openembedded-core+owner@lists.openembedded.org
-> Unsubscribe: https://lists.openembedded.org/g/openembedded-core/unsub [
-> bruce.ashfield@gmail.com]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
->
+genericarm64 core-image-initramfs-boot is exceeding size limits currently
+so I wanted to publish what I had already:
 
---=20
-- Thou shalt not follow the NULL pointer, for chaos and madness await thee
-at its end
-- "Use the force Harry" - Gandalf, Star Trek II
+https://bugzilla.yoctoproject.org/show_bug.cgi?id=15833
 
---000000000000e80d0006337149c2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cheers,
 
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-size:small">Thi=
-s=C2=A0is not the variable we&#39;ll be using for this, so again, do not ap=
-ply this patch.</div><div class=3D"gmail_default" style=3D"font-size:small"=
-><br></div><div class=3D"gmail_default" style=3D"font-size:small">Bruce</di=
-v></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Apr 23, 2025 at 4:03=E2=80=AFAM Mikko Rapel=
-i via <a href=3D"http://lists.openembedded.org">lists.openembedded.org</a> =
-&lt;mikko.rapeli=3D<a href=3D"mailto:linaro.org@lists.openembedded.org">lin=
-aro.org@lists.openembedded.org</a>&gt; wrote:<br></div><blockquote class=3D=
-"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
-04,204,204);padding-left:1ex">genericarm64 inteds to support many devices w=
-hich are not even<br>
-know at compile time and uses initramfs by default. Thus many<br>
-drivers can be build as modules to reduce kernel binary size<br>
-and boot time.<br>
-<br>
-Signed-off-by: Mikko Rapeli &lt;<a href=3D"mailto:mikko.rapeli@linaro.org" =
-target=3D"_blank">mikko.rapeli@linaro.org</a>&gt;<br>
----<br>
-=C2=A0meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappend | 2 ++<=
-br>
-=C2=A01 file changed, 2 insertions(+)<br>
-<br>
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappend =
-b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappend<br>
-index 831cb556be..cda7fef449 100644<br>
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappend<br>
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.12.bbappend<br>
-@@ -9,3 +9,5 @@ KMACHINE:genericx86-64 ?=3D &quot;common-pc-64&quot;<br>
-<br>
-=C2=A0FILESEXTRAPATHS:prepend:genericarm64 :=3D &quot;${THISDIR}/files:&quo=
-t;<br>
-=C2=A0SRC_URI:append:genericarm64 =3D &quot; file://0001-Revert-serial-8250=
-_omap-Drop-pm_runtime_irq_safe.patch&quot;<br>
-+<br>
-+MODULAR_KERNEL:genericarm64 =3D &quot;true&quot;<br>
--- <br>
-2.43.0<br>
-<br>
-<br>
--=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
-Links: You receive all messages sent to this group.<br>
-View/Reply Online (#215266): <a href=3D"https://lists.openembedded.org/g/op=
-enembedded-core/message/215266" rel=3D"noreferrer" target=3D"_blank">https:=
-//lists.openembedded.org/g/openembedded-core/message/215266</a><br>
-Mute This Topic: <a href=3D"https://lists.openembedded.org/mt/112410523/105=
-0810" rel=3D"noreferrer" target=3D"_blank">https://lists.openembedded.org/m=
-t/112410523/1050810</a><br>
-Group Owner: <a href=3D"mailto:openembedded-core%2Bowner@lists.openembedded=
-.org" target=3D"_blank">openembedded-core+owner@lists.openembedded.org</a><=
-br>
-Unsubscribe: <a href=3D"https://lists.openembedded.org/g/openembedded-core/=
-unsub" rel=3D"noreferrer" target=3D"_blank">https://lists.openembedded.org/=
-g/openembedded-core/unsub</a> [<a href=3D"mailto:bruce.ashfield@gmail.com" =
-target=3D"_blank">bruce.ashfield@gmail.com</a>]<br>
--=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
-<br>
-</blockquote></div><div><br clear=3D"all"></div><div><br></div><span class=
-=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_s=
-ignature">- Thou shalt not follow the NULL pointer, for chaos and madness a=
-wait thee at its end<br>- &quot;Use the force Harry&quot; - Gandalf, Star T=
-rek II<br><br></div>
-
---000000000000e80d0006337149c2--
+-Mikko
 
