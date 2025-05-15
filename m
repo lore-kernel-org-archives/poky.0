@@ -1,102 +1,557 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <srivamsi_malladi@trimble.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE9D6C3ABD8
-	for <webhook@archiver.kernel.org>; Wed, 14 May 2025 14:38:00 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
- by mx.groups.io with SMTP id smtpd.web11.104145.1747233477328034335
- for <poky@lists.yoctoproject.org>;
- Wed, 14 May 2025 07:37:58 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=A7ymTOyw;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.53, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-442ec3ce724so15185855e9.0
-        for <poky@lists.yoctoproject.org>; Wed, 14 May 2025 07:37:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1747233475; x=1747838275; darn=lists.yoctoproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xHAxKNYzp7ZDeTn6dX41fzHmNEHYn1ll1oVeDfzhXGc=;
-        b=A7ymTOywRmv7P/x2oSxsLi0LfJE2Or5w5O9bcPzUGtJJQqCxMQ4fMCumRTzWTWmrvh
-         8CTdPU4xoAXwuKLCyeTpB/5sX3soSJ1YM1RnRGnGFrhlyPG97qg/0U/kH/Vtxh2gL5ly
-         iFc6b45220HmJjE9rGnbzS0DaABrGEtoMoud4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747233475; x=1747838275;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=xHAxKNYzp7ZDeTn6dX41fzHmNEHYn1ll1oVeDfzhXGc=;
-        b=AlTTH/f41l7y95isgQXSQ8l9QaIoBAPhw6XKXFaf223OcdZldXyoie8G5yFyULrsUM
-         JYZz3r+G+ZnboHk9AJw/LKiw2GJREitMYSQZT313J6992rCssBGtzAzDPpQvfKTyRVE3
-         YyO1opStsC58dLoGyL8Yox13RrTxGFUNuAcz3qMOwwX+Bq9ukTGGE2X2EDcsBuHgFzov
-         wb3XPlZNy81t2B8eJDXmEpAS0+5sPnleT4TaHTSigZfaC01PVTZbC+Qo6SovPtLm4gmz
-         rOifAJ6dyPhh+6Jal+JRWgbBbScBe3NvAPCOOK//5/NBOXx5xp8ZAMuoSRQleVZMfwlW
-         5zBg==
-X-Forwarded-Encrypted: i=1; AJvYcCWWWTTF49bA4j7DmTWuAkrMcJF1JBS72Ewky0KLU1FpNAQMr42mlxUrUi2D/M4sysx6yMot@lists.yoctoproject.org
-X-Gm-Message-State: AOJu0YymBDCWIxyvI8P+f0U/2XEaewH5tpp5AgvWbT/iE34kbLKw8sGO
-	GTuJBMkCIuJShOStd17rx4J9tED6MVNy0QmjKEcZmaoLct9R5pp2LAZRfMftTrM=
-X-Gm-Gg: ASbGncttc3d9YtdIffw7wqxkJJi0kQXU03QiFcDn2mFpf8VQdCe4xi9od19RyeiIc5E
-	UUTRBmMN7JkJlYeMipa1TybVF8syV2kuKvs3wtdz+TxDYYMxVqzv1dljqTdop1cYa+24+cTlZ07
-	nVYJyeNt1bYPN1Py6P3Ka5z6imSev4nQPnChBrO6a8j9wfCtaOM+nVL5QLfWn9OvdXcO93bc+ib
-	jDrlVNknEOPmKzpY5ogvhuOHva/QHDOMLmCZeNm0VfuiS6WzUjU9Kk4u+5mFDz4yyL/KaTMD60W
-	c5ufvebKdmui70ZBTg3qOKsfYZuhgy3/z0/T8niehVUOGePZrTw/C8dbwIu77nYpSSka+REmho1
-	6u6qBHY5TS0sgV3Cyd58X8UGl4CxAYnlppNqJCZJR
-X-Google-Smtp-Source: AGHT+IGe5cdcVqFVWQvmFBncuA9MIJ8JR5oMVKKrUi6pz67moXs/h2/CpyX502MxR5/ekvCFBMPCOA==
-X-Received: by 2002:a05:600c:a009:b0:441:d228:1fe5 with SMTP id 5b1f17b1804b1-442f217a0b1mr29002645e9.33.1747233475543;
-        Wed, 14 May 2025 07:37:55 -0700 (PDT)
-Received: from ?IPv6:2001:8b0:aba:5f3c:ac80:8bbf:3444:fa34? ([2001:8b0:aba:5f3c:ac80:8bbf:3444:fa34])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3a1f58f2b29sm20195125f8f.53.2025.05.14.07.37.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 May 2025 07:37:54 -0700 (PDT)
-Message-ID: <bcd6e1a7605d066961acd35ef3a77dfef84120b8.camel@linuxfoundation.org>
-Subject: Re: [poky] dts error just at the end of make for u-boot (Scarthgap)
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: jdowd@slashdevslashnull.org, poky@lists.yoctoproject.org
-Date: Wed, 14 May 2025 15:37:54 +0100
-In-Reply-To: <g7A8.1747165878348660261.lffv@lists.yoctoproject.org>
-References: <g7A8.1747165878348660261.lffv@lists.yoctoproject.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.0-1 
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 874E3C3ABC9
+	for <webhook@archiver.kernel.org>; Thu, 15 May 2025 11:02:18 +0000 (UTC)
+Subject: Error while bitbaking core-image-minimal using Poky 5.0.9 (Scarthgap) on VMware
+To: poky@lists.yoctoproject.org
+From: srivamsi_malladi@trimble.com
+X-Originating-Location: Cologne, North Rhine-Westphalia, DE (80.154.9.237)
+X-Originating-Platform: Windows Chrome 136
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
+Date: Thu, 15 May 2025 04:02:17 -0700
+Message-ID: <7iAm.1747306937631397189.DLQB@lists.yoctoproject.org>
+Content-Type: multipart/alternative; boundary="i7UX7cie2kwP0JGw4rnw"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 14 May 2025 14:38:00 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13617
+ <poky@lists.yoctoproject.org>; Thu, 15 May 2025 11:02:18 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13618
 
-On Tue, 2025-05-13 at 12:51 -0700, John via lists.yoctoproject.org
-wrote:
-> I have this snip of the log...
-> > | make[1]: Leaving directory '/home/aspire/workspace/yocto-
-> > upgrade/build_aspire/tmp/work/t1024rdb_64b-fsl-linux/u-boot-
-> > qoriq/2024.04++fslgit/build/T1024RDB_config'
-> > | make: Leaving directory '/home/aspire/workspace/yocto-
-> > upgrade/build_aspire/tmp/work/t1024rdb_64b-fsl-linux/u-boot-
-> > qoriq/2024.04++fslgit/git'
-> > | cp: cannot stat '/home/aspire/workspace/yocto-
-> > upgrade/build_aspire/tmp/work/t1024rdb_64b-fsl-linux/u-boot-
-> > qoriq/2024.04++fslgit/build/T1024RDB_config/u-boot-with-dtb.bin':
-> > No such file or directory
-> > | WARNING: exit code 1 from a shell command.
-> > =C2=A0
-> So I have an error while the system is trying to copy a device tree
-> binary. That name of the file is not in our recipes. So it has to be
-> derived from the bbclass file, correct? Also, this is at the end of
-> the make process and I do not have a "do_compile()" function in the
-> recipe so this again has to come from the bbclass files... correct?
-> =C2=A0
-> I've started to look a the class files and I can see some have the
-> bbdebug() and such but I see no output. How would I turn this on? I
-> already have BBDEBUG =3D 4 in my local.conf file.
+--i7UX7cie2kwP0JGw4rnw
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-You'd usually use -DDD to bitbake to increase the debug log level.
-Personally, when doing this kind of debugging I'd use bbwarn as it
-shows nicely on the console output by default.
+Hello all,
 
-Cheers,
+TL;DR: I ran into a couple of errors and fixed them with the help of Gemini=
+. I would like to know if there are any better solutions to solve these err=
+ors.
 
-Richard
+I am absolutely new to the Yocto project and Poky, so I thought I will so a=
+ 'hello world' kind of thing with Poky. For that, I setup a VMware with Ubu=
+ntu 22.04 LTS and with 27.7GB RAM and 16 cores hardware config. My host com=
+puter is a i9-13th gen with 32GB RAM running Windows. I chose the really hi=
+gh (max actually) RAM and cores thinking I would have a really fast VM, but=
+ due to the problems I ran into, I realized more RAM, mores cores !=3D more=
+ performance. So, following is the problem I ran into.
+
+When I bitbake core-image-minimal in terminal, I got an error saying do_com=
+pile failed on gcc 13.0.1 and when I looked at the log, it said error x86_6=
+4-poky-linux-g++: fatal error: Killed signal terminated program cc1plus.
+After spending some time on Google and some forums, I found that my VM migh=
+t be fighting with my host PC for resources and in this process, the tasks =
+that bitbake wants to run (compiling gcc in this case) are not able to get =
+enough PC resources due to which cc1plus got terminated which is needed in =
+the process.
+I tried reducing the RAM to 16GB and cores to 8 and then to 4, the error st=
+ill remained. After reducing the RAM to 8GB and cores to 2, gcc could final=
+ly compile, but I ran into another error.
+
+When I run bitbake core-image-minimal, I get an error and following are the=
+ contents of the corresponding log file
+
+>=20
+>=20
+>=20
+> DEBUG: Executing python function extend_recipe_sysroot
+>=20
+>=20
+>=20
+> NOTE: Direct dependencies are
+> ['/home/ubuntu2204/work/poky/meta/recipes-devtools/quilt/quilt-native_0.6=
+7.bb:do_populate_sysroot']
+>=20
+>=20
+>=20
+>=20
+> NOTE: Installed into sysroot: []
+>=20
+>=20
+>=20
+> NOTE: Skipping as already exists in sysroot: ['quilt-native']
+>=20
+>=20
+>=20
+> DEBUG: Python function extend_recipe_sysroot finished
+>=20
+>=20
+>=20
+> DEBUG: Executing python function do_patch
+>=20
+>=20
+>=20
+> DEBUG: Executing python function patch_do_patch
+>=20
+>=20
+>=20
+> DEBUG: Searching for
+> 0001-Do-not-set-PYTHON_INSTALL_DIR-by-running-python.patch in paths:
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c-1.0.4/poky
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c/poky
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/files/poky
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c-1.0.4/
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c/
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/files/
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c-1.0.4/x86-64
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c/x86-64
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/files/x86-6=
+4
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c-1.0.4/
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c/
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/files/
+>=20
+>=20
+>=20
+> DEBUG: Using
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c/0001-Do-not-set-PYTHON_INSTALL_DIR-by-running-python.patch
+> for 0001-Do-not-set-PYTHON_INSTALL_DIR-by-running-python.patch
+>=20
+>=20
+>=20
+> DEBUG: Searching for 0001-include-rpm-rpmstring.h.patch in paths:
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c-1.0.4/poky
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c/poky
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/files/poky
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c-1.0.4/
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c/
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/files/
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c-1.0.4/x86-64
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c/x86-64
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/files/x86-6=
+4
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c-1.0.4/
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c/
+>=20
+>=20
+>=20
+>=20
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/files/
+>=20
+>=20
+>=20
+> DEBUG: Using
+> /home/ubuntu2204/work/poky/meta/recipes-devtools/createrepo-c/createrepo-=
+c/0001-include-rpm-rpmstring.h.patch
+> for 0001-include-rpm-rpmstring.h.patch
+>=20
+>=20
+>=20
+> NOTE: Applying patch
+> '0001-Do-not-set-PYTHON_INSTALL_DIR-by-running-python.patch'
+> (../meta/recipes-devtools/createrepo-c/createrepo-c/0001-Do-not-set-PYTHO=
+N_INSTALL_DIR-by-running-python.patch)
+>=20
+>=20
+>=20
+>=20
+> ERROR: Applying patch
+> '0001-Do-not-set-PYTHON_INSTALL_DIR-by-running-python.patch' on target
+> directory
+> '/home/ubuntu2204/work/poky/build/tmp/work/x86_64-linux/createrepo-c-nati=
+ve/1.0.4/git'
+>=20
+>=20
+>=20
+>=20
+> CmdError('quilt --quiltrc
+> /home/ubuntu2204/work/poky/build/tmp/work/x86_64-linux/createrepo-c-nativ=
+e/1.0.4/recipe-sysroot-native/etc/quiltrc
+> push', 0, 'stdout:
+>=20
+>=20
+>=20
+> stderr: /bin/sh: 1: quilt: not found
+>=20
+>=20
+>=20
+> ')
+>=20
+>=20
+>=20
+> DEBUG: Python function patch_do_patch finished
+>=20
+>=20
+>=20
+> DEBUG: Python function do_patch finished
+>=20
+>=20
+
+I asked Gemini about the error and it suggested installing quilt. But it wa=
+s already installed.
+Then I gave it the whole log file and then it explained that quilt-native i=
+s available in sysroot but not in PATH and so asked me to create a new laye=
+r with do_patch:prepend() where I should add the bindir (which should be /u=
+sr/bin in the sysroot) to PATH.
+This fixed the error.
+
+Now my questions are
+1. Regarding the first error, I had to decrease the RAM to 8GB and cores to=
+ 2 which cured the error but increased the build time. Is there a better wa=
+y to handle this without compromising on the build time?
+2. Regarding the second error, did this occur because of some problems in m=
+y system? Or is this a known error with Poky Scarthgap?
+
+Thanks & Regards,
+Srivamsi Malladi.
+
+--i7UX7cie2kwP0JGw4rnw
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>Hello all,</div>
+<div>&nbsp;</div>
+<div>TL;DR: I ran into a couple of errors and fixed them with the help of G=
+emini. I would like to know if there are any better solutions to solve thes=
+e errors.</div>
+<div>&nbsp;</div>
+<div>I am absolutely new to the Yocto project and Poky, so I thought I will=
+ so a 'hello world' kind of thing with Poky. For that, I setup a VMware wit=
+h Ubuntu 22.04 LTS and with 27.7GB RAM and 16 cores hardware config. My hos=
+t computer is a i9-13th gen with 32GB RAM running Windows. I chose the real=
+ly high (max actually) RAM and cores thinking I would have a really fast VM=
+, but due to the problems I ran into, I realized more RAM, mores cores !=3D=
+ more performance. So, following is the problem I ran into.</div>
+<div>&nbsp;</div>
+<div>When I bitbake core-image-minimal in terminal, I got an error saying <=
+em>do_compile failed on gcc 13.0.1</em> and when I looked at the log, it sa=
+id <span style=3D"font-family: 'courier new', courier;">error x86_64-poky-l=
+inux-g++: fatal error: Killed signal terminated program cc1plus</span><em>.=
+</em></div>
+<div>After spending some time on Google and some forums, I found that my VM=
+ might be fighting with my host PC for resources and in this process, the t=
+asks that bitbake wants to run (compiling gcc in this case) are not able to=
+ get enough PC resources due to which cc1plus got terminated which is neede=
+d in the process.</div>
+<div>I tried reducing the RAM to 16GB and cores to 8 and then to 4, the err=
+or still remained. After reducing the RAM to 8GB and cores to 2, gcc could =
+finally compile, but I ran into another error.</div>
+<div>&nbsp;</div>
+<div>
+<p class=3D"query-text-line ng-star-inserted">When I run bitbake core-image=
+-minimal, I get an error and following are the contents of the correspondin=
+g log file</p>
+<blockquote>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">DEBUG: Executing python function extend_recipe_sysr=
+oot</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">NOTE: Direct dependencies are ['/home/ubuntu2204/wo=
+rk/poky/meta/recipes-devtools/quilt/quilt-native_0.67.bb:do_populate_sysroo=
+t']</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">NOTE: Installed into sysroot: []</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">NOTE: Skipping as already exists in sysroot: ['quil=
+t-native']</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">DEBUG: Python function extend_recipe_sysroot finish=
+ed</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">DEBUG: Executing python function do_patch</span></p=
+>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">DEBUG: Executing python function patch_do_patch</sp=
+an></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">DEBUG: Searching for 0001-Do-not-set-PYTHON_INSTALL=
+_DIR-by-running-python.patch in paths:</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c-1.0.4/poky</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c/poky</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/files/poky</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c-1.0.4/</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c/</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/files/</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c-1.0.4/x86-64</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c/x86-64</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/files/x86-64</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c-1.0.4/</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c/</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/files/</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">DEBUG: Using /home/ubuntu2204/work/poky/meta/recipe=
+s-devtools/createrepo-c/createrepo-c/0001-Do-not-set-PYTHON_INSTALL_DIR-by-=
+running-python.patch for 0001-Do-not-set-PYTHON_INSTALL_DIR-by-running-pyth=
+on.patch</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">DEBUG: Searching for 0001-include-rpm-rpmstring.h.p=
+atch in paths:</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c-1.0.4/poky</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c/poky</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/files/poky</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c-1.0.4/</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c/</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/files/</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c-1.0.4/x86-64</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c/x86-64</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/files/x86-64</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c-1.0.4/</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/createrepo-c/</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">&nbsp; &nbsp; /home/ubuntu2204/work/poky/meta/recip=
+es-devtools/createrepo-c/files/</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">DEBUG: Using /home/ubuntu2204/work/poky/meta/recipe=
+s-devtools/createrepo-c/createrepo-c/0001-include-rpm-rpmstring.h.patch for=
+ 0001-include-rpm-rpmstring.h.patch</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">NOTE: Applying patch '0001-Do-not-set-PYTHON_INSTAL=
+L_DIR-by-running-python.patch' (../meta/recipes-devtools/createrepo-c/creat=
+erepo-c/0001-Do-not-set-PYTHON_INSTALL_DIR-by-running-python.patch)</span><=
+/p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">ERROR: Applying patch '0001-Do-not-set-PYTHON_INSTA=
+LL_DIR-by-running-python.patch' on target directory '/home/ubuntu2204/work/=
+poky/build/tmp/work/x86_64-linux/createrepo-c-native/1.0.4/git'</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">CmdError('quilt --quiltrc /home/ubuntu2204/work/pok=
+y/build/tmp/work/x86_64-linux/createrepo-c-native/1.0.4/recipe-sysroot-nati=
+ve/etc/quiltrc push', 0, 'stdout:&nbsp;</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">stderr: /bin/sh: 1: quilt: not found</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">')</span></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">DEBUG: Python function patch_do_patch finished</spa=
+n></p>
+<p class=3D"query-text-line ng-star-inserted"><span style=3D"font-family: '=
+courier new', courier;">DEBUG: Python function do_patch finished</span></p>
+</blockquote>
+</div>
+<div>I asked Gemini about the error and it suggested installing quilt. But =
+it was already installed.</div>
+<div>Then I gave it the whole log file and then it explained that quilt-nat=
+ive is available in <span style=3D"font-family: 'courier new', courier;">sy=
+sroot </span>but not in <span style=3D"font-family: 'courier new', courier;=
+">PATH </span>and so asked me to create a new layer with <span style=3D"fon=
+t-family: 'courier new', courier;">do_patch:prepend()</span>where I should =
+add the <span style=3D"font-family: 'courier new', courier;">bindir </span>=
+(which should be <code>/usr/bin</code> in the sysroot) to <span style=3D"fo=
+nt-family: 'courier new', courier;">PATH.</span></div>
+<div><span style=3D"font-family: system-ui, 'helvetica neue';">This fixed t=
+he error.</span></div>
+<div>&nbsp;</div>
+<div><span style=3D"font-family: system-ui, 'helvetica neue';">Now my quest=
+ions are</span></div>
+<div><span style=3D"font-family: system-ui, 'helvetica neue';">1. Regarding=
+ the first error, I had to decrease the RAM to 8GB and cores to 2 which cur=
+ed the error but increased the build time. Is there a better way to handle =
+this without compromising on the build time?</span></div>
+<div><span style=3D"font-family: system-ui, 'helvetica neue';">2. <span sty=
+le=3D"font-family: system-ui, 'helvetica neue';">Regarding </span>the secon=
+d error, did this occur because of some problems in my system? Or is this a=
+ known error with Poky Scarthgap?</span></div>
+<div>&nbsp;</div>
+<div><span style=3D"font-family: system-ui, 'helvetica neue';">Thanks &amp;=
+ Regards,</span></div>
+<div><span style=3D"font-family: system-ui, 'helvetica neue';">Srivamsi Mal=
+ladi.</span></div>
+<div>
+<div>
+<div class=3D"response-container ng-tns-c2958502631-129 response-container-=
+with-gpi ng-star-inserted">
+<div class=3D"response-container-header ng-tns-c2958502631-129 ng-star-inse=
+rted">
+<div class=3D"response-container-header-controls ng-tns-c2958502631-129">
+<div class=3D"ng-tns-c2958502631-129 tts ng-trigger ng-trigger-singleRespon=
+seEnter ng-star-inserted">
+<div class=3D"single-draft-response-container ng-tns-c2958502631-129 ng-sta=
+r-inserted">&nbsp;</div>
+</div>
+<div class=3D"response-tts-container ng-star-inserted" style=3D"height: 174=
+7px;" data-test-draft-id=3D"rc_a2c6882c688e2708">
+<div class=3D"mat-mdc-tooltip-trigger tts-button-container mat-mdc-tooltip-=
+disabled" data-test-id=3D"disabled-tooltip">&nbsp;</div>
+</div>
+<div class=3D"mat-mdc-menu-trigger playback-speed-menu-trigger multi" role=
+=3D"menu" aria-haspopup=3D"menu" aria-expanded=3D"false">&nbsp;</div>
+</div>
+<div class=3D"response-container-header-status ng-tns-c2958502631-129">
+<div class=3D"response-container-header-processing-state ng-tns-c2958502631=
+-129">&nbsp;</div>
+</div>
+</div>
+<div class=3D"presented-response-container ng-tns-c2958502631-129">
+<div class=3D"avatar-gutter ng-tns-c2958502631-129 ng-star-inserted">
+<div class=3D"bard-avatar ng-tns-c2386054475-130 advanced">
+<div class=3D"avatar-container ng-tns-c2386054475-130 advanced ng-trigger n=
+g-trigger-scaleDown">
+<div class=3D"avatar avatar_primary ng-tns-c2386054475-130 ng-star-inserted=
+">
+<div class=3D"avatar_primary_model ng-tns-c2386054475-130 is-gpi-avatar">
+<div class=3D"avatar_primary_animation is-gpi-avatar ng-tns-c2386054475-130=
+ ng-star-inserted">&nbsp;</div>
+</div>
+</div>
+</div>
+<div class=3D"avatar_spinner_animation ng-tns-c2386054475-130 ng-star-inser=
+ted" style=3D"opacity: 0; visibility: hidden;">&nbsp;</div>
+</div>
+</div>
+<div class=3D"response-container-content ng-tns-c2958502631-129">
+<div class=3D"response-content ng-tns-c2958502631-129">
+<div id=3D"model-response-message-contentr_835b89a266ef1342" class=3D"markd=
+own markdown-main-panel stronger enable-updated-hr-color" dir=3D"ltr" style=
+=3D"--animation-duration: 400ms; --fade-animation-function: linear;">
+<p data-sourcepos=3D"1:1-1:279">&nbsp;</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+--i7UX7cie2kwP0JGw4rnw--
 
