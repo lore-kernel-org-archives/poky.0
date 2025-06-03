@@ -2,103 +2,164 @@ Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33973C5B555
-	for <webhook@archiver.kernel.org>; Tue,  3 Jun 2025 11:36:18 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
- by mx.groups.io with SMTP id smtpd.web11.9052.1748950568784874919
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 531E7C5AD49
+	for <webhook@archiver.kernel.org>; Tue,  3 Jun 2025 11:39:38 +0000 (UTC)
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+ by mx.groups.io with SMTP id smtpd.web10.9006.1748950771393423453
  for <poky@lists.yoctoproject.org>;
- Tue, 03 Jun 2025 04:36:09 -0700
+ Tue, 03 Jun 2025 04:39:31 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=kJZ3EOWd;
- spf=pass (domain: gmail.com, ip: 209.85.221.43, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-3a375888297so3275808f8f.1
-        for <poky@lists.yoctoproject.org>; Tue, 03 Jun 2025 04:36:08 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=Mx5gzhSs;
+ spf=pass (domain: gmail.com, ip: 209.85.219.44, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-6fac7147cb8so108430186d6.1
+        for <poky@lists.yoctoproject.org>; Tue, 03 Jun 2025 04:39:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748950567; x=1749555367; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YPjn1yBQngbKyZLG/HZHAA5F+o2WTF0DrG1stIS6Fjs=;
-        b=kJZ3EOWdx9tm+RcztMgrWcFGnLrErmq+9ckmRmWDEHApHgYse7onzi4dyFE7IqqVl1
-         IPt0aVrv2I7xUeUElWSAH+OcSn/t+ef/9KGpIx4wmjZ9dKYWhhFHaLoluUSRiIqwMurk
-         xF3alciNeOhG3BO1y1ylYDPsf8lw6qmBPdkh7vZo5rulZLEvbaYkrDGAR+tSk8WMdW+X
-         EPBvI/1HdGqttE9C5zpvV48GeLNn2krUKzHmhGrks6CtCD/iwrjUj4Hpk99DcNAJ4kzq
-         nTpgrcRXYhNQuUq/moRkuNLM64IZwK+fpdwRi+AVPjZwewGSzjAgRtH0fGivpXdzf2QN
-         eI+A==
+        d=gmail.com; s=20230601; t=1748950770; x=1749555570; darn=lists.yoctoproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=DQF/Z8MrkgSdappcXiv2oSbcPZUKAkcLAxyc6/8PMUg=;
+        b=Mx5gzhSsNcvenSqTXEubAJmUB5rk1eZy15Gr9cR0GVOf9b2kQgt55BHW/9cBBhRlFi
+         Sz3qyD1OCXZeXEPTq78oNics9Sqj8bmlDTc08FtI1fMPS2kN2UHOPQPNkfexlNcXIe/g
+         TYDPY/5fuBjruD7AD1x2JQ8Cq9HG9cw35pSST37d0qwWiIpt8SaDaEucATlXxQMv/m7c
+         2jE3JtTCGnBHWIWEMNF9SYcsQURnZzd3lTEKs30LW4NfnohQOAElWA4JLH9/8cX4OEip
+         +9dEj5Pj/uGBJ+DiX6M7mi7yfiJzLhKiqm0sZ0R7eD2CDUz1xlEJUSyqWkbEvAF4pfUm
+         GCDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748950567; x=1749555367;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=YPjn1yBQngbKyZLG/HZHAA5F+o2WTF0DrG1stIS6Fjs=;
-        b=wga68EJe0oP6MnXndPjU63i/n6uJnc4DHgfFZb9/dfo/XbdcgoKgFtAXyx64+oNb6s
-         VFRKD/eTLFSa+2ky98KSMbgorX9bjdXtT62oz/ekyNc5zS2//2ZLVnoYSvenFVL8a9kO
-         U89+tmrE9ZQKgA8rc0/1GD37n4r2vfTSAtsXsIpbXCAHCfY9m5Oy3prOYeV0hsNcDwoQ
-         DclFYh+tj6Bamx6LfVdCi2AQQi0/gFJ7zHKXp0dZpSqNpwgGwIg4l4XZGN0bbCyXPhgp
-         7uXVfmBBWbFt0uqTYixz+lkP13b6Xhul0vW5+rZ02GBZTIJ4nih5hAWB2rzyGdAc7K8Z
-         1LKg==
-X-Gm-Message-State: AOJu0YyEcmqNRfDRTfGESRaCj5XyNAYh+S+dKOOr6EUgq4WJWwy2YD91
-	rY/YWVrIth0TbfUA/dmZLAmPlTh+Pm5W33KCCg9htJGrrjiHMnzf7WMC8sac1w==
-X-Gm-Gg: ASbGncswebHJhjJ5+fNonM6VKluMVksGxZW+z2+/LpwoYv7fB6U5GWoSE4CitrWdBP1
-	mtwAXxdC1G3hqfhizMVWHp8Pks3/Pkxj3TJvF0VmyOPaTJc8IaB13wTx6lfi1MnVvcHl0MM1vY2
-	l0Tm2wtNzkxrrAUNJzUQ+cpUnUkO37xRZ5LXqrzstHOwSDRaB4wrDOMsHhtik1XO4DtE6MvyPjo
-	nHg9FXqKybpTfQ2h0ls8aMwWre7dBxJWvLhrQEULTmagP7aHm0sRNmQZnw0MBcqvBO0y0Nh8oRP
-	b24tSHUcCE1k8PsA20hA2B0GLor2lRVylwXSlgMPPnrz+YD6HaEFIIZP2R2vesG/GnOL1XawwoD
-	kfe+KHg9octlP
-X-Google-Smtp-Source: AGHT+IFjbExACJpb9Ssne15MDwBdKa/uwr8yPu7fw0lkZ+iJqI9u5q5q+f2KEv4ZP64jpJIJVn6a2w==
-X-Received: by 2002:a05:6000:420f:b0:3a4:d915:d652 with SMTP id ffacd0b85a97d-3a5141d0a12mr1587344f8f.29.1748950567045;
-        Tue, 03 Jun 2025 04:36:07 -0700 (PDT)
-Received: from Zen2.lab.linutronix.de. (drugstore.linutronix.de. [80.153.143.164])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-451e58c348asm16707585e9.3.2025.06.03.04.36.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Jun 2025 04:36:06 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1748950770; x=1749555570;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DQF/Z8MrkgSdappcXiv2oSbcPZUKAkcLAxyc6/8PMUg=;
+        b=Ogfh1hL2iFn4EdU0vbqAs18WUmqQJmN3+vXm7jhXpbiJ+KqtdG6cry8SjasuWILB0S
+         B/nvQyo3JB8Eka/Ydzuk5CCdMWJPqm5GpM5q3k9TwrRoGcRe7P3mNXSr0V37Lx6ClDpA
+         h9Nq5RYIV3RfLwDn6j7XuNwmUqBxDz4+h2M3ghP2ihHF0JTozVBRVFfCM/7aGQxssVr6
+         c6mokBW2XyODWW5xA1DRNYyeyRafN1JE63/7xUHBmSR17mhTRJRNSysaMXGKQ3HzigCg
+         YfWUWTKGqaV76aRTPzynhJMP8X11f3WoR3P0manj8RiB9dcxKWoykHCdGa0nMuSoSNT9
+         aGmA==
+X-Gm-Message-State: AOJu0Yxdu8Blxleoi/eO2ViyxI5fdLWzjfRFPYPCRayUEFhBVcLaHOEd
+	jajB4haCJnPwYEiv39AtdCBWoHqf9qX060MFhVkmhRXdl6d7f08JYpZPOnSLrqAkXTZy0K9YSFP
+	RYEpSLpn9mSQKyrARaPvGwwAVqFDriaTGNA==
+X-Gm-Gg: ASbGncui0eMCUGKCyzB1g1ktpx+Rt7mxqvOukwmA25npIer8Z8N9+zrRd/j3omQY7QO
+	PPDCU/r4K7y1Ecu4m+vNpVPQyP2o2oBHK7CM0gyVYLcNIWEdA+Cku3SKl0eC7gHPWQBQoqQO4/i
+	U3McWObS8kKp88SfcREm74pd/4ud1t9zhjWFWq6RPQi+B3MtZrPcQdzF36IOOy8vKyas8=
+X-Google-Smtp-Source: AGHT+IFXA5N59dAOWeo/Pp2+1TFTlSh7EdpGQJznvSPCXgN0n5mhvZjLxIu+Q3bip/JuDhXr7yx1UxaaAflD0sGg278=
+X-Received: by 2002:a05:6214:19ce:b0:6fa:ca81:4121 with SMTP id
+ 6a1803df08f44-6fad1a9ecdfmr203301486d6.44.1748950770404; Tue, 03 Jun 2025
+ 04:39:30 -0700 (PDT)
+MIME-Version: 1.0
+References: <20250603113558.3104618-1-alex.kanavin@gmail.com>
+In-Reply-To: <20250603113558.3104618-1-alex.kanavin@gmail.com>
 From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Tue, 3 Jun 2025 13:39:19 +0200
+X-Gm-Features: AX0GCFs63u8yoqDia88XsOFiyYJvIOgseH7Ufe8xHA-uBFSqC0vbUSebzWbBJ4w
+Message-ID: <CANNYZj8PziCasasQZwCQNjVWv-_KdsgkYaxTNF+zvbedu-WL=g@mail.gmail.com>
+Subject: Re: [PATCH 1/4] meta/conf/templates: add a blank template
 To: poky@lists.yoctoproject.org
 Cc: Alexander Kanavin <alex@linutronix.de>
-Subject: [PATCH 4/4] fragments/qemu: add support for enabling sdl in qemu
-Date: Tue,  3 Jun 2025 13:35:58 +0200
-Message-Id: <20250603113558.3104618-4-alex.kanavin@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250603113558.3104618-1-alex.kanavin@gmail.com>
-References: <20250603113558.3104618-1-alex.kanavin@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 03 Jun 2025 11:36:18 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13637
+ <poky@lists.yoctoproject.org>; Tue, 03 Jun 2025 11:39:38 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13638
 
-From: Alexander Kanavin <alex@linutronix.de>
+This set needs to go to oe-core, pls ignore.
 
-This has been the default in poky's local.conf template for
-a long time, but it's not enabled directly in poky distro.
-To allow better sstate reuse and a better user experience
-on a typical laptop (qemu will pop up a graphical window directly),
-let's add this fragment and enable it in official bitbake-setup
-configurations.
+(but the 3-patch set I sent just prior is indeed for poky).
 
-Signed-off-by: Alexander Kanavin <alex@linutronix.de>
----
- meta/conf/fragments/qemu/enable-native-sdl.conf | 8 ++++++++
- 1 file changed, 8 insertions(+)
- create mode 100644 meta/conf/fragments/qemu/enable-native-sdl.conf
+Alex
 
-diff --git a/meta/conf/fragments/qemu/enable-native-sdl.conf b/meta/conf/fragments/qemu/enable-native-sdl.conf
-new file mode 100644
-index 00000000000..21c1298171e
---- /dev/null
-+++ b/meta/conf/fragments/qemu/enable-native-sdl.conf
-@@ -0,0 +1,8 @@
-+BB_CONF_FRAGMENT_SUMMARY = "Enable SDL support for direct graphical output on the build host."
-+BB_CONF_FRAGMENT_DESCRIPTION = "By default qemu is built with a internal VNC server \
-+support. To see graphical output from the guest system, one can use a VNC client to \
-+connect to it. This fragment enables Simple Directmedia Layer support, which allows \
-+seeing the graphical output from guest directly in a X/Wayland session on the build host machine. \
-+"
-+
-+PACKAGECONFIG:append:pn-qemu-system-native = " sdl"
--- 
-2.39.5
-
+On Tue, 3 Jun 2025 at 13:36, Alexander Kanavin <alex.kanavin@gmail.com> wrote:
+>
+> From: Alexander Kanavin <alex@linutronix.de>
+>
+> The default oe-core/poky templates have a number of settings
+> (such as distro and machine) and are thus unsuitable for
+> building up configurations from fragments. This adds a template
+> with an empty local.conf, so that it can be used as the starting
+> point for fragment-driven configuration.
+>
+> There will also be a blank template in poky; the difference is
+> that this one includes only oe-core and the poky one
+> adds poky layers.
+>
+> Signed-off-by: Alexander Kanavin <alex@linutronix.de>
+> ---
+>  .../conf/templates/blank/bblayers.conf.sample | 10 ++++++++++
+>  meta/conf/templates/blank/conf-notes.txt      | 19 +++++++++++++++++++
+>  meta/conf/templates/blank/conf-summary.txt    |  1 +
+>  meta/conf/templates/blank/local.conf.sample   | 10 ++++++++++
+>  4 files changed, 40 insertions(+)
+>  create mode 100644 meta/conf/templates/blank/bblayers.conf.sample
+>  create mode 100644 meta/conf/templates/blank/conf-notes.txt
+>  create mode 100644 meta/conf/templates/blank/conf-summary.txt
+>  create mode 100644 meta/conf/templates/blank/local.conf.sample
+>
+> diff --git a/meta/conf/templates/blank/bblayers.conf.sample b/meta/conf/templates/blank/bblayers.conf.sample
+> new file mode 100644
+> index 00000000000..c985f4f2420
+> --- /dev/null
+> +++ b/meta/conf/templates/blank/bblayers.conf.sample
+> @@ -0,0 +1,10 @@
+> +# LAYER_CONF_VERSION is increased each time build/conf/bblayers.conf
+> +# changes incompatibly
+> +LCONF_VERSION = "7"
+> +
+> +BBPATH = "${TOPDIR}"
+> +BBFILES ?= ""
+> +
+> +BBLAYERS ?= " \
+> +  ##OEROOT##/meta \
+> +  "
+> diff --git a/meta/conf/templates/blank/conf-notes.txt b/meta/conf/templates/blank/conf-notes.txt
+> new file mode 100644
+> index 00000000000..cfd1f1977bf
+> --- /dev/null
+> +++ b/meta/conf/templates/blank/conf-notes.txt
+> @@ -0,0 +1,19 @@
+> +
+> +### Shell environment set up for builds. ###
+> +
+> +You can now run 'bitbake <target>'
+> +
+> +Common targets are:
+> +    core-image-minimal
+> +    core-image-full-cmdline
+> +    core-image-sato
+> +    core-image-weston
+> +    meta-toolchain
+> +    meta-ide-support
+> +
+> +You can also run generated qemu images with a command like 'runqemu qemux86-64'.
+> +
+> +Other commonly useful commands are:
+> + - 'devtool' and 'recipetool' handle common recipe tasks
+> + - 'bitbake-layers' handles common layer tasks
+> + - 'oe-pkgdata-util' handles common target package tasks
+> diff --git a/meta/conf/templates/blank/conf-summary.txt b/meta/conf/templates/blank/conf-summary.txt
+> new file mode 100644
+> index 00000000000..7528c297947
+> --- /dev/null
+> +++ b/meta/conf/templates/blank/conf-summary.txt
+> @@ -0,0 +1 @@
+> +This configuration is empty and is intended as a starting point for adding configuration fragments.
+> diff --git a/meta/conf/templates/blank/local.conf.sample b/meta/conf/templates/blank/local.conf.sample
+> new file mode 100644
+> index 00000000000..41eea8506df
+> --- /dev/null
+> +++ b/meta/conf/templates/blank/local.conf.sample
+> @@ -0,0 +1,10 @@
+> +#
+> +# This file is intended for local configuration tweaks. It is intentionally
+> +# set up empty, so that configuration can be constructed from fragments
+> +# using bitbake-config-build tool and by setting MACHINE and DISTRO here.
+> +#
+> +# If you would like to publish this file (for example as a bitbake
+> +# configuration template), it is recommended to create fragments
+> +# from changes made here; the only settings that can remain are
+> +# MACHINE and DISTRO.
+> +#
+> --
+> 2.39.5
+>
 
