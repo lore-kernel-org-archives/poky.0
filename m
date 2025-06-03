@@ -2,129 +2,109 @@ Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50CF3C5AD49
-	for <webhook@archiver.kernel.org>; Tue,  3 Jun 2025 11:35:48 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
- by mx.groups.io with SMTP id smtpd.web11.9047.1748950544121040364
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32F82C5AE59
+	for <webhook@archiver.kernel.org>; Tue,  3 Jun 2025 11:36:08 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+ by mx.groups.io with SMTP id smtpd.web10.8966.1748950567487540794
  for <poky@lists.yoctoproject.org>;
- Tue, 03 Jun 2025 04:35:44 -0700
+ Tue, 03 Jun 2025 04:36:07 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=gbTDaiE4;
- spf=pass (domain: gmail.com, ip: 209.85.128.47, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-450cd6b511cso33361555e9.2
-        for <poky@lists.yoctoproject.org>; Tue, 03 Jun 2025 04:35:43 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=Y0mi+Ges;
+ spf=pass (domain: gmail.com, ip: 209.85.128.43, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-450cb2ddd46so34770545e9.2
+        for <poky@lists.yoctoproject.org>; Tue, 03 Jun 2025 04:36:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748950542; x=1749555342; darn=lists.yoctoproject.org;
+        d=gmail.com; s=20230601; t=1748950566; x=1749555366; darn=lists.yoctoproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hpca4nPeorJFfYVK3un01I+3kusD0S9xCz3ZzXrg9C8=;
-        b=gbTDaiE4zhHC8biliGEviMPNRM9CzgV4mbXxw3Y7uyAd84FsIXkUjtT5kq+NK9BxNL
-         xfBqqhikkB2pO7cwVleYc3eu3qjoHnrUZS7nLa9O2Klm0qzz753nXxjOouufGHnJjRrT
-         2yvmPHffmfUpOb9+ZPS4IAVfQg7Nu6dcpoix8wQK942XyUensEtZ8qMmbqFdctFjM7ri
-         p/q7aYnuZTPDPFtQmlbiVnRbw9C36DT2fpDZ4RstfDbF+WKJc9Nj5j9KKLB4vU3U8a6c
-         mthOoW8ZJAQNYpYfLdML71II5u1uN5KeTu8CtZQMTzgC089076N4AGku18TSE+XGcaLd
-         6TDg==
+        bh=AcnvmtLmZd9g3NpYml9dxv+NmVaZGtpKzcf9znh1jfw=;
+        b=Y0mi+Ges9IcgVSUj/9a9nWN8Wt70VLaxSlFkphzT4bbhud7Zbw6J+CtcdDSVLMGQT9
+         fVjAFqps8eARQ3nuBhtq+cLA2+MybroZenoD0g3CZTK+vXbMi6CMwbDEN9clA87lig6n
+         gRf3ENPoQ4D0tYt1g6p6y7cyvSIAIzO+1OFj0ORjRjytDGiTspAlMgI/xzOr1VWsG0U2
+         LrwSfXxuTZjaiGeVz/0q3A4UDbCYwyuFppLcey9D1GO5r1LpQJLL0IYW2rybwhmkOGJH
+         /+fMUUIWWgDGIIeTNbkPRmGJGrqAlOIJsXhx+7677PUe7Z6/qMTHJdjZxBZZuIBQX6o7
+         LfNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748950542; x=1749555342;
+        d=1e100.net; s=20230601; t=1748950566; x=1749555366;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=hpca4nPeorJFfYVK3un01I+3kusD0S9xCz3ZzXrg9C8=;
-        b=hlGKHdP9CWgyyObwYgV5XeayHcHCH/UAW4FKBWclH+EUw+vRCaorSEh8xnbkwsD4od
-         bNHX2I/7Ob6oDokvmm9uTjAnttualW9S9Ol0facvHJZsu7yWvE0NjnbilQOb+sFSK1sf
-         2OJn9wpR24J7jrs9xPAQLfoRlvd+MsPj7WkfL9HJ5mTkVwE3sL+Rnw76N9RychTbm4fk
-         13asU6d1OlomLfeg3NRmpY0uecjfNRnHQ2LTO0hvtHfEnyCVO/F314BCEGSmE79EoyWS
-         xTQAGPHtsiMtCbAuY179FMrl34DFOOurSwy9xjDIWo86MfVQozDO0bB8ONmjl5vVzlOi
-         n13A==
-X-Gm-Message-State: AOJu0Yyc/il5myBb4Qm2LEiKPxbFMgUbAqZfSygM2EicNqO1TccuxIt7
-	1SMXe5Y3F2ynfgzOL4AtkmRxwFKk6Zy0hZrOBWB5j1Mdo7EPDH8qi2YIe2yGqw==
-X-Gm-Gg: ASbGncs98qMfmAvIUYxjM0gp0qn87FUibYEGTGHaW7GF+2lPkBYyf2103XOojYFXpV+
-	V/+X03IelqyvMU92TlyOXoCOH9S0Yx2sqhkwUDtKpX5od70EYMYfQE3BDBX1z9Hsm6y4xcshrie
-	QrqYEwbSC+7NV4WUiBUrsKlquPesU8NQoWYVOeC1g9FJg9p++Ks9qNM6UF629X95Pml+e5fNXvX
-	K/mCoBSGpCFvldExKVTzaMQpYZCHBun/td9B195KqSiRDC7Vh/hqzWK747r62pyilYAP2OQRIin
-	6Jsnt2ja+CDZb1WLNDwtQZllDhPAYeD8W2s6R9rcd0AA45cmCY+j24oAFtjPXh3oF0AwcijVq60
-	qa0+AJJgn/v7p
-X-Google-Smtp-Source: AGHT+IHDaDrkNo3BaI9G3uIBO6vdAGt9qystcocfQ+1uPgp9DHqYqdT/+5FZI1ov70GnFsFMxjDQzQ==
-X-Received: by 2002:a05:600c:8119:b0:450:cc79:676 with SMTP id 5b1f17b1804b1-450d6544787mr138163895e9.20.1748950542228;
-        Tue, 03 Jun 2025 04:35:42 -0700 (PDT)
+        bh=AcnvmtLmZd9g3NpYml9dxv+NmVaZGtpKzcf9znh1jfw=;
+        b=FfjqpRQ1d2wwTE1XJWRGhY8u3+wLyUvqPrQecEGb1D+Z217662yjZf+gXkX7URzI8v
+         maA9RmJ3Gdio57qClu6EC7457ZBrMOORg+1TfW7ekxplkt9XmRNY0i1ZuwFOt/HIdIGY
+         VFh6QcjO5PQECCC2fcTzomvwgEE5QBZqdYlOdjglJK96k+BDZvWpLc4MNbGe7xQO/0ye
+         Q+ultVZjFmvI/aIkR2r2QcLMkYwuhl/ew+yH+aWgRHY5c6JrhVSTxovxD+2AVkQ/80PW
+         3skUiKCTACn3JHIfyha0rmaTnpzqVRgDfNdj3ckhXKUI4PFKtfFhTTcGrfi75a9rEL+r
+         ZVCA==
+X-Gm-Message-State: AOJu0YzEJ16rU1i+6RCJ7TPs4fr/wuBQ/70TcJ4zmo2Gk2GcoywacS3D
+	lm7JJOC5vjIbc8di7sFlyMOzumVii7Lnk7MjNG/wNeqXhnoJEqW22v7J/Rsk4g==
+X-Gm-Gg: ASbGncvbW+DdfQuYcQTJnmhiprrM3IGvzlpmzeTmrCQ/Yn8150Mc3aN2GWQIfZKpaEN
+	242QuBPj+gTNUjg0YNr0R+8SEFDa6FsOaEYjkwDONurbPbR+cqX4+9D6jB/DV/DHmperzzC1FFg
+	BpllrtHbOcI7xhRxjXgR4hKlAEXbyWLA2bhU3hGkjLndvw8STc3aFKRvkuz8zMOSB1a58iHCASU
+	ytMRA8Ppa2yO6Zy8VkHsqJ0QDCgbnvCxRw4PMNziBw6DwmD4eRIq3++AvjlwyBLXVN3uMMtSAzv
+	meSoQ7tGSSxw2axJYrgRRjl1GUpGoEocF1z/f/j8OtpyXlIc8dDFqR7FGdvFADZc1yeyDd1Wsdj
+	UJl5n0Zlw8xyW
+X-Google-Smtp-Source: AGHT+IGMqk0UhzKLByoNbgkDdwJSsz95q9EQWVSF6UicTJ/aZU8CRHicAWTJBXA1eSVVrjqXpxm+NQ==
+X-Received: by 2002:a05:600c:a342:b0:43d:5ec:b2f4 with SMTP id 5b1f17b1804b1-450d64d638emr174030385e9.10.1748950565647;
+        Tue, 03 Jun 2025 04:36:05 -0700 (PDT)
 Received: from Zen2.lab.linutronix.de. (drugstore.linutronix.de. [80.153.143.164])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-450d8000e3esm157818315e9.22.2025.06.03.04.35.41
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-451e58c348asm16707585e9.3.2025.06.03.04.36.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Jun 2025 04:35:41 -0700 (PDT)
+        Tue, 03 Jun 2025 04:36:05 -0700 (PDT)
 From: Alexander Kanavin <alex.kanavin@gmail.com>
 To: poky@lists.yoctoproject.org
 Cc: Alexander Kanavin <alex@linutronix.de>
-Subject: [PATCH 3/3] meta-poky: add fragments for poky/poky-altcfg/poky-tiny distros
-Date: Tue,  3 Jun 2025 13:35:34 +0200
-Message-Id: <20250603113534.3103020-3-alex.kanavin@gmail.com>
+Subject: [PATCH 2/4] conf/fragments: add fragments for qemux86-64 and qemuarm64
+Date: Tue,  3 Jun 2025 13:35:56 +0200
+Message-Id: <20250603113558.3104618-2-alex.kanavin@gmail.com>
 X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250603113534.3103020-1-alex.kanavin@gmail.com>
-References: <20250603113534.3103020-1-alex.kanavin@gmail.com>
+In-Reply-To: <20250603113558.3104618-1-alex.kanavin@gmail.com>
+References: <20250603113558.3104618-1-alex.kanavin@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 03 Jun 2025 11:35:48 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13633
+ <poky@lists.yoctoproject.org>; Tue, 03 Jun 2025 11:36:08 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13635
 
 From: Alexander Kanavin <alex@linutronix.de>
 
-This is a building block for bitbake-setup official yocto configurations.
+These will be used by official bitbake-setup configurations,
+and so let's start with them :) Plenty more fragments can
+be added over time.
 
 Signed-off-by: Alexander Kanavin <alex@linutronix.de>
 ---
- meta-poky/conf/fragments/distros/poky-altcfg.conf |  9 +++++++++
- meta-poky/conf/fragments/distros/poky-tiny.conf   | 10 ++++++++++
- meta-poky/conf/fragments/distros/poky.conf        |  5 +++++
- 3 files changed, 24 insertions(+)
- create mode 100644 meta-poky/conf/fragments/distros/poky-altcfg.conf
- create mode 100644 meta-poky/conf/fragments/distros/poky-tiny.conf
- create mode 100644 meta-poky/conf/fragments/distros/poky.conf
+ meta/conf/fragments/machines/qemuarm64.conf  | 5 +++++
+ meta/conf/fragments/machines/qemux86-64.conf | 5 +++++
+ 2 files changed, 10 insertions(+)
+ create mode 100644 meta/conf/fragments/machines/qemuarm64.conf
+ create mode 100644 meta/conf/fragments/machines/qemux86-64.conf
 
-diff --git a/meta-poky/conf/fragments/distros/poky-altcfg.conf b/meta-poky/conf/fragments/distros/poky-altcfg.conf
+diff --git a/meta/conf/fragments/machines/qemuarm64.conf b/meta/conf/fragments/machines/qemuarm64.conf
 new file mode 100644
-index 00000000000..f89decb8b75
+index 00000000000..0fc164541d5
 --- /dev/null
-+++ b/meta-poky/conf/fragments/distros/poky-altcfg.conf
-@@ -0,0 +1,9 @@
-+BB_CONF_FRAGMENT_SUMMARY = "Use Yocto project's reference and testing distribution 'poky', with alternative configuration."
-+BB_CONF_FRAGMENT_DESCRIPTION = "Poky is a distribution defined by Yocto project for reference and testing purposes. It can be used as a starting point for product development work \
-+but it is recommended to create a separate distribution for shipping products. \
-+\
-+This selects 'poky-altcfg', an alternative configuration that is mostly same as poky, but makes a number of changes: \
-+such as systemd as init manager, and an older LTS kernel (when available). Check meta-poky/conf/distro/poky-altcfg.conf for details. \
-+"
-+
-+DISTRO ?= "poky-altcfg"
-diff --git a/meta-poky/conf/fragments/distros/poky-tiny.conf b/meta-poky/conf/fragments/distros/poky-tiny.conf
-new file mode 100644
-index 00000000000..fae7621fe77
---- /dev/null
-+++ b/meta-poky/conf/fragments/distros/poky-tiny.conf
-@@ -0,0 +1,10 @@
-+BB_CONF_FRAGMENT_SUMMARY = "Use Yocto project's reference and testing distribution 'poky', with tiny systems configuration."
-+BB_CONF_FRAGMENT_DESCRIPTION = "Poky is a distribution defined by Yocto project for reference and testing purposes. It can be used as a starting point for product development work \
-+but it is recommended to create a separate distribution for shipping products. \
-+\
-+This selects 'poky-tiny', an alternative configuration that is intended to define a tiny Linux system comprised the kernel and busybox. \
-+Poky-tiny sets basic distribution policy to ensure a usable system while still \
-+keeping the rootfs and kernel image as small as possible. \
-+"
-+
-+DISTRO ?= "poky-tiny"
-diff --git a/meta-poky/conf/fragments/distros/poky.conf b/meta-poky/conf/fragments/distros/poky.conf
-new file mode 100644
-index 00000000000..8b9d7226a2f
---- /dev/null
-+++ b/meta-poky/conf/fragments/distros/poky.conf
++++ b/meta/conf/fragments/machines/qemuarm64.conf
 @@ -0,0 +1,5 @@
-+BB_CONF_FRAGMENT_SUMMARY = "Use Yocto project's reference and testing distribution 'poky'."
-+BB_CONF_FRAGMENT_DESCRIPTION = "Poky is a distribution defined by Yocto project for reference and testing purposes. It can be used as a starting point for product development work \
-+but it is recommended to create a separate distribution for shipping products."
++BB_CONF_FRAGMENT_SUMMARY = "Use qemuarm64 as a target MACHINE, suitable for running in QEMU system emulator."
++BB_CONF_FRAGMENT_DESCRIPTION = "Select qemuarm64 as the target machine. This is the best option for running the target system inside QEMU emulator on arm64 build hosts, \
++as it allows near-native performance with kvm acceleration. Also useful for testing arm64 specific assembly code or compiler output."
 +
-+DISTRO ?= "poky"
++MACHINE ?= "qemuarm64"
+diff --git a/meta/conf/fragments/machines/qemux86-64.conf b/meta/conf/fragments/machines/qemux86-64.conf
+new file mode 100644
+index 00000000000..0fce37c4e2e
+--- /dev/null
++++ b/meta/conf/fragments/machines/qemux86-64.conf
+@@ -0,0 +1,5 @@
++BB_CONF_FRAGMENT_SUMMARY = "Use qemux86-64 as a target MACHINE, suitable for running in QEMU system emulator."
++BB_CONF_FRAGMENT_DESCRIPTION = "Select qemux86-64 as the target machine. This is the best option for running the target system inside QEMU emulator on x86-64 build hosts, \
++as it allows near-native performance with kvm acceleration. Also useful for testing x86-64 specific assembly code or compiler output."
++
++MACHINE ?= "qemux86-64"
 -- 
 2.39.5
 
