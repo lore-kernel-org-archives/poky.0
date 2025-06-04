@@ -1,121 +1,189 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E1BDC5B543
-	for <webhook@archiver.kernel.org>; Wed,  4 Jun 2025 09:05:50 +0000 (UTC)
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
- by mx.groups.io with SMTP id smtpd.web11.12120.1749027949182962476
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7ABAC5B543
+	for <webhook@archiver.kernel.org>; Wed,  4 Jun 2025 09:47:50 +0000 (UTC)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+ by mx.groups.io with SMTP id smtpd.web10.12693.1749030460374947851
  for <poky@lists.yoctoproject.org>;
- Wed, 04 Jun 2025 02:05:49 -0700
+ Wed, 04 Jun 2025 02:47:40 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=E7OmH9rL;
- spf=pass (domain: gmail.com, ip: 209.85.219.54, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-6faf66905adso3632816d6.2
-        for <poky@lists.yoctoproject.org>; Wed, 04 Jun 2025 02:05:49 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=dfJmF14p;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.52, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-3a361b8a66cso4027166f8f.2
+        for <poky@lists.yoctoproject.org>; Wed, 04 Jun 2025 02:47:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749027948; x=1749632748; darn=lists.yoctoproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=qeJqEXK3RreRpjGD2vtE13nbcRU/NgtyFNUGbi+uo+M=;
-        b=E7OmH9rLSRhnBfElyqnTwc7Q9o7yDxd1tLg1gwyTZBnZ4CVqbn+xj3uc+FgzAtR/1p
-         jd5cL8mmFuNUUm4Sfu145G4v9L5MuUGkdabDfGhqQFIvA8DTSFNzLKXMCN+IpWQsgXU0
-         uJaq+Lm3Ikf/E63GgUItu6ua/wOYP25jCzXEebNCDu4EXVlvXDu5hIqxL4jj8UirxqUw
-         swgIZyS4zRcjg/kF4BGIKV/P2XYm45YH8G9G5rYX+tx21qFdP/1otZX/06aZ+b7dkHpM
-         UdzG4qnwxq9iB1S78KUcFunpYVHvizyCmhOBoR8zNW2jyMtpNbzwkRKCO53PchxhhRik
-         RuqA==
+        d=linuxfoundation.org; s=google; t=1749030459; x=1749635259; darn=lists.yoctoproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=EfRDMoPTboRzYt25P8OqUfywZ8L9uKB4+nRz4e+GNXE=;
+        b=dfJmF14pnV8guxwWePRGLeEnpVfu00lxgRssbpFOGdfy4IobHJmYm16zswNhpmNIyU
+         m4Mn2DgESxUFBnCC6ZY9RMbTyM5q5oVJHbn88XjaW/D6DNdEd9vonm1yJptAM66phyd0
+         NO0pEHsi4R1R+dOcwcWvgvuREVUrTyPiZHgcA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749027948; x=1749632748;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qeJqEXK3RreRpjGD2vtE13nbcRU/NgtyFNUGbi+uo+M=;
-        b=RjrSK2Own4AKzEmhOI2OX0kBH6VY2FJv6KUXELQrVTf9AMEEkCuRARiLO2/IdMkrig
-         Q+6KUOPjVEI5siycAKMLYdBV9fIV9Ks+ydlXjIpdQTx5n2ndVf8f2Ja8tJR+gBPgT6Bj
-         +6Z1SupHSJJannZZ/wSZ0jLcHvEiTbH3mFE0rOpijUhwIYN/Mf8iha00+YHyMWcZ8pMO
-         DQp4ZIliWmvJJCsp9FrF/AQy20pp/3DAp6AKVZHCcDsP3aY8v8J4KUzTmlE3aNMxuVRa
-         Fal2ve3DwSriOTz+ttmcSYkyjZeoyiD9/bcmxZCy6EgvzAJSYzL0ef9Kvl0ohjH7Ce4V
-         1bBQ==
-X-Gm-Message-State: AOJu0YyL6vYAbEMKEwhV2Qn9CDyIfwiJqcZEcfzKmzJ79io7Bh10EAk1
-	OX26NtU36EE3tLqQzFdioeHmJ/yu1OU/hxMHESnvjIVA5Hq53ljSUBo7NB+flPphUPXFKEaS5IF
-	0s1QrLbZolrXRTjRzHF054pj+bvxYFaI=
-X-Gm-Gg: ASbGncs7BpdU3bI9fRBSc+w2YcK8Zff1xOohHUoub5SKVsF23LeGDrLqrrACmgJpfEY
-	miRqQG1TdWndEKER+3YbufXo6+riO6SAqA+tQMzqQa9GMPBU+YjzxsU5qM5m6EA+brZbm3BWkcp
-	s4JnTr/vBnKGWpgC7EODvERMDjJev5yDUaj3Qp6kOOkSkpZjM31d7yfiIXURQjmc0jK9E=
-X-Google-Smtp-Source: AGHT+IFuV61X9a1sXedzQBkYSU8FXEnyeNbXZnmmUhfuckZrnaS/HXFkLUuBu3ZS2+ECYhQ87LWkpdu5KN2XQ8Zd6BE=
-X-Received: by 2002:ad4:5bce:0:b0:6fa:ce87:230c with SMTP id
- 6a1803df08f44-6faf6fa6e7amr30178086d6.25.1749027948080; Wed, 04 Jun 2025
- 02:05:48 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250603113558.3104618-1-alex.kanavin@gmail.com>
- <20250603113558.3104618-2-alex.kanavin@gmail.com> <b8f9ba8524090623e0e13ef36724839c140f99a6.camel@linuxfoundation.org>
- <CANNYZj9wRaL3Biwhdjn7B0wW3v61ieoEMCO6MFH15n_aLvtDAg@mail.gmail.com> <e94887f831142516ccf60e3f477155b5b6e5f92d.camel@linuxfoundation.org>
-In-Reply-To: <e94887f831142516ccf60e3f477155b5b6e5f92d.camel@linuxfoundation.org>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Wed, 4 Jun 2025 11:05:37 +0200
-X-Gm-Features: AX0GCFtuMpHDmBxD5Wus56oJYDGLztW7g8jZMV0liNyOQ2EoG3pFBlFwCpeNC-0
-Message-ID: <CANNYZj-jTjD281=McMDzQtABizNqZ5csbbE9aiJZLRA2U6BX5g@mail.gmail.com>
+        d=1e100.net; s=20230601; t=1749030459; x=1749635259;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=EfRDMoPTboRzYt25P8OqUfywZ8L9uKB4+nRz4e+GNXE=;
+        b=qXDACzo0lvM1eoD/byA84jSU+zbNsbmF+sSrks8yMfkibB7xYe9NcNlln7M2cD6mkz
+         QUGaLLCECHjzZheDk2vVj9wiQ72ZfaYJzdudIXqC/zPzko1jNHQdMpPl0Bk6rhxjTNiC
+         D3IYQxkM3EV26ubdJWw3dQCKqwTWs2dEYSDV2Oh9gpBXWeyMKC2JSOlOeyT3/WXmspB0
+         9FnKN2Hrgs18W11odHewDAilF+8cloLfXad+vbQtT/9miDfEWBEokD8KynJmUpQe+Oyz
+         bXcrw6njfHeYQo0PMT+Xzrlsg8bPDRIGv5k3TwyGjaFXEIdaXcpKJffzCbHrcK3E6Zuy
+         7GeQ==
+X-Gm-Message-State: AOJu0YxVASVZgOnR+u0PBuZdma/BP2p55IhA213ww91UmI7V3n2M6Kp2
+	oBlfFAf0NVSFGrd5qZBDe2rgXAPdhgBfkoNpG/LdhGPYb1pS5RAny1NJAYzhwgpNJd8=
+X-Gm-Gg: ASbGncu/RtEjUfI4c1II9TFTWAB4O1rZqaNKP0CSpJqE4XKdx6c6W5IRW19MtetiwjI
+	myEMIT0FnL9+0pvjGIUGm1GHjyooimT3D+AJO/we2NGrgaWNuFG6KOhuknjnBCloB6f/QrjRvqO
+	ijZoHmmTFiUIK4BLJWPcZ1v7FTPwHNqMPaZl6pUkm/ggZp3m9+Dw7gYd5bblljtNN3B0liMGt5j
+	D5Nes4PuYn8iBylXgo2ujpSEAyGU6Ldv1+Apt+tp8SwQeQEb95Sxe6eFk7UysDs0ZLYIm+Nc/qX
+	iNqkEcCHtPggxCAj8u40wqJgwkiqfShwTetj43Ur5FCgHQjZ3XoeZJh6jZIAgUNn2wMuePFKGaf
+	GmIecvKUhU97IrK9W/NoYLk6jEQdxeFvX4HHuxV/l
+X-Google-Smtp-Source: AGHT+IFsiWrVGb+2t0T0nH43CAA1SFH8D0PmjVynI0L8sIMxgJcYEhqdl5mdbocZq1OTKWYnCgalDg==
+X-Received: by 2002:a05:6000:18a5:b0:3a4:f6ba:51da with SMTP id ffacd0b85a97d-3a51d922d6cmr1873919f8f.15.1749030458765;
+        Wed, 04 Jun 2025 02:47:38 -0700 (PDT)
+Received: from ?IPv6:2001:8b0:aba:5f3c:204c:fb2e:c462:29df? ([2001:8b0:aba:5f3c:204c:fb2e:c462:29df])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3a4efe73eebsm20898460f8f.44.2025.06.04.02.47.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Jun 2025 02:47:37 -0700 (PDT)
+Message-ID: <9a662df92ce0918c77ec8a66bc39a2191cd942d6.camel@linuxfoundation.org>
 Subject: Re: [poky] [PATCH 2/4] conf/fragments: add fragments for qemux86-64
  and qemuarm64
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Alexander Kanavin <alex.kanavin@gmail.com>
 Cc: poky@lists.yoctoproject.org, Alexander Kanavin <alex@linutronix.de>
+Date: Wed, 04 Jun 2025 10:47:37 +0100
+In-Reply-To: <CANNYZj-jTjD281=McMDzQtABizNqZ5csbbE9aiJZLRA2U6BX5g@mail.gmail.com>
+References: <20250603113558.3104618-1-alex.kanavin@gmail.com>
+	 <20250603113558.3104618-2-alex.kanavin@gmail.com>
+	 <b8f9ba8524090623e0e13ef36724839c140f99a6.camel@linuxfoundation.org>
+	 <CANNYZj9wRaL3Biwhdjn7B0wW3v61ieoEMCO6MFH15n_aLvtDAg@mail.gmail.com>
+	 <e94887f831142516ccf60e3f477155b5b6e5f92d.camel@linuxfoundation.org>
+	 <CANNYZj-jTjD281=McMDzQtABizNqZ5csbbE9aiJZLRA2U6BX5g@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.0-1 
+MIME-Version: 1.0
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 04 Jun 2025 09:05:50 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13645
+ <poky@lists.yoctoproject.org>; Wed, 04 Jun 2025 09:47:50 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13646
 
-On Wed, 4 Jun 2025 at 10:48, Richard Purdie
-<richard.purdie@linuxfoundation.org> wrote:
-> > I think bitbake-config-build should be extended to have
-> > 'list-machines/set-machine/list-distros/set-distro', and then
-> > bitbake-setup would call out to that, like it already does for
-> > fragments. There's already 'show-machines' in bitbake-layers, which
-> > should be renamed and moved, so that bitbake-layers is less
-> > over-stuffed with sub-commands.
->
-> Maybe. I do like the idea of being able to express a configuration with
-> just a list of fragments so a magic mapping of machine/XXX and
-> distro/XXX does still have some appeal. We could code something:
->
-> BBCONFIG_FRAGMENT_VARIABLE_MAPS = "machine/:MACHINE and distro/:DISTRO"
->
-> to make the code generic?
+On Wed, 2025-06-04 at 11:05 +0200, Alexander Kanavin wrote:
+> On Wed, 4 Jun 2025 at 10:48, Richard Purdie
+> <richard.purdie@linuxfoundation.org> wrote:
+> > > I think bitbake-config-build should be extended to have
+> > > 'list-machines/set-machine/list-distros/set-distro', and then
+> > > bitbake-setup would call out to that, like it already does for
+> > > fragments. There's already 'show-machines' in bitbake-layers, which
+> > > should be renamed and moved, so that bitbake-layers is less
+> > > over-stuffed with sub-commands.
+> >=20
+> > Maybe. I do like the idea of being able to express a configuration with
+> > just a list of fragments so a magic mapping of machine/XXX and
+> > distro/XXX does still have some appeal. We could code something:
+> >=20
+> > BBCONFIG_FRAGMENT_VARIABLE_MAPS =3D "machine/:MACHINE and distro/:DISTR=
+O"
+> >=20
+> > to make the code generic?
+>=20
+> My idea was to do away with fragments for machine/distro, and have
+> 'bitbake-config-build set-machine XXX' write 'MACHINE =3D 'XXX' into
+> conf/auto.conf.
 
-My idea was to do away with fragments for machine/distro, and have
-'bitbake-config-build set-machine XXX' write 'MACHINE = 'XXX' into
-conf/auto.conf.
+Let me just throw some ideas around here. I'm not saying any are
+right/wrong, this is in the spirit of sharing ideas.
 
-And then bitbake-setup config files would have a particular syntax for
-that, e.g. replace the current:
+Moving the "machine" commands into one standard place would make sense
+so I do like that aspect of what you're suggesting.
 
-            "qemux86-64-poky": {
-                "description": "Poky reference distro build for qemux86-64",
-                "oe-template": "poky-blank",
-                "oe-fragments":
-["core/machines/qemux86-64","yocto/distros/poky","core/yocto/sstate-mirror-cdn","core/qemu/enable-native-sdl"],
-                "targets": ["bitbake core-image-minimal
-core-image-full-cmdline core-image-sato-sdk core-image-weston"]
-            },
+I have some caution about teaching "bitbake" commands machine/distro
+specific as it breaks layers of separation. Note that bitbake-layers
+list-machines is part of OE-Core, not bitbake.
 
-with
+I also have an idea in the back of my mind that being able to reproduce
+common setups with a list of fragments would be a nice idea. If you
+have to say:
+
+set-machine XXX
+set-distro YYY
+set-features A B C
+
+it isn't a very succinct explanation to people. If you can say:
+
+set-features A B C machine/XXX distro/YYY
+
+then it becomes a bit of a nicer thing for someone else to copy. This
+is all generic in that someone else can add their own fragments. The
+autobuilder can also then simplify configs too. Someone could add an
+extra variable mapping for an extra level of config, say
+toolchain/clang to set TOOLCHAIN =3D "clang", not that I'm suggesting
+that specifically but you get the idea.
+
+> And then bitbake-setup config files would have a particular syntax for
+> that, e.g. replace the current:
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "qemux=
+86-64-poky": {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "description": "Poky reference distro build for qemux86-=
+64",
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "oe-template": "poky-blank",
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "oe-fragments":
+> ["core/machines/qemux86-64","yocto/distros/poky","core/yocto/sstate-mirro=
+r-cdn","core/qemu/enable-native-sdl"],
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "targets": ["bitbake core-image-minimal
+> core-image-full-cmdline core-image-sato-sdk core-image-weston"]
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 },
+>=20
+> with
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "qemux86-64-poky":=
+ {
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "description": "Poky reference distro build for qemux86-=
+64",
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "oe-template": "poky-blank",
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "oe-distro": "poky",
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "oe-machine": "qemux86-64",
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "oe-fragments":
+> ["core/yocto/sstate-mirror-cdn","core/qemu/enable-native-sdl"],
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "targets": ["bitbake core-image-minimal
+> core-image-full-cmdline core-image-sato-sdk core-image-weston"]
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 },
+>=20
+> I don't have a strong opinion either way, perhaps it's best to 'upload
+> discussion data in brain and process', while fixing further do_unpack
+> rework fails :) If you can respond with further points I'd appreciate
+> that! (so I better see the forest)
+
+playing devils advocate:
 
           "qemux86-64-poky": {
-                "description": "Poky reference distro build for qemux86-64",
+                "description": "Poky reference distro build for qemux86-64"=
+,
                 "oe-template": "poky-blank",
-                "oe-distro": "poky",
-                "oe-machine": "qemux86-64",
-                "oe-fragments":
-["core/yocto/sstate-mirror-cdn","core/qemu/enable-native-sdl"],
-                "targets": ["bitbake core-image-minimal
-core-image-full-cmdline core-image-sato-sdk core-image-weston"]
+                "oe-fragments": ["core/yocto/sstate-mirror-cdn","core/qemu/=
+enable-native-sdl", "machine/qemux86-64 distro/poky],
+                "targets": ["bitbake core-image-minimal core-image-full-cmd=
+line core-image-sato-sdk core-image-weston"]
             },
 
-I don't have a strong opinion either way, perhaps it's best to 'upload
-discussion data in brain and process', while fixing further do_unpack
-rework fails :) If you can respond with further points I'd appreciate
-that! (so I better see the forest)
+Cheers,
 
-Alex
+Richard
+
 
