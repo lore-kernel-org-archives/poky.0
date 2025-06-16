@@ -2,109 +2,92 @@ Return-Path: <alexander.sowarka@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03B38C71136
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 049EBC7115A
 	for <webhook@archiver.kernel.org>; Mon, 16 Jun 2025 18:46:23 +0000 (UTC)
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
- by mx.groups.io with SMTP id smtpd.web10.4964.1750099577298066572
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+ by mx.groups.io with SMTP id smtpd.web11.4884.1750099573456187459
  for <poky@lists.yoctoproject.org>;
- Mon, 16 Jun 2025 11:46:17 -0700
+ Mon, 16 Jun 2025 11:46:13 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=oqpmLWSu;
- spf=pass (domain: linaro.org, ip: 209.85.214.172, mailfrom: alexander.sowarka@linaro.org)
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-235ea292956so43793525ad.1
-        for <poky@lists.yoctoproject.org>; Mon, 16 Jun 2025 11:46:17 -0700 (PDT)
+ dkim=pass header.i=@linaro.org header.s=google header.b=zdP9u/76;
+ spf=pass (domain: linaro.org, ip: 209.85.214.174, mailfrom: alexander.sowarka@linaro.org)
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-236470b2dceso41399155ad.0
+        for <poky@lists.yoctoproject.org>; Mon, 16 Jun 2025 11:46:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1750099576; x=1750704376; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lnSYj/Feh+RKWHFvgEu1AqKcDTHjdE7lHB2yqF/Lz7c=;
-        b=oqpmLWSuJMaEfAHf0mO7DJKDGf4mm/kH2orQ6kUkbRCLaEmLSJNO7Pn62+qMl9Qq2p
-         NfSDvqMMSFruGdRdgAU4iTAyRVv42UWaA1D7/+I4m+H08JLtNSza8E4VpQ06JA0+MKex
-         BT7D/yKmx4BRUEFwV/Qke8Blib7AbjFpE8dzMlaqMEroyjkE5zj6L40ULS9qWIIYPFoT
-         GVt8ltHjTF39ATcH9ftOYJYdk+eNb3yw68lb6sZnJGd1BtacD8i+QCvzBVEpW9A50qQJ
-         yOtdu8BIylXNggn5g7lA6WGiRmwiaFOqw3Vm7e2ONOk31BapUHwmDDFJULJkagPjxjot
-         G94w==
+        d=linaro.org; s=google; t=1750099572; x=1750704372; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YVLCigcwqjmjxbSL3+b1BhMCGZCUFCP/tUCRjaKSZbM=;
+        b=zdP9u/76a32lbEux51zaVTGGrOrsAJPouuTnnbTRNXGTf3RAKX8l7FgGruxCCIZcYY
+         Mps2bg+EsmCxL7l2ar2BEnvKUyy6zk5MO+p1Tsd2jrpkAdYMJTg1m2XW9jtqqdWlbDKb
+         C3S+4UVZj7vWw8nyyG3dgKYIjbwxXIwV6ZGgUlzNOJkyfdAmk9jtAwwkNqjPBkuuoCmO
+         8WdPUp+7WZRjgWh+Cb8/bWV/kCacXmXnCrK7A2mXbihdHKvzdgdJG0CKrLUsY8JMhrMI
+         cBPCZdE22dHFuQzgRlxZLX7z0V3ZoyRGcI+duOpLs99//TGWaRI9glvTUonzhpXGMGPL
+         czwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750099576; x=1750704376;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lnSYj/Feh+RKWHFvgEu1AqKcDTHjdE7lHB2yqF/Lz7c=;
-        b=dDsvSCgD/HOJo9IV0wGkUsudCkA8EK7rgRQY0wBrCwGz63Wp6b5kQQyA38amIaA9dC
-         I0ARaGYlm9dG7OfJXszzQ0caVkRfYYqZqkA3ukKa8vUHBpYqCuO3+lb182+rBWEjHZyj
-         7QJx8aQBJkIJccfgNrZ+NX0XUJQ7d3sT1TpxAU6bavxZDEgeQChcC+Mp66CrSJQWdhpo
-         acZqdR2AIaHQt6MDvtM9oNebfN5Oct5dg1sneK2afPOyDuvxhca40eR18+55ONgj2+WK
-         sVTLX+m20pfbRCR0gh0UVYwoxoviNUOPfYR35F+jQrBq1StwJWx/8KmltTXqsA0Jx0Wy
-         Cesg==
-X-Gm-Message-State: AOJu0YztQa90SeTiADnxh/H4OQyANsZFXATrhUDugI9c83ND2GojP1ln
-	TSzfX/vFXJTmjmUlZEPGcoGlvLlEWZLuLdFzfGWCXiREhm2AIV8cW0SLpIKX4Gqbh5tg+9DOWlU
-	oM3yFkIY=
-X-Gm-Gg: ASbGncsAVTD9SjfdaAoK/gPH6AML2jj3HBpcibsL/fAjbzQD1coPXoaTOglngcmI/zL
-	WzBvqos5AAItXaNllFWA8p+R16crCF1cG+ig6uiN3Iy/KGrAN2T4vJgM7PCg45P4Qg8QiNPXyOj
-	xrOQHsDxbuUCYgGMpkOLWzTVOzKyLy9hdWxI1fSkzv5UJWMiSN4mC1U6aR4P8gjmG+/+u9qk9xQ
-	oO7ZjRrNjnENDNO/a3jrPPKpazS0+uo+znLd5fXOEkoKJq37YQuYskqrI10G/JQrmKtm13B9wL/
-	TUER5U7sPtIwuKQcZCT4xQApkQxtVofRbBDaedsdiRd+07JSZT8YzxzyRUWFPQE=
-X-Google-Smtp-Source: AGHT+IGYiiptWRz0pHPcMOHy9YeFoVjLiB7qRxHFDYBuE62JAT7NVW9fsNuRwdlskvtN90ARUpN5EA==
-X-Received: by 2002:a17:902:ce8a:b0:234:d10d:9f9f with SMTP id d9443c01a7336-2366b14e571mr164275095ad.40.1750099576324;
-        Mon, 16 Jun 2025 11:46:16 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1750099572; x=1750704372;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YVLCigcwqjmjxbSL3+b1BhMCGZCUFCP/tUCRjaKSZbM=;
+        b=Q+Q3wEJBzyl8skQ8Pob5d+vMaN3lm/RIbftqgzS9sV3xaWSucc/9gyOy/CSu2WVi+x
+         NL/VMNNCN7tAftLK2zNlO1CLN2HQUWCWeaCHixp4CD8+xbxprbk/zITZHA0WzQDAuHqC
+         lpYJnNH0dg4EbJdglXaXJhRdnsXoB9QRapmGwMtxutuhdUD32a8wSR+Jigrv0rbzQkNs
+         duJ8Gdr1+erSEh2Sp/EXqeZLUONBOZ64ktw+0OR0jg/ygNkbq0HNWm18u3YMf5ipRzj0
+         fl7U3LtfBcZTAAD4vvW6bO5XzihJFuMPGWv+hWY7LlIck6UngOjpvyJ2uQXppN0U5nOs
+         uBpw==
+X-Gm-Message-State: AOJu0Yzo6jm7qj0kJJFwh+D9q4QUcxHE852llRTwFbTIwlVdeNQ5fzkX
+	xAwqeMBz0Qi4/oApl0MZR7t0tKAWKLcolMW1x0LIFVMHOkGfaOz4juvvKqCy3NnJDPvYAgg5qOm
+	OvSUrdEA=
+X-Gm-Gg: ASbGncvGLjltE37mU5Nf22jvUMpjxU10gTeGQ++kU1Sl7BTBJxFHlCYgKb2u7MW8WmK
+	QfjFSC2bz/HIbdxnVTGHkbbRJ+1aNhD4kZ2HMd1y7M8z3YvVGO7Z161XRZEuSbzpjXIv0GJZNNK
+	M6xOqmzHIr6Rn3G6BfhNos1oE/NZeuGmREzpTE9sxhXGxq7htkKBvZlFIm8HPlIgKPKWjIEdTeY
+	Zt0+5j/OHdrwugWRAlIvOeU1Iqqx8RFDtaka8aNnydfM7wL4BEiTde7evyKBuWm7ujBkmkMxrkt
+	m/f6kI6JAViPL9uz5YMfkDo9CYqN0lSYEGTToDT4ZsT9HAXiowyhGcHVgG81pCg=
+X-Google-Smtp-Source: AGHT+IGnUXMUwc/Ic4uofk7HSVZ8RUprJoEG0D/dbuLYUvl8z2h3/42TNd8RGyH0o9peuYGMFWm7kQ==
+X-Received: by 2002:a17:903:244c:b0:235:7c6:ebc2 with SMTP id d9443c01a7336-2366b316ad0mr170898645ad.4.1750099572521;
+        Mon, 16 Jun 2025 11:46:12 -0700 (PDT)
 Received: from fedora.. ([2804:14c:117:3195::1009])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2365d88c0b3sm65193175ad.37.2025.06.16.11.46.14
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2365d88c0b3sm65193175ad.37.2025.06.16.11.46.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Jun 2025 11:46:16 -0700 (PDT)
+        Mon, 16 Jun 2025 11:46:12 -0700 (PDT)
 From: Alexander Sowarka <alexander.sowarka@linaro.org>
 To: poky@lists.yoctoproject.org
 Cc: Alexander Sowarka <alexander.sowarka@linaro.org>
-Subject: [PATCH 1/1] linux-yocto: Use in-tree config for genericarm64
-Date: Mon, 16 Jun 2025 15:46:07 -0300
-Message-ID: <20250616184607.92039-2-alexander.sowarka@linaro.org>
+Subject: [PATCH 0/1] Change genericarm64 machine to use the in-tree kernel config
+Date: Mon, 16 Jun 2025 15:46:06 -0300
+Message-ID: <20250616184607.92039-1-alexander.sowarka@linaro.org>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250616184607.92039-1-alexander.sowarka@linaro.org>
-References: <20250616184607.92039-1-alexander.sowarka@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
  <poky@lists.yoctoproject.org>; Mon, 16 Jun 2025 18:46:23 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13650
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13649
 
-The genericarm64 machine should run on most ARM SystemReady devices.
-The arm64 configuration in the mainline kernel repository works stable
-on a lot more devices then the poky internal one.
-Switch to using the in-tree kernel config to run on more SystemReady
-devices.
+We are currently working on ARM SystemReady compliance and we are using
+poky as a test Linux distro on multiple devices. But despite the claim that
+the genericarm64 machine will work on most SystemReady devices, we realized
+that the kernel lacks critical drivers. E.g. on a Raspberry PI with SystemReady
+compatible firmware, the network will not come up.
 
-Signed-off-by: Alexander Sowarka <alexander.sowarka@linaro.org>
----
+The arm64 configuration in the mainline kernel repository is a lot
+more generic and is also used by ARM in their own compliance test images.
+
+As more and more platforms are adopting SystemReady, I think it will
+be a lot easier to rely on the in-tree config then maintaining a completely
+separate kernel configuration inside poky.
+
+Currently it is mandatory to also set KCONFIG_MODE despite 'alldefconfig' being
+the default according to the documentation. I submitted another patch to
+openembedded-core to fix that behaviour.
+
+Alexander Sowarka (1):
+  linux-yocto: Use in-tree config for genericarm64
+
  meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend | 2 ++
  meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend | 2 ++
  2 files changed, 4 insertions(+)
 
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
-index 5b1b736b1c..5b3c31f530 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
-@@ -3,6 +3,8 @@ KBRANCH:genericx86-64  = "standard/base"
- KBRANCH:beaglebone-yocto = "standard/beaglebone"
- 
- KMACHINE:genericarm64 ?= "genericarm64"
-+KBUILD_DEFCONFIG:genericarm64 ?= "defconfig"
-+KCONFIG_MODE:genericarm64 ?= "alldefconfig"
- KMACHINE:genericx86 ?= "common-pc"
- KMACHINE:genericx86-64 ?= "common-pc-64"
- KMACHINE:beaglebone-yocto ?= "beaglebone"
-diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
-index 3f33ec991d..2159717cd0 100644
---- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
-+++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
-@@ -8,6 +8,8 @@ KBRANCH:genericx86-64  = "v6.6/standard/base"
- KBRANCH:beaglebone-yocto = "v6.6/standard/beaglebone"
- 
- KMACHINE:genericarm64 ?= "genericarm64"
-+KBUILD_DEFCONFIG:genericarm64 ?= "defconfig"
-+KCONFIG_MODE:genericarm64 ?= "alldefconfig"
- KMACHINE:genericx86 ?= "common-pc"
- KMACHINE:genericx86-64 ?= "common-pc-64"
- KMACHINE:beaglebone-yocto ?= "beaglebone"
 
