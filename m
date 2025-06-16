@@ -2,95 +2,96 @@ Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 04CABC5AD49
-	for <webhook@archiver.kernel.org>; Fri,  6 Jun 2025 12:13:40 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
- by mx.groups.io with SMTP id smtpd.web11.32112.1749212010227722631
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38AA4C71135
+	for <webhook@archiver.kernel.org>; Mon, 16 Jun 2025 09:51:14 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+ by mx.groups.io with SMTP id smtpd.web10.26751.1750067464164418768
  for <poky@lists.yoctoproject.org>;
- Fri, 06 Jun 2025 05:13:30 -0700
+ Mon, 16 Jun 2025 02:51:04 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=nTV3Nffk;
- spf=pass (domain: gmail.com, ip: 209.85.128.47, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-450cf0025c0so13954895e9.3
-        for <poky@lists.yoctoproject.org>; Fri, 06 Jun 2025 05:13:30 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=YbzvMCh4;
+ spf=pass (domain: gmail.com, ip: 209.85.128.48, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-451d6ade159so34803595e9.1
+        for <poky@lists.yoctoproject.org>; Mon, 16 Jun 2025 02:51:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749212008; x=1749816808; darn=lists.yoctoproject.org;
+        d=gmail.com; s=20230601; t=1750067462; x=1750672262; darn=lists.yoctoproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=vakpoIOUCCGwq0pJMs3zEVwL/SSDWhzMKz2VZ+KDDKU=;
-        b=nTV3NffkJCJJmFDHEIujU2AGp6QUr5wNU2dmEsvd9SEUhkYGFfr+rpOAywBLTUSdWN
-         JFp1cwpmiyhzZczJXOruSYMbShAgrySeSKy5T8HuAf8tR8Ir0BVsaYRTmxprU1+x2qlG
-         ils6DwCpE/g4QUdnH6RyFQCY8KDJt41YxgkP7xu0OQDpK+jjzNjITkWDdlrUQL1jG1Dk
-         t/CBDNH1tpMnw7x6mGHamTJmk/mZoDM1P/s+uvmymUzLuLh7Nu7G5Yh6W3NTHUcs11JN
-         wSn1FA7apYCPt8t0ivxyDaWk3FyUoaGLIGylGf6WSJQKQfNy+6NSDH7C3hAXNh9QYbRx
-         QojQ==
+        bh=ZnH4zZQwW2QNBWAtOphtNnUvHHv3reR+JddgOX+GSfE=;
+        b=YbzvMCh4D/uaMeqpGnU2AC1ak1Zy4q5oggCgc8RGqaTSTHu/NN4YfVI3yfh2La5CPv
+         J8gNrUGqFuaZxLZ9lVoSzhOE+5rxoeod6IpXmHUPNMOwg1xdbsKhnpOg7evDtsnemF5a
+         KN08RnZwn6ZTMelMjdJ3/sKGDFtyUp/4Ty4izUjiIWaq1CPdGWUomrRmqNawLFKza2U0
+         5TdmYWWcd0aT8q7HJD7CdEctPNmuIoBp4WeFHnxPiOMC5C5grQ7w7sz7XypR60C98pEx
+         DsmqpH68WpmsdowQXI4Ql0HuC8WkQ2Sx0b9C6kv5zZufOQURvbW9OQ7RKfOq+WWQl+vj
+         lcDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749212008; x=1749816808;
+        d=1e100.net; s=20230601; t=1750067462; x=1750672262;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=vakpoIOUCCGwq0pJMs3zEVwL/SSDWhzMKz2VZ+KDDKU=;
-        b=tKSL2D0XPI0I1Kc199ZWEmd29S7Xa/TlnhjVF49ldhlBlJIqf7BOtgr7Topfftbwf0
-         6ouZdOWAIm7fjy6YQxfnuP2F5sv0Xv6L5sJq2NOsKpuWP6ot6+l18IlEun2oJ3fMW/09
-         cxUxSDMoPMxesBZXrNmArqLBHn8K9lJHl+F9tXsrK3HXzdzAi2e54IufbstN9aI4gmDx
-         kX54qTdpD+VexvX1OBh/HNf92EqMp1ZX3gJNUxTBiKmY4RpCVHtY7cQcTUPHa+EfD/DN
-         9ZBV+mt4dI+HwlZKgJi4iGdSPvo41hmf+2jeqgD2yschViUXBMnDLjG5VyLONygSzk9L
-         hRCg==
-X-Gm-Message-State: AOJu0YxphLNduT7L2IAhP2qG8rVeEHlhlnNIiP9xdHLOME5cC+gyHO/I
-	F6UUwTVZ4xMlQFiwZ8fNou7rR2vePsvPmIb/QVzAH5hcO/J5LFrXP0X/ypf5AQ==
-X-Gm-Gg: ASbGncvxW3zscp9l+en0YmHKwyMdJMfovW47IwgFUNUPj+f8rShJ7s5Lx+2NGjRBOf9
-	TMOdP6dHM/GNWsFKCyol0oS4W418S4TgLm6ohuIcgUnGhfS4wQw4Ecu1fYbkPI2MzJRafEx8/Bx
-	IVrhSLp3SapaZ/ztclt5AA/SmBj0xC4LBEzMEDQPNoAutlVTpKDy7hoxXDHLjJThNU9d3ooo2dU
-	muAAQARZHIxRH9qwmt9mKypVK8lF4X7g/cQFtv0jogNwoxQxZf4FIcxyrpE5RVGijahV3uFxl24
-	6VfxViDtqzedPdq7xPLMzDF0naJuRpnF6LhJt05Rmqi4G9eOdHRchD12XMSS9YC39RM6/qFEiU0
-	i3BRYv1aPvfZp
-X-Google-Smtp-Source: AGHT+IEFiRStc9+I6TySJ6Bhwu2XlEFbCMjIc1Sblq6+cYU2u51oFj+OUHTnve8NsApb0QDMk525pA==
-X-Received: by 2002:a5d:64e8:0:b0:3a4:dd16:b287 with SMTP id ffacd0b85a97d-3a531ab51e2mr2579744f8f.19.1749212008368;
-        Fri, 06 Jun 2025 05:13:28 -0700 (PDT)
+        bh=ZnH4zZQwW2QNBWAtOphtNnUvHHv3reR+JddgOX+GSfE=;
+        b=UdKrJefFJptf1BPYiyWuRtY1B+IHMTyDPH+I5v68GSZukVvKjY7CzHuSdAsmtS27PD
+         Dq6v8dilfj59UodqcQkzZuzLi9MvNYNhLGDuqwGjjZKThVCj7IKewPn9WGnwWUa0G9lA
+         zkBEXjzOzux5A1qK/8GD3mk6IKMG/YNsT8T3FSsTRAWiS4v9znPn6R22LHPcUwMXqSOk
+         He9YfeUBESbWtY/FzZQ4uzwSzckvnI1tnTR2VDKelVcUOBQ43CHnjVy3ZntkBpJ1XLEN
+         9+eN+PRDBh3+dOtsM/R32kblEvumEYCjPkm8rdszBcWacT1hs26xvWs7nqY/HLQgfrb8
+         Pv4A==
+X-Gm-Message-State: AOJu0YwPS42nAx1uVHiZslgAoJer/36jNnIY3xVb/IgUEdTqncHOHQIP
+	XZv8xHtaP5nV45N8ZH5wrL+lFDrytRLMThbGHPM7LBsKkSwdf5q/rmZhp+6qXw==
+X-Gm-Gg: ASbGncsHiCtbz77TuIEzSMZCsxnA77K4jOOCH/sUrwic+ddDbNKGCtkdPBp/5qH/Q/8
+	CdXlX2nM0vzjXf4K9SEBDQZGnHbJCAiuuRUp0P4cOrssbz+jVQRaNBA4pkymtsUofYAZ7K88/i7
+	q5xadW1fvKh8y31iFIBMOycTRIN9zr0CGSqVOnJAcJBS+g7bvJ5LUCj2JkEEckmOeYi1A6uQvQH
+	EJk+bG7a4rhZPD69zdb1lMn9cePC6ELGkEORvCVDeWXO+93DXZp1KqwUAGxJ+F1VCQLEPpDX+lp
+	6qe/RQbgwjDezbfJsZiTja5yFPNMuOk8NMpMF29jNNsRHZf/FWG2hV4blF/Da47It1P8MjfkGTo
+	prCyzKvtndbHwZZZ6J02Zx+123QDQcth6NQ==
+X-Google-Smtp-Source: AGHT+IEpXo+NnCdn0LfwtxEHyJk7XwrnzDis0OzzwY4g9V140lQyJY7ivu59XDjoiQ9E1Ie79bBshA==
+X-Received: by 2002:a05:600c:8509:b0:450:cf46:5510 with SMTP id 5b1f17b1804b1-4533cb53b27mr74030095e9.29.1750067462407;
+        Mon, 16 Jun 2025 02:51:02 -0700 (PDT)
 Received: from Zen2.lab.linutronix.de. (drugstore.linutronix.de. [80.153.143.164])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3a5323ab207sm1702510f8f.29.2025.06.06.05.13.27
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4532e253f64sm138478505e9.27.2025.06.16.02.51.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Jun 2025 05:13:27 -0700 (PDT)
+        Mon, 16 Jun 2025 02:51:02 -0700 (PDT)
 From: Alexander Kanavin <alex.kanavin@gmail.com>
 To: poky@lists.yoctoproject.org
 Cc: Alexander Kanavin <alex@linutronix.de>
-Subject: [PATCH] templates/default: do not separately enable sdl in qemu-system-native
-Date: Fri,  6 Jun 2025 14:13:26 +0200
-Message-Id: <20250606121326.487607-1-alex.kanavin@gmail.com>
+Subject: [PATCH] meta-poky: set S from UNPACKDIR in recipes that use only local files
+Date: Mon, 16 Jun 2025 11:50:59 +0200
+Message-Id: <20250616095059.2919634-1-alex.kanavin@gmail.com>
 X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 06 Jun 2025 12:13:40 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13647
+ <poky@lists.yoctoproject.org>; Mon, 16 Jun 2025 09:51:14 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13648
 
 From: Alexander Kanavin <alex@linutronix.de>
 
-The recipe now does it directly.
+There is no need to have two assignments; also setting S from
+UNPACKDIR (and not vice versa) is more logical as unpack
+task comes first, and tasks that come after unpack use S to access
+unpack results.
 
 Signed-off-by: Alexander Kanavin <alex@linutronix.de>
 ---
- meta-poky/conf/templates/default/local.conf.sample | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ meta-poky/recipes-core/tiny-init/tiny-init.bb | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/meta-poky/conf/templates/default/local.conf.sample b/meta-poky/conf/templates/default/local.conf.sample
-index ecc33c06f3f..0a33288cf0d 100644
---- a/meta-poky/conf/templates/default/local.conf.sample
-+++ b/meta-poky/conf/templates/default/local.conf.sample
-@@ -245,9 +245,8 @@ BB_DISKMON_DIRS ??= "\
- #
- # Qemu configuration
- #
--# By default native qemu will build with a builtin VNC server where graphical output can be
--# seen. The line below enables the SDL UI frontend too.
--PACKAGECONFIG:append:pn-qemu-system-native = " sdl"
-+# By default native qemu will build with a builtin VNC server and a SDL UI frontend
-+# where graphical output can be seen.
- # By default libsdl2-native will be built, if you want to use your host's libSDL instead of 
- # the minimal libsdl built by libsdl2-native then uncomment the ASSUME_PROVIDED line below.
- #ASSUME_PROVIDED += "libsdl2-native"
+diff --git a/meta-poky/recipes-core/tiny-init/tiny-init.bb b/meta-poky/recipes-core/tiny-init/tiny-init.bb
+index 586596259b8..3a774fecc41 100644
+--- a/meta-poky/recipes-core/tiny-init/tiny-init.bb
++++ b/meta-poky/recipes-core/tiny-init/tiny-init.bb
+@@ -11,8 +11,7 @@ SRC_URI = "file://init \
+ 	   file://rc.local.sample \
+ 	  "
+ 
+-S = "${WORKDIR}/sources"
+-UNPACKDIR = "${S}"
++S = "${UNPACKDIR}"
+ 
+ do_configure() {
+ 	:
 -- 
 2.39.5
 
