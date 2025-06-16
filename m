@@ -1,98 +1,110 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <alexander.sowarka@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 38AA4C71135
-	for <webhook@archiver.kernel.org>; Mon, 16 Jun 2025 09:51:14 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
- by mx.groups.io with SMTP id smtpd.web10.26751.1750067464164418768
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03B38C71136
+	for <webhook@archiver.kernel.org>; Mon, 16 Jun 2025 18:46:23 +0000 (UTC)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+ by mx.groups.io with SMTP id smtpd.web10.4964.1750099577298066572
  for <poky@lists.yoctoproject.org>;
- Mon, 16 Jun 2025 02:51:04 -0700
+ Mon, 16 Jun 2025 11:46:17 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=YbzvMCh4;
- spf=pass (domain: gmail.com, ip: 209.85.128.48, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-451d6ade159so34803595e9.1
-        for <poky@lists.yoctoproject.org>; Mon, 16 Jun 2025 02:51:03 -0700 (PDT)
+ dkim=pass header.i=@linaro.org header.s=google header.b=oqpmLWSu;
+ spf=pass (domain: linaro.org, ip: 209.85.214.172, mailfrom: alexander.sowarka@linaro.org)
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-235ea292956so43793525ad.1
+        for <poky@lists.yoctoproject.org>; Mon, 16 Jun 2025 11:46:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750067462; x=1750672262; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZnH4zZQwW2QNBWAtOphtNnUvHHv3reR+JddgOX+GSfE=;
-        b=YbzvMCh4D/uaMeqpGnU2AC1ak1Zy4q5oggCgc8RGqaTSTHu/NN4YfVI3yfh2La5CPv
-         J8gNrUGqFuaZxLZ9lVoSzhOE+5rxoeod6IpXmHUPNMOwg1xdbsKhnpOg7evDtsnemF5a
-         KN08RnZwn6ZTMelMjdJ3/sKGDFtyUp/4Ty4izUjiIWaq1CPdGWUomrRmqNawLFKza2U0
-         5TdmYWWcd0aT8q7HJD7CdEctPNmuIoBp4WeFHnxPiOMC5C5grQ7w7sz7XypR60C98pEx
-         DsmqpH68WpmsdowQXI4Ql0HuC8WkQ2Sx0b9C6kv5zZufOQURvbW9OQ7RKfOq+WWQl+vj
-         lcDw==
+        d=linaro.org; s=google; t=1750099576; x=1750704376; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lnSYj/Feh+RKWHFvgEu1AqKcDTHjdE7lHB2yqF/Lz7c=;
+        b=oqpmLWSuJMaEfAHf0mO7DJKDGf4mm/kH2orQ6kUkbRCLaEmLSJNO7Pn62+qMl9Qq2p
+         NfSDvqMMSFruGdRdgAU4iTAyRVv42UWaA1D7/+I4m+H08JLtNSza8E4VpQ06JA0+MKex
+         BT7D/yKmx4BRUEFwV/Qke8Blib7AbjFpE8dzMlaqMEroyjkE5zj6L40ULS9qWIIYPFoT
+         GVt8ltHjTF39ATcH9ftOYJYdk+eNb3yw68lb6sZnJGd1BtacD8i+QCvzBVEpW9A50qQJ
+         yOtdu8BIylXNggn5g7lA6WGiRmwiaFOqw3Vm7e2ONOk31BapUHwmDDFJULJkagPjxjot
+         G94w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750067462; x=1750672262;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ZnH4zZQwW2QNBWAtOphtNnUvHHv3reR+JddgOX+GSfE=;
-        b=UdKrJefFJptf1BPYiyWuRtY1B+IHMTyDPH+I5v68GSZukVvKjY7CzHuSdAsmtS27PD
-         Dq6v8dilfj59UodqcQkzZuzLi9MvNYNhLGDuqwGjjZKThVCj7IKewPn9WGnwWUa0G9lA
-         zkBEXjzOzux5A1qK/8GD3mk6IKMG/YNsT8T3FSsTRAWiS4v9znPn6R22LHPcUwMXqSOk
-         He9YfeUBESbWtY/FzZQ4uzwSzckvnI1tnTR2VDKelVcUOBQ43CHnjVy3ZntkBpJ1XLEN
-         9+eN+PRDBh3+dOtsM/R32kblEvumEYCjPkm8rdszBcWacT1hs26xvWs7nqY/HLQgfrb8
-         Pv4A==
-X-Gm-Message-State: AOJu0YwPS42nAx1uVHiZslgAoJer/36jNnIY3xVb/IgUEdTqncHOHQIP
-	XZv8xHtaP5nV45N8ZH5wrL+lFDrytRLMThbGHPM7LBsKkSwdf5q/rmZhp+6qXw==
-X-Gm-Gg: ASbGncsHiCtbz77TuIEzSMZCsxnA77K4jOOCH/sUrwic+ddDbNKGCtkdPBp/5qH/Q/8
-	CdXlX2nM0vzjXf4K9SEBDQZGnHbJCAiuuRUp0P4cOrssbz+jVQRaNBA4pkymtsUofYAZ7K88/i7
-	q5xadW1fvKh8y31iFIBMOycTRIN9zr0CGSqVOnJAcJBS+g7bvJ5LUCj2JkEEckmOeYi1A6uQvQH
-	EJk+bG7a4rhZPD69zdb1lMn9cePC6ELGkEORvCVDeWXO+93DXZp1KqwUAGxJ+F1VCQLEPpDX+lp
-	6qe/RQbgwjDezbfJsZiTja5yFPNMuOk8NMpMF29jNNsRHZf/FWG2hV4blF/Da47It1P8MjfkGTo
-	prCyzKvtndbHwZZZ6J02Zx+123QDQcth6NQ==
-X-Google-Smtp-Source: AGHT+IEpXo+NnCdn0LfwtxEHyJk7XwrnzDis0OzzwY4g9V140lQyJY7ivu59XDjoiQ9E1Ie79bBshA==
-X-Received: by 2002:a05:600c:8509:b0:450:cf46:5510 with SMTP id 5b1f17b1804b1-4533cb53b27mr74030095e9.29.1750067462407;
-        Mon, 16 Jun 2025 02:51:02 -0700 (PDT)
-Received: from Zen2.lab.linutronix.de. (drugstore.linutronix.de. [80.153.143.164])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4532e253f64sm138478505e9.27.2025.06.16.02.51.01
+        d=1e100.net; s=20230601; t=1750099576; x=1750704376;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=lnSYj/Feh+RKWHFvgEu1AqKcDTHjdE7lHB2yqF/Lz7c=;
+        b=dDsvSCgD/HOJo9IV0wGkUsudCkA8EK7rgRQY0wBrCwGz63Wp6b5kQQyA38amIaA9dC
+         I0ARaGYlm9dG7OfJXszzQ0caVkRfYYqZqkA3ukKa8vUHBpYqCuO3+lb182+rBWEjHZyj
+         7QJx8aQBJkIJccfgNrZ+NX0XUJQ7d3sT1TpxAU6bavxZDEgeQChcC+Mp66CrSJQWdhpo
+         acZqdR2AIaHQt6MDvtM9oNebfN5Oct5dg1sneK2afPOyDuvxhca40eR18+55ONgj2+WK
+         sVTLX+m20pfbRCR0gh0UVYwoxoviNUOPfYR35F+jQrBq1StwJWx/8KmltTXqsA0Jx0Wy
+         Cesg==
+X-Gm-Message-State: AOJu0YztQa90SeTiADnxh/H4OQyANsZFXATrhUDugI9c83ND2GojP1ln
+	TSzfX/vFXJTmjmUlZEPGcoGlvLlEWZLuLdFzfGWCXiREhm2AIV8cW0SLpIKX4Gqbh5tg+9DOWlU
+	oM3yFkIY=
+X-Gm-Gg: ASbGncsAVTD9SjfdaAoK/gPH6AML2jj3HBpcibsL/fAjbzQD1coPXoaTOglngcmI/zL
+	WzBvqos5AAItXaNllFWA8p+R16crCF1cG+ig6uiN3Iy/KGrAN2T4vJgM7PCg45P4Qg8QiNPXyOj
+	xrOQHsDxbuUCYgGMpkOLWzTVOzKyLy9hdWxI1fSkzv5UJWMiSN4mC1U6aR4P8gjmG+/+u9qk9xQ
+	oO7ZjRrNjnENDNO/a3jrPPKpazS0+uo+znLd5fXOEkoKJq37YQuYskqrI10G/JQrmKtm13B9wL/
+	TUER5U7sPtIwuKQcZCT4xQApkQxtVofRbBDaedsdiRd+07JSZT8YzxzyRUWFPQE=
+X-Google-Smtp-Source: AGHT+IGYiiptWRz0pHPcMOHy9YeFoVjLiB7qRxHFDYBuE62JAT7NVW9fsNuRwdlskvtN90ARUpN5EA==
+X-Received: by 2002:a17:902:ce8a:b0:234:d10d:9f9f with SMTP id d9443c01a7336-2366b14e571mr164275095ad.40.1750099576324;
+        Mon, 16 Jun 2025 11:46:16 -0700 (PDT)
+Received: from fedora.. ([2804:14c:117:3195::1009])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2365d88c0b3sm65193175ad.37.2025.06.16.11.46.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Jun 2025 02:51:02 -0700 (PDT)
-From: Alexander Kanavin <alex.kanavin@gmail.com>
+        Mon, 16 Jun 2025 11:46:16 -0700 (PDT)
+From: Alexander Sowarka <alexander.sowarka@linaro.org>
 To: poky@lists.yoctoproject.org
-Cc: Alexander Kanavin <alex@linutronix.de>
-Subject: [PATCH] meta-poky: set S from UNPACKDIR in recipes that use only local files
-Date: Mon, 16 Jun 2025 11:50:59 +0200
-Message-Id: <20250616095059.2919634-1-alex.kanavin@gmail.com>
-X-Mailer: git-send-email 2.39.5
+Cc: Alexander Sowarka <alexander.sowarka@linaro.org>
+Subject: [PATCH 1/1] linux-yocto: Use in-tree config for genericarm64
+Date: Mon, 16 Jun 2025 15:46:07 -0300
+Message-ID: <20250616184607.92039-2-alexander.sowarka@linaro.org>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250616184607.92039-1-alexander.sowarka@linaro.org>
+References: <20250616184607.92039-1-alexander.sowarka@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Mon, 16 Jun 2025 09:51:14 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13648
+ <poky@lists.yoctoproject.org>; Mon, 16 Jun 2025 18:46:23 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13650
 
-From: Alexander Kanavin <alex@linutronix.de>
+The genericarm64 machine should run on most ARM SystemReady devices.
+The arm64 configuration in the mainline kernel repository works stable
+on a lot more devices then the poky internal one.
+Switch to using the in-tree kernel config to run on more SystemReady
+devices.
 
-There is no need to have two assignments; also setting S from
-UNPACKDIR (and not vice versa) is more logical as unpack
-task comes first, and tasks that come after unpack use S to access
-unpack results.
-
-Signed-off-by: Alexander Kanavin <alex@linutronix.de>
+Signed-off-by: Alexander Sowarka <alexander.sowarka@linaro.org>
 ---
- meta-poky/recipes-core/tiny-init/tiny-init.bb | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend | 2 ++
+ meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend | 2 ++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/meta-poky/recipes-core/tiny-init/tiny-init.bb b/meta-poky/recipes-core/tiny-init/tiny-init.bb
-index 586596259b8..3a774fecc41 100644
---- a/meta-poky/recipes-core/tiny-init/tiny-init.bb
-+++ b/meta-poky/recipes-core/tiny-init/tiny-init.bb
-@@ -11,8 +11,7 @@ SRC_URI = "file://init \
- 	   file://rc.local.sample \
- 	  "
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
+index 5b1b736b1c..5b3c31f530 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto-dev.bbappend
+@@ -3,6 +3,8 @@ KBRANCH:genericx86-64  = "standard/base"
+ KBRANCH:beaglebone-yocto = "standard/beaglebone"
  
--S = "${WORKDIR}/sources"
--UNPACKDIR = "${S}"
-+S = "${UNPACKDIR}"
+ KMACHINE:genericarm64 ?= "genericarm64"
++KBUILD_DEFCONFIG:genericarm64 ?= "defconfig"
++KCONFIG_MODE:genericarm64 ?= "alldefconfig"
+ KMACHINE:genericx86 ?= "common-pc"
+ KMACHINE:genericx86-64 ?= "common-pc-64"
+ KMACHINE:beaglebone-yocto ?= "beaglebone"
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
+index 3f33ec991d..2159717cd0 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
+@@ -8,6 +8,8 @@ KBRANCH:genericx86-64  = "v6.6/standard/base"
+ KBRANCH:beaglebone-yocto = "v6.6/standard/beaglebone"
  
- do_configure() {
- 	:
--- 
-2.39.5
-
+ KMACHINE:genericarm64 ?= "genericarm64"
++KBUILD_DEFCONFIG:genericarm64 ?= "defconfig"
++KCONFIG_MODE:genericarm64 ?= "alldefconfig"
+ KMACHINE:genericx86 ?= "common-pc"
+ KMACHINE:genericx86-64 ?= "common-pc-64"
+ KMACHINE:beaglebone-yocto ?= "beaglebone"
 
