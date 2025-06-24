@@ -1,83 +1,95 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F8ECC71157
-	for <webhook@archiver.kernel.org>; Tue, 24 Jun 2025 14:02:49 +0000 (UTC)
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
- by mx.groups.io with SMTP id smtpd.web10.8889.1750773766294419831
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BB10C77B7F
+	for <webhook@archiver.kernel.org>; Tue, 24 Jun 2025 14:25:49 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+ by mx.groups.io with SMTP id smtpd.web11.9637.1750775145626263220
  for <poky@lists.yoctoproject.org>;
- Tue, 24 Jun 2025 07:02:46 -0700
+ Tue, 24 Jun 2025 07:25:45 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=AaL//LjX;
- spf=pass (domain: gmail.com, ip: 209.85.219.52, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-6fae04a3795so5526056d6.3
-        for <poky@lists.yoctoproject.org>; Tue, 24 Jun 2025 07:02:46 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Fy/M917t;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.48, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-3a6cdc27438so4629477f8f.2
+        for <poky@lists.yoctoproject.org>; Tue, 24 Jun 2025 07:25:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750773765; x=1751378565; darn=lists.yoctoproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=qtPRVgu7bAanUp2DQYh1ROl/J7mr5bLTbEVU1zhAKYk=;
-        b=AaL//LjXsjA3OTlfb5r8UKpmyq8zYW1xQUd290UUWt7mAephID5EkjsDRcU8r2Gh5t
-         WNd/2sR56BIyLTHdGMpeYNuhFU4hgV08ArdGhaxV1+ZVEYaSjtsgZMdBDK9CsFk97lbY
-         PcUjdmc1YXZ71o1Ojl+2s8Nrt+2A6LxOGylIO/HgBaIZAa8gCrAVfzF8WGHGZUbLihmn
-         lKtOdwglRapPPQ/R6r0n0WMct7QQJ0qorpCcYDp4t+z+X4PPxyHGcrDXxBvl/mpgc95x
-         2+nE2DLTgsoDxa2LuHoopcAkoCIR6LrwRnbJJNILpRrp3jrTDVyn5XBVb3DV3vyviHwb
-         QPDg==
+        d=linuxfoundation.org; s=google; t=1750775144; x=1751379944; darn=lists.yoctoproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=Ozea/IpeXz45AhbYjPnA6DdcNYzRZ33OM7E7boCBbSA=;
+        b=Fy/M917tgl4RDtAjLWE5EbqzVGRpR0fAvH7psegHaR+aFkkTorrayQ5GOmzpzaL0Bj
+         ILW4xuXrAxVnMKJjPc08WJMLkBu8yQKEyD1/IsjBaxATY7FJtmf6kr1FEZbGkYQVe48E
+         LVRnmmfc0LvmLF+NdHMAjsulwHCNz8meG3w6g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750773765; x=1751378565;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qtPRVgu7bAanUp2DQYh1ROl/J7mr5bLTbEVU1zhAKYk=;
-        b=N8JKn/r8q0FcPX7Crjw7u+cbACGl+JxJ4+IbYf5gT/bJU9GWOZGzw3vLfuioP0Zk9b
-         Dt/OOIAXOeHwqtRjL4aV4xRS9Nj4OaVUP+s8IJ6umkkwq4yjkAuagxXKn1VuYFgUP0DU
-         nh0b/5pEaMweGFAdC4CahWy1DbE50nc+GHLMyuCklxt2NP8aU/cr5MFd5ZSLg12tDSdp
-         tK+1YIJE1xnPwvw/OXqnRbh0DPZzXW3YTMoxSTOMJ61XkMdRg+9qJ4dDEndCZUoU+nDU
-         w5M4wQH2Dw2lRPvmMOTGnt98Sbl3jf5NlOl8w55gdkqY+iwFsBz/AxL+hdK1Vpp0sTie
-         fJjA==
-X-Gm-Message-State: AOJu0YwA+aExVzEAlG4Zr5BBBLPg6hzJhHgff4xPcWdKu0YaYHN3Fyfi
-	NY2PUBLdipSJCfCeKDsCOA6H5vE92OXti+FwVKleXg4G5s4W1M84TQtu8nU71ngGy86d2kWywba
-	3OLN+vPVza9zVf2tVXdhK+SuWOptTGIQmIg==
-X-Gm-Gg: ASbGncuoIpyEWmOwjEhqBHEfCEUAHXET+TEgJIDcR4XwFe7I/Wo8APl2AVht/WspXR+
-	lIDEd1vtdgnX7z4ZwV52QGPIjvYTOKZ349iLjSXWMPj5dGhx89GbUiIcDxjhCmXVesd8donP4RK
-	7KI2TiH7qDS7T7YENCwUDO8i5ZOTYP+4OdR/LrHKI59I5D88uwMNJL7zn/MmMqD12/g7VJkCkSE
-	FzNnQ==
-X-Google-Smtp-Source: AGHT+IE4xgH39I6BgR7xFc3lDOm3EeAtwvpmIK02LmoqIKYmmkiOD0pyQJDTW8yM/B4vVkrbk36/rpfBi3Oi/2Gyshc=
-X-Received: by 2002:a05:6214:590a:b0:6fa:fdb3:587b with SMTP id
- 6a1803df08f44-6fd0a4699e0mr226616246d6.1.1750773765115; Tue, 24 Jun 2025
- 07:02:45 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250623165507.1633860-1-alex.kanavin@gmail.com>
- <6fb30604dfb196088f07c6b59f437eeb0f1df788.camel@linuxfoundation.org>
- <CANNYZj8bcMto=-OHPNEZs_aEM4vr9K1ujVOZ77EDBT-9xC5sRw@mail.gmail.com> <749dde0c3ed74dc938085cd15316245eeaa15cc4.camel@linuxfoundation.org>
-In-Reply-To: <749dde0c3ed74dc938085cd15316245eeaa15cc4.camel@linuxfoundation.org>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Tue, 24 Jun 2025 16:02:33 +0200
-X-Gm-Features: Ac12FXwOdttwvS71B_whjTxcnqBuPbv-TUqJvpgONhTT2MZN-ZHBHGO48SN3YCs
-Message-ID: <CANNYZj-J09egi3tEb+a3c+g6KSE-_8g21Q-axnVUcUjibyHuJQ@mail.gmail.com>
-Subject: Re: [poky] [PATCH 1/2] meta-poky/conf/templates/default/bblayers.conf.sample:
- do not assume integrated poky repo
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
+        d=1e100.net; s=20230601; t=1750775144; x=1751379944;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Ozea/IpeXz45AhbYjPnA6DdcNYzRZ33OM7E7boCBbSA=;
+        b=s3tk7tEuQOX4OMTFV0pV4ESdZuhQLEjezVZKl4rlQ7JMqWh+yacpMREgw3Jfs1uGcv
+         xPvLsl1pBSSbUZMaGNYK3dWjEt1Bp7kEv77C5IQpNwWCZXUzC9YbbMSzJc63J8TmXFV6
+         yzuldRrguj+TKjCG3vfv9DR9R6RDXg4Mj0RlwffIv0cXTseydAtf/ynasIVCQSwRAfG2
+         LDfYwTIOpQptgAZOZ5e0pW4CeDetJ4tMp+lmH/w8i4HWtn2iddgy31YrMTzY6Z6wnpCL
+         4dAI6AWDk8biRuMIz3ffHbWsHeLPdRPyy5J7oG7pTdat8FcrRDNC+4owp9jmDJr//Gjq
+         jsMw==
+X-Gm-Message-State: AOJu0Yzh4Q2Laf0o1C8L8oIzxdvejuG1r8FJmFhRJ0Xs3vjnUlFfr+qZ
+	ApdCoEd/bvDZbXaIo9Ld4/UsE3ya4ld1zgSoumHr2H7al8arrKMkdXZeCRLourij35U=
+X-Gm-Gg: ASbGncurNfhgawTMQewfqet1iDxohzsvA0mO5UWkIl1v0ZOzAd6ksQcf+iLJJrxyrh0
+	i/arzccN9RgyjGTqB/1ZECFROCfvAiWeD/FJAnnVSD+XBkUGBb3tIAXnurzX7IyfD8v9oVrBR2N
+	/zcuzTOociXLLGPYl5XHXXg9yeTsQJ6mRetWxuJ7ryUoEXkNA1BuUy1bUvVzpO6kWt0xCCyDHwE
+	YIkPbrdMwFxGIGLGgC7UBGCJYZ6RYs54Z2C8oYkp/7emoqAAVTw43ZhR7LuDh+/OfQi6bgq98bB
+	CQwqFjNNLnRBbFhX6HSb5//fEwJwIthybTiG6qfFrJFsXebameLUSX4AcOYLGO6U5EwoCe68RBF
+	sG9pWXrBzReVveVZAcC9tWGE897sXdlTSOwQiZJoFTgjTgj0g04o=
+X-Google-Smtp-Source: AGHT+IEBwMLwVsBIy4hZ8aOZ2vMvBcqoGN16KQT0FgCM1FYf9a11aLJYr2bJlipWCsZV/Vc5N6Vn4g==
+X-Received: by 2002:a05:6000:4911:b0:3a5:57b7:cd7b with SMTP id ffacd0b85a97d-3a6d12ead65mr13508323f8f.22.1750775143898;
+        Tue, 24 Jun 2025 07:25:43 -0700 (PDT)
+Received: from ?IPv6:2001:8b0:aba:5f3c:341b:1360:3bd8:8ecc? ([2001:8b0:aba:5f3c:341b:1360:3bd8:8ecc])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-453647082a2sm144710035e9.37.2025.06.24.07.25.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Jun 2025 07:25:43 -0700 (PDT)
+Message-ID: <99043e62e6530edf30c0ffce2a6316120d29953c.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH] meta-yocto: remove erroneous poky-bleeding
+ selftest in meta/
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Alexander Kanavin <alex.kanavin@gmail.com>
 Cc: poky@lists.yoctoproject.org, Alexander Kanavin <alex@linutronix.de>
+Date: Tue, 24 Jun 2025 15:25:42 +0100
+In-Reply-To: <CANNYZj_ezZhTReLhu27H5Y99-k5mwikBfax==LuHLDQr-3p-9Q@mail.gmail.com>
+References: <20250624135017.539280-1-alex@linutronix.de>
+	 <abe975974fbba263d27ba2a0629a1bcbcc93a090.camel@linuxfoundation.org>
+	 <CANNYZj_ezZhTReLhu27H5Y99-k5mwikBfax==LuHLDQr-3p-9Q@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.0-1 
+MIME-Version: 1.0
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 24 Jun 2025 14:02:49 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13672
+ <poky@lists.yoctoproject.org>; Tue, 24 Jun 2025 14:25:49 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13673
 
-On Tue, 24 Jun 2025 at 15:58, Richard Purdie
-<richard.purdie@linuxfoundation.org> wrote:
+On Tue, 2025-06-24 at 16:01 +0200, Alexander Kanavin wrote:
+> On Tue, 24 Jun 2025 at 15:55, Richard Purdie
+> <richard.purdie@linuxfoundation.org> wrote:
+>=20
+> > Since this can't work without poky, I'd argue it is in the right
+> > place?
+>=20
+> There are a few other selftests in oe-core that have a hard
+> dependency on poky (e.g. multiconfig, fitimage).
 
-> >
-> > The patch follows the suggestion that such a tweak is possible:
-> > https://lists.openembedded.org/g/openembedded-architecture/message/2129
->
-> Ah, that is a bit different. There aren't tweaks of a similar nature.
-> I'll need to give this more thought...
+We should probably fix that as it wasn't intended.
 
-No problem. I'll adjust the commit message meanwhile.
+> I don't mind keeping this test in meta-yocto repo, but it should
+> really be moved out of meta/ directory as it's super confusing:
+>=20
+> https://git.yoctoproject.org/meta-yocto/tree/
 
-Alex
+Agreed, it should belong alongside the distro.
+
+Cheers,
+
+Richard
 
