@@ -1,92 +1,93 @@
-Return-Path: <mikko.rapeli@linaro.org>
+Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EB511C7EE2A
-	for <webhook@archiver.kernel.org>; Fri, 27 Jun 2025 06:55:54 +0000 (UTC)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
- by mx.groups.io with SMTP id smtpd.web10.7668.1751007345295717744
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5836AC8302E
+	for <webhook@archiver.kernel.org>; Mon, 30 Jun 2025 10:21:19 +0000 (UTC)
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+ by mx.groups.io with SMTP id smtpd.web10.36209.1751278873918161612
  for <poky@lists.yoctoproject.org>;
- Thu, 26 Jun 2025 23:55:45 -0700
+ Mon, 30 Jun 2025 03:21:14 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=h1QrNACO;
- spf=pass (domain: linaro.org, ip: 209.85.167.53, mailfrom: mikko.rapeli@linaro.org)
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-553b16a0e38so1988659e87.1
-        for <poky@lists.yoctoproject.org>; Thu, 26 Jun 2025 23:55:45 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=GdzaA2NM;
+ spf=pass (domain: gmail.com, ip: 209.85.219.42, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-6facf4d8ea8so24046266d6.0;
+        Mon, 30 Jun 2025 03:21:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1751007343; x=1751612143; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=CU0Lo3AnxyPPQVGnkO3H1wUDTR89ba2Nud8RN2C4dos=;
-        b=h1QrNACOHuo88m5ZQhGggcAfMgPYhRJcQ90u9vvLqjwBYWsUSNQsfkBWad+0VFRo+b
-         kolyfkbiKfSYph/dXoRAmY7qiXJFf+gC3RMVT6/N0grGxg65Um+cDD4gf53h9/Xnf/QJ
-         v1uwNiU32cEthleec+VY+2PoZ9e6FCAz0eivD+NLCtHyunkYqWdUm7bhjeLNSKdrzpMp
-         9a22cqsPZe4xVQOE2aSRd/chSlf1AD6R38eyzNiOSwYvp0hwtSOtk8mPGtOxzKjvc6/r
-         MWvxDZ/evvpBks39Vq/2/pdrojcJi/IiGWTp7+5lfx+HcVVkMDJO4FZ5r+IlOerWFkAI
-         4Bqw==
+        d=gmail.com; s=20230601; t=1751278873; x=1751883673; darn=lists.yoctoproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=uvV2wTjllD7H8DRJELrqoxQvBLHDn2yq0tWZINXh2gc=;
+        b=GdzaA2NM2fxVqND4JnjExHV8d1w7edkrc0iCxTbhZ61/FzeXn9UGglGI/fjkVQExnU
+         848s0zGofz7NU+LtJ50S75I0KWqYU43LWnnqWB3U//duO8/1JrgQmvT+t/sAsCZqlayo
+         k/dpz/V0hvOxCpvWZiQyNZVO2GJo4zFKzeCodklV/HNGLOwKsRNL7xheEyJA9O8yM96W
+         iJ1itHTRtQRAYkwAQyLe8J9U6558V0OkxbRLdAw8Nxqph5SkBMPuzGZqJJe6pfbJ20R2
+         85NUdZ1o03veaDSgT5VSjCxRio+pwy0RxUqjTgAaCb/+0qgYO0aWZzN4DiiDCaIJkzok
+         Yu9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751007343; x=1751612143;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1751278873; x=1751883673;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=CU0Lo3AnxyPPQVGnkO3H1wUDTR89ba2Nud8RN2C4dos=;
-        b=C62jHh0Mb7MFoPifnM3HNFykAo+lxAn45ffHd/N+ohh7QG4+ypkIYYrRUpw5Aohq+U
-         U84yB/VaFrp2I3NzZ0E8Amhi5ITYI3gYOdvdeA3HxxHmgSHCD2ELBBn6BIMJpPB2lcnh
-         mDA2WMgdoWi3p9APU5VFLVQFRAv1pOlpYL7DC8m4Sa35sxwlU1jZZSsNmniKfSG8//5G
-         iCuzvO6TVUK+wkRhkzkcqSr8k+5NBYnsGE/nUZ/mgKRbALB6ffmC5S4Biy7dclwkths2
-         6SFhJWZFZxGWTuK/AWtrgRIVJgwPIMTAwVOOxhIl1SdMaYtWDBSaiASbFKQCCzzJPb0c
-         Fumg==
-X-Gm-Message-State: AOJu0Ywsw904QkF9l26ca7QLzVVxiwF+5dLm5X8CvMiQ243NYNt8iJxu
-	Z0xqCT5N4QFW1vNsUrJo70b5eP1Jlv+m7yujBdBnz1jZcRbxA4/m1PfZFE77iZkEAAx31/ZCEbJ
-	Slw2SdRM=
-X-Gm-Gg: ASbGncv5e0G7ivejXXYi8re5Mirhk4mLMf1ERUwg8ltT/Rv48pyYYRQOUQWwX1EFvh2
-	T0dvm5qrIZgwh5OMcJYIpxAow2x/C1hlOtpdjyjyYRZRYrNuWGK3n99NRSeLNRF5ozYtYtKEQ/r
-	9cUyFMi7LllEvjaMIhm1oV0LzWX3t7iC87psoo/SlB7s/llqeFk4Zv66AKNwXJATsk2tfwBXM8o
-	4PD9y5D7O9ZEXKSHkbQjpAAqudd/WDbWmkyvluBiZdS2W4rgR4VW5MgfQZlqds3Z5WtrYpuAMhX
-	EdQJsynZjBXUR98L3oRBqXm7UhdNYtSuwMlg/ml/2ogfLUKTzgqAB4rU4cIqvesLgLs6bS6rc2T
-	RILtTcTzgsXBRuMimwN+ge6/dZTSNZM0XPq9OHtM=
-X-Google-Smtp-Source: AGHT+IEf9JSWWrZ88hYorMlYesT4ctce4R0DdWIw9kbZYl9xBkwqhHJCURiuYDIC1OGDnqTqXN0EEg==
-X-Received: by 2002:a05:6512:b99:b0:553:3945:82a7 with SMTP id 2adb3069b0e04-5550b7ea366mr683406e87.12.1751007343080;
-        Thu, 26 Jun 2025 23:55:43 -0700 (PDT)
-Received: from localhost.localdomain (87-100-218-141.bb.dnainternet.fi. [87.100.218.141])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5550b2a83dfsm328150e87.92.2025.06.26.23.55.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 26 Jun 2025 23:55:42 -0700 (PDT)
-From: Mikko Rapeli <mikko.rapeli@linaro.org>
-To: poky@lists.yoctoproject.org
-Cc: Mikko Rapeli <mikko.rapeli@linaro.org>
-Subject: [PATCH 6/6] oeqa parselogs: add parselogs-ignores-genericarm64.txt
-Date: Fri, 27 Jun 2025 09:55:24 +0300
-Message-ID: <20250627065524.790721-1-mikko.rapeli@linaro.org>
-X-Mailer: git-send-email 2.49.0
+        bh=uvV2wTjllD7H8DRJELrqoxQvBLHDn2yq0tWZINXh2gc=;
+        b=NDtzSbPUSJIzoegoeaCdRvSC7ozP+oiDV3X0PmUuua2Wsh1e7X+Mrc/GAtfpARooEz
+         4zGe7K81fibfhRlYZ1dFqFlG0l731R2cbBSYLwvav9ka9t1xSXLSdqgD8cZbsH3QrUXo
+         mL3Lbi0HUA6QgsfHHJFj51xTisb8bm/2qZEKk5mzF2HY2w5S4SNgB5POCZvtUMkdSY4b
+         tSkDjVcLqHtDVp39eHAKUInSfayvyDG3nRfrSzG+/hgu27F3E/Z0vcheTVJIeFngJdQm
+         43VvWjQaPCNaIZaq91BBh1499GrJdfpioxBRbNsSedv3eV/LoDh492701FQNCALb/x/V
+         YV+A==
+X-Forwarded-Encrypted: i=1; AJvYcCXx3Iho5ehP9tafXcYImh96SOAE5wBBBvh/qeUcqTUWU3VLgT2zmn+Futn3LPqS90hZqhOd@lists.yoctoproject.org
+X-Gm-Message-State: AOJu0Yz1MZ/aL6IDulOQvHJYmJ85NAvKg4+5R7tjI8dlojP+zt5o7gog
+	axyYMpmqJG9Bgs7gW/3JE4DC4UeyVTc6xOk4qOUG2Jd/0pZP73NhO1dCD7T1nVAZc2JHjr/N/2C
+	0knoMr1b2NUP8z/aTQklVYQiPUI+tG1/C8IpG
+X-Gm-Gg: ASbGncu8CB9qH3fW/uwP4YnOub/cQXgwki4dfZU2kOVpFc0Nk1QhFlZZjkAfvwKWP2G
+	ItvhV011TF6tZcc8qYEsvbFq4qx7Rb5Mi0Rj9u7NZH7j51V3A++oT8gekJQMCUkAzdxtr5kCdTJ
+	GKjlcdr7qdnfhkKykGiX60AecHhFETmexgIBDDCojpVE+BgkG4MgxPKj2j1+i2SWJZhasi3HZAe
+	Nj3DHO2TZXD13oW
+X-Google-Smtp-Source: AGHT+IEprcyh/LbjqP1yo6jG080TLUZ8w6AxcBKpaMXIDJWzMvKFk48BfjqLjkdZkFuMzZ8C0NT8LXJeu65QX2W3syY=
+X-Received: by 2002:a05:6214:f2b:b0:6fa:acc1:f077 with SMTP id
+ 6a1803df08f44-700134a8bb8mr178282166d6.35.1751278872827; Mon, 30 Jun 2025
+ 03:21:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20250623165507.1633860-1-alex.kanavin@gmail.com>
+ <6fb30604dfb196088f07c6b59f437eeb0f1df788.camel@linuxfoundation.org>
+ <CANNYZj8bcMto=-OHPNEZs_aEM4vr9K1ujVOZ77EDBT-9xC5sRw@mail.gmail.com>
+ <749dde0c3ed74dc938085cd15316245eeaa15cc4.camel@linuxfoundation.org>
+ <184C05EBFBF7A622.2779@lists.yoctoproject.org> <184C4DB835DB2097.24592@lists.yoctoproject.org>
+In-Reply-To: <184C4DB835DB2097.24592@lists.yoctoproject.org>
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Mon, 30 Jun 2025 12:21:01 +0200
+X-Gm-Features: Ac12FXwdf9RYPG8XpXf9gX7qnn_Ww2-m3EDOA7v3zUlUH_RxhIyhZl0zacIxfw8
+Message-ID: <CANNYZj9JJXimG23QPDJ7kBZu1Q+ps9iS3dkf-HJqvWK+2q9VoQ@mail.gmail.com>
+Subject: Re: [yocto] [poky] [PATCH 1/2] meta-poky/conf/templates/default/bblayers.conf.sample:
+ do not assume integrated poky repo
+To: yocto@lists.yoctoproject.org, alex.kanavin@gmail.com
+Cc: Richard Purdie <richard.purdie@linuxfoundation.org>, poky@lists.yoctoproject.org, 
+	bitbake-devel <bitbake-devel@lists.openembedded.org>
+Content-Type: text/plain; charset="UTF-8"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 27 Jun 2025 06:55:54 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13686
+ <poky@lists.yoctoproject.org>; Mon, 30 Jun 2025 10:21:19 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13687
 
-With safe to ignore pinctl and initrd warnings from
-AMD kv260 boot.
+On Wed, 25 Jun 2025 at 15:56, Alexander Kanavin via
+lists.yoctoproject.org <alex.kanavin=gmail.com@lists.yoctoproject.org>
+wrote:
 
-Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
----
- .../lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt | 4 ++++
- 1 file changed, 4 insertions(+)
- create mode 100644 meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt
+> Bitbake-setup would write out bblayers.conf with BBLAYERS entry
+> ('bitbake-layers add-layer' can't be used at that point yet), and then
+> enable fragments via bitbake-config-build (this is already
+> implemented). This should result in a functional build directory, with
+> a blank (or absent) local.conf.
+>
+> Then this patch, and the ones adding 'blank' templates become unnecessary.
 
-diff --git a/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt b/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt
-new file mode 100644
-index 000000000000..1e8b1f4b7d1b
---- /dev/null
-+++ b/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt
-@@ -0,0 +1,4 @@
-+# safe to ignore minor firmware issue
-+zynqmp-pinctrl firmware:zynqmp-firmware:pinctrl: failed to set: pin
-+# safe to ignore initrd warning
-+Can't lookup blockdev
--- 
-2.43.0
+I've now implemented this and resent the bitbake-setup patches. The
+sample 'poky-ng' config that doesn't need templates and specifies
+layers directly is here:
 
+https://github.com/kanavin/bitbake-setup-configurations/blob/main/yocto-master.conf.json
+
+Alex
 
