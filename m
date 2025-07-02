@@ -2,70 +2,70 @@ Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1ABA2C7EE30
-	for <webhook@archiver.kernel.org>; Tue,  1 Jul 2025 07:35:11 +0000 (UTC)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
- by mx.groups.io with SMTP id smtpd.web11.4667.1751355290199655174
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 763CEC7EE30
+	for <webhook@archiver.kernel.org>; Wed,  2 Jul 2025 07:26:22 +0000 (UTC)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+ by mx.groups.io with SMTP id smtpd.web10.18009.1751441177821208597
  for <poky@lists.yoctoproject.org>;
- Tue, 01 Jul 2025 00:34:50 -0700
+ Wed, 02 Jul 2025 00:26:18 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=c0CCk2/I;
- spf=pass (domain: linaro.org, ip: 209.85.167.46, mailfrom: mikko.rapeli@linaro.org)
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-553ba7f11cbso6240009e87.1
-        for <poky@lists.yoctoproject.org>; Tue, 01 Jul 2025 00:34:49 -0700 (PDT)
+ dkim=pass header.i=@linaro.org header.s=google header.b=XN8rSKdF;
+ spf=pass (domain: linaro.org, ip: 209.85.167.50, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-54d98aa5981so6083055e87.0
+        for <poky@lists.yoctoproject.org>; Wed, 02 Jul 2025 00:26:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1751355288; x=1751960088; darn=lists.yoctoproject.org;
+        d=linaro.org; s=google; t=1751441176; x=1752045976; darn=lists.yoctoproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
         bh=CU0Lo3AnxyPPQVGnkO3H1wUDTR89ba2Nud8RN2C4dos=;
-        b=c0CCk2/IgZ/gq/H/irCcHcJAYRZECi+KN6yDDjEvtMPUNu3S+HbSDfRttwF8+WnQNB
-         z+wARpbCMkwg8CL0ztbxxGTRGBq48FDTMd/zrdgqEusM06l/iJsqg/LmKqO8jT/Gs6u9
-         5Pqi3AyIxfh/Dd5Cd0Y5WnO4l2PIMrNMnyBKXkEexutQxJnPtQ++IpkP3wkEVUJP+Ucx
-         VeklGLuRXNA3sZX8X+7rD1u6FHwMrvsiNPVgLi3rYaEEZosG+VNaHapmRtVnNsGKF5zB
-         52uVi9LmFAs1rrLNtswJH2gbCgwjamyrm+dBM4gm8dwfZI3lgczrOexm3cRwIktzWDSS
-         mj4Q==
+        b=XN8rSKdFl4Sll5XatxIwc1zbZTrDQWReNwSgBSJOL67DPW9eekuifJf+lmjQawp53O
+         IiWBRgLgdC4tPXfxyB5nJ5QVhFAJnXzM+jKiDJSqtadOp2IbJfc8R0p6JslEPT+yl6PS
+         iqqtbPLYYzCQfS/x87qD8HPaNleB9V9DkhzE+Q7Vq/nZcfiVNBW34VfsTdIkFFI7bZ5c
+         Hdsv4e8k8IBqSE+9C1gM8meGMBpR6B0abXNlJdI5Kj692DxPDK941nkVaB8W1PSpQg/4
+         N6Xq5d5G0W45e5u6W/JUdhKuwYw9D4i50+U/Sd0U2evRq+s6A6P1dBS9OlPlihsQiXHl
+         q64g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751355288; x=1751960088;
+        d=1e100.net; s=20230601; t=1751441176; x=1752045976;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
         bh=CU0Lo3AnxyPPQVGnkO3H1wUDTR89ba2Nud8RN2C4dos=;
-        b=d29DpN339iAeJ7FYAfiwMpeD+FWqyuyuKErmqfqeULVjaiRgYe3u5PAGPX0SbDHGDx
-         jkRGhYnmEvxrfdQ072pNrpsUgm9LbZosRIZwV/uCGkx6oHS7RtQTb9QbVhaSjkrDtOGe
-         pWT4CUsi1knZNaScmklint3En60yoGIDyrjLCujgCCcSVL602jLZQ9wNnlsOR1H6Fqz6
-         6sieqZ1c2xUxAlksVmDtDPJNTALq8iPhns+BrFe61JP6NPC+blfakL+WM806hBuR1DuX
-         5ev7aER43PldeQsP1LU+jmG2txSKfvMA9YhLZLawMvNiFML9WqRpy+kTphJVJRxnfmkJ
-         i3zQ==
-X-Gm-Message-State: AOJu0Yz6ZEeRom+D4C+rGhQFqzMXZKAqh6WqyDVO87a3DVra6T+votIL
-	qvL14Zw2hkrNS6poTExgZONGaiO0K+nN3g+ntzosvwcNVPIvJBii4wPighsLjF4UbzbWlpCPz6E
-	bzk3LUxU=
-X-Gm-Gg: ASbGncuoYpLNyNnjPHKwRZqn58ls73JnDenn33YKTAyIddmUR2h+uVNDIQJZUETtVA3
-	kzO4OnwczWJinJ1JYWgEsW54bD20e8N3B4lsfxE+8yd0/jzNG9xoSBE4ie9xWNo8K7YiyPthIR8
-	gSYwV7pQ9xtW2CY99TbITEv+Wh2Y3eNrT+NAzRBE1R7aFidRpDP3Mi+9Xy9cP/MbOy09WXULFFQ
-	47lbn00gkxmo21ycVU0D+kVUrMUGCxlgY80pu5qAoip168QR4os+U0uiQtqfo+0S/amphPxtH7e
-	kbaDePaCaFb7raWOh0h1/cADUMuENkEcffHLEB2SQ7lLMcVwIXqH51r2imFOw/uDjBxWM9DCYP9
-	CPoVEMAMk4kTArOxhKbsNDTVXB422Gbj1ji2zd/I=
-X-Google-Smtp-Source: AGHT+IHron4AryTPrdYgpbuCjP8Gag7tW4DrSMYKKMuYlYIdV3wfsftt8gQTEGKXa/831T1HGSv0lg==
-X-Received: by 2002:a05:6512:3c9c:b0:554:f74b:789e with SMTP id 2adb3069b0e04-5550b8ab21emr5356926e87.43.1751355288045;
-        Tue, 01 Jul 2025 00:34:48 -0700 (PDT)
+        b=ncieYbv3Hxp/NdCieXFo4NxV9Fo4ZE60CQaGm+uCxWijZDlcSVMGuw4ML3NcRO1CHD
+         KQxdcuN4+2WcFpwOcLkCUkl4TCgw+VrbSJ7HCMGtQ6wlXuduBBW1lrjHDOdbP2m1qeTE
+         FTSQ32YX5d8ifHPOnOmBJ+cZJllAgn4y7wyhb8EAATG30sdNAdpvYqDK+gsTZDBc+MAK
+         DG241FN4XryZv8I2cXwVjmGHc258hZtyc7uXTKROGpypB4VDeJ1OXt2GTHfnWoeIx2Vd
+         UitHnMNT5n/8beo2r4Ezppkt/fLQKWEr4mi62eqPJAdQIHJWgNUe+KxR6zKEbpbv6ptl
+         s+/A==
+X-Gm-Message-State: AOJu0Yw1eJHR4vHzZQ/Dc5m0L38hIjClkbl0xHirVemhTCbiVWGqZ3hQ
+	UPOqFcQaeqdKr2IPZ8bAgVSTEgoLJRE2eWqtRkzZoF5MrUK4YdhWNyjueoUxsZHdFn/qB7btXM9
+	uzpX0
+X-Gm-Gg: ASbGncupNdI3WXiFwe3d3OEWuYwwofmz5ESWttmPgiHxQ6amqwndzIb5lFFR8L6CHQB
+	bt/VTZsylJeMWjplF+5cXN+uLHD3v+nCeTkoAlz2zoP37oO77A+NWHDuU3IpJ1pGa9oNm5QEG9y
+	UBQioeZcEP20Nx1SIdKrHp/zhcSmvjbc4pysVNBt8hNKfufcqC4IDBok++XkquShTE4iXBbymlU
+	RBdRdasuzapl7YE6Pbz4Nrn+BFaEDLyo5cpYq+/ffveM6OB+lmyu4CWYoiXQTrEg6zvlUDW/RN3
+	GT87XKJRDYtvkOUfQRGFjlc24kMZLDtH6OBAPoATJngdT4QM1Ttltlp7Y7+9cw+YBDAHleH5a6B
+	8/42FyS5Dlo/fpCH7D1IpudpkLtLxiuatnhAlmoQ=
+X-Google-Smtp-Source: AGHT+IHCzMuqU6mBRjJjFFCBuGI1WVQD1UrjNWzYZWg/hgkn4Mm3SBGeXv8rUCityQ2dKfopFrGCwA==
+X-Received: by 2002:a05:6512:3050:b0:553:cdd7:368b with SMTP id 2adb3069b0e04-5562833b618mr537308e87.43.1751441175736;
+        Wed, 02 Jul 2025 00:26:15 -0700 (PDT)
 Received: from localhost.localdomain (87-100-218-141.bb.dnainternet.fi. [87.100.218.141])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5550b2ce338sm1707482e87.169.2025.07.01.00.34.47
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-32cd2f17cd6sm18160101fa.114.2025.07.02.00.26.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Jul 2025 00:34:47 -0700 (PDT)
+        Wed, 02 Jul 2025 00:26:15 -0700 (PDT)
 From: Mikko Rapeli <mikko.rapeli@linaro.org>
 To: poky@lists.yoctoproject.org
 Cc: Mikko Rapeli <mikko.rapeli@linaro.org>
-Subject: [PATCH v2 6/6] oeqa parselogs: add parselogs-ignores-genericarm64.txt
-Date: Tue,  1 Jul 2025 10:34:40 +0300
-Message-ID: <20250701073440.979462-1-mikko.rapeli@linaro.org>
+Subject: [PATCH v3 5/5] oeqa parselogs: add parselogs-ignores-genericarm64.txt
+Date: Wed,  2 Jul 2025 10:25:59 +0300
+Message-ID: <20250702072559.1075561-1-mikko.rapeli@linaro.org>
 X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 01 Jul 2025 07:35:11 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13689
+ <poky@lists.yoctoproject.org>; Wed, 02 Jul 2025 07:26:22 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13690
 
 With safe to ignore pinctl and initrd warnings from
 AMD kv260 boot.
