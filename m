@@ -1,130 +1,73 @@
-Return-Path: <mns@gomspace.com>
+Return-Path: <adrian.freihofer@siemens.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3CE3C8303D
-	for <webhook@archiver.kernel.org>; Fri,  4 Jul 2025 10:27:36 +0000 (UTC)
-Subject: [walnascar] systemd-networkd-persistent-storage fails during boot, using read-only-rootfs and overlayfs-etc image features
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DAEB4C71130
+	for <webhook@archiver.kernel.org>; Mon,  7 Jul 2025 20:38:28 +0000 (UTC)
+Received: from mta-65-227.siemens.flowmailer.net (mta-65-227.siemens.flowmailer.net [185.136.65.227])
+ by mx.groups.io with SMTP id smtpd.web10.2909.1751920708244018340
+ for <poky@lists.yoctoproject.org>;
+ Mon, 07 Jul 2025 13:38:28 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=adrian.freihofer@siemens.com header.s=fm1 header.b=bIMJ52sG;
+ spf=pass (domain: rts-flowmailer.siemens.com, ip: 185.136.65.227, mailfrom: fm-1329275-20250707203825a20de82214bc17c894-auo57w@rts-flowmailer.siemens.com)
+Received: by mta-65-227.siemens.flowmailer.net with ESMTPSA id 20250707203825a20de82214bc17c894
+        for <poky@lists.yoctoproject.org>;
+        Mon, 07 Jul 2025 22:38:26 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=adrian.freihofer@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=agdEDDMg7l12alde9Wx2xNk0cwz6cWkddNCcvIe/1sE=;
+ b=bIMJ52sGvd7pyed6l0B9rVDw5LSirnI2I3fiHI+8nBVpBXyphx9kdXwa93s/jlC9IsJHWM
+ oiQ2XgOJ8wl0jNJf2NXiXItH8ro4XUjqYzIdr335p4BaDh53KBL5B7U1VOJWlSirCthqlDjV
+ t4+gCql5hpTnt2NM9dOOG00nreobyyoAu8U8vp7bfegiB2fpyJqZRy/R6TFobzzvArniZQH6
+ DtTNDv1lt5reNJIRKWAzh1UsLc3b9swPDbae8fcrWNNEx2691URuZII7UhAKFE/krwzfCfXR
+ as3JOLH9VfTu3QTQ3TJ/m5mentaCEIG2f5je+iSqKvAhQ+Ez2xVjVx9w==;
+From: AdrianF <adrian.freihofer@siemens.com>
 To: poky@lists.yoctoproject.org
-From: "Martin Siegumfeldt" <mns@gomspace.com>
-X-Originating-Location: DK (79.171.149.174)
-X-Originating-Platform: Linux Chrome 138
-User-Agent: GROUPS.IO Web Poster
+Cc: Adrian Freihofer <adrian.freihofer@siemens.com>
+Subject: [PATCH v2 1/5] beaglebone-yocto: support initramfs in qemu
+Date: Mon,  7 Jul 2025 22:37:54 +0200
+Message-ID: <20250707203820.2554184-2-adrian.freihofer@siemens.com>
+In-Reply-To: <20250707203820.2554184-1-adrian.freihofer@siemens.com>
+References: <20250707203820.2554184-1-adrian.freihofer@siemens.com>
 MIME-Version: 1.0
-Date: Fri, 04 Jul 2025 03:27:31 -0700
-Message-ID: <t2Cd.1751624851200674661.vVFe@lists.yoctoproject.org>
-Content-Type: multipart/alternative; boundary="u2wwrYQ9ez4gf3ZZmeMJ"
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-1329275:519-21489:flowmailer
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 04 Jul 2025 10:27:36 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13692
+ <poky@lists.yoctoproject.org>; Mon, 07 Jul 2025 20:38:28 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13693
 
---u2wwrYQ9ez4gf3ZZmeMJ
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+From: Adrian Freihofer <adrian.freihofer@siemens.com>
 
-Hi all,
+Support booting with initramfs also in Qemu.
+If INITRAMFS_IMAGE is defined, Qemu gets it via -initrd parameter.
 
-We have been using read-only-rootfs and overlayfs-etc image features for th=
-e last few Yocto baselines most recently on styhead without any issues. Mov=
-ing on to Walnascar we intermittently observe systemd-networkd-persistent-s=
-torage service to fail:
+Signed-off-by: Adrian Freihofer <adrian.freihofer@siemens.com>
+---
+ meta-yocto-bsp/conf/machine/beaglebone-yocto.conf | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-systemd-networkd-persistent-storage.service - Enable Persistent Storage in =
-systemd-networkd
-Loaded: loaded (]8;;file://nanomind-z7020-zed/usr/lib/systemd/system/system=
-d-networkd-persistent-storage.service\/usr/lib/systemd/system/systemd-netwo=
-rkd-persistent-storage.service]8;;\; static)
-Active: failed (Result: exit-code) since Thu 2025-05-29 16:30:37 UTC; 1 mon=
-th 1 day ago
-Invocation: 9c37effe85404b6c81ecc9195defb5ff
-Docs: ]8;;man:networkctl(1)\man:networkctl(1)]8;;\
-Process: 162 ExecStart=3Dnetworkctl persistent-storage yes (code=3Dexited, =
-status=3D238/STATE_DIRECTORY)
-Main PID: 162 (code=3Dexited, status=3D238/STATE_DIRECTORY)
-CPU: 33ms
-May 29 16:30:37 nanomind-z7020-zed systemd[1]: Starting Enable Persistent S=
-torage in systemd-networkd...
-May 29 16:30:37 nanomind-z7020-zed (tworkctl)[162]: systemd-networkd-persis=
-tent-storage.service: Failed to set up special execution directory in /var/=
-lib: Read-only file system
-May 29 16:30:37 nanomind-z7020-zed (tworkctl)[162]: systemd-networkd-persis=
-tent-storage.service: Failed at step STATE_DIRECTORY spawning networkctl: R=
-ead-only file system
-May 29 16:30:37 nanomind-z7020-zed systemd[1]: systemd-networkd-persistent-=
-storage.service: Main process exited, code=3Dexited, status=3D238/STATE_DIR=
-ECTORY
-May 29 16:30:37 nanomind-z7020-zed systemd[1]: systemd-networkd-persistent-=
-storage.service: Failed with result 'exit-code'.
-May 29 16:30:37 nanomind-z7020-zed systemd[1]: Failed to start Enable Persi=
-stent Storage in systemd-networkd.
+diff --git a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
+index db9cfec497a..d4b72361650 100644
+--- a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
++++ b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
+@@ -46,7 +46,10 @@ QB_SYSTEM_NAME = "qemu-system-arm"
+ QB_MACHINE = "-machine virt"
+ QB_CPU = "-cpu cortex-a15"
+ QB_KERNEL_CMDLINE_APPEND = "console=ttyAMA0 systemd.mask=systemd-networkd"
+-QB_OPT_APPEND = "-device virtio-rng-device"
++QB_OPT_APPEND = "\
++    -device virtio-rng-device \
++    ${@' -initrd %s/%s.%s' % (d.getVar('DEPLOY_DIR_IMAGE'), d.getVar('INITRAMFS_IMAGE_NAME'), d.getVar('INITRAMFS_FSTYPES')) if d.getVar('INITRAMFS_IMAGE') else ''} \
++"
+ QB_TAP_OPT = "-netdev tap,id=net0,ifname=@TAP@,script=no,downscript=no"
+ QB_NETWORK_DEVICE = "-device virtio-net-device,netdev=net0,mac=@MAC@"
+ QB_ROOTFS_OPT = "-drive id=disk0,file=@ROOTFS@,if=none,format=raw -device virtio-blk-device,drive=disk0"
+-- 
+2.50.0
 
-Looking into the most/direct relevant systemd files from styhead version (v=
-256.5) to walnascar version (v257.6), no obvious related changes appear. It=
- occurs only sporadicly (for 1/5'ish boots) and I thus suspect some sort of=
- race condition to occur. It is observed on an Avnet Zedboard connected to =
-a corporate ethernet network configured for DHCP. overlayfs-etc is configur=
-ed using:
-OVERLAYFS_ETC_USE_ORIG_INIT_NAME =3D "0"
-OVERLAYFS_ETC_CREATE_MOUNT_DIRS =3D "0"
-
-Anyone else observed this, or has clues for further debug?
-
-Thanks,
-Martin
-
---u2wwrYQ9ez4gf3ZZmeMJ
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div>Hi all,</div>
-<div>&nbsp;</div>
-<div>We have been using read-only-rootfs and overlayfs-etc image features f=
-or the last few Yocto baselines most recently on styhead without any issues=
-. Moving on to Walnascar we intermittently observe systemd-networkd-persist=
-ent-storage service to fail:</div>
-<div>
-<div>&nbsp;</div>
-<div>&nbsp;systemd-networkd-persistent-storage.service - Enable Persistent =
-Storage in systemd-networkd<br />&nbsp; &nbsp; &nbsp;Loaded: loaded (]8;;fi=
-le://nanomind-z7020-zed/usr/lib/systemd/system/systemd-networkd-persistent-=
-storage.service\/usr/lib/systemd/system/systemd-networkd-persistent-storage=
-.service]8;;\; static)<br />&nbsp; &nbsp; &nbsp;Active: failed (Result: exi=
-t-code) since Thu 2025-05-29 16:30:37 UTC; 1 month 1 day ago<br />&nbsp;Inv=
-ocation: 9c37effe85404b6c81ecc9195defb5ff<br />&nbsp; &nbsp; &nbsp; &nbsp;D=
-ocs: ]8;;man:networkctl(1)\man:networkctl(1)]8;;\<br />&nbsp; &nbsp; Proces=
-s: 162 ExecStart=3Dnetworkctl persistent-storage yes (code=3Dexited, status=
-=3D238/STATE_DIRECTORY)<br />&nbsp; &nbsp;Main PID: 162 (code=3Dexited, sta=
-tus=3D238/STATE_DIRECTORY)<br />&nbsp; &nbsp; &nbsp; &nbsp; CPU: 33ms</div>
-<div>May 29 16:30:37 nanomind-z7020-zed systemd[1]: Starting Enable Persist=
-ent Storage in systemd-networkd...<br />May 29 16:30:37 nanomind-z7020-zed =
-(tworkctl)[162]: systemd-networkd-persistent-storage.service: Failed to set=
- up special execution directory in /var/lib: Read-only file system<br />May=
- 29 16:30:37 nanomind-z7020-zed (tworkctl)[162]: systemd-networkd-persisten=
-t-storage.service: Failed at step STATE_DIRECTORY spawning networkctl: Read=
--only file system<br />May 29 16:30:37 nanomind-z7020-zed systemd[1]: syste=
-md-networkd-persistent-storage.service: Main process exited, code=3Dexited,=
- status=3D238/STATE_DIRECTORY<br />May 29 16:30:37 nanomind-z7020-zed syste=
-md[1]: systemd-networkd-persistent-storage.service: Failed with result 'exi=
-t-code'.<br />May 29 16:30:37 nanomind-z7020-zed systemd[1]: Failed to star=
-t Enable Persistent Storage in systemd-networkd.</div>
-<div>&nbsp;</div>
-<div>Looking into the most/direct relevant systemd files from styhead versi=
-on (v256.5) to walnascar version (v257.6), no obvious related changes appea=
-r. It occurs only sporadicly (for 1/5'ish boots) and I thus suspect some so=
-rt of race condition to occur. It is observed on an Avnet Zedboard connecte=
-d to a corporate ethernet network configured for DHCP. overlayfs-etc is con=
-figured using:</div>
-<div>OVERLAYFS_ETC_USE_ORIG_INIT_NAME =3D "0"</div>
-<div>OVERLAYFS_ETC_CREATE_MOUNT_DIRS =3D "0"</div>
-<div>&nbsp;</div>
-<div>Anyone else observed this, or has clues for further debug?</div>
-<div>&nbsp;</div>
-<div>Thanks,</div>
-<div>Martin</div>
-<div>&nbsp;</div>
-</div>
-
---u2wwrYQ9ez4gf3ZZmeMJ--
 
