@@ -1,121 +1,90 @@
-Return-Path: <mikko.rapeli@linaro.org>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD3F0C83F1A
-	for <webhook@archiver.kernel.org>; Fri, 11 Jul 2025 09:30:26 +0000 (UTC)
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
- by mx.groups.io with SMTP id smtpd.web11.9798.1752226216941857954
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DB3DC83F1B
+	for <webhook@archiver.kernel.org>; Fri, 11 Jul 2025 13:07:48 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+ by mx.groups.io with SMTP id smtpd.web10.13529.1752239263693325691
  for <poky@lists.yoctoproject.org>;
- Fri, 11 Jul 2025 02:30:17 -0700
+ Fri, 11 Jul 2025 06:07:44 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=tNsRpX1E;
- spf=pass (domain: linaro.org, ip: 209.85.208.169, mailfrom: mikko.rapeli@linaro.org)
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-32ce1b2188dso17215041fa.3
-        for <poky@lists.yoctoproject.org>; Fri, 11 Jul 2025 02:30:16 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=DoflHXmC;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.45, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-3a6e8b1fa37so1796099f8f.2
+        for <poky@lists.yoctoproject.org>; Fri, 11 Jul 2025 06:07:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1752226215; x=1752831015; darn=lists.yoctoproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=6AJ5hK7Y37/bgWEqdyzsIbVFTZuUqVJoQI1oQqIe0d0=;
-        b=tNsRpX1EU6SGr6CxoU1tlEHMpzBSz2JpLCVIs1+5JlLZB8RzM06hd7prsfUpcBDdSe
-         r1QPJkRU8GroyrcwlsVL1jrXej+otNMYKl5sWW5KOjzSxwGTlhBg7ljbfBNM54Ya0Toz
-         q5DUv1XA9bjW1DpaTlPafYNNUotJvQIME1C4eyQTuMZZIm0c2bKu/bCGN7mPUid6kqG5
-         1c4RONm5TzwX7i2kgjjkeOeATrTkXhMVjlxXeIfxfE7TMUKunirjgwXBTa6QtJe/sDOY
-         FGob65h5+7uWHLfl+MeIapsAE4+EdQIAGvrWvXZVmj+ayYoFq9oRcDRju+tfWoah1BQs
-         0FGQ==
+        d=linuxfoundation.org; s=google; t=1752239262; x=1752844062; darn=lists.yoctoproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=gOCvGjWgznmBXGVg/Q8cIgcpCd5ULuE4An9YDJAuUzs=;
+        b=DoflHXmC+STU8qt3SPuDZDF0dLvlJfeQyMOy/K3nirJF9zSlSaECmgZTQTERulBXBk
+         9guKqXNPtf0CJkBWUijOd2LIW2Fx042Dkb0dy8w6pV8LCRGFHNmVuqIO6Qhad6TpLKLE
+         b0QQEeNg2uqIu1ABQn4LAqERQ2ODAkPhrCkXY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752226215; x=1752831015;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6AJ5hK7Y37/bgWEqdyzsIbVFTZuUqVJoQI1oQqIe0d0=;
-        b=oTBJZrVpDhbo2PwmfT05DWtV7Ef8Z+PdSTLKMxFMg/nlxzQZKyUGDDVsrSZAqyPEWn
-         ZMjB0M93uCpoq6JQuLFGx5j78WlmMU0JBGvLE3MoE+qitP1uKLCAalv1C9D8LgAm2AKJ
-         nY5ytajPJKdCGZTRgcsrlfZhfuk4nj3mAVjHrwSlVUxFGnG1DDCXzIY2dDxcGGpRZUj9
-         6UY/BssKmr1BeJh+jIe9ZSkvP5u1dQEYfmfoBYauLATBphHYV/+nxb3cm00Lsh6QOuvF
-         AtYtSb9LTmGQRxhdmO2DQTDDD1dWrWzYj7b9FUVWhEBA24aO/a3fnQpgeSqYq9tC2ERz
-         T+lA==
-X-Gm-Message-State: AOJu0Yx54EL0UV9dg49KsIZ1jeDeXkBbt6S11Gkntv+ukokf6iTu7Jtf
-	b+HfwN7e9RSIG7f5MZ1zCDQLENOsOwtJ8T2rYlTgH7jRL1YRdbD+xDokQqctRlL0NHA=
-X-Gm-Gg: ASbGncs1/gt7JplTT4BH2nmFs/Uz2HDsGic+cMRGYfznjMhWdexFVvpWyGh9/sTO8rd
-	Jt07HRCbKwUshju1Zwcryq4so2M9ZnzsYXL4emEFADea/n7siFLAxXxtTmmj+/+jlw6Zl9bt4Gr
-	1BmFj4hOLHhaz/tBC8JFfOJEj7S7bWB0D+ta+3CjE0izLENDZ1cDpdm610GrhciUN6/fBNq/TBE
-	yNvDf/MkCQ5e/juxq875uIOw+PpygnjTqTT22TpHZDIh2+VHKLKzovvvGCGzyvme304LCEV4o5Y
-	PBTCA4ud8mDnYzsBJiWlP4dbPdxA50duwglBwQcbvp+OEWsfGr1chSP0HaY8oABbUMSgLloGuq1
-	LsbE1uS5CdA12ljNmLVWtKi8/LRVoF1lgMdv8nlp6hr0pdoFaKh0pqGQ=
-X-Google-Smtp-Source: AGHT+IGb6mhgP6QpKePbB9g0SrPp/wXwbIl1gsLQLPS+i7uBGd7a2dbtiXrg774tlaa1JYo5jztwyg==
-X-Received: by 2002:a05:651c:4190:b0:32a:69c7:7b0b with SMTP id 38308e7fff4ca-33053341cb8mr5637081fa.12.1752226214987;
-        Fri, 11 Jul 2025 02:30:14 -0700 (PDT)
-Received: from nuoska (87-100-218-141.bb.dnainternet.fi. [87.100.218.141])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-32fa29134e3sm6248071fa.11.2025.07.11.02.30.14
+        d=1e100.net; s=20230601; t=1752239262; x=1752844062;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=gOCvGjWgznmBXGVg/Q8cIgcpCd5ULuE4An9YDJAuUzs=;
+        b=JlVAoF01/Ayn06iKoKizmcDq8rRdF8C1B0/LhzEabdaVru0/5y5+z0tYyrgN0tx4Ct
+         4b5/HZtMPpLWu9YcVek7MOyQrFj97+PIotXkH7RboCAutcAYURF+8NFKGKhyi7bxGGF4
+         x6rJDTYvpyYTYJm6XHP9T/9A8YWuLIP36lYC81c54ZiXtodahe4ZrAFlYLe7VY/5VnVA
+         hYs2RmPf0QJpYPqOrcLriDUm64KZ5PExBWbyPisw0z9QSHB5Jas8vz/fFfgfxDlC38sH
+         g2gXGaziHrsfJxLn5+2eKvocBVQoWL7VWMKJ2CCnxvrFCUfCS8KKBvm/0jvMCV7Kq9Rs
+         qTmg==
+X-Gm-Message-State: AOJu0YwC6afKvgOfM/4tKENs5uQ3hx4yD69hV5f6+M/+ClZH9OZsdRrC
+	S/OCaeCbg2Rrnr/FkfPpVkmDQS7D/grxBag9LMDHhopoaXQlrjTj18hmtf4Myjw0pMI=
+X-Gm-Gg: ASbGnct0x9WK5t1pmveyAOr09PUVQjvTYjUbM1+D52Kw7NwU+24GMu+ynWtas1V/oIM
+	qPv3sA1riHdssgcYknazgzI2q43bKdd6n3w9a12x6QASHqK/OidKw4Gv5d3TAaMi7tb8ybgkB43
+	a9poDWG0nGCe64eZh8VLYe2BjUNW4M+i2CtLGJ0D+eNkcHTN8PMwO/R55KrbWyIV9NSujnh8RC+
+	P1RBsSFtJ1Hhyb9RSxEznV1mbP7MLlYvcyX28XBUqfPtkDzzoIV6T+0DVPUS7VChiK8rfDY8JGy
+	CSFkse5PAv4QFyrGqHqNyDtDhmD/XT7f2N4kFZ53wskg65e5w8npjkSFklILZVZbiMCnjw3zHL4
+	YLBbEhUJIorh/dL0N5SOfXKAcdcHzIZ+J938felyBCAJLckmDiJ0f78vBeWrXOYe9XepgQURqzo
+	eJlD/klUsuAjPkUoaYF48Iwg==
+X-Google-Smtp-Source: AGHT+IF/pFRmI15CnT3v2/v6Xd9MhN/ysIEDGoaildcNPRmUcyagd+NXM+xiV9LCMP7t1q5/IjRFnQ==
+X-Received: by 2002:adf:b601:0:b0:3a5:1240:6802 with SMTP id ffacd0b85a97d-3b5f18fbaf2mr2632663f8f.57.1752239261908;
+        Fri, 11 Jul 2025 06:07:41 -0700 (PDT)
+Received: from ?IPv6:2001:8b0:aba:5f3c:d15b:bf13:63e0:c412? ([2001:8b0:aba:5f3c:d15b:bf13:63e0:c412])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3b5e8bd180fsm4377774f8f.2.2025.07.11.06.07.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Jul 2025 02:30:14 -0700 (PDT)
-Date: Fri, 11 Jul 2025 12:30:13 +0300
-From: Mikko Rapeli <mikko.rapeli@linaro.org>
-To: Ross Burton <Ross.Burton@arm.com>,
-	Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: poky@lists.yoctoproject.org
+        Fri, 11 Jul 2025 06:07:41 -0700 (PDT)
+Message-ID: <97e8302cd5495fd5b000d17f86888db728afbdb7.camel@linuxfoundation.org>
 Subject: Re: [poky] [PATCH v3 5/5] oeqa parselogs: add
  parselogs-ignores-genericarm64.txt
-Message-ID: <aHDZpReCMhrztS7a@nuoska>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Mikko Rapeli <mikko.rapeli@linaro.org>, Ross Burton <Ross.Burton@arm.com>
+Cc: poky@lists.yoctoproject.org
+Date: Fri, 11 Jul 2025 14:07:40 +0100
+In-Reply-To: <aHDZpReCMhrztS7a@nuoska>
 References: <184E5E78D990934F.30429@lists.yoctoproject.org>
+	 <aHDZpReCMhrztS7a@nuoska>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.0-1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <184E5E78D990934F.30429@lists.yoctoproject.org>
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 11 Jul 2025 09:30:26 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13700
+ <poky@lists.yoctoproject.org>; Fri, 11 Jul 2025 13:07:48 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13701
 
-Hi Ross and Richard,
+On Fri, 2025-07-11 at 12:30 +0300, Mikko Rapeli wrote:
+> Hi Ross and Richard,
+>=20
+> Enablers for this have been merged to poky master branch now.
+> Could this be applied too?
+>=20
+> I've noticed that meta-yocto-bsp patched are not getting applied
+> like changes to oe-core. Is there something wrong with the changes
+> or is something different in the review process which I could
+> take into account?
 
-Enablers for this have been merged to poky master branch now.
-Could this be applied too?
-
-I've noticed that meta-yocto-bsp patched are not getting applied
-like changes to oe-core. Is there something wrong with the changes
-or is something different in the review process which I could
-take into account?
+It is more that these are for genericarm64 and those fall more to
+Jon/Ross/Bruce than me for review. Ross has been out a bit recently.
 
 Cheers,
 
--Mikko
-
-On Wed, Jul 02, 2025 at 10:25:59AM +0300, Mikko Rapeli via lists.yoctoproject.org wrote:
-> With safe to ignore pinctl and initrd warnings from
-> AMD kv260 boot.
-> 
-> Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
-> ---
->  .../lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt | 4 ++++
->  1 file changed, 4 insertions(+)
->  create mode 100644 meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt
-> 
-> diff --git a/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt b/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt
-> new file mode 100644
-> index 000000000000..1e8b1f4b7d1b
-> --- /dev/null
-> +++ b/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt
-> @@ -0,0 +1,4 @@
-> +# safe to ignore minor firmware issue
-> +zynqmp-pinctrl firmware:zynqmp-firmware:pinctrl: failed to set: pin
-> +# safe to ignore initrd warning
-> +Can't lookup blockdev
-> -- 
-> 2.43.0
-> 
-
-> 
-> -=-=-=-=-=-=-=-=-=-=-=-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13690): https://lists.yoctoproject.org/g/poky/message/13690
-> Mute This Topic: https://lists.yoctoproject.org/mt/113944197/7159507
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [mikko.rapeli@linaro.org]
-> -=-=-=-=-=-=-=-=-=-=-=-
-> 
-
+Richard
 
