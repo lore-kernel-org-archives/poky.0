@@ -1,90 +1,192 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <jonathan.schnitzler@faro.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DB3DC83F1B
-	for <webhook@archiver.kernel.org>; Fri, 11 Jul 2025 13:07:48 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
- by mx.groups.io with SMTP id smtpd.web10.13529.1752239263693325691
- for <poky@lists.yoctoproject.org>;
- Fri, 11 Jul 2025 06:07:44 -0700
-Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=DoflHXmC;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.45, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-3a6e8b1fa37so1796099f8f.2
-        for <poky@lists.yoctoproject.org>; Fri, 11 Jul 2025 06:07:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1752239262; x=1752844062; darn=lists.yoctoproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=gOCvGjWgznmBXGVg/Q8cIgcpCd5ULuE4An9YDJAuUzs=;
-        b=DoflHXmC+STU8qt3SPuDZDF0dLvlJfeQyMOy/K3nirJF9zSlSaECmgZTQTERulBXBk
-         9guKqXNPtf0CJkBWUijOd2LIW2Fx042Dkb0dy8w6pV8LCRGFHNmVuqIO6Qhad6TpLKLE
-         b0QQEeNg2uqIu1ABQn4LAqERQ2ODAkPhrCkXY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752239262; x=1752844062;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gOCvGjWgznmBXGVg/Q8cIgcpCd5ULuE4An9YDJAuUzs=;
-        b=JlVAoF01/Ayn06iKoKizmcDq8rRdF8C1B0/LhzEabdaVru0/5y5+z0tYyrgN0tx4Ct
-         4b5/HZtMPpLWu9YcVek7MOyQrFj97+PIotXkH7RboCAutcAYURF+8NFKGKhyi7bxGGF4
-         x6rJDTYvpyYTYJm6XHP9T/9A8YWuLIP36lYC81c54ZiXtodahe4ZrAFlYLe7VY/5VnVA
-         hYs2RmPf0QJpYPqOrcLriDUm64KZ5PExBWbyPisw0z9QSHB5Jas8vz/fFfgfxDlC38sH
-         g2gXGaziHrsfJxLn5+2eKvocBVQoWL7VWMKJ2CCnxvrFCUfCS8KKBvm/0jvMCV7Kq9Rs
-         qTmg==
-X-Gm-Message-State: AOJu0YwC6afKvgOfM/4tKENs5uQ3hx4yD69hV5f6+M/+ClZH9OZsdRrC
-	S/OCaeCbg2Rrnr/FkfPpVkmDQS7D/grxBag9LMDHhopoaXQlrjTj18hmtf4Myjw0pMI=
-X-Gm-Gg: ASbGnct0x9WK5t1pmveyAOr09PUVQjvTYjUbM1+D52Kw7NwU+24GMu+ynWtas1V/oIM
-	qPv3sA1riHdssgcYknazgzI2q43bKdd6n3w9a12x6QASHqK/OidKw4Gv5d3TAaMi7tb8ybgkB43
-	a9poDWG0nGCe64eZh8VLYe2BjUNW4M+i2CtLGJ0D+eNkcHTN8PMwO/R55KrbWyIV9NSujnh8RC+
-	P1RBsSFtJ1Hhyb9RSxEznV1mbP7MLlYvcyX28XBUqfPtkDzzoIV6T+0DVPUS7VChiK8rfDY8JGy
-	CSFkse5PAv4QFyrGqHqNyDtDhmD/XT7f2N4kFZ53wskg65e5w8npjkSFklILZVZbiMCnjw3zHL4
-	YLBbEhUJIorh/dL0N5SOfXKAcdcHzIZ+J938felyBCAJLckmDiJ0f78vBeWrXOYe9XepgQURqzo
-	eJlD/klUsuAjPkUoaYF48Iwg==
-X-Google-Smtp-Source: AGHT+IF/pFRmI15CnT3v2/v6Xd9MhN/ysIEDGoaildcNPRmUcyagd+NXM+xiV9LCMP7t1q5/IjRFnQ==
-X-Received: by 2002:adf:b601:0:b0:3a5:1240:6802 with SMTP id ffacd0b85a97d-3b5f18fbaf2mr2632663f8f.57.1752239261908;
-        Fri, 11 Jul 2025 06:07:41 -0700 (PDT)
-Received: from ?IPv6:2001:8b0:aba:5f3c:d15b:bf13:63e0:c412? ([2001:8b0:aba:5f3c:d15b:bf13:63e0:c412])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-3b5e8bd180fsm4377774f8f.2.2025.07.11.06.07.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Jul 2025 06:07:41 -0700 (PDT)
-Message-ID: <97e8302cd5495fd5b000d17f86888db728afbdb7.camel@linuxfoundation.org>
-Subject: Re: [poky] [PATCH v3 5/5] oeqa parselogs: add
- parselogs-ignores-genericarm64.txt
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: Mikko Rapeli <mikko.rapeli@linaro.org>, Ross Burton <Ross.Burton@arm.com>
-Cc: poky@lists.yoctoproject.org
-Date: Fri, 11 Jul 2025 14:07:40 +0100
-In-Reply-To: <aHDZpReCMhrztS7a@nuoska>
-References: <184E5E78D990934F.30429@lists.yoctoproject.org>
-	 <aHDZpReCMhrztS7a@nuoska>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.0-1 
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A622C87FCB
+	for <webhook@archiver.kernel.org>; Wed, 30 Jul 2025 12:42:21 +0000 (UTC)
+Subject: [PATCH] Fix parsing of FKIE CVEs
+To: poky@lists.yoctoproject.org
+From: jonathan.schnitzler@faro.com
+X-Originating-Location: Stuttgart, Baden-Wurttemberg, DE (91.23.61.254)
+X-Originating-Platform: Windows Firefox 141
+User-Agent: GROUPS.IO Web Poster
 MIME-Version: 1.0
+Date: Wed, 30 Jul 2025 05:42:12 -0700
+Message-ID: <P6zE.1753879332563276833.F7v1@lists.yoctoproject.org>
+Content-Type: multipart/mixed; boundary="1ZZwL0QtV0iuJkW5shYM"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 11 Jul 2025 13:07:48 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13701
+ <poky@lists.yoctoproject.org>; Wed, 30 Jul 2025 12:42:21 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13702
 
-On Fri, 2025-07-11 at 12:30 +0300, Mikko Rapeli wrote:
-> Hi Ross and Richard,
->=20
-> Enablers for this have been merged to poky master branch now.
-> Could this be applied too?
->=20
-> I've noticed that meta-yocto-bsp patched are not getting applied
-> like changes to oe-core. Is there something wrong with the changes
-> or is something different in the review process which I could
-> take into account?
+--1ZZwL0QtV0iuJkW5shYM
+Content-Type: multipart/alternative; boundary="ek28UmYirZ8My2hzm71K"
 
-It is more that these are for genericarm64 and those fall more to
-Jon/Ross/Bruce than me for review. Ross has been out a bit recently.
+--ek28UmYirZ8My2hzm71K
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Cheers,
+Hi all,
 
-Richard
+I noticed issues with the parsing of CVEs from the FKIE-CAD feed (update_db=
+_fkie() in cve-update-db-native.bb)s:
+- It tries to read an accessVector for CVSS v3 & v4 while the attribute is =
+actually called attackVector.
+- It ignores metrics with type "Secondary" even if there is no"Primary".
+
+This leads to a lot of CVEs with accessVector, vectorString and score set t=
+o=C2=A0 UNKNOWN/None/0.
+The bug is in master and has been there since FKIE was introduced.
+I attached patches to fix the issue.
+
+--ek28UmYirZ8My2hzm71K
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div>Hi all,</div>
+<div>&nbsp;</div>
+<div>I noticed issues with the parsing of CVEs from the FKIE-CAD feed (upda=
+te_db_fkie() in cve-update-db-native.bb)s:<br />- It tries to read an acces=
+sVector for CVSS v3 &amp; v4 while the attribute is actually called attackV=
+ector.<br />- It ignores metrics with type "Secondary" even if there is no"=
+Primary".</div>
+<div>&nbsp;</div>
+<div>This leads to a lot of CVEs with accessVector, vectorString and score =
+set to&nbsp; UNKNOWN/None/0.</div>
+<div>The bug is in master and has been there since FKIE was introduced.</di=
+v>
+<div>I attached patches to fix the issue.</div>
+
+--ek28UmYirZ8My2hzm71K--
+
+--1ZZwL0QtV0iuJkW5shYM
+Content-Type: application/octet-stream; name="0002-cve-update-db-native-FKIE-CVE-parsing-Use-Secondary-.patch"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="0002-cve-update-db-native-FKIE-CVE-parsing-Use-Secondary-.patch"
+
+RnJvbSAwMDA5ODBjZDU1ZDk0ZTkyOTEwN2Q0ZTI4YTNhODdmZTI5ZDI3ZTFhIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBKb25hdGhhbiBTY2huaXR6bGVyIDxqb25hdGhhbi5zY2huaXR6
+bGVyQGZhcm8uY29tPgpEYXRlOiBXZWQsIDMwIEp1bCAyMDI1IDE0OjI4OjUxICswMjAwClN1Ympl
+Y3Q6IFtQQVRDSCAyLzJdIGN2ZS11cGRhdGUtZGItbmF0aXZlOiBGS0lFIENWRSBwYXJzaW5nOiBV
+c2UgU2Vjb25kYXJ5CiBtZXRyaWMKCklmIHRoZXJlIGlzIG5vIHByaW1hcnkgbWV0cmljIHVzZSB0
+aGUgU2Vjb25kYXJ5IG9uZS4KClNpZ25lZC1vZmYtYnk6IEpvbmF0aGFuIFNjaG5pdHpsZXIgPGpv
+bmF0aGFuLnNjaG5pdHpsZXJAZmFyby5jb20+Ci0tLQogLi4uL3JlY2lwZXMtY29yZS9tZXRhL2N2
+ZS11cGRhdGUtZGItbmF0aXZlLmJiIHwgNTMgKysrKysrKysrKysrLS0tLS0tLQogMSBmaWxlIGNo
+YW5nZWQsIDMzIGluc2VydGlvbnMoKyksIDIwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL21l
+dGEvcmVjaXBlcy1jb3JlL21ldGEvY3ZlLXVwZGF0ZS1kYi1uYXRpdmUuYmIgYi9tZXRhL3JlY2lw
+ZXMtY29yZS9tZXRhL2N2ZS11cGRhdGUtZGItbmF0aXZlLmJiCmluZGV4IGM4ZTc0YmQyN2UuLjU4
+Yjc5MWQ5OTkgMTAwNjQ0Ci0tLSBhL21ldGEvcmVjaXBlcy1jb3JlL21ldGEvY3ZlLXVwZGF0ZS1k
+Yi1uYXRpdmUuYmIKKysrIGIvbWV0YS9yZWNpcGVzLWNvcmUvbWV0YS9jdmUtdXBkYXRlLWRiLW5h
+dGl2ZS5iYgpAQCAtMzMwLDYgKzMzMCwxNSBAQCBkZWYgdXBkYXRlX2RiX252ZGpzb24oY29ubiwg
+anNvbmRhdGEpOgogICAgICAgICBmb3IgY29uZmlnIGluIGNvbmZpZ3VyYXRpb25zOgogICAgICAg
+ICAgICAgcGFyc2Vfbm9kZV9hbmRfaW5zZXJ0KGNvbm4sIGNvbmZpZywgY3ZlSWQsIFRydWUpCiAK
+K2RlZiBnZXRfbWV0cmljX2VudHJ5KG1ldHJpYyk6CisgICAgcHJpbWFyaWVzID0gW2MgZm9yIGMg
+aW4gbWV0cmljIGlmIGNbJ3R5cGUnXSA9PSAiUHJpbWFyeSJdCisgICAgc2Vjb25kYXJpZXMgPSBb
+YyBmb3IgYyBpbiBtZXRyaWMgaWYgY1sndHlwZSddID09ICJTZWNvbmRhcnkiXQorICAgIGlmIGxl
+bihwcmltYXJpZXMpID4gMDoKKyAgICAgICAgcmV0dXJuIHByaW1hcmllc1swXQorICAgIGVsaWYg
+bGVuKHNlY29uZGFyaWVzKT4wOgorICAgICAgICByZXR1cm4gc2Vjb25kYXJpZXNbMF0KKyAgICBy
+ZXR1cm4gTm9uZQorCiBkZWYgdXBkYXRlX2RiX2ZraWUoY29ubiwganNvbmRhdGEpOgogICAgIGlt
+cG9ydCBqc29uCiAgICAgcm9vdCA9IGpzb24ubG9hZHMoanNvbmRhdGEpCkBAIC0zNTAsMzcgKzM1
+OSw0MSBAQCBkZWYgdXBkYXRlX2RiX2ZraWUoY29ubiwganNvbmRhdGEpOgogICAgICAgICBjdmVE
+ZXNjID0gZWx0WydkZXNjcmlwdGlvbnMnXVswXVsndmFsdWUnXQogICAgICAgICBkYXRlID0gZWx0
+WydsYXN0TW9kaWZpZWQnXQogICAgICAgICB0cnk6Ci0gICAgICAgICAgICBmb3IgbSBpbiBlbHRb
+J21ldHJpY3MnXVsnY3Zzc01ldHJpY1YyJ106Ci0gICAgICAgICAgICAgICAgaWYgbVsndHlwZSdd
+ID09ICdQcmltYXJ5JzoKLSAgICAgICAgICAgICAgICAgICAgYWNjZXNzVmVjdG9yID0gbVsnY3Zz
+c0RhdGEnXVsnYWNjZXNzVmVjdG9yJ10KLSAgICAgICAgICAgICAgICAgICAgdmVjdG9yU3RyaW5n
+ID0gbVsnY3Zzc0RhdGEnXVsndmVjdG9yU3RyaW5nJ10KLSAgICAgICAgICAgICAgICAgICAgY3Zz
+c3YyID0gbVsnY3Zzc0RhdGEnXVsnYmFzZVNjb3JlJ10KKyAgICAgICAgICAgIGlmICdjdnNzTWV0
+cmljVjInIGluIGVsdFsnbWV0cmljcyddOgorICAgICAgICAgICAgICAgIGVudHJ5ID0gZ2V0X21l
+dHJpY19lbnRyeShlbHRbJ21ldHJpY3MnXVsnY3Zzc01ldHJpY1YyJ10pCisgICAgICAgICAgICAg
+ICAgaWYgZW50cnk6CisgICAgICAgICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9IGVudHJ5Wydj
+dnNzRGF0YSddWydhY2Nlc3NWZWN0b3InXQorICAgICAgICAgICAgICAgICAgICB2ZWN0b3JTdHJp
+bmcgPSBlbnRyeVsnY3Zzc0RhdGEnXVsndmVjdG9yU3RyaW5nJ10KKyAgICAgICAgICAgICAgICAg
+ICAgY3Zzc3YyID0gZW50cnlbJ2N2c3NEYXRhJ11bJ2Jhc2VTY29yZSddCiAgICAgICAgIGV4Y2Vw
+dCBLZXlFcnJvcjoKICAgICAgICAgICAgIGN2c3N2MiA9IDAuMAogICAgICAgICB0cnk6Ci0gICAg
+ICAgICAgICBmb3IgbSBpbiBlbHRbJ21ldHJpY3MnXVsnY3Zzc01ldHJpY1YzMCddOgotICAgICAg
+ICAgICAgICAgIGlmIG1bJ3R5cGUnXSA9PSAnUHJpbWFyeSc6Ci0gICAgICAgICAgICAgICAgICAg
+IGFjY2Vzc1ZlY3RvciA9IG1bJ2N2c3NEYXRhJ11bJ2F0dGFja1ZlY3RvciddCi0gICAgICAgICAg
+ICAgICAgICAgIHZlY3RvclN0cmluZyA9IG1bJ2N2c3NEYXRhJ11bJ3ZlY3RvclN0cmluZyddCi0g
+ICAgICAgICAgICAgICAgICAgIGN2c3N2MyA9IG1bJ2N2c3NEYXRhJ11bJ2Jhc2VTY29yZSddCisg
+ICAgICAgICAgICBpZiAnY3Zzc01ldHJpY1YzMCcgaW4gZWx0WydtZXRyaWNzJ106CisgICAgICAg
+ICAgICAgICAgZW50cnkgPSBnZXRfbWV0cmljX2VudHJ5KGVsdFsnbWV0cmljcyddWydjdnNzTWV0
+cmljVjMwJ10pCisgICAgICAgICAgICAgICAgaWYgZW50cnk6CisgICAgICAgICAgICAgICAgICAg
+IGFjY2Vzc1ZlY3RvciA9IGVudHJ5WydjdnNzRGF0YSddWydhdHRhY2tWZWN0b3InXQorICAgICAg
+ICAgICAgICAgICAgICB2ZWN0b3JTdHJpbmcgPSBlbnRyeVsnY3Zzc0RhdGEnXVsndmVjdG9yU3Ry
+aW5nJ10KKyAgICAgICAgICAgICAgICAgICAgY3Zzc3YzID0gZW50cnlbJ2N2c3NEYXRhJ11bJ2Jh
+c2VTY29yZSddCiAgICAgICAgIGV4Y2VwdCBLZXlFcnJvcjoKICAgICAgICAgICAgIGFjY2Vzc1Zl
+Y3RvciA9IGFjY2Vzc1ZlY3RvciBvciAiVU5LTk9XTiIKICAgICAgICAgICAgIGN2c3N2MyA9IDAu
+MAogICAgICAgICB0cnk6Ci0gICAgICAgICAgICBmb3IgbSBpbiBlbHRbJ21ldHJpY3MnXVsnY3Zz
+c01ldHJpY1YzMSddOgotICAgICAgICAgICAgICAgIGlmIG1bJ3R5cGUnXSA9PSAnUHJpbWFyeSc6
+Ci0gICAgICAgICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9IG1bJ2N2c3NEYXRhJ11bJ2F0dGFj
+a1ZlY3RvciddCi0gICAgICAgICAgICAgICAgICAgIHZlY3RvclN0cmluZyA9IG1bJ2N2c3NEYXRh
+J11bJ3ZlY3RvclN0cmluZyddCi0gICAgICAgICAgICAgICAgICAgIGN2c3N2MyA9IG1bJ2N2c3NE
+YXRhJ11bJ2Jhc2VTY29yZSddCisgICAgICAgICAgICBpZiAnY3Zzc01ldHJpY1YzMScgaW4gZWx0
+WydtZXRyaWNzJ106CisgICAgICAgICAgICAgICAgZW50cnkgPSBnZXRfbWV0cmljX2VudHJ5KGVs
+dFsnbWV0cmljcyddWydjdnNzTWV0cmljVjMxJ10pCisgICAgICAgICAgICAgICAgaWYgZW50cnk6
+CisgICAgICAgICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9IGVudHJ5WydjdnNzRGF0YSddWydh
+dHRhY2tWZWN0b3InXQorICAgICAgICAgICAgICAgICAgICB2ZWN0b3JTdHJpbmcgPSBlbnRyeVsn
+Y3Zzc0RhdGEnXVsndmVjdG9yU3RyaW5nJ10KKyAgICAgICAgICAgICAgICAgICAgY3Zzc3YzID0g
+ZW50cnlbJ2N2c3NEYXRhJ11bJ2Jhc2VTY29yZSddCiAgICAgICAgIGV4Y2VwdCBLZXlFcnJvcjoK
+ICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9IGFjY2Vzc1ZlY3RvciBvciAiVU5LTk9XTiIKICAg
+ICAgICAgICAgIGN2c3N2MyA9IDAuMAogICAgICAgICB0cnk6Ci0gICAgICAgICAgICBmb3IgbSBp
+biBlbHRbJ21ldHJpY3MnXVsnY3Zzc01ldHJpY1Y0MCddOgotICAgICAgICAgICAgICAgIGlmIG1b
+J3R5cGUnXSA9PSAnUHJpbWFyeSc6Ci0gICAgICAgICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9
+IG1bJ2N2c3NEYXRhJ11bJ2F0dGFja1ZlY3RvciddCi0gICAgICAgICAgICAgICAgICAgIHZlY3Rv
+clN0cmluZyA9IG1bJ2N2c3NEYXRhJ11bJ3ZlY3RvclN0cmluZyddCi0gICAgICAgICAgICAgICAg
+ICAgIGN2c3N2NCA9IG1bJ2N2c3NEYXRhJ11bJ2Jhc2VTY29yZSddCisgICAgICAgICAgICBpZiAn
+Y3Zzc01ldHJpY1Y0MCcgaW4gZWx0WydtZXRyaWNzJ106CisgICAgICAgICAgICAgICAgZW50cnkg
+PSBnZXRfbWV0cmljX2VudHJ5KGVsdFsnbWV0cmljcyddWydjdnNzTWV0cmljVjQwJ10pCisgICAg
+ICAgICAgICAgICAgaWYgZW50cnk6CisgICAgICAgICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9
+IGVudHJ5WydjdnNzRGF0YSddWydhdHRhY2tWZWN0b3InXQorICAgICAgICAgICAgICAgICAgICB2
+ZWN0b3JTdHJpbmcgPSBlbnRyeVsnY3Zzc0RhdGEnXVsndmVjdG9yU3RyaW5nJ10KKyAgICAgICAg
+ICAgICAgICAgICAgY3Zzc3Y0ID0gZW50cnlbJ2N2c3NEYXRhJ11bJ2Jhc2VTY29yZSddCiAgICAg
+ICAgIGV4Y2VwdCBLZXlFcnJvcjoKICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9IGFjY2Vzc1Zl
+Y3RvciBvciAiVU5LTk9XTiIKICAgICAgICAgICAgIGN2c3N2NCA9IDAuMAotLSAKMi41MC4xCgo=
+
+--1ZZwL0QtV0iuJkW5shYM
+Content-Type: application/octet-stream; name="0001-cve-update-db-native-Fix-FKIE-CVE-accessVector-parsi.patch"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="0001-cve-update-db-native-Fix-FKIE-CVE-accessVector-parsi.patch"
+
+RnJvbSBjYzUxMjgzNDY5Y2UxY2VhZTRkMmQ3OThhM2VjMTc2N2Q3NmI2OWJiIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBKb25hdGhhbiBTY2huaXR6bGVyIDxqb25hdGhhbi5zY2huaXR6
+bGVyQGZhcm8uY29tPgpEYXRlOiBXZWQsIDMwIEp1bCAyMDI1IDE0OjI3OjAzICswMjAwClN1Ympl
+Y3Q6IFtQQVRDSCAxLzJdIGN2ZS11cGRhdGUtZGItbmF0aXZlOiBGaXggRktJRSBDVkUgYWNjZXNz
+VmVjdG9yIHBhcnNpbmcKClVzZSAiYXR0YWNrVmVjdG9yIiBmb3IgQ1ZTUyA+PSAzIGFzIGl0IG9u
+bHkgQ1ZTUyB2MiB1c2VzICJhY2Nlc3NWZWN0b3IiLgoKU2lnbmVkLW9mZi1ieTogSm9uYXRoYW4g
+U2Nobml0emxlciA8am9uYXRoYW4uc2Nobml0emxlckBmYXJvLmNvbT4KLS0tCiBtZXRhL3JlY2lw
+ZXMtY29yZS9tZXRhL2N2ZS11cGRhdGUtZGItbmF0aXZlLmJiIHwgNiArKystLS0KIDEgZmlsZSBj
+aGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbWV0
+YS9yZWNpcGVzLWNvcmUvbWV0YS9jdmUtdXBkYXRlLWRiLW5hdGl2ZS5iYiBiL21ldGEvcmVjaXBl
+cy1jb3JlL21ldGEvY3ZlLXVwZGF0ZS1kYi1uYXRpdmUuYmIKaW5kZXggODZjZDFhMWEyMS4uYzhl
+NzRiZDI3ZSAxMDA2NDQKLS0tIGEvbWV0YS9yZWNpcGVzLWNvcmUvbWV0YS9jdmUtdXBkYXRlLWRi
+LW5hdGl2ZS5iYgorKysgYi9tZXRhL3JlY2lwZXMtY29yZS9tZXRhL2N2ZS11cGRhdGUtZGItbmF0
+aXZlLmJiCkBAIC0zNjAsNyArMzYwLDcgQEAgZGVmIHVwZGF0ZV9kYl9ma2llKGNvbm4sIGpzb25k
+YXRhKToKICAgICAgICAgdHJ5OgogICAgICAgICAgICAgZm9yIG0gaW4gZWx0WydtZXRyaWNzJ11b
+J2N2c3NNZXRyaWNWMzAnXToKICAgICAgICAgICAgICAgICBpZiBtWyd0eXBlJ10gPT0gJ1ByaW1h
+cnknOgotICAgICAgICAgICAgICAgICAgICBhY2Nlc3NWZWN0b3IgPSBtWydjdnNzRGF0YSddWydh
+Y2Nlc3NWZWN0b3InXQorICAgICAgICAgICAgICAgICAgICBhY2Nlc3NWZWN0b3IgPSBtWydjdnNz
+RGF0YSddWydhdHRhY2tWZWN0b3InXQogICAgICAgICAgICAgICAgICAgICB2ZWN0b3JTdHJpbmcg
+PSBtWydjdnNzRGF0YSddWyd2ZWN0b3JTdHJpbmcnXQogICAgICAgICAgICAgICAgICAgICBjdnNz
+djMgPSBtWydjdnNzRGF0YSddWydiYXNlU2NvcmUnXQogICAgICAgICBleGNlcHQgS2V5RXJyb3I6
+CkBAIC0zNjksNyArMzY5LDcgQEAgZGVmIHVwZGF0ZV9kYl9ma2llKGNvbm4sIGpzb25kYXRhKToK
+ICAgICAgICAgdHJ5OgogICAgICAgICAgICAgZm9yIG0gaW4gZWx0WydtZXRyaWNzJ11bJ2N2c3NN
+ZXRyaWNWMzEnXToKICAgICAgICAgICAgICAgICBpZiBtWyd0eXBlJ10gPT0gJ1ByaW1hcnknOgot
+ICAgICAgICAgICAgICAgICAgICBhY2Nlc3NWZWN0b3IgPSBtWydjdnNzRGF0YSddWydhY2Nlc3NW
+ZWN0b3InXQorICAgICAgICAgICAgICAgICAgICBhY2Nlc3NWZWN0b3IgPSBtWydjdnNzRGF0YSdd
+WydhdHRhY2tWZWN0b3InXQogICAgICAgICAgICAgICAgICAgICB2ZWN0b3JTdHJpbmcgPSBtWydj
+dnNzRGF0YSddWyd2ZWN0b3JTdHJpbmcnXQogICAgICAgICAgICAgICAgICAgICBjdnNzdjMgPSBt
+WydjdnNzRGF0YSddWydiYXNlU2NvcmUnXQogICAgICAgICBleGNlcHQgS2V5RXJyb3I6CkBAIC0z
+NzgsNyArMzc4LDcgQEAgZGVmIHVwZGF0ZV9kYl9ma2llKGNvbm4sIGpzb25kYXRhKToKICAgICAg
+ICAgdHJ5OgogICAgICAgICAgICAgZm9yIG0gaW4gZWx0WydtZXRyaWNzJ11bJ2N2c3NNZXRyaWNW
+NDAnXToKICAgICAgICAgICAgICAgICBpZiBtWyd0eXBlJ10gPT0gJ1ByaW1hcnknOgotICAgICAg
+ICAgICAgICAgICAgICBhY2Nlc3NWZWN0b3IgPSBtWydjdnNzRGF0YSddWydhY2Nlc3NWZWN0b3In
+XQorICAgICAgICAgICAgICAgICAgICBhY2Nlc3NWZWN0b3IgPSBtWydjdnNzRGF0YSddWydhdHRh
+Y2tWZWN0b3InXQogICAgICAgICAgICAgICAgICAgICB2ZWN0b3JTdHJpbmcgPSBtWydjdnNzRGF0
+YSddWyd2ZWN0b3JTdHJpbmcnXQogICAgICAgICAgICAgICAgICAgICBjdnNzdjQgPSBtWydjdnNz
+RGF0YSddWydiYXNlU2NvcmUnXQogICAgICAgICBleGNlcHQgS2V5RXJyb3I6Ci0tIAoyLjUwLjEK
+Cg==
+
+--1ZZwL0QtV0iuJkW5shYM--
 
