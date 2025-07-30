@@ -1,192 +1,95 @@
-Return-Path: <jonathan.schnitzler@faro.com>
+Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A622C87FCB
-	for <webhook@archiver.kernel.org>; Wed, 30 Jul 2025 12:42:21 +0000 (UTC)
-Subject: [PATCH] Fix parsing of FKIE CVEs
-To: poky@lists.yoctoproject.org
-From: jonathan.schnitzler@faro.com
-X-Originating-Location: Stuttgart, Baden-Wurttemberg, DE (91.23.61.254)
-X-Originating-Platform: Windows Firefox 141
-User-Agent: GROUPS.IO Web Poster
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F118C83F26
+	for <webhook@archiver.kernel.org>; Wed, 30 Jul 2025 12:57:21 +0000 (UTC)
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+ by mx.groups.io with SMTP id smtpd.web10.34628.1753880240687873742
+ for <poky@lists.yoctoproject.org>;
+ Wed, 30 Jul 2025 05:57:20 -0700
+Authentication-Results: mx.groups.io;
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=D2jZ3JVg;
+ spf=pass (domain: gmail.com, ip: 209.85.219.54, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-70740598a9dso32348236d6.0
+        for <poky@lists.yoctoproject.org>; Wed, 30 Jul 2025 05:57:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1753880240; x=1754485040; darn=lists.yoctoproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=+6xcaRPZczLVugxj4j6rQI0HXcPHFxe7GoiL4h37HDk=;
+        b=D2jZ3JVgO6cRBr4snrcpEFtmxtZ3aYgidOxerO1AfwUpEURE7LqJC4T2aYjULzq5W6
+         81nF/fxOQwcElaN7eJAHiD9G4OW+LalJDngejEAB0j7fOme3P8v0KTLAYRqiI/3X2ga7
+         YD9yVUPBA4GjCzQFlZdR8levG+bkpPZUtlV+7PoNTyguB4ctX9KKpL63N53gbtZMj5j4
+         VOaGUEnQPA8htvJpdJrbpEl18kjjHDNU9mS2sX0NFk42UNgDy1JiTWBA2ueg6/0NxOWu
+         INV5DBWSPoJpZuCgA+fQ9S71aKW6cHAnl1BnBPQIz12CQU8qtCSJMpIgzeafUcbmRMcn
+         WmGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1753880240; x=1754485040;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=+6xcaRPZczLVugxj4j6rQI0HXcPHFxe7GoiL4h37HDk=;
+        b=IhMFR3N/0zb2h260A8zlxTK/R4U+YqdCv2rc7NNLu27qV0OacetwIXLmAhIbngRRxr
+         pOskh9G2E1J1PfQPXEFFl9V5gi3zkasmPRPVD/tpU2qWI8VD1aUp9dKBClPEkvQz0mhy
+         iQj4htC6YiH5MinU+oH16+IW2jYFZgP43+zTvDm1puUGLB5HgPkrka50SDXJPrj8XTvc
+         WhTfkACvJ0BIxSidd7wCZtFUnck9r5jtZi0ovu02RZiQmf6GhML/JbQvCKuBcYBYJi1K
+         pT7aSaCcl3EMdUAhD07hTBguQZqt6izVE9BkTOyJJUHBxk7jid1y/OljxS4AfzJ/n256
+         M8oQ==
+X-Gm-Message-State: AOJu0Yz9Y3Te/JADYKp1WDIY2BY8Dkx6ig/yO53bJbxklfNltitV9Lrj
+	GRVGbTgfE0QvTcEwM3/UXTDkW2XaitDCIRVSIJypZOsCzDLMgC+0Ftz7Ah3VpWpEkqEN3uHKu4l
+	IrhfUjJCKo5VAfCpwVBgTLfpqmJncwDA=
+X-Gm-Gg: ASbGncsrPGfZpcFTeN6FujoSJjopXl0roMRYHQ+CE2Amygca6SB55WFVz2GeAXwcnTe
+	rpgZqtdl+YvVkJtT3fkEGwQfTiE2eGRYrB3f3kjmYpTOjRnqj9kaX2kk6s+HaTt9lz29HoX5IgN
+	wMOANshUWjSIcjjXGvvpR4mY/BMyudqkuaK/+Eoie6Hp6UtOwRM516e19ICQ2CK+7j0JrvVN2UV
+	V94fdqgF7+tN6P1YglN0EjxpMm/T662OS8A88rPOCqH23KaMwpB
+X-Google-Smtp-Source: AGHT+IGIf8ksENoy1apriJkEQQ6TwEhq+ql0aeL4qpV7sotdnk4PvP8vsLTsH8BI3OGg7hResVwyNWbdaf3YHkEvsrE=
+X-Received: by 2002:a05:6214:5193:b0:707:3ad0:1f15 with SMTP id
+ 6a1803df08f44-70766d86226mr44249896d6.18.1753880239449; Wed, 30 Jul 2025
+ 05:57:19 -0700 (PDT)
 MIME-Version: 1.0
-Date: Wed, 30 Jul 2025 05:42:12 -0700
-Message-ID: <P6zE.1753879332563276833.F7v1@lists.yoctoproject.org>
-Content-Type: multipart/mixed; boundary="1ZZwL0QtV0iuJkW5shYM"
+References: <P6zE.1753879332563276833.F7v1@lists.yoctoproject.org>
+In-Reply-To: <P6zE.1753879332563276833.F7v1@lists.yoctoproject.org>
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Wed, 30 Jul 2025 14:57:08 +0200
+X-Gm-Features: Ac12FXyFdJDNns3Dn3AgskJ7Qnh9_uIkAhiSL6DXtSDKuVKHA7T4arRf3lzOMYA
+Message-ID: <CANNYZj8ObZ8VkaY06Z0GARjPWacWwmC89x9amA6bY_BHSqMN8w@mail.gmail.com>
+Subject: Re: [poky] [PATCH] Fix parsing of FKIE CVEs
+To: jonathan.schnitzler@faro.com
+Cc: poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 30 Jul 2025 12:42:21 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13702
+ <poky@lists.yoctoproject.org>; Wed, 30 Jul 2025 12:57:21 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13703
 
---1ZZwL0QtV0iuJkW5shYM
-Content-Type: multipart/alternative; boundary="ek28UmYirZ8My2hzm71K"
+Hello,
 
---ek28UmYirZ8My2hzm71K
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+the patches should be sent with 'git send-email' to openembedded-core list.
 
-Hi all,
+Alex
 
-I noticed issues with the parsing of CVEs from the FKIE-CAD feed (update_db=
-_fkie() in cve-update-db-native.bb)s:
-- It tries to read an accessVector for CVSS v3 & v4 while the attribute is =
-actually called attackVector.
-- It ignores metrics with type "Secondary" even if there is no"Primary".
-
-This leads to a lot of CVEs with accessVector, vectorString and score set t=
-o=C2=A0 UNKNOWN/None/0.
-The bug is in master and has been there since FKIE was introduced.
-I attached patches to fix the issue.
-
---ek28UmYirZ8My2hzm71K
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div>Hi all,</div>
-<div>&nbsp;</div>
-<div>I noticed issues with the parsing of CVEs from the FKIE-CAD feed (upda=
-te_db_fkie() in cve-update-db-native.bb)s:<br />- It tries to read an acces=
-sVector for CVSS v3 &amp; v4 while the attribute is actually called attackV=
-ector.<br />- It ignores metrics with type "Secondary" even if there is no"=
-Primary".</div>
-<div>&nbsp;</div>
-<div>This leads to a lot of CVEs with accessVector, vectorString and score =
-set to&nbsp; UNKNOWN/None/0.</div>
-<div>The bug is in master and has been there since FKIE was introduced.</di=
-v>
-<div>I attached patches to fix the issue.</div>
-
---ek28UmYirZ8My2hzm71K--
-
---1ZZwL0QtV0iuJkW5shYM
-Content-Type: application/octet-stream; name="0002-cve-update-db-native-FKIE-CVE-parsing-Use-Secondary-.patch"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="0002-cve-update-db-native-FKIE-CVE-parsing-Use-Secondary-.patch"
-
-RnJvbSAwMDA5ODBjZDU1ZDk0ZTkyOTEwN2Q0ZTI4YTNhODdmZTI5ZDI3ZTFhIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBKb25hdGhhbiBTY2huaXR6bGVyIDxqb25hdGhhbi5zY2huaXR6
-bGVyQGZhcm8uY29tPgpEYXRlOiBXZWQsIDMwIEp1bCAyMDI1IDE0OjI4OjUxICswMjAwClN1Ympl
-Y3Q6IFtQQVRDSCAyLzJdIGN2ZS11cGRhdGUtZGItbmF0aXZlOiBGS0lFIENWRSBwYXJzaW5nOiBV
-c2UgU2Vjb25kYXJ5CiBtZXRyaWMKCklmIHRoZXJlIGlzIG5vIHByaW1hcnkgbWV0cmljIHVzZSB0
-aGUgU2Vjb25kYXJ5IG9uZS4KClNpZ25lZC1vZmYtYnk6IEpvbmF0aGFuIFNjaG5pdHpsZXIgPGpv
-bmF0aGFuLnNjaG5pdHpsZXJAZmFyby5jb20+Ci0tLQogLi4uL3JlY2lwZXMtY29yZS9tZXRhL2N2
-ZS11cGRhdGUtZGItbmF0aXZlLmJiIHwgNTMgKysrKysrKysrKysrLS0tLS0tLQogMSBmaWxlIGNo
-YW5nZWQsIDMzIGluc2VydGlvbnMoKyksIDIwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL21l
-dGEvcmVjaXBlcy1jb3JlL21ldGEvY3ZlLXVwZGF0ZS1kYi1uYXRpdmUuYmIgYi9tZXRhL3JlY2lw
-ZXMtY29yZS9tZXRhL2N2ZS11cGRhdGUtZGItbmF0aXZlLmJiCmluZGV4IGM4ZTc0YmQyN2UuLjU4
-Yjc5MWQ5OTkgMTAwNjQ0Ci0tLSBhL21ldGEvcmVjaXBlcy1jb3JlL21ldGEvY3ZlLXVwZGF0ZS1k
-Yi1uYXRpdmUuYmIKKysrIGIvbWV0YS9yZWNpcGVzLWNvcmUvbWV0YS9jdmUtdXBkYXRlLWRiLW5h
-dGl2ZS5iYgpAQCAtMzMwLDYgKzMzMCwxNSBAQCBkZWYgdXBkYXRlX2RiX252ZGpzb24oY29ubiwg
-anNvbmRhdGEpOgogICAgICAgICBmb3IgY29uZmlnIGluIGNvbmZpZ3VyYXRpb25zOgogICAgICAg
-ICAgICAgcGFyc2Vfbm9kZV9hbmRfaW5zZXJ0KGNvbm4sIGNvbmZpZywgY3ZlSWQsIFRydWUpCiAK
-K2RlZiBnZXRfbWV0cmljX2VudHJ5KG1ldHJpYyk6CisgICAgcHJpbWFyaWVzID0gW2MgZm9yIGMg
-aW4gbWV0cmljIGlmIGNbJ3R5cGUnXSA9PSAiUHJpbWFyeSJdCisgICAgc2Vjb25kYXJpZXMgPSBb
-YyBmb3IgYyBpbiBtZXRyaWMgaWYgY1sndHlwZSddID09ICJTZWNvbmRhcnkiXQorICAgIGlmIGxl
-bihwcmltYXJpZXMpID4gMDoKKyAgICAgICAgcmV0dXJuIHByaW1hcmllc1swXQorICAgIGVsaWYg
-bGVuKHNlY29uZGFyaWVzKT4wOgorICAgICAgICByZXR1cm4gc2Vjb25kYXJpZXNbMF0KKyAgICBy
-ZXR1cm4gTm9uZQorCiBkZWYgdXBkYXRlX2RiX2ZraWUoY29ubiwganNvbmRhdGEpOgogICAgIGlt
-cG9ydCBqc29uCiAgICAgcm9vdCA9IGpzb24ubG9hZHMoanNvbmRhdGEpCkBAIC0zNTAsMzcgKzM1
-OSw0MSBAQCBkZWYgdXBkYXRlX2RiX2ZraWUoY29ubiwganNvbmRhdGEpOgogICAgICAgICBjdmVE
-ZXNjID0gZWx0WydkZXNjcmlwdGlvbnMnXVswXVsndmFsdWUnXQogICAgICAgICBkYXRlID0gZWx0
-WydsYXN0TW9kaWZpZWQnXQogICAgICAgICB0cnk6Ci0gICAgICAgICAgICBmb3IgbSBpbiBlbHRb
-J21ldHJpY3MnXVsnY3Zzc01ldHJpY1YyJ106Ci0gICAgICAgICAgICAgICAgaWYgbVsndHlwZSdd
-ID09ICdQcmltYXJ5JzoKLSAgICAgICAgICAgICAgICAgICAgYWNjZXNzVmVjdG9yID0gbVsnY3Zz
-c0RhdGEnXVsnYWNjZXNzVmVjdG9yJ10KLSAgICAgICAgICAgICAgICAgICAgdmVjdG9yU3RyaW5n
-ID0gbVsnY3Zzc0RhdGEnXVsndmVjdG9yU3RyaW5nJ10KLSAgICAgICAgICAgICAgICAgICAgY3Zz
-c3YyID0gbVsnY3Zzc0RhdGEnXVsnYmFzZVNjb3JlJ10KKyAgICAgICAgICAgIGlmICdjdnNzTWV0
-cmljVjInIGluIGVsdFsnbWV0cmljcyddOgorICAgICAgICAgICAgICAgIGVudHJ5ID0gZ2V0X21l
-dHJpY19lbnRyeShlbHRbJ21ldHJpY3MnXVsnY3Zzc01ldHJpY1YyJ10pCisgICAgICAgICAgICAg
-ICAgaWYgZW50cnk6CisgICAgICAgICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9IGVudHJ5Wydj
-dnNzRGF0YSddWydhY2Nlc3NWZWN0b3InXQorICAgICAgICAgICAgICAgICAgICB2ZWN0b3JTdHJp
-bmcgPSBlbnRyeVsnY3Zzc0RhdGEnXVsndmVjdG9yU3RyaW5nJ10KKyAgICAgICAgICAgICAgICAg
-ICAgY3Zzc3YyID0gZW50cnlbJ2N2c3NEYXRhJ11bJ2Jhc2VTY29yZSddCiAgICAgICAgIGV4Y2Vw
-dCBLZXlFcnJvcjoKICAgICAgICAgICAgIGN2c3N2MiA9IDAuMAogICAgICAgICB0cnk6Ci0gICAg
-ICAgICAgICBmb3IgbSBpbiBlbHRbJ21ldHJpY3MnXVsnY3Zzc01ldHJpY1YzMCddOgotICAgICAg
-ICAgICAgICAgIGlmIG1bJ3R5cGUnXSA9PSAnUHJpbWFyeSc6Ci0gICAgICAgICAgICAgICAgICAg
-IGFjY2Vzc1ZlY3RvciA9IG1bJ2N2c3NEYXRhJ11bJ2F0dGFja1ZlY3RvciddCi0gICAgICAgICAg
-ICAgICAgICAgIHZlY3RvclN0cmluZyA9IG1bJ2N2c3NEYXRhJ11bJ3ZlY3RvclN0cmluZyddCi0g
-ICAgICAgICAgICAgICAgICAgIGN2c3N2MyA9IG1bJ2N2c3NEYXRhJ11bJ2Jhc2VTY29yZSddCisg
-ICAgICAgICAgICBpZiAnY3Zzc01ldHJpY1YzMCcgaW4gZWx0WydtZXRyaWNzJ106CisgICAgICAg
-ICAgICAgICAgZW50cnkgPSBnZXRfbWV0cmljX2VudHJ5KGVsdFsnbWV0cmljcyddWydjdnNzTWV0
-cmljVjMwJ10pCisgICAgICAgICAgICAgICAgaWYgZW50cnk6CisgICAgICAgICAgICAgICAgICAg
-IGFjY2Vzc1ZlY3RvciA9IGVudHJ5WydjdnNzRGF0YSddWydhdHRhY2tWZWN0b3InXQorICAgICAg
-ICAgICAgICAgICAgICB2ZWN0b3JTdHJpbmcgPSBlbnRyeVsnY3Zzc0RhdGEnXVsndmVjdG9yU3Ry
-aW5nJ10KKyAgICAgICAgICAgICAgICAgICAgY3Zzc3YzID0gZW50cnlbJ2N2c3NEYXRhJ11bJ2Jh
-c2VTY29yZSddCiAgICAgICAgIGV4Y2VwdCBLZXlFcnJvcjoKICAgICAgICAgICAgIGFjY2Vzc1Zl
-Y3RvciA9IGFjY2Vzc1ZlY3RvciBvciAiVU5LTk9XTiIKICAgICAgICAgICAgIGN2c3N2MyA9IDAu
-MAogICAgICAgICB0cnk6Ci0gICAgICAgICAgICBmb3IgbSBpbiBlbHRbJ21ldHJpY3MnXVsnY3Zz
-c01ldHJpY1YzMSddOgotICAgICAgICAgICAgICAgIGlmIG1bJ3R5cGUnXSA9PSAnUHJpbWFyeSc6
-Ci0gICAgICAgICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9IG1bJ2N2c3NEYXRhJ11bJ2F0dGFj
-a1ZlY3RvciddCi0gICAgICAgICAgICAgICAgICAgIHZlY3RvclN0cmluZyA9IG1bJ2N2c3NEYXRh
-J11bJ3ZlY3RvclN0cmluZyddCi0gICAgICAgICAgICAgICAgICAgIGN2c3N2MyA9IG1bJ2N2c3NE
-YXRhJ11bJ2Jhc2VTY29yZSddCisgICAgICAgICAgICBpZiAnY3Zzc01ldHJpY1YzMScgaW4gZWx0
-WydtZXRyaWNzJ106CisgICAgICAgICAgICAgICAgZW50cnkgPSBnZXRfbWV0cmljX2VudHJ5KGVs
-dFsnbWV0cmljcyddWydjdnNzTWV0cmljVjMxJ10pCisgICAgICAgICAgICAgICAgaWYgZW50cnk6
-CisgICAgICAgICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9IGVudHJ5WydjdnNzRGF0YSddWydh
-dHRhY2tWZWN0b3InXQorICAgICAgICAgICAgICAgICAgICB2ZWN0b3JTdHJpbmcgPSBlbnRyeVsn
-Y3Zzc0RhdGEnXVsndmVjdG9yU3RyaW5nJ10KKyAgICAgICAgICAgICAgICAgICAgY3Zzc3YzID0g
-ZW50cnlbJ2N2c3NEYXRhJ11bJ2Jhc2VTY29yZSddCiAgICAgICAgIGV4Y2VwdCBLZXlFcnJvcjoK
-ICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9IGFjY2Vzc1ZlY3RvciBvciAiVU5LTk9XTiIKICAg
-ICAgICAgICAgIGN2c3N2MyA9IDAuMAogICAgICAgICB0cnk6Ci0gICAgICAgICAgICBmb3IgbSBp
-biBlbHRbJ21ldHJpY3MnXVsnY3Zzc01ldHJpY1Y0MCddOgotICAgICAgICAgICAgICAgIGlmIG1b
-J3R5cGUnXSA9PSAnUHJpbWFyeSc6Ci0gICAgICAgICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9
-IG1bJ2N2c3NEYXRhJ11bJ2F0dGFja1ZlY3RvciddCi0gICAgICAgICAgICAgICAgICAgIHZlY3Rv
-clN0cmluZyA9IG1bJ2N2c3NEYXRhJ11bJ3ZlY3RvclN0cmluZyddCi0gICAgICAgICAgICAgICAg
-ICAgIGN2c3N2NCA9IG1bJ2N2c3NEYXRhJ11bJ2Jhc2VTY29yZSddCisgICAgICAgICAgICBpZiAn
-Y3Zzc01ldHJpY1Y0MCcgaW4gZWx0WydtZXRyaWNzJ106CisgICAgICAgICAgICAgICAgZW50cnkg
-PSBnZXRfbWV0cmljX2VudHJ5KGVsdFsnbWV0cmljcyddWydjdnNzTWV0cmljVjQwJ10pCisgICAg
-ICAgICAgICAgICAgaWYgZW50cnk6CisgICAgICAgICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9
-IGVudHJ5WydjdnNzRGF0YSddWydhdHRhY2tWZWN0b3InXQorICAgICAgICAgICAgICAgICAgICB2
-ZWN0b3JTdHJpbmcgPSBlbnRyeVsnY3Zzc0RhdGEnXVsndmVjdG9yU3RyaW5nJ10KKyAgICAgICAg
-ICAgICAgICAgICAgY3Zzc3Y0ID0gZW50cnlbJ2N2c3NEYXRhJ11bJ2Jhc2VTY29yZSddCiAgICAg
-ICAgIGV4Y2VwdCBLZXlFcnJvcjoKICAgICAgICAgICAgIGFjY2Vzc1ZlY3RvciA9IGFjY2Vzc1Zl
-Y3RvciBvciAiVU5LTk9XTiIKICAgICAgICAgICAgIGN2c3N2NCA9IDAuMAotLSAKMi41MC4xCgo=
-
---1ZZwL0QtV0iuJkW5shYM
-Content-Type: application/octet-stream; name="0001-cve-update-db-native-Fix-FKIE-CVE-accessVector-parsi.patch"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="0001-cve-update-db-native-Fix-FKIE-CVE-accessVector-parsi.patch"
-
-RnJvbSBjYzUxMjgzNDY5Y2UxY2VhZTRkMmQ3OThhM2VjMTc2N2Q3NmI2OWJiIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBKb25hdGhhbiBTY2huaXR6bGVyIDxqb25hdGhhbi5zY2huaXR6
-bGVyQGZhcm8uY29tPgpEYXRlOiBXZWQsIDMwIEp1bCAyMDI1IDE0OjI3OjAzICswMjAwClN1Ympl
-Y3Q6IFtQQVRDSCAxLzJdIGN2ZS11cGRhdGUtZGItbmF0aXZlOiBGaXggRktJRSBDVkUgYWNjZXNz
-VmVjdG9yIHBhcnNpbmcKClVzZSAiYXR0YWNrVmVjdG9yIiBmb3IgQ1ZTUyA+PSAzIGFzIGl0IG9u
-bHkgQ1ZTUyB2MiB1c2VzICJhY2Nlc3NWZWN0b3IiLgoKU2lnbmVkLW9mZi1ieTogSm9uYXRoYW4g
-U2Nobml0emxlciA8am9uYXRoYW4uc2Nobml0emxlckBmYXJvLmNvbT4KLS0tCiBtZXRhL3JlY2lw
-ZXMtY29yZS9tZXRhL2N2ZS11cGRhdGUtZGItbmF0aXZlLmJiIHwgNiArKystLS0KIDEgZmlsZSBj
-aGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbWV0
-YS9yZWNpcGVzLWNvcmUvbWV0YS9jdmUtdXBkYXRlLWRiLW5hdGl2ZS5iYiBiL21ldGEvcmVjaXBl
-cy1jb3JlL21ldGEvY3ZlLXVwZGF0ZS1kYi1uYXRpdmUuYmIKaW5kZXggODZjZDFhMWEyMS4uYzhl
-NzRiZDI3ZSAxMDA2NDQKLS0tIGEvbWV0YS9yZWNpcGVzLWNvcmUvbWV0YS9jdmUtdXBkYXRlLWRi
-LW5hdGl2ZS5iYgorKysgYi9tZXRhL3JlY2lwZXMtY29yZS9tZXRhL2N2ZS11cGRhdGUtZGItbmF0
-aXZlLmJiCkBAIC0zNjAsNyArMzYwLDcgQEAgZGVmIHVwZGF0ZV9kYl9ma2llKGNvbm4sIGpzb25k
-YXRhKToKICAgICAgICAgdHJ5OgogICAgICAgICAgICAgZm9yIG0gaW4gZWx0WydtZXRyaWNzJ11b
-J2N2c3NNZXRyaWNWMzAnXToKICAgICAgICAgICAgICAgICBpZiBtWyd0eXBlJ10gPT0gJ1ByaW1h
-cnknOgotICAgICAgICAgICAgICAgICAgICBhY2Nlc3NWZWN0b3IgPSBtWydjdnNzRGF0YSddWydh
-Y2Nlc3NWZWN0b3InXQorICAgICAgICAgICAgICAgICAgICBhY2Nlc3NWZWN0b3IgPSBtWydjdnNz
-RGF0YSddWydhdHRhY2tWZWN0b3InXQogICAgICAgICAgICAgICAgICAgICB2ZWN0b3JTdHJpbmcg
-PSBtWydjdnNzRGF0YSddWyd2ZWN0b3JTdHJpbmcnXQogICAgICAgICAgICAgICAgICAgICBjdnNz
-djMgPSBtWydjdnNzRGF0YSddWydiYXNlU2NvcmUnXQogICAgICAgICBleGNlcHQgS2V5RXJyb3I6
-CkBAIC0zNjksNyArMzY5LDcgQEAgZGVmIHVwZGF0ZV9kYl9ma2llKGNvbm4sIGpzb25kYXRhKToK
-ICAgICAgICAgdHJ5OgogICAgICAgICAgICAgZm9yIG0gaW4gZWx0WydtZXRyaWNzJ11bJ2N2c3NN
-ZXRyaWNWMzEnXToKICAgICAgICAgICAgICAgICBpZiBtWyd0eXBlJ10gPT0gJ1ByaW1hcnknOgot
-ICAgICAgICAgICAgICAgICAgICBhY2Nlc3NWZWN0b3IgPSBtWydjdnNzRGF0YSddWydhY2Nlc3NW
-ZWN0b3InXQorICAgICAgICAgICAgICAgICAgICBhY2Nlc3NWZWN0b3IgPSBtWydjdnNzRGF0YSdd
-WydhdHRhY2tWZWN0b3InXQogICAgICAgICAgICAgICAgICAgICB2ZWN0b3JTdHJpbmcgPSBtWydj
-dnNzRGF0YSddWyd2ZWN0b3JTdHJpbmcnXQogICAgICAgICAgICAgICAgICAgICBjdnNzdjMgPSBt
-WydjdnNzRGF0YSddWydiYXNlU2NvcmUnXQogICAgICAgICBleGNlcHQgS2V5RXJyb3I6CkBAIC0z
-NzgsNyArMzc4LDcgQEAgZGVmIHVwZGF0ZV9kYl9ma2llKGNvbm4sIGpzb25kYXRhKToKICAgICAg
-ICAgdHJ5OgogICAgICAgICAgICAgZm9yIG0gaW4gZWx0WydtZXRyaWNzJ11bJ2N2c3NNZXRyaWNW
-NDAnXToKICAgICAgICAgICAgICAgICBpZiBtWyd0eXBlJ10gPT0gJ1ByaW1hcnknOgotICAgICAg
-ICAgICAgICAgICAgICBhY2Nlc3NWZWN0b3IgPSBtWydjdnNzRGF0YSddWydhY2Nlc3NWZWN0b3In
-XQorICAgICAgICAgICAgICAgICAgICBhY2Nlc3NWZWN0b3IgPSBtWydjdnNzRGF0YSddWydhdHRh
-Y2tWZWN0b3InXQogICAgICAgICAgICAgICAgICAgICB2ZWN0b3JTdHJpbmcgPSBtWydjdnNzRGF0
-YSddWyd2ZWN0b3JTdHJpbmcnXQogICAgICAgICAgICAgICAgICAgICBjdnNzdjQgPSBtWydjdnNz
-RGF0YSddWydiYXNlU2NvcmUnXQogICAgICAgICBleGNlcHQgS2V5RXJyb3I6Ci0tIAoyLjUwLjEK
-Cg==
-
---1ZZwL0QtV0iuJkW5shYM--
+On Wed, 30 Jul 2025 at 14:42, jonathan.schnitzler via
+lists.yoctoproject.org
+<jonathan.schnitzler=faro.com@lists.yoctoproject.org> wrote:
+>
+> Hi all,
+>
+> I noticed issues with the parsing of CVEs from the FKIE-CAD feed (update_db_fkie() in cve-update-db-native.bb)s:
+> - It tries to read an accessVector for CVSS v3 & v4 while the attribute is actually called attackVector.
+> - It ignores metrics with type "Secondary" even if there is no"Primary".
+>
+> This leads to a lot of CVEs with accessVector, vectorString and score set to  UNKNOWN/None/0.
+> The bug is in master and has been there since FKIE was introduced.
+> I attached patches to fix the issue.
+>
+> -=-=-=-=-=-=-=-=-=-=-=-
+> Links: You receive all messages sent to this group.
+> View/Reply Online (#13702): https://lists.yoctoproject.org/g/poky/message/13702
+> Mute This Topic: https://lists.yoctoproject.org/mt/114447585/1686489
+> Group Owner: poky+owner@lists.yoctoproject.org
+> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gmail.com]
+> -=-=-=-=-=-=-=-=-=-=-=-
+>
 
