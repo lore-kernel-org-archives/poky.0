@@ -1,167 +1,108 @@
-Return-Path: <bill.mills@linaro.org>
+Return-Path: <frederikbraendstrup@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B7526C87FCB
-	for <webhook@archiver.kernel.org>; Tue,  5 Aug 2025 15:21:45 +0000 (UTC)
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
- by mx.groups.io with SMTP id smtpd.web10.1951.1754407302781987596
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ED7D2C87FCA
+	for <webhook@archiver.kernel.org>; Thu,  7 Aug 2025 12:01:59 +0000 (UTC)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+ by mx.groups.io with SMTP id smtpd.web10.49951.1754568116783342871
  for <poky@lists.yoctoproject.org>;
- Tue, 05 Aug 2025 08:21:42 -0700
+ Thu, 07 Aug 2025 05:01:57 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=PGlGwIE3;
- spf=pass (domain: linaro.org, ip: 209.85.219.49, mailfrom: bill.mills@linaro.org)
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-70739d1f07bso59341326d6.2
-        for <poky@lists.yoctoproject.org>; Tue, 05 Aug 2025 08:21:42 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=j0uL97Re;
+ spf=pass (domain: gmail.com, ip: 209.85.208.44, mailfrom: frederikbraendstrup@gmail.com)
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-615c8ca53efso1630812a12.2
+        for <poky@lists.yoctoproject.org>; Thu, 07 Aug 2025 05:01:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1754407302; x=1755012102; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:in-reply-to:from:cc:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=GMpWTa7qUATHDNLXVmYaXeIGiMf5tbkzCTAn62EnJ/s=;
-        b=PGlGwIE3l5vh4vuk45hQImRUn/itsjnthLfk4MWK0w3d+vk3aTzCZrHHCZetuM7Dnf
-         YmbNsIKQq5P+OBdVWHlCB4IOrwVCVZ+dwkSl0lnwIzznoyvfY4OSC9TEbi7W4bY5sqz/
-         9jD1fnBGip1rzhE1gqNGtQRQK9tFRWTXsMjVeeyy9lBQ+NXAYLUdwfRha7c4X5Op7uQ+
-         h5BYdGuiFC0Cmwj93DevNUzV2hWn0PzD0ujeJ/uL3bTmd4u8cas/EMqf0N4E7goMH82i
-         JtE7nrt6xBZ3YUD6yephosDOzZwkHA/k7tBK1/kKlRwlZzuHI+bVB/vrlSLbPd1t+URK
-         Sj4Q==
+        d=gmail.com; s=20230601; t=1754568115; x=1755172915; darn=lists.yoctoproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=JVpImLO+oseHYwzQmJnFD0PFGXHvUPrGw3WOrhS1X8Q=;
+        b=j0uL97Re67b3qoTp3JGWHnikbcozzxGP/eyot6S8CAwV+pCZiKAl5YH/aP5f0FtFwD
+         dvShe4WhfCqr3IA+Ay5g43hJjfP28G8dw6TS2/3JZC6M106zL7zWBa7vCabBBkQqZBWP
+         XcwdzRVYoquIRYB31mCJ4UqC3onNLx2Wb9gkNhCnMxfSunGjUJtYHcwNKanoAzwWlgql
+         S22AirxS44OqytRx27kdP6mBs+xI6WUaniOnYFCV2SB+XrllqZqd9KQI1hH+pwdy7hEY
+         0RlAlEqc0APuwH/CV0LHyL+Hjxg/gmfCdMNtnJidt3MNnkQrAniCZA3DS72BWEOZDxTO
+         jAtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754407302; x=1755012102;
-        h=content-transfer-encoding:in-reply-to:from:cc:content-language
-         :references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GMpWTa7qUATHDNLXVmYaXeIGiMf5tbkzCTAn62EnJ/s=;
-        b=TH1WOcofOhy32OE3uouu1eRvSMpZkm0gkOva4AVUfEM1RdEJOTUvHV9bT0Pul+XB7C
-         YaZu5KdvgNbE02hfeRQD3uIfw4PsxdklF4/iVgfZPPPg0qS0Dxh9sCA4W1AaHttnb2wj
-         Ay14+/9R3K0LokIdI6GTkpXeCdB7sJUzUrcgZOye9UdLCnJIn3BeqRtoPuMKNB82m3Bx
-         eLJwfL1fT4/Wz0YZk9TpF8bAZMLlgHAFITbVD5qlPI2SiwMdErbpI6ULvPuy1aRfokMG
-         2YPk72RpcoKN7l+ljJWY13EEIsaAtzjNW18MRg3eRFoBI0WFXOaCP2HlTGRzbRPTcgMc
-         3UBg==
-X-Forwarded-Encrypted: i=1; AJvYcCVdzvghzToP3KsX1D+m7M/ZqKKZEsTDdnFYVikRULRk795n90PI2FboGlacq8cLNL+kG6q7@lists.yoctoproject.org
-X-Gm-Message-State: AOJu0YyCq9EbCISRcagtggWD0su7DmzVFKotiYJv321ckyvJaANJUoB4
-	NtqX/otP5TM9UgTMzPLQayt3zzsk4gIk7Pj54mmKaF4P+TJtaJtvp7hPYA0i5ILKgrs=
-X-Gm-Gg: ASbGncvyZa+Cde01TjBn46CFfPb+6qrQauRPXGebGtb8UnCtE4i53T9xT7FFcagesD6
-	Ll0qkwn5ayrfqqs3q0DDrw4eXVmbthgqfzG4rMugjyFYPCa7SZJaUWpf7WJ2ChrH7MTGPOIXkhO
-	S/73OS5uE53fspfd05zV5rYVpRVlzReCv3+jcVWcJrKErd4eKDaZ/LbnPHaU6KbnRglPbuWA2Wp
-	/FAHlcnUjWHHxg2Rz97Pof6iSurh3u6Vlk1nPXCiAJG3b3LCm9GIMhXypaz9QpgmzQlZEpxCzMO
-	npcZcrQ2RSf0SE0BVFplebm33ba+5o9wG4uMHtQxP7iTew8yytw9HCW3OMFHOupHuS/AIWFgJWi
-	hMPc9HgW7AOp7EUgnHtc5iDRzTQUzv13+hPn/bAOZSlmjEeK9SBc3+/0ychpRz5IMCdERqag=
-X-Google-Smtp-Source: AGHT+IFnWPShSDJ+s1ukk4TA0+qlVDcVj3LUHBNw0u1h5rCzogZiFhkoKSvgB+tzXhraFU8UAzXBsg==
-X-Received: by 2002:ad4:5c8c:0:b0:707:415b:c13a with SMTP id 6a1803df08f44-70936584acbmr172343546d6.22.1754407301434;
-        Tue, 05 Aug 2025 08:21:41 -0700 (PDT)
-Received: from [192.168.2.7] (pool-108-48-78-67.washdc.fios.verizon.net. [108.48.78.67])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-7077cd5a438sm72735856d6.48.2025.08.05.08.21.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 05 Aug 2025 08:21:40 -0700 (PDT)
-Message-ID: <97fe3602-da46-4d35-9bcc-1cf855f668f7@linaro.org>
-Date: Tue, 5 Aug 2025 11:21:40 -0400
+        d=1e100.net; s=20230601; t=1754568115; x=1755172915;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JVpImLO+oseHYwzQmJnFD0PFGXHvUPrGw3WOrhS1X8Q=;
+        b=g5ng8noXMTKqUwOlLa8NVozKdtASYd6Sppf57UCDq9J3HpUrPvtAFWTXSDx3JMisso
+         13NbBXO4wKrlbL5I8G06k3T1HuRNMMIzJOgibvBLbvzeoeWy/Ubl90n1309uWoEFGlJQ
+         y6EnoPt3wgDSF+9UNTVQw1NFd3AizK2oihkOtMQFZUqav0Klj+6oHNtLsMF3Zw8h6lO6
+         JZKRZUw8JMTkHVKoq7FxCyE2PsbWRcXYLS+Os3/rQeOFqkqF7pzUhovBsXP18DJ48DsD
+         Ecnej/xJuhdIzeMEKRNi7E4vlOzc7EJWye0rrhiy1WKQFk6PDkvbZisdzcK8JE+r0LOf
+         /JYQ==
+X-Gm-Message-State: AOJu0YxTcZ4Za9XhPMaoENtFXW2f5uI/wL3hGKTdrv7k1LMgM2+tcMu4
+	uYAIN0NDIFc5j3PAPN65K5azB/rXuvLdL5HCfFtYbdT3nAtPsbjIPDV0vEfJpw==
+X-Gm-Gg: ASbGncvw4pAgq6C8q90BzEGp9YyjkmucJm6dgiFhxD3LFzRQNTXwOf90DJ1pzYD+ehh
+	NXsBNHKDV7hRIhYUzT7KFgJRMgo0VDNt4iVx09N5weQETPPQenj8Trtf98r47pDr1AJuQF3TxN2
+	L+qWKLqcwQ+qX1Ok+2HNZQv527dkpeoYrMF5uV8zG7C8Hqanlb2wAmYecjqhB0w9f5GsxilXe3i
+	tnaWAo1GXkBw38LFP5l3U1v/Z0MpqBeM/HAwoKaEmxYAC1XEQ8n0aVHVe0qVEkVWmjBXtYDJgB5
+	V199uRPzE4s8MAn8FMJZ2e7JwEboTMxST4k14jEVC/1i/IU5eVz0GSvEsOVtWdn0FIp3L+3XZOj
+	WsVKRJWptHG6ZAqsLWGLkGTRgirMgoS1uFw==
+X-Google-Smtp-Source: AGHT+IFrqjWhN1Z0akMBAoqPP2A4uPnbJOg0A9l7eVjzUM7uAWfgQUVuafjfyz4kcnPDkmxKm8cE9Q==
+X-Received: by 2002:a17:907:9703:b0:ae3:6651:58ba with SMTP id a640c23a62f3a-af9902dffaemr668849266b.35.1754568114709;
+        Thu, 07 Aug 2025 05:01:54 -0700 (PDT)
+Received: from ws ([212.98.121.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-af91a076620sm1284213666b.10.2025.08.07.05.01.53
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 07 Aug 2025 05:01:53 -0700 (PDT)
+Date: Thu, 7 Aug 2025 14:01:53 +0200
+From: Frede Braendstrup <frederikbraendstrup@gmail.com>
+To: poky@lists.yoctoproject.org
+Subject: dnf5 and libdnf5 target release?
+Message-ID: <opg62v3xde6auwtpgveacv7urixrsan2kde6z6xwtdup7igocf@lom5oqfooe26>
+References: <5rcV.1754383432133968918.mcg9@lists.yoctoproject.org>
+ <31515.1754384245429990929@lists.yoctoproject.org>
+ <CANNYZj8hzb=MyNgG5uAd-HAqXkhrYphXasph=RrivhKLH30jxg@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [poky] [PATCH] genericarm64/genericx86-64/heabglebone-yocto:
- Default to zstd compressed image output
-To: Ross Burton <ross@burtonini.com>, Jon Mason <jon.mason@arm.com>,
- Mikko Rapeli <mikko.rapeli@linaro.org>
-References: <20250804135214.1416031-1-richard.purdie@linuxfoundation.org>
-Content-Language: en-US
-Cc: richard.purdie@linuxfoundation.org, poky@lists.yoctoproject.org
-From: Bill Mills <bill.mills@linaro.org>
-In-Reply-To: <20250804135214.1416031-1-richard.purdie@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="a5dgznm6xno2omhb"
+Content-Disposition: inline
+In-Reply-To: <CANNYZj8hzb=MyNgG5uAd-HAqXkhrYphXasph=RrivhKLH30jxg@mail.gmail.com>
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 05 Aug 2025 15:21:45 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13714
+ <poky@lists.yoctoproject.org>; Thu, 07 Aug 2025 12:01:59 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13715
 
-Hi Ross/Jon/Mikko,
 
-On 8/4/25 9:52 AM, Richard Purdie via lists.yoctoproject.org wrote:
-> We want to release compressed images since these are much easier for
-> users to download. Change the default generated output to match this
-> and build the output we want to release directly.
-> 
-> One test needs tweaking to since it uses an uncompressed image.
-> 
-> Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-> ---
->  meta-yocto-bsp/conf/machine/beaglebone-yocto.conf         | 2 +-
->  meta-yocto-bsp/conf/machine/genericarm64.conf             | 2 +-
->  meta-yocto-bsp/conf/machine/include/genericx86-common.inc | 2 +-
->  meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py    | 1 +
->  4 files changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> index db9cfec497a..63d7f942144 100644
-> --- a/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> +++ b/meta-yocto-bsp/conf/machine/beaglebone-yocto.conf
-> @@ -11,7 +11,7 @@ EXTRA_IMAGEDEPENDS += "virtual/bootloader"
->  DEFAULTTUNE ?= "cortexa8hf-neon"
->  include conf/machine/include/arm/armv7a/tune-cortexa8.inc
->  
-> -IMAGE_FSTYPES += "tar.bz2 jffs2 wic wic.bmap"
-> +IMAGE_FSTYPES += "tar.zst jffs2.zst wic.zst wic.bmap"
->  EXTRA_IMAGECMD:jffs2 = "-lnp "
->  WKS_FILE ?= "beaglebone-yocto.wks"
->  MACHINE_ESSENTIAL_EXTRA_RDEPENDS += "kernel-image kernel-devicetree"
-> diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-bsp/conf/machine/genericarm64.conf
-> index 722bc7d4a66..094af0eb9cb 100644
-> --- a/meta-yocto-bsp/conf/machine/genericarm64.conf
-> +++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
-> @@ -24,7 +24,7 @@ INITRAMFS_MAXSIZE = "200000"
->  INITRAMFS_IMAGE ?= "core-image-initramfs-boot"
->  PACKAGE_INSTALL:append:pn-core-image-initramfs-boot = " ${MACHINE_EXTRA_RRECOMMENDS}"
->  
-> -IMAGE_FSTYPES ?= "wic"
-> +IMAGE_FSTYPES ?= "wic.zst"
+--a5dgznm6xno2omhb
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: dnf5 and libdnf5 target release?
+MIME-Version: 1.0
 
-While we are changing this, should we not also add wic.bmap to match the
-others?
+I'm planning integration with libdnf, but the github page for libdnf
+says that it is being superseeded by dnf5 and libdnf5. Are there any
+current plans for what poky release that will be included in?
 
->  WKS_FILE ?= "genericarm64.wks.in"
->  
->  EFI_PROVIDER ?= "${@bb.utils.contains("DISTRO_FEATURES", "systemd", "systemd-boot", "grub-efi", d)}"
-> diff --git a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
-> index 943604c01cc..76a742b3916 100644
-> --- a/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
-> +++ b/meta-yocto-bsp/conf/machine/include/genericx86-common.inc
-> @@ -16,7 +16,7 @@ XSERVER ?= "${XSERVER_X86_BASE} \
->  
->  MACHINE_EXTRA_RRECOMMENDS += "kernel-modules linux-firmware"
->  
-> -IMAGE_FSTYPES += "wic wic.bmap"
-> +IMAGE_FSTYPES += "wic.zst wic.bmap"
->  WKS_FILE ?= "genericx86.wks.in"
->  EFI_PROVIDER ??= "grub-efi"
->  do_image_wic[depends] += "gptfdisk-native:do_populate_sysroot"
-> diff --git a/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py b/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
-> index 6fc6925f694..781763d1f15 100644
-> --- a/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
-> +++ b/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
-> @@ -19,6 +19,7 @@ class Systemdboot(OESelftestTestCase):
->          # Set EFI_PROVIDER = "systemdboot" and MACHINE = "genericx86-64" in conf/local.conf
->          features = 'EFI_PROVIDER = "systemd-boot"\n'
->          features += 'MACHINE = "genericx86-64"\n'
-> +        features += 'IMAGE_FSTYPES += "wic"\n'
->          features += 'COMPATIBLE_MACHINE:pn-ssh-pregen-hostkeys:genericx86-64 = "genericx86-64"\n'
->          self.append_config(features)
->  
-> 
-> 
-> 
-> -=-=-=-=-=-=-=-=-=-=-=-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13706): https://lists.yoctoproject.org/g/poky/message/13706
-> Mute This Topic: https://lists.yoctoproject.org/mt/114530300/3619240
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [bill.mills@linaro.org]
-> -=-=-=-=-=-=-=-=-=-=-=-
-> 
+/Frede
 
--- 
-Bill Mills
-Principal Technical Consultant, Linaro
-+1-240-643-0836
-TZ: US Eastern
-Work Schedule:  Tues/Wed/Thur
+--a5dgznm6xno2omhb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEJHy75INGducqKI4mZPwPSika/xoFAmiUla0ACgkQZPwPSika
+/xqhWw//Roqkn3vMy1LogAWlGRuYKgv6noT8T+HarrIrSK3xLJ2qS+XxJ5X9UckV
+EZN2fP0Xu2f0cnJVq7l9lDZUiAvDBXaia7ChuNsMcqCxKYuZc9Rcm5UCkJngRFoi
+RtZplGf9Odb39+a3gLkmPEpOc6PK0yYriYf6c7ChTRfy/zxTo+vem+9D6UNJlE7e
+MU9d4q76Q58lAqpPC62LXUlDth0KoKaCw0p+NquvHmXLBrFhr6DwpIQ9E45lU1nU
+DLtwELi8FWmnI0n3sOdsvjFCqhQ9LdKnT3x1khfABnQA/gK39/RgvIyXZI6FTYeX
+j7EjHyOlEK+oWf23r7/EEM0udLIj6pbDKqanYIe/MT/QepdT7WrGZ7+/LGdPRExU
+2Z0xCeSCTqro6CsINnXawUGMuWxiHt4AYM8kqnNXsNTww7/fDd6Pw3uYu+9oewGD
+3NnT4+p/WryxgmUEsDV9jLzYkaNp/Ye3bdiMKEcgaeQIZNtNw2zS8kaaMA/qUZ0F
+/+GqPUOW4hazojXM4QoNZKtFHRApwZDLNbWeZQLFyjT4JKnC0f9kszaIqmvbpOfJ
+IzvDUbdZuRIjGPBPNih3Y2DcxjfcOBckFhMq0j86WhkhB7yTk2y/VXc1YGhal0n4
+259dYdRAfcWi9wPlgCA0xI7Mmnbs1Ao2Hcpcgj50vEUTTx9TI1k=
+=a0pT
+-----END PGP SIGNATURE-----
+
+--a5dgznm6xno2omhb--
 
