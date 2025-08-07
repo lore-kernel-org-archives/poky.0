@@ -1,108 +1,85 @@
-Return-Path: <frederikbraendstrup@gmail.com>
+Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ED7D2C87FCA
-	for <webhook@archiver.kernel.org>; Thu,  7 Aug 2025 12:01:59 +0000 (UTC)
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
- by mx.groups.io with SMTP id smtpd.web10.49951.1754568116783342871
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1D6AC87FCA
+	for <webhook@archiver.kernel.org>; Thu,  7 Aug 2025 12:10:19 +0000 (UTC)
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+ by mx.groups.io with SMTP id smtpd.web10.50242.1754568618071664469
  for <poky@lists.yoctoproject.org>;
- Thu, 07 Aug 2025 05:01:57 -0700
+ Thu, 07 Aug 2025 05:10:18 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=j0uL97Re;
- spf=pass (domain: gmail.com, ip: 209.85.208.44, mailfrom: frederikbraendstrup@gmail.com)
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-615c8ca53efso1630812a12.2
-        for <poky@lists.yoctoproject.org>; Thu, 07 Aug 2025 05:01:56 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=PXhK9n16;
+ spf=pass (domain: gmail.com, ip: 209.85.222.175, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-7e8053d3382so200149385a.0
+        for <poky@lists.yoctoproject.org>; Thu, 07 Aug 2025 05:10:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1754568115; x=1755172915; darn=lists.yoctoproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=JVpImLO+oseHYwzQmJnFD0PFGXHvUPrGw3WOrhS1X8Q=;
-        b=j0uL97Re67b3qoTp3JGWHnikbcozzxGP/eyot6S8CAwV+pCZiKAl5YH/aP5f0FtFwD
-         dvShe4WhfCqr3IA+Ay5g43hJjfP28G8dw6TS2/3JZC6M106zL7zWBa7vCabBBkQqZBWP
-         XcwdzRVYoquIRYB31mCJ4UqC3onNLx2Wb9gkNhCnMxfSunGjUJtYHcwNKanoAzwWlgql
-         S22AirxS44OqytRx27kdP6mBs+xI6WUaniOnYFCV2SB+XrllqZqd9KQI1hH+pwdy7hEY
-         0RlAlEqc0APuwH/CV0LHyL+Hjxg/gmfCdMNtnJidt3MNnkQrAniCZA3DS72BWEOZDxTO
-         jAtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1754568115; x=1755172915;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1754568617; x=1755173417; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JVpImLO+oseHYwzQmJnFD0PFGXHvUPrGw3WOrhS1X8Q=;
-        b=g5ng8noXMTKqUwOlLa8NVozKdtASYd6Sppf57UCDq9J3HpUrPvtAFWTXSDx3JMisso
-         13NbBXO4wKrlbL5I8G06k3T1HuRNMMIzJOgibvBLbvzeoeWy/Ubl90n1309uWoEFGlJQ
-         y6EnoPt3wgDSF+9UNTVQw1NFd3AizK2oihkOtMQFZUqav0Klj+6oHNtLsMF3Zw8h6lO6
-         JZKRZUw8JMTkHVKoq7FxCyE2PsbWRcXYLS+Os3/rQeOFqkqF7pzUhovBsXP18DJ48DsD
-         Ecnej/xJuhdIzeMEKRNi7E4vlOzc7EJWye0rrhiy1WKQFk6PDkvbZisdzcK8JE+r0LOf
-         /JYQ==
-X-Gm-Message-State: AOJu0YxTcZ4Za9XhPMaoENtFXW2f5uI/wL3hGKTdrv7k1LMgM2+tcMu4
-	uYAIN0NDIFc5j3PAPN65K5azB/rXuvLdL5HCfFtYbdT3nAtPsbjIPDV0vEfJpw==
-X-Gm-Gg: ASbGncvw4pAgq6C8q90BzEGp9YyjkmucJm6dgiFhxD3LFzRQNTXwOf90DJ1pzYD+ehh
-	NXsBNHKDV7hRIhYUzT7KFgJRMgo0VDNt4iVx09N5weQETPPQenj8Trtf98r47pDr1AJuQF3TxN2
-	L+qWKLqcwQ+qX1Ok+2HNZQv527dkpeoYrMF5uV8zG7C8Hqanlb2wAmYecjqhB0w9f5GsxilXe3i
-	tnaWAo1GXkBw38LFP5l3U1v/Z0MpqBeM/HAwoKaEmxYAC1XEQ8n0aVHVe0qVEkVWmjBXtYDJgB5
-	V199uRPzE4s8MAn8FMJZ2e7JwEboTMxST4k14jEVC/1i/IU5eVz0GSvEsOVtWdn0FIp3L+3XZOj
-	WsVKRJWptHG6ZAqsLWGLkGTRgirMgoS1uFw==
-X-Google-Smtp-Source: AGHT+IFrqjWhN1Z0akMBAoqPP2A4uPnbJOg0A9l7eVjzUM7uAWfgQUVuafjfyz4kcnPDkmxKm8cE9Q==
-X-Received: by 2002:a17:907:9703:b0:ae3:6651:58ba with SMTP id a640c23a62f3a-af9902dffaemr668849266b.35.1754568114709;
-        Thu, 07 Aug 2025 05:01:54 -0700 (PDT)
-Received: from ws ([212.98.121.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-af91a076620sm1284213666b.10.2025.08.07.05.01.53
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 Aug 2025 05:01:53 -0700 (PDT)
-Date: Thu, 7 Aug 2025 14:01:53 +0200
-From: Frede Braendstrup <frederikbraendstrup@gmail.com>
-To: poky@lists.yoctoproject.org
-Subject: dnf5 and libdnf5 target release?
-Message-ID: <opg62v3xde6auwtpgveacv7urixrsan2kde6z6xwtdup7igocf@lom5oqfooe26>
-References: <5rcV.1754383432133968918.mcg9@lists.yoctoproject.org>
- <31515.1754384245429990929@lists.yoctoproject.org>
- <CANNYZj8hzb=MyNgG5uAd-HAqXkhrYphXasph=RrivhKLH30jxg@mail.gmail.com>
+        bh=NgdYdyn/2+s9p+0rAj+Kk8SQqiOTRUHF6MdRCLUV3WY=;
+        b=PXhK9n160a0oRZm+Rs2ZyrE8+E5/Z9eQAkhOiQEAntOoWfEvp0SvHpV3HwHb4k1Jam
+         YRsAyd8+8nibs2llnfhY0w/r9SCSoEJpH2xzR6BliFYTO2D4ZDyL7hoLoU5gySzWyDCH
+         DMjxWtoB2oOYXAMq+aQpS0lRCbGw6gwWOxCQ5CMTpmJAf2K3/8GWJNYtvtsmSriRffwy
+         9XXCpYmHGh6t6e7wp0yzarrU65LwS5vwvcteq3nK6jtrY7vWNnwBUbxutmc3VogKj3IP
+         n708xgQQ4pGosBYYdAi0MB4JcwAu3dUqyK8wwpA/zoOn673oPYmRKmxzb3hPnLv93DLo
+         8seA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1754568617; x=1755173417;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=NgdYdyn/2+s9p+0rAj+Kk8SQqiOTRUHF6MdRCLUV3WY=;
+        b=NHsFSShUbYbCx0O8lCFsGfrxRiomTE8h6FEkzg27kpX2r84AQxGV+pQeYDNCpSeItk
+         1ZMw9LNECKCIqhP4VJRFh3xo5IejlOzo6tsccEmEhHlRLj5N3ij3+PQEe3y10By9ixV4
+         EFujS8ingIQscKiCw3/Hf1o8GeJ+csSQyIK1pIgWMv+tD3wIJpf+jqhbyDCaa8+0ICzg
+         rWNvmqPPd6r2hOWBvfnYoFemrMTEcpUgim3kHeG8hZnoMlebbCQLupRsKnrdlq8dSC5I
+         EAN4xoVyK13mw8oSkJ0+zeQWkx+z3gZd4PwR94XPEBJMZKoo8wMv+wwvvL7P5ubUTfz3
+         Gpbw==
+X-Gm-Message-State: AOJu0YyEHCS2t7YxXuEMy4WT4Ze3k2vgVPU1qev9uDwjVlK89lIZ3P84
+	lv+LcrMymCvd/mzqOFA3X07GlLptSdhoFfF/DzvCKFlsSGGGdSD+v0/TvNuKn1sI6g5GnalyS/I
+	m7AxUzDnxvn0Xw1tT67cwyNrkTLKYHDw=
+X-Gm-Gg: ASbGncvKMQ5Rtes9fNWJ+t0ThKpar9ncGfI9d9NdDSBfRc11G3/yeNjKCMMK2YZna30
+	RDv2rrtjdnEsUFNmUI0E7vznngR+0NrLgprIBHmwJP0jK70rSn2ef4o0hrd1XLyYUgE2ZPHekx3
+	79eBYKfS1uDbKqdkISXfy6DvP+Qa1Y7xcT6BZ4ChQFnRAPBHZJgRf2QNGdI47tPghUgfV0PIhdK
+	Bsp9GtHMuhuFDNAuTfHETN9HZHxEmIfTDwuPcZ+eA==
+X-Google-Smtp-Source: AGHT+IG5s2v8ucVkUKpQiJl9pEZis3bX833Lv6rnWea1M1eUtljkmEyeX0BNRWZe21ezelaLwzhA8kt3TrSGaepJ1w8=
+X-Received: by 2002:a05:620a:1711:b0:7e6:9bc2:6cb8 with SMTP id
+ af79cd13be357-7e81feda045mr445576985a.2.1754568616978; Thu, 07 Aug 2025
+ 05:10:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="a5dgznm6xno2omhb"
-Content-Disposition: inline
-In-Reply-To: <CANNYZj8hzb=MyNgG5uAd-HAqXkhrYphXasph=RrivhKLH30jxg@mail.gmail.com>
+References: <5rcV.1754383432133968918.mcg9@lists.yoctoproject.org>
+ <31515.1754384245429990929@lists.yoctoproject.org> <CANNYZj8hzb=MyNgG5uAd-HAqXkhrYphXasph=RrivhKLH30jxg@mail.gmail.com>
+ <opg62v3xde6auwtpgveacv7urixrsan2kde6z6xwtdup7igocf@lom5oqfooe26>
+In-Reply-To: <opg62v3xde6auwtpgveacv7urixrsan2kde6z6xwtdup7igocf@lom5oqfooe26>
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Thu, 7 Aug 2025 14:10:05 +0200
+X-Gm-Features: Ac12FXz6hjZL8ozCsRJVW1L2yyx61x4M0sMPkO-tdKbpziuOVqFA7J4lTZMMycA
+Message-ID: <CANNYZj_VjNSs5=7HV+dtig1JHsVwR_T6S2H6SS5yae9u6KM2hA@mail.gmail.com>
+Subject: Re: [poky] dnf5 and libdnf5 target release?
+To: frederikbraendstrup@gmail.com
+Cc: poky@lists.yoctoproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 07 Aug 2025 12:01:59 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13715
+ <poky@lists.yoctoproject.org>; Thu, 07 Aug 2025 12:10:19 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13716
 
+On Thu, 7 Aug 2025 at 14:01, Frederik Br=C3=A6ndstrup via
+lists.yoctoproject.org
+<frederikbraendstrup=3Dgmail.com@lists.yoctoproject.org> wrote:
+> I'm planning integration with libdnf, but the github page for libdnf
+> says that it is being superseeded by dnf5 and libdnf5. Are there any
+> current plans for what poky release that will be included in?
 
---a5dgznm6xno2omhb
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: dnf5 and libdnf5 target release?
-MIME-Version: 1.0
+This is not how yocto works. Things happen only if there are people
+with sufficient interest, willing to invest time into a certain
+subject. For dnf5 there curently are no such people to the best of my
+knowledge. You are welcome to develop the necessary changes, and they
+will be reviewed and tested.
 
-I'm planning integration with libdnf, but the github page for libdnf
-says that it is being superseeded by dnf5 and libdnf5. Are there any
-current plans for what poky release that will be included in?
-
-/Frede
-
---a5dgznm6xno2omhb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEJHy75INGducqKI4mZPwPSika/xoFAmiUla0ACgkQZPwPSika
-/xqhWw//Roqkn3vMy1LogAWlGRuYKgv6noT8T+HarrIrSK3xLJ2qS+XxJ5X9UckV
-EZN2fP0Xu2f0cnJVq7l9lDZUiAvDBXaia7ChuNsMcqCxKYuZc9Rcm5UCkJngRFoi
-RtZplGf9Odb39+a3gLkmPEpOc6PK0yYriYf6c7ChTRfy/zxTo+vem+9D6UNJlE7e
-MU9d4q76Q58lAqpPC62LXUlDth0KoKaCw0p+NquvHmXLBrFhr6DwpIQ9E45lU1nU
-DLtwELi8FWmnI0n3sOdsvjFCqhQ9LdKnT3x1khfABnQA/gK39/RgvIyXZI6FTYeX
-j7EjHyOlEK+oWf23r7/EEM0udLIj6pbDKqanYIe/MT/QepdT7WrGZ7+/LGdPRExU
-2Z0xCeSCTqro6CsINnXawUGMuWxiHt4AYM8kqnNXsNTww7/fDd6Pw3uYu+9oewGD
-3NnT4+p/WryxgmUEsDV9jLzYkaNp/Ye3bdiMKEcgaeQIZNtNw2zS8kaaMA/qUZ0F
-/+GqPUOW4hazojXM4QoNZKtFHRApwZDLNbWeZQLFyjT4JKnC0f9kszaIqmvbpOfJ
-IzvDUbdZuRIjGPBPNih3Y2DcxjfcOBckFhMq0j86WhkhB7yTk2y/VXc1YGhal0n4
-259dYdRAfcWi9wPlgCA0xI7Mmnbs1Ao2Hcpcgj50vEUTTx9TI1k=
-=a0pT
------END PGP SIGNATURE-----
-
---a5dgznm6xno2omhb--
+Alex
 
