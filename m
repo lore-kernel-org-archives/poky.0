@@ -2,71 +2,71 @@ Return-Path: <bruce.ashfield@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EE6A6CA0EFF
-	for <webhook@archiver.kernel.org>; Thu, 28 Aug 2025 00:58:30 +0000 (UTC)
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
- by mx.groups.io with SMTP id smtpd.web10.10399.1756342704609992636
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D2828CA0FED
+	for <webhook@archiver.kernel.org>; Thu, 28 Aug 2025 00:59:30 +0000 (UTC)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+ by mx.groups.io with SMTP id smtpd.web10.10418.1756342767137496544
  for <poky@lists.yoctoproject.org>;
- Wed, 27 Aug 2025 17:58:24 -0700
+ Wed, 27 Aug 2025 17:59:27 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20230601 header.b=LtcKLiVl;
- spf=pass (domain: gmail.com, ip: 209.85.214.178, mailfrom: bruce.ashfield@gmail.com)
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-24456ce0b96so5267155ad.0
-        for <poky@lists.yoctoproject.org>; Wed, 27 Aug 2025 17:58:24 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=X3tG0Q9h;
+ spf=pass (domain: gmail.com, ip: 209.85.210.177, mailfrom: bruce.ashfield@gmail.com)
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-77053017462so351237b3a.1
+        for <poky@lists.yoctoproject.org>; Wed, 27 Aug 2025 17:59:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1756342704; x=1756947504; darn=lists.yoctoproject.org;
+        d=gmail.com; s=20230601; t=1756342766; x=1756947566; darn=lists.yoctoproject.org;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=L7pjjoThZpJN5U0Sss79GODMLndHQug0A0B6WHneIB4=;
-        b=LtcKLiVlKmy4XS2MRemmLdzjLNZanqH9Znw2DdcaJh7sSou3oRaMw8oKld9COJHV26
-         tLlG/q0YG+L/SHxcVNiGsMvGuYjnG+YRKNxejpr4xr06PDSFIup5Zi4DPJsXdqqWov0u
-         NQqx2aiwVU7GENmCM1Q0dZan5k0ZvLwsxeoxXEW7VuCde8R4QxWg3ynmA0ETF2jjdGWe
-         3H22OFe2RiVj7B5G/XymYvfPJ7HPrtTzzjnhJWcKwtIL2IB4hoPAb6T8/l2INeGAT+s9
-         Cr1K1dpCFEOMUV7NGjL8mBJGERbLSu5dh/OjezAlhReAulU6yJ1l2J6BZxAX2GFzxZP5
-         L5pw==
+        bh=6mMcrz3MiyNnvY8y1Ldf2njz6oEg5bixcqXPHto5cAE=;
+        b=X3tG0Q9hzhJR/eg2dNPXkVdjStliiMuLNGC4nnSVDswzHkwR36wkLR6tftaty2PA43
+         i30JUpcDN/CBjSvD6qZxw0jYUxezGYVqG5LZqWEBGPoUhXRXX394GJnQcLRbdt85fxlk
+         ySOw9G5q8a9XSLRunfeVCzI61+K8Tc1xeot7/QQtS30YDe5LRVpP37pHldXR9o1DFy6E
+         KcjdIk750elo4fqblQhIkAWdNsENVVK6kZH0MWOX5XtWlDXe26kWDOelHghcHEOUqw6f
+         Vcld0s0UB77C9ppLsi6TqIPQclfb6nOdnx3jPcriCx5AOLk9UUKgIaMFsMuOonbbdt9e
+         zkkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1756342704; x=1756947504;
+        d=1e100.net; s=20230601; t=1756342766; x=1756947566;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=L7pjjoThZpJN5U0Sss79GODMLndHQug0A0B6WHneIB4=;
-        b=E9XlbwH9TLktO1sqn54t4IRGvpPpjSATwclbHP/rANbViCCyGBwlYNsX2giVVUYmek
-         bn/i6zLdr31RdLfncA/X/6ODJIE+0ZwVue8A2YMyCSMt6g2BRrLa0HSj9s8Z+mzVppaz
-         d+QpMUJ5oEEeuo2a/jqNBczrLUpP7mwUmGkJrUyvpVy1pmPgP5LFWfRpUkhLfA7eIKyC
-         ucnH67nuDf7PgjFwsfU2+lMEeT/Up6WK1jebkCg8vs9q5GblKy6Anql8sSj4RxH00b6G
-         DOllQxhIm1XuJiqVbdlcW1mV3/d60aePqwCjknPACxXBfmHffOXY/XTdN2t5nBsmIGUI
-         Lcwg==
-X-Gm-Message-State: AOJu0YxADjuJSdz2KerL175tbg4IgVInSM7Z3XpY3CSHNEPzYa4EeaA3
-	3fnjYP7vXDxFhVaE2waSnfT1dnSGX0YJzeJsN7Ph08a13Zr6LGho7Sr+iIWFMFJQ3mN7oRjZxed
-	h91xpJ9GGvGaa4+fMUFimLrGylRjsAOk=
-X-Gm-Gg: ASbGncvQIXQ+77L+qb9PyUxVLakQ8+jjmvVxbCscy+en4paOxe1t2wy7TCskMHNeshN
-	U/rNSpQ9v8vF+oD4+QhbrRmkWtMQj3Fcru1i3w3IJ04MVO3nWE/g9223QRblcz/6Wnv1jTQFCi4
-	wak307NdQKBBafbytx1vV4ngh5jaSI4PuX0YUsa6gjiRY+VhJyxfYwRe6MGAPcpznDTH3wP8B2i
-	MP9ugSIEJLca5N24pQG4SGjSJhGvIqvj+QKeNYCVDIAorcW7b0=
-X-Google-Smtp-Source: AGHT+IFAvuLGTtwNHsCAnfdlBj/lqSuIioA/5f3X9YNhzV9nu+aWGec6/ssP3u7P/tFnrEDnduOxg3WAljXR+8udSw4=
-X-Received: by 2002:a17:903:2f85:b0:246:570:d7dd with SMTP id
- d9443c01a7336-248753adaa1mr102775695ad.30.1756342703654; Wed, 27 Aug 2025
- 17:58:23 -0700 (PDT)
+        bh=6mMcrz3MiyNnvY8y1Ldf2njz6oEg5bixcqXPHto5cAE=;
+        b=KO+yDkbzssTQ/LdqXAcHm+7qL/23RTu+FmB1RMzT3Zj3Gmh+SwqwB/Ko86qnlgLA48
+         QSUHtjmOddcEN4J1hjbbKeXHI9Unxn4I3woFd46dcUlR35257WuBnW/XtaiDqynN98dl
+         Oowp/7fbJVunEsYhxo3ULegyZEZ3tjVqoJwXypDa4QCMrJSLqRVjQIzN+vjfaSBbt+Zc
+         J+O779G34ZOAC8fO4MvBuF2aieFqx71AEPCU6uoknqC/416l0VnOvr4ZV9xVPveB6G+B
+         70uyMyzT7gEqoMFI6vwXIsjDDZjuJEHMN10Pxeie5acByA8Rmg34EHqL+V+QwGWhiNP8
+         2Png==
+X-Gm-Message-State: AOJu0YxI/FL127xCfUgoyrQGRk4LoOK4qgFrg0C+5DRTmdtSytX3b6TM
+	veehPtQpeG1vaI6YZ7hEaoT9nv1L3eybb2UiFTBfmXPj1YkELJS6gF7fivwamfW0HUvJe2/ld7R
+	fMKL0h978jffR79nAfQgNl8LuvXy2Jfc=
+X-Gm-Gg: ASbGncsVAfDymFiLv+bLOicxVn4K+iZWKN6tIuXJV/iC5tHgtmWTF4Luf85I2pwNft7
+	SdmKLOjqcw0gg3Pjy969iPWH57vLsCjEaLMpcYq4ZEoJ6j55/oXyYiQf0RV/6Yo//Ltn/1xhp+h
+	+OHp35yFot0sicdVjto3xd7yHp54w6vpBQ+Q3Q2t/OsYUlwUUJ/C29XFvPGHt3T6ODQG1Ew58Gg
+	hkQk/+/lzBfK4wKjyq7CTAkSlVh9Hvh2fb3be6jxq5wMWhoZv4=
+X-Google-Smtp-Source: AGHT+IEUzOrcnTRRLE1Pf92q7WcUw+SUgrvnsnRqpN7zXCWzwttSCU/eqvx0B2MHws46QILITGN9Sda1LgJSFoB4n10=
+X-Received: by 2002:a05:6a20:6a28:b0:240:1dca:d143 with SMTP id
+ adf61e73a8af0-24340bca351mr28434030637.1.1756342766346; Wed, 27 Aug 2025
+ 17:59:26 -0700 (PDT)
 MIME-Version: 1.0
 References: <20250827100852.2093378-1-mikko.rapeli@linaro.org>
  <20250827101114.2093782-1-mikko.rapeli@linaro.org> <CADkTA4Na0w8tVNaM8uJkhqPShggKvAyVcr-Kg2aCkeLmqD6K7w@mail.gmail.com>
  <aK8Stgc4Zw-bFDkk@nuoska>
 In-Reply-To: <aK8Stgc4Zw-bFDkk@nuoska>
 From: Bruce Ashfield <bruce.ashfield@gmail.com>
-Date: Wed, 27 Aug 2025 21:58:12 -0300
-X-Gm-Features: Ac12FXy7h61rw3PzeEhsVt1jEpuuH13B-Q5VyZGaZKPXqku6SjV3-RKLp2TJAT4
-Message-ID: <CADkTA4O1P-LQWZMr_75v9YtBQ0qWckDv=U-TmNph_fm8CvfOvg@mail.gmail.com>
+Date: Wed, 27 Aug 2025 21:59:14 -0300
+X-Gm-Features: Ac12FXyDsKbxoZZM4zEbg4XOND_aot7UIhyiph4NpJCrEvpZHXvSjbbQWoCoxEo
+Message-ID: <CADkTA4McmV9giAU_pZG4eFcKZ_aoOgqE0R40NU2dfgK+WBz_kA@mail.gmail.com>
 Subject: Re: [poky] [PATCH] linux-yocto: fix compilation of 6.16 kernel on genericarm64
 To: Mikko Rapeli <mikko.rapeli@linaro.org>
 Cc: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="000000000000f48a42063d62660e"
+Content-Type: multipart/alternative; boundary="000000000000b12651063d626a5f"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 28 Aug 2025 00:58:30 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13733
+ <poky@lists.yoctoproject.org>; Thu, 28 Aug 2025 00:59:30 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13734
 
---000000000000f48a42063d62660e
+--000000000000b12651063d626a5f
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -96,11 +96,6 @@ ject.org
 >
 > Yes, the same revert as in 6.12 bbappend.
 >
-
-ah yes. I missed that when it went in for 6.12 and I didn't do a broad
-enough search this time.
-
-
 > > The real reason I ask is that we shouldn't be patching linux-yocto
 > > like this in a bbappend. I can simply to the reverts and apply the
 > > patches on the BSP branch or v6.16/standard/base if they are
@@ -110,20 +105,20 @@ enough search this time.
 > poky/meta-yocto-bsp to linux-yocto proper for genericarm64?
 > A new branch for genericarm64 would be needed then.
 >
+> If there is a way to reproduce the BeaglePlay serial console
+> issue we could also try the kernel without reverts.
 >
-That's easy to do, and the main reason we've ever created BSP
-branches (to temporarily carry something that isn't suitable for
-all boards).
 
-I can create a branch and tweak the linux-yocto recipe to use the
-branch and take care of grabbing those patches.
+I forgot to reply to this part.
+
+I'm not fully aware of the issues, so I haven't tried myself. Do you
+have the subject of any threads on it, so I can look up the details
+and get up to speed ?
 
 Bruce
 
 
 
-> If there is a way to reproduce the BeaglePlay serial console
-> issue we could also try the kernel without reverts.
 >
 > Cheers,
 >
@@ -331,7 +326,7 @@ h
 at its end
 - "Use the force Harry" - Gandalf, Star Trek II
 
---000000000000f48a42063d62660e
+--000000000000b12651063d626a5f
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -365,12 +360,7 @@ br>
 &gt; go into kernel-cache master and will always be in the next version).<b=
 r>
 <br>
-Yes, the same revert as in 6.12 bbappend.<br></blockquote><div><br></div><d=
-iv><div class=3D"gmail_default" style=3D"font-size:small">ah yes. I missed =
-that when it went in for 6.12 and I didn&#39;t do a broad</div><div class=
-=3D"gmail_default" style=3D"font-size:small">enough search this time.</div>=
-</div><div><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px =
-0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+Yes, the same revert as in 6.12 bbappend.<br>
 <br>
 &gt; The real reason I ask is that we shouldn&#39;t be patching linux-yocto=
 <br>
@@ -381,21 +371,20 @@ that when it went in for 6.12 and I didn&#39;t do a broad</div><div class=
 Right. So I should move the patches from linux-yocto bbappend in<br>
 poky/meta-yocto-bsp to linux-yocto proper for genericarm64?<br>
 A new branch for genericarm64 would be needed then.<br>
-<br></blockquote><div><br></div><div><div class=3D"gmail_default" style=3D"=
-font-size:small">That&#39;s easy to do, and the main reason we&#39;ve ever =
-created BSP</div><div class=3D"gmail_default" style=3D"font-size:small">bra=
-nches (to temporarily carry something that isn&#39;t suitable for</div><div=
- class=3D"gmail_default" style=3D"font-size:small">all boards).</div><div c=
-lass=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"gm=
-ail_default" style=3D"font-size:small">I can create a branch and tweak the =
-linux-yocto recipe to use the</div><div class=3D"gmail_default" style=3D"fo=
-nt-size:small">branch and take care of grabbing those patches.</div><div cl=
-ass=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"gma=
-il_default" style=3D"font-size:small">Bruce</div><br></div><div>=C2=A0</div=
-><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
--left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
 If there is a way to reproduce the BeaglePlay serial console<br>
-issue we could also try the kernel without reverts.<br>
+issue we could also try the kernel without reverts.<br></blockquote><div><b=
+r></div><div><div class=3D"gmail_default" style=3D"font-size:small">I forgo=
+t to reply to this part.</div><div class=3D"gmail_default" style=3D"font-si=
+ze:small"><br></div><div class=3D"gmail_default" style=3D"font-size:small">=
+I&#39;m not fully aware of the issues, so I haven&#39;t tried myself. Do yo=
+u</div><div class=3D"gmail_default" style=3D"font-size:small">have the subj=
+ect of any threads on it, so I can look up the details</div><div class=3D"g=
+mail_default" style=3D"font-size:small">and get up to speed ?</div><div cla=
+ss=3D"gmail_default" style=3D"font-size:small"><br></div><div class=3D"gmai=
+l_default" style=3D"font-size:small">Bruce</div><br></div><div>=C2=A0</div>=
+<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
+left:1px solid rgb(204,204,204);padding-left:1ex">
 <br>
 Cheers,<br>
 <br>
@@ -642,5 +631,5 @@ ignature">- Thou shalt not follow the NULL pointer, for chaos and madness a=
 wait thee at its end<br>- &quot;Use the force Harry&quot; - Gandalf, Star T=
 rek II<br><br></div></div>
 
---000000000000f48a42063d62660e--
+--000000000000b12651063d626a5f--
 
