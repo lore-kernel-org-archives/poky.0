@@ -1,123 +1,130 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C92E9CAC593
-	for <webhook@archiver.kernel.org>; Mon, 15 Sep 2025 11:09:16 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
- by mx.groups.io with SMTP id smtpd.web10.30050.1757934547381397999
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C9EA6CAC592
+	for <webhook@archiver.kernel.org>; Mon, 15 Sep 2025 11:17:36 +0000 (UTC)
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+ by mx.groups.io with SMTP id smtpd.web10.30227.1757935055561060297
  for <poky@lists.yoctoproject.org>;
- Mon, 15 Sep 2025 04:09:07 -0700
+ Mon, 15 Sep 2025 04:17:35 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=H2H3dCtX;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.52, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-45f2a69d876so7839115e9.0
-        for <poky@lists.yoctoproject.org>; Mon, 15 Sep 2025 04:09:07 -0700 (PDT)
+ dkim=pass header.i=@linaro.org header.s=google header.b=RH4kS9gK;
+ spf=pass (domain: linaro.org, ip: 209.85.167.43, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-55f716e25d9so4148161e87.1
+        for <poky@lists.yoctoproject.org>; Mon, 15 Sep 2025 04:17:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1757934546; x=1758539346; darn=lists.yoctoproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rjnlKHRftG+uRGtquKOtU6JDzF9iOVKCVWB5uh0ilas=;
-        b=H2H3dCtX+EtiAXR9ifT8NNdeBGNj7oT8QLxxfSNbbKfIP0zhjykJyoo/zWyTiML/6r
-         RKZ+zvsF9aHdiIxELmEAmMPzjIWVsCF/NQS/fSQ0MdFF0hRsB954e3KfdIL/OILqcH3g
-         6q7emcVVfujOhQEOtlqno1+MJ5jbVY1f7Rx+w=
+        d=linaro.org; s=google; t=1757935053; x=1758539853; darn=lists.yoctoproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=YitmbMLbYAwR1vWLkDOciI8gwup9AZfw84Htb2RThRM=;
+        b=RH4kS9gKasDz687ZnCTdO7/ZZGia9fOhsoX4IF3IGSQsstyIkkFFZcQK18uR6tkDTB
+         xQfSCMsrrlFrIC9yXc3OOxiE/wRECth1BXkw6Vm/AHMJtctKNmoacoc9gk3T6iQfY3Vl
+         4tdsGwTVayt+bnUYk2QM7utUhkg//svzWwmgp3/cs7osyS39E6Mdl3SnfrvItEqS+S3n
+         G6KX1aIdKN0aw8OXpFMxM9GFeL12mKt5uDLpmXmPOhlREC3BMU+6spR75PcNG5BgHv8X
+         eSx7ECQJPZyEb+4RPCaTRgKcwwlRYd6jfkZ71/ecF/3UOoi4NIoyVvYBHc/G52lmsZ0q
+         Gdwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1757934546; x=1758539346;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:to:from:subject:message-id:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=rjnlKHRftG+uRGtquKOtU6JDzF9iOVKCVWB5uh0ilas=;
-        b=jZMY1/eL876iU6HSzz15vBlR5/O90VJlW3c9Ozys6BhKkclA4In5M1up/ph1MwDS0I
-         KZaAi22Sfzj/444TX/ekhusXzSn/wyQ7gRrIkUSa6kFScoT8brhS2PGIFnsxdGJ3JFzQ
-         omVrtpiOlCk3cOyEdLzPMQXVySs46AD6rpFsGQNl6/+sjSgz+X2eFAc9RWoU7TuU3bzz
-         TP78mY5CsAFiKFva5Vur0VtyVUaq/BFMC7KuRdhneEQAdUAO3A8t2q0uCuW2Ria4uW87
-         mhNLQof9DGX0DA2x0qYHcU5XcVbzxurfvwOFW09gPrbLJhgSKL59NsQdFHcG+OVB9pNt
-         OlZA==
-X-Forwarded-Encrypted: i=1; AJvYcCXYG/6NXUwNw70huGnyoA7BIEznPoXc0DYohzKG4+OZk31EP+7NwqlWbOzRZ0OtDXOaJYgr@lists.yoctoproject.org
-X-Gm-Message-State: AOJu0Yz/ZlXsmX2NTtAld/4i6umCAOfaTfcylRK+mFB0M7RIcH/ULJ/z
-	s/R73o9uJY2PY2I/A8HBU85M0mx34AEquqboDhp4v3dXAouIoVCEmJ4R/G8Ciq/zUoM=
-X-Gm-Gg: ASbGncucebtxtAOZh9cWjIhDHf3/X5Ddp8kI5xMWWYxgD0a9Bzvho6TG18adS7X2kYu
-	iqnFq+1c+t8K9dHk3zhoMT0r1jtZoqIiIsMAa0sIuyIuA3120CT/RAeQ4THEGBuWzk5XnO0XEsw
-	k465YPYkOFcksLUaP4Oi6XlvXK0BJrgD5/w6SJUqAMvPFshChErGl3EgEQ3qPvFBMFUcxKgSeix
-	tXH131wiYUjTzbP10BieljVUKWuFiSsL+OQFOnq7zCOh5EjeMVIHHuvuAiT2tQSYHSNv/IKucKY
-	eU41+Nk2ruo+BHbOnkow4xVj93SVarjGnN73qraZFhOR++E6qIBOZ1NBYsJ9u3qq410C4ME6WD3
-	gfUmW8wPZqANGVSUGI7AyrIy2/dNAbEIvnPQu8jdeoKxLB2A7OAylaWDOU8BDIUNjHoIfHWin4Y
-	xZNV6nBFrWnXZp+bpz
-X-Google-Smtp-Source: AGHT+IHZlsuOjOkI7yNAaFHdIExehYdlMq0U4To5KlomdHnkqu8l4MQpRHycFRg8j4FfYMf3T24djA==
-X-Received: by 2002:a05:600c:2114:b0:45d:f7e4:8969 with SMTP id 5b1f17b1804b1-45f211cb220mr88473335e9.4.1757934545580;
-        Mon, 15 Sep 2025 04:09:05 -0700 (PDT)
-Received: from ?IPv6:2001:8b0:aba:5f3c:8e90:5e16:1413:6c? ([2001:8b0:aba:5f3c:8e90:5e16:1413:6c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-45e0187f380sm94854085e9.5.2025.09.15.04.09.04
+        d=1e100.net; s=20230601; t=1757935053; x=1758539853;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=YitmbMLbYAwR1vWLkDOciI8gwup9AZfw84Htb2RThRM=;
+        b=rNza2Y7M+qVrzKsw9ZJg6Lf6N/g1o9qSFUAmwf1j4JsvMqEMl/Xf8aHHL82jH4RljY
+         QW3IEBSXbVKSf1fLGsoGOqtq4cM8iVY+5fTZudypywQH4wmgnVvyaWVLhwkKGSG1jlNc
+         zL4wyAI9W8fGuRwnKos4v44f4mSBuyoUGGSI00NoM8iwctencDadD16Eld4rdo94J4vA
+         GfC5MFZO/wQ5SOCaI0uoc6ekgSiYElqEYqMzZrLZFoucJ/bKYxt383tIwGwEJb5IXIU3
+         8l9taAdf9ABk3n4XVQakUiKJBnfmltxBAJ879/mqaFPLCB7HURhNkMfqx9nq82jS38IU
+         k4Bw==
+X-Gm-Message-State: AOJu0YyAyXvXfaRReDogD9/+wAFAYlCSjMSeAXQhLHo8S/+JCalwBALP
+	r/Z9kQp3kSCLYeVIKgj/Gflsr9oaU6WeujsvUWaZimX8GYQGZPYMNAKk8XghfE8sP/4=
+X-Gm-Gg: ASbGncvPYohBz4gmBG2eKKIITJ4XCZxF9NYBulWKor3PmW+pkSgMps5zCdcumONRULs
+	MyrsRtYnUXTErNM3Xo1OrRgTuEVjbFHsmvrlgDdfS6mIS6Re0gi/zhz6JZl+579oi5xGI5ZnJ31
+	pCkBXKFjAYKMb91ae37pyKZRCqO+z75q4FGizngGC8h+K7jcuLs6RZNF2BJaem2EqcbTiJ/4jM4
+	Az3tu7GrITGuYa4q0lJ9GnlypygnX+J9L9M3Mb2oseJb3p7OaA8P9+xe92cvCIAx599KsnU/aRs
+	5iHjJc3WzBTJofvIKbvQFl9qm2q2qg4TRFA5lRm+69r1hY3HsSNtJrO53juhCitw8mnZUVb468D
+	JL0h5P0R1Xsw1e07ijfGzczr9K4g6MGAEs5MI2uauIC3LzDF0spF33W7UnEn3DmEV6w==
+X-Google-Smtp-Source: AGHT+IGsmceLp/JWp6Xiy0gLDPQGJR2+BYbejaHBmLY6J8nEbHWdsAn2JPqN45iJkfNJxcNS6g78PQ==
+X-Received: by 2002:a05:6512:448a:b0:571:86bc:423b with SMTP id 2adb3069b0e04-57186bc451bmr2995800e87.44.1757935053402;
+        Mon, 15 Sep 2025 04:17:33 -0700 (PDT)
+Received: from nuoska (87-100-249-247.bb.dnainternet.fi. [87.100.249.247])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-56e6460d65asm3473344e87.100.2025.09.15.04.17.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 15 Sep 2025 04:09:04 -0700 (PDT)
-Message-ID: <4d5bb7e7f2e0c33d1d5272a2dd308a0bcd390786.camel@linuxfoundation.org>
+        Mon, 15 Sep 2025 04:17:32 -0700 (PDT)
+Date: Mon, 15 Sep 2025 14:17:31 +0300
+From: Mikko Rapeli <mikko.rapeli@linaro.org>
+To: Richard Purdie <richard.purdie@linuxfoundation.org>
+Cc: poky@lists.yoctoproject.org
 Subject: Re: [poky] [PATCH] parselogs-ignores-genericarm64.txt: ignore more
  KV260 warnings
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: mikko.rapeli@linaro.org, poky@lists.yoctoproject.org
-Date: Mon, 15 Sep 2025 12:09:03 +0100
-In-Reply-To: <20250826081650.1940369-1-mikko.rapeli@linaro.org>
+Message-ID: <aMf1y3wENto3ncZ6@nuoska>
 References: <20250826081650.1940369-1-mikko.rapeli@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.0-1 
+ <4d5bb7e7f2e0c33d1d5272a2dd308a0bcd390786.camel@linuxfoundation.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4d5bb7e7f2e0c33d1d5272a2dd308a0bcd390786.camel@linuxfoundation.org>
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Mon, 15 Sep 2025 11:09:16 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13745
+ <poky@lists.yoctoproject.org>; Mon, 15 Sep 2025 11:17:36 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13746
 
-On Tue, 2025-08-26 at 11:16 +0300, Mikko Rapeli via lists.yoctoproject.org =
-wrote:
-> AMD KV260 shows more non-fatal error messages with sato image.
-> Power management, pin control and X11 errors can be ignored in
-> testing.
->=20
-> https://ledge.validation.linaro.org/scheduler/job/118932
->=20
-> Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
-> ---
-> =C2=A0.../oeqa/runtime/cases/parselogs-ignores-genericarm64.txt=C2=A0 | 7=
- +++++++
-> =C2=A01 file changed, 7 insertions(+)
->=20
-> diff --git a/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-gene=
-ricarm64.txt b/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-gene=
-ricarm64.txt
-> index 1e8b1f4b7d1b..3e96a172da6d 100644
-> --- a/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm6=
-4.txt
-> +++ b/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm6=
-4.txt
-> @@ -1,4 +1,11 @@
-> =C2=A0# safe to ignore minor firmware issue
-> =C2=A0zynqmp-pinctrl firmware:zynqmp-firmware:pinctrl: failed to set: pin
-> +zynqmp-pinctrl firmware:zynqmp-firmware:pinctrl: set mux failed for pin
-> +request failed for node
-> +error -EACCES: failed to add to PM domain domain
-> +probe with driver sdhci-arasan failed with error
-> +Error applying setting, reverse things back
-> =C2=A0# safe to ignore initrd warning
-> =C2=A0Can't lookup blockdev
-> +# X11 fails to start without connected display
-> +modeset(0): failed to set mode: Invalid argument
+Hi,
 
-The reason this has sat for a while is I really wanted to find time to
-dig into some of these a bit more. It is really easy to hide all this
-and ignore it but in some cases here, I think there probably should be
-some gentle pressure on the kernel or firmware people to clean up the
-"errors" which really aren't errors.
+On Mon, Sep 15, 2025 at 12:09:03PM +0100, Richard Purdie wrote:
+> On Tue, 2025-08-26 at 11:16 +0300, Mikko Rapeli via lists.yoctoproject.org wrote:
+> > AMD KV260 shows more non-fatal error messages with sato image.
+> > Power management, pin control and X11 errors can be ignored in
+> > testing.
+> > 
+> > https://ledge.validation.linaro.org/scheduler/job/118932
+> > 
+> > Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
+> > ---
+> > �.../oeqa/runtime/cases/parselogs-ignores-genericarm64.txt� | 7 +++++++
+> > �1 file changed, 7 insertions(+)
+> > 
+> > diff --git a/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt b/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt
+> > index 1e8b1f4b7d1b..3e96a172da6d 100644
+> > --- a/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt
+> > +++ b/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt
+> > @@ -1,4 +1,11 @@
+> > �# safe to ignore minor firmware issue
+> > �zynqmp-pinctrl firmware:zynqmp-firmware:pinctrl: failed to set: pin
+> > +zynqmp-pinctrl firmware:zynqmp-firmware:pinctrl: set mux failed for pin
+> > +request failed for node
+> > +error -EACCES: failed to add to PM domain domain
+> > +probe with driver sdhci-arasan failed with error
+> > +Error applying setting, reverse things back
+> > �# safe to ignore initrd warning
+> > �Can't lookup blockdev
+> > +# X11 fails to start without connected display
+> > +modeset(0): failed to set mode: Invalid argument
+> 
+> The reason this has sat for a while is I really wanted to find time to
+> dig into some of these a bit more. It is really easy to hide all this
+> and ignore it but in some cases here, I think there probably should be
+> some gentle pressure on the kernel or firmware people to clean up the
+> "errors" which really aren't errors.
+> 
+> The trouble is, that kind of work is "hard" and it is much easier just
+> to ignore these.
+> 
+> I suspect we probably need to merge it but I'm not particularly happy
+> about doing so as it feels like the wrong fix.
 
-The trouble is, that kind of work is "hard" and it is much easier just
-to ignore these.
+In understand your concern. I've tried to fix these where possible
+e.g. by enabling more and correct drivers in kernel but some of
+these still remain.
 
-I suspect we probably need to merge it but I'm not particularly happy
-about doing so as it feels like the wrong fix.
+The display related errors are sadly there because we don't have
+HDMI displays connected to tested devices and different boards,
+firmware and drivers report the failures in different ways.
 
 Cheers,
 
-Richard
-
+-Mikko
 
