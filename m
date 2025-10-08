@@ -1,91 +1,119 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 86933CCA471
-	for <webhook@archiver.kernel.org>; Fri,  3 Oct 2025 15:28:11 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
- by mx.groups.io with SMTP id smtpd.web11.10535.1759505285089103254
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD07FCAC5BB
+	for <webhook@archiver.kernel.org>; Wed,  8 Oct 2025 13:28:45 +0000 (UTC)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
+ by mx.groups.io with SMTP id smtpd.web10.16013.1759930122468677082
  for <poky@lists.yoctoproject.org>;
- Fri, 03 Oct 2025 08:28:05 -0700
+ Wed, 08 Oct 2025 06:28:42 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=f1VrCmAE;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.48, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-46e384dfde0so26015925e9.2
-        for <poky@lists.yoctoproject.org>; Fri, 03 Oct 2025 08:28:04 -0700 (PDT)
+ dkim=pass header.i=@linaro.org header.s=google header.b=uOAPwmC/;
+ spf=pass (domain: linaro.org, ip: 209.85.167.54, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-57d5ccd73dfso8185528e87.0
+        for <poky@lists.yoctoproject.org>; Wed, 08 Oct 2025 06:28:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1759505283; x=1760110083; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ol0brJaI8L8i0LXSkmwq3EXkv+4NyorCoAZ9SCILugA=;
-        b=f1VrCmAEqTzDwruFs1y3z7kerTdy7y7icqc0WNRk2+4iTZpy1bxZkKr/G5UyyqklIE
-         iKRnv2xqxkenzqrRwK4GlPKCyKIBuvHHvZb4eBBhKLatazvEH3TfDajqPNxh9/zl1tkG
-         tcoFJ5wuFcQ4+qjs2EqbBISlvd3NyMnU0kyGY=
+        d=linaro.org; s=google; t=1759930120; x=1760534920; darn=lists.yoctoproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=RDHubEjNxAvl0Qnpp+CrnA82SRzW7GdWE5G8blE/doU=;
+        b=uOAPwmC/A7DfGyKFdPuc/rW8U/8eiG/KbqDYqfO9aEzDxL94Q5FiknRPnNMA05vxJt
+         Nb98cKuUcvQqtK3qbv0kS5CmB+ZvHdt7R3iDgvtScqu//AaZz2xjBb2GeHkqmvnQseUW
+         kFiPVwpC2LOtMUYkpDrlU+csOAceirmxRN5nYk0MUMC7vCZpYB2gwYHzF6Lvfy3nxcSt
+         GtGa/ToxpYUI2VZPQ+jtKiWpPq+lG19NNFWVCUBxsh4ixlW4qUF9ospnayQxSJvPRSu8
+         DqMR2z3PmfMP4TFOjHTaGeX+pTgq04+0CTUxq01IF1BOxRMIRTOnO4pvXu0gvr3XFjTn
+         Ynew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1759505283; x=1760110083;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ol0brJaI8L8i0LXSkmwq3EXkv+4NyorCoAZ9SCILugA=;
-        b=mejn5sENqJEugzwQnNvLxXlVAa5mmb4mtElLfAb3ndD5mTQ7jmuDkS/k5QvioZ/1ER
-         sC7g/rF4ib9PfhKKYAqdyd5YtXEywyfacxHbIPC+CyWlLz5XeWSAK1/iVRKCinyDlgSg
-         O4PWG87UxYK3JftykNko9qgpi6UwsE6uQrXTBMv0PkBAxTaG33sV2spTOGYhaNVLEszq
-         Dg0d7N2lTGk70qKvYwPkRP7WkRG9YykQE4ZOeh6naNYSjQM6i0B00mo2lmSt2ysV7YDv
-         1tvpBaLu+F7zxMBp6qSKk3/Jh3ma7K6KgYgQ31rC86HdrDek3ieHa5lwg4JF4EJnis3D
-         sd5w==
-X-Gm-Message-State: AOJu0YxXiKhA7PN5FsV7X2eRBlddyeAZqcmLD1JQdzzxPe4lEwArTgKL
-	FgXA+X6cqsW1gprt24YzxUdB52HdlnP8/vf/b33E36jaffzaQUHPmxZhG0os+BJYjKTZHKhcLxJ
-	zbYtm
-X-Gm-Gg: ASbGnctDEFXOiH/GE6eDxyR1mxfuv1qsRQWi5HDLzmPaU4r7wHGFR/IrFbMOi8mBXQh
-	x87FbVW9BYktcxmWsu1nI+/3G0w2OsrToFlpPTD+qY9Q8zn2sfFv9c5kD0GSq5JC5C+mQ5gp4H5
-	bV/Z4Iqc/0das25K5Trk0adouNw2JDaWrPDqQFecoQmMkdrQnH/RYK9q/CoZpEkmnwN1oQdutkU
-	USSGZfppMmin8v56OJSvC0ovJrbaphRq0z4wMAwwtC0IgfdNoDrv9HuA5HYAVWcWQX8bNpzkmwI
-	yR6jyQu7AJGIWPjVypyogpMPWNw3jHKpuy6iMJec46N5lltpOoTHU0JxHFKNQ1gec3PusAs/qu9
-	XV40kL0skYFK6DV0COxrd/t2iazsdNZWsjefnZZ5czBFtMK3LruGGbAPrNB0OiOAPw41QfyY4F+
-	pIWikAYoup
-X-Google-Smtp-Source: AGHT+IH18RaOS4ah/gORPlkZtj0AcClrnC/Ryb/b+mTaKI+yWO6hr1fJlt5YJQ7dYG0bcTO3hSdcRQ==
-X-Received: by 2002:a05:600c:1909:b0:46e:326e:4501 with SMTP id 5b1f17b1804b1-46e7110aecfmr26355595e9.10.1759505282654;
-        Fri, 03 Oct 2025 08:28:02 -0700 (PDT)
-Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:67c:cc8a:4a49:c12a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4255d8ab909sm8209511f8f.19.2025.10.03.08.28.01
-        for <poky@lists.yoctoproject.org>
+        d=1e100.net; s=20230601; t=1759930120; x=1760534920;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RDHubEjNxAvl0Qnpp+CrnA82SRzW7GdWE5G8blE/doU=;
+        b=cjwGctRWJGRPovV2Qyfuceq5rbaJuELshuJx1hGrynx6Wffhe3m1ASYM5zlYJ/0HxM
+         Ve84ymG10WwlAAuWa378SLAaxbv7F5YJtIeMcO260TqmK+pcXxUHqL04T9uPS7MQDHyO
+         fsIpeIMMhlAEpwX2RGqv1UWMdIHGOv5r665uXe87mKoVN1PqFhwMpPKZEqWlU2JdeXhV
+         tKCf8A8AftAMUPdEb4YW6/nYine19S+Z9UAzA/WDPbOwG7DhoAJUHO9xiBeDt6U36BNO
+         vRoXTBVRHTkBxgz/CTGdtjiY3XeC1EYYMSAnN6Me3LYflVvNQFmSefHkZSgKT7XlJrZP
+         AHJA==
+X-Gm-Message-State: AOJu0YwvJwOmt9br9N/1/6QsbSVufVZSH65Wd+tBJ2D1Gn2n9pdF7ei2
+	JMOVwb5rXVnKPMllv1jRxpTcULwjsLUzv5kWXXzZzaR80rPGl7FeRZE7CYDRjGN1TrZdSVFs+3C
+	tLhHhapc=
+X-Gm-Gg: ASbGncuJQ1CHkbYesmB697tqlSKv9Wz8Fswrx1TGtKOxiaXDmWSxE87CC6kfZ2rAxxw
+	mBO9hpFif11boifdGF2KVC+txfqVe/zE/LmriQcAf+Px9CiyH0EktKeLzw6gi0R83BNs2NoWcP9
+	06zIdvXTopxeV9gXwvvBa99HecGtYlD8c8J6sa4e3u3vsJiehh5Opuw7X/BMr8euK9AGENax/m7
+	BFX7e0NagT1MO1O65+QUcQDdH8Xinr4YvA3SZeG167jiLsrEyQ65wX8GQligWGeXr+1Xr4p/e/9
+	+dXy6Lo4KvICiWmVfnL7VsCYnueUq14FdA53qwEA038ekvx3ZCyp7OlLG1FbqiTs6IosRfQZqP3
+	zyZvInTs1wCgywemV0LWA4yscxDjGeR097CqtkoLcRrDd0Lrb1YqaSUmdzd6gHToef0KmgJlPs9
+	gItoFo3QlH5YvTTWQ7pAQ=
+X-Google-Smtp-Source: AGHT+IF1+WPQOb9AvDexapt8NF9FD9KrAMQ0ozO0lVY36hRhNh6nRjqvn0qcbXi8IIWez94Sjh0J/Q==
+X-Received: by 2002:a05:6512:114c:b0:55f:4f1f:93fa with SMTP id 2adb3069b0e04-5906dae5c63mr956545e87.42.1759930119863;
+        Wed, 08 Oct 2025 06:28:39 -0700 (PDT)
+Received: from nuoska (87-100-249-247.bb.dnainternet.fi. [87.100.249.247])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-58b0118d6dbsm7268326e87.82.2025.10.08.06.28.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 03 Oct 2025 08:28:02 -0700 (PDT)
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+        Wed, 08 Oct 2025 06:28:39 -0700 (PDT)
+Date: Wed, 8 Oct 2025 16:28:23 +0300
+From: Mikko Rapeli <mikko.rapeli@linaro.org>
 To: poky@lists.yoctoproject.org
-Subject: [PATCH] oeqa/selftest/systemd_boot: Fix changing MACHINE during the test
-Date: Fri,  3 Oct 2025 16:28:01 +0100
-Message-ID: <20251003152801.490021-1-richard.purdie@linuxfoundation.org>
-X-Mailer: git-send-email 2.48.1
+Cc: Ross Burton <ross.burton@arm.com>
+Subject: Re: [PATCH] parselogs-ignores-genericarm64.txt: add error messages
+ from rockpi4b
+Message-ID: <aOZm94yAap52fV8i@nuoska>
+References: <20250918121230.3264352-1-mikko.rapeli@linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250918121230.3264352-1-mikko.rapeli@linaro.org>
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from li982-79.members.linode.com [45.33.32.79] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 03 Oct 2025 15:28:11 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13761
+ <poky@lists.yoctoproject.org>; Wed, 08 Oct 2025 13:28:45 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13762
 
-With config fragments, changing MACHINE in the test like this no
-longer works. Use the forcevarable override to allow it to work.
-This also needs a tweak to bitbake to work correctly, sent
-seperately. Whilst ugly, this avoids the need to start changing
-config fragments.
+Hi,
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Thu, Sep 18, 2025 at 03:12:30PM +0300, Mikko Rapeli wrote:
+> Rockchip rk3399 based rockpi4b with open source firmware from
+> meta-ts https://gitlab.com/Linaro/trustedsubstrate/meta-ts
+> triggers some non-fatal errors from various drivers.
+> Ignore them for now since all other oeqa runtime tests pass.
+> 
+> https://ledge.validation.linaro.org/scheduler/job/119422
 
-diff --git a/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py b/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
-index 781763d1f15..961d4ea31d0 100644
---- a/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
-+++ b/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
-@@ -18,7 +18,7 @@ class Systemdboot(OESelftestTestCase):
- 
-         # Set EFI_PROVIDER = "systemdboot" and MACHINE = "genericx86-64" in conf/local.conf
-         features = 'EFI_PROVIDER = "systemd-boot"\n'
--        features += 'MACHINE = "genericx86-64"\n'
-+        features += 'MACHINE:forcevariable = "genericx86-64"\n'
-         features += 'IMAGE_FSTYPES += "wic"\n'
-         features += 'COMPATIBLE_MACHINE:pn-ssh-pregen-hostkeys:genericx86-64 = "genericx86-64"\n'
-         self.append_config(features)
+Any possibility to get this merged? In these tests
+I don't control what firmware the devices have and thus
+there can be errors like this. If I would also build the
+u-boot firmware with genericarm64 then I could possibly
+fix these issues, but that's not in the plans.
+
+I would like to submit similar workarounds for AMD zcu102,
+TI am62p5, Broadcom rpi4, NXP imx8mp and Qualcomm rb3gen2.
+
+Cheers,
+
+-Mikko
+
+> Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
+> ---
+>  .../oeqa/runtime/cases/parselogs-ignores-genericarm64.txt   | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt b/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt
+> index 3e96a172da..7d360bdbda 100644
+> --- a/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt
+> +++ b/meta-yocto-bsp/lib/oeqa/runtime/cases/parselogs-ignores-genericarm64.txt
+> @@ -9,3 +9,9 @@ Error applying setting, reverse things back
+>  Can't lookup blockdev
+>  # X11 fails to start without connected display
+>  modeset(0): failed to set mode: Invalid argument
+> +memory-controller: probe with driver rk3399-dmc-freq failed with error
+> +probe with driver rockchip-pcie failed with error
+> +platform hdmi-sound: deferred probe pending: asoc-simple-card: parse error
+> +deferred probe pending: rockchip-spi: Failed to request optional TX DMA channel
+> +platform sound: deferred probe pending: asoc-audio-graph-card: parse error
+> +platform sound-dit: deferred probe pending: asoc-audio-graph-card: parse error
+> -- 
+> 2.34.1
+> 
 
