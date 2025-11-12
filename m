@@ -1,68 +1,77 @@
-Return-Path: <mathieu.dubois-briand@bootlin.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56275CCFA1A
-	for <webhook@archiver.kernel.org>; Tue, 11 Nov 2025 12:36:58 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by mx.groups.io with SMTP id smtpd.msgproc02-g2.16166.1762864612438202981
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86F76CD4F20
+	for <webhook@archiver.kernel.org>; Wed, 12 Nov 2025 22:45:43 +0000 (UTC)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+ by mx.groups.io with SMTP id smtpd.msgproc02-g2.10713.1762987538535932371
  for <poky@lists.yoctoproject.org>;
- Tue, 11 Nov 2025 04:36:53 -0800
+ Wed, 12 Nov 2025 14:45:38 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@bootlin.com header.s=dkim header.b=lzcCZFmJ;
- spf=pass (domain: bootlin.com, ip: 185.171.202.116, mailfrom: mathieu.dubois-briand@bootlin.com)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id CFF27C0F544
-	for <poky@lists.yoctoproject.org>; Tue, 11 Nov 2025 12:36:28 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3A528606FB
-	for <poky@lists.yoctoproject.org>; Tue, 11 Nov 2025 12:36:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 38DAE10370C3D;
-	Tue, 11 Nov 2025 13:36:48 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1762864609; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=+gVu8+AfddV7fWmhsQWEzmN4mqAd6Ay3R92oKqZwbD8=;
-	b=lzcCZFmJ+viI3QEDEML/LvWUrIJFPCP7s8jgHB2OvrORyItOuZgARomy7anz452mBzOuF8
-	Nv4sFet9bN5gwKPSfPF3TxETXT7+00ITErBSdHEJT7LKj1SIdEJDJtOD9tVXJfdUC1xrXo
-	9y+lWx7WaWQTYXRDTSZgeyHSLJ51FIpGl+j1VgE5oPNRzV0tzXr1diWmXwympNYYelkKHU
-	A4Af9GqDB9o6JCS86vyu81XdJQbvgIrtvjWV9gVXy9uHIT9HyxJarYbn0PdCrBmMkoqtEh
-	wRWxskEytVJsonXNk4daedCebzR7VZeUD1xmRqymSiDjZuIEgQWlXMhXz+TQ2A==
-From: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-Date: Tue, 11 Nov 2025 13:36:26 +0100
-Subject: [PATCH] poky: Add Ubuntu 25.10 to SANITY_TESTED_DISTROS
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20251111-contrib-mathieu-ubuntu_2510-v1-1-4e50cc96eb00@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAMktE2kC/x2MSQqEMBAAvyJ9noYkIC5fERmS2GofjJJlGAj+3
- ca6FQVVIVFkSjA2FSL9OPEZRPSnAb/bsBHyIg5GmVYL6M+QIzs8bN6ZChZXQi5fqQq9Nl6trut
- sP4Acrkgr/9/7NN/3A7dXSiJtAAAA
-X-Change-ID: 20251111-contrib-mathieu-ubuntu_2510-c12c0fb77a89
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Br/KLSHg;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.53, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-42b38de7940so93702f8f.3
+        for <poky@lists.yoctoproject.org>; Wed, 12 Nov 2025 14:45:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1762987536; x=1763592336; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=KETf8GYDE6LN/2MIESalyuBGJUNT2SUMnAYHhWBSxdE=;
+        b=Br/KLSHgso8FqApuCnZ1AkFCgbOJLwus6K/6pVDkOVMgbis0DrvY10NOR7iIrUaeGc
+         FmfxA3pxUiBPVDX9FNOPrkSLiokW0os/6z6nroYL+Ph03aLDUCh7R5O9bWcFVVx8/47H
+         VWUROqenXjloZf7SNwT3DPUBi/IoxLsX+nmkw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1762987536; x=1763592336;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=KETf8GYDE6LN/2MIESalyuBGJUNT2SUMnAYHhWBSxdE=;
+        b=EmnYjRhpGvIpRerdh+FeUik1q/y9APKm2ZY+27UgbdmR47FwbOx5synyjkgacqOXZ/
+         IDkWUxJt1DM8al5obkDmVqfF9+CSHDYrHawnfQka9sN+TqW/z6wP6UWu6z1SIROCT71f
+         hg+MzXMis94lOUykpYUo7HiIlrq8mtsnqfRyxQc8YX81zWfgQ4umKcqP0qv/c0Xq9pWI
+         j72WGvcoYx9c7MGMCF1PpRiX+Jf/nJFvwUZSiSaF5A6gvVAKchj6n5UMDsavXbreef91
+         xYiLjQsQHRKUOaGNt5RNnMJkL8ZoRzkZIJwgc2j50a62GeRbCMxgD+KDtuw+8t6ttBHE
+         5U5Q==
+X-Gm-Message-State: AOJu0Yxgv6TKZsdf47nTS/5I5qR3oybDamYvjNv0Y2hEkke9e/ZYrSDK
+	Y31JCZ71WxgCv5cg/kbMBCaHGLmqEckBOHF4+DcvTAt9DPSm38zdVx/8tV1kBFFxnRebMzW34D7
+	Y7IpM
+X-Gm-Gg: ASbGncviYcgFcl07OrO4b4nvslY+7+9eSolF4x7NApcbAF9jh5KaRvDPrIiciGlkz+I
+	Yd9ycQAHmN9y94Iw8WU9CCzTjpmK+wKiW7wqUm114CIQNs/sU1jl48p/fv4tB1j9ge/K4CLys3Z
+	toSGBM6rQM9DFrnc7A7scoXkE9CIaFs5kRGRN/eewz64/A/LPtgtIu+uDhVhRbfkJGcWQBfliQ5
+	H3a7j4zx4pWfL5INh5k6LXZgRqHoZtKAWkiJKP9xtmajA6rkG20oXf7WNJ2udnOdb2PJJrrP9ZI
+	9AzTbBatgE87DSAPmoPgd9gkcEvTt6hLNV6Wvu0og/49Xqf2MOXBYJByMWA0z47/VFXFAMXOukp
+	3B6b2fdEsa+JMrvnguK3ONzMilE/gXlK37Xpz6douHC7XhLarLYy8JO93baITYydiyiYb0Z/5q9
+	nPhc237vTv3KlTdxj11+4zSf65LTZO
+X-Google-Smtp-Source: AGHT+IFTQ9idIjYUnASubAkWS1y6BRIUtp72GAfh970BoFMG8eenl7YGGQqwj9DU1n2odno+r8OSbg==
+X-Received: by 2002:a5d:5c84:0:b0:42b:487c:d7cb with SMTP id ffacd0b85a97d-42b4bdaaba1mr3589775f8f.34.1762987536432;
+        Wed, 12 Nov 2025 14:45:36 -0800 (PST)
+Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:8876:d08f:2a0c:d6ff])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-42b53e7ae2dsm201809f8f.5.2025.11.12.14.45.34
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Nov 2025 14:45:35 -0800 (PST)
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: poky@lists.yoctoproject.org
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1762864607; l=821;
- i=mathieu.dubois-briand@bootlin.com; s=20241219; h=from:subject:message-id;
- bh=WwBTEi0/DTr0kF3D6xOH58Ry5d1wGX9ObyTMXpSAC88=;
- b=zP9MPlVQRY5frASScc+lUQ8mcDqlmlqYTCJii28wfH4zRAgGTqHNCGXZYJw0Li3l9BRh/pp3g
- nMiO0Ws2E4qCG+SXh3G5bwvC8MvFed/wVsZSB7OTNkAhySr2pZGWfKF
-X-Developer-Key: i=mathieu.dubois-briand@bootlin.com; a=ed25519;
- pk=1PVTmzPXfKvDwcPUzG0aqdGoKZJA3b9s+3DqRlm0Lww=
-X-Last-TLS-Session-Version: TLSv1.3
+Subject: [PATCH] poky: Add Ubuntu 25.10 to sanity tested distros list
+Date: Wed, 12 Nov 2025 22:45:34 +0000
+Message-ID: <20251112224534.3094578-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.48.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 11 Nov 2025 12:36:58 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13790
+ <poky@lists.yoctoproject.org>; Wed, 12 Nov 2025 22:45:43 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13791
 
-Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
 ---
  meta-poky/conf/distro/poky.conf | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 8c291d305e9e..f1e91ec4be2b 100644
+index 8c291d305e9..f1e91ec4be2 100644
 --- a/meta-poky/conf/distro/poky.conf
 +++ b/meta-poky/conf/distro/poky.conf
 @@ -36,6 +36,7 @@ SANITY_TESTED_DISTROS ?= " \
@@ -73,13 +82,4 @@ index 8c291d305e9e..f1e91ec4be2b 100644
              fedora-39 \n \
              fedora-40 \n \
              fedora-41 \n \
-
----
-base-commit: 66ea31cee15309af07afeee8dec8a6fe1d92d28e
-change-id: 20251111-contrib-mathieu-ubuntu_2510-c12c0fb77a89
-
-Best regards,
--- 
-Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-
 
