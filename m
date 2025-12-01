@@ -1,116 +1,83 @@
-Return-Path: <mikko.rapeli@linaro.org>
+Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FF40D116E2
-	for <webhook@archiver.kernel.org>; Mon,  1 Dec 2025 07:00:58 +0000 (UTC)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
- by mx.groups.io with SMTP id smtpd.msgproc02-g2.15763.1764572456180414981
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72408D111A8
+	for <webhook@archiver.kernel.org>; Mon,  1 Dec 2025 10:47:59 +0000 (UTC)
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+ by mx.groups.io with SMTP id smtpd.msgproc01-g2.18860.1764586078927602595
  for <poky@lists.yoctoproject.org>;
- Sun, 30 Nov 2025 23:00:56 -0800
+ Mon, 01 Dec 2025 02:47:59 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=lokyiQ2V;
- spf=pass (domain: linaro.org, ip: 209.85.167.44, mailfrom: mikko.rapeli@linaro.org)
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5958931c9c7so4999621e87.2
-        for <poky@lists.yoctoproject.org>; Sun, 30 Nov 2025 23:00:55 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=SXJiHQsi;
+ spf=pass (domain: gmail.com, ip: 209.85.160.182, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-4ed66b5abf7so54229221cf.1
+        for <poky@lists.yoctoproject.org>; Mon, 01 Dec 2025 02:47:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1764572454; x=1765177254; darn=lists.yoctoproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=nSwVmfooQ6rXgR8lo3IqOIoz3pc0Z3evwdTcpa6NN0w=;
-        b=lokyiQ2VhcwSvorKGyamjuirCN9pdC6+y2PaIAa+evoaCEw2SNywhjowE98xUzAikF
-         R7F9rEIe/6CHEkSAzaVxi59Z5T1f+bFMiNTyzW3PN4qGM/KrUioYji7sKkyenLHr+yX1
-         baseUz2k2yzG7f+nxLjGVO5NCIKLR71QseZ/0lhieXYhifzAvmB5eHhpbENhyi7utI7n
-         L/x0WXmLFNXe/j3rNhyjgwdASjDEwoJZ7W31tiKPnK0LMZ6XbibSMiqmWhxjDQ7T+lD/
-         PnaLE9gmfEfsm6AxBc2vMseeBgTwIqwP3P6GB55aS3/QuLCNLqk9mcN7lTFvyKf6jqCJ
-         RgwQ==
+        d=gmail.com; s=20230601; t=1764586078; x=1765190878; darn=lists.yoctoproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=LBFqKCghN03qEeJBBKHVt6CFMJ8H+s12fyx9E8fJp1E=;
+        b=SXJiHQsiOYHixik3KAXAg7kywGsPdYnoyz2+jbW9jMZRopxXxltl/RLzUr/Ex8DKho
+         TFyiwzh8M/DeObWs+sX/m/5e5szCUDo+R8Vvl5CwlwA6sDOjbPhzYTWf8d2oZoix+34O
+         nEyFH0Y37mAWEx2E0IRbX6hMIKcArFzBC5sASlHYF8gwr+ZsPNW9g1uylYQNXTtLBb3Q
+         ZCNP56R8oJxVf+FR5V4wK3Il88L5KMH05J/0I9bLBREXWVMHnbXh2jmyY5D27KVDa7Jm
+         7XtPzKgqgGd/L8ORX6AEQE77cMrHcUv1F9jE/uvPls1xZ7CyO3wVMobybSAfPisPRreJ
+         FXFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1764572454; x=1765177254;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nSwVmfooQ6rXgR8lo3IqOIoz3pc0Z3evwdTcpa6NN0w=;
-        b=LgQ3J9RYYab0ujVzYjojM7ZumY2w68HlmXQT5h7MfE6zdxttZtoschadUqj/PEHJj0
-         xokecYmRrCcRz4Upob+lwGJrOzWejvcjtDKmt6L29JuzxtYXVEGs99CytLWK3h4B3pef
-         OTvMqZQ2zp5y5BENZb20sxRghGKGSKWOAb/p7DZnT70J83VCRovltRdnCt93nC29Pv+u
-         t9p/BWOWCYK5ik4DYsWBPSeS18uREiPXrwhnKfOkSsYDaW2mSqPx9CJMniR392SjOECU
-         htxjG2ZYkVkEq9gO9iVuUDJZoiXy02v6JT8Q0L+245dEWIOxaaOWDhBVP5oCj8YIC13K
-         eVQQ==
-X-Gm-Message-State: AOJu0YyGymCfZ0ddczfnkijsVQu2CaMWChCPwCQPNrdOnwv5Q2/RDFB6
-	W/fGCxOGUJ0BQPTe1bWe6XSVnyp439JvACmdprK7uSNwU60mnQv+MeY5hvbaUFx23d8=
-X-Gm-Gg: ASbGncuwsr1osxPY1CI1lSjwy3FqkBBvT41FI2TGGUyLeDRsmVbyI66hI+m4cTp6kuL
-	FATvEOEsQGRQkrK0vIqi8OG5KsxucllQoVDEEW1Vs2ONdTRhqRnQr1OBr0Pv6pH9q76sEkduSTi
-	kS3+a6P3eqenTVNpR6OAOIywf0g/UkGQ41krQiuTchLzBc7GM/EsRf+sCy9e9l9xbXhinHGchN8
-	scvtt9H4gUCiXqIAQN6NtmuMuMx36pvsNwB7DNAYL/jk45nurPpY4KVUCWnivXrvvMx32HYA4M+
-	uYe/I9Papwa1rUM3AuKRwzKSLRpV04ZUYynpEjLN+wrGnwA1iQ0tBiBqf78hU3I7mBm87s8wEv/
-	thLLTILCsMNAu1OEDAsDrlHdwIeqQO6MA1BUfQ71Fzi8o1nnIiSJprgzWMkNZOWv894Ffhu6YiS
-	fUUEnBKyZeeBcHDHmFdbmMNPV9dpuviehKlBAut0S1hVX3
-X-Google-Smtp-Source: AGHT+IEZiymmpCUc2N/2EwgFftJxsivSgeTsdC3JYklbUvIlwjkuvUqATGDBu++T4wJeXyNBekmSUQ==
-X-Received: by 2002:a05:6512:1594:b0:595:7cb8:3eae with SMTP id 2adb3069b0e04-596b5058f2bmr7843257e87.20.1764572453830;
-        Sun, 30 Nov 2025 23:00:53 -0800 (PST)
-Received: from nuoska (87-100-249-247.bb.dnainternet.fi. [87.100.249.247])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-596bfa4f69asm3415376e87.90.2025.11.30.23.00.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Nov 2025 23:00:53 -0800 (PST)
-Date: Mon, 1 Dec 2025 09:00:52 +0200
-From: Mikko Rapeli <mikko.rapeli@linaro.org>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: poky@lists.yoctoproject.org, Ross Burton <ross.burton@arm.com>,
-	Bill Mills <bill.mills@linaro.org>
+        d=1e100.net; s=20230601; t=1764586078; x=1765190878;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LBFqKCghN03qEeJBBKHVt6CFMJ8H+s12fyx9E8fJp1E=;
+        b=EvzQYLq+0YIkToLXejEpPWXFPSQNzi+oVH/RtQe5jsU30S2ng5USBVQF1eQr79IJhP
+         IUtXbI0ysXqj7nNppPkNtSHIP5q9SMZ4HHS3buXrwYfHZ36TU2GS5AQeYRrmfcgrDHpz
+         77BH05a7mZ24LFVYYUWh+ugazKDAnBVgkWzQ5Tge+vgvVuICjfiPri2R6eWMAb7PWLUO
+         yICus4pgcPBnTAkkCtdrSbO3d9uxL0LuMGSv1eN30/0N1UlqLlUVNlM/3RQg3RhQu4bu
+         KYVfxpuIWJCgvBc2q5ywRUi2azlOazK6mVG3tFswgIxukz67/lVLtktQuImEkPzZ+o5i
+         pY3A==
+X-Forwarded-Encrypted: i=1; AJvYcCWb4nsxEFk7KkkcyH2xaD5eROTTUWr3bepGB+juhN6iA5Ymou2uJP8ZUaLkRGdkxj7PAJD/@lists.yoctoproject.org
+X-Gm-Message-State: AOJu0Yw/k3GBBESiU2rt+SPIFdR/ROm+H3NlDiE1QZ0MHQBlcfhTkUI1
+	MqhvKb+N4w6ovya/qofJesUToXInTtHOjuwt66IbmYTqFVPYz4bn4u2KnejXBF3P8lueZOxeNVd
+	YWz78VWnpFvMgT0xMH/whjfPQgsDqJ0M=
+X-Gm-Gg: ASbGncuHNxExoj0SvgMbp/crrBvJxSrbFzFvMDoLNzJRhBSC7EcTF50CiW195EKWq75
+	KzdUjIxoT0GCLYT7DLrNdMcAYhYI3JSKa/oT17Wzodhx5fu9lr7EZEeL3eQwfFTH3lNL+BFON8r
+	YNC/mIrnCNAMLhXA+qLL1bCzgWQyi/XpXma3AJD5fQYHiFbgnpAc3Yu8zPTY3fHZZ0eAqG1IVZt
+	twWTiTzOsvz+t4cXAHKzkTFxSRWomL0lHqWv2ToYmZdChoSHedaZl1Rg+gCUbPqAUZxKCGn1LrP
+	SZn3yYPLTi2/Ccpzam3tTkMMKGRzsw==
+X-Google-Smtp-Source: AGHT+IEaOi1Si2jRH/QNvWxilFJ965gdXIbYohglIHMjz1VsNOq+42G1mi0UmMG020UGOMb1EPl+ECCp/ZbJhoQWmLQ=
+X-Received: by 2002:a05:622a:1a9e:b0:4ed:806c:69e2 with SMTP id
+ d75a77b69052e-4ee4b418e8amr568963681cf.7.1764586077876; Mon, 01 Dec 2025
+ 02:47:57 -0800 (PST)
+MIME-Version: 1.0
+References: <20251129133901.1732829-1-mikko.rapeli@linaro.org>
+ <10a35a1b76ea399ab1c7d389f6ce9aa4a9feba57.camel@linuxfoundation.org> <aS09JGUXcwvwLial@nuoska>
+In-Reply-To: <aS09JGUXcwvwLial@nuoska>
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Mon, 1 Dec 2025 11:47:46 +0100
+X-Gm-Features: AWmQ_bk5BdZUjvAAKcaBp0uoAMyNuRTVKjx3GwgVRb7-yZnxXYk2VOnyev87Qi4
+Message-ID: <CANNYZj-QJG6BU_F2vcvoD-PWBVHvgxseqf7LE72cqtu8HWxjfQ@mail.gmail.com>
 Subject: Re: [poky] [PATCH] genericarm64.conf: override poky-altcfg distro
  kernel version
-Message-ID: <aS09JGUXcwvwLial@nuoska>
-References: <20251129133901.1732829-1-mikko.rapeli@linaro.org>
- <10a35a1b76ea399ab1c7d389f6ce9aa4a9feba57.camel@linuxfoundation.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <10a35a1b76ea399ab1c7d389f6ce9aa4a9feba57.camel@linuxfoundation.org>
+To: mikko.rapeli@linaro.org
+Cc: Richard Purdie <richard.purdie@linuxfoundation.org>, poky@lists.yoctoproject.org, 
+	Ross Burton <ross.burton@arm.com>, Bill Mills <bill.mills@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Mon, 01 Dec 2025 07:00:58 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13804
+ <poky@lists.yoctoproject.org>; Mon, 01 Dec 2025 10:47:59 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13805
 
-Hi,
+On Mon, 1 Dec 2025 at 08:00, Mikko Rapeli via lists.yoctoproject.org
+<mikko.rapeli=linaro.org@lists.yoctoproject.org> wrote:
 
-On Sat, Nov 29, 2025 at 11:36:27PM +0000, Richard Purdie wrote:
-> On Sat, 2025-11-29 at 15:39 +0200, Mikko Rapeli via lists.yoctoproject.org wrote:
-> > To use latest stable kernel from oe-core. It has much more genericarm64
-> > support than the old version selected by poky-altcfg distro.
-> > 
-> > genericarm64 machine basically only works well with systemd init with
-> > udev already in initramfs and thus with poky-altcfg distro, not plain
-> > poky distro.
-> > 
-> > This setting makes default release binaries for poky-altcfg distro
-> > useful for genericarm64 machine and the many HW devices we want to
-> > support.
-> > 
-> > Cc: Ross Burton <ross.burton@arm.com>
-> > Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
-> > ---
-> > �meta-yocto-bsp/conf/machine/genericarm64.conf | 3 +++
-> > �1 file changed, 3 insertions(+)
-> 
-> I have said no and I have explained why not. Sending it again doesn't
-> change that. We need to find a different solution.
+> What kind of alternatives or different solutions do we have?
+> Another build variant in AB?
 
-This was another implementation, an override on machine config side.
+Add the needed fixes to poky and the components used in it so that
+genericarm64 does not de facto require systemd? I find that deeply
+problematic to begin with.
 
-The kernel version needs to be agreed by both distro and machine configs
-and we have a disagreement here.
-
-What kind of alternatives or different solutions do we have?
-Another build variant in AB?
-
-For genericarm64 machine, the current setup is not useful with systemd and old
-kernel version. Users must recompile or wait until all fixes to kernel configs
-are in the oldest available kernel in tree.
-
-Cheers,
-
--Mikko
+Alex
 
