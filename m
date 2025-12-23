@@ -1,119 +1,95 @@
-Return-Path: <javier.tia@linaro.org>
+Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DC1DFD6E2AD
-	for <webhook@archiver.kernel.org>; Thu, 18 Dec 2025 15:43:45 +0000 (UTC)
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.45222.1766072621092164806
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 78F35E6F06F
+	for <webhook@archiver.kernel.org>; Tue, 23 Dec 2025 08:25:22 +0000 (UTC)
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+ by mx.groups.io with SMTP id smtpd.msgproc02-g2.97316.1766478314884384908
  for <poky@lists.yoctoproject.org>;
- Thu, 18 Dec 2025 07:43:41 -0800
+ Tue, 23 Dec 2025 00:25:15 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=Fg/46/Of;
- spf=pass (domain: linaro.org, ip: 209.85.221.179, mailfrom: javier.tia@linaro.org)
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-55b22d3b2a6so464206e0c.1
-        for <poky@lists.yoctoproject.org>; Thu, 18 Dec 2025 07:43:40 -0800 (PST)
+ dkim=pass header.i=@linaro.org header.s=google header.b=E9FoPSmW;
+ spf=pass (domain: linaro.org, ip: 209.85.167.51, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-59b25acdffbso457057e87.2
+        for <poky@lists.yoctoproject.org>; Tue, 23 Dec 2025 00:25:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1766072620; x=1766677420; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=tcKHQmXuUe9rNwkeF/PAZ+fcXvxRXhNOlyTq/dOq7QI=;
-        b=Fg/46/OfZdP5RBUerTRnI8CL3WSaCRxXCTRH98cnBbetc/e37t9UAsnxXqRrWbgpZm
-         QeOtnIXx+BskkIkwtbqcI43J7lxgT+8SS7KCWVP2PDwjxEl2RUGLdN6FnRyz0i3a11P3
-         +GaJ0+LWJrJN4iqheRZxJal2Xqp2CS9Wk9sNX2IDumyLWpa4j6QyVBS0AcgcQvxJczCP
-         LY5PD523yzPSOXYx8pOFvK6lVh1Cdf+QH6oFBy4+/ZInZ/KdSKxUcIPUt2oaEs9zBTs6
-         uVFkTOQQplwgbi/i9GSApTGOiL38Mf/KGyG+7kz8G+qjgPs2hoNYMH0AAo56PKFi9lRx
-         QRLw==
+        d=linaro.org; s=google; t=1766478313; x=1767083113; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=m+yibgPTEu2w/G/Hi7Dwp5tLS+y6EMc1Muj9A9JfKiU=;
+        b=E9FoPSmWmUilgmL2ZH08N59KojGlNIsM41/h6j6tSOXI5MP4+twm0rh7fJsWlkbbfx
+         2MjKhgb8PCPzBVh9pGgQ/MqYs973+3J9B4qj4PVRPeFGAotEyevb1UZDn5gQKZ/wddWV
+         C60LR/Hutn2gYypdHk+2Mag2b4unzGtq135lVbo4CrKzznxEjeexX95O2x8QUWYeHOvX
+         6dLGRW5NzeIUbhqjTA0kWdZFerKvHpEJbb1qpQZ8aAww5dheWvgVLj8O6dOo2GnpDqIg
+         Mv/bigWhibCPP93UgAy60qTR8Y6QPu3kI9JCoxILrtsBqhnD5YzrCwi8hF6dPHrR6iOH
+         Q/Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766072620; x=1766677420;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=tcKHQmXuUe9rNwkeF/PAZ+fcXvxRXhNOlyTq/dOq7QI=;
-        b=wEUhRNfRBbSXqwvtXznIQSpTk38kwyMNVqL5JeQ/EowAbiTmbBsQUwdZ6ZUBIXVwLD
-         4Z1j1KrDj32HzKLxN/Z5Ja1aFb/GE3y/zYbZ6hH8sw5QJIN14oU+VBG5yUQLKSg/Y42V
-         BPBZCs5ddOrTbv3ii5v/LuI3rhPB3YEq92PV4O7cnm2SleUst2wjY8ibvH7+9hBob7OH
-         ebprhzcQaRT9ckxUI00tZo2V0GsydiKSJeIK+vA0bxpBJvyjKmVLD/h+k6E+oUzu4SCO
-         dfSbq603F/oASMMDX8Ysefq0wAMaSIgpxg4vD3AEm8QUw7x9r4+w2Bvh1oLtiafGbTOj
-         tU3A==
-X-Gm-Message-State: AOJu0YySC4pDkez/xQjR7SbsAKyHk9RLOIgzkhs/ARzLMJHsI55bPAtV
-	RXok6QMJuUUG0pG22BlocltjvOswrpOwmUm76Jg5mu5ABumEgZuHRMa7k5TWb6vjdHY8F4erHYy
-	3m0W7aJA=
-X-Gm-Gg: AY/fxX4vAD3VxNRSDo8UQMq6IGZ4fMx06bmfnkwGX5jsj8K13kCQtNApSdIYRQZu46U
-	pFISGzxsm2VNnB0Q+vpY1fGKJy6a52oSg+RusRCV6xzBvKYOPNKt8lxLchgEXnVyD2roOIzv8Gk
-	9IOn8BlUgnjX4vLOuWm+Gq9PMJ/6p2Q/1uVdOBnhh5/n1pKHF7F5hKhcRV8IHI4D5h38oGbiF78
-	/9pj1hJDQWIOp8cTcPmQYdBpFJU/6H9QMIs63TRhLDMJ3BrqaKW4Xmt+iD1gtuJ7zS1YmpMz4BQ
-	tEp0yyuBEdet+AE966yITGIf3rOjNn9ACUEUrW4jrIWgY7WaABDpVuY5KBsrBJt7NlXKduKIgmL
-	CyFKAA3J8FlSno+928pZksT+kyBmLwdf08AzAtVOjnYhM28zFKkApy79g0X9Hhlk/gRpWCstU/c
-	+V7FNVV0qaHOsMNxDZvG1IDYZ4M5UATQZMwzF0
-X-Google-Smtp-Source: AGHT+IF/gtfuvBrG6d2Zh+zSk6x4cvnYL/5DltFj6IP7+E+e+PT7zeIWaM0MNFzQmiUbAiup/2m0QA==
-X-Received: by 2002:a05:6123:551:10b0:559:9678:971 with SMTP id 71dfb90a1353d-5614f4b7cbcmr918695e0c.0.1766072619785;
-        Thu, 18 Dec 2025 07:43:39 -0800 (PST)
-Received: from jetm-rog-crosshair-hero-x870e ([177.93.10.151])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-56150f4d41asm1081383e0c.4.2025.12.18.07.43.38
-        for <poky@lists.yoctoproject.org>
+        d=1e100.net; s=20230601; t=1766478313; x=1767083113;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=m+yibgPTEu2w/G/Hi7Dwp5tLS+y6EMc1Muj9A9JfKiU=;
+        b=sD6s43+7K4v3v+nBChPjLoN2mO6HKWHD9aiLDKEQPwtFn/hggilWhfjuh7x+XAM+Qr
+         PbacAKeMFNkuBO01AKMB8iz4fKN+3yue8n8aaIbZHFY52ZbIzfSPdj5DJoMIU15bTrbT
+         NLNDMberONtjWac+TCjVqaRde9mfWdoNJPKU2uh1r8lRoGPNOalsTSnChBdrg3+5a5bz
+         /Ds+UhKiA/klxY+SQ27YIwiYfIVyGK//MWRzh1K2DntV4FjRDR4hZVIY2Ts5OEawLEAK
+         6oLs9PG/lrsmzPNSNOrvKTRt3ciebNcnCsQ4ie8jdkG0yKJ1xF1xAs7rJbtPxNW/nKi9
+         UdqQ==
+X-Gm-Message-State: AOJu0YyrBqp5z1tDsqBXp3rlLp2s2VHfJLlyXK4lxdov5GEqI/utOjpo
+	eciuENzfCP5qSeAHHX7qI9DIlf6acLw/g82pPHs+pi0AXPGZvAQzYxjS/wUNKy0wToYMi/l4GYS
+	dhC59QxY=
+X-Gm-Gg: AY/fxX5RR+XyvzSXe0w8nkYEAHl6rE+Zt8Q9ZH3y9YZF2bj8TzC787onA5o7wqp6ttO
+	vAO9ZE03NcKC/dWPGQyRBOOYHIvjmcOYu1eKlYLwS51Mppz0NgISoTbiAkx3vKDgO5wY/0LsLZD
+	r0pj8NS/KMg5CQp6K8Jkj7xcrBSt89KXNQQWj/D5zeTjy2CD2SsTrgqdfgylT+RcceUb/JYtIZ9
+	PffKC38ikDfTveupwRrFFVZJ58wiXuOevQcBacUMA87di2gmIx4LrWv/IIR1k6VACB5tfG2z/bq
+	wL+3UqAdXeYFlglGpScJuI54+QNRC4BNnfTg31KUMcIZFY45FvX/vLO8QlfE57sjhptVI32XZ7g
+	ZFIF59NMpZGA06EyIXY+On/yV0aw6V6Ly5t3f6/anzhJj1z1xd9fzeEw9ao4Ycx+9l1vZPhznc9
+	zP8yyal1dzhClUq3Qm05czJMHG/5l0CkDKIHKmgcI1vaqn
+X-Google-Smtp-Source: AGHT+IGLK+oAvKK25K3TFirFPZLmfyQ+CWhPKG3+9xJTSpaeDTLCmlLHERS2N1RKDaZNq2PADe2E1g==
+X-Received: by 2002:a05:6512:3d07:b0:55f:4633:7b2 with SMTP id 2adb3069b0e04-59a17d5d835mr4324708e87.46.1766478312663;
+        Tue, 23 Dec 2025 00:25:12 -0800 (PST)
+Received: from nuoska (87-100-249-247.bb.dnainternet.fi. [87.100.249.247])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-59a18618d7asm3924228e87.63.2025.12.23.00.25.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 18 Dec 2025 07:43:38 -0800 (PST)
-From: Javier Tia <javier.tia@linaro.org>
+        Tue, 23 Dec 2025 00:25:12 -0800 (PST)
+From: Mikko Rapeli <mikko.rapeli@linaro.org>
 To: poky@lists.yoctoproject.org
-Subject: [PATCH] meta-poky: Enable NFS server for linux-yocto-dev
-Date: Thu, 18 Dec 2025 09:43:37 -0600
-Message-ID: <20251218154337.2801687-1-javier.tia@linaro.org>
-X-Mailer: git-send-email 2.52.0
+Cc: Mikko Rapeli <mikko.rapeli@linaro.org>
+Subject: [PATCH] genericarm64.conf: set runqemu memory config to 512 Mb
+Date: Tue, 23 Dec 2025 10:24:57 +0200
+Message-ID: <20251223082457.3465827-1-mikko.rapeli@linaro.org>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 18 Dec 2025 15:43:45 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13808
+ <poky@lists.yoctoproject.org>; Tue, 23 Dec 2025 08:25:22 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13809
 
-Add the NFS kernel server feature to the linux-yocto-dev configuration
-to match the standard linux-yocto setup. This is to fix the OEQA tests
-with this error:
+The genericarm64 initramfs is larger than 256 Mb which is
+the default runqemu memory config and thus boot fails when
+extracted initramfs does not fit.
 
-- runtime - INFO - test_systemd_failed (systemd.SystemdBasicTests.test_systemd_failed)
-- runtime - INFO -  ... FAIL
-- runtime - INFO - Traceback (most recent call last):
-  File "/lava-downloads/core-image-full-cmdline/meta/lib/oeqa/core/decorator/__init__.py", line 35, in wrapped_f
-    return func(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/lava-downloads/core-image-full-cmdline/meta/lib/oeqa/runtime/cases/systemd.py", line 100, in test_systemd_failed
-    output += self.systemctl('status --full --failed')
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/lava-downloads/core-image-full-cmdline/meta/lib/oeqa/runtime/cases/systemd.py", line 26, in systemctl
-    self.assertEqual(status, expected, message)
-AssertionError: 3 != 0 : SYSTEMD_BUS_TIMEOUT=240s systemctl status --full --failed
-× proc-fs-nfsd.mount - NFSD configuration filesystem
-     Loaded: loaded (/usr/lib/systemd/system/proc-fs-nfsd.mount; static)
-     Active: failed (Result: exit-code) since Mon 2025-10-13 15:01:58 UTC; 2 months 4 days ago
- Invocation: 14e22af5612e4abaa101f1afcf65a5ce
-      Where: /proc/fs/nfsd
-       What: nfsd
-   Mem peak: 1.2M
-        CPU: 32ms
-genericarm64 mount[347]: mount: /proc/fs/nfsd: unknown filesystem type 'nfsd'.
-genericarm64 mount[347]:        dmesg(1) may have more information after failed mount system call.
-genericarm64 systemd[1]: proc-fs-nfsd.mount: Mount process exited, code=exited, status=32/n/a
-genericarm64 systemd[1]: proc-fs-nfsd.mount: Failed with result 'exit-code'.
-genericarm64 systemd[1]: Failed to mount NFSD configuration filesystem.
-
-Signed-off-by: Javier Tia <javier.tia@linaro.org>
+Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
 ---
- meta-poky/conf/distro/include/poky-distro-alt-test-config.inc | 1 +
+ meta-yocto-bsp/conf/machine/genericarm64.conf | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
-index da9199d..c06914d 100644
---- a/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
-+++ b/meta-poky/conf/distro/include/poky-distro-alt-test-config.inc
-@@ -6,3 +6,4 @@ PREFERRED_VERSION_linux-yocto = "6.12%"
- 
- # Ensure the kernel nfs server is enabled
- KERNEL_FEATURES:append:pn-linux-yocto = " features/nfsd/nfsd-enable.scc"
-+KERNEL_FEATURES:append:pn-linux-yocto-dev = " features/nfsd/nfsd-enable.scc"
+diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-bsp/conf/machine/genericarm64.conf
+index 5d1010e..ce22b17 100644
+--- a/meta-yocto-bsp/conf/machine/genericarm64.conf
++++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
+@@ -57,6 +57,7 @@ QB_MACHINE ?= "-machine virt"
+ QB_CPU ?= "-cpu cortex-a76"
+ QB_CPU_KVM ?= "-cpu host -machine gic-version=3"
+ QB_SMP ?= "-smp 4"
++QB_MEM ?= "-m 512"
+ # Boot into U-Boot and let that scan the disk for the next step, don't pass any kernel or filesystem hints
+ QB_DEFAULT_BIOS ?= "u-boot.bin"
+ QB_DEFAULT_KERNEL ?= "none"
 -- 
-2.52.0
+2.34.1
 
 
