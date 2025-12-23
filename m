@@ -1,89 +1,192 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <raj.khem@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3A64E6F08C
-	for <webhook@archiver.kernel.org>; Tue, 23 Dec 2025 12:32:13 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.99862.1766493126197952238
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10E41E6FE2F
+	for <webhook@archiver.kernel.org>; Tue, 23 Dec 2025 20:28:36 +0000 (UTC)
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+ by mx.groups.io with SMTP id smtpd.msgproc02-g2.108368.1766521708401415040
  for <poky@lists.yoctoproject.org>;
- Tue, 23 Dec 2025 04:32:06 -0800
+ Tue, 23 Dec 2025 12:28:28 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=ZUmp4eO1;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.50, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-47774d3536dso38926615e9.0
-        for <poky@lists.yoctoproject.org>; Tue, 23 Dec 2025 04:32:05 -0800 (PST)
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=InGCIIbI;
+ spf=pass (domain: gmail.com, ip: 74.125.224.48, mailfrom: raj.khem@gmail.com)
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-6446704997cso4393441d50.2
+        for <poky@lists.yoctoproject.org>; Tue, 23 Dec 2025 12:28:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1766493124; x=1767097924; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=MRA9W+Se69lqa2MRr5RnLg8tKaRA41KzxcFwNTgAxQ0=;
-        b=ZUmp4eO1DJx4CiYKAUkBsNi8TVNykcnhVjkjnX2EVWlNaMJB5/2x8G4thRnew25exg
-         YDT94R7A77Kryb8XMO6VU9HZjeDqdaea6jmg0pWp7G4prvUXwkveJe6WlrXHZSbI7JzT
-         qc9yRcXkdqhw0/Rnit20bSxPCbLRGr2BdYUyk=
+        d=gmail.com; s=20230601; t=1766521707; x=1767126507; darn=lists.yoctoproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=c2iqraPK24lF3bV3e2/7qlLWylugAi0o06twp260N8U=;
+        b=InGCIIbIrAfu2o/mS45RscWOXc2mtXzyz5g54byC/FjyYq1RryDCMHRCpa48oNCN50
+         jAuo6NXxjRWizUlbok7h3Q6L82FRkpiv5CnB3lxQkZT9ZJZlc+0ALpYEPbTZcnS/ofoF
+         Rr1OhBY9ffPa7VZTuPogDiS9ERR0Y4YhcjWom+zIdXI5MC+EYLK8zqDRgwJd3kB7mwZU
+         J66uWVga2ATfdpF/fZFXlWbeDDPpGAkihCBr0jILvazdNz3kTj0IctrcxoG6N+VurFEh
+         NoM0BLJU6nUjm/rqCN5v2aZ074I3SVI4q2ZEP3PTwOZpMPqcZU6uEWM51vri7pXrYRzL
+         nW0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1766493124; x=1767097924;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=MRA9W+Se69lqa2MRr5RnLg8tKaRA41KzxcFwNTgAxQ0=;
-        b=aL4Zwj/LCBVhUOSRzANFU3ElMmzmcDfoxCM+BAkIx5Uf+I227eKgp+BzQd2CWwgDOO
-         6OWOZ9QHD6+XnFQDouN4603LNhxvGrNOzlBl4I+rl56tPNo229lbCK40fre5930fZzy7
-         /YMXOBZmh8QfsXFJ1iDPKg4GDt9/sP5V3tbgYD/BnNCdKtNojYEDRbYtzcDaB8z3p8ix
-         TwWdsKoppJkWnRs+RDs4+jvYmX6+LL7nk3W4uFG6xMzc5KQkqiA/5+2mvj44uh8iRf27
-         Twf8dXGlXg8cIYnzDKr/Ut3xPuh7vv5OWzxOMZ/5xH0FCTPUTa0W4T4QG9+c4IM41r84
-         Dubw==
-X-Gm-Message-State: AOJu0YzWGz5nveNPb3MnZqSf/rPPQY7uRdpOVlJ+hJqkcjwdIRLUL3XF
-	HWjWFHonVzgZK8munZbCN2ieXFLcBKrJ9dUBq3Idj3jk+XyreJO4LSU1PXuMtUSyWIXIxpWzElj
-	dVsAyEqg=
-X-Gm-Gg: AY/fxX4yCMZJ2R1v7pgIEWRrrrhaq9nFKcChRn4UpvOJtQEjcHZ96zqOjXUtETnvkga
-	oHuXlja/SIPk49q5n8JFZwy+Bni43S5BAPPbOP8XvC3w3CdHHFzoToUVektI9AvWMgkMFA5JXYZ
-	zYUyCllBNdNB356QDJxvHgQ2+MbqY68x20lzXuIAZGUNoXxusnDQZzOS1t+qoFJML5TVHcvuBP5
-	1pKKq9Asr8BhMWmSwOJE5/KnqQu1P2R96xf9Eghg3f7bIgtvKGRbP19Mv/L9YJhUE8kzdDJaAxL
-	xEoEt/FlqPMtS6Jcssg5QbI4OIpV7uY9LzO/eIkJgp/1eGsDLNQ6Oa1EXRzZ3G3/EQv+jVt4nNv
-	H+BtxdMsY7uSD2VHzY5eH1tSUnDqcce4KhrMErsNpz+eym84O2xYfyb2eqUXn8cvawto0mjDWk8
-	a0h85rz5qQDCvPwTnV2qS8476njTLkz/vtyUmkAPLdmgpkL26QtA==
-X-Google-Smtp-Source: AGHT+IFKUOHtmNh8/U6d+1FNTu9GTfQ83ab8hmjM2LYHB/qtTmY39P/Z/aSi8R2ZQd1q+UE5Sndmhw==
-X-Received: by 2002:a05:600c:8b82:b0:47b:deb9:163d with SMTP id 5b1f17b1804b1-47d18b99b99mr135015925e9.7.1766493123516;
-        Tue, 23 Dec 2025 04:32:03 -0800 (PST)
-Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:fbe8:fa2e:dc4c:3e42])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-47be3aea77bsm112592035e9.17.2025.12.23.04.32.02
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 23 Dec 2025 04:32:03 -0800 (PST)
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: poky@lists.yoctoproject.org
-Subject: [PATCH] genericarm64: Increase initranfs size for 6.18 kernel modules
-Date: Tue, 23 Dec 2025 12:32:02 +0000
-Message-ID: <20251223123202.1547855-1-richard.purdie@linuxfoundation.org>
-X-Mailer: git-send-email 2.48.1
+        d=1e100.net; s=20230601; t=1766521707; x=1767126507;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=c2iqraPK24lF3bV3e2/7qlLWylugAi0o06twp260N8U=;
+        b=IU27iv2VDRYAlPwLhk5snFGYRf3giCXVvzNOEoFFPV5gtD2JJUCdOYOohYMoe++pmg
+         V/RuMBL1eMV7W/ZyvS7a/OQhIg1QKc5UYBPcqzwkG/l+oIgXru621yqnV+PY7Z+W369o
+         Mzb/txp2sz7yxXdmHdE3i6q6u2VafA5i5Yj7Gg+KCAWhZUnMbRudKpkAsQ9dbWSKTsGO
+         ghvrIwbb7gaxCu+2591aos5SDK65xJBVQlpy9knI8Xv0pEmFroW9jHJbGKvV81x2f5AV
+         EE5hTbv+ziEMhYcbMUjTGFadQj15Qn3qMrLfPxQG1W3oKTBAKVzK6n2z6Mf+RBMwJ96q
+         VBcg==
+X-Gm-Message-State: AOJu0YzZDQ7xH7Kg3i//v9nyjUFfPrZ51aOReujfWdtOm2P44l3xeKw4
+	1jqi6y4W8IVWyyOQ2yDCQvwCAlKUHuFhRwLyYFL2dgo4iSl7Nl1HfEYGOIe2KLwT8aM1ZQ7WnuD
+	Usfv+PS8WEQCXPCoX46JP+38ogTNsmaModJ7urS0=
+X-Gm-Gg: AY/fxX5p5a7iZGo4cctA7n3CrRSl/urlWHMlRJyPu6G3KKu8p4EIXhX+Ozxcq88L0Gj
+	0vpIWz6Mw11lnJ9/DjA4gmYoPwfBbBrRsYjISKOhDgpaR5t9UfaSxPlYmBqc6kwun6cYxviDM+n
+	dF3mFUlaZPiRxeKvxFbj6gBy4CP7Dm5m2a6YyeTpflLwCSUFlY2UgW0HPn/1osU1BS8Gw7zn6bX
+	ZgTN+RhP1Ab2NXmYur5D7tUsDJJ6ojdE9mY1NBLnpPuZonZTkqp6B9RkgnRiX2q463mvj5MJNs7
+	KR2bc0BVKUTUwmjY6i1PWvtr4ZIJiB/+9n5ndhjvPyVrPeJ1EmJfFbk8Rg2yxYGAG1Sak7AlVR1
+	dydANmMHxEz3MqjX9MB/Gg6g1dDX48IEUCyhVZTtKiQ==
+X-Google-Smtp-Source: AGHT+IE+uXbknfkNQBkgK3AfPilJxveyT256NBlFI+iuduFdc5vpixkwaA5gcOBY6DJhMkvxq8uEGlfsTly/MhbtX/E=
+X-Received: by 2002:a05:690e:400f:b0:644:71e8:cd02 with SMTP id
+ 956f58d0204a3-6466a836927mr11178733d50.4.1766521707414; Tue, 23 Dec 2025
+ 12:28:27 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20251223082457.3465827-1-mikko.rapeli@linaro.org>
+In-Reply-To: <20251223082457.3465827-1-mikko.rapeli@linaro.org>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Tue, 23 Dec 2025 12:28:00 -0800
+X-Gm-Features: AQt7F2pIk84U-vyuqrVkqT5BK75WeSGBuwA5Zse9noY-DhB2zDffTxLs8BI3ffQ
+Message-ID: <CAMKF1srLACe_KRciXeWxZ+PMgVmWdrH-Mp6sgcS8VtJtvgqA7w@mail.gmail.com>
+Subject: Re: [poky] [PATCH] genericarm64.conf: set runqemu memory config to
+ 512 Mb
+To: mikko.rapeli@linaro.org
+Cc: poky@lists.yoctoproject.org
+Content-Type: multipart/alternative; boundary="000000000000dbc8300646a462e2"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 23 Dec 2025 12:32:13 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13810
+ <poky@lists.yoctoproject.org>; Tue, 23 Dec 2025 20:28:36 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13811
 
-The new kernel has more/larger modules so we need to increase the
-initramfs size again to allow it to continue to build.
+--000000000000dbc8300646a462e2
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- meta-yocto-bsp/conf/machine/genericarm64.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Tue, Dec 23, 2025 at 12:25=E2=80=AFAM Mikko Rapeli via lists.yoctoprojec=
+t.org
+<mikko.rapeli=3Dlinaro.org@lists.yoctoproject.org> wrote:
 
-diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-bsp/conf/machine/genericarm64.conf
-index 5259ea98152..2b1ce4bdd02 100644
---- a/meta-yocto-bsp/conf/machine/genericarm64.conf
-+++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
-@@ -29,7 +29,7 @@ MACHINE_EXTRA_RRECOMMENDS += "\
-     linux-firmware-qcom-vpu \
- "
- # increase default size since we install a lot of kernel drivers and firmware by default
--INITRAMFS_MAXSIZE = "260000"
-+INITRAMFS_MAXSIZE = "280000"
- 
- # Use an initramfs and populate it with the kernel modules and key firmware
- INITRAMFS_IMAGE ?= "core-image-initramfs-boot"
+> The genericarm64 initramfs is larger than 256 Mb which is
+> the default runqemu memory config and thus boot fails when
+> extracted initramfs does not fit.
+>
+> Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
+> ---
+>  meta-yocto-bsp/conf/machine/genericarm64.conf | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf
+> b/meta-yocto-bsp/conf/machine/genericarm64.conf
+> index 5d1010e..ce22b17 100644
+> --- a/meta-yocto-bsp/conf/machine/genericarm64.conf
+> +++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
+> @@ -57,6 +57,7 @@ QB_MACHINE ?=3D "-machine virt"
+>  QB_CPU ?=3D "-cpu cortex-a76"
+>  QB_CPU_KVM ?=3D "-cpu host -machine gic-version=3D3"
+>  QB_SMP ?=3D "-smp 4"
+> +QB_MEM ?=3D "-m 512"
+>
+
+Some image recipes e.g. core-image-sato sets it conditionally like
+QB_MEM =3D '${@bb.utils.contains("DISTRO_FEATURES", "opengl", "-m 512", "-m
+256", d)}'
+
+I wonder what happens with this change, will it get reset to 256 for
+qemuarm64 when not using opengl ?
+
+
+>  # Boot into U-Boot and let that scan the disk for the next step, don't
+> pass any kernel or filesystem hints
+>  QB_DEFAULT_BIOS ?=3D "u-boot.bin"
+>  QB_DEFAULT_KERNEL ?=3D "none"
+> --
+> 2.34.1
+>
+>
+> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
+> Links: You receive all messages sent to this group.
+> View/Reply Online (#13809):
+> https://lists.yoctoproject.org/g/poky/message/13809
+> Mute This Topic: https://lists.yoctoproject.org/mt/116913418/1997914
+> Group Owner: poky+owner@lists.yoctoproject.org
+> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [
+> raj.khem@gmail.com]
+> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
+>
+>
+
+--000000000000dbc8300646a462e2
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Dec 23,=
+ 2025 at 12:25=E2=80=AFAM Mikko Rapeli via <a href=3D"http://lists.yoctopro=
+ject.org">lists.yoctoproject.org</a> &lt;mikko.rapeli=3D<a href=3D"mailto:l=
+inaro.org@lists.yoctoproject.org">linaro.org@lists.yoctoproject.org</a>&gt;=
+ wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
+0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">The gene=
+ricarm64 initramfs is larger than 256 Mb which is<br>
+the default runqemu memory config and thus boot fails when<br>
+extracted initramfs does not fit.<br>
+<br>
+Signed-off-by: Mikko Rapeli &lt;<a href=3D"mailto:mikko.rapeli@linaro.org" =
+target=3D"_blank">mikko.rapeli@linaro.org</a>&gt;<br>
+---<br>
+=C2=A0meta-yocto-bsp/conf/machine/genericarm64.conf | 1 +<br>
+=C2=A01 file changed, 1 insertion(+)<br>
+<br>
+diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-bsp=
+/conf/machine/genericarm64.conf<br>
+index 5d1010e..ce22b17 100644<br>
+--- a/meta-yocto-bsp/conf/machine/genericarm64.conf<br>
++++ b/meta-yocto-bsp/conf/machine/genericarm64.conf<br>
+@@ -57,6 +57,7 @@ QB_MACHINE ?=3D &quot;-machine virt&quot;<br>
+=C2=A0QB_CPU ?=3D &quot;-cpu cortex-a76&quot;<br>
+=C2=A0QB_CPU_KVM ?=3D &quot;-cpu host -machine gic-version=3D3&quot;<br>
+=C2=A0QB_SMP ?=3D &quot;-smp 4&quot;<br>
++QB_MEM ?=3D &quot;-m 512&quot;<br></blockquote><div><br></div><div>Some im=
+age recipes e.g. core-image-sato sets it conditionally like</div><div>QB_ME=
+M =3D &#39;${@bb.utils.contains(&quot;DISTRO_FEATURES&quot;, &quot;opengl&q=
+uot;, &quot;-m 512&quot;, &quot;-m 256&quot;, d)}&#39;</div><div><br></div>=
+<div>I wonder what happens with this change, will it get reset to 256 for q=
+emuarm64 when not using opengl ?</div><div>=C2=A0</div><blockquote class=3D=
+"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
+04,204,204);padding-left:1ex">
+=C2=A0# Boot into U-Boot and let that scan the disk for the next step, don&=
+#39;t pass any kernel or filesystem hints<br>
+=C2=A0QB_DEFAULT_BIOS ?=3D &quot;u-boot.bin&quot;<br>
+=C2=A0QB_DEFAULT_KERNEL ?=3D &quot;none&quot;<br>
+-- <br>
+2.34.1<br>
+<br>
+<br>
+-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
+Links: You receive all messages sent to this group.<br>
+View/Reply Online (#13809): <a href=3D"https://lists.yoctoproject.org/g/pok=
+y/message/13809" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctopr=
+oject.org/g/poky/message/13809</a><br>
+Mute This Topic: <a href=3D"https://lists.yoctoproject.org/mt/116913418/199=
+7914" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctoproject.org/m=
+t/116913418/1997914</a><br>
+Group Owner: <a href=3D"mailto:poky%2Bowner@lists.yoctoproject.org" target=
+=3D"_blank">poky+owner@lists.yoctoproject.org</a><br>
+Unsubscribe: <a href=3D"https://lists.yoctoproject.org/g/poky/unsub" rel=3D=
+"noreferrer" target=3D"_blank">https://lists.yoctoproject.org/g/poky/unsub<=
+/a> [<a href=3D"mailto:raj.khem@gmail.com" target=3D"_blank">raj.khem@gmail=
+.com</a>]<br>
+-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
+<br>
+</blockquote></div></div>
+
+--000000000000dbc8300646a462e2--
 
