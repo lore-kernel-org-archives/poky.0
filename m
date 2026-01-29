@@ -1,107 +1,94 @@
-Return-Path: <yann.cardaillac@balena.io>
+Return-Path: <yoann.congal@smile.fr>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97741D6B085
-	for <webhook@archiver.kernel.org>; Thu, 29 Jan 2026 16:02:40 +0000 (UTC)
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.18225.1769702558232318442
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A38DCD6B087
+	for <webhook@archiver.kernel.org>; Thu, 29 Jan 2026 16:15:10 +0000 (UTC)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+ by mx.groups.io with SMTP id smtpd.msgproc02-g2.18498.1769703301870164238
  for <poky@lists.yoctoproject.org>;
- Thu, 29 Jan 2026 08:02:38 -0800
+ Thu, 29 Jan 2026 08:15:02 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@balena.io header.s=google header.b=nsPtG3Ug;
- spf=pass (domain: balena.io, ip: 209.85.218.49, mailfrom: yann.cardaillac@balena.io)
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-b872f1c31f1so157638066b.0
-        for <poky@lists.yoctoproject.org>; Thu, 29 Jan 2026 08:02:38 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1769702556; cv=none;
+ dkim=pass header.i=@smile.fr header.s=google header.b=UjvXt7ui;
+ spf=pass (domain: smile.fr, ip: 209.85.221.53, mailfrom: yoann.congal@smile.fr)
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-42fbc305882so827627f8f.0
+        for <poky@lists.yoctoproject.org>; Thu, 29 Jan 2026 08:15:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1769703300; cv=none;
         d=google.com; s=arc-20240605;
-        b=AykjrkUX471Bn57REjN5DDbCnseg/TsUVKqpe0HO1BAQl0y/hp657t8mCTyQJv74oM
-         lmplGnnProR97CW2Vyx9EbciyOXCLRDDsTX2nHp1QDXU8EhtG7GnHO+UbwzC0m9OhCde
-         T6+nV5ZoqFXc5/rc0WCqH/cyAjksM8muBQwykGjIN/oam/PQQyubCAfxBO0iwUtB5Ek9
-         mQkLKhifQkEhB5eFtQYXdZwTMyB/yO2lDPbn1J6rV+W3tAZPxfB8f3SXhD9o3aYtO2EH
-         0d1K4t2UV9A9qFEvHa2yVpew3EnzYlf6MMW83UJtaR2wteXCYFyWVnjeCZ9U7ryiiOnK
-         3OQw==
+        b=Rypd/jdDJx1dqEnF0vWkFbN6Hci824+stgYBiE1Z+SO7kLJ5ZkHAJsO2PT7LVEDJjV
+         nHHwodcxsSY74T/9/Dr78B5bj3hlp3NRx3t3CAuSqjdAyJTyH3RtupBoLpCn3NolN1co
+         IOwkJFttBxFe/Eh1kHSJH/a4+qO0XCaRUyVX3Fpwa+BEvDO4EDjHd1h1T+TxuyAGckO1
+         Dy8FPSIG1GdfscYXrnQySZO7ky++5g0gqRdrExllx9+Au2WDJ1KFSUxIVSBtozMiJeJU
+         IO0Hl0q2l2QaSo0f57+BzUolONxhR6Y1VUbCV/wQcEOH8eEwWZFQVLHJ/C2PtOcuMQnJ
+         S5+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=oO0RpepYx0PNsa9U3waj13X8kCCGKmxglKFI46SxA6o=;
+        bh=uzz0lz8KRlAfD4Re2lvzMn4qSnOSu/ub1L+idct4ToI=;
         fh=BovAbnmYYhgLsYXrJpkE+EFV76kYImzfrPgqrCd35Is=;
-        b=eGS155Jdv1b2fu+0wVnjEAlMQb+TQlExlfanr2Q+lfaMsJAqMqgNNJX29Bdnex8BTd
-         uObOC9ZEMQ1xgPJrf8WZyEAHVbMkDb0fu5KkoTUDgaBeedsA7qrnEyAJM9WHqO1ndyx0
-         HOBeKZgexgoGtXDKgUdt1JzU62Y/pGoBoStxz0ndHNRKgxBih1WzOiW5exfhvpHOow3V
-         ArPld1VkDE5FYqEefyyibhM+M7EWFEeMQVqJC9kPIF1f12U1pOcAPmbD3Zq+EmYGPQbB
-         Yjefqhu71Y37C3ud4qBSosWS5jI7OGWNbhcLdeaFEWFJjGwdqc4WjzV/rrkXH0j28/84
-         8CSA==;
+        b=BzSwGld5gVlqXzZNgX73GL5eyOpmtqnb5ChV5mRdoKHaufUov0X8/rB1z6CYMcnomK
+         7Plsmvd2Oc799TO/V7hkNP2xc9e6V5iX/iwAIseOIcOUrxprOb2jtX1mrXbUvSzLucpN
+         TFaD24FrQviebT7owMgmm3G/H8X2cOYDpPUJUkha3aeMMZmKv/4ZKue1iY7dAyB3qqcu
+         rJETe8SuvwTCbGaZsAA9kUNdjfMKqaQOOtRxyuvZOO8Q+Cf+Drj/pWif6CrmidQJ0TpW
+         SlEmKgPT11Z8OBv7o4YINOlyfl7MMhy42/dk0OopRest85JXAx7e/4P5K9iu99Lmbbwy
+         hoUg==;
         darn=lists.yoctoproject.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=balena.io; s=google; t=1769702556; x=1770307356; darn=lists.yoctoproject.org;
+        d=smile.fr; s=google; t=1769703300; x=1770308100; darn=lists.yoctoproject.org;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=oO0RpepYx0PNsa9U3waj13X8kCCGKmxglKFI46SxA6o=;
-        b=nsPtG3Ugve/zNjv4NiRmVXsDYuJMTxaatVyhF/NQYKZfdICz24qObqyGSVtVg/odoZ
-         sONaBwX1gibP7T2WM8hSrnfHoeYvVw2wRUWB0rn+W9d+kPs7FKamE2TZDycaPFbrcIsl
-         IlSjnOCWgv2W0w8CbXAuG/iMfNKUu1cx2bI/txG5WRBPSYcJegKbvusIkRoVmUmtz0J6
-         ueAdzfkt0ed0TZf2tJNFcI6MEeITLeObi7GQMqeEL56ZtwmpYYRyMo2Luro7DNwkm/ax
-         LN5PdIk/8A8om+ZFNWHvurKcF5pmCfWp3xI+G2VKqIm0Epswx454EcMH8sY/BM7gwvVx
-         QypQ==
+        bh=uzz0lz8KRlAfD4Re2lvzMn4qSnOSu/ub1L+idct4ToI=;
+        b=UjvXt7uiRRVsMxtd0pgZWv+IowQVPdGeBToT9wPJZ62Wxyws/K59sy7U7hV97Sbou4
+         5EzVf1X4FuMmXKGZHYDLiHs/oG6uJ62uOGaHzpGDPxGJZXPphHJPmBwyRyAi56AREwkv
+         iavrgvIEoMxmbvbVThXj7bNTXFfS1tbXnt5cg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1769702556; x=1770307356;
+        d=1e100.net; s=20230601; t=1769703300; x=1770308100;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oO0RpepYx0PNsa9U3waj13X8kCCGKmxglKFI46SxA6o=;
-        b=JYcSXxlu+5qBuAdRSjIOmEIl1dNGvsE+IVywrhr0siXIQLLtmtOF6yH/QRyx6Dy8tl
-         9R/3Exf5R40HJZJD9EnfWhhq7Xa4ZDpr+YCL0TS2wlYlc7JNdnj5DdX/d6XJztKIKoDn
-         fJRNo5EuAs7HQvtSDfeO0upkmWlivohb9XUhqXZyxHUooby4PgJH+8CGZSqc/rUMekjF
-         Rivlfcc/nk3r08o+Fak/pd8kAokP1KuR+mcLdRi66N10TQGOf2Y01pk3pi2hmTbIvYaN
-         qAAHQf/3ax7GKDNZhymBlbVHmQGky1kuZUAlGbMabMP2kk47jMz3edxEbdYF6ym9303J
-         cB8Q==
-X-Gm-Message-State: AOJu0YxyDoa832Sg2LhpDtvxrfi/lfytHNbJqTHyOkGZyM++QSVTQrM5
-	4wZKkNRwHMdNTnU/nrTQB4q4KQKsmkzlnwzADMx0prS3cRvmzQQcn2Y1imbV2j5b6GPhmu3rLYr
-	7ai8sIV18pAdvdLaD+MdKvgdih13QErvIvQ3XBfHyaw==
-X-Gm-Gg: AZuq6aI7xwN6R375xIEqp55vBNzwGuivncKF8v+/C6n+3GtaCddYpB7XcL8CBHWGqKA
-	1EKS0LfihSIZMnrKf1ATaq6UVu+l7x1LmJTnXeyGdoBNptMXwZuo5Eh+HiIDAhfVWHoQwM5javk
-	Na3n4AHPfVf4sEdhyuGiM5HUwBP1p+CcMxQoEdthnz2ei1s4eqOgtnDMpUKlz9NLPT1gtekXy6k
-	0XRPjj0daoakzf4fz+qdDcObKjyJi0kbnnUATDRApHC30cwCvahi0tu2usJ/BCxocXnbWXppOlp
-	Gtq9C2d8+vQ=
-X-Received: by 2002:a17:907:6e87:b0:b74:984c:a3de with SMTP id
- a640c23a62f3a-b8dab1cf961mr600567466b.28.1769702556092; Thu, 29 Jan 2026
- 08:02:36 -0800 (PST)
+        bh=uzz0lz8KRlAfD4Re2lvzMn4qSnOSu/ub1L+idct4ToI=;
+        b=FU+hpZqpikH3x2JvE5FC9VfeD51kXggi2Y8DngY/lbs0kpim04F2M/UEJVbF7aEmZn
+         E2R99p+3jFywHwoaXHKPAlBL/66jtY4DWzlyLbavGun4hwHyw8Suugd5hQzouB0l0He4
+         +WfDAElNSmhtnFcwaIpGU1ZfwLe8/href2pIuqv5z5sPmNZKNKyUkRpNQRNebJgIfJKP
+         r0N2gCL6OgxsXNfAMSVC0vKq3arrTeZlrh1Ya5eMYw5aBXlWSKGPyjcs07joWSbVP/FV
+         4sYkHtxf+sbEnpPQqUlqZBTLtgdEbFDiIUOvvcbefZQK0ALons8WjXc1v76NX97vAgqQ
+         flwQ==
+X-Gm-Message-State: AOJu0YxW6/dMdcMu47pd7DKUTC5Mkd50d4LL4vwDDeMwnyFV/FYgyu9F
+	0b5Yz/FeduiWSxotjdULW5+eWiB+btuTekwZJ+DZsFVaEw15QBApV4QK7C6mZMBkHGlAyst8YIf
+	u7sXvyk5Ym947tl6ZFXFq8I+iVyXPdLUGXwQH7OfS4w==
+X-Gm-Gg: AZuq6aJiKRy5LiuzXvG2xaLwkcXKVErjx4CY3DU/df2OURXd8yixptdOhWp0H5O/pvZ
+	2eY5WUeyZn+JXNoQPi/M0+H4JRqKj38R2MsTeDOp5cAlcpOgSNwofRvGCFEKRbV12qz9chwJQNF
+	bbkT7lklRQrQxhsPyz8DO7ZwxKX65GA0JwFmFqypuwUg7bT5qGTCnhutPZOA3V+wK1Uys+HefNO
+	XH9c7w5rJeGGgorrwjC/c+cTXkwlOZ+uEj1rmt6ug6aQbVpI4ivuGjxyS8voQUFV6ZL5hOp+Vln
+	CnlFi8JE8DJJxf1ICUb+GVSjif5s
+X-Received: by 2002:a5d:5f51:0:b0:435:97f6:4f44 with SMTP id
+ ffacd0b85a97d-435f3aba452mr176051f8f.56.1769703300014; Thu, 29 Jan 2026
+ 08:15:00 -0800 (PST)
 MIME-Version: 1.0
-References: <188F3EFDE7E356AD.3408700@lists.yoctoproject.org>
-In-Reply-To: <188F3EFDE7E356AD.3408700@lists.yoctoproject.org>
-From: Yann Cardaillac <yann.cardaillac@balena.io>
-Date: Thu, 29 Jan 2026 17:02:25 +0100
-X-Gm-Features: AZwV_QgPelhaUtBgw4_x5gvf-7ogQmVbcIQwupo0wOUh7xgAWkuDez3oW6fQWRk
-Message-ID: <CACuRGzC3PPszvChH19hpF64m5838vomShhObDM7hOBS5SAJ9eg@mail.gmail.com>
+References: <20260129160033.849551-1-yann.cardaillac@balena.io>
+In-Reply-To: <20260129160033.849551-1-yann.cardaillac@balena.io>
+From: Yoann Congal <yoann.congal@smile.fr>
+Date: Thu, 29 Jan 2026 17:14:34 +0100
+X-Gm-Features: AZwV_Qjw_XORrFXEjhdhAsmMi3zNYmOQOARRz6gkIIrhPJGXvul8W2vK6EZlMtw
+Message-ID: <CAMSfU+45KPesv7_hgsnenEEqzO9Sb48kZ-2DS=3TAa42-Rc_9g@mail.gmail.com>
 Subject: Re: [poky] [PATCH] Clearing empty linux firmware packages
 To: yann.cardaillac@balena.io
 Cc: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="00000000000036e0ba064988fc90"
+Content-Type: multipart/alternative; boundary="0000000000008e3b620649892806"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 29 Jan 2026 16:02:40 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13830
+ <poky@lists.yoctoproject.org>; Thu, 29 Jan 2026 16:15:10 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13831
 
---00000000000036e0ba064988fc90
+--0000000000008e3b620649892806
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hello,
-
-We've been cleaning up the linux-firmware package a bit, we found some
-empty packages and removed them.
-These packages couldn't be installed beforehand and could trigger errors.
-
-Bests,
-
-Yann
-
-On Thu, Jan 29, 2026 at 5:00=E2=80=AFPM Yann Cardaillac via lists.yoctoproj=
-ect.org
-<yann.cardaillac=3Dbalena.io@lists.yoctoproject.org> wrote:
+Le jeu. 29 janv. 2026 =C3=A0 17:00, Yann Cardaillac via lists.yoctoproject.=
+org
+<yann.cardaillac=3Dbalena.io@lists.yoctoproject.org> a =C3=A9crit :
 
 > Removing packages:
 > - ${PN}-wl1251 as it's already shipped in linux-firmware-wl12xx
@@ -113,6 +100,33 @@ e
 > - Removing ${PN}-iwlwifi-6050-4 as it's replaced by ${PN}-iwlwifi-6050-5
 >
 > Signed-off-by: Yann CARDAILLAC <yann.cardaillac@balena.io>
+>
+
+Hello Yann, ;)
+
+It looks like you are trying to send this to one of the OE-core stable
+branches.
+In this case, the correct ML address is
+openembedded-core@lists.openembedded.org
+(See the README:
+https://git.openembedded.org/openembedded-core/tree/README.OE-Core.md?h=3Ds=
+carthgap#n25
+)
+Also, you need to have the [scarthgap], [kirkstone], ... tag in your patch
+title depending on your target.
+And finally, keep in mind that this can only be accepted if the problem is
+solved in the more recent branches (stables and master) so you might need
+to send this to multiple branches.
+
+Everything should be documented here:
+https://docs.yoctoproject.org/contributor-guide/submit-changes.html#finding=
+-a-suitable-mailing-list
+https://docs.yoctoproject.org/contributor-guide/submit-changes.html#submitt=
+ing-changes-to-stable-release-branches
+
+Thanks!
+
+
 > ---
 >  .../linux-firmware/linux-firmware_20240909.bb | 56 ++-----------------
 >  1 file changed, 4 insertions(+), 52 deletions(-)
@@ -296,29 +310,29 @@ b
 > Links: You receive all messages sent to this group.
 > View/Reply Online (#13829):
 > https://lists.yoctoproject.org/g/poky/message/13829
-> Mute This Topic: https://lists.yoctoproject.org/mt/117528186/10242448
+> Mute This Topic: https://lists.yoctoproject.org/mt/117528186/4316185
 > Group Owner: poky+owner@lists.yoctoproject.org
 > Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [
-> yann.cardaillac@balena.io]
+> yoann.congal@smile.fr]
 > -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
 >
 >
 
---00000000000036e0ba064988fc90
+--=20
+Yoann Congal
+Smile ECS
+
+--0000000000008e3b620649892806
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>Hello,</div><div><br></div><div>We&#39;ve been cleani=
-ng up the linux-firmware package a bit, we found some empty packages and re=
-moved them.</div><div>These packages couldn&#39;t be installed beforehand a=
-nd could trigger errors.</div><div><br></div><div>Bests,</div><div><br></di=
-v><div>Yann</div></div><br><div class=3D"gmail_quote gmail_quote_container"=
-><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Jan 29, 2026 at 5:00=E2=80=
-=AFPM Yann Cardaillac via <a href=3D"http://lists.yoctoproject.org">lists.y=
-octoproject.org</a> &lt;yann.cardaillac=3D<a href=3D"mailto:balena.io@lists=
-.yoctoproject.org">balena.io@lists.yoctoproject.org</a>&gt; wrote:<br></div=
-><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
--left:1px solid rgb(204,204,204);padding-left:1ex">Removing packages:<br>
+<div dir=3D"ltr"><div dir=3D"ltr">Le=C2=A0jeu. 29 janv. 2026 =C3=A0=C2=A017=
+:00, Yann Cardaillac via <a href=3D"http://lists.yoctoproject.org">lists.yo=
+ctoproject.org</a> &lt;yann.cardaillac=3D<a href=3D"mailto:balena.io@lists.=
+yoctoproject.org">balena.io@lists.yoctoproject.org</a>&gt; a =C3=A9crit=C2=
+=A0:</div><div class=3D"gmail_quote gmail_quote_container"><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
+gb(204,204,204);padding-left:1ex">Removing packages:<br>
 - ${PN}-wl1251 as it&#39;s already shipped in linux-firmware-wl12xx<br>
 - Removing old ${PN}-iwlwifi-3160-* as only the version ${PN}-iwlwifi-3160-=
 17 is now shipped<br>
@@ -328,7 +342,28 @@ replaced by versions 6<br>
 5<br>
 <br>
 Signed-off-by: Yann CARDAILLAC &lt;<a href=3D"mailto:yann.cardaillac@balena=
-.io" target=3D"_blank">yann.cardaillac@balena.io</a>&gt;<br>
+.io" target=3D"_blank">yann.cardaillac@balena.io</a>&gt;<br></blockquote><d=
+iv><br></div><div>Hello Yann, ;)</div><div><br></div><div>It looks like you=
+ are trying to send this to one of the OE-core stable branches.</div><div>I=
+n this case, the correct ML address=C2=A0is=C2=A0<a href=3D"mailto:openembe=
+dded-core@lists.openembedded.org">openembedded-core@lists.openembedded.org<=
+/a></div><div>(See the README:=C2=A0<a href=3D"https://git.openembedded.org=
+/openembedded-core/tree/README.OE-Core.md?h=3Dscarthgap#n25">https://git.op=
+enembedded.org/openembedded-core/tree/README.OE-Core.md?h=3Dscarthgap#n25</=
+a>)</div><div>Also, you need to have the [scarthgap], [kirkstone], ... tag =
+in your patch title depending on your target.</div><div>And finally, keep i=
+n mind that this can only be accepted if the problem is solved in the more =
+recent branches (stables and master) so you might need to send this to mult=
+iple branches.</div><div><br></div><div>Everything=C2=A0should be documente=
+d here:</div><div><a href=3D"https://docs.yoctoproject.org/contributor-guid=
+e/submit-changes.html#finding-a-suitable-mailing-list">https://docs.yoctopr=
+oject.org/contributor-guide/submit-changes.html#finding-a-suitable-mailing-=
+list</a><br><a href=3D"https://docs.yoctoproject.org/contributor-guide/subm=
+it-changes.html#submitting-changes-to-stable-release-branches">https://docs=
+.yoctoproject.org/contributor-guide/submit-changes.html#submitting-changes-=
+to-stable-release-branches</a></div><div><br></div><div>Thanks!</div><div>=
+=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
 ---<br>
 =C2=A0.../linux-firmware/<a href=3D"http://linux-firmware_20240909.bb" rel=
 =3D"noreferrer" target=3D"_blank">linux-firmware_20240909.bb</a> | 56 ++---=
@@ -576,18 +611,21 @@ Links: You receive all messages sent to this group.<br>
 View/Reply Online (#13829): <a href=3D"https://lists.yoctoproject.org/g/pok=
 y/message/13829" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctopr=
 oject.org/g/poky/message/13829</a><br>
-Mute This Topic: <a href=3D"https://lists.yoctoproject.org/mt/117528186/102=
-42448" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctoproject.org/=
-mt/117528186/10242448</a><br>
+Mute This Topic: <a href=3D"https://lists.yoctoproject.org/mt/117528186/431=
+6185" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctoproject.org/m=
+t/117528186/4316185</a><br>
 Group Owner: <a href=3D"mailto:poky%2Bowner@lists.yoctoproject.org" target=
 =3D"_blank">poky+owner@lists.yoctoproject.org</a><br>
 Unsubscribe: <a href=3D"https://lists.yoctoproject.org/g/poky/unsub" rel=3D=
 "noreferrer" target=3D"_blank">https://lists.yoctoproject.org/g/poky/unsub<=
-/a> [<a href=3D"mailto:yann.cardaillac@balena.io" target=3D"_blank">yann.ca=
-rdaillac@balena.io</a>]<br>
+/a> [<a href=3D"mailto:yoann.congal@smile.fr" target=3D"_blank">yoann.conga=
+l@smile.fr</a>]<br>
 -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
 <br>
-</blockquote></div>
+</blockquote></div><div><br clear=3D"all"></div><br><span class=3D"gmail_si=
+gnature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature"><d=
+iv dir=3D"ltr"><font face=3D"Raleway, regular">Yoann Congal</font><div><fon=
+t face=3D"Raleway, regular">Smile ECS</font></div></div></div></div>
 
---00000000000036e0ba064988fc90--
+--0000000000008e3b620649892806--
 
