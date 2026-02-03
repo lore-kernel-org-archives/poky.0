@@ -2,129 +2,108 @@ Return-Path: <yann.cardaillac@balena.io>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56C08E83074
-	for <webhook@archiver.kernel.org>; Tue,  3 Feb 2026 10:01:34 +0000 (UTC)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.13229.1770112892259120281
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45AABE83077
+	for <webhook@archiver.kernel.org>; Tue,  3 Feb 2026 10:04:44 +0000 (UTC)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+ by mx.groups.io with SMTP id smtpd.msgproc02-g2.13162.1770113070952528778
  for <poky@lists.yoctoproject.org>;
- Tue, 03 Feb 2026 02:01:32 -0800
+ Tue, 03 Feb 2026 02:04:31 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@balena.io header.s=google header.b=bfIavWwI;
- spf=pass (domain: balena.io, ip: 209.85.218.52, mailfrom: yann.cardaillac@balena.io)
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-b8e526081ceso112099366b.1
-        for <poky@lists.yoctoproject.org>; Tue, 03 Feb 2026 02:01:32 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1770112891; cv=none;
+ dkim=pass header.i=@balena.io header.s=google header.b=Lrgeqg2A;
+ spf=pass (domain: balena.io, ip: 209.85.218.48, mailfrom: yann.cardaillac@balena.io)
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-b8838339fc6so120599666b.0
+        for <poky@lists.yoctoproject.org>; Tue, 03 Feb 2026 02:04:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770113069; cv=none;
         d=google.com; s=arc-20240605;
-        b=ewXjZr1I53pmpI7rMsTds1sQVfCk+sMHQYLs27TjRVw/vqw4IU500c8sosg91J6ZdY
-         9awpR8YPMdiSQDb2EQ8YhXCTEDZBoWGyLI3sYrZeIaokZpbzUupvAWubNYSXOcnKCoeE
-         VRqj0deryCfPtNvKrr8qbkFEmAeTLYPfju+Fg+Ilg9lXMS6rUpyioC97IEXwSe0IIDyB
-         vtOmtzxfYSQFGAUXOIemkBweRZGThfw2lwp+fq9qSrNpMFjqLXsKb6bk6K1UAchh9aLu
-         eFv8jbylqnFkwym75eF0DVbJEmdftyBKcqg2eYIqqvnZRmo9zDpbzFSWfNOYnLbl9rQB
-         ksYg==
+        b=hUzS2l3Ip5TOldn5mo/OFO1FTQea7XpGeeiDIRurMvCE63TD9krUCUChuVz9FJl1eo
+         x5eY9atNpg4Aen4LI2KDkoIYW+3mf7Eq8Wvy1LiwWDwlQfn9ITY/5LDLGxFAeQsvCHCX
+         IT7MDc6Qr+QksKYw9hggyVrclUvdbJ0xrPB1IL0BYa8sW6oH4/wXEWn1JF8G9xre81uB
+         qYvJBdA9Gsu7OyjEHfBBNlRcq62auOm3m7k+nGnScKiv+y5/xh60ONpoXRhEPX+XnnG3
+         PF9mV8fljS7YBjWFzvYzIjhC/Dqp+84FNYZGd59iqXOQ6EslefH1P0jKaIEk8pIxhC+K
+         rHaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=vuYubHcfDK8+z70hYg+RDBHi8ggIaviu51jDuKHeBzI=;
+        bh=Xv2qfaf1i0FKvNqlA5gX/Tlffv5Zc/eN8HECMiUCymE=;
         fh=4u+x8L6Y1WnB6MeOCPUHcJEh8YWl+pjx38PJu8QmVyk=;
-        b=KVF8nnDMfOZ+bfpebcNngMkV6kpC+dM3/O2teMO1v/VJWu6Qq6TOdTY/U87DIUa8n8
-         i//qbF7+AmMDTe4J1efhqiQzaR2fEIA3C8pRvsPkG8PNb5F7lwR/dHl9IsqIXYLV3s7i
-         4frgofBP9hDqGFhkl37VXe7/idTcHxhF/5Rq1TIZrK0h6GJcN4kQu+IWSS+AbEQyWHer
-         PlPfsZ9MInOV600FTksU7Q2RkPw19SY/bi3iRqD9LwgIsq0k/Ul7jdd1LFb9uZP+aWku
-         plQvQJ1LfGfNzQeFpy//dl/lhFMWFVObXUPRA8G89gIFilha4A69flNfyMeuH/vBV6h3
-         2E3w==;
+        b=C9fPHPTHDIDC3sQ/0WLdQMYG5Q4bZkJ0UmnJh36bPGeYjl3wMo6NxV2UESiKwbiSx6
+         w9PXI+DPcMccn3rF+TMFugorSTOC2ylTBlZDoGXhFcMcCo+rCCk/jY/jgv1d0RuDqjn6
+         +jGHQSDWpqrYszhbUEkWYmpgBPKZJlAcoBZl5N6eClQ1112oILz+g+0jgjZYxZXfxZta
+         Gw2rFMkSg3i2FcxoWT7mA9vMqdTplA9/SKJviWI4kxr8sQtyp0tKMua39XcC/pBqbfzv
+         hOGvmzr4ykedACFWQPbLF2fXHxNE2u20Z3lEP8AU+HTep5YxDvmittmKJ5Fl/TQkaY3l
+         OBQA==;
         darn=lists.yoctoproject.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=balena.io; s=google; t=1770112891; x=1770717691; darn=lists.yoctoproject.org;
+        d=balena.io; s=google; t=1770113069; x=1770717869; darn=lists.yoctoproject.org;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=vuYubHcfDK8+z70hYg+RDBHi8ggIaviu51jDuKHeBzI=;
-        b=bfIavWwImUFkRtCo0UxwwzuvDhQelxFuitbjXD3AikYxV6gwKLIDEAHoqI4cKeAfJK
-         yAqWbnbMJqqzUZ+le3+25R5qv+GjAy1cgJCYeWlUCuMAPdUOXHrGwEli9zWCXwzaTF4G
-         PqKer+dpnGzytzK671czqo5jJ4XW0R13wHcDwi9D6tORsasFZ5GLDePSCyj+QxuDXbZF
-         0nvj18aIJvHk8UOH8H1gGnIMzPLV6Vqt8qf79u2yH2z+Rn3ECpjYthwLvfztyHDaxE6d
-         GtCUBtFGrWs0/w6h4bdhoWAIQFi9AqR1W8EUFHnntCd+ykxFP5obF6oaoRVNJ/d/3ZnF
-         bpNA==
+        bh=Xv2qfaf1i0FKvNqlA5gX/Tlffv5Zc/eN8HECMiUCymE=;
+        b=Lrgeqg2AkUwBqrhT+rz00W9TG6kozHS8itTYNx8WwIAPCpb7ImBBrYimJwJsXM2XWD
+         PtlnfX8GIsNBsJOsf3MMBCzY6FZvC3AYoHvkCpdJu/lV2MlSdtUdYe/QjzV9FUg0wkRR
+         L2tH/cZgHWmDCp1doPZc61hlqw4+Wdpn1CBsTx8U1UjQQ0iotsWGD9vimN5XlKg8lamb
+         rDzzrv/Ug+8W2XSxiC9NSTUYaDiAGlzjLPYuLVWNKzKG/ydgXWJQpE/iXszjmibY5HDT
+         +DyxsM+hV4yt6lcoglOE2vezmRz2XlCgdeNAScdvozA7AYUq7Ydfco3VBo7snz5N97hv
+         5q3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770112891; x=1770717691;
+        d=1e100.net; s=20230601; t=1770113069; x=1770717869;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vuYubHcfDK8+z70hYg+RDBHi8ggIaviu51jDuKHeBzI=;
-        b=J7EM0Ls/euN9SCYEEvPdDDr+4aYc7fmjQ/W4M0rWHvFnGGCrC5DLrlyD7QUeLO4iOv
-         VV3UeTluwvTmn9PHq0Rbfjr/dC/xGh8i2uyEM2da61VSA/w2aca/SL7yAVDDj+ZslbOZ
-         Bybv3f7fbVk3E70Yqy46OgSLSlvW8Q0LxtuZJYWSt4SFJANRDExC3J6VL9mlVBoJg2si
-         Mtkab+Y+zwoAjf27CaQKj7v44KaFlwrNyCG+uODuZZfh3RNDWRUbJxqhelscKa9nNcBh
-         2k1uLg0bG/4FziXQ2SpuTBSX80DkmF1T3ItZTT1BGfkeVJD1TjH40sYA465oTvyLvsDe
-         1nbA==
-X-Gm-Message-State: AOJu0YzhkzkiNH0gnrUCRtY9d9Qj3Jzal6lB7PXEMQJcTfFd2mCCdUuG
-	ctKLBPRJsKE2gukLSGNYYswATw9VU7Uz6oEzvExM9N8+Lmfc9wEuiG2KIpqAJFntuVL8RPnChZC
-	SKOGQ87OPfTC044jbwAsH6OI0ZaypKqaTqG4psvyYfqK63mt/HHpHF6Q=
-X-Gm-Gg: AZuq6aIeIVMnQVqgkvIH/5TDm3Pk4Lmhh7X0srSn4o7L21qkYuAKsp3adkVgwY80yKW
-	2Oon/f0MbFTYNOYaAnQ43PWQ9O7m+LDpDI7KuKWa44x7G+IoOFohi6jpOtqrXV/ut8sFW85shOM
-	f4l8WaHZVr15/bNqq4tiyjqkAyVjj9LKoS/54sO44nnzyFeAr5Oe2KC4soCI6lwzlGLS6T+fstm
-	c9nCqodZXrfKJO6pLv4YtpqEglEkpIXThlcAQVwC0RND3tGviBqXd3vz9dgYYnahHu6wg==
-X-Received: by 2002:a17:907:9344:b0:b88:3877:d922 with SMTP id
- a640c23a62f3a-b8e837b93c3mr175467066b.10.1770112890384; Tue, 03 Feb 2026
- 02:01:30 -0800 (PST)
+        bh=Xv2qfaf1i0FKvNqlA5gX/Tlffv5Zc/eN8HECMiUCymE=;
+        b=Cle8YZYRmMyhhuW5AtDkhT9fFsMFYM7n0hm5H0p2341ZjY6zaMm7wfEDpZQOpCC5jn
+         Iw9eV9zXV/HbiWfmwx5flMOY08QziPitV29a2ehPdAekJ+9czh0GfIhh8RM+HReMJfkd
+         TU8NzjQjfMDzXoQsRmt+mF2QVs4nudLTGqVvV/bXPc6Upm5dJarJPpcLQX3bH0XwNecA
+         aRNWxHpkU7Fz+riQP5UAnPxOE0xEUKN9Guekal5mgKebLJLM1ljYhUGS4Qi5YUyBVuoj
+         qxo3i8GpDuEh5NtKFyBHK/CwUwrbqnWtPlELbmM1Z9eTB5umw3jqTRPSlZe9Kere+uyb
+         4eXw==
+X-Gm-Message-State: AOJu0Yw6FCkfAcNgFbpC6XEO4glGnY3LaeLyyaefUlVIM9hZt/jee2ce
+	/NFc/XtYGRzuI+xvBdeHRrYwi2T1X8Ka7cjB19njGVix4ZX6vC+yGH0A+PmYPkH9ZPYKsLJSM8u
+	Uxr0M8MC14VQxyg56s8I1NOEmbKJ8bXAzuwSva2dRHQ==
+X-Gm-Gg: AZuq6aJ4patwrc/sFytWVM7G7LDPy9KkZANEvW/nyki1wWmQm98rDRXz3Gvm1QNOsAz
+	pCcTsLelWXB17wPS5D/0+uKi2sKr8ayihfffVagcF8OVP1bLDpFBYfxPuQYiYXOf0q1dJShoXG5
+	assHTYpT1r9U0cbEvUIJeWjZJuxYVid6pDnuV3Kii27N/exkX5YnWO9w6aMN6X93A/NxfF7sylz
+	QjAd8Bhxr3qvYQ3RJrikwpOffavXWL7MHgufC5wKeYc9UCcPaT1qN4V599m17VD4wP/Mw==
+X-Received: by 2002:a17:906:2092:b0:b88:5894:6ba1 with SMTP id
+ a640c23a62f3a-b8e8384b261mr126885666b.28.1770113069273; Tue, 03 Feb 2026
+ 02:04:29 -0800 (PST)
 MIME-Version: 1.0
-References: <20260129160033.849551-1-yann.cardaillac@balena.io> <22ebb247-6752-42ef-b6fe-5f6abc211ae4@cherry.de>
-In-Reply-To: <22ebb247-6752-42ef-b6fe-5f6abc211ae4@cherry.de>
+References: <20260129160033.849551-1-yann.cardaillac@balena.io>
+ <22ebb247-6752-42ef-b6fe-5f6abc211ae4@cherry.de> <CACuRGzCoMXxDmuy=RPu5C13aChZeWzuFXzuBSt3J1n26q4HLVw@mail.gmail.com>
+In-Reply-To: <CACuRGzCoMXxDmuy=RPu5C13aChZeWzuFXzuBSt3J1n26q4HLVw@mail.gmail.com>
 From: Yann Cardaillac <yann.cardaillac@balena.io>
-Date: Tue, 3 Feb 2026 11:01:19 +0100
-X-Gm-Features: AZwV_QizQGQJcKEqWn2nvbRmM7K8RktCzA89Zd_j1HcRdb7xuwTkY_f_JdlDPJk
-Message-ID: <CACuRGzCoMXxDmuy=RPu5C13aChZeWzuFXzuBSt3J1n26q4HLVw@mail.gmail.com>
+Date: Tue, 3 Feb 2026 11:04:18 +0100
+X-Gm-Features: AZwV_QhyptWv6Ue2XWgxh2jiuF4mNGIswnp3dQLJ954dOflle1peBICVO01awnE
+Message-ID: <CACuRGzDH_h5j9+eE0b2=gC=M0Xh0b7P8mYvLZQd0nHk+eBD3ZA@mail.gmail.com>
 Subject: Re: [poky] [PATCH] Clearing empty linux firmware packages
 To: Quentin Schulz <quentin.schulz@cherry.de>
 Cc: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="0000000000000b5ccb0649e886ce"
+Content-Type: multipart/alternative; boundary="000000000000b4e4c90649e890fd"
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 03 Feb 2026 10:01:34 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13833
+ <poky@lists.yoctoproject.org>; Tue, 03 Feb 2026 10:04:44 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13834
 
---0000000000000b5ccb0649e886ce
+--000000000000b4e4c90649e890fd
 Content-Type: text/plain; charset="UTF-8"
 
-Hello guys,
+I just saw that you mentioned 2 commits fixing the 12xx and 1251 issue.
 
-Thanks for the feedback!
+So do you guys want the package removal commit then? Keep me posted if so.
 
-Next version of the patch will be in the proper mailing list, this was on
-Scarthgap.
-
-Quentin, I've had an issue when trying to install empty packages in my
-image, essentially doing so would fail the build. But that could be thanks
-to local distro settings, idk and I'm happy with this.
-
-From my point of view, we shouldn't be shipping and maintaining
-empty packages as they will inevitably accumulate over time.
-
-Now do you rather have only the fix for 12xx and 1251 or also the package
-removal? I can do 2 commits as well so that you can cherry pick the one
-you're interested in.
-
-Bests regards,
+Thanks,
 
 Yann
 
---0000000000000b5ccb0649e886ce
+--000000000000b4e4c90649e890fd
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div>Hello guys,</div><div><br></div><div=
->Thanks for the feedback!</div><div><br></div><div>Next version of the patc=
-h will be in the proper mailing list, this was on Scarthgap.</div><div><br>=
-</div><div>Quentin, I&#39;ve had an issue when trying to install empty pack=
-ages in my image, essentially doing=C2=A0so would fail the build. But that =
-could be thanks to local distro settings, idk and I&#39;m happy with this.<=
-/div><div><br></div><div>From my point of view, we shouldn&#39;t be shippin=
-g and maintaining empty=C2=A0packages as they will inevitably accumulate ov=
-er time.</div><div><br></div><div>Now do you rather have only the fix for 1=
-2xx and 1251 or also the package removal? I can do 2 commits as well so tha=
-t you can cherry pick the one you&#39;re interested in.</div><div><br></div=
->Bests regards,</div><div dir=3D"ltr"><br></div><div>Yann</div></div>
+<div dir=3D"ltr"><div>I just saw that you mentioned 2 commits fixing the 12=
+xx and 1251 issue.</div><div><br></div><div>So do you guys want the package=
+ removal commit then? Keep me posted if so.</div><div><br></div><div>Thanks=
+,</div><div><br></div><div>Yann</div></div>
 
---0000000000000b5ccb0649e886ce--
+--000000000000b4e4c90649e890fd--
 
