@@ -1,109 +1,105 @@
-Return-Path: <yann.cardaillac@balena.io>
+Return-Path: <twoerner@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45AABE83077
-	for <webhook@archiver.kernel.org>; Tue,  3 Feb 2026 10:04:44 +0000 (UTC)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
- by mx.groups.io with SMTP id smtpd.msgproc02-g2.13162.1770113070952528778
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DF74BE9D3ED
+	for <webhook@archiver.kernel.org>; Wed,  4 Feb 2026 14:46:17 +0000 (UTC)
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+ by mx.groups.io with SMTP id smtpd.msgproc01-g2.21941.1770216373071139605
  for <poky@lists.yoctoproject.org>;
- Tue, 03 Feb 2026 02:04:31 -0800
+ Wed, 04 Feb 2026 06:46:13 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@balena.io header.s=google header.b=Lrgeqg2A;
- spf=pass (domain: balena.io, ip: 209.85.218.48, mailfrom: yann.cardaillac@balena.io)
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-b8838339fc6so120599666b.0
-        for <poky@lists.yoctoproject.org>; Tue, 03 Feb 2026 02:04:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1770113069; cv=none;
-        d=google.com; s=arc-20240605;
-        b=hUzS2l3Ip5TOldn5mo/OFO1FTQea7XpGeeiDIRurMvCE63TD9krUCUChuVz9FJl1eo
-         x5eY9atNpg4Aen4LI2KDkoIYW+3mf7Eq8Wvy1LiwWDwlQfn9ITY/5LDLGxFAeQsvCHCX
-         IT7MDc6Qr+QksKYw9hggyVrclUvdbJ0xrPB1IL0BYa8sW6oH4/wXEWn1JF8G9xre81uB
-         qYvJBdA9Gsu7OyjEHfBBNlRcq62auOm3m7k+nGnScKiv+y5/xh60ONpoXRhEPX+XnnG3
-         PF9mV8fljS7YBjWFzvYzIjhC/Dqp+84FNYZGd59iqXOQ6EslefH1P0jKaIEk8pIxhC+K
-         rHaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Xv2qfaf1i0FKvNqlA5gX/Tlffv5Zc/eN8HECMiUCymE=;
-        fh=4u+x8L6Y1WnB6MeOCPUHcJEh8YWl+pjx38PJu8QmVyk=;
-        b=C9fPHPTHDIDC3sQ/0WLdQMYG5Q4bZkJ0UmnJh36bPGeYjl3wMo6NxV2UESiKwbiSx6
-         w9PXI+DPcMccn3rF+TMFugorSTOC2ylTBlZDoGXhFcMcCo+rCCk/jY/jgv1d0RuDqjn6
-         +jGHQSDWpqrYszhbUEkWYmpgBPKZJlAcoBZl5N6eClQ1112oILz+g+0jgjZYxZXfxZta
-         Gw2rFMkSg3i2FcxoWT7mA9vMqdTplA9/SKJviWI4kxr8sQtyp0tKMua39XcC/pBqbfzv
-         hOGvmzr4ykedACFWQPbLF2fXHxNE2u20Z3lEP8AU+HTep5YxDvmittmKJ5Fl/TQkaY3l
-         OBQA==;
-        darn=lists.yoctoproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+ dkim=pass header.i=@gmail.com header.s=20230601 header.b=S+W73Yt8;
+ spf=pass (domain: gmail.com, ip: 209.85.222.174, mailfrom: twoerner@gmail.com)
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-8c655e0ee70so733380985a.3
+        for <poky@lists.yoctoproject.org>; Wed, 04 Feb 2026 06:46:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=balena.io; s=google; t=1770113069; x=1770717869; darn=lists.yoctoproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Xv2qfaf1i0FKvNqlA5gX/Tlffv5Zc/eN8HECMiUCymE=;
-        b=Lrgeqg2AkUwBqrhT+rz00W9TG6kozHS8itTYNx8WwIAPCpb7ImBBrYimJwJsXM2XWD
-         PtlnfX8GIsNBsJOsf3MMBCzY6FZvC3AYoHvkCpdJu/lV2MlSdtUdYe/QjzV9FUg0wkRR
-         L2tH/cZgHWmDCp1doPZc61hlqw4+Wdpn1CBsTx8U1UjQQ0iotsWGD9vimN5XlKg8lamb
-         rDzzrv/Ug+8W2XSxiC9NSTUYaDiAGlzjLPYuLVWNKzKG/ydgXWJQpE/iXszjmibY5HDT
-         +DyxsM+hV4yt6lcoglOE2vezmRz2XlCgdeNAScdvozA7AYUq7Ydfco3VBo7snz5N97hv
-         5q3g==
+        d=gmail.com; s=20230601; t=1770216371; x=1770821171; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=10WnHYkokd167J4PvEJKLb3LxM3CuWopotyu3PmZ5Jw=;
+        b=S+W73Yt8xb7HP4gyH+LmI7lBhVw1xqE5TKP2BB28Ixa4IHZ7dx0O+M/dqN3zX1+JSa
+         rSntb8mPCDn1x/lxGvqXnvYjudv6HWVd9oBCrdKmWiT/cBc1aCtgGc1ghAEAzKSZS6Z/
+         3OdeqCWmKWKQ3Yh5zTRo5tABcQwQzL0K4cYwKqA9htAfQ+A07IaG9tyLKw3rrNyvbhfG
+         5sturYfqqYxyGg3om5dZnL/0zZVeuvCA68WILsz7XwFGENCEuT0PKpadjUbbVnPaDc7G
+         Jqnt45D3Pe/Sgka0PewcaAZvAKVbLDK260d7dspJ/5jyKgd/Ed74jLcz+0nO8ZOIQJqE
+         N8wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1770113069; x=1770717869;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Xv2qfaf1i0FKvNqlA5gX/Tlffv5Zc/eN8HECMiUCymE=;
-        b=Cle8YZYRmMyhhuW5AtDkhT9fFsMFYM7n0hm5H0p2341ZjY6zaMm7wfEDpZQOpCC5jn
-         Iw9eV9zXV/HbiWfmwx5flMOY08QziPitV29a2ehPdAekJ+9czh0GfIhh8RM+HReMJfkd
-         TU8NzjQjfMDzXoQsRmt+mF2QVs4nudLTGqVvV/bXPc6Upm5dJarJPpcLQX3bH0XwNecA
-         aRNWxHpkU7Fz+riQP5UAnPxOE0xEUKN9Guekal5mgKebLJLM1ljYhUGS4Qi5YUyBVuoj
-         qxo3i8GpDuEh5NtKFyBHK/CwUwrbqnWtPlELbmM1Z9eTB5umw3jqTRPSlZe9Kere+uyb
-         4eXw==
-X-Gm-Message-State: AOJu0Yw6FCkfAcNgFbpC6XEO4glGnY3LaeLyyaefUlVIM9hZt/jee2ce
-	/NFc/XtYGRzuI+xvBdeHRrYwi2T1X8Ka7cjB19njGVix4ZX6vC+yGH0A+PmYPkH9ZPYKsLJSM8u
-	Uxr0M8MC14VQxyg56s8I1NOEmbKJ8bXAzuwSva2dRHQ==
-X-Gm-Gg: AZuq6aJ4patwrc/sFytWVM7G7LDPy9KkZANEvW/nyki1wWmQm98rDRXz3Gvm1QNOsAz
-	pCcTsLelWXB17wPS5D/0+uKi2sKr8ayihfffVagcF8OVP1bLDpFBYfxPuQYiYXOf0q1dJShoXG5
-	assHTYpT1r9U0cbEvUIJeWjZJuxYVid6pDnuV3Kii27N/exkX5YnWO9w6aMN6X93A/NxfF7sylz
-	QjAd8Bhxr3qvYQ3RJrikwpOffavXWL7MHgufC5wKeYc9UCcPaT1qN4V599m17VD4wP/Mw==
-X-Received: by 2002:a17:906:2092:b0:b88:5894:6ba1 with SMTP id
- a640c23a62f3a-b8e8384b261mr126885666b.28.1770113069273; Tue, 03 Feb 2026
- 02:04:29 -0800 (PST)
+        d=1e100.net; s=20230601; t=1770216371; x=1770821171;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=10WnHYkokd167J4PvEJKLb3LxM3CuWopotyu3PmZ5Jw=;
+        b=VvdqHpT2FTDuhEWCWsfrkuCNGbypMD5iMRnwv8pPISq5+UdBMZzV46kw3lwDzaolYD
+         Aeyz87ogdP/JOVPQSJqpN3QI/q3/Ki/Iy4//5xqCh/teaaNNgd6wpYh6f1lF7ZteHJAR
+         YPMJAnoPkfcOrLqZK9y8V6672IbfuOESCJGwY1R4dmJkiYfZYhy5eYXNOgp8VO7FhN7T
+         aHlb+0IcbSUm9yn1QOSKyrZkP6y2umHZk88Q0HiMOY7CURJE/vUonylTJwWlJpW21dwC
+         EHjgUOg1ylG9/fL3HnNw+miMzeyLLk0sCsOaPiCUwOJKRY9chSxyefMjsOOk6WzL7Shk
+         9oAw==
+X-Gm-Message-State: AOJu0YxdM1h9oG8tQHdEmO60cOvg8J+x9IuZUsrqJZSaI5aCwi8uYsYb
+	r/+g/FOMD/OHe61Rji547HQmXYgqGWm40bT29hmBsmwQbe2dc/1Xu36LFU1VHQCF
+X-Gm-Gg: AZuq6aIDAnJToZFrZGTx7sSgOCkzg+mMycBkAFV4lkBQyVMafyxJsVrT16hFck5ZXTF
+	/YeEjU5cmY3QLNmKMWlLY8g7KFySrSDgbFS4mth9kdNH+NqVqhSk1Vu3xEFA8lcsdZnkA9Fx+Fm
+	dbUjvmT6faQzY5xX8VdX4wZWzfUKSnJgTVOLDbaEeUbngY+7gAxHw375sKzwj3I27Fyu8XAiKEO
+	cuEoTD6Ek/MI8Kx+ijU+Xlaya6Ru7GQYwT2rGwDBDsXR14YLNNKCYSrGUWXszN7WxsWDdWQSZzK
+	5510KQWKbhMvls21WYBlrvngjW1J3vD0JrwXshGXXnQLb+Lo+3rna/IDgzr8JOFfthdy83dkS7+
+	z8A0XYn07n9VUAR0yWQDSmlKLoAV+iaYiY0yNldz/hDnw8xVByrXGIclFFAZncML/J9defjOUCj
+	W1P2o1bjmd4IsE3G2ry7laDDVjYhPUhX/YcTOGYPZDeupCTivRDDZ5sg==
+X-Received: by 2002:a05:620a:280a:b0:8b2:e990:5114 with SMTP id af79cd13be357-8ca2f9b72b1mr369612885a.42.1770216371419;
+        Wed, 04 Feb 2026 06:46:11 -0800 (PST)
+Received: from localhost.localdomain (pppoe-209-91-167-254.vianet.ca. [209.91.167.254])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-8ca2fd2d0c6sm192666785a.29.2026.02.04.06.46.09
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Feb 2026 06:46:10 -0800 (PST)
+From: Trevor Woerner <twoerner@gmail.com>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto-bsp][PATCH] meta-yocto-bsp: oeqa/selftest/systemd_boot: update for standalone wic
+Date: Wed,  4 Feb 2026 09:46:00 -0500
+Message-ID: <20260204144600.514629-1-twoerner@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-References: <20260129160033.849551-1-yann.cardaillac@balena.io>
- <22ebb247-6752-42ef-b6fe-5f6abc211ae4@cherry.de> <CACuRGzCoMXxDmuy=RPu5C13aChZeWzuFXzuBSt3J1n26q4HLVw@mail.gmail.com>
-In-Reply-To: <CACuRGzCoMXxDmuy=RPu5C13aChZeWzuFXzuBSt3J1n26q4HLVw@mail.gmail.com>
-From: Yann Cardaillac <yann.cardaillac@balena.io>
-Date: Tue, 3 Feb 2026 11:04:18 +0100
-X-Gm-Features: AZwV_QhyptWv6Ue2XWgxh2jiuF4mNGIswnp3dQLJ954dOflle1peBICVO01awnE
-Message-ID: <CACuRGzDH_h5j9+eE0b2=gC=M0Xh0b7P8mYvLZQd0nHk+eBD3ZA@mail.gmail.com>
-Subject: Re: [poky] [PATCH] Clearing empty linux firmware packages
-To: Quentin Schulz <quentin.schulz@cherry.de>
-Cc: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="000000000000b4e4c90649e890fd"
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Tue, 03 Feb 2026 10:04:44 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13834
+ <poky@lists.yoctoproject.org>; Wed, 04 Feb 2026 14:46:17 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13835
 
---000000000000b4e4c90649e890fd
-Content-Type: text/plain; charset="UTF-8"
+The systemd_boot.Systemdboot.test_efi_systemdboot_images_can_be_built
+oe-selftest invokes the wic utility. If wic is removed from oe-core,
+how it is invoked would need to be updated. However, updating how it is
+invoked will also succeed even if wic continues to be part of oe-core;
+it is simply a more elaborate way to invoke wic which works in either
+case.
 
-I just saw that you mentioned 2 commits fixing the 12xx and 1251 issue.
+Signed-off-by: Trevor Woerner <twoerner@gmail.com>
+---
+ meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-So do you guys want the package removal commit then? Keep me posted if so.
+diff --git a/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py b/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
+index 961d4ea31d0c..d727432d311f 100644
+--- a/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
++++ b/meta-yocto-bsp/lib/oeqa/selftest/cases/systemd_boot.py
+@@ -60,10 +60,12 @@ class Systemdboot(OESelftestTestCase):
+         if os.path.isfile(imagebootfile):
+             runCmd('rm -f %s' % imagebootfile)
+ 
+-        sysroot = get_bb_var('RECIPE_SYSROOT_NATIVE', 'wic-tools')
+-
+-        runCmd('wic cp %s:1/EFI/BOOT/bootx64.efi %s -n %s' % (systemdbootimage,
+-                                                           imagebootfile, sysroot))
++        oldpath = os.environ['PATH']
++        os.environ['PATH'] = get_bb_var('PATH', 'wic-tools') + ':' + os.environ['PATH']
++        envfile = os.path.join(get_bb_var('STAGING_DIR', image), 'genericx86-64', 'imgdata', image) + '.env'
++        runCmd('wic cp %s:1/EFI/BOOT/bootx64.efi %s --vars %s' % (systemdbootimage,
++                                                                  imagebootfile, envfile))
++        os.environ['PATH'] = oldpath
+ 
+         found = os.path.isfile(imagebootfile)
+         self.assertTrue(found, 'bootx64.efi file %s was not copied from image'
+-- 
+2.51.0
 
-Thanks,
-
-Yann
-
---000000000000b4e4c90649e890fd
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>I just saw that you mentioned 2 commits fixing the 12=
-xx and 1251 issue.</div><div><br></div><div>So do you guys want the package=
- removal commit then? Keep me posted if so.</div><div><br></div><div>Thanks=
-,</div><div><br></div><div>Yann</div></div>
-
---000000000000b4e4c90649e890fd--
 
