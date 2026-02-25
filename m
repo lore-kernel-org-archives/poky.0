@@ -1,100 +1,65 @@
-Return-Path: <richard.purdie@linuxfoundation.org>
+Return-Path: <peter.marko@siemens.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CEA5BC624D9
-	for <webhook@archiver.kernel.org>; Sun, 22 Feb 2026 10:19:37 +0000 (UTC)
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
- by mx.groups.io with SMTP id smtpd.msgproc02-g2.11136.1771755574849454538
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 00E71F357DA
+	for <webhook@archiver.kernel.org>; Wed, 25 Feb 2026 07:18:00 +0000 (UTC)
+Received: from mta-65-226.siemens.flowmailer.net (mta-65-226.siemens.flowmailer.net [185.136.65.226])
+ by mx.groups.io with SMTP id smtpd.msgproc01-g2.40691.1772003877302291940
  for <poky@lists.yoctoproject.org>;
- Sun, 22 Feb 2026 02:19:35 -0800
+ Tue, 24 Feb 2026 23:17:58 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=MbCOfI6I;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.42, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4837f27cf2dso28835075e9.2
-        for <poky@lists.yoctoproject.org>; Sun, 22 Feb 2026 02:19:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1771755573; x=1772360373; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=3qAZxfY0v5cs3U0IwiRgHQnnulBsiPSTj/Ii3b32uNM=;
-        b=MbCOfI6IJtkp+ybPdMDHnfso8cMhWYOUjasqQjuGV3sudrvoS7GHVEI8ffSZJc8ksv
-         z3Kul98BAStoRalq5XaleRbjHW54vBhrMh8FlhxU0wEuIAxidzL76W7gKKpeejKQsLUr
-         nf20kbZmqgv80nqjfB3YtQIRn9s4OxkWozOjM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1771755573; x=1772360373;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3qAZxfY0v5cs3U0IwiRgHQnnulBsiPSTj/Ii3b32uNM=;
-        b=gtya/qp1QjUsr+OjHjPXmZXelzq0NSPwSPSHs7qkivmRdsw/cEQd1H1XVYgNNwzKlz
-         OginqH1TJW/fBJmuy7jKxyrGIZQhELla/wzGwbRkYH2W9xn6KHP4q4PYmMlDDRAOcSOb
-         6Mfp+OycFydORgAecIGYAD0iEPNR8ewScPgYdfDZRwI5xDs6GW6dswE0Ki5cHS36Wis2
-         +yEUTEgBmuSwd1/qwrWJdZN+zTk+FCKGSO9wIo+rAWumMj6D0G0wWaZzWvnMKos2w5/V
-         MbAqs8EFGRV9o4ts7sBGXoxTyGzcuKdXsgxod0M/1nWmfJIJ6s3EBdVica0Lg+PrLyMn
-         QfIQ==
-X-Gm-Message-State: AOJu0YyB+QyWfBQqij04P/+QQ7orRqkG7I83ThL+xoPePqofEkCo9QaY
-	xpq676DiliZxb2Xe4A9HU7Wet1Aobm8rDDz2yzeO6S6/Vy99NcXKhJ8twWiAyh6eoFoM8zB0pSr
-	B/1lwXIY=
-X-Gm-Gg: AZuq6aIC4/ShPptUbvKYSGxkKluB0hUlo5YKJcBuZiAMCCtAw3hDE7Dy/2/IdegrN/o
-	8eTcojCsO4M/TI8IAqXNaEr72eTT4lkvX6+oHiGZ56VIw/JF86x4Rmz72C+g3H9iyYr933VMRWD
-	ssxpOYE8vZLO1XQk/cB4dc4VNIPQ9jDaoABKPZSzPmD9p/x3gjbaxipU6Td8OMwzBXY55grWoBJ
-	Bl1tdvCSVb09RXe62jTlqjxHJ0vy5DL5PABvGoLI84jiuNbgBdBKARBUq8cuFSI94miat+KhcTd
-	0Cq1QHzmbdEGLboiMN+Rh5RZydIw4VivyrDpJKR/RV1Nolg9EaeEleRGBPpz5B1joBOfXB85o8b
-	jP3lo8W8X9Ofb3axv632Y4TYEFKIcJGQ64N91U/usgZATUDL8tAv1Vb5DWY83gPFdMcARhqe76h
-	WcqH8OhWQU/tdg7Zkd//gS60tDPw5zm8ZtueWUyIF7zBI/0/Qc7qkqbALAhf0cuw==
-X-Received: by 2002:a05:600d:6409:20b0:483:78c5:d743 with SMTP id 5b1f17b1804b1-483a9637a19mr57340405e9.28.1771755572525;
-        Sun, 22 Feb 2026 02:19:32 -0800 (PST)
-Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:9947:54dc:f0e6:4b7b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43970d54760sm11280274f8f.35.2026.02.22.02.19.30
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 22 Feb 2026 02:19:30 -0800 (PST)
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+ dkim=pass header.i=peter.marko@siemens.com header.s=fm2 header.b=Lvh640F2;
+ spf=pass (domain: rts-flowmailer.siemens.com, ip: 185.136.65.226, mailfrom: fm-256628-20260225071753a8b2e83d7d0002074a-foymdk@rts-flowmailer.siemens.com)
+Received: by mta-65-226.siemens.flowmailer.net with ESMTPSA id 20260225071753a8b2e83d7d0002074a
+        for <poky@lists.yoctoproject.org>;
+        Wed, 25 Feb 2026 08:17:54 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
+ d=siemens.com; i=peter.marko@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=UITrNVWW4mISkl9W3HM2RGmZVgy+ykZmNttGze7+iKM=;
+ b=Lvh640F2kTL6I4UEfilbMjL1jxreFzk+VxScGWPusRogERMs1xbv4ol5ZJugtQxdY+i14e
+ 6bOtDcTYQK/g7qpAk6IgJegPZ+sV0rtWcR60GHeql67cVV13p6PPcYkL8SRVNumnZR8Z4KMM
+ cZNCk0B+26HhPvAulDd3BQ1JuDdg6sLjsu60y0kM5WtnEf3D/lCvvwAARRL6cIAsc9Bo3dla
+ C617WuaxcW3aN6n4eiTg0VY+C2RE2ThstDx0tCg+xck6BSB6GlafbS7kxloTjqmf4MDVD0Fy
+ GNFADgjHBIFCQq6r7p5Vc91pdnKjv9cxbOxUkG8H8/6O/Nn7Pop/uLKQ==;
+From: Peter Marko <peter.marko@siemens.com>
 To: poky@lists.yoctoproject.org
-Subject: [PATCH] poky: Update after core default changes
-Date: Sun, 22 Feb 2026 10:19:29 +0000
-Message-ID: <20260222101929.3396560-1-richard.purdie@linuxfoundation.org>
-X-Mailer: git-send-email 2.48.1
+Cc: yoann.congal@smile.fr,
+	paul@pbarker.dev,
+	Peter Marko <peter.marko@siemens.com>
+Subject: [meta-yocto][scarthgap][PATCH] poky.conf: bump version for 5.0.16
+Date: Wed, 25 Feb 2026 08:18:52 +0100
+Message-Id: <20260225071852.10169-1-peter.marko@siemens.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-256628:519-21489:flowmailer
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Sun, 22 Feb 2026 10:19:37 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13839
+ <poky@lists.yoctoproject.org>; Wed, 25 Feb 2026 07:17:59 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13840
 
-These changes were moved into defaultsetup.conf and therefore are no longer
-needed here.
+From: Peter Marko <peter.marko@siemens.com>
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+rc1 and rc2 were built with old DISTRO_VERSION.
+
+Signed-off-by: Peter Marko <peter.marko@siemens.com>
 ---
- meta-poky/conf/distro/poky.conf | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ meta-poky/conf/distro/poky.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 68e7ca768fd..93759c73f44 100644
+index 62d9f0d..59d8f69 100644
 --- a/meta-poky/conf/distro/poky.conf
 +++ b/meta-poky/conf/distro/poky.conf
-@@ -13,7 +13,7 @@ TARGET_VENDOR = "-poky"
- LOCALCONF_VERSION = "2"
- 
- # Override these in poky based distros
--POKY_DEFAULT_DISTRO_FEATURES = "opengl ptest multiarch wayland vulkan"
-+POKY_DEFAULT_DISTRO_FEATURES = ""
- POKY_DEFAULT_EXTRA_RDEPENDS = "packagegroup-core-boot"
- POKY_DEFAULT_EXTRA_RRECOMMENDS = "kernel-module-af-packet"
- 
-@@ -62,11 +62,6 @@ INHERIT += "poky-sanity"
- #ERROR_QA:append = " ${WARN_TO_ERROR_QA}"
- 
- require conf/distro/include/poky-world-exclude.inc
--require conf/distro/include/no-static-libs.inc
--require conf/distro/include/yocto-uninative.inc
--require conf/distro/include/security_flags.inc
--require conf/distro/include/yocto-space-optimize.inc
--INHERIT += "uninative"
- 
- BB_SIGNATURE_HANDLER ?= "OEEquivHash"
- BB_HASHSERVE ??= "auto"
+@@ -1,6 +1,6 @@
+ DISTRO = "poky"
+ DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
+-DISTRO_VERSION = "5.0.15"
++DISTRO_VERSION = "5.0.16"
+ DISTRO_CODENAME = "scarthgap"
+ SDK_VENDOR = "-pokysdk"
+ SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADATA_REVISION}', 'snapshot')}"
 
