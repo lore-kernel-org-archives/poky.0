@@ -1,137 +1,92 @@
-Return-Path: <mikko.rapeli@linaro.org>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E5D61062874
-	for <webhook@archiver.kernel.org>; Wed, 11 Mar 2026 12:10:33 +0000 (UTC)
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
- by mx.groups.io with SMTP id smtpd.msgproc02-g2.19502.1773231027508768724
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AAE711062884
+	for <webhook@archiver.kernel.org>; Wed, 11 Mar 2026 12:13:53 +0000 (UTC)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+ by mx.groups.io with SMTP id smtpd.msgproc01-g2.19975.1773231226953245528
  for <poky@lists.yoctoproject.org>;
- Wed, 11 Mar 2026 05:10:27 -0700
+ Wed, 11 Mar 2026 05:13:47 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=PEd1hg0U;
- spf=pass (domain: linaro.org, ip: 209.85.214.176, mailfrom: mikko.rapeli@linaro.org)
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ae3a2f6007so82313805ad.2
-        for <poky@lists.yoctoproject.org>; Wed, 11 Mar 2026 05:10:27 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=awYtU6Kf;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.128.52, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4852afd42ceso46637395e9.2
+        for <poky@lists.yoctoproject.org>; Wed, 11 Mar 2026 05:13:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1773231027; x=1773835827; darn=lists.yoctoproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=2sk5dMraYGc7HEW78k3DmozKaYi1pMwMRRCIbdO4nmE=;
-        b=PEd1hg0Uv2Q4OXD05DkMBA1QBPSoRjFqUkbQNHn/HAbUbAoca7xK7KSQ+N7t7ssUFP
-         emr0MKPqPRZrybwkAlWHcbBKFJjYS1t+VI0tO/FKlucoP3J55JTWHoThGJ1WbnWTmU3V
-         Mxsrc8emMaiTDCBzo76S63Usbgihqwob5DihulViyQJIPl/Q3+EwuKVvxFaZ94yIFVMy
-         jJnkxkWhCvU3BRs9VuWOuzRRwV4OCche+oE3joOP2Ib4YTtQnRlAouwjox9wKT/+PiUc
-         kiFG+34uZ/iV6fqfeweH5ToZs5qW2CeLpukqQ3pN0AjRRV+DVaBjZHyCcnITyIQEupiS
-         XDrQ==
+        d=linuxfoundation.org; s=google; t=1773231225; x=1773836025; darn=lists.yoctoproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=UxQR4Rs+ox9K2wIWJdjtyCm/I4b4QCiKvRqOY3FDQ+E=;
+        b=awYtU6Kf8fKa/TdppanBYZY1rv1KRQrcYzIquSbpN1XV17+KneR1zuLDDuZB8P078E
+         vQ/ODaiEqmFhDw7xReo1+tWYPOq4H9YsQm8raEXhDQD8RkfbffuQtJgUQ5ilAqonS439
+         0xbn3MO7FL3bM1ChKXngU+fkhy8Gt8L5jLVys=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773231027; x=1773835827;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=2sk5dMraYGc7HEW78k3DmozKaYi1pMwMRRCIbdO4nmE=;
-        b=qU6Df9VRZS+KINu3XSIlUx7iwS1taMMujt8EiyxwNpZQBapF1/jTja8elck19+ud45
-         wBqGOj4OXe3SfaLKDBm4P5IB5Dej2Sk9cv3qWAItmrYmYReo9wvmXo+1a0zqM/28unXn
-         dDi79LiO5l4e6EgxfzwxrLEE1+BDgAXX1FZQZUK6IAyP+OdR63c73c6X6fvGTDFeWV/E
-         gDbPdx7+rRP4MwgjLe3shWnDNOv52hzK8MYXdj7Fix5SS5hf2/RIYnRaGFq53fGl0AVK
-         z4HNvxzuGqyWUJVEYmfjkW4duQu3g4hLEKc2PrjXTe+NMx87kMvLJmfUWLAwpfwD4zvy
-         5G5Q==
-X-Gm-Message-State: AOJu0YxquUhGHQb/wy45uuoqmgUJe677aqz3IY8C6uGgA7BVe+YHwGBC
-	1hj8iy5ou/XbWvM+hj2Fs1E99BHGUosVOhtIshaHeHvjM+oSogml55mEO5tNC5iU7vg=
-X-Gm-Gg: ATEYQzy9QR2dEtMn07RyJq34d/R2LRVlYuGPNLYhpZvw0HuqI/FbsbnKfLHFJ3arCQE
-	JWsVu/z9NuDah429sMmv1o3mGg6kN7b0SHZJJYDQcgMdcz6aXNW29eDimQ1uR3lAe1Ug3L63owX
-	m3z0le62CqBQ+eZnT80MzK6FqYOllSNVTJ1Wg50g3oUSSv/Pa9N27ZVhjFmgkMp0wzFSKqze+CM
-	hW4lI46poILLP6zSXVKeAwjltgHglMe5LEqiiwokEwPzyqjSCOc6tQRqzz3oC/tEBUAR0nARRFB
-	Ip7UZdif2FxO0xF6pJhvOBc7O9o/ch0vrrcCN5MlQyBNANqF0vIrUEuGACFHZgcJrY5lBy5+CyP
-	dZFF6ZR7COXJ9F4dAWnRap2MEw1lkklG7lQuy84/3s78DGPHsQQH/DY9S0vjGugCTxdK1xvYG74
-	BOFZXPUdF/ESsQdndZGY1pRbkWltXCX5SKuvyQs6mzq6Ue9awIj1pZlCkj
-X-Received: by 2002:a17:902:d2cb:b0:2ae:a70a:2af2 with SMTP id d9443c01a7336-2aeae882456mr23356415ad.29.1773231026627;
-        Wed, 11 Mar 2026 05:10:26 -0700 (PDT)
-Received: from nuoska (87-100-249-247.bb.dnainternet.fi. [87.100.249.247])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2aeae24aab9sm22945095ad.30.2026.03.11.05.10.25
+        d=1e100.net; s=20230601; t=1773231225; x=1773836025;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UxQR4Rs+ox9K2wIWJdjtyCm/I4b4QCiKvRqOY3FDQ+E=;
+        b=bhrM/W8MqFWrFemfgIzkWQ4Pc6IPaDkZBfa33zQOaKVKyAQ01tDfzgnz0/TNDK97sQ
+         v2+t6ZV8vkvrMT7nQOsGI4Fwr3hmg5Nw4/cObpH3Gbt3Bbw3kVqYIi6qGJZjC8RfEgpD
+         XZ7eA7YDH7CB64Eqds40UXxghPKz15oxUo8dTeq4dw3n717ow73sX2o4jh3Pnn4P5RI+
+         OCZV3JvqR3VRKBkr4sls+BY9e3FTgha+6sU/HC2nUTj4T4XkojqFvcCLiE50ls9kk8sH
+         ivv8X6AnFD4pzgyKtVKHSHxBgb2Ph48yFrmvHqzoGUAbAMMkCgGg1u4CzTZuMqjX+wRr
+         FpOQ==
+X-Gm-Message-State: AOJu0YzNXMte2t5w18VcIRBK8oUd4VQYAFdtuV/4ufcyLF7EsEocCHDk
+	WcGx1ljWfLq405Lj8zgArwzcigMajiloo5qHCssXwDecE8NCq2QSEeHmY55s8h5vZDs=
+X-Gm-Gg: ATEYQzw0jlIgudhwtkq6tzyI2GLl6GelYAC3UocCzURHsTI/410kLcWmBkoilDUesrc
+	3xecyqqyNPF/Mdmr2zZzQbIkGSmQw9vaGgGnTn6mHiqNvFrnMEr0dxvxnobQY+ocp8Am6wz0Dlm
+	o+eMr7kpQxjLW9hzT7zfe92lAleA1/P9kOCTnfbCmIyxoQ6rnb5/v7CjcpbGs0h3QDmWtWYxoNt
+	NCIaC6OW9g3YELfgJ/qPl8oF2ohVVHWqrJBkxWWsePL6Zm+pbNabCewXW3IoKwV8wOZMWrCPx5Y
+	qDNOjt9sEKAL9wCvTu612vP3hCOdNf99mnAUWllUmcgSZOQs5j2IPehhT3JHIWc8E1skt16BAiw
+	KVsmjNyglIAFstuRCcNxjnN5oaZgRsh9lI304DfNthBMLx+lFhQwwZ5KLywy5+oHEdpqJ39flhj
+	9/j+HilqazbI0LQXV1Ng+KfBDyjgiT6V/3KBEFot3LoJtjei1ltzTQzl8mYmCGMwcjTJ4voDxf/
+	BWtlJedQqXQJYc=
+X-Received: by 2002:a05:600c:1f10:b0:485:379b:57bb with SMTP id 5b1f17b1804b1-4854b0a413emr42698755e9.3.1773231225176;
+        Wed, 11 Mar 2026 05:13:45 -0700 (PDT)
+Received: from ?IPv6:2001:8b0:aba:5f3c:7fc5:b1af:c486:ad0b? ([2001:8b0:aba:5f3c:7fc5:b1af:c486:ad0b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-48541b6f708sm213569755e9.11.2026.03.11.05.13.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 11 Mar 2026 05:10:26 -0700 (PDT)
-Date: Wed, 11 Mar 2026 14:10:22 +0200
-From: Mikko Rapeli <mikko.rapeli@linaro.org>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: poky@lists.yoctoproject.org
+        Wed, 11 Mar 2026 05:13:44 -0700 (PDT)
+Message-ID: <2559713e813caeb132236d19744e3eba5b41728c.camel@linuxfoundation.org>
 Subject: Re: [poky] [PATCH] genericarm64.conf: fix qemu testing with
  testimage.bbclass
-Message-ID: <abFbrkd8o7iYxUkF@nuoska>
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: Mikko Rapeli <mikko.rapeli@linaro.org>
+Cc: poky@lists.yoctoproject.org
+Date: Wed, 11 Mar 2026 12:13:44 +0000
+In-Reply-To: <abFbrkd8o7iYxUkF@nuoska>
 References: <20260311113616.249506-1-mikko.rapeli@linaro.org>
- <f3f3d82f4f70370b4904d65467748210e5cd1c84.camel@linuxfoundation.org>
+	 <f3f3d82f4f70370b4904d65467748210e5cd1c84.camel@linuxfoundation.org>
+	 <abFbrkd8o7iYxUkF@nuoska>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.0-1ubuntu0.1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f3f3d82f4f70370b4904d65467748210e5cd1c84.camel@linuxfoundation.org>
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 11 Mar 2026 12:10:33 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13856
+ <poky@lists.yoctoproject.org>; Wed, 11 Mar 2026 12:13:53 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13857
 
-Hi,
+On Wed, 2026-03-11 at 14:10 +0200, Mikko Rapeli wrote:
+> > slirp, is a preference thing and I'd like to stay consistent
+> > between
+> > the qemu setups. It is not the default.
+>=20
+> It is the default on all builds and configuration I use and on meta-
+> arm so I would rather set this by default for genericarm64. Since
+> yocto upstream does not test genericarm64 I think this should be the
+> default.
 
-On Wed, Mar 11, 2026 at 11:53:25AM +0000, Richard Purdie wrote:
-> On Wed, 2026-03-11 at 13:36 +0200, Mikko Rapeli via lists.yoctoproject.org wrote:
-> > genericarm64 machine has supported qemu for a long time but
-> > the default build config failed with testimage.bbclass to boot
-> > and run oeqa runtime tests.
-> 
-> The key question is whether genericarm64 is meant for real hardware or
-> qemu.
+I don't, sorry.
 
-Both, this has always been the case.
-
-> When you run testimage against an image, the assumption has been it
-> would be a real hardware setup, not a qemu one. If you wanted qemu,
-> you'd have used qemuarm64.
-
-Not true, real target images can be booted with qemu if there is enough
-BSP side support for qemu HW and if config options for qemu etc are
-correct.
-
-> These changes are basically turning genericarm64 into qemuarm64 :/.
-
-This has always been the case.
-
-> > TESTIMAGEDEPENDS needs qemu utilities so that they are correctly
-> > installed to image sysroot. For qemu machines these are set in
-> > testimage.bbclass but remain unset for non-qemu machines like
-> > genericarm64.
-> 
-> This is going to be annoying if you're trying to test real hardware
-> with testimage. I can see the arguments both ways. This is one of the
-> differences between the two machines though and I'm not sure it makes
-> sense to make them match.
-
-On genericarm64 which I help maintain, I will instruct real HW testing
-to use testexport.bbclass. Real target HW is rarely next to the build
-machines so using the exported test framework to run the tests is
-preferred. In our test automation builds we do this and I can make the
-testexport.bbclass default on all generiarm64 builds.
-
-> > TEST_RUNQEMUPARAMS needs snapshot since default genericarm64 image
-> > is a compressed wic.zst, nographic to run qemu without connected
-> > display which is better on headless build machines, and slirp which
-> > also works on much broader set of build machines than the default
-> > tap networking.
-> 
-> You shouldn't need to use nographic with the changes I'm proposing to
-> how runqemu is working, even on a headless system.
-
-nographic works out the box now and all tests pass. Same with
-runqemu, nographic boot works well on headless console machines
-already now.
-
-> slirp, is a preference thing and I'd like to stay consistent between
-> the qemu setups. It is not the default.
-
-It is the default on all builds and configuration I use and on meta-arm
-so I would rather set this by default for genericarm64. Since yocto
-upstream does not test genericarm64 I think this should be the default.
+I've made my views on slirp and various other aspects of this clear
+multiple times. I'm wading into this again.
 
 Cheers,
 
--Mikko
+Richard
 
