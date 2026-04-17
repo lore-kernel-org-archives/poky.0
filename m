@@ -2,191 +2,96 @@ Return-Path: <mikko.rapeli@linaro.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E958F43689
-	for <webhook@archiver.kernel.org>; Fri, 17 Apr 2026 09:25:38 +0000 (UTC)
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
- by mx.groups.io with SMTP id smtpd.msgproc02-g2.40818.1776417934264726682
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E68DF43689
+	for <webhook@archiver.kernel.org>; Fri, 17 Apr 2026 09:35:08 +0000 (UTC)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+ by mx.groups.io with SMTP id smtpd.msgproc02-g2.40922.1776418500146966569
  for <poky@lists.yoctoproject.org>;
- Fri, 17 Apr 2026 02:25:34 -0700
+ Fri, 17 Apr 2026 02:35:00 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linaro.org header.s=google header.b=OCaVf4gv;
- spf=pass (domain: linaro.org, ip: 209.85.216.46, mailfrom: mikko.rapeli@linaro.org)
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-35d90833cacso318296a91.2
-        for <poky@lists.yoctoproject.org>; Fri, 17 Apr 2026 02:25:34 -0700 (PDT)
+ dkim=pass header.i=@linaro.org header.s=google header.b=kowUq+CW;
+ spf=pass (domain: linaro.org, ip: 209.85.210.173, mailfrom: mikko.rapeli@linaro.org)
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-82f8b60e54dso335697b3a.2
+        for <poky@lists.yoctoproject.org>; Fri, 17 Apr 2026 02:35:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1776417934; x=1777022734; darn=lists.yoctoproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=m61bBqxtKI8dXCJ4gH6W0dU2JeNyZadwM4iRn82ruA0=;
-        b=OCaVf4gvZ4ShPlRgbtAxDPS8vdx0zGFCSXqrlZ0TjX2SYbLHe9SWfqezh48crU5TXN
-         1fTg1a5wOTrotHDzVf6RsGOfrkba+eMQolwroLmr24YZiGfl4wbMg+pnAeIaVcLoz/LR
-         FA9wRmawzwXEiYDyZ0uYj52xw7NvzeofWLz3VoqFpdj+cRTWfcHGoqY9ylTqJILOdqji
-         SGZsAubN+QXBVODyFpSOYM7NeCwoCP15ZHBVzUqe6DowZQZGR9GPNCQi6sgS1EaJ9Q4D
-         7xulFDisrbz5u0U5+JfufrbjF0ZLqRQCDTasERT6B5EwUfDKHa9+GJBS4hO6RNwFC80L
-         rjNg==
+        d=linaro.org; s=google; t=1776418499; x=1777023299; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=7/Kxjabi83ls6tcrAM3eSK1bbJQwcT96ZhzvOtOT8v4=;
+        b=kowUq+CWJDx9m5T3bbON+T1cqE9C9uNgsqjWGlyYx3gGyBTDVRzaI00IsUDqrAPPuA
+         uTS2d+ImjrUBnrwwgyOQ0LMkCNaSwsTMIHVHSl4/Ru/JTS7n0OsQiU0YcPnbg6bRw1fK
+         4FtjPnLhMj2I0KpsZtnTsfx8V3xSkZvBclHnyi59Qrkqe7mKeo3sU53iyzCNTI1gALGk
+         S3XL07vQQIZA3cQ5G74pqwv4mxPpurPWuQgJwuoIPsf7ag3772Xrt9xDMK0kYc81N/mx
+         F/JwLFOzvHjNVvKvEBJGUvzBXPXNHJc8JS4W/LnU3bCIenB3yTNZRjy6H0xPMSbf2GmK
+         R1CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776417934; x=1777022734;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=m61bBqxtKI8dXCJ4gH6W0dU2JeNyZadwM4iRn82ruA0=;
-        b=iW/P2Sw7kjpkapB0e/uE0KAcGpjHj0O2YENiKy/KSZa5v8XjHT5mWqF0Z43TcKDW9O
-         WsGBnZ3c1dIvk8AVR1vXuY+vDZG2LV9nXg4p7uyWAOBC4LuJWqUZe/6/Ayn4hD/EKqH4
-         q9ZBql46cM1TYSGXrJEZ5nAY+isqV+pLedtaOD57AP4GbBFw8j0Aq48a2/uiQt5ANknX
-         px5GfV9+6U3Emueq5lAN0AGYs/OVG8fgOl9UpwWxh6bXK/WxK38DCwdXtygZy3eyDAmy
-         IpS/mutvJ9YXLRPQ26E7WMaeWl8GO0QBUOrFTUGVf788BlZs7Iumz2/tLgdo/awEPUj9
-         MR6w==
-X-Gm-Message-State: AOJu0YwstAAXNRuEmh9+C+2bWd+I4QqgWPbVfTfRShglJI6wXnVhIy54
-	pC0MD2Mt/WjS9Rj92tEAhF5AEra1pojRLRQWcAChvRW8P/lFC1lp1mqNeR8KE5TmOkA=
-X-Gm-Gg: AeBDiessD04j9Vi1ASnN8olr+b8sRKMs34uCph5aEEeHJMJMIGWR/xko0aHaxBkENlc
-	c02+6zCTBffSoOfh/mRYTWxuA4/l98u8PUHtapN/g14aG69jXIQEEOp4spFc6cwXbzy2SMonre0
-	BWCMr1np4PNpS00CXADD6VhYLMgBIHTEQevXY0wIo92iGyvEQuYXTjCFnj57sAjSU++WuYcBn/m
-	tZy9D1+MbdRZkfqArRYSnZ6CdG9hgJLA9YhsAzHT2wovFxmsKuCI9BGCq9TsRNL+U2Hkrvuswa9
-	vd+nAuh1oQIHXS/GMqE1ddbtHfJzdU4YQBq357rh5U/FsMbVyee+pJxYQOqfht/Qco88sbgm+OG
-	m+7j4IV3QB57HPqLPXkDhHVIFISMr+iG4vgRfWanQyrzk0mAD9fanRRMzl+MeXJ+ODnHCjTx4rg
-	KnMgna3ZnUcV62q/E6ccUKJxm7xCU9ACi/qHUZXeh8aEtLDkrTaLoRvhmDW7Yj4k9Z48s8VhXK
-X-Received: by 2002:a17:90b:3d86:b0:35c:a8f:5c5f with SMTP id 98e67ed59e1d1-361403f0ee8mr1962510a91.8.1776417933533;
-        Fri, 17 Apr 2026 02:25:33 -0700 (PDT)
-Received: from nuoska (78-27-71-225.bb.dnainternet.fi. [78.27.71.225])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36140fc5d94sm2162426a91.2.2026.04.17.02.25.31
+        d=1e100.net; s=20251104; t=1776418499; x=1777023299;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7/Kxjabi83ls6tcrAM3eSK1bbJQwcT96ZhzvOtOT8v4=;
+        b=RxRqpRYz+NJOk5/WdBcckN9u4l1XB9+TdFizJ9xmlmS/1gWbm07qe+NA7suMj0ajYZ
+         6Nus4lvjzDLWkpcB7lpKMKxRdToDYfCjq0CNHY4BDUu4SLEj0YyooSvKe2yp6zwZQrXN
+         KDEJWzk5lYsGne2VSkuFwcZar4QQ3C4MB4DvzUKQWjYV2eqKu0wwsOsapAXce0sTnez6
+         +xXvQthrO1qaAvKlK2tCZq7GcyUirI3SgW5Ih2KfS44Dkm/lXj+3WAEd0tYaD4wxralK
+         gsILFlntcD7ryuIybX8GhrihDxG0gYDHhc5je18P02Rkzx0GoOxHgxSKaqOLhwZ88CGn
+         tVIQ==
+X-Gm-Message-State: AOJu0YzC/FfN0x+XtpnNdBPOiKaODNzz+LZ0rNF2bT7OhoiR65t5FGD9
+	lBWqpMnPfHGAMvpZHIGCDkiqoKVLVNVNKSLBC5NFQWyodigh0r6WSmwRn7iNkmfj8SMgVskRTer
+	KctRn
+X-Gm-Gg: AeBDievDTBuaD9o1xM8CNAbEdIZsgcbzMyoNpnvt4s+eZk6q/dQW36Ny7/FJt24lUVX
+	rAdWPPkwDFN4cqp25nurwfuUbknAhYZwg4nKu6v5/L53h6Pe/bxS/LM1gqqHUdJjTQD/ROYRjAa
+	cY3mTOtNMcJ9I8qaC1x+7KPWCbdwybPQTmgV5xkvUHPcOkPgg9BUFu/PgdDhNbam/D4vG+sC7hv
+	JagLOGSprYm6/LBUcSoJGY4syKro8oQf2uYnKqCFm9gpIygWoA8X+KnRX1cMgGMahHZJWOBjsaF
+	sRrNvoHhk2F8nY04oK3oY4DzkDjLj9OrTQXIDE93sXz6L05fNioB1QUFavVPRxxc8NPhEd3DV0V
+	861zISN8vTkfUfvIMTl0QnJsf8RPM/LWlKWWbbYI/ffA25zZ92zk4wCq7GcmDQ1V8CEUoAFFh4I
+	wJ7dDY2qNtA2iaxJcAiTbEwesVIdOdQH32cIE6BjcQ7y1DnwwUcNVhc9me3/p+6MZUBd6JdYbXj
+	sCpf4Tl89fGIzv6
+X-Received: by 2002:a05:6a00:3498:b0:82f:4566:bbdf with SMTP id d2e1a72fcca58-82f8c862662mr2278036b3a.14.1776418499482;
+        Fri, 17 Apr 2026 02:34:59 -0700 (PDT)
+Received: from nuoska.taservs.net (78-27-71-225.bb.dnainternet.fi. [78.27.71.225])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-82f8ebb3fa2sm1356206b3a.29.2026.04.17.02.34.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 17 Apr 2026 02:25:33 -0700 (PDT)
-Date: Fri, 17 Apr 2026 12:25:29 +0300
+        Fri, 17 Apr 2026 02:34:59 -0700 (PDT)
 From: Mikko Rapeli <mikko.rapeli@linaro.org>
-To: Richard Purdie <richard.purdie@linuxfoundation.org>
-Cc: poky@lists.yoctoproject.org, Bruce Ashfield <bruce.ashfield@gmail.com>
-Subject: Re: [poky] [PATCH v3] genericarm64 core-image-initramfs-boot: remove
- some kernel drivers
-Message-ID: <aeH8idgVfQ5I0UqT@nuoska>
-References: <20260413072715.20701-1-mikko.rapeli@linaro.org>
- <026091996b0e9f36733c8933fdf6f872625be247.camel@linuxfoundation.org>
+To: poky@lists.yoctoproject.org
+Cc: Mikko Rapeli <mikko.rapeli@linaro.org>
+Subject: [PATCH] genericarm64.conf: increase size limit
+Date: Fri, 17 Apr 2026 12:34:42 +0300
+Message-ID: <20260417093442.2211911-1-mikko.rapeli@linaro.org>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <026091996b0e9f36733c8933fdf6f872625be247.camel@linuxfoundation.org>
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 17 Apr 2026 09:25:38 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13907
+ <poky@lists.yoctoproject.org>; Fri, 17 Apr 2026 09:35:08 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13908
 
-Hi,
+More kernel modules, firmware files etc increase
+size of initramfs over the current limit. Other options
+to reduce initramfs size have been discussed but this
+is the acceptable solution for now.
 
-On Fri, Apr 17, 2026 at 10:10:07AM +0100, Richard Purdie wrote:
-> On Mon, 2026-04-13 at 10:27 +0300, Mikko Rapeli via lists.yoctoproject.org wrote:
-> > genericarm64 supports a lot of HW and thus large collection of kernel
-> > drivers are enabled and installed to images by default.
-> > Subset of the kernel drivers are needed in initramfs to mount rootfs
-> > from local mass storage devices. This increases initramfs size a lot
-> > and with new kernel config updates even more. Thus remove kernel
-> > drivers from initramfs image which are not needed for mounting
-> > rootfs from local mass storage devices. GPU, Bluetooth, NFC,
-> > sound, networking etc support is not needed in the initramfs.
-> > 
-> > According to buildhistory core-image-initramfs-boot size is reduced
-> > from 118 to 83 Mb.
-> > 
-> > Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
-> > ---
-> > �.../images/core-image-initramfs-boot.bbappend | 28 +++++++++++++++++++
-> > �1 file changed, 28 insertions(+)
-> > �create mode 100644 meta-yocto-bsp/recipes-core/images/core-image-initramfs-boot.bbappend
-> > 
-> > v3: added PATHS_TO_REMOVE variable so that it can be customized
-> > ��� as suggested by Jose Quaresma <quaresma.jose@gmail.com>
-> > 
-> > v2: https://lists.yoctoproject.org/g/poky/message/13894
-> > 
-> > diff --git a/meta-yocto-bsp/recipes-core/images/core-image-initramfs-boot.bbappend b/meta-yocto-bsp/recipes-core/images/core-image-initramfs-boot.bbappend
-> > new file mode 100644
-> > index 000000000000..2298c2f94740
-> > --- /dev/null
-> > +++ b/meta-yocto-bsp/recipes-core/images/core-image-initramfs-boot.bbappend
-> > @@ -0,0 +1,28 @@
-> > +POSTFUNCS = ""
-> > +POSTFUNCS:genericarm64 = "reduce_initrd_size"
-> > +
-> > +PATHS_TO_REMOVE = ""
-> > +# these kernel modules are not needed for rootfs mount from local mass storage
-> > +# and can be loaded from main rootfs by udev
-> > +PATHS_TO_REMOVE:genericarm64 = "\
-> > +��� ${WORKDIR}/rootfs/${libdir}/modules/*/kernel/drivers/bluetooth \
-> > +��� ${WORKDIR}/rootfs/${libdir}/modules/*/kernel/drivers/gpu \
-> > +��� ${WORKDIR}/rootfs/${libdir}/modules/*/kernel/drivers/media \
-> > +��� ${WORKDIR}/rootfs/${libdir}/modules/*/kernel/drivers/net \
-> > +��� ${WORKDIR}/rootfs/${libdir}/modules/*/kernel/drivers/nfc \
-> > +��� ${WORKDIR}/rootfs/${libdir}/modules/*/kernel/drivers/usb/gadget \
-> > +��� ${WORKDIR}/rootfs/${libdir}/modules/*/kernel/fs/fuse \
-> > +��� ${WORKDIR}/rootfs/${libdir}/modules/*/kernel/net/bluetooth \
-> > +��� ${WORKDIR}/rootfs/${libdir}/modules/*/kernel/net/bridge \
-> > +��� ${WORKDIR}/rootfs/${libdir}/modules/*/kernel/net/netfilter \
-> > +��� ${WORKDIR}/rootfs/${libdir}/modules/*/kernel/net/nfc \
-> > +��� ${WORKDIR}/rootfs/${libdir}/modules/*/kernel/sound \
-> > +"
-> > +
-> > +do_rootfs[postfuncs] += "${POSTFUNCS}"
-> > +reduce_initrd_size () {
-> > +��� if [ -n "${PATHS_TO_REMOVE}" ]; then
-> > +������� rm -rf ${PATHS_TO_REMOVE}
-> > +��� fi
-> > +}
-> > +
-> 
-> This is a tough one. There are some simple things like "POSTFUNCS"
-> being a bit generic as a name. I also worry a little this may trip up
-> yocto-check-layer with the added variable POSTFUNCS, even if it is
-> empty. I think if we're creating this as API, listing the directories:
-> 
->     drivers/bluetooth \
->     drivers/gpu \
->     drivers/media \
->     drivers/net \
->     drivers/nfc \
->     drivers/usb/gadget \
->     fs/fuse \
->     net/bluetooth \
->     net/bridge \
->     net/netfilter \
->     net/nfc \
->     sound \
-> 
-> and then adding the prefix would probably be cleaner too. Those are all
-> easier tweaks.
-> 
-> The bigger challenge is "generic" kernel adding all this. Ideally you
-> wouldn't install these things to the initramfs in the first place, then
-> you wouldn't need to delete them. I'm not sure how you could
-> detect/filter and install only the subset of modules you want, or how
-> that list of modules would be maintained/updated.
+Signed-off-by: Mikko Rapeli <mikko.rapeli@linaro.org>
+---
+ meta-yocto-bsp/conf/machine/genericarm64.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-kernel-modules correctly get installed to all images through MACHINE_EXTRA_RDEPENDS.
-This is flexible to drivers being built-in or modules. IMO initramfs
-image should not be explicitly tied to the exact kernel config and thus
-should not depend on the exact set of kernel module packages. A slightly more abstract
-interface between kernel and initramfs image is needed, and "kernel-modules"
-decent at that. This works well for the real rootfs but is not optimal for
-initramfs.
-
-> A different package to "kernel-modules" could be one idea, how you
-> construct that, again, I'm less sure. The above filter list could be
-> used to iterate the modules and filter by path I guess?
-
-I had a patchset for this but ran into issues with it.
-
-https://lists.openembedded.org/g/openembedded-core/topic/112087526#msg214354
-
-I don't see how that can move forward though.
+diff --git a/meta-yocto-bsp/conf/machine/genericarm64.conf b/meta-yocto-bsp/conf/machine/genericarm64.conf
+index be34a56..e10bec9 100644
+--- a/meta-yocto-bsp/conf/machine/genericarm64.conf
++++ b/meta-yocto-bsp/conf/machine/genericarm64.conf
+@@ -29,7 +29,7 @@ MACHINE_EXTRA_RRECOMMENDS += "\
+     linux-firmware-qcom-vpu \
+ "
+ # increase default size since we install a lot of kernel drivers and firmware by default
+-INITRAMFS_MAXSIZE = "280000"
++INITRAMFS_MAXSIZE = "350000"
  
-> Now we've merged the firmware update, the builds are breaking but some
-> of these kinds of changes are probably too late for the release/LTS.
-> 
-> Perhaps we just have to increase the size of the initramfs for now :(
+ # Use an initramfs and populate it with the kernel modules and key firmware
+ INITRAMFS_IMAGE ?= "core-image-initramfs-boot"
+-- 
+2.51.0
 
-Sigh, alright then.
-
-Cheers,
-
--Mikko
 
