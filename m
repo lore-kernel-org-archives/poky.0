@@ -1,179 +1,124 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <alex.kanavin@gmail.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EB008FA1FFA
-	for <webhook@archiver.kernel.org>; Wed, 22 Apr 2026 21:23:40 +0000 (UTC)
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
- by mx.groups.io with SMTP id smtpd.msgproc02-g2.93316.1776893018360232426
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54C78F99360
+	for <webhook@archiver.kernel.org>; Thu, 23 Apr 2026 09:35:53 +0000 (UTC)
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+ by mx.groups.io with SMTP id smtpd.msgproc01-g2.15755.1776936948364878956
  for <poky@lists.yoctoproject.org>;
- Wed, 22 Apr 2026 14:23:38 -0700
+ Thu, 23 Apr 2026 02:35:48 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20251104 header.b=apyiJ08P;
- spf=pass (domain: gmail.com, ip: 74.125.224.46, mailfrom: raj.khem@gmail.com)
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-651c7ddf514so5562195d50.1
-        for <poky@lists.yoctoproject.org>; Wed, 22 Apr 2026 14:23:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776893017; cv=none;
+ dkim=pass header.i=@gmail.com header.s=20251104 header.b=gVoC5JIU;
+ spf=pass (domain: gmail.com, ip: 209.85.222.173, mailfrom: alex.kanavin@gmail.com)
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-8f0a87e23daso121659885a.1
+        for <poky@lists.yoctoproject.org>; Thu, 23 Apr 2026 02:35:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776936947; cv=none;
         d=google.com; s=arc-20240605;
-        b=ImXnCQNNJoEVRzkJ526ZSHC2UVmChyEhVbNwtbwB7L8SkRg7ZAz1tyn3sfIWlI+pGR
-         tND6g/zIVovbAb2stRC4s6KR24yKKwC6Vz9vcQblJph/zHKhj9awXsfAzSaYI7Iz/fpF
-         27mXSgMrJ5sdcAqwgiCwLnoDWcwHPpaUc3nvbd5mO4/2FXYLYTn7aBnHShf6wwjJL8Dr
-         PmqHpXCCQld0PTurG8Owwk9jHSx+rifRVNgByfrMzQmcPDv6kvUUi/9pNYXmOvdpVlRV
-         8TRLcyBBgewHX1N5zLjtPrrzG+REwjtefzWebcywIxklnibSQJlRKNpy70EJfVOYNBiE
-         gSkQ==
+        b=dt11tOtHgSyptyQHnetC9AywKBvB7BpL/YkRJqgr7tI4fmx/khAcTkkJUaOXKixNax
+         03P+IWxRzvWBEsuDEESlZI0SxN3Bvsb5wJez4OXX0w2KlsGiEDggd8TLTInVbxIRsljq
+         gukE35cJgV2VNxO2B7Rhcp8xbUpf8wbJbJwoo4Rk8Cby049BzKQI8NYnCCrQR+V3ZbuT
+         gSkxkkf9aNpruH0D9xBtsqTt+wrncdTSxKNCX7BcH3Aq04zcf2pBk+Q86FHffqZiCG4t
+         GCN1+xhLhsdJgUBwsGKQ8oQWWB8b4kmVfag6ZwNqj/RNv1b/4PnjIYEES5MTYd9VtQlf
+         R5Jg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=s14F4+U+fiOO5z9PX8mQNSNJuLu++CLvQdDLMxGrhzg=;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ii+WZ96l7R981vDfaiO140/NyLK7ahbCUOZDaNSMMK8=;
         fh=l72yueyB99PNpHfbi8smftIqVo+OdKAxOBDWH1AI86M=;
-        b=h6Dfa0oJ0nbpjJFIMrR4K9Vji9nL9lMaAjKogAg+z2s4OW/LD/43EovU7icb/fEL7H
-         jJpdNghBB/IWFIIN3FOc9O44Li0dEHwIlmboHuwAtUPOP4H/3Vetfz4umsGj583p4xuw
-         QTH3O5pEM6Q9eaeZ1r5eyVD+aqfggVbxQ68WJlElq4G5esMUpvHu5+SREzXS5VRWLTCk
-         7RF3XWKQ8v/pYHEYBMqUJiTGfAQ6eMCk5+6HPNkqLoiUDtpZyA7rArEcoI0JVRvEv3Gm
-         P3gtSuETpZ0xPHpD/b+nudb1+IIPBfp6PpfQFAtxYryF34eFOVvHNcSH4XG0yMnfYmOr
-         vZng==;
+        b=k3j6rylz51yePl56QLhTyZ1gQJCC0DiLJBAFTRUwIawmdnQzFKwivoV1ovXTnluZ9w
+         /YGiJx693vQNZmi4j2/AxPG9HIH845uPHnl4m+jYukS6Rn3RNeHwtuwey+eLYutrp7CA
+         tIAipBO7r+pqVG4b09SdMfCsYeWagE3sof0FpxIiYKYWlpL/IMtOgHAfMGbeOJWjraFn
+         fraLXX9kTrojta9eQmitutrOwxh1Io3wH8+yfyn4uzFGnqP6tD5MQxgnUV1BMk8e3DBu
+         6ruLH264rP/LPJub5W90btAC9IZ688YkBkWSYaew0SHp7CPye76cisELTkABqxzRb1Mw
+         3syg==;
         darn=lists.yoctoproject.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776893017; x=1777497817; darn=lists.yoctoproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=s14F4+U+fiOO5z9PX8mQNSNJuLu++CLvQdDLMxGrhzg=;
-        b=apyiJ08PIDjt+s1PrqXWodWQkKDtVl0IiHCWzkezu6rJ3QvnaQ1Nh+O6qCGCowlMKQ
-         eix/77K2SXa+LzesSgoMmUify0TS0VmDDNcXxtzUGfoBaL0xpQmN/wQjTe7vafI6xn7/
-         6Eh1uG2bDDPHLVV9oZEWZtDtgN9d/vefgdYtnV7lhptt4ftl/ej4IO8mgG2E/lJln1ws
-         7FeZcd5ZnKlrjVQ69kb2pPJaAaiacMUhhMlyz9ceJRp7fTTF3XUMvOnEKgracrPGJgNr
-         60TrY2FMMcl/CHu1x8V55+VnCW50P2ExeCbI0XclwR622k9A0lXzu1fT4ykMM41MKC2/
-         +a8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776893017; x=1777497817;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1776936947; x=1777541747; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=s14F4+U+fiOO5z9PX8mQNSNJuLu++CLvQdDLMxGrhzg=;
-        b=j8NTDS6oaZg322SnK1uZmx+A4F6tJNOX7Lh1/FMFmAKeslxIBqZRbDNwGODH1ASUku
-         0dfVIG3g3F/hlj8C7zAvr+f3ZjzEnUh/qAL5Xxlcjxe+EdXxoXdBgRVCf2h8gZKX4+wc
-         bt+z6F6LkVsxIAZYisC7eakQUF4b19TMV6r+jeLKVtpo3RdPgIYWmRZS3Lqh2POJ+HHL
-         DMeBDVC1DyFrAy3BQYREF8RcPSMjpqI/l4VSDbg5uIzLm/CW8OlxWn6002hJkjlqU8NT
-         JR3S4XchJeVFLJzNQ0UZcVf2Jc3LflIK1v0sB+p5yfK4SJPgmSmSxSH9VoNHlSAR+eI2
-         tvVQ==
-X-Gm-Message-State: AOJu0Yx+kHDOaXsmqm/f4Mas7FErg/QW8cE6ld7zR857+8Itb1RBkaV5
-	ohV75Mp/nor/mHjKCw0v0VYrkapYWs+y7H1eVwhJwYofuElMNr4gnAsqJjWdxntDMv7F0FmFdRV
-	JY/UovFD7FI4PM4AB0XmEWwgQoW/CU+Y=
-X-Gm-Gg: AeBDietg9XH6pF3gWywI6+rKXtd+W37Rql83w8PAQk/1LAj41qj3voTcU7/M9e5E3EP
-	2Z2Fh+KYwKk2XXf+MlZgu9oYCF/z9K/vGT0WyY47z5SeKZa0KCWNgjfuq2QFwK4ZRTua2mRkguK
-	lzU6yzuyrRzlGY4PG+VGpqFIMDCdbMBB3pacoW1KFn7iQ4qoHYFSYamuj4E4DuIEwB1SshqM/0k
-	67t/5zS7AxsSE89FwfY8guy3+agaRvkAFP0wljTd9oaF210NSXz6x293zK80fs9+lnqynQuMkS+
-	FgX95x2MLiWYN5ihGQgJ29oAFFznYyZH8CoMVZHDfR6EsMkj4Nx4/QWOhVrd1pEr8beKODhNAZB
-	4qoMjJZLAojZ3PeVXO8ZR8PCbC/vCco/9MrXo/PtG7RM8cBWOo2LNLminNoaai0HI3+GLgAuEeD
-	YeFpNwvH4njmgzVQk=
-X-Received: by 2002:a05:690e:438e:b0:651:d05f:1db4 with SMTP id
- 956f58d0204a3-65310aa9487mr16440810d50.53.1776893017326; Wed, 22 Apr 2026
- 14:23:37 -0700 (PDT)
+        bh=ii+WZ96l7R981vDfaiO140/NyLK7ahbCUOZDaNSMMK8=;
+        b=gVoC5JIUA1H8eOY4Mq4T3JZGuzfpYKjAaH8XyuzCX2BmPXRoDBFt2Z18k50v9i1LI8
+         0tX8KcahNJejTr/7U65vpnVuVziKFdSAbsxNewC6cm/hrvaZA5+ICtga+WLn4B4Mjedg
+         sk6hUEOgyg/5Uh/LiGxiGgko8sO75G8dm2zDGpNOvXRy4OxCPqnllOamDOGEIDeEIZjp
+         d9mDQ7Ui3V12+l0S2Ewfx1NWoE+WfeL2Ytzx+RPcFtvfdIn0ko4YLi5EGZdVvWFoPfZU
+         v0YwwTdlJVgKMAJSrYGVkxqT72ZxZp/QVcTGR5iIhF9OSFka1xEtNPSkHdpco/uGRwLe
+         sC9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776936947; x=1777541747;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=ii+WZ96l7R981vDfaiO140/NyLK7ahbCUOZDaNSMMK8=;
+        b=ju9IIgB2SWVrGknvlP3FeHfrWg5riyFvngNW2dXorBBw4TjVWVv/gPvyRNI8FBmgAX
+         5cv2JBv8bauba1IUE+9uULIcIIdgDzarLqtAwOZUeNw70ldj6k2VJvpzzsNZTxXmypBz
+         xr2wvtU76midjfrr7lgREYExcBGdL9DgsPr0w8eUp1H9b6uZcKfjoqKhJtabgKYMUREU
+         vP1rFnCD8glgy/cgdolTz+EZ8vv/bVt2qmBVJIFphjvJ2WM8JZigSOK7ouPlH3dOIR9A
+         WbVGnHz7BU5qFBAQ30v9SNSIZ4gaGRBZU8NWs+HaM9qxeUHKB9+uPkkijBFBx0QRcmq9
+         VwJA==
+X-Gm-Message-State: AOJu0YxX/i2OAnMcgN2BatO6wbnRDMxwegu4YJX1C7Zpjj8cSofFYfNU
+	Ej0ZaRLtc4oIM2/nggW0o24jmp8Mzg32YkFS4hnslVK4vDLsshOwAm5QDS86HeV7ZVvsH+DkJiv
+	tvmp3hwfe9lkod1JgVKgXLkbiYpndhVQ=
+X-Gm-Gg: AeBDiesac3g01El4TYf5yAU9XRYuoKtmSklHGl2w4SAiYPWGMTLQlJh3kgOn+t7FE0R
+	XUu6uxB6D7P3yN89zdjQXQj1NCQ6ftiwO4UOAmDa1sLRr9RqAuuZU8sgcoAoGsxLu8aJQgejvdD
+	T6oGhrVUUvEEEguDqQ0zgtYZu9giOQ2hrxvKAaA1y7cTdocY0idgXDpoQllxMqaLhn1XcC7PWww
+	fnIzbbs+r22j0Df50BCAHoOpTaJwoD+9pK3rCE68ENbiV/l2QbKZ6t9CHU9XhEymeWSB2s+/CgG
+	mtxRPYp1pwZbEkRCZ3quENBMVP65MJUHgwVxNUbXB8g8gYHKl6rc
+X-Received: by 2002:a05:620a:4409:b0:8ef:3de6:c5a9 with SMTP id
+ af79cd13be357-8ef3de6c9c5mr1364975485a.47.1776936947357; Thu, 23 Apr 2026
+ 02:35:47 -0700 (PDT)
 MIME-Version: 1.0
 References: <d63R.1776892621156872677.1gEq@lists.yoctoproject.org>
 In-Reply-To: <d63R.1776892621156872677.1gEq@lists.yoctoproject.org>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Wed, 22 Apr 2026 14:23:11 -0700
-X-Gm-Features: AQROBzB6hrdfezxiAQWM8jsXCrNNqDpPwV1-_-Jm9523UNBA77VD9SiHVtRUv7c
-Message-ID: <CAMKF1sqWw+F=66NAqch8QxrNM6cYc1uc-Y7eaoiZ9vY0k7vvTg@mail.gmail.com>
+From: Alexander Kanavin <alex.kanavin@gmail.com>
+Date: Thu, 23 Apr 2026 11:35:36 +0200
+X-Gm-Features: AQROBzDwG-FjC-AUgucaSZtIaYyq4wlAgBI00IO1snSboMXQZzfo-Zo3xbSyeXM
+Message-ID: <CANNYZj8BV8XxrCpoZWUM_qr+sca+XoWPcTriw7esDMNpgnWgSQ@mail.gmail.com>
 Subject: Re: [poky] Installing a third-party package
 To: rustyhowell@gmail.com
 Cc: poky@lists.yoctoproject.org
-Content-Type: multipart/alternative; boundary="0000000000001a074a06501325a6"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 22 Apr 2026 21:23:40 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13913
+ <poky@lists.yoctoproject.org>; Thu, 23 Apr 2026 09:35:53 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13914
 
---0000000000001a074a06501325a6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Yocto is not Debian, and the runtime environment does not provide
+exactly same packages at the same versions. You can set the packaging
+backed to .deb, that does not in any way make the resulting
+distribution compatible with Debian.
 
-On Wed, Apr 22, 2026 at 2:17=E2=80=AFPM Rusty Howell via lists.yoctoproject=
-.org
+You need to convince the vendor to build their code using yocto, with
+a yocto recipe. Or have them deliver the source code, and build it
+yourself with a recipe.
+
+Alex
+
+On Wed, 22 Apr 2026 at 23:17, Rusty Howell via lists.yoctoproject.org
 <rustyhowell=3Dgmail.com@lists.yoctoproject.org> wrote:
-
-> I could use some help with the scenario I have.   We have a 3rd-party
-> vendor that has provided us with a debian package for us to include in ou=
-r
-> OS image.  The vendor maintains the package feed and provides updates
-> periodically.  I need to find a way to get the their package installed in=
-to
-> our OS image.  Not just extracted into, but installed with dpkg metadata
-> and everything.   Using bin_package works... kinda. It leaves out some
-> things like postinst and the versioning can change. Is there another way =
-to
-> incorporate a third-party package that would be closer to installing the
-> package on first boot?
 >
-
-bin_package is best effort, since packages from binary distros have
-dependencies and configuration metadata that might not match OE
-provided dependencies. In short, there is no magic switch to ingest a deb
-or rpm and magically get the deps fixes and spit our YP compliant package.
-
-
-> Thanks in advance.
+> I could use some help with the scenario I have.   We have a 3rd-party ven=
+dor that has provided us with a debian package for us to include in our OS =
+image.  The vendor maintains the package feed and provides updates periodic=
+ally.  I need to find a way to get the their package installed into our OS =
+image.  Not just extracted into, but installed with dpkg metadata and every=
+thing.   Using bin_package works... kinda. It leaves out some things like p=
+ostinst and the versioning can change. Is there another way to incorporate =
+a third-party package that would be closer to installing the package on fir=
+st boot?  Thanks in advance.
 >
 > -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
 > Links: You receive all messages sent to this group.
-> View/Reply Online (#13912):
-> https://lists.yoctoproject.org/g/poky/message/13912
-> Mute This Topic: https://lists.yoctoproject.org/mt/118962603/1997914
+> View/Reply Online (#13912): https://lists.yoctoproject.org/g/poky/message=
+/13912
+> Mute This Topic: https://lists.yoctoproject.org/mt/118962603/1686489
 > Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [
-> raj.khem@gmail.com]
+> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gm=
+ail.com]
 > -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
 >
->
-
---0000000000001a074a06501325a6
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
-mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Apr 22,=
- 2026 at 2:17=E2=80=AFPM Rusty Howell via <a href=3D"http://lists.yoctoproj=
-ect.org">lists.yoctoproject.org</a> &lt;rustyhowell=3D<a href=3D"mailto:gma=
-il.com@lists.yoctoproject.org">gmail.com@lists.yoctoproject.org</a>&gt; wro=
-te:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
-0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div>I could=
- use some help with the scenario I have.=C2=A0 =C2=A0We have a 3rd-party ve=
-ndor that has provided us with a debian package for us to include in our OS=
- image.=C2=A0 The vendor maintains the package feed and provides updates pe=
-riodically.=C2=A0 I need to find a way to get the their package installed i=
-nto our OS image.=C2=A0 Not just extracted into, but installed with dpkg me=
-tadata and everything.=C2=A0 =C2=A0Using bin_package works... kinda. It lea=
-ves out some things like postinst and the versioning can change. Is there a=
-nother way to incorporate a third-party package that would be closer to ins=
-talling the package on first boot?=C2=A0 </div></blockquote><div><br></div>=
-<div>bin_package is best effort, since packages from binary distros have de=
-pendencies and configuration metadata that might not match OE</div><div>pro=
-vided dependencies. In short, there is no magic switch to ingest a deb or r=
-pm and magically get the deps fixes and spit our=C2=A0YP compliant package.=
-</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><d=
-iv>Thanks in advance.</div>
-<br>
--=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
-Links: You receive all messages sent to this group.<br>
-View/Reply Online (#13912): <a href=3D"https://lists.yoctoproject.org/g/pok=
-y/message/13912" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctopr=
-oject.org/g/poky/message/13912</a><br>
-Mute This Topic: <a href=3D"https://lists.yoctoproject.org/mt/118962603/199=
-7914" rel=3D"noreferrer" target=3D"_blank">https://lists.yoctoproject.org/m=
-t/118962603/1997914</a><br>
-Group Owner: <a href=3D"mailto:poky%2Bowner@lists.yoctoproject.org" target=
-=3D"_blank">poky+owner@lists.yoctoproject.org</a><br>
-Unsubscribe: <a href=3D"https://lists.yoctoproject.org/g/poky/unsub" rel=3D=
-"noreferrer" target=3D"_blank">https://lists.yoctoproject.org/g/poky/unsub<=
-/a> [<a href=3D"mailto:raj.khem@gmail.com" target=3D"_blank">raj.khem@gmail=
-.com</a>]<br>
--=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-<br>
-<br>
-</blockquote></div></div>
-
---0000000000001a074a06501325a6--
 
