@@ -1,124 +1,110 @@
-Return-Path: <alex.kanavin@gmail.com>
+Return-Path: <yoann.congal@smile.fr>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54C78F99360
-	for <webhook@archiver.kernel.org>; Thu, 23 Apr 2026 09:35:53 +0000 (UTC)
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.15755.1776936948364878956
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 706EBFF8849
+	for <webhook@archiver.kernel.org>; Fri, 24 Apr 2026 21:06:05 +0000 (UTC)
+Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com [209.85.128.66])
+ by mx.groups.io with SMTP id smtpd.msgproc02-g2.32810.1777064761021488455
  for <poky@lists.yoctoproject.org>;
- Thu, 23 Apr 2026 02:35:48 -0700
+ Fri, 24 Apr 2026 14:06:01 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20251104 header.b=gVoC5JIU;
- spf=pass (domain: gmail.com, ip: 209.85.222.173, mailfrom: alex.kanavin@gmail.com)
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-8f0a87e23daso121659885a.1
-        for <poky@lists.yoctoproject.org>; Thu, 23 Apr 2026 02:35:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776936947; cv=none;
-        d=google.com; s=arc-20240605;
-        b=dt11tOtHgSyptyQHnetC9AywKBvB7BpL/YkRJqgr7tI4fmx/khAcTkkJUaOXKixNax
-         03P+IWxRzvWBEsuDEESlZI0SxN3Bvsb5wJez4OXX0w2KlsGiEDggd8TLTInVbxIRsljq
-         gukE35cJgV2VNxO2B7Rhcp8xbUpf8wbJbJwoo4Rk8Cby049BzKQI8NYnCCrQR+V3ZbuT
-         gSkxkkf9aNpruH0D9xBtsqTt+wrncdTSxKNCX7BcH3Aq04zcf2pBk+Q86FHffqZiCG4t
-         GCN1+xhLhsdJgUBwsGKQ8oQWWB8b4kmVfag6ZwNqj/RNv1b/4PnjIYEES5MTYd9VtQlf
-         R5Jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ii+WZ96l7R981vDfaiO140/NyLK7ahbCUOZDaNSMMK8=;
-        fh=l72yueyB99PNpHfbi8smftIqVo+OdKAxOBDWH1AI86M=;
-        b=k3j6rylz51yePl56QLhTyZ1gQJCC0DiLJBAFTRUwIawmdnQzFKwivoV1ovXTnluZ9w
-         /YGiJx693vQNZmi4j2/AxPG9HIH845uPHnl4m+jYukS6Rn3RNeHwtuwey+eLYutrp7CA
-         tIAipBO7r+pqVG4b09SdMfCsYeWagE3sof0FpxIiYKYWlpL/IMtOgHAfMGbeOJWjraFn
-         fraLXX9kTrojta9eQmitutrOwxh1Io3wH8+yfyn4uzFGnqP6tD5MQxgnUV1BMk8e3DBu
-         6ruLH264rP/LPJub5W90btAC9IZ688YkBkWSYaew0SHp7CPye76cisELTkABqxzRb1Mw
-         3syg==;
-        darn=lists.yoctoproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+ dkim=pass header.i=@smile.fr header.s=google header.b=rxeEDfhz;
+ spf=pass (domain: smile.fr, ip: 209.85.128.66, mailfrom: yoann.congal@smile.fr)
+Received: by mail-wm1-f66.google.com with SMTP id 5b1f17b1804b1-4896c22fcbaso54091065e9.0
+        for <poky@lists.yoctoproject.org>; Fri, 24 Apr 2026 14:06:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776936947; x=1777541747; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ii+WZ96l7R981vDfaiO140/NyLK7ahbCUOZDaNSMMK8=;
-        b=gVoC5JIUA1H8eOY4Mq4T3JZGuzfpYKjAaH8XyuzCX2BmPXRoDBFt2Z18k50v9i1LI8
-         0tX8KcahNJejTr/7U65vpnVuVziKFdSAbsxNewC6cm/hrvaZA5+ICtga+WLn4B4Mjedg
-         sk6hUEOgyg/5Uh/LiGxiGgko8sO75G8dm2zDGpNOvXRy4OxCPqnllOamDOGEIDeEIZjp
-         d9mDQ7Ui3V12+l0S2Ewfx1NWoE+WfeL2Ytzx+RPcFtvfdIn0ko4YLi5EGZdVvWFoPfZU
-         v0YwwTdlJVgKMAJSrYGVkxqT72ZxZp/QVcTGR5iIhF9OSFka1xEtNPSkHdpco/uGRwLe
-         sC9A==
+        d=smile.fr; s=google; t=1777064759; x=1777669559; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DFZPb3n51VNjktRvbz9c7axaZ8zQ5m1XhxoXAERfk20=;
+        b=rxeEDfhz8YA0KuNCOWgcfPudXmYnCkGr9nniPi7HzZ2n813qg/7CPO/bHWyPLrqfJT
+         dIUTHtcIw/ggJLsaXU+N7PzfCCNoJQ9/tlkCUwi+JfOzAHIrK1GRreyMbjsI+UR2B+Je
+         FX8otb/0O5tppcpCsqtoU1JnKSqHAOYh9IUsc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776936947; x=1777541747;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=ii+WZ96l7R981vDfaiO140/NyLK7ahbCUOZDaNSMMK8=;
-        b=ju9IIgB2SWVrGknvlP3FeHfrWg5riyFvngNW2dXorBBw4TjVWVv/gPvyRNI8FBmgAX
-         5cv2JBv8bauba1IUE+9uULIcIIdgDzarLqtAwOZUeNw70ldj6k2VJvpzzsNZTxXmypBz
-         xr2wvtU76midjfrr7lgREYExcBGdL9DgsPr0w8eUp1H9b6uZcKfjoqKhJtabgKYMUREU
-         vP1rFnCD8glgy/cgdolTz+EZ8vv/bVt2qmBVJIFphjvJ2WM8JZigSOK7ouPlH3dOIR9A
-         WbVGnHz7BU5qFBAQ30v9SNSIZ4gaGRBZU8NWs+HaM9qxeUHKB9+uPkkijBFBx0QRcmq9
-         VwJA==
-X-Gm-Message-State: AOJu0YxX/i2OAnMcgN2BatO6wbnRDMxwegu4YJX1C7Zpjj8cSofFYfNU
-	Ej0ZaRLtc4oIM2/nggW0o24jmp8Mzg32YkFS4hnslVK4vDLsshOwAm5QDS86HeV7ZVvsH+DkJiv
-	tvmp3hwfe9lkod1JgVKgXLkbiYpndhVQ=
-X-Gm-Gg: AeBDiesac3g01El4TYf5yAU9XRYuoKtmSklHGl2w4SAiYPWGMTLQlJh3kgOn+t7FE0R
-	XUu6uxB6D7P3yN89zdjQXQj1NCQ6ftiwO4UOAmDa1sLRr9RqAuuZU8sgcoAoGsxLu8aJQgejvdD
-	T6oGhrVUUvEEEguDqQ0zgtYZu9giOQ2hrxvKAaA1y7cTdocY0idgXDpoQllxMqaLhn1XcC7PWww
-	fnIzbbs+r22j0Df50BCAHoOpTaJwoD+9pK3rCE68ENbiV/l2QbKZ6t9CHU9XhEymeWSB2s+/CgG
-	mtxRPYp1pwZbEkRCZ3quENBMVP65MJUHgwVxNUbXB8g8gYHKl6rc
-X-Received: by 2002:a05:620a:4409:b0:8ef:3de6:c5a9 with SMTP id
- af79cd13be357-8ef3de6c9c5mr1364975485a.47.1776936947357; Thu, 23 Apr 2026
- 02:35:47 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777064759; x=1777669559;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=DFZPb3n51VNjktRvbz9c7axaZ8zQ5m1XhxoXAERfk20=;
+        b=W8WKaXbigSHsFysxNPfZ9kJzhTdpUfUvq1+Li3+oq9YGdPMvlZrxto/a+hykvLhqM0
+         KdvW9iEsn+xs0j2phFjlOWJWVJelyN2skaUGKpkRz4r1aEPDoAMlvf91QKS8gRWrAI/H
+         a7iQKgiggOGTAvT3B3l4mhZvfvZ7662RoOANMRdcbLZB3IR4u8pV4tJBoJISt5cLmZgl
+         m9qG41xagXo9vu35rufjmtKObygWbIkF5kIwpSBGV3hclTCqn/CLCpiahxpjnT3Q9sIN
+         LuKiu/m4Hrh6gsDNQhkQrTiFuANcOjJbAsWaGqqSQQwKUeTfDzDKp/bWoUDEMT4kLIXa
+         WzLA==
+X-Gm-Message-State: AOJu0YzDX7aSXpdlOP2D36DSUNNwOx/vXX8U4QrrGnzqUewDxS91Mx44
+	xK6LL9u/ap/0KM0QszFb3vj1UbTpF5jdVYhXhDRpSr2UpBvT4VrR2ZQ/t73DAs98f9bPk81Rj/6
+	UqUc/gDRohKPY
+X-Gm-Gg: AeBDiev5LUdM/TzDhFqmBLxKiEN7BuJog9037+7a7O54GkyzAGdb/unp2r3Qf8trE4K
+	xFau6vaeNa0FkNS30qOw4+eYB9fOgOYtZF8Cn0ltVCBVxk+SExTZkfmWDua1odXTKa1vOLk6Dq5
+	C7oPeIcitPc20iKMlzfjrHfkACZwSHmkzFckx+EX3gUX9tkoUl9SRmblpLK91vgc+FnGlGJyiMN
+	9MgwjBIdQ/nPYyYAvWaK/TCGvOvRTySaaml4zlt465ZNL/ltzk0VSCUMBMNsxZWqYBAHQbqQGiY
+	hoSDYtieBFkegexEnB/47qgqFR7qXb+LGZ1zdGVhhktYYgeyXOkleKu04bwysvTZkqrItys6spR
+	qOA+pr0tonTLjxCkUqTpPG9IxjTC4TPocjUGZ3eN6ksAnSKFWgnJD53ZqcwjSm8Q90aYrMONzG9
+	FALUoTue1yV7idnN2ZV6r33VEcS9jgR2t5DM3gCVduj2D+NwhBPb9xxOgv5FmK9BofAXdG/dtJ0
+	O7Aqbfc2KA1XkYR8cwglbAhEO/9zBjKgugd2g==
+X-Received: by 2002:a5d:4b81:0:b0:43f:e721:76ca with SMTP id ffacd0b85a97d-43fe7217864mr31396426f8f.45.1777064759106;
+        Fri, 24 Apr 2026 14:05:59 -0700 (PDT)
+Received: from FRSMI25-LASER.home (2a01cb001331aa00a2e4fb7b0d887544.ipv6.abo.wanadoo.fr. [2a01:cb00:1331:aa00:a2e4:fb7b:d88:7544])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-43fe4e4eec9sm58794567f8f.34.2026.04.24.14.05.58
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Apr 2026 14:05:58 -0700 (PDT)
+From: Yoann Congal <yoann.congal@smile.fr>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][scarthgap 1/1] poky: Fix CentOS Stream distro names
+Date: Fri, 24 Apr 2026 23:05:49 +0200
+Message-ID: <0845965f1d81d22d47dcf28c525c7463fafe5245.1777064702.git.yoann.congal@smile.fr>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1777064702.git.yoann.congal@smile.fr>
+References: <cover.1777064702.git.yoann.congal@smile.fr>
 MIME-Version: 1.0
-References: <d63R.1776892621156872677.1gEq@lists.yoctoproject.org>
-In-Reply-To: <d63R.1776892621156872677.1gEq@lists.yoctoproject.org>
-From: Alexander Kanavin <alex.kanavin@gmail.com>
-Date: Thu, 23 Apr 2026 11:35:36 +0200
-X-Gm-Features: AQROBzDwG-FjC-AUgucaSZtIaYyq4wlAgBI00IO1snSboMXQZzfo-Zo3xbSyeXM
-Message-ID: <CANNYZj8BV8XxrCpoZWUM_qr+sca+XoWPcTriw7esDMNpgnWgSQ@mail.gmail.com>
-Subject: Re: [poky] Installing a third-party package
-To: rustyhowell@gmail.com
-Cc: poky@lists.yoctoproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 23 Apr 2026 09:35:53 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13914
+ <poky@lists.yoctoproject.org>; Fri, 24 Apr 2026 21:06:05 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13916
 
-Yocto is not Debian, and the runtime environment does not provide
-exactly same packages at the same versions. You can set the packaging
-backed to .deb, that does not in any way make the resulting
-distribution compatible with Debian.
+From: Antonin Godard <antonin.godard@bootlin.com>
 
-You need to convince the vendor to build their code using yocto, with
-a yocto recipe. Or have them deliver the source code, and build it
-yourself with a recipe.
+CentOS Stream 8 and 9 report as `centos-8/9`, not `centosstream-8.9`.
 
-Alex
+On our stream9-vk-1 autobuilder worker:
 
-On Wed, 22 Apr 2026 at 23:17, Rusty Howell via lists.yoctoproject.org
-<rustyhowell=3Dgmail.com@lists.yoctoproject.org> wrote:
->
-> I could use some help with the scenario I have.   We have a 3rd-party ven=
-dor that has provided us with a debian package for us to include in our OS =
-image.  The vendor maintains the package feed and provides updates periodic=
-ally.  I need to find a way to get the their package installed into our OS =
-image.  Not just extracted into, but installed with dpkg metadata and every=
-thing.   Using bin_package works... kinda. It leaves out some things like p=
-ostinst and the versioning can change. Is there another way to incorporate =
-a third-party package that would be closer to installing the package on fir=
-st boot?  Thanks in advance.
->
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
-> Links: You receive all messages sent to this group.
-> View/Reply Online (#13912): https://lists.yoctoproject.org/g/poky/message=
-/13912
-> Mute This Topic: https://lists.yoctoproject.org/mt/118962603/1686489
-> Group Owner: poky+owner@lists.yoctoproject.org
-> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [alex.kanavin@gm=
-ail.com]
-> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->
+    $ ( source /etc/os-release && echo $ID-$VERSION_ID )
+    centos-9
+
+We don't have running CentOS Stream 8 workers anymore, but from a local docker
+container:
+
+$ docker run --rm -it quay.io/centos/centos:stream8 bash
+[root@c33732bb804a /]# cat /etc/os-release
+....
+ID="centos"
+VERSION_ID="8"
+
+Signed-off-by: Antonin Godard <antonin.godard@bootlin.com>
+Signed-off-by: Yoann Congal <yoann.congal@smile.fr>
+---
+ meta-poky/conf/distro/poky.conf | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 2c2e7bed..177a637e 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -43,8 +43,8 @@ SANITY_TESTED_DISTROS ?= " \
+             fedora-39 \n \
+             fedora-40 \n \
+             fedora-41 \n \
+-            centosstream-8 \n \
+-            centosstream-9 \n \
++            centos-8 \n \
++            centos-9 \n \
+             debian-11 \n \
+             debian-12 \n \
+             opensuseleap-15.4 \n \
 
