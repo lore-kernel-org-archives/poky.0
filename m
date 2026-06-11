@@ -1,92 +1,92 @@
-Return-Path: <ticotimo@gmail.com>
+Return-Path: <yoann.congal@smile.fr>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 331B5CD6E75
-	for <webhook@archiver.kernel.org>; Sat,  6 Jun 2026 04:32:29 +0000 (UTC)
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.10395.1780720343156838475
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C8776CD98CC
+	for <webhook@archiver.kernel.org>; Thu, 11 Jun 2026 13:29:06 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+ by mx.groups.io with SMTP id smtpd.msgproc02-g2.45452.1781184539983231177
  for <poky@lists.yoctoproject.org>;
- Fri, 05 Jun 2026 21:32:23 -0700
+ Thu, 11 Jun 2026 06:29:00 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20251104 header.b=aKDW4/jv;
- spf=pass (domain: gmail.com, ip: 209.85.215.179, mailfrom: ticotimo@gmail.com)
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-c8585c51f1fso1618159a12.1
-        for <poky@lists.yoctoproject.org>; Fri, 05 Jun 2026 21:32:23 -0700 (PDT)
+ dkim=pass header.i=@smile.fr header.s=google header.b=nIJyxz4+;
+ spf=pass (domain: smile.fr, ip: 209.85.128.47, mailfrom: yoann.congal@smile.fr)
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490cdae130cso29984505e9.0
+        for <poky@lists.yoctoproject.org>; Thu, 11 Jun 2026 06:28:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780720342; x=1781325142; darn=lists.yoctoproject.org;
+        d=smile.fr; s=google; t=1781184538; x=1781789338; darn=lists.yoctoproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=JP2VfQkEfZtJPIHtD0OMrPY7rCAOdXrMzwo0FSt059I=;
-        b=aKDW4/jvU21XzGXL+cs4BDzSOhDYumC/1D2OeCf+gzdpUUk1CNHhs+k7zTsIOahoJ7
-         TJno9PolQ1TES9gbAooYWzUWFMH2DG/icv8uIJm2PLgWDZx4odfT7k5SP2IgED7heTaG
-         VmKp/pi/LCnb30+/Ywkbxsq1w/wkh4/3SA0Kqj87z9W7Yrum8tVtyhFxcw+jYV2/VhR6
-         k1lGIhJzF7EzE6qFgVAeJpYQfjmm5FoNOXO6U8zRQNCgwSnTpUaESNTNXdwhD3izXoxr
-         2q97ZOp1suxWjJiEpVknyaoh/c8KJZCBiMicKul1yMhxDrgf6raN0fEsiTkXg5pwXaZ1
-         gW0g==
+        bh=4lzCrc+kspljURLKONLgJYQjFgNWdjSwxE16AqXUF/E=;
+        b=nIJyxz4+mAgrRVrzCV5mpxbrVO5HIaCEBXPJeJXNis39pqjjsyQUmP0eMapbi1fmCY
+         OmnYhArmRvp2ccyNd4X9Spuanmwra+tofN2HNUws0Q5buuI3PmpMpkEYDHkOq4sn2nSw
+         nhA0VNxyIsqt7/7Ps6lJ85BVW+hKK2YAMXQeM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780720342; x=1781325142;
+        d=1e100.net; s=20251104; t=1781184538; x=1781789338;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JP2VfQkEfZtJPIHtD0OMrPY7rCAOdXrMzwo0FSt059I=;
-        b=PPS1CBihQBnq5SedaMm7Il2Rsi0urPNqjx5pAdxs1CG/OC2NXxNIChw6oP0HOKURNy
-         YAhvlgHAVDZ57aLbLZCQlNqyrA8ofIN3q9/iZaRLRqIMCMe8mqsnulxxmHQ5sMblQhET
-         AhV7Q1xMKH7uhhLNzNKibavfshySyR8hz2yjQRuYKCaazm+2SrVI9ZXS/5zERZrHrIeH
-         gT9QgzqqBuNw8Pc6sQlTcovMu/e+Kv9CTbSxyzYW0z0R8ahasaT+LuyDKMdBqqA7+Lnb
-         ZyeXpsbFR7dd04Osrx+97gwPrTZKPiPsdDClzeSElHmybhbYs4MWNLJzqFVG19eowU9e
-         OIXw==
-X-Gm-Message-State: AOJu0YzUIM4bz9caruh6lqWDaBIImtX861b5+sqgFIcUOF9N194imYBK
-	ybyCn3RWd388iflzB3M3NFHMoAtqd6hM+xSaynkYLFVu9KFBHhaDfzr8U5FtRQ==
-X-Gm-Gg: Acq92OGrune7NIFAYkOXNlZGzL/ilk7FM0gvxKAifwPOC9hgg0+Wqj+3GW9Nw5A7fAb
-	wIcFFOZowH7cVgRoE9U8uAVFD7csnk9CD+BeqLjcbOVDYxceRy+YazkZ01LWHFIxznaFxBk+ZX/
-	yXSx1IeKSiu9KE5W8plfvlgjt0NopRsNDgwN8LGAXboHMD8/09N6bGnfMt3zwcR/IIe+YlbZAWL
-	ixVntIF7TxQwBE9vn3JBMzMjGdsqPOcvxU+oFir4q7AfPaqD0dwdmBfa+Ul4vbApqy4O/7raLHp
-	DDlzKCel+WbqX4fIabtyHQ30xyUp+a5m2RCTuBS4H0l6qsJRC4zPKl8gnT2RbjmO4H6/IjfHrse
-	oKefKN3Ovl8MUlQH0yq/m+thR1XKr0Rs+YLza7LL9M1DYSsXQ5mtHfmAt8rBdHaYfHOp6NOXfMx
-	7h+X86p10Np2j+t1CQNrmtZJnx6OcAu5I1DrkgiwT1NQdTUFzf2BZzge0SKewPRgNxC1EnoCkNI
-	5YZdqgj0ht6tO+MEh8WTsdgAPu+qJbb/Q==
-X-Received: by 2002:a17:903:8cc:b0:2c1:6ed:513b with SMTP id d9443c01a7336-2c1ec94d1a6mr59708555ad.16.1780720342426;
-        Fri, 05 Jun 2026 21:32:22 -0700 (PDT)
-Received: from localhost.localdomain (c-98-232-159-17.hsd1.or.comcast.net. [98.232.159.17])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16609e1b6sm108296475ad.38.2026.06.05.21.32.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 05 Jun 2026 21:32:21 -0700 (PDT)
-From: Tim Orling <ticotimo@gmail.com>
-X-Google-Original-From: Tim Orling <tim.orling@konsulko.com>
-To: poky@lists.yoctoproject.org
-Cc: Tim Orling <tim.orling@konsulko.com>
-Subject: [PATCH] poky: Update codename wrynose -> blacksail
-Date: Fri,  5 Jun 2026 21:32:08 -0700
-Message-ID: <20260606043208.69796-1-tim.orling@konsulko.com>
-X-Mailer: git-send-email 2.54.0
+        bh=4lzCrc+kspljURLKONLgJYQjFgNWdjSwxE16AqXUF/E=;
+        b=N84EGBOefC9jpLrIQxB6Tv+PMmxleCMGW2tVaXvRPhDB2b4U89/B+V6BoZ62LOx5mf
+         jgrq6OxNw1ZYUgGT6aD7pF3U7U8PY6EmRWMrt2Ha7yr6CiieWTQBMv9+hcX+ounqQmpR
+         Pro75UiDhP+hKBBhQ24OkXU4RZIgwHV6EPPwENeIAUQNEFv6H+Co3lFWV2wcbmONnrZ9
+         RLHeHltljB8o09aXH3KKaRcAkQGT6QiWQpUjoD8u3LAfPcIFrs3wM97w5CdKcqrcwAVd
+         QYKZ+HuqgaPmDDuSuOcIDdW3WHrmxIKMgwvDcP2Zi+frMIN0ekVoIkYxIzD9bDfQXlA4
+         iRbQ==
+X-Gm-Message-State: AOJu0Yx90xwP8R59jU22yVUk8eaxn9SFbwLbtjqUPGyXBpS1XE+RZrvY
+	c+I3bB81e7o3Q9130JpVKMKYqRMx41dlPKu4n0wFcWOLCRJmb97rB4tmYr6pskMbL/6EosWDaJw
+	aZ4Sg
+X-Gm-Gg: Acq92OFEiBGg1wOoUOgduMlZdMYZDCkH014xhTCtOmDtF73elP2HSM4h5UC+nNYvB0G
+	zpIncpsOPiYY0ia8g39SiKxl8KTuwYGDcofXnc8kD/erMSaRha398t4kqrSNh+qQHfBPGzc9EaX
+	r3yApR4ptKPZAl9CGZhMEjNvalDFLBTiakKMyvAX70CrCXt+D/Qn18oUogtStT1GCnWkNDt7g23
+	oYF6TptfObgLogB5XPTg3+0mPex97HVlRp3Wy1q63ajZyPWwWNGLgG2aUsCYLrPT9PlPoDuIBu6
+	zWXAzSUQShjwkXsmg8U7l56+NqZ8Ziop6Ve79op2JGZf9ZnVSa0IbMLtMlwVi51JwVNfco6GCgP
+	77oELY8pxCc3N3bZg6gs/Na35NYDL0pmY/SeWrmFgN5ckhx1/hjrSZ/iMPY1H76qTr/M4OizEjy
+	cJa3lDcoLanrtLKKSu4ZK/sAwqBYmnx1/IJZBiWlrFQsifL0c4sGdt+M0Fk8H9ou/f/JsPH3jrO
+	lyLxINuL++SHneJO79+eo7cjUsSMuQEluQKZhc=
+X-Received: by 2002:a05:600c:3547:b0:490:50eb:b777 with SMTP id 5b1f17b1804b1-490e55b6febmr36605225e9.5.1781184538138;
+        Thu, 11 Jun 2026 06:28:58 -0700 (PDT)
+Received: from FRSMI25-LASER.home (2a01cb001331aa0084744357c26c6744.ipv6.abo.wanadoo.fr. [2a01:cb00:1331:aa00:8474:4357:c26c:6744])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490e2cf582bsm72067125e9.10.2026.06.11.06.28.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 11 Jun 2026 06:28:57 -0700 (PDT)
+From: Yoann Congal <yoann.congal@smile.fr>
+To: Poky ML <poky@lists.yoctoproject.org>
+Cc: Yoann Congal <yoann.congal@smile.fr>
+Subject: [scarthgap][PATCH] poky.conf: add Ubuntu 26.04 to SANITY_TESTED_DISTROS
+Date: Thu, 11 Jun 2026 15:28:36 +0200
+Message-ID: <20260611132836.489169-1-yoann.congal@smile.fr>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Sat, 06 Jun 2026 04:32:29 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13920
+ <poky@lists.yoctoproject.org>; Thu, 11 Jun 2026 13:29:06 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13921
 
-Signed-off-by: Tim Orling <tim.orling@konsulko.com>
+From: Yoann Congal <yoann.congal@smile.fr>
+
+A Ubuntu 26.04 worker is available on autobuilder and ran successfully:
+* bringup-fast https://autobuilder.yoctoproject.org/valkyrie/#/builders/97/builds/22
+* bringup https://autobuilder.yoctoproject.org/valkyrie/#/builders/96/builds/34
+  This one was from the -nut branch but it did not change during merge
+
+Signed-off-by: Yoann Congal <yoann.congal@smile.fr>
 ---
- meta-poky/conf/distro/poky.conf | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ meta-poky/conf/distro/poky.conf | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index d8d70cf..98cad52 100644
+index a7dc4046..177e5e04 100644
 --- a/meta-poky/conf/distro/poky.conf
 +++ b/meta-poky/conf/distro/poky.conf
-@@ -1,7 +1,7 @@
- DISTRO = "poky"
- DISTRO_NAME = "Poky (Yocto Project Reference Distro)"
- DISTRO_VERSION = "6.0.99+snapshot-${METADATA_REVISION}"
--DISTRO_CODENAME = "wrynose"
-+DISTRO_CODENAME = "blacksail"
- SDK_VENDOR = "-pokysdk"
- SDK_VERSION = "${@d.getVar('DISTRO_VERSION').replace('snapshot-${METADATA_REVISION}', 'snapshot')}"
- SDK_VERSION[vardepvalue] = "${SDK_VERSION}"
--- 
-2.54.0
-
+@@ -39,6 +39,7 @@ SANITY_TESTED_DISTROS ?= " \
+             ubuntu-22.04 \n \
+             ubuntu-23.04 \n \
+             ubuntu-24.04 \n \
++            ubuntu-26.04 \n \
+             fedora-38 \n \
+             fedora-39 \n \
+             fedora-40 \n \
 
