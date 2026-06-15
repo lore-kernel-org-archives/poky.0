@@ -1,141 +1,87 @@
-Return-Path: <yoann.congal@smile.fr>
+Return-Path: <mathieu.dubois-briand@bootlin.com>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2CDD8CD98CC
-	for <webhook@archiver.kernel.org>; Thu, 11 Jun 2026 14:00:27 +0000 (UTC)
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.46349.1781186419343509835
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF2BECD98DE
+	for <webhook@archiver.kernel.org>; Mon, 15 Jun 2026 08:07:46 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by mx.groups.io with SMTP id smtpd.msgproc02-g2.124922.1781510855748033901
  for <poky@lists.yoctoproject.org>;
- Thu, 11 Jun 2026 07:00:19 -0700
+ Mon, 15 Jun 2026 01:07:37 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@smile.fr header.s=google header.b=eHRFRk4k;
- spf=pass (domain: smile.fr, ip: 209.85.128.43, mailfrom: yoann.congal@smile.fr)
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-490b4a8e28bso67719015e9.1
-        for <poky@lists.yoctoproject.org>; Thu, 11 Jun 2026 07:00:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=smile.fr; s=google; t=1781186418; x=1781791218; darn=lists.yoctoproject.org;
-        h=in-reply-to:references:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=otkhRoheR667p6Qfpj89qMQhlHjKWIJiYtv/5L+jdmg=;
-        b=eHRFRk4k9JowheucHatShZa44mKI4kJ9Jt96D7RVg9tly4ifgfj1mB2n/+qqBP2uZU
-         3+6G56QvUYKJ4/9YSPUmsESIiurCqpY0/BVtAl9qrZpBfRbJAv/30y9RKtng6MkeF4TW
-         4JIrSFRGt8ox334faH8Sb8FtjG22LkiYmgjSM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1781186418; x=1781791218;
-        h=in-reply-to:references:to:from:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=otkhRoheR667p6Qfpj89qMQhlHjKWIJiYtv/5L+jdmg=;
-        b=pzSIO6yizcMhvPJ8P/WbY4jU2c/A9bnxWaWX0H2jd3qGflzvCpsF/epSjIdxCIZpOh
-         2tR4K7dJA2FBevOewbDZazDZ6TpqspGNUigvXVZq0jUkvseDn8Jr/uJpX3haoQcWqKmN
-         FtoJflp2KQujB/9DEZ2tpWwSe8eqvcrGPcpEJ8OfsnaeJJNxOgJr3dZUZCGo09dda4iu
-         Wn74OhiaP7qvS4bA2fJX84pcholcVi5WcVDtBcYm597ZHPXU0zoyv2ckmFw5Wa1LvZnt
-         jW5iOqMcXN8QpiQgfV84EHa9vmGRUBhXZFEnV1DTZX0L2Hq5ibpWU+L1ImDJgRW3XB7z
-         /YXg==
-X-Forwarded-Encrypted: i=1; AFNElJ8uoKfZxOtw4jDMwSP/VInM7AaB/O6WoVtwzvlbHxS43rzoZa2qi0RCtpJ4yG1ApV9TsjEd@lists.yoctoproject.org
-X-Gm-Message-State: AOJu0Yye9Y4icjuqsOuTzbiAwF+uXwQTkq8cDTxyTvHWNzKvKQvNbpcw
-	64x2DOwNecUHePVKi9U6EOjYrtsMKLqs46G2VxuRZ/t7PtTDkal1Lrs1MThQM6PHOfE=
-X-Gm-Gg: Acq92OEFLZPw0d+DesN/6qkxKwfgLGgd85RyYTWzEwR861R2IlmXfj5UKHiZ0YARwN+
-	RcwFZ8LjJ4iuDs9WxRkUVWIuoMIi9r0s0WXwX2mKirz2tNHsMa9+xHE0+DPpHsl7WsgGkvZNdUT
-	34BsTX1OECdvLX/Pql/HBZO97xkUR013TB6wl12hPp/Y2yqpsEbS4zE+krvSlqhJnkFqKULhpAL
-	D8uTPiNICo1hFgjjxkQ+2qRDpjPrcE7yOa3yrc1AoVNptKDlnlSF6RANu/MfBs8xIsociQMIkR+
-	L4km8xwuuvXUdr+Xo14Q/zC+IQBezUCbPJTQnylCthcYP4n3LkjHdB9MMEgrKcji/dIK2ssqj9H
-	bSkSxUKaWfnpLM4EHr1qoZIcH0nM+AypcwuDrbzz7bxhZa3X+brygUSVoDT0t4esM/JO5SZpkKI
-	/z6opatqLc/tRiVOMUCqxxFzfH6B8UF38HivFmkCxZyszhuSsCOyKe0vVYFNitFzKFM8a9usOpH
-	mN81WLZI6JTMJUSToS4r23F/PU=
-X-Received: by 2002:a05:600c:8a16:20b0:490:be9e:fd03 with SMTP id 5b1f17b1804b1-490e55cc3acmr29278495e9.7.1781186417445;
-        Thu, 11 Jun 2026 07:00:17 -0700 (PDT)
-Received: from localhost (2a01cb001331aa0084744357c26c6744.ipv6.abo.wanadoo.fr. [2a01:cb00:1331:aa00:8474:4357:c26c:6744])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490e2cf582bsm74474705e9.10.2026.06.11.07.00.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 11 Jun 2026 07:00:16 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 11 Jun 2026 16:00:15 +0200
-Message-Id: <DJ69VZ38GL17.X6YU4OT6TK7E@smile.fr>
-Subject: Re: [poky] [scarthgap][PATCH] poky.conf: add Ubuntu 26.04 to
- SANITY_TESTED_DISTROS
-From: "Yoann Congal" <yoann.congal@smile.fr>
-To: "Quentin Schulz" <quentin.schulz@cherry.de>, "Poky ML"
- <poky@lists.yoctoproject.org>
-X-Mailer: aerc 0.20.0
-References: <20260611132836.489169-1-yoann.congal@smile.fr>
- <0edfc7e8-c636-4278-b074-d7d15fd6c0e8@cherry.de>
-In-Reply-To: <0edfc7e8-c636-4278-b074-d7d15fd6c0e8@cherry.de>
+ dkim=pass header.i=@bootlin.com header.s=dkim header.b=px7hZpPx;
+ spf=pass (domain: bootlin.com, ip: 185.171.202.116, mailfrom: mathieu.dubois-briand@bootlin.com)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 72572C2BB30
+	for <poky@lists.yoctoproject.org>; Mon, 15 Jun 2026 08:07:37 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6DE0760015
+	for <poky@lists.yoctoproject.org>; Mon, 15 Jun 2026 08:07:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2A615106C92AC;
+	Mon, 15 Jun 2026 10:07:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1781510853; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=SDFyLAFMGj8MliLJ0GciaKXbmpfgaF7Y2c7weoR/gHE=;
+	b=px7hZpPxfmz/kuio5BvTpvPlLCE1l4vI/R3flTuxwyIrgKvEZOf0M0Ai06NKTyIctZIZif
+	UtNafc3XNJ/jTjIbOqWbdvZzBfuZLI+JXKHiE097+6CdH1L/JVK5E9Pylsr/E3VYQZmWMD
+	Q5HEfyhMmPrep2gubFFkQKEJ0KL6pq1bMY1v9iiR4k1YGUeEjt64lxyfRvcl0QTuZEUh9E
+	f86IwzTbq/I7T9hab7gQjDzlhii/MEO7YMz9Tum5epqVlt7WOH+y3sgMGPIwBa6hwizThJ
+	PzUhQ+OwyoSB9s/u1zo7iQnsOGuzuraisv1/C/rOFiVpmEzvo2tEGTM7qp6ofQ==
+From: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+Date: Mon, 15 Jun 2026 10:07:29 +0200
+Subject: [PATCH] poky: Remove fedora-42 from SANITY_TESTED_DISTROS
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260615-mathieu-fedora-42-remove-v1-1-543c4bd259a3@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAMCyL2oC/x3MQQqDMBBG4avIrDugow3VqxQXoflTZ6EpExVBv
+ Luhy2/x3kkZpsg0VCcZds2aloLmUdFn8ssXrKGYpBZXu+bJs18nxcYRIZnnTtgwpx3ct728HDq
+ EKFTynyHq8V+/x+u6AY/M6zVqAAAA
+X-Change-ID: 20260615-mathieu-fedora-42-remove-939286e4edf2
+To: poky@lists.yoctoproject.org
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781510852; l=875;
+ i=mathieu.dubois-briand@bootlin.com; s=20241219; h=from:subject:message-id;
+ bh=XDsIzZ+VSe5mYyhEtbewh2IoMl4mRmGylfKzhHg/Cg0=;
+ b=5dq0PFK7t2xi9EOCd6nYqFouEwyvJlorn8WsV5JAxDgXoMtVOlLZj4iebrZaGY7aWMHaScot1
+ pEySbmpibrxBdI4N3BAZ81V6NEaanH948EPc6qT1GWyRKt0FiaKkGqR
+X-Developer-Key: i=mathieu.dubois-briand@bootlin.com; a=ed25519;
+ pk=1PVTmzPXfKvDwcPUzG0aqdGoKZJA3b9s+3DqRlm0Lww=
+X-Last-TLS-Session-Version: TLSv1.3
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 11 Jun 2026 14:00:27 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13923
+ <poky@lists.yoctoproject.org>; Mon, 15 Jun 2026 08:07:46 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13924
 
-On Thu Jun 11, 2026 at 3:44 PM CEST, Quentin Schulz wrote:
-> Hi Yoann,
->
-> Can you consider sending a patch to the scarthgap docs once that's merged=
-?
->
-> I believe documentation/ref-manual/system-requirements.rst should be=20
-> modified to list the newly supported distro (but haven't checked if=20
-> there are other places where changes need to be made as well).
+Fedora 42 is EOL and is no longer used on the autobuilder.
 
-Sure! Since system-requirements.rst list is generated from
-yocto-autobuilder2, I'll wait for this to merge first and then, send the
-doc patch.
+Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+---
+ meta-poky/conf/distro/poky.conf | 1 -
+ 1 file changed, 1 deletion(-)
 
-Regards,
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 98cad527c361..55d224d564c2 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -37,7 +37,6 @@ SANITY_TESTED_DISTROS ?= " \
+             ubuntu-25.04 \n \
+             ubuntu-25.10 \n \
+             ubuntu-26.04 \n \
+-            fedora-42 \n \
+             fedora-43 \n \
+             centos-9 \n \
+             centos-10 \n \
 
->
-> Cheers,
-> Quentin
->
-> On 6/11/26 3:28 PM, Yoann Congal via lists.yoctoproject.org wrote:
->> From: Yoann Congal <yoann.congal@smile.fr>
->>=20
->> A Ubuntu 26.04 worker is available on autobuilder and ran successfully:
->> * bringup-fast https://autobuilder.yoctoproject.org/valkyrie/#/builders/=
-97/builds/22
->> * bringup https://autobuilder.yoctoproject.org/valkyrie/#/builders/96/bu=
-ilds/34
->>    This one was from the -nut branch but it did not change during merge
->>=20
->> Signed-off-by: Yoann Congal <yoann.congal@smile.fr>
->> ---
->>   meta-poky/conf/distro/poky.conf | 1 +
->>   1 file changed, 1 insertion(+)
->>=20
->> diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/pok=
-y.conf
->> index a7dc4046..177e5e04 100644
->> --- a/meta-poky/conf/distro/poky.conf
->> +++ b/meta-poky/conf/distro/poky.conf
->> @@ -39,6 +39,7 @@ SANITY_TESTED_DISTROS ?=3D " \
->>               ubuntu-22.04 \n \
->>               ubuntu-23.04 \n \
->>               ubuntu-24.04 \n \
->> +            ubuntu-26.04 \n \
->>               fedora-38 \n \
->>               fedora-39 \n \
->>               fedora-40 \n \
->>=20
->>=20
->>=20
->> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->> Links: You receive all messages sent to this group.
->> View/Reply Online (#13921): https://lists.yoctoproject.org/g/poky/messag=
-e/13921
->> Mute This Topic: https://lists.yoctoproject.org/mt/119756398/6293953
->> Group Owner: poky+owner@lists.yoctoproject.org
->> Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [quentin.schulz=
-@cherry.de]
->> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
->>=20
+---
+base-commit: f49de2f33e37ca971d64215cc1a3669312e1e7c3
+change-id: 20260615-mathieu-fedora-42-remove-939286e4edf2
 
-
---=20
-Yoann Congal
-Smile ECS
+Best regards,
+-- 
+Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
 
 
