@@ -1,142 +1,110 @@
-Return-Path: <twoerner@gmail.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B763C44536
-	for <webhook@archiver.kernel.org>; Wed, 22 Jul 2026 21:59:51 +0000 (UTC)
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
- by mx.groups.io with SMTP id smtpd.msgproc02-g2.11368.1784757581517632644
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07D7CC531C7
+	for <webhook@archiver.kernel.org>; Thu, 23 Jul 2026 09:24:17 +0000 (UTC)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+ by mx.groups.io with SMTP id smtpd.msgproc02-g2.19502.1784798647489338638
  for <poky@lists.yoctoproject.org>;
- Wed, 22 Jul 2026 14:59:41 -0700
+ Thu, 23 Jul 2026 02:24:08 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20251104 header.b=P34MHc2h;
- spf=pass (domain: gmail.com, ip: 209.85.160.169, mailfrom: twoerner@gmail.com)
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-51bfa429aa6so55125081cf.0
-        for <poky@lists.yoctoproject.org>; Wed, 22 Jul 2026 14:59:41 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Wjv4MKqC;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.54, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4720f3bf164so163746f8f.1
+        for <poky@lists.yoctoproject.org>; Thu, 23 Jul 2026 02:24:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784757580; x=1785362380; darn=lists.yoctoproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1nK4OPgGaSMO6gs//oTuRQOLQPclORDJ2uYTE12vR7U=;
-        b=P34MHc2hUp5T57ACSWaG/azhZK4CEksKSM42e91+WRnwhvHmEBx9P8z3d/N7NAspKd
-         L4UB0+q5SPmfrphjNx5s4CThIYzSLefbVD95i7hsd4DFYjx2oe+LVYgvus9k257kv1l6
-         /mIjjzZVyVYBpfiNt6KUiRFHgqlabHVoVdWkNAkog8KIFmDaOau7/9ta5mnixOTJMhzC
-         i8vXpylNGZ8RYB76piA7Jj1N9zx5nh5Ua+fHXWuhFYoIdM9Eg4suP0M6lqYxr2JrhHOm
-         rhokk1RA72nCscFUhD0g9/czuQMOuGjcKFX1Y51GPo/E6k/x4aqa6ZDHa39bf7V9J7Yq
-         P7ZA==
+        d=linuxfoundation.org; s=google; t=1784798645; x=1785403445; darn=lists.yoctoproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=qtlkOmMx3rjxIklp1+N4OafhlGGsn8u8QynqGS/3pzA=;
+        b=Wjv4MKqCAE1DOPYgSWWJoq2794a4s6zEa34ramN81hnOkEQD2cx4ZRmklSP5EkkfYU
+         VoLARQuDLmQMtF1QqQBjtQ+kv03ASPozvai6qBDOrLxwJpMul2wM39qyQaoYq/sOFPIY
+         abkOll9K4N462A+IDgF4sPos429QDZfnV37uM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784757580; x=1785362380;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1nK4OPgGaSMO6gs//oTuRQOLQPclORDJ2uYTE12vR7U=;
-        b=VFFd3EpeNKIbrdAPMojM/a184fZR/4rK/nkaq2UxUsp9klWV4ro7mOPPHujgQm+cpT
-         5eTC6gq5xvv2Dtz9tbfUF3EByhRk2+0rYvyOJHkXBa3ttxyRPop7ghpN29GjlT9mWLqh
-         8Ss/+6RXNMynnXsuJxF+U8zzudMVO3YW9FvqX9UU+12gtwy+eDb0DGVplIdrxwjLxJyi
-         CvApWVIEyKRLZ57UKl9qSeSgLutw4HKHDsFZtKs7WgYoxOaTAOfwAQGqepIs6D5OA5TN
-         I08idOq5EV3fH1RfJT6i2DVwMEd2NwqLmFqpF6i3zsPqEKS4aoCVBXf1b+C7yB04XuKj
-         EMqA==
-X-Gm-Message-State: AOJu0Yz2EMuM3qSYkArfjZGT7OSi4BonSIqrfKpysvZYnsRYQrsupUph
-	jm/arhS2a/DDKR6glKWc5pS/upX94YPazUbkNRg7jpuqF7vQhUn8YIpr
-X-Gm-Gg: AR+sD11temN9IeFSluHAwc3Lkd1WdoAkLNsxMb5MhMIWwM0V3NZC3pO4CK9jrIiaeXZ
-	uNfylhFtt2+yf/9ef0DMAeexvnvHilFZERD/+xbjEwv4Xdm8lMQRZUzx8/IbMpkkCttGWQbcBZG
-	IPT0mqVqz5t4XRr43W93ChZ+P6DZ2FnNuWkz50DfOJ454OfafKl9Ol2Lq9VtqMFu3a1/CG6XEpq
-	zPAK3LZ6ZRt24+dDZ8Gmc/j1vJp7u/82ticKzbI+RYFb/UFNNjXg9rUMaNjvp7cIjnAqqZqZ1UM
-	4MI7TqIJ+qX59oUKRpIsPiOM/hxVeys6j6LS4rIG8992Nsq1nleJmQWl2OYPD9UeTEEkwNrcyjB
-	lCjxHUcOP8LJ8vnStlkuIowejJhv3C8Tjlrud5w/vudegmytSO4hadeoa0bj9K8f9HfqoO7WoUO
-	dgEZVgzm+4SkUk2uJUwkplFyg429yud8qmFFldT7xQgDzl8rbPQk6zRVk=
-X-Received: by 2002:a05:6214:8081:b0:8ef:74ad:e62b with SMTP id 6a1803df08f44-907ccfa982cmr771386d6.7.1784757580329;
-        Wed, 22 Jul 2026 14:59:40 -0700 (PDT)
-Received: from localhost.localdomain (pppoe-209-91-167-254.vianet.ca. [209.91.167.254])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907ba8b5f6esm30330736d6.5.2026.07.22.14.59.39
+        d=1e100.net; s=20251104; t=1784798645; x=1785403445;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qtlkOmMx3rjxIklp1+N4OafhlGGsn8u8QynqGS/3pzA=;
+        b=sQ7yNAdEad+6On1jAtKvIwuk9KXFEFw/bfz6z9HJu9wYdTLYQez69NIvCm0Vyaxi95
+         ZPReaYFa5qRNTS8aikaf3fnyjx5eAVmNBRHVZOKrM1m+l4OWX9EewSbnQaKIkVW3rjIa
+         dnPifGNBWx4FH1vbb3KlfxATKDTuWsabQoEf6IGUaq9DF/g8XwM6R6ezYg+b8vXoputC
+         /l0dXpwPsJrM2exFAiYKMIMnJYMgA/psnAbfW3g3Dt4JhlIYQy9QyltewkgCrRk61f5i
+         VOvUGnZV+O3+hJO+MkWCljfuJiZ3n/HXhJVcOVNkryu/Z8kSj+1aeYGO446XJ3wgeEA4
+         WG7Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rpamtmz8Dh7UxvcdBKpqe/9LJf73xbMAqaodGjsgmIXpUbjzl/06ak5GijN+rYvJnrNqhT8@lists.yoctoproject.org
+X-Gm-Message-State: AOJu0Yz6n5rRC7plkQhg1XiShsYgoBlnsO+cO/pO6v7hxiSYCV1JxUo/
+	b5e03ESWFC2D87y2743EKQ1ZniRDEGh548GHL3RGa3EgnRBjhMB1/70UIDSUO9xsbDg=
+X-Gm-Gg: AR+sD11vXJAKRp2XiZSJQNbGnJBzzp89zm502drQE1XVzk1tM60uOBv7vN0gceytMIg
+	dMlO3Q5HG3DDIdWKiIwuGFOswn1mEQ7Fn22huHbfbbG+6LQg/j3Yp1kbkbvJRD32rrVjGd6ph2H
+	+iG31h0xmov9CSpZowcj8p5rJomWteZWgyJ1sT482xRDqhzIfpOpTp5ZzOBsSwSX49tT698jhCV
+	7ycU0NqnAR0IPT6Oatu0EK7lD4FcZ5Qde4wvaJz90VxVkhe92diWGAxVoqwJOIe+NGzSznApBEz
+	JcOw8kGO09YKJd6bu/PcrmqovmU7CGSCLqo3BeVbCgYQwLj3fpuvusr+A0mh2I+yIqlO6MZD2XM
+	Wx2R5CkDWnnNA0Umit/w6Omfq22uk4wsIXhefrKfDibG/R4kdlbTjLXps/kKX029YHuBTBx0s/R
+	eA9iaHL+0OwUy1Afm6ljMAfkDyjJRvlv4nZHOsL9XfamUnbyy75yL5AU7G+c077U26Y4Q=
+X-Received: by 2002:a5d:6f06:0:b0:47d:f508:3364 with SMTP id ffacd0b85a97d-47f902605c8mr2390452f8f.15.1784798645487;
+        Thu, 23 Jul 2026 02:24:05 -0700 (PDT)
+Received: from ?IPv6:2001:8b0:aba:5f3c:2205:d253:2df6:b9d5? ([2001:8b0:aba:5f3c:2205:d253:2df6:b9d5])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f85b9a64dsm14679391f8f.1.2026.07.23.02.24.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 14:59:39 -0700 (PDT)
-Date: Wed, 22 Jul 2026 17:59:37 -0400
-From: Trevor Woerner <twoerner@gmail.com>
-To: Bruce Ashfield <bruce.ashfield@gmail.com>
-Cc: poky@lists.yoctoproject.org, yoann.congal@smile.fr
-Subject: Re: [poky] [PATCH][wrynose] poky.conf: Add newly sanity tested
- distros
-Message-ID: <amE9SekdPixbrgsa@localhost.localdomain>
-References: <20260717155726.3527567-1-twoerner@gmail.com>
- <CADkTA4Or7ou3nL+FhGXiQFh7SacG7d07K01E_AMc0uWfHPaHuA@mail.gmail.com>
+        Thu, 23 Jul 2026 02:24:04 -0700 (PDT)
+Message-ID: <8492f386f53885c1ceda197e034241b9c9ffab57.camel@linuxfoundation.org>
+Subject: Re: [poky] [RFC PATCH] distro/poky: enable minidebuginfo
+ DISTRO_FEATURE
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: ross.burton@arm.com, poky@lists.yoctoproject.org
+Cc: openembedded-core@lists.openembedded.org
+Date: Thu, 23 Jul 2026 10:24:03 +0100
+In-Reply-To: <20260715162410.639632-1-ross.burton@arm.com>
+References: <20260715162410.639632-1-ross.burton@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADkTA4Or7ou3nL+FhGXiQFh7SacG7d07K01E_AMc0uWfHPaHuA@mail.gmail.com>
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 22 Jul 2026 21:59:51 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13947
+ <poky@lists.yoctoproject.org>; Thu, 23 Jul 2026 09:24:17 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13948
 
-On Mon 2026-07-20 @ 09:40:11 AM, Bruce Ashfield wrote:
-> On Fri, Jul 17, 2026 at 11:57 AM Trevor Woerner via
-> lists.yoctoproject.org <twoerner=gmail.com@lists.yoctoproject.org>
-> wrote:
-> >
-> > Fedora 44 and Alma 10 workers were added to the autobuilder, and the
-> > Alma 8 and 9 workers were updated. Add fedora-44, almalinux-8.10,
-> > almalinux-9.8 and almalinux-10.2 to SANITY_TESTED_DISTROS.
-> >
-> > AI-Generated: codex/claude-opus 4.8 (xhigh)
-> 
-> I couldn't resist commenting.
-> 
-> You really used claude to add 4 strings to a conf file ?
+On Wed, 2026-07-15 at 17:24 +0100, Ross Burton via lists.yoctoproject.org w=
+rote:
+> Enable the "minidebuginfo" DISTRO_FEATURE in poky builds, so that all
+> binaries have just enough debuginfo in them to get a useful stack trace.
+>=20
+> This aids with debugging occasional failures that hit the autobuilder,
+> at minimal cost.=C2=A0 For example, core-image-sato with systemd:
+>=20
+> =C2=A0 core-image-sato: IMAGESIZE changed from 481532 to 486044 (+1%)
+> =C2=A0 glibc: PKGSIZE changed from 3715743 to 3805871 (+2%)
+> =C2=A0 sqlite3: PKGSIZE changed from 462840 to 469056 (+1%)
+>=20
+> Signed-off-by: Ross Burton <ross.burton@arm.com>
+> ---
+> =C2=A0meta-poky/conf/distro/poky.conf | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky=
+.conf
+> index 2ba98f4ba2..86576e48a0 100644
+> --- a/meta-poky/conf/distro/poky.conf
+> +++ b/meta-poky/conf/distro/poky.conf
+> @@ -13,7 +13,7 @@ TARGET_VENDOR =3D "-poky"
+> =C2=A0LOCALCONF_VERSION =3D "2"
+> =C2=A0
+> =C2=A0# Override these in poky based distros
+> -POKY_DEFAULT_DISTRO_FEATURES =3D ""
+> +POKY_DEFAULT_DISTRO_FEATURES =3D "minidebuginfo"
+> =C2=A0POKY_DEFAULT_EXTRA_RDEPENDS =3D "packagegroup-core-boot"
+> =C2=A0POKY_DEFAULT_EXTRA_RRECOMMENDS =3D "kernel-module-af-packet"
 
-many bothans[1] died to bring us this information
+Thinking about this, I think we should do this in core by default,
+which will help sstate reuse generally as well.
 
-> Bruce
-> 
-> > Signed-off-by: Trevor Woerner <twoerner@gmail.com>
-> > ---
-> >  meta-poky/conf/distro/poky.conf | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-> > index 90f6e5f03ea7..8b2bc0fede45 100644
-> > --- a/meta-poky/conf/distro/poky.conf
-> > +++ b/meta-poky/conf/distro/poky.conf
-> > @@ -39,6 +39,7 @@ SANITY_TESTED_DISTROS ?= " \
-> >              ubuntu-26.04 \n \
-> >              fedora-42 \n \
-> >              fedora-43 \n \
-> > +            fedora-44 \n \
-> >              centos-9 \n \
-> >              centos-10 \n \
-> >              debian-11 \n \
-> > @@ -48,6 +49,9 @@ SANITY_TESTED_DISTROS ?= " \
-> >              opensuseleap-16.0 \n \
-> >              almalinux-8.8 \n \
-> >              almalinux-9.2 \n \
-> > +            almalinux-8.10 \n \
-> > +            almalinux-9.8 \n \
-> > +            almalinux-10.2 \n \
-> >              rocky-8 \n \
-> >              rocky-9 \n \
-> >              "
-> > --
-> > 2.50.0.173.g8b6f19ccfc3a
-> >
-> >
-> > -=-=-=-=-=-=-=-=-=-=-=-
-> > Links: You receive all messages sent to this group.
-> > View/Reply Online (#13942): https://lists.yoctoproject.org/g/poky/message/13942
-> > Mute This Topic: https://lists.yoctoproject.org/mt/120317716/1050810
-> > Group Owner: poky+owner@lists.yoctoproject.org
-> > Unsubscribe: https://lists.yoctoproject.org/g/poky/unsub [bruce.ashfield@gmail.com]
-> > -=-=-=-=-=-=-=-=-=-=-=-
-> >
-> 
-> 
-> -- 
-> - Thou shalt not follow the NULL pointer, for chaos and madness await
-> thee at its end
-> - "Use the force Harry" - Gandalf, Star Trek II
+Cheers,
 
-[1] rhymes with "tokens"
+Richard
 
