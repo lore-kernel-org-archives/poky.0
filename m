@@ -1,107 +1,87 @@
-Return-Path: <yoann.congal@smile.fr>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CCEDC531D0
-	for <webhook@archiver.kernel.org>; Thu, 30 Jul 2026 08:33:58 +0000 (UTC)
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.6945.1785400432163735952
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 84CCCC55173
+	for <webhook@archiver.kernel.org>; Fri, 31 Jul 2026 16:23:31 +0000 (UTC)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+ by mx.groups.io with SMTP id smtpd.msgproc01-g2.96.1785515002263338587
  for <poky@lists.yoctoproject.org>;
- Thu, 30 Jul 2026 01:33:52 -0700
+ Fri, 31 Jul 2026 09:23:22 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@smile.fr header.s=google header.b=djfY9leJ;
- spf=pass (domain: smile.fr, ip: 209.85.221.41, mailfrom: yoann.congal@smile.fr)
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-47f7027ca11so1205742f8f.3
-        for <poky@lists.yoctoproject.org>; Thu, 30 Jul 2026 01:33:51 -0700 (PDT)
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=VPO3PBAj;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.44, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f3b39f2a1so527353f8f.2
+        for <poky@lists.yoctoproject.org>; Fri, 31 Jul 2026 09:23:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=smile.fr; s=google; t=1785400430; x=1786005230; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=060YYlYlAySbx1oOuRZ2FCCu1X5bSPdxiQ9zSX3DiSM=;
-        b=djfY9leJ+Tu4tAcrOSqNMkE06gNz+IlNjATaFlL3NkDwyEkn8ee0fls4IGsAYVr66p
-         txZOxoerPzSWty/YK0kUJROOc6XKrh8U5Ocxch0ArksG2gZFYjf4RXAd/g9kakD/IfUH
-         ZDHSe3w47On3wR0hR5Hpkryjf/i+tTH4KbYIE=
+        d=linuxfoundation.org; s=google; t=1785515000; x=1786119800; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MBuJ3amqMzznnmFDfN5ObB1hdqb6cS2uVZ5LPJ0WvsI=;
+        b=VPO3PBAjc4zTZ09UrCH+xeVbnrLCBGRp0bM71X22JjVvjfuPaB3qDim0cK2fwHfjeR
+         Lf3L6fFa0cOVegeva6YodfImXV6l8zeaR2USNmHzVwy0zrn3Vm6nR1zhQoIXTRZm6YZD
+         +AQXw6J5l7PF5eQ7JwHZmYZk+HUbjf7QN6420=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785400430; x=1786005230;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=060YYlYlAySbx1oOuRZ2FCCu1X5bSPdxiQ9zSX3DiSM=;
-        b=d0uD4SsimTfbEcgXAg+0JdJmPjrdaH1c+cBEbFA5yz8LiN86uGHOO6P3NmwQqiEVks
-         93xOqWlFK5lSQleaVGDSqYhtXf1DDcTs7WKXFVo+oV2rgTlMxIPD19mWJhRttviuwNtz
-         VV7w0NAN3r+j+ReKzEWFdJBWR4dL/dhGl6mvixcqewj1mUrGKEog9E4ET4LkcKwWV0Lk
-         CTF96ybz7R9JXbbANsFXtn2QAkxnN5Y+sKJMakf1FJmzMNJXc4fO7rtTFny6RxJ9uxFN
-         +O72culX+zu9KbI0h5fx2ym1Pjo6Jnjsd6QIyheUpPeUy3qMBcG/Nz3MjtKI2eDEAv05
-         Qqaw==
-X-Gm-Message-State: AOJu0YyzfLYM6xk+Xr2F/6e56JP9YBdMRAZunaoc1esoQVL/qVdlFvSt
-	JroiLnYDQC3G1oeW5o7TblQbcJW8IDjkVIWnCne2VbQ+m4HpA2QMaCL8ZCoxUNyyC3dS7MOLs/+
-	35xkvhzE=
-X-Gm-Gg: AR+sD112wNoSCZX8oBnJ52NXgnje3LOFrsjDa5HExkRjsAZeTN5M0uAgw7XIXO6aHbp
-	RCmjKTmiJ7sppLG3DcynX589q/7wadz4bYgGVwnPJeyO2lgsU0SAA7z+RdqXdQT1bG+7hACrj6y
-	Apg/uqqO9SnIskFxDkchtvFWu5FlSDzHstpbq3JqHsbQHBYy1rFNRsWNo2zyikdBuePzpU91vlp
-	9pTlrsbmlyydK/fK36D+k7DPjCBwSzkQvYTWzkXfvNLDll8fzOkjKdsHWXJyTj/ZEHX6VPi0Aub
-	zjFdItpBYv9cr2P5Hacf2th0oxF1UW/osOVaXTN18Ak2q0MG9lvrDxyScADAyVRD4ZC8tADWpvq
-	dhezfOqBHz/g7y9lTR7WFEqJZhfVit8fGo1BAFq3ABnO4XhispW1xBW2kUVoMSJzKTLfL0qGsSJ
-	GvpabHPzi6a8vWfiawgMVvyI3uWoDSKoa7k18bPQMfqVQhN6O1NaO3C1eEcyzm2BNDRwHeBpBuu
-	KmhZhbyjrmikbenz+a1gzskxJlroinkSoV56ng/BuiGmgv1pkUrZhQl9VyyHyTAyg89xwE4Ljc=
-X-Received: by 2002:a05:6000:2405:b0:47f:c3a1:244 with SMTP id ffacd0b85a97d-47fc844e168mr1916230f8f.30.1785400430191;
-        Thu, 30 Jul 2026 01:33:50 -0700 (PDT)
-Received: from FRSMI25-LASER.home (2a01cb001331aa00a2e4fb7b0d887544.ipv6.abo.wanadoo.fr. [2a01:cb00:1331:aa00:a2e4:fb7b:d88:7544])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fc88d6f18sm4129263f8f.4.2026.07.30.01.33.49
+        d=1e100.net; s=20251104; t=1785515000; x=1786119800;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=MBuJ3amqMzznnmFDfN5ObB1hdqb6cS2uVZ5LPJ0WvsI=;
+        b=pAK0cT6E//c8b901rOgxKBUuEV35pE3zCvxhwYlFWy8ZXaC2lAE98GXgGDRdkf0aRy
+         j3NSh1uhRad5SUUhtaQe/eZa2iXTj/wMrrSRYt6Y+1QC0Z0ewHjYpa8d7MDA6uWDbnWw
+         Dk0Ae3kIv6gHRHy+80QpxPDJoencBi7VPBlIYe/Y6kzuv+a8DTVHdsatsbiZa83kLgKr
+         vR4xrHSg5DMNqT4VO9yf3wuCTNHWdeYju++/IUXJhnC6SuS2OYeZannDDoMGG0GY+V9o
+         IZQ2PysuDDM6WEbGcsGxU5Iz+Tuz8Xy5iSoqYZ2rELyZdsGn0haofHbwvcTiwTjpnIll
+         7C2g==
+X-Gm-Message-State: AOJu0YwRHvIFDNr+d3V7C9GlvtGRanvH0ikymtcdyJXFvX4zSCFB6pJ9
+	vBS6GCMTxP043xt+jgebRtWS8wai3bTLlan+78hf42QkCpMYwTycTCrLRu0mYDnq3NPKkioBMsf
+	brBRcoCE=
+X-Gm-Gg: AR+sD117RcpIOKfzAAHtRWbJ+P+iOR4YLZBnG9i+1AzX2V2QJ6AihVR61tbs1gmP4i9
+	UNz2TyKsKohuQpmkhlAKyru89C19cS1uXWcqB2Sb/2z5peWG8i04dNNiPgQ7FDfXz8OmEcZ/YMV
+	U9E1Loq9E45WimfNvamcJzfG/i6P4aCrU6LGemV7ATRZ1UWMBcIsw5iohRedeNMUkhsgkD57+X2
+	Kh0gNDZmtybzM2EFkTE5Vgxax6/Lr5T6fMaX7zuEsl6X1ORtCB2e44OBaCfq0AKZVrZW1PsEo6/
+	a5HgJ4Fb8/oyYFwdUmczdOI7nuUKKSGQOrne5bPu/Ex80grTD4qxpEsRwcCW4l83Jjx1ODM0vAq
+	o4+HxYXW568mTZeBPi3nPz8xZv/Q4+LbRyoOSZTE6KGujkJHVWxkFnFfSeGyeX/QdSfsg1t1gtI
+	8gbqSlQ8hvH6Rkky/Kx7x7rQ0H+M33Ktft+6fPm0yh7vRmEkaOGa7JxLVq2eKzpQ5M2wQ9bLFWW
+	Pph9ze3OgxcVRh6AQ==
+X-Received: by 2002:a5d:4741:0:b0:47f:9661:6766 with SMTP id ffacd0b85a97d-47fd7315b28mr374239f8f.61.1785515000142;
+        Fri, 31 Jul 2026 09:23:20 -0700 (PDT)
+Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:7f7b:46f5:a0f7:875c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd41d1756sm6286183f8f.4.2026.07.31.09.23.19
+        for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 01:33:49 -0700 (PDT)
-From: Yoann Congal <yoann.congal@smile.fr>
+        Fri, 31 Jul 2026 09:23:19 -0700 (PDT)
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: poky@lists.yoctoproject.org
-Cc: Paul Barker <paul@pbarker.dev>
-Subject: [meta-yocto][wrynose 0/5] Pull request (cover letter only)
-Date: Thu, 30 Jul 2026 10:33:48 +0200
-Message-ID: <cover.1785399676.git.yoann.congal@smile.fr>
-X-Mailer: git-send-email 2.47.3
+Subject: [PATCH] poky.conf: We now test on Rocky 10
+Date: Fri, 31 Jul 2026 17:23:18 +0100
+Message-ID: <20260731162318.1668930-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Thu, 30 Jul 2026 08:33:58 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13955
+ <poky@lists.yoctoproject.org>; Fri, 31 Jul 2026 16:23:31 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13956
 
-Warning: this contains a yocto-bsps update that must be merged with the
-corresponding linux-yocto upgrade in OE-Core.
+Add Rocky 10 as we now test there.
 
-Those are the patches from the last patch review:
-https://lore.kernel.org/poky/cover.1785190768.git.yoann.congal@smile.fr/T/#t
-No review, no change
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ meta-poky/conf/distro/poky.conf | 1 +
+ 1 file changed, 1 insertion(+)
 
-Passed a-full on autobuilder:
-https://autobuilder.yoctoproject.org/valkyrie/#/builders/29/builds/4313
-
-The following changes since commit 824795b885b25e074a2880fbcd54e1a6c875d47d:
-
-  yocto-bsps: update to v6.18.35 (2026-06-30 19:19:52 +0200)
-
-are available in the Git repository at:
-
-  https://git.yoctoproject.org/meta-yocto-contrib stable/wrynose-next
-  https://git.yoctoproject.org/meta-yocto-contrib/log/?h=stable/wrynose-next
-
-for you to fetch changes up to cc2e16655b852958a7bb0ef636e9286b91bcb43f:
-
-  yocto-bsps: update to v6.18.39 (2026-07-27 00:00:07 +0200)
-
-----------------------------------------------------------------
-
-Bruce Ashfield (3):
-  yocto-bsps: update to v6.18.36
-  yocto-bsps: update to v6.18.38
-  yocto-bsps: update to v6.18.39
-
-Yoann Congal (2):
-  README: Add wrynose subject-prefix to git-send-email suggestion
-  b4-config: add send-prefixes for wrynose
-
- .b4-config                                                    | 3 ++-
- meta-yocto-bsp/README.hardware.md                             | 2 +-
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.18.bbappend | 2 +-
- 3 files changed, 4 insertions(+), 3 deletions(-)
-
+diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
+index 2ba98f4ba24..ff1c9a97b77 100644
+--- a/meta-poky/conf/distro/poky.conf
++++ b/meta-poky/conf/distro/poky.conf
+@@ -51,6 +51,7 @@ SANITY_TESTED_DISTROS ?= " \
+             almalinux-10.2 \n \
+             rocky-8 \n \
+             rocky-9 \n \
++            rocky-10 \n \
+             "
+ # add poky sanity bbclass
+ INHERIT += "poky-sanity"
 
