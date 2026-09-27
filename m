@@ -2,106 +2,93 @@ Return-Path: <yoann.congal@smile.fr>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41E68C88E4D
-	for <webhook@archiver.kernel.org>; Fri, 11 Sep 2026 21:51:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 764ACC98324
+	for <webhook@archiver.kernel.org>; Sun, 27 Sep 2026 07:45:18 +0000 (UTC)
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.50458.1789163483944023413
+ by mx.groups.io with SMTP id smtpd.msgproc01-g2.33607.1790495117042718255
  for <poky@lists.yoctoproject.org>;
- Fri, 11 Sep 2026 14:51:24 -0700
+ Sun, 27 Sep 2026 00:45:17 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@smile.fr header.s=google header.b=L9+6zCaz;
+ dkim=pass header.i=@smile.fr header.s=google header.b=cxeVAsS9;
  spf=pass (domain: smile.fr, ip: 74.125.225.140, mailfrom: yoann.congal@smile.fr)
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so1184865e9.0
-        for <poky@lists.yoctoproject.org>; Fri, 11 Sep 2026 14:51:23 -0700 (PDT)
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so12112555e9.1
+        for <poky@lists.yoctoproject.org>; Sun, 27 Sep 2026 00:45:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=smile.fr; s=google; t=1789163482; x=1789768282; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ioTXBbuQfCw5n8bFe4I70C7WT3GkPzevaKr8qHbP7MI=;
-        b=L9+6zCaziOwiChi9sdaYGGDNgM08IG2Z5gyqd3TKteR8E86o2Bt1GWSpSpLfqp9JU0
-         i1lY8RoWqPQb4rmbfuMRZj89aL40y2MUYlVKZRxavaeUflkDA2+W7pxSHvWtD/z9NPEh
-         W98fH46ugqeTCt4phrmLvnETBicUWzJzOljiM=
+        d=smile.fr; s=google; t=1790495115; x=1791099915; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bzjIgz/CqxjLhKYfcc0WwiwDgSBDH86HRrwbyXW9Pgc=;
+        b=cxeVAsS9vTRCtyjBtttW4b9+F6gaeifRDDAhsvNSLZ3S5KSej5eAcClVew4Xb/4FuO
+         tQNTHmGh5zpUl6cZXGq/yW6dtlI+XmDmuwWJVAC2xiRDOgVW/MMT/dOrF8B2JjfDEG+O
+         ow9OCdEz3G8rFT/3IbqQCaxvM6ioARc9diIuY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789163482; x=1789768282;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ioTXBbuQfCw5n8bFe4I70C7WT3GkPzevaKr8qHbP7MI=;
-        b=ZWxLgdeySg1/4qJgDcsfFVVMLqe5WnOmybJ/myQmulF8czLnG1SElKnQZZJp+tYAlq
-         +B1qcAATFoOwINDJK1kBPPOdtEL3uiKVpJcZqNPo5gw+ebBg7PkPa1/yNkTLfJDSgL8C
-         V3M37q/hApKYS4KG1LmZgzr9LWgHtEQeAZvAgbwxg7le7ngkO28Oxcu7+6Pq3Ni+ooeo
-         mlopnjrvwIuv18K10yHWjqqoOPKyE2faf42I/Gdxy/wTGrWr0PyQvZBkP4lTUSpKaeQY
-         PDufgBmc5b7zTyqaYTl3Kf2D5P2eSY/p8XoxvO225TssfCn03VDpoPgYo05YSZ8SnRJW
-         AlDQ==
-X-Gm-Message-State: AFuF++k0zWq7C6DpM5YklLTZhlhnNwqlQXR0ReOxgqwg3V2uzgcxs3tY
-	UHlliVHsZ9t34Y0L9dZPqrIrpSIooCb8MyuyX/iNzJhZCgvlBMvW5hbl+S8CqiIQVqHPTiTM1lD
-	2h9fIOmQ=
-X-Gm-Gg: AYBFou22m16yFTKxC1IzrqJgpCd2B6LEdMxda0ZbNt8bzC+2uYCoBsBNqCNukxlVjvf
-	PSr79morU6hU+0L5NuoeroDDLE/HKJV6+CzvzJm8DsM4LZAeg7Dt+PBMc3M2RIHrkAkrQuCAItl
-	qv43PKJ4RWAv0y8qMwVNSWhNm5YjK3RvdZMIMy+2HXWO6tMBx2Z+YwVtuCGGSgzQFP0hdc3DTnt
-	hsj9ATjchP74LcL/m4vv8C62O8zTv7aInDfXnV3jRLrL4PeHveKCnUvBedNo6wMWA0p8W50p8vZ
-	/g/8yAIwMrh0tyTdksZhnF4gMXo7JJVSbVoM5W3WQmPYbDZ1jFrQn/UwJ3Sf0Gs3aIm34LMRXJ9
-	cJAkRYueuzk+WqkIKM8Rb1Js6uVhKUEzFT6sOg6ZRFStYJ/vG1ALuQ6qhIItDWDhz60vAvsn0iW
-	lI9Xg5z2Fo3SAyD4YTDgsbaQuK9OxWbMOS22tBAZa38F0eQa+uCOgSEOmVuTvOKlfZymb6nPV8V
-	XMQNu+2pPj+kxbEqbdW76pKE6+iOXI5rRI4bf87M2pPisjx4AV42xnmSyvJ1JNNFbGnwTlJP7g=
-X-Received: by 2002:a05:6000:4608:b0:485:8224:1a44 with SMTP id ffacd0b85a97d-486e988ef46mr7948804f8f.21.1789163481967;
-        Fri, 11 Sep 2026 14:51:21 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790495115; x=1791099915;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bzjIgz/CqxjLhKYfcc0WwiwDgSBDH86HRrwbyXW9Pgc=;
+        b=A9Y9XkJIJQgPHf809kPHVixlUrCq62J0pcjUBTnFaKHm9fOgpolAg7ow0zeI5quVLD
+         0v3+f/WMu4VmqZDb2Or+1XPAO88D0moO34y6g+rjRcfdLYrkIsx13ToWIb599nyoxRHS
+         Y296a+noQ0DC8Jur8VVTboeXcLIpb8gwiQap+iCeVUqDKBI2jgijJdSTz/4ZrVE7o0+N
+         NyC/bbRuP4+TuEjZYu+F1wmuTh9E3T+hKj9BV1m0wrYp58eyzywsvSFay4O8pyEA1G1Q
+         MBZIfr6WA/W7oJKvD+zR4ypsGyz1Xf8V8dNkzfXAoZJ1Z48v/PQF+0XszazuGAEJEj/Q
+         f8Ug==
+X-Gm-Message-State: AFuF++nb5sNKZGvmjElEwu5WEUT0XsjdBjmGPPZiGR6Xzp996nIRC1ti
+	L8uY1sFW7NJwttseh76yQVePojhQKNq30AyQ+AYqADqGZu0qtHTT6d5OX8VfSk2T7wNxrdsKVEC
+	8duA3o+U=
+X-Gm-Gg: AYBFou3dXKRCk23mldRO9pOXE7C91jZ3DJ/0Eh1yh+/ong6Qyz9G2DQUXG2uUn4Qs0w
+	22EzU0Hmi3Z7lj3T291X0f0vfagWJx5KG3NIwO11Ske5dCE9ZYPeb0j7M2lFTjsJ8PcE2Ge0Hy/
+	HsJKFYoN54j+V++6+oubyG5KLMeREpQmFZyxiwIajKzDqiAZycXUIhPyhIZLqA+mv4XZ6xKNEaO
+	VI3y81z8U3dIsBYPIPiJ6fqFvFUSpkSbWRD9JHD9l5crubIpBgEsq23dL06KEmu0fvvlyLHIG4p
+	xwVxpnjSPSy4XREPE28L5cZCT9ceinEvRW/9mOoU8AXq3nz3HhipCPD3th5sqZpBszkYqHyMMpC
+	HkBJEtLrxYMCgv/M4wdtv1LIs3SDufGwPZowb7ySejdXyCbYwejt9gpjOV4b9W6Hr1fo6lGUgJF
+	nGgg2qd8ZNLxp5X4Mvss2GKhvgv1kNRvmjEL4fKaTwPb/a0lLfPelx8kH0Bz7d9AnioTnjc3VsX
+	q9RVv1QWoUYsFIYc5M/6IoNysroUdA5SrHxWNazntZuL0uonqupZn1Yp43QLk173UgmSz1i1wI=
+X-Received: by 2002:a05:600c:4594:b0:49e:6249:268b with SMTP id 5b1f17b1804b1-49fe6707f69mr197905405e9.32.1790495115167;
+        Sun, 27 Sep 2026 00:45:15 -0700 (PDT)
 Received: from FRSMI25-LASER.home (2a01cb001331aa00a2e4fb7b0d887544.ipv6.abo.wanadoo.fr. [2a01:cb00:1331:aa00:a2e4:fb7b:d88:7544])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33fd3bsm8776445f8f.19.2026.09.11.14.51.21
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0019057cfsm45786425e9.11.2026.09.27.00.45.14
+        for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 14:51:21 -0700 (PDT)
+        Sun, 27 Sep 2026 00:45:14 -0700 (PDT)
 From: Yoann Congal <yoann.congal@smile.fr>
 To: poky@lists.yoctoproject.org
-Cc: Paul Barker <paul@pbarker.dev>,
-	Richard Purdie <richard.purdie@linuxfoundation.org>
-Subject: [meta-yocto][wrynose 0/4] Pull request (cover letter only)
-Date: Fri, 11 Sep 2026 23:51:10 +0200
-Message-ID: <cover.1789163335.git.yoann.congal@smile.fr>
-X-Mailer: git-send-email 2.47.3
+Subject: [meta-yocto][wrynose 0/2] Patch review
+Date: Sun, 27 Sep 2026 09:45:10 +0200
+Message-ID: <cover.1790495081.git.yoann.congal@smile.fr>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Fri, 11 Sep 2026 21:51:28 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13966
+ <poky@lists.yoctoproject.org>; Sun, 27 Sep 2026 07:45:18 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13967
 
-Those are the patches from the last patch review:
-https://lore.kernel.org/all/cover.1788939085.git.yoann.congal@smile.fr/
-(No review, no change)
+Please review this set of changes for wrynose and have comments back by
+end of day Tuesday, September 29.
 
 Passed a-full on autobuilder:
-https://autobuilder.yoctoproject.org/valkyrie/?#/builders/29/builds/4704
-5 builds failed due to 16421 – AB-INT: SSL UNEXPECTED_EOF_WHILE_READING errors
-The builds are fine now:
-* oe-selftest-fedora https://autobuilder.yoctoproject.org/valkyrie/?#/builders/48/builds/4646
-* qemuarm64 https://autobuilder.yoctoproject.org/valkyrie/?#/builders/36/builds/4628
-* oe-selftest-debian https://autobuilder.yoctoproject.org/valkyrie/?#/builders/35/builds/4839
-* oe-selftest-armhost https://autobuilder.yoctoproject.org/valkyrie/?#/builders/23/builds/4874
-* qemuarm https://autobuilder.yoctoproject.org/valkyrie/?#/builders/16/builds/4664
+https://autobuilder.yoctoproject.org/valkyrie/?#/builders/29/builds/4811
 
-The following changes since commit 1b132647002eea43a2c7a7f857f63f42dacbc26c:
-
-  poky.conf: Bump version for 6.0.3 release (2026-07-30 13:24:18 +0100)
-
-are available in the Git repository at:
-
-  https://git.yoctoproject.org/meta-yocto-contrib stable/wrynose-next
-  https://git.yoctoproject.org/meta-yocto-contrib/log/?h=stable/wrynose-next
-
-for you to fetch changes up to ddeeba423ff0565b8f1192f16072b5993d5ea6a0:
+The following changes since commit ddeeba423ff0565b8f1192f16072b5993d5ea6a0:
 
   linux-yocto/6.18: update to v6.18.48 (2026-09-08 11:47:08 +0200)
 
+are available in the Git repository at:
+
+  https://git.yoctoproject.org/meta-yocto-contrib stable/wrynose-review
+  https://git.yoctoproject.org/meta-yocto-contrib/log/?h=stable/wrynose-review
+
+for you to fetch changes up to e84a6c2922e8782961ddca05fa27f3be0078f5ad:
+
+  yocto-bsps: update to v6.18.52 (2026-09-23 17:33:17 +0200)
+
 ----------------------------------------------------------------
 
-Bruce Ashfield (4):
-  yocto-bsps: update to v6.18.41
-  yocto-bsps: update to v6.18.43
-  linux-yocto/6.18: update to v6.18.44
-  linux-yocto/6.18: update to v6.18.48
+Bruce Ashfield (2):
+  yocto-bsps: update to v6.18.50
+  yocto-bsps: update to v6.18.52
 
  meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.18.bbappend | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
