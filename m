@@ -1,87 +1,84 @@
-Return-Path: <mathieu.dubois-briand@bootlin.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D35D0CA5FB1
-	for <webhook@archiver.kernel.org>; Wed, 30 Sep 2026 08:58:03 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.9294.1790758673523299574
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02BD6CA5FBA
+	for <webhook@archiver.kernel.org>; Wed, 30 Sep 2026 10:30:57 +0000 (UTC)
+Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
+ by mx.groups.io with SMTP id smtpd.msgproc01-g2.10382.1790764247106678437
  for <poky@lists.yoctoproject.org>;
- Wed, 30 Sep 2026 01:57:54 -0700
+ Wed, 30 Sep 2026 03:30:47 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@bootlin.com header.s=dkim header.b=WFwNmB/s;
- spf=pass (domain: bootlin.com, ip: 185.246.84.56, mailfrom: mathieu.dubois-briand@bootlin.com)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 358E21A107C
-	for <poky@lists.yoctoproject.org>; Wed, 30 Sep 2026 08:57:51 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id EFAED60749
-	for <poky@lists.yoctoproject.org>; Wed, 30 Sep 2026 08:57:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0DB6910328EC1;
-	Wed, 30 Sep 2026 10:57:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790758670; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=RN2yLoQF8qyJ+BteWn7IfBgWxWRRQbGKxND2f1X4VWI=;
-	b=WFwNmB/sZqFTdKQxTIvbiwg4VtqmIxRr7uLAW7uJqawRr8+Q9yQQvd7kjqTuMvLQqz299Z
-	IVsrTAmY9dnt4GXYJfMW4Z4kKmQQUKKCv486NCwN+SodORS77+0fPkSlzFiSb9nPq5EHzm
-	h8OUO3XfPHVvaiZ09l4APbX6LUlehrwnXTehqMFmxPVRL1tZ2vUD71RkFEgAtGVmQ3wreD
-	g7B3/vaLq1Rlr+pLAgUjPS2Q4yH3RGLfFmB5Ab/yc8ZQDUxNTXg/VMiLBPadUU9qYf3PHi
-	UbY47weh6jCS6DwtnWgwIbgw0ZCPE5bNxYfW5/I34XW0mDQ3F9qoZ6+rJc78zw==
-From: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-Date: Wed, 30 Sep 2026 10:57:37 +0200
-Subject: [PATCH] poky: Add fedora-45 in SANITY_TESTED_DISTROS
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=PWfUvQHG;
+ spf=pass (domain: linuxfoundation.org, ip: 74.125.228.96, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6ad186afdf4so1410270a12.0
+        for <poky@lists.yoctoproject.org>; Wed, 30 Sep 2026 03:30:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1790764245; x=1791369045; darn=lists.yoctoproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=UTUEmneajr1yVLtH4KQmeuCPhqQd2O7WKFKDW/gwEdM=;
+        b=PWfUvQHGYAanCLmC+Yj8lrflQBElCyBN1TLC6pdhc+5XOBRXnitNRbarsReX2QkYr8
+         7AKV4TkFWXkrnEYz9E3FGlaMl4avk7B4uAt8WkA3VsAud49bl0k/tqBtepSNbsMSduMo
+         BnLZbxUsoPDMTquZTuiUT8bdvGJtvPaWjG9s0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790764245; x=1791369045;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UTUEmneajr1yVLtH4KQmeuCPhqQd2O7WKFKDW/gwEdM=;
+        b=0v3Zic+6AaxfkHNSbultpGaAQIptOZvJ4Y2LdIy1t1Dn3yHW2++GaI3SekVdbl1BUR
+         prEyQM+6rGbbRDF961P+oyS/9tbI8yg7BP9UKWHHfcDA9G8CsL2Kfh4BLGj30T01F9cd
+         YKNC00O9yccW+MqfQOQh/yjNodaR2H+tkzPcAoQOhQEzqgxLKHJQIbVpA4En5c7VmL3o
+         RfJNpu875ImzSXPRt2Bei/CfFfV1TIVnsPv0+2WIFa+egyx0AKyrKHINB8ayjagqHyvy
+         OOnejsCXvpRHnzFfvQfd2+GkzmnBAKzRkASPOBoI4MiWghG75HHfgic4ilu7D2946DYQ
+         ORsw==
+X-Forwarded-Encrypted: i=1; AKwUvBzyhag6MFEoV2M+cBoyKjF7++RL/Is9Z0QVIwRrwMhSxUrM3EcLH+gM5qd1EY4kt3E9J9cg@lists.yoctoproject.org
+X-Gm-Message-State: AFq9FYLC+FHFBZJOwgNirSmY8jI6czHH5XH9qcQaFppzHXhCJ9VHLd9c
+	lj6I5a5rAcsB2qx2i0II8mLN+tALTwsxIKPBqM2H+KRbKF3K11Vy9UU/9Nhk8uetDuQ=
+X-Gm-Gg: AYBFou3LBY1q6XJY+UbpOsoS2kbhzDUpKhGcirVizf3f97evmyVnKXE7qiJBH4icYmm
+	GzpXfBRFm2OZn2RCEzQwPu+rB9RKCSf84iCSmwYtCkUV2T/tPLtccxpg4goakewusLCESoAi3fI
+	I8kpozdweIwKzpY/qNTRJ9DxkLXU6FWKJfiQ/8F3iC5WBAkI8grrbqLOAohgibEGMgIchGsZoaj
+	9Quxo1N5vCoqYvKhB+sZY2MBozwurtZIatEhPh+arGIOS8jSuTBbtRraFOtPEyx+hHDO79f5IHd
+	49oSKJgm+4+ytZfAB8KapFfbo/oL+EPC8/ZQs0GnQz3rUVrE87MMk6BOgDACWYbaTkDYAIKZKpx
+	T+u5/mzlFHx77GgcHxp8K+99nAIkjLSucgEY5OmZS/EFGbOJ2YcSewwKGBoGfjQAl3/eC6YON6N
+	svVypUrJOVjFYpNO0ZfNPEemyFqsiRkRtzjcz8YRQctULpNWNZ8QR/nVJL2OJdDpKX5kRayIBPP
+	7gWW/8DrM0EyGVfNfRMbI2aWyfTYZsigDZWKpzSW6uy+1hBYKyRHrIcMRY1
+X-Received: by 2002:a05:6402:44c2:b0:6aa:97b8:aabf with SMTP id 4fb4d7f45d1cf-6ae19903e83mr482526a12.10.1790764241741;
+        Wed, 30 Sep 2026 03:30:41 -0700 (PDT)
+Received: from ?IPv6:2001:8b0:aba:5f3c:349:f135:e106:4c82? ([2001:8b0:aba:5f3c:349:f135:e106:4c82])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae156a2090sm597170a12.28.2026.09.30.03.30.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 03:30:40 -0700 (PDT)
+Message-ID: <eb29fe2e31f0d2604dd4ad14911ad9a9c398d659.camel@linuxfoundation.org>
+Subject: Re: [poky] [PATCH] poky: Add fedora-45 in SANITY_TESTED_DISTROS
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: mathieu.dubois-briand@bootlin.com, poky@lists.yoctoproject.org
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Date: Wed, 30 Sep 2026 11:30:40 +0100
+In-Reply-To: <20260930-mathieu-fedora45-v1-1-061d0ec59378@bootlin.com>
+References: <20260930-mathieu-fedora45-v1-1-061d0ec59378@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260930-mathieu-fedora45-v1-1-061d0ec59378@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAADPvGoC/x3MSw5AMBRG4a3IHWtSjwq2IgZVf7kDrbSIROxdY
- /gNznkoIjAi9dlDARdH9i6hyDMyq3YLBM/JVMqykV0lxaaPlXEKi9kHXSvR2hbKFJiMVJSyPcD
- y/S+H8X0/69/AVWIAAAA=
-X-Change-ID: 20260930-mathieu-fedora45-8f8e5c1ebc05
-To: poky@lists.yoctoproject.org
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790758668; l=858;
- i=mathieu.dubois-briand@bootlin.com; s=20241219; h=from:subject:message-id;
- bh=UK8Yp0SKM2/NgJL90lTN70KPtWTSXeGDbeWr/AS4FRY=;
- b=a6IZhL0S4oMzxHITMierMlvsi4/Gmmie7PsJBjF1mWr0K4gRfZDViWmRifIXI5t0+tdt4f1MO
- 2JsZ4VeJ8o1BItWBQboM1m8GAdFl0ai4EyYdBVwXiUrQH8UBVQa0L6h
-X-Developer-Key: i=mathieu.dubois-briand@bootlin.com; a=ed25519;
- pk=1PVTmzPXfKvDwcPUzG0aqdGoKZJA3b9s+3DqRlm0Lww=
-X-Last-TLS-Session-Version: TLSv1.3
 List-Id: <poky.lists.yoctoproject.org>
 X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by
  aws-us-west-2-korg-lkml-1.web.codeaurora.org with HTTPS for
- <poky@lists.yoctoproject.org>; Wed, 30 Sep 2026 08:58:03 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13971
+ <poky@lists.yoctoproject.org>; Wed, 30 Sep 2026 10:30:57 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13972
 
-Fedora 45 is out and now available on the autobuilder.
+On Wed, 2026-09-30 at 10:57 +0200, Mathieu Dubois-Briand via lists.yoctopro=
+ject.org wrote:
+> Fedora 45 is out and now available on the autobuilder.
 
-Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
----
- meta-poky/conf/distro/poky.conf | 1 +
- 1 file changed, 1 insertion(+)
+It isn't actually released yet, we're testing a pre-release version.
+Also, it doesn't actually build, there are segfaults in do_package. So
+this is a little premature :/.
 
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 96d668d52a55..adadb95615a9 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -39,6 +39,7 @@ SANITY_TESTED_DISTROS ?= " \
-             ubuntu-26.04 \n \
-             fedora-43 \n \
-             fedora-44 \n \
-+            fedora-45 \n \
-             centos-9 \n \
-             centos-10 \n \
-             debian-11 \n \
+Cheers,
 
----
-base-commit: 01f504740bcfa42ff53f4b3341a0dcee275fa6bd
-change-id: 20260930-mathieu-fedora45-8f8e5c1ebc05
-
-Best regards,
--- 
-Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
-
+Richard
 
