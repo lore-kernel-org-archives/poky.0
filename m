@@ -1,94 +1,157 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.9240.1793271727499092104
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+ by mx.groups.io with SMTP id smtpd.msgproc02-g2.11835.1793280196227358428
  for <poky@lists.yoctoproject.org>;
- Thu, 29 Oct 2026 04:02:07 -0700
+ Thu, 29 Oct 2026 06:23:16 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@gmail.com header.s=20260707 header.b=ON8jLLiz;
- spf=pass (domain: gmail.com, ip: 209.85.219.41, mailfrom: toertel@gmail.com)
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91c905d7b6bso8396836d6.2
-        for <poky@lists.yoctoproject.org>; Thu, 29 Oct 2026 04:02:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793271726; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PoIIk3er2DVCjnHiT2+QoVZfh0nv77ZR4bEzIo+/0tAjWT2LR1XS5BxgiXFCfCOME7
-         Uv6s6rTvs00rICQGIRpx+dFTQuTV3Q5P/XOJeQwe38uSgdQa541zMbmG02wpXvyKZTO5
-         es8mRFiOxAnDiGAsTVj30Fviwg29izBrjQYNEPo7Amsz3wG6MtXRFm2v4AF72qDgXqm1
-         B3JH26zSRYiT9vFJUF1F9T/A4EvDrjMt+Egv0RAshlQ3FRDLBIeSnDA382Z+6Js89brn
-         WYuNGf2FuagD3lL4yQ587OxeZU6bHwFrzROjlj5cgsBNIVsOE5zlNuOARFk3TYBGnITs
-         FJdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=puB8NKqzJlTJ7AKCVkZFD9RgKNVu7jFlX5YY9Tq/Y0A=;
-        fh=6H53hPu7OPY42BZh0JHICTVWKu2lZkF4u5GyBUU2Tlg=;
-        b=KmIbZZH10bdbirmRTTTAylj1IxXKsVhbVHQnouj8s7W7ZdY/AnMiyRWSedKyikCJEn
-         hEreqiK6qCEswYzU8KPOkX2Q2sIPdRcv90b0WzfHRMN6oEw7jTYcCy53YEt6cdrQSESq
-         uXcZrKe4nuFMHX/avdFLxe7zoQPLcOIoiq8AYn72hQLWHYbS68wAugUEKFZVbEnf5AwA
-         TR7K6BXf0NxYloE/xkOedQrvr9J7+4KLSriltkzNhUeF647DJpIwzY+j27hCSEFLA5HM
-         sCac0I6+J6kouFXzDR40a2FbPkpjL8pZmZsKgxO6e9jvQPKIUb8Z7J+aKmUefts49NmK
-         WTYA==;
-        darn=lists.yoctoproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+ dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Cu1xKHds;
+ spf=pass (domain: linuxfoundation.org, ip: 209.85.221.54, mailfrom: richard.purdie@linuxfoundation.org)
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso1662092f8f.2
+        for <poky@lists.yoctoproject.org>; Thu, 29 Oct 2026 06:23:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793271726; x=1793876526; darn=lists.yoctoproject.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=puB8NKqzJlTJ7AKCVkZFD9RgKNVu7jFlX5YY9Tq/Y0A=;
-        b=ON8jLLizO98f8PhCnahTmS/02mY0XHyuYaG98gvIBAUu3Kwpc/vLx0Dpj/KxGTICzP
-         0zHTohC/phMIR4RP0E50CVJpUxqo5vcPY8YlpwYMG/W9qrW58eQSmITibVShpVwNEhwK
-         f4UMT8uUNcDXSB0HNJ0v2WEkKuZmNFZgauKkG88Fopx37UevVxa4JWIirTVlkLDr/4lR
-         brwEikXaerP7LOvuTVa04Mv7pPwQPwscQc9xzi/OOIupt789RbQLceKWa9ND8rCPDC8G
-         CE/btO4qIezk/yoaesgkvPfeGCU/J8R2SYckXhm1YZqBFLFRSioJlVn0PRcgzBCwnhr1
-         36cA==
+        d=linuxfoundation.org; s=google; t=1793280194; x=1793884994; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ImOJiA1bIsHppnyesicCs9DtaZ4mOTrcE7jam/lQW9E=;
+        b=Cu1xKHdsQ1CC4sMnU6653pC5mZA0xfZFW2Vn2Aa32qpyoonmGCTNrl9cN1AuUHvb5T
+         TxR9CxH6iJXDqOC0ro91eJzXZFSGXd/FW3jhxN72I5vcrtslrf7ZkVnNzf5gXNMaseNi
+         dForljYLeBuZ/fbg01YbKaaVBsVAC/oMAjnko=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793271726; x=1793876526;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20260707; t=1793280194; x=1793884994;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=puB8NKqzJlTJ7AKCVkZFD9RgKNVu7jFlX5YY9Tq/Y0A=;
-        b=Oq3pK+C3kDUQSQtPTeetXXnfeegEgXfXdQqcVNRg3ixRLgNszF7I2vapwcMZr093Yy
-         /3w0ECgP8Th9ik0jwykiEd0+t6fociT4MZtjy5mX8s3mETAruSs9kTbq8lGoWYeKV8oy
-         kRIJOxP87rK92LIT8yHz/KU/sBGn4F2LJOwX7LLQwkmrvuln9O3Qj+n2S1MgNIApZzmz
-         6D/eanb/cNKj2cP/PIX2rc6alI6lKAB43GzRVYjGpyV4EaSvCvD14ZEdKnWTSnvgZla1
-         A2sC1cIY3bGoSIwoxGplsRulagj4Y3cC/IzWaWql2c+vwSXbwH6AjoJdNOIgvJpJowMJ
-         Xdyg==
-X-Gm-Message-State: AFq9FYJVrwgF7pDYALqVLcPEuv5wLbBnyC2y84LJZeec6yegfFf0BeQp
-	YWfoERTWIcR7WH4CJV+rrW1H9wdWuPaCwKSBrSAyISfe9p2tc4wsBBac2pjxD/WfksTG+H5Vb/4
-	H5vzBa3EcVOV+4BSIhTuPLyq/Qesbd76PcOZZ
-X-Gm-Gg: AYBFou2B3h/NRQUcNLd7Y/bHxlYiLx6yo4WtTzmXhNhqAMAprcNp37aaRdr+pe3D6Y1
-	N8Y/0Q8vOjaHHPRV5jmtPe9U3ihh9wMsdph3Zn9PKp/uCRQj8KUZwkNq83uNTpj6edDxHztRkGs
-	QKKZBCgkwYSjDhDJEB9S2vgciNwg+PAViCplqvzI73k94AHVojxqz1BzWZ5zCDVmn9KzN/0Xjt/
-	bhhoBpteBYr1U31OHgb0zsa1S2KCAPsGAQhVN7jEO0ryWLPgP6/xolsF9zO06Ce8D6hfJxva/S+
-	Ky+I6IcbXCX2TBnPhLgSRGeKkI6TmkTgv0sbLuZWA78dr9+F86eorWY3mbz2mheI2KHlq0TfhGj
-	kWSXxqIOFzVIE3+Jaz11PCzapIKEUJTAbNAFBqTvtyVRjq0OuwyL950Iyi55cyvE50TGRXWPvAG
-	M1LwyVfzGPnP55wg==
-X-Received: by 2002:a05:6214:300e:b0:91c:305:a955 with SMTP id
- 6a1803df08f44-91c7d19e496mr82603376d6.31.1793271726360; Thu, 29 Oct 2026
- 04:02:06 -0700 (PDT)
-MIME-Version: 1.0
-From: Mark Jonas <toertel@gmail.com>
-Date: Thu, 29 Oct 2026 12:01:50 +0100
-X-Gm-Features: AclHuK8lUG4mptDS2TF46DSmQQfAKXXiMt4fcSnMre_AQ7r5E2G9VkJPqHuwX9A
-Message-ID: <CAEE5dN3xQa1VqFfCHASNVTpQhfyWeLi+wN8WNYuwPsxr+6abZw@mail.gmail.com>
-Subject: [meta-yocto] LICENSE file does not reflect repository contents
+        bh=ImOJiA1bIsHppnyesicCs9DtaZ4mOTrcE7jam/lQW9E=;
+        b=xnH0jkEC/rICpgpIzU8YBdyQvkLMvIVK397XEfCSTzS3xNxwn9YfKYhPl6UNiALJNT
+         LqJ6jxw4PuNYAM4bWdTvNmguq0wFn5eivTyzggRzuKMjCeAHtOU6GJzL/Ht93R1+0qL5
+         uJK7XwA4K5f9NI6FsWv2u5cg8LFuBbE3Usks0vrOqx21QFNgcE5HhSTt6Coll7bW4mAj
+         L1MCmEG+PPv15vX8Iyvtp2Zj6ZAIaVj4+cDyC7JJiDd7p8lh3eUYVCyf5tVXcjprvCea
+         RriadXTUxdqFgHoDcuZyG7n8fwdM2lrmcD5K97LSVE/MmIm8T0HEXkA+Bh5WVpP9xJWq
+         zFVg==
+X-Gm-Message-State: AFq9FYJ+QS7TDy6oyjgMvVpPKxP4Ut2jt7On3pcUUPpJPjCWnueFS+gu
+	ulnHl7IZu1UaVeYESM81vgsiR9NMTeTY44Yml6qnzY0dHql5c9Y72peGWDWd7Nv9LXgje972aVl
+	/k5g5ibU=
+X-Gm-Gg: AYBFou1TCMVx5HNjlJMT0/bvUR+K5O3KkEltqdnGKQ0axnetj1MULrVmZRWrCkezmYJ
+	mXCOS5I7M2Qam5Wa4E+/63Ks0aoMSidGvWoDNIUb6TeYtIscJca/NaaVia1hhT9WTMXGfTViBSN
+	XXrj9SSbYa3SGbhLR+N4LtIW8Gu9BPm1/JwiAF6mDM+NKOtKc5bTr+Nu61HEw8cyrmj1LhXnHyN
+	Aa0z9Ckjvkl2eerCQpKBNwlnWZmV8zSQQ7D3xzw6JHXwAfGvJD/G/9PrVagBEk7gJvh/U0DiQ/D
+	CCp+y1g8iNTXb32Wof7Q2eksubdxk9Uuz5M2QVU0+OmgaHnDCmtiDsFqFNWEmEq+HhXnMJxcc/k
+	3Kc6NLUgBzrJTVoWvHvqk8WfUi/zcrLGm5fOrJgtZ3aoxItm0B4bs9Y4YM5wpwWdsf4o+1Mlocs
+	IDojcuZyiEKROmthVBefokV9DwfxMJ0aswmEZcuvcWTb8inrjlD8+PQKCq46+pdb5iAk2gXrSIb
+	obkq12wNg35TWbiyu+H1b6A6FitU4rC37u111gHOTIIsHawvJT/vyonFYcS1JYcIblYW/ij9RXj
+	fu+/xZcUnASCdG991juQkXlhAgkhcTQyT7O06+rnd8IHDOOs3DLOigAP6Q==
+X-Received: by 2002:a05:600c:1c0f:b0:4a2:8c5:5e5 with SMTP id 5b1f17b1804b1-4a9662a0b53mr114007905e9.7.1793280193714;
+        Thu, 29 Oct 2026 06:23:13 -0700 (PDT)
+Return-Path: <richard.purdie@linuxfoundation.org>
+Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:2e6f:2d83:d26c:f3ed])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd8ddasm37417840f8f.48.2026.10.29.06.23.12
+        for <poky@lists.yoctoproject.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 06:23:12 -0700 (PDT)
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
 To: poky@lists.yoctoproject.org
-Cc: Ricardo Ungerer <ungerer.ricardo@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Subject: [PATCH] Fix LICENSE file and licensing
+Date: Thu, 29 Oct 2026 13:23:11 +0000
+Message-ID: <20261029132311.2747154-1-richard.purdie@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
-X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by lin-tor-korg-lkml-alma10-1 with HTTPS for <poky@lists.yoctoproject.org>; Thu, 29 Oct 2026 11:02:09 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13978
+X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by lin-tor-korg-lkml-alma10-1 with HTTPS for <poky@lists.yoctoproject.org>; Thu, 29 Oct 2026 13:23:24 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13979
+Content-Type: text/plain; charset="utf-8"
 
-Hi,
+After the split from poky, the paths no longer make sense. Simplify
+things as meta-yocto is all MIT licensed.
 
-When reading the LICENSE file in meta-yocto I notice that it
-references the following directories:
+Add in the correct license file.
 
-bitbake/COPYING (GPLv2)
-meta/COPYING.MIT (MIT)
-meta-extras/COPYING.MIT (MIT)
+Also clean up a couple of references to an invalid file, we can use
+a license identifier instead.
 
-Yet, I do not see these directories in the repository. Is it possible
-that the LICENSE file is out of date?
+Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
+---
+ LICENSE                                       | 14 ++---------
+ LICENSE.MIT                                   | 25 +++++++++++++++++++
+ .../lib/oeqa/controllers/beaglebonetarget.py  |  4 +--
+ .../lib/oeqa/controllers/grubtarget.py        |  2 +-
+ 4 files changed, 30 insertions(+), 15 deletions(-)
+ create mode 100644 LICENSE.MIT
 
-The same is true for meta-yocto-contrib.
-
-Cheers,
-Mark
+diff --git a/LICENSE b/LICENSE
+index 4dc9a312343..a7aac9b3d15 100644
+--- a/LICENSE
++++ b/LICENSE
+@@ -1,14 +1,4 @@
+-Different components of Poky are under different licenses (a mix of 
+-MIT and GPLv2). Please see:
+-
+-bitbake/COPYING (GPLv2)
+-meta/COPYING.MIT (MIT)
+-meta-extras/COPYING.MIT (MIT)
+-
+-which cover the components in those subdirectories. This means all 
+-metadata is MIT licensed unless otherwise stated. Source code included 
+-in tree for individual recipes is under the LICENSE stated in the .bb 
++All metadata is MIT licensed (see LICENSE.MIT) unless otherwise stated. Source code
++included in tree for individual recipes is under the LICENSE stated in the .bb
+ file for those software projects unless otherwise stated.
+ 
+-License information for any other files is either explicitly stated 
+-or defaults to GPL version 2.
+diff --git a/LICENSE.MIT b/LICENSE.MIT
+new file mode 100644
+index 00000000000..a6919eb7e1f
+--- /dev/null
++++ b/LICENSE.MIT
+@@ -0,0 +1,25 @@
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in
++all copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++SOFTWARE.
++
++Note:
++Individual files contain the following tag instead of the full license text.
++
++    SPDX-License-Identifier: MIT
++
++This enables machine processing of license information based on the SPDX
++License Identifiers that are here available: http://spdx.org/licenses/
+diff --git a/meta-yocto-bsp/lib/oeqa/controllers/beaglebonetarget.py b/meta-yocto-bsp/lib/oeqa/controllers/beaglebonetarget.py
+index 7af3e1dac76..f116d57362b 100644
+--- a/meta-yocto-bsp/lib/oeqa/controllers/beaglebonetarget.py
++++ b/meta-yocto-bsp/lib/oeqa/controllers/beaglebonetarget.py
+@@ -1,7 +1,7 @@
+ # Copyright (C) 2014 Intel Corporation
+ #
+-# Released under the MIT license (see COPYING.MIT)
+-
++# SPDX-License-Identifier: MIT
++#
+ # This module adds support to testimage.bbclass to deploy images and run
+ # tests on a BeagleBone (original "white" or Black models). The device must
+ # be set up as per README.hardware and the master image should be deployed
+diff --git a/meta-yocto-bsp/lib/oeqa/controllers/grubtarget.py b/meta-yocto-bsp/lib/oeqa/controllers/grubtarget.py
+index c3a98979c56..355d414c524 100644
+--- a/meta-yocto-bsp/lib/oeqa/controllers/grubtarget.py
++++ b/meta-yocto-bsp/lib/oeqa/controllers/grubtarget.py
+@@ -1,6 +1,6 @@
+ # Copyright (C) 2014 Intel Corporation
+ #
+-# Released under the MIT license (see COPYING.MIT)
++# SPDX-License-Identifier: MIT
+ 
+ # This module adds support to testimage.bbclass to deploy images and run
+ # tests on a Generic PC that boots using grub bootloader. The device must
