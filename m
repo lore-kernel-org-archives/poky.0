@@ -1,92 +1,94 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.16039.1793098009360157952
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+ by mx.groups.io with SMTP id smtpd.msgproc01-g2.9240.1793271727499092104
  for <poky@lists.yoctoproject.org>;
- Tue, 27 Oct 2026 03:46:49 -0700
+ Thu, 29 Oct 2026 04:02:07 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@smile.fr header.s=google2 header.b=nbYPQ+WH;
- spf=pass (domain: smile.fr, ip: 209.85.128.50, mailfrom: yoann.congal@smile.fr)
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso19961415e9.0
-        for <poky@lists.yoctoproject.org>; Tue, 27 Oct 2026 03:46:49 -0700 (PDT)
+ dkim=pass header.i=@gmail.com header.s=20260707 header.b=ON8jLLiz;
+ spf=pass (domain: gmail.com, ip: 209.85.219.41, mailfrom: toertel@gmail.com)
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91c905d7b6bso8396836d6.2
+        for <poky@lists.yoctoproject.org>; Thu, 29 Oct 2026 04:02:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793271726; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PoIIk3er2DVCjnHiT2+QoVZfh0nv77ZR4bEzIo+/0tAjWT2LR1XS5BxgiXFCfCOME7
+         Uv6s6rTvs00rICQGIRpx+dFTQuTV3Q5P/XOJeQwe38uSgdQa541zMbmG02wpXvyKZTO5
+         es8mRFiOxAnDiGAsTVj30Fviwg29izBrjQYNEPo7Amsz3wG6MtXRFm2v4AF72qDgXqm1
+         B3JH26zSRYiT9vFJUF1F9T/A4EvDrjMt+Egv0RAshlQ3FRDLBIeSnDA382Z+6Js89brn
+         WYuNGf2FuagD3lL4yQ587OxeZU6bHwFrzROjlj5cgsBNIVsOE5zlNuOARFk3TYBGnITs
+         FJdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=puB8NKqzJlTJ7AKCVkZFD9RgKNVu7jFlX5YY9Tq/Y0A=;
+        fh=6H53hPu7OPY42BZh0JHICTVWKu2lZkF4u5GyBUU2Tlg=;
+        b=KmIbZZH10bdbirmRTTTAylj1IxXKsVhbVHQnouj8s7W7ZdY/AnMiyRWSedKyikCJEn
+         hEreqiK6qCEswYzU8KPOkX2Q2sIPdRcv90b0WzfHRMN6oEw7jTYcCy53YEt6cdrQSESq
+         uXcZrKe4nuFMHX/avdFLxe7zoQPLcOIoiq8AYn72hQLWHYbS68wAugUEKFZVbEnf5AwA
+         TR7K6BXf0NxYloE/xkOedQrvr9J7+4KLSriltkzNhUeF647DJpIwzY+j27hCSEFLA5HM
+         sCac0I6+J6kouFXzDR40a2FbPkpjL8pZmZsKgxO6e9jvQPKIUb8Z7J+aKmUefts49NmK
+         WTYA==;
+        darn=lists.yoctoproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=smile.fr; s=google2; t=1793098007; x=1793702807; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YDwVFqWZa09FpFVLym6n4wswt0BU5andz8yDr/Zf5Mg=;
-        b=nbYPQ+WHNaAaCYLRxpRHy/gR+5akY/o4w0mYa2EdP99YfsmfwOxtEZQb8M56XeXX+C
-         lcPFS66elHLEW7x7LrZhI6jsYvl8UqJP3SMKtnXre/UQ3jKubAvkzex6DvCHsrmkXdWa
-         I4jmGd0rggVnIxSUNtWhgZidIGZgKr01b4c9cHSWBxJkJeSF3ouwI9d9gzdJgxb+weYT
-         33TYuLY3vOTA9yJMsW53AEDR1tMNg80KAMZdvDqtt3Flp5fRrEed4+BVEeGp+/+TjzpZ
-         VcaC4Y/IJ6wD7sfqFqD1ilpIQwNG6vNrOaceyKzDmoiWUp3PNWpTxZ1E9ANGOpW1WslG
-         cs/w==
+        d=gmail.com; s=20260707; t=1793271726; x=1793876526; darn=lists.yoctoproject.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=puB8NKqzJlTJ7AKCVkZFD9RgKNVu7jFlX5YY9Tq/Y0A=;
+        b=ON8jLLizO98f8PhCnahTmS/02mY0XHyuYaG98gvIBAUu3Kwpc/vLx0Dpj/KxGTICzP
+         0zHTohC/phMIR4RP0E50CVJpUxqo5vcPY8YlpwYMG/W9qrW58eQSmITibVShpVwNEhwK
+         f4UMT8uUNcDXSB0HNJ0v2WEkKuZmNFZgauKkG88Fopx37UevVxa4JWIirTVlkLDr/4lR
+         brwEikXaerP7LOvuTVa04Mv7pPwQPwscQc9xzi/OOIupt789RbQLceKWa9ND8rCPDC8G
+         CE/btO4qIezk/yoaesgkvPfeGCU/J8R2SYckXhm1YZqBFLFRSioJlVn0PRcgzBCwnhr1
+         36cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793098007; x=1793702807;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20260707; t=1793271726; x=1793876526;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=YDwVFqWZa09FpFVLym6n4wswt0BU5andz8yDr/Zf5Mg=;
-        b=BDHSVAo+nl/ja/OprrCRuzlMgF06aWifgA3DVdq7IAJY4GB6tR1NigpZCyIh8SO1cT
-         FquWfBT4dfC4wuAJElSZ8ClaWUf8xFEhamcFj8WW1fhvSP0rLO+pC45PvVBmwbU3wZkQ
-         Ip82LEJjrAMKU8dyXRZ3CfcIb3n5iU69ZUjcqV/cgg+6tADqQYqrmG06lscwQ3zLgZep
-         j9bve9xHqtpIpGyXoOGe3i3C2T6NADpNn4w3gj6SwR5ynKNJf434sgOJaPgn99ZECw5z
-         JEezQVH/tblGSIoGAKpyaieqpysX5IE36++duKq9CEdqOuQf/72hhQmPBec/LdkgiNPp
-         Ncaw==
-X-Gm-Message-State: AFq9FYJO0B7a+Sa2TK9xd47LFbIwc7bIc1K84bY52jZ6eruuoyQrI2gw
-	RrOLdC/Y1LARLxuAxUJ8zTTUkLe3ds2kb9mEYxbyu1wm8o4vpoqw3AnMmYRha/ChU5lrjxXJupr
-	qvh7F6yRbGw==
-X-Gm-Gg: AYBFou3O8HA9y5nJvneS5au5OGw7MDA0fbsHj4p8xwKKbThX8FWwnKSxg5RLtpzgUig
-	ju58biYedQQPfd/noq+qkAHsfsjKAF6MggIfXJba+L0a0oXVMp7scITn8dQ5Zze1nB3EkuX98F9
-	y2GUVGAT7RRean0XvMKg1DaqSqmd+8ji3V6E6Vi68AuUvRA2s/R445rn2ZceFEAujHLctRnQ2F4
-	1YiRxgdARhL9hPoogYSQVy1sKDrcRbA2zJ0eV99w/SEM/orB6rlhbJQjAUJdP/ZsTVvVg5/hFag
-	WpkszLnX+cOF4GgHrzK8tq7XbWihl0wwRh91dA4iPUMd840MxRj5InG4z0LCE4ffv+BXpfu3D4n
-	SkmlKwwg4nhwolo1/iKTikzwsFAxIKxyXaYJaG3m/EDYkuT8RfYJWJTlP8wZeEmHQKt6llkI+MK
-	AWn5PLXxmgRZz4A9wlcHCqRBdcP2J/W8nhDm0z7ugo1Nx2R7dtBD6rgaMpU4i1rjWKeR3+Wcvvk
-	YgXufl5CcgvbR0uYqSbzl6zK8v62Nke4mtgEtE7R6wxB1L9QbZ/IeL4pHTmq4DEGwbiNybHwnCE
-	jo1t/HQd08bevoRcX1SxcnW9PCzcz3zNgtkByYrdT1d7+vhlROBKgiY=
-X-Received: by 2002:a05:600c:c056:b0:4a4:4d57:8487 with SMTP id 5b1f17b1804b1-4a44d57864amr115512225e9.5.1793098007250;
-        Tue, 27 Oct 2026 03:46:47 -0700 (PDT)
-Return-Path: <yoann.congal@smile.fr>
-Received: from FRSMI25-LASER.home (2a01cb001331aa00a2e4fb7b0d887544.ipv6.abo.wanadoo.fr. [2a01:cb00:1331:aa00:a2e4:fb7b:d88:7544])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359fbc718sm217971105e9.2.2026.10.27.03.46.46
-        for <poky@lists.yoctoproject.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 03:46:46 -0700 (PDT)
-From: Yoann Congal <yoann.congal@smile.fr>
-To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][wrynose 0/1] Pull request (cover letter only)
-Date: Tue, 27 Oct 2026 11:46:42 +0100
-Message-ID: <cover.1793097938.git.yoann.congal@smile.fr>
-X-Mailer: git-send-email 2.55.0
+        bh=puB8NKqzJlTJ7AKCVkZFD9RgKNVu7jFlX5YY9Tq/Y0A=;
+        b=Oq3pK+C3kDUQSQtPTeetXXnfeegEgXfXdQqcVNRg3ixRLgNszF7I2vapwcMZr093Yy
+         /3w0ECgP8Th9ik0jwykiEd0+t6fociT4MZtjy5mX8s3mETAruSs9kTbq8lGoWYeKV8oy
+         kRIJOxP87rK92LIT8yHz/KU/sBGn4F2LJOwX7LLQwkmrvuln9O3Qj+n2S1MgNIApZzmz
+         6D/eanb/cNKj2cP/PIX2rc6alI6lKAB43GzRVYjGpyV4EaSvCvD14ZEdKnWTSnvgZla1
+         A2sC1cIY3bGoSIwoxGplsRulagj4Y3cC/IzWaWql2c+vwSXbwH6AjoJdNOIgvJpJowMJ
+         Xdyg==
+X-Gm-Message-State: AFq9FYJVrwgF7pDYALqVLcPEuv5wLbBnyC2y84LJZeec6yegfFf0BeQp
+	YWfoERTWIcR7WH4CJV+rrW1H9wdWuPaCwKSBrSAyISfe9p2tc4wsBBac2pjxD/WfksTG+H5Vb/4
+	H5vzBa3EcVOV+4BSIhTuPLyq/Qesbd76PcOZZ
+X-Gm-Gg: AYBFou2B3h/NRQUcNLd7Y/bHxlYiLx6yo4WtTzmXhNhqAMAprcNp37aaRdr+pe3D6Y1
+	N8Y/0Q8vOjaHHPRV5jmtPe9U3ihh9wMsdph3Zn9PKp/uCRQj8KUZwkNq83uNTpj6edDxHztRkGs
+	QKKZBCgkwYSjDhDJEB9S2vgciNwg+PAViCplqvzI73k94AHVojxqz1BzWZ5zCDVmn9KzN/0Xjt/
+	bhhoBpteBYr1U31OHgb0zsa1S2KCAPsGAQhVN7jEO0ryWLPgP6/xolsF9zO06Ce8D6hfJxva/S+
+	Ky+I6IcbXCX2TBnPhLgSRGeKkI6TmkTgv0sbLuZWA78dr9+F86eorWY3mbz2mheI2KHlq0TfhGj
+	kWSXxqIOFzVIE3+Jaz11PCzapIKEUJTAbNAFBqTvtyVRjq0OuwyL950Iyi55cyvE50TGRXWPvAG
+	M1LwyVfzGPnP55wg==
+X-Received: by 2002:a05:6214:300e:b0:91c:305:a955 with SMTP id
+ 6a1803df08f44-91c7d19e496mr82603376d6.31.1793271726360; Thu, 29 Oct 2026
+ 04:02:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Mark Jonas <toertel@gmail.com>
+Date: Thu, 29 Oct 2026 12:01:50 +0100
+X-Gm-Features: AclHuK8lUG4mptDS2TF46DSmQQfAKXXiMt4fcSnMre_AQ7r5E2G9VkJPqHuwX9A
+Message-ID: <CAEE5dN3xQa1VqFfCHASNVTpQhfyWeLi+wN8WNYuwPsxr+6abZw@mail.gmail.com>
+Subject: [meta-yocto] LICENSE file does not reflect repository contents
+To: poky@lists.yoctoproject.org
+Cc: Ricardo Ungerer <ungerer.ricardo@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 List-Id: <poky.lists.yoctoproject.org>
-X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by lin-tor-korg-lkml-alma10-1 with HTTPS for <poky@lists.yoctoproject.org>; Tue, 27 Oct 2026 10:46:51 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13977
-Content-Type: text/plain; charset="utf-8"
+X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by lin-tor-korg-lkml-alma10-1 with HTTPS for <poky@lists.yoctoproject.org>; Thu, 29 Oct 2026 11:02:09 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13978
 
-Those are the patches from the last patch review:
-https://lore.kernel.org/all/cover.1792537853.git.yoann.congal@smile.fr/
+Hi,
 
-Passed a-full on autobuilder:
-https://autobuilder.yoctoproject.org/valkyrie/?#/builders/29/builds/4961
+When reading the LICENSE file in meta-yocto I notice that it
+references the following directories:
 
-The following changes since commit 7c25b11156553145fa6b241a2d4f65d94438f804:
+bitbake/COPYING (GPLv2)
+meta/COPYING.MIT (MIT)
+meta-extras/COPYING.MIT (MIT)
 
-  poky.conf: Bump version for 6.0.4 release (2026-09-30 10:48:47 +0100)
+Yet, I do not see these directories in the repository. Is it possible
+that the LICENSE file is out of date?
 
-are available in the Git repository at:
+The same is true for meta-yocto-contrib.
 
-  https://git.yoctoproject.org/meta-yocto-contrib stable/wrynose-next
-  https://git.yoctoproject.org/meta-yocto-contrib/log/?h=stable/wrynose-next
-
-for you to fetch changes up to 79b6d87030178bed0088ad3b00aa6dfbabac37c4:
-
-  yocto-bsps: update to v6.18.54 (2026-10-15 16:28:52 +0200)
-
-----------------------------------------------------------------
-
-Bruce Ashfield (1):
-  yocto-bsps: update to v6.18.54
-
- meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.18.bbappend | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
+Cheers,
+Mark
