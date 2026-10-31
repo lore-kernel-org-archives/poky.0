@@ -1,93 +1,107 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.11871.1793280270555879812
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+ by mx.groups.io with SMTP id smtpd.msgproc01-g2.3808.1793405954301126595
  for <poky@lists.yoctoproject.org>;
- Thu, 29 Oct 2026 06:24:31 -0700
+ Fri, 30 Oct 2026 17:19:14 -0700
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=N+ODUIge;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.221.46, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48b060ec084so1257726f8f.0
-        for <poky@lists.yoctoproject.org>; Thu, 29 Oct 2026 06:24:30 -0700 (PDT)
+ dkim=pass header.i=@smile.fr header.s=google2 header.b=dP3yQxI/;
+ spf=pass (domain: smile.fr, ip: 209.85.221.44, mailfrom: yoann.congal@smile.fr)
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so744353f8f.0
+        for <poky@lists.yoctoproject.org>; Fri, 30 Oct 2026 17:19:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1793280269; x=1793885069; darn=lists.yoctoproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Or91xJYBfe/X6hs/hFfamZUPNCogzr338Ad0PYt9wmk=;
-        b=N+ODUIgeSsWeueipP8DlwxKoPsd73jH4QJX0izWEILviiPbbB5uoQJ10FMjvyqlhpE
-         nOutBxrQkHol8MEwDL9wHMddpcIeq2nXUVmHIy4D7M5r4JHlzyLA3tYCaHqJ8j8BeGua
-         hESjROjyptlBahcBOsKdmDbfrYIVTDrgw0IBw=
+        d=smile.fr; s=google2; t=1793405952; x=1794010752; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3aWhgq5f7uYXnwEfpo8BCH3580gveReJCGjKTwQlEYQ=;
+        b=dP3yQxI/UnD5w+PlVU66T3pNFErOLu51T+hN1VljNqaOkgBLS5LcGVs3A/gOj0Jxrh
+         Xv+Bw7JOJzd6qUgohjXvEtxRYsBgGV0tcDgmDImeQK1NDbzvyJrHmN5LmrwGpcCSvrWo
+         6XxWNvYmL2fhHqyIPcdNLvYQuXm86psahAYzlpPdl6uCihhK7twMFOOpFTCdbWqm2ybw
+         jKs85MVIum97+2aSqF3f0U8Cq76tFHVCoTP0caancPssKXep7h9KtMoyrGHRmYokm2HW
+         INCVVbszK8In4cKTOh3+UPfwcOoBIZS5cB35upcDK/VPRjEDjNWdGVZNoRT0aWz1b/EH
+         vSMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793280269; x=1793885069;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Or91xJYBfe/X6hs/hFfamZUPNCogzr338Ad0PYt9wmk=;
-        b=y2xTTVsCQJLHN4Mtd2rXbex+2Ue+f2HDSiKaMG//+DxIbijguvccL2Rk0+n7Drlxim
-         NPyslPRNsFSkNxHpAtWkB5tgeNkuqfd/5NXvupzisXyktbDCnMiqb1doUDXAySEqTuGN
-         t6ICFexEvmnzcUxWY6orGA6urVCGfnP0R2ZrACz+Asyq2VVeRdccvdUxWvTEIhOlOF3s
-         Kdsyj8M3cyx4VbRHa+SGoTqf3hVxm9Mjy3zjtdRdpChHhSc2nND6BgSFRBIUkBVwXti8
-         1tHLP2T7unh0gf5Gi6hueBzSjzKB5avv0BEPEg5bxdgtQ5M5WiWgHnF2uc6VZby1dict
-         7BNw==
-X-Forwarded-Encrypted: i=1; AKwUvBzjVXDOFOPPfhDAZOfSZvBFMBJCp3ki/fvT8u2RogGLRyo6I7dFxiwdMOXmMIsenSgGr77R@lists.yoctoproject.org
-X-Gm-Message-State: AFq9FYJccVGOWvgTlnSWBB9uTxF8/hh4BVVhRM1tUFDFt4VCVMSTPJ5t
-	EvChtJpJ54QF1FlBIQ0fdP91xZP7HnUV/ZKg0sYap5FPn0eFD3f3q0WHxjCEgno1IXs=
-X-Gm-Gg: AYBFou1fDVP438vshLnDaIpVuzBAOY2fzOHwRX3ZBwDn+L+wokHVVpIS0yj+VmdvX38
-	2FYMIewKnaJ7zw+5FQlXYzu25EjoWSX/fZGUOce0Ms1b1gy9450A+jH4I1s2Dww9K+vyQjfIi6x
-	xz/oL50VRxXrCTQgCxal0rV9j9+46/RReJ6c7WeeGwUm1urdUEeGNfxLxVNd7QaSwdNyVvTQd9Q
-	iA9d8b1dGoG+ZQrp8g0gnOL02liETLJ7gg9ydZOtuQBxdTHJoyBKG2yCl5Uf6lVspdgUGJBiJf3
-	IO2Eb5m1f+XcMXFpE4DdljLBZc4EUNCqvY1K7Njy1JPYlaYvGsUhhJrDOSiGZTjOtkolJHjl0/d
-	12E3DTzxRjrB0+YLSsEeBO/ejh9ncJN1sHTH/xukdEUaYzlboQ6hXPuEI8fCNyOCUmGEOIp+0Mf
-	thZl48pS5uCyyYSUrM5bSp6VdZgHV+yT+3cyUsmlel+Zov2UFMO1TTdGWUaxBOHEPnPofwPDIAz
-	Nl5FYZVfp29CfIn5q41bGorHagW/EGilCZZAyJGanxaowzmVK0X1xzQs3G91orhBf75it9+XEup
-	vEFQJsEmLwRwPYlfCCQ9lxiqtV/CSkNs1ft2a8Z7UWyrRHQbL65gR9EA9WBO1++wp0QYIHrCthP
-	nMyotAJDyoVDQZYK+8wPQRG/8vDHxtb7IrR9evqI=
-X-Received: by 2002:a5d:6f01:0:b0:48e:5b50:9c52 with SMTP id ffacd0b85a97d-48e5d5b84eamr12809590f8f.57.1793280268645;
-        Thu, 29 Oct 2026 06:24:28 -0700 (PDT)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from ?IPv6:2001:8b0:aba:5f3c:2e6f:2d83:d26c:f3ed? ([2001:8b0:aba:5f3c:2e6f:2d83:d26c:f3ed])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdf9bdsm32935323f8f.55.2026.10.29.06.24.27
+        d=1e100.net; s=20260707; t=1793405952; x=1794010752;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=3aWhgq5f7uYXnwEfpo8BCH3580gveReJCGjKTwQlEYQ=;
+        b=K7L1QTE3PWZiUf1bTXmqz2jb3fVbbKZm4GBQyCTuFmDbWObTUvSntiXL3//stWNLs6
+         +/vUcvOU1trYg7SY/QuoPcosm7DXpIudUV9KWswdpUW+01s1JcwQ3x9tYyRg/k1a+d8I
+         d/zKBohMyMGlWNtnGruAnQU+kmfeoerTv032U5QFEfE8Z5n9Q9/nPS9L2CZ0cG0V24N+
+         GWkh6hTBdDSCiWAHJXv+f+o4CQ2cT/SppV+mXm0+4+sdC4O6mOsDcyZF3npKjVLp9ECp
+         llz5GpWZn9LeQUciAoE6F8eiyE0oATZfN2xzpRMqFXIDkPrTlS6qADXBFn7bMVEVsukL
+         GyhA==
+X-Gm-Message-State: AFq9FYIV1ZixmEr1G0NflpSuZENhsnur0vfV+4r1JHXQ2x9AGRFV5Hho
+	pFJTjyUVfrLmbP2sZN8+pCo03KC79xs4Cf+gtH6R2JWOo/V2ul8AxbGbfD4MTAojJqUwYPjK91E
+	GXmuc1bk=
+X-Gm-Gg: AYBFou3IvL7nGVZaaD8cur9YggbnqVR6J5/GqU3lpzWmbDfYl95qBmZE293+2n1/4UP
+	e/7mM9b0yTfmNv4MBZIjKoWJgfgUOBzXTT95vAnrhbS4O6LXDrivBKVjdgW46sSgi4BxY3OdVMG
+	Olvp7Khwm44Im57peoM5vcCUmKUczj9sj/1Rmyh6vtlX5w2PjSAdW5K8VKYtsWVGqHFcBrQfuSB
+	i22PwbBnRxkRRmYMHfvZkMwb0kMM5iQnjEzbARbI+f0AJ6cprZbE1CLXjCXjwvvMCuW3r9cnJM+
+	IE4qZeaqzje8mkeylLjkP+sNGcH3Q5p8xG5lCBufQfaku2w+CaNES68uDBPdL+qOSB3/cPJJP3I
+	igf8Ht/SW2NYYQl5X1a5cHH0kF0DDWzBDMBF5BhBndaYVBI6udcBWb7DPlzfEmSCGk5kfalkUEQ
+	tQ+bJI+zzM/RKoRqb2Cn3JNQiruH6p251xK07dpSRQGZJBpt0Am72CcvIYXSTO2iWqOjQOHo+sK
+	syiAavIJuhkqlmkHxhFANVhFqNLR2ZUCnDopC94LoVVopBCxV4QEdtnZ21Z8NBwoGx1J2FWjngO
+	TjduJ00rRVk/rRxARz02Oewe4ZT8VMENX5T+fd7aAgKSuw4v/hNUrovSFzzdOcPzEg6pYqtyukh
+	GnOfEeKcpzLQOSsWgZwgV3s4WmuYj
+X-Received: by 2002:a05:6000:178f:b0:48e:60a7:e0bd with SMTP id ffacd0b85a97d-48e6e2db3c0mr9405959f8f.17.1793405952524;
+        Fri, 30 Oct 2026 17:19:12 -0700 (PDT)
+Return-Path: <yoann.congal@smile.fr>
+Received: from FRSMI25-LASER.home (2a01cb001331aa00a2e4fb7b0d887544.ipv6.abo.wanadoo.fr. [2a01:cb00:1331:aa00:a2e4:fb7b:d88:7544])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba4ac6sm6140824f8f.52.2026.10.30.17.19.12
+        for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 06:24:28 -0700 (PDT)
-Message-ID: <8e581587d024a2a6af308986f1bd1eebffeb7a68.camel@linuxfoundation.org>
-Subject: Re: [poky] [meta-yocto] LICENSE file does not reflect repository
- contents
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
-To: toertel@gmail.com, poky@lists.yoctoproject.org
-Cc: Ricardo Ungerer <ungerer.ricardo@gmail.com>
-Date: Thu, 29 Oct 2026 13:24:27 +0000
-In-Reply-To: <CAEE5dN3xQa1VqFfCHASNVTpQhfyWeLi+wN8WNYuwPsxr+6abZw@mail.gmail.com>
-References: <CAEE5dN3xQa1VqFfCHASNVTpQhfyWeLi+wN8WNYuwPsxr+6abZw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-10build1 
+        Fri, 30 Oct 2026 17:19:12 -0700 (PDT)
+From: Yoann Congal <yoann.congal@smile.fr>
+To: poky@lists.yoctoproject.org
+Subject: [meta-yocto][scarthgap 2/3] yocto-bsps: update to v6.6.159
+Date: Sat, 31 Oct 2026 01:19:08 +0100
+Message-ID: <9ee0b60eb9beec89a5339f08ba49961970ffeb59.1793405889.git.yoann.congal@smile.fr>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1793405889.git.yoann.congal@smile.fr>
+References: <cover.1793405889.git.yoann.congal@smile.fr>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
-X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by lin-tor-korg-lkml-alma10-1 with HTTPS for <poky@lists.yoctoproject.org>; Thu, 29 Oct 2026 13:24:34 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13980
+X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by lin-tor-korg-lkml-alma10-1 with HTTPS for <poky@lists.yoctoproject.org>; Sat, 31 Oct 2026 00:19:16 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13983
+Content-Type: text/plain; charset="utf-8"
 
-Hi,
+From: Bruce Ashfield <bruce.ashfield@gmail.com>
 
-On Thu, 2026-10-29 at 12:01 +0100, Mark Jonas via lists.yoctoproject.org wr=
-ote:
-> When reading the LICENSE file in meta-yocto I notice that it
-> references the following directories:
->=20
-> bitbake/COPYING (GPLv2)
-> meta/COPYING.MIT (MIT)
-> meta-extras/COPYING.MIT (MIT)
->=20
-> Yet, I do not see these directories in the repository. Is it possible
-> that the LICENSE file is out of date?
->=20
-> The same is true for meta-yocto-contrib.
+Updating linux-yocto/6.6 to the latest korg -stable release that comprises
+the following commits:
 
-Well spotted, this was leftover from the original combo-layer poky
-repository. I've merged a commit which makes it clear everything is
-MIT.
+    cecd39af8a1ab Linux 6.6.159
+    742f73df544e0 ipv4: free inet_opt and ireq_opt after an RCU grace period
+    a65f69e0f38ff ipv4: validate checksum_start before completing checksum
+    33aa3b7f4afbd netfilter: nfnetlink_queue: unbreak SCTP traffic
 
-Thanks for raising it.
+Signed-off-by: Bruce Ashfield <bruce.ashfield@gmail.com>
+Signed-off-by: Yoann Congal <yoann.congal@smile.fr>
+[YC: The upgrade is 6.6.21 -> 6.6.159 (!): ~23k commits]
+---
+ .../recipes-kernel/linux/linux-yocto_6.6.bbappend    | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-Cheers,
-
-Richard
+diff --git a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
+index 3f33ec99..7196df5e 100644
+--- a/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
++++ b/meta-yocto-bsp/recipes-kernel/linux/linux-yocto_6.6.bbappend
+@@ -12,10 +12,10 @@ KMACHINE:genericx86 ?= "common-pc"
+ KMACHINE:genericx86-64 ?= "common-pc-64"
+ KMACHINE:beaglebone-yocto ?= "beaglebone"
+ 
+-SRCREV_machine:genericx86 ?= "06644f0d7193d7ec39d7fe41939a21953e7a0c65"
+-SRCREV_machine:genericx86-64 ?= "06644f0d7193d7ec39d7fe41939a21953e7a0c65"
+-SRCREV_machine:beaglebone-yocto ?= "06644f0d7193d7ec39d7fe41939a21953e7a0c65"
++SRCREV_machine:genericx86 ?= "f175bcee52358aef9b53e1ddc5300e65735226ac"
++SRCREV_machine:genericx86-64 ?= "f175bcee52358aef9b53e1ddc5300e65735226ac"
++SRCREV_machine:beaglebone-yocto ?= "297689603c5961261abe13480351a125365ab025"
+ 
+-LINUX_VERSION:genericx86 = "6.6.21"
+-LINUX_VERSION:genericx86-64 = "6.6.21"
+-LINUX_VERSION:beaglebone-yocto = "6.6.21"
++LINUX_VERSION:genericx86 = "6.6.159"
++LINUX_VERSION:genericx86-64 = "6.6.159"
++LINUX_VERSION:beaglebone-yocto = "6.6.159"
