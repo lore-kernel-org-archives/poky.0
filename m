@@ -1,51 +1,50 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.29855.1793868317086956798
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+ by mx.groups.io with SMTP id smtpd.msgproc02-g2.30097.1793868316523718842
  for <poky@lists.yoctoproject.org>;
- Thu, 05 Nov 2026 00:45:17 -0800
+ Thu, 05 Nov 2026 00:45:16 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@smile.fr header.s=google2 header.b=F+SY7HLb;
- spf=pass (domain: smile.fr, ip: 209.85.128.52, mailfrom: yoann.congal@smile.fr)
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so9508815e9.3
+ dkim=pass header.i=@smile.fr header.s=google2 header.b=ZBaZsLCz;
+ spf=pass (domain: smile.fr, ip: 209.85.128.47, mailfrom: yoann.congal@smile.fr)
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so13086235e9.3
         for <poky@lists.yoctoproject.org>; Thu, 05 Nov 2026 00:45:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=smile.fr; s=google2; t=1793868315; x=1794473115; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=mCr2YfnDZYRJAWfcGcYDf5KbILGmMI3JyAxqBHNdYO4=;
-        b=F+SY7HLbki3rjRNg4xDOEgBP8lQo4Ytfm1obacsamw8e3AuOcdB7Jtd3B7dpCVdX1c
-         Omui09wJ5dKoMgTeAs64C4A29+qaauTqjBqg/DfR22yZitIPbnLpgrAoC3KwfR8u3nhG
-         wiSpgQeh8hC1i2onAEE2aZAIWaX0G+M8afU+pc+4Ef6Q0qATmPLuHbmwJMtFqll9uQ5z
-         i4nkw7PGzNhFLzBtAUmKS/w8wKaExBst1QW6vHmjqgOwrXYLtxIjNe1I8fRQthF5dKa+
-         AGrGVfDfTFYcSMo39g0Bgxn1Ca7llt1UokFnawo2RizrtEPrq0nThqNiRorcLLl/OyWb
-         DKwQ==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mPAhLS9/9fK9azNrg0PwI31p5w+q6qa/91xt1ZLotqw=;
+        b=ZBaZsLCzGVGwiTHeYFUA78fC34/GIbvDs8ITXFHQWM5Oj9shkPSPJaOo/blOiFu4D0
+         eXgPkoUW3nUshKnCN6voyakfIFfjhmLG/X6s0pPUDIGdMnD9hwpUkhydnD5/iw3QL1av
+         8uwkmABBdjxJBzEdzhYDWSayxdohs0EAYuVsfXx//jjPHj5kSUXqUXYCHbCk4Eo0YP5f
+         3CmJEDDBwFloNZMwoBjgQhpL2jK46keYzhDnq1sQI0vMsYNPeYeIvpZHY+YF0E+uBTO0
+         5a43ackxwAump7lJ26yZ018PlZIT16AYuOzKwnrFmJPJlFsBzVmjk/WvLDsR4LCwlHKE
+         DNTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793868315; x=1794473115;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=mCr2YfnDZYRJAWfcGcYDf5KbILGmMI3JyAxqBHNdYO4=;
-        b=gHhDfn/XmnisqjFHG3/QLtHG6/n6b0JiOyaxJVFQnx1lVJ4Dxkf4SGAo9na/73mQqW
-         xL4Ht7aBfcIqT3Hy47qz2N0yyQmFrR5lfJ8pJhmkEbKgvOrCyZFYWIflAqpt2XOAos2V
-         /DNaXZ3VgqmiXYFZVC/2Wq7Ss66IhS+w1uuT+IgfveAsxT9BHdbHiGmM1Csyev/b32q4
-         dnGC/YZ+cAimge78e5yMvD+bSkRBEPB8QGcV0pkMBYqIDh2Ftw1RyOIrGpYcY5R034HE
-         1JQCsRJQa0PZd0GUPk1VxIJDpl2GzKG9xXtUIeE/vkHw/YGihGg3+5cpXb0wWBmLxRNf
-         OZTA==
-X-Gm-Message-State: APuU4Z8ldrkAIuMwKTovNuBMvdZYyap61w9/kupjqmjpU0EaDiWTGKXc
-	kWdyXfk2b8XeACJlxUiXNMKa2v8JYS+M++R0S09qQIOWfiSoFVdM3lR6WlhnTPHDV1Mf5nFmKpI
-	QOi62Pb8=
-X-Gm-Gg: AYBFou2yyZUslYKjQ5jaGu5yaBj/nm95rLGg5TsKdk4gYS87lLRr6IP+jg22pI3fddP
-	ObyDD1RxfiC/8IgyekSYr7rCgSmr9hzxvh4bMtCCMq4ZAsQVqoDQLgsxXPGTqIXd7MdSVr6pWe2
-	HFR5PsOEdsR67HF4CW36SbHC9eGFyVuNOF1CGJEOvIrK1NmKTvXwprwFo2AIzUh0OeFDnYXgt6C
-	elCdYNxVEcX8qap37QXp7rVuv8Oxqi8flEYpaoYiHx0zLnMQ7HbchPz6JxeZqjWRIIY+aT4NDQc
-	ZqEccqbllyLkXoeNqJF/6floiV6snD5d1bvvvUwp3zThZaPT3fBVpxQNo66tT5WNnn8aHJ3ZPhF
-	yk8tGGLQsCyb/auZyvB7ydVSJyqXrGVdSWLkYrFNAlLZBKV+NE5nY3ouLD0o8IYvj4jcB4Ruvf+
-	618b/+XHbcr6v9xc4zPHW2bcLq0vA8cYy2Ai+gvZGifhkwN9HLzgLuMrLm68Uhj19QevNtkfTXf
-	KPL83kk/cWYDKRsuLTs4OnEKeOyAzxmu4vMSagCYFRXE2udlAAcdBh87khq+XzatDvcz0u2RVcd
-	21IibSLdkdPEFB3sm5A1gnYULACwm10dX2Y4kEDMshCz3tU1AUp3NEJcY7Jls6K/eDhUtzZZK2m
-	BZkIT674RlTGs7pbzYg+Zj2TS+Zea
-X-Received: by 2002:a05:600c:470d:b0:4a2:191f:7cb8 with SMTP id 5b1f17b1804b1-4ac1899378bmr386069605e9.17.1793868315086;
-        Thu, 05 Nov 2026 00:45:15 -0800 (PST)
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mPAhLS9/9fK9azNrg0PwI31p5w+q6qa/91xt1ZLotqw=;
+        b=Qxd0kHQpSUehnyugmbywSfZn8dUVCMOiWaT1BQ1i5Gj9/zpZKKgRG1rbMtV4SwaZnB
+         CS2Yc1grInQoroa0FXvTw5Vyhluo2313Xtfq+jPRXBbO+FTgk4QY3Hscdd/XF+x8P4G+
+         D1c74fVYvf9eNzfsivW5tdGPREgGMtrc5NFTKn3kqGAiSBwV0KDkinpH4XhiS6MkYxb/
+         81QTtteueT4r6wWUxHkgA607ZLPOu8SIfblESgLQMcvzJIaLvD8PojVj8gNEgwUQAFMs
+         blBOh6EEDyy/GIG7kKilRwtdPOWfG+5QeCur2y3qo9ggJvcV1XkjWqZsbNnsWJeIVk8U
+         Gddg==
+X-Gm-Message-State: APuU4Z/u++WsNhvMvM1IpfO1o/GoHK0V4TMnmzg0EP4MljEJqWLMEAnW
+	QHzu3dF8ViJgO2aTk74i3sQbPN66Y+49XiTeXQ0N2YXm+hBdeIpXi6axcdej5ssy/3HhJ384ojc
+	3jbcwuFA=
+X-Gm-Gg: AYBFou3nKg5C6BmzgYEIlqJSRqrbQ7nvY+7wbceVfPYaBLC8LAszXGUFA5rhvQXX/oW
+	z5Pi1p238jRcq8vQIdoBxeqEBUQZTwCIVQ3X/KHxDvR9PDztn7sxaPQjpjmBwk7GaXjoQS//LWm
+	uUuWHfCP/ZjPxBFzVEIE8p4iWq3bT68jguXTjoQN8rTDnjQLgIMKDYfG2r57l7DyAEISxenpquO
+	0DjR6zgqCqf2ny/nACiRzcdodMcuOXtYM1+l3aItO3/ITU6lxN6syGjuMQIkOo6n4twzc1rDog/
+	J7MnyOLuOil/Yqhe23fW0UE6r3NUqW+YkV6iLs0VjCFUj0DNx0xbBSy3q+U4QAw4THEQpDVNxQV
+	kO+vyjaaDu8xnyd9PJWbFVvdFJ0URnmRMyNVeEJz6xlW5Pl7FZJtdmjf0JZRxE48ZVccNu4m/7L
+	4xwnqf++bE8kGuVf6LF78SQG2n+CffFdkKh20GkQtRSvqPY3ViAF5ESTZNk27M6QJHCpXpDW3P5
+	3OIJRRxC1JNQozjOiAFJLgtjnX6rbpKUZX5H/uPZKvuYkxVGFxJ1qXvXWFtCt8pONbbcvXAmTpT
+	QGBM69p8TTcedI6LHg5E4lQTw+kaF5UOmjz96D7Cd+aQhaAhL1rQzxveTQFoS2Uw2NVH5+pAYxt
+	8kGb7ksvBJB9frzw62IYoMw8+np8E
+X-Received: by 2002:a05:600c:8b64:b0:4a2:84c:52f3 with SMTP id 5b1f17b1804b1-4ac16fa21dcmr437711145e9.6.1793868314718;
+        Thu, 05 Nov 2026 00:45:14 -0800 (PST)
 Return-Path: <yoann.congal@smile.fr>
 Received: from FRSMI25-LASER.home (2a01cb001331aa00a2e4fb7b0d887544.ipv6.abo.wanadoo.fr. [2a01:cb00:1331:aa00:a2e4:fb7b:d88:7544])
         by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56ea592fbsm41683965e9.4.2026.11.05.00.45.14
@@ -54,115 +53,53 @@ Received: from FRSMI25-LASER.home (2a01cb001331aa00a2e4fb7b0d887544.ipv6.abo.wan
         Thu, 05 Nov 2026 00:45:14 -0800 (PST)
 From: Yoann Congal <yoann.congal@smile.fr>
 To: poky@lists.yoctoproject.org
-Subject: [meta-yocto][blacksail 1/5] Fix LICENSE file and licensing
-Date: Thu,  5 Nov 2026 09:45:09 +0100
-Message-ID: <e6ab1239dabcd88cc783cb803dd4adfda804944a.1793868274.git.yoann.congal@smile.fr>
+Subject: [meta-yocto][blacksail 0/5] Patch review
+Date: Thu,  5 Nov 2026 09:45:08 +0100
+Message-ID: <cover.1793868274.git.yoann.congal@smile.fr>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1793868274.git.yoann.congal@smile.fr>
-References: <cover.1793868274.git.yoann.congal@smile.fr>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
-X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by lin-tor-korg-lkml-alma10-1 with HTTPS for <poky@lists.yoctoproject.org>; Thu, 05 Nov 2026 08:45:18 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13987
+X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by lin-tor-korg-lkml-alma10-1 with HTTPS for <poky@lists.yoctoproject.org>; Thu, 05 Nov 2026 08:45:28 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13986
 Content-Type: text/plain; charset="utf-8"
 
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+Please review this set of changes for blacksail and have comments back by
+end of day Monday, November 9.
 
-After the split from poky, the paths no longer make sense. Simplify
-things as meta-yocto is all MIT licensed.
+Passed a-full on autobuilder:
+https://autobuilder.yoctoproject.org/valkyrie/#/builders/29/builds/5060
 
-Add in the correct license file.
+The following changes since commit d0119aa2eb77b985fcd33ac527d5c0287eb68e58:
 
-Also clean up a couple of references to an invalid file, we can use
-a license identifier instead.
+  yocto-bsps: update to v6.18.54 (2026-10-05 11:53:53 +0200)
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
-(cherry picked from commit 61c27a174a1feb2a9f211c0475ed6c8e413392b0)
-Signed-off-by: Yoann Congal <yoann.congal@smile.fr>
----
+are available in the Git repository at:
+
+  https://git.yoctoproject.org/meta-yocto-contrib stable/blacksail-review
+  https://git.yoctoproject.org/meta-yocto-contrib/log/?h=stable/blacksail-review
+
+for you to fetch changes up to 52327e67cab80384323bec9b73d39cd152fec7bc:
+
+  yocto-bsps: update to v7.2.13 (2026-11-02 16:20:11 +0100)
+
+----------------------------------------------------------------
+
+Bruce Ashfield (4):
+  yocto-bsps: update to v6.18.57
+  yocto-bsps: update to v7.2.11
+  yocto-bsps: update to v6.18.59
+  yocto-bsps: update to v7.2.13
+
+Richard Purdie (1):
+  Fix LICENSE file and licensing
+
  LICENSE                                       | 14 ++---------
  LICENSE.MIT                                   | 25 +++++++++++++++++++
  .../lib/oeqa/controllers/beaglebonetarget.py  |  4 +--
  .../lib/oeqa/controllers/grubtarget.py        |  2 +-
- 4 files changed, 30 insertions(+), 15 deletions(-)
+ .../linux/linux-yocto_6.18.bbappend           |  2 +-
+ .../linux/linux-yocto_7.2.bbappend            |  2 +-
+ 6 files changed, 32 insertions(+), 17 deletions(-)
  create mode 100644 LICENSE.MIT
 
-diff --git a/LICENSE b/LICENSE
-index 4dc9a312..a7aac9b3 100644
---- a/LICENSE
-+++ b/LICENSE
-@@ -1,14 +1,4 @@
--Different components of Poky are under different licenses (a mix of 
--MIT and GPLv2). Please see:
--
--bitbake/COPYING (GPLv2)
--meta/COPYING.MIT (MIT)
--meta-extras/COPYING.MIT (MIT)
--
--which cover the components in those subdirectories. This means all 
--metadata is MIT licensed unless otherwise stated. Source code included 
--in tree for individual recipes is under the LICENSE stated in the .bb 
-+All metadata is MIT licensed (see LICENSE.MIT) unless otherwise stated. Source code
-+included in tree for individual recipes is under the LICENSE stated in the .bb
- file for those software projects unless otherwise stated.
- 
--License information for any other files is either explicitly stated 
--or defaults to GPL version 2.
-diff --git a/LICENSE.MIT b/LICENSE.MIT
-new file mode 100644
-index 00000000..a6919eb7
---- /dev/null
-+++ b/LICENSE.MIT
-@@ -0,0 +1,25 @@
-+Permission is hereby granted, free of charge, to any person obtaining a copy
-+of this software and associated documentation files (the "Software"), to deal
-+in the Software without restriction, including without limitation the rights
-+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-+copies of the Software, and to permit persons to whom the Software is
-+furnished to do so, subject to the following conditions:
-+
-+The above copyright notice and this permission notice shall be included in
-+all copies or substantial portions of the Software.
-+
-+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-+SOFTWARE.
-+
-+Note:
-+Individual files contain the following tag instead of the full license text.
-+
-+    SPDX-License-Identifier: MIT
-+
-+This enables machine processing of license information based on the SPDX
-+License Identifiers that are here available: http://spdx.org/licenses/
-diff --git a/meta-yocto-bsp/lib/oeqa/controllers/beaglebonetarget.py b/meta-yocto-bsp/lib/oeqa/controllers/beaglebonetarget.py
-index 7af3e1da..f116d573 100644
---- a/meta-yocto-bsp/lib/oeqa/controllers/beaglebonetarget.py
-+++ b/meta-yocto-bsp/lib/oeqa/controllers/beaglebonetarget.py
-@@ -1,7 +1,7 @@
- # Copyright (C) 2014 Intel Corporation
- #
--# Released under the MIT license (see COPYING.MIT)
--
-+# SPDX-License-Identifier: MIT
-+#
- # This module adds support to testimage.bbclass to deploy images and run
- # tests on a BeagleBone (original "white" or Black models). The device must
- # be set up as per README.hardware and the master image should be deployed
-diff --git a/meta-yocto-bsp/lib/oeqa/controllers/grubtarget.py b/meta-yocto-bsp/lib/oeqa/controllers/grubtarget.py
-index c3a98979..355d414c 100644
---- a/meta-yocto-bsp/lib/oeqa/controllers/grubtarget.py
-+++ b/meta-yocto-bsp/lib/oeqa/controllers/grubtarget.py
-@@ -1,6 +1,6 @@
- # Copyright (C) 2014 Intel Corporation
- #
--# Released under the MIT license (see COPYING.MIT)
-+# SPDX-License-Identifier: MIT
- 
- # This module adds support to testimage.bbclass to deploy images and run
- # tests on a Generic PC that boots using grub bootloader. The device must
