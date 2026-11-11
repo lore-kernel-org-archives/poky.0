@@ -1,96 +1,96 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.419.1794325584770868767
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+ by mx.groups.io with SMTP id smtpd.msgproc02-g2.5604.1794387890403948372
  for <poky@lists.yoctoproject.org>;
- Tue, 10 Nov 2026 07:46:25 -0800
+ Wed, 11 Nov 2026 01:04:50 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@smile.fr header.s=google2 header.b=GJKJ96Gs;
- spf=pass (domain: smile.fr, ip: 209.85.128.43, mailfrom: yoann.congal@smile.fr)
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso22607965e9.1
-        for <poky@lists.yoctoproject.org>; Tue, 10 Nov 2026 07:46:24 -0800 (PST)
+ dkim=pass header.i=@smile.fr header.s=google2 header.b=XS0ImG0Q;
+ spf=pass (domain: smile.fr, ip: 209.85.221.48, mailfrom: yoann.congal@smile.fr)
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-491f34b4e0fso1292246f8f.2
+        for <poky@lists.yoctoproject.org>; Wed, 11 Nov 2026 01:04:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=smile.fr; s=google2; t=1794325583; x=1794930383; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ErnA6rKS3iKnuVficZOO7R1kIhaniYmeqcc8Qtu0Qjg=;
-        b=GJKJ96Gsid/+3p1ckUqv+ZxZaNahuxPuM9w6+8W1n/oVy4BW05EEUY7/Npmv7tyUPh
-         zILd1hoS+GnQGmPLsTnIzxiBLV/awrK9Urbh3aCzhzsmG9DCWzTej13T2MA5jPHqONx7
-         agA/N/bwhQ4iyCu/46OxftF/sMw/XJbkDWHy/aR9ETO0VLDhTdiGDQYHNuRdLjVnQXYB
-         VILC0iPQQMfMmCM6mN1LY9qWsxozcGBQ61anWF53qLnEgcNNg1y/DYrp1USuG6zo6bAS
-         zfNzF4rr0J4trb85xda0CF6UgTewsI+WViwGBlo5EO0CLfol8WlHCZ2dd2vdNCOPo9w/
-         1KMQ==
+        d=smile.fr; s=google2; t=1794387889; x=1794992689; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cs6ZquWudUxfN8NrUgbfjQrLwWTEXNyRuYPnVyh/V88=;
+        b=XS0ImG0QNGLdfkZt4vBHxlgPnUA98lZtbPu6nvys/erjWb88i7JiSDmxzK6a4ypK4s
+         rRNe4MVGr5A6QnBwpKRT0zCrCrH0KjPt7wtU2bdblM+L3BuQ/E/r/pz7VgvVmvLmJtHN
+         qt+18YQrIDyOxFUB8/qif9g1TdUU4Oyd+CBxd8wgjyCWkBs89+TdiFxEDn1vbYz1HQeG
+         Dm8smfxPDiyS5SEgdM1umhstFo4PrmIIgq+sNHsBqzZRtyql3wIURDIP01VjrB+Ipcjl
+         l1sgxtQq4EK16bRIZPeBP+/6KqwBmfQ5twchMUSEpIyTaK1+TRdhcawdZWgjmYyEIZJs
+         kdnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794325583; x=1794930383;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794387889; x=1794992689;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ErnA6rKS3iKnuVficZOO7R1kIhaniYmeqcc8Qtu0Qjg=;
-        b=wvI7qU1B13TYJa1W97EEYf0O4gy8W08cmQd3/XTs5P4RReP3KsGmpKx7EUi+o2ZQ5/
-         oKN/R6PpqS/PcC2Lk0dz46ApTZoCvfmBbkDl5L00hVFZ9tgEEoGPpLF0E9kUxwrKZEhW
-         DT5k3JKPt/7/imjM2Bf49iZaup5BBduva3ACA7wIVDhv9IoqQZGWhO4Sde0W+9xFSWQ0
-         6qUTpXU3gm0nMSD7hQCaUa8ZvvGF4l2tUW5I2+HRv5T/DPbJ8ROQuS2F4DIRFsxNDf2p
-         jbm1e5ADlup0xKeylR92m6IVfzdWhzf40QX12o9vO5VFu9y25TAMSOkjGJbtqIELWoRX
-         z9UQ==
-X-Gm-Message-State: APuU4Z8ALUi/nq4DFQq11H0ji6iTYnhCAQeWrL/c78nOIhuxXaxNmS93
-	PVHvHdRjUbggYVV6hxZNh6GySWCV/9u+Idl9kV7M3rmM7eq63e9zDoqYLiqeqy60PP3w4UjxZxY
-	powe/EPQ=
-X-Gm-Gg: AYBFou3YnHMW/DB4x04VYuCJcj2n1SStJfVq0qGW+J4twW6Zemfp4RqIRi9IZcDdZS/
-	WZ07RuSEmyhpOg6Ef4QcgFdcWnTzhMqBqDnZtiPllZm8C3sgsPVIiwBwASdMUxJozh9UGDVckIT
-	DGScigJX6efoYJDL9H5Nome84uZdpfVCGh23rRI0agNtHYktDSXoMUKAbz/12Z+ZSazwLMXAwou
-	pzzoG31UIsFppa/Ct1RofYnCvUo0v2MAuiHbmVYnyEXhIddrmkqwQ2h+dET3nWlvAbxQ/h00LRo
-	UiMouZKBmKVhyR3Bvpml031sMW4XGGLA1yNf6Niuu1yeg3zcIdSfzEoYPqYSb21BPVa3WY0acIK
-	ZdsCNQXp54Iy3AkTaK/VwBMs57H0DeI0ch7AePbPHDZzbSdV85KiYY+BIoOIPvplxQbEmh9Ewb6
-	/EW/jjj7bWxms/QERnSbiv9CyqKjk2SU8TGg42jzrydp2cDpJDAYkPZYZvgctyI/hsSFhWbtjlN
-	rhgeYgDUkbTcP3eljnEEcXa8XRcocHjY1H9K4aZKRix4iIc02LFZwF+tJzrDWZZBiSLc5FqQLL7
-	ipAqPgC+uUA2PIjQkRGehGsVkToweXzgzdu3RBkpJvlB7m+sLky555Zu/90TfHb15KOfowfAYPu
-	j1nTu4e5guP8THEjKLVKPRlMY90WEKnGEdx7G
-X-Received: by 2002:a05:600c:1d18:b0:4a1:fae2:a8ab with SMTP id 5b1f17b1804b1-4ba02305392mr50034135e9.3.1794325582811;
-        Tue, 10 Nov 2026 07:46:22 -0800 (PST)
+        bh=cs6ZquWudUxfN8NrUgbfjQrLwWTEXNyRuYPnVyh/V88=;
+        b=u2+Om3NTLa/yn+JVs25/ov1oEvDW82rJ7C2FQLOkC76g5HFXL0cbqZDsAof8hTcgSb
+         PtrPoa28bE82TIkwasgCJ+JqEZ6Lha2HBZ50lCqc7VXiaeDgZSRcaBs1ubAIy3CsVnpr
+         3xOLQHYZmC3Lb4E8zsMLQGqRetYeSRnVgWm7JnhpAqHk3pgw7Mih3WINxF09foPvjfi/
+         KtUF4b9SRP8OO16aFUnr/zIeM3EkEldtDkn28KECkxupJmnzjKdd1Y+SGZp+sr9FT1eU
+         ciYAxXgjr/qGpKLV2F0ZpoTGD1oy5UMIExegss6jMWJmwSdPIcY+WT7Z7fD8bA8II2Cs
+         K5ww==
+X-Gm-Message-State: APuU4Z8FwULXM+Kq1hjPapvNqjYg/IukgIGd6TFhfvBqP9LcIRzSRJ4A
+	ggXPITx8aoGxgCuh0SFZ/1ZSK9pO+maKC9Ln80YJUMmJ9FbbZKOgyYPrLaO1VDIyntwgue8WoiU
+	SV7iFlpA=
+X-Gm-Gg: AYBFou11VBR+dmnV/5dzgrbuB6TcNBlO8UIVLbUyhOx0Orudr8YCgyNR4AlZGPTgOxP
+	1iBmShNqbpS4AoifNub8GO6J0J23kd/KUYJa2Hs+7Vd87RvnCKk6LGyIiA3HIybUlUJzpKVXk2P
+	VbfyjrOIoaBDSx5e9o5qqwuGqUM+bSuOq6ME8UlZYwtUJ4fYA6vrWGgjCBD75AnJyaN/FDf3WjV
+	dAYroL6llUT3lbYZZc3QzCC2l9+QMIo18TNMSyctm7xDQ7aZnSNWffuY66lw+M/bC9Oo65gWvbe
+	dasgy0q3/+Ab/ThhDxFSrIfT9rjHBHo91+XVZfNH6/Qr8u5jHEH9sS/FuxuYhMA3icA0gTK/TXh
+	UR74U/VRIoM7vj/S5zykU2Z2R6pdFfZ3wLpF/mlJrSv3+C3LhvmkXecLNfG27vObEk9e4HTNPY4
+	P+fwlwSB47GQc8oIp/T8UtgtgSfqORf8Dvz/HEfDNZWye4m8xQK2paHbsY0uPIua9jiSDKJrgEA
+	Chr++tBQyjtnGglhXJQDdhTaHkepLGqvi+8yFLSvlfF8tsFb5U/IY5j6qgw7OCC8QIJbqte4W3q
+	zQ2Oh1PesoA4eQXfR3zBWiP80NDvV0vbOCr+e/Se0X/wQuOJJR6PMFYiotgBefpc7MszWtf9sOk
+	QxZP06e5tRACrU2dv0D/6S7HmQ566
+X-Received: by 2002:a05:6000:992:b0:488:83f7:6352 with SMTP id ffacd0b85a97d-499c3ba0174mr2554517f8f.4.1794387888346;
+        Wed, 11 Nov 2026 01:04:48 -0800 (PST)
 Return-Path: <yoann.congal@smile.fr>
-Received: from FRSMI25-LASER.idf.intranet (static-css-ccs-204145.business.bouyguestelecom.com. [176.157.204.145])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba0223c41csm73014985e9.14.2026.11.10.07.46.22
+Received: from FRSMI25-LASER.home (2a01cb001331aa00a2e4fb7b0d887544.ipv6.abo.wanadoo.fr. [2a01:cb00:1331:aa00:a2e4:fb7b:d88:7544])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498361f6bacsm9882751f8f.35.2026.11.11.01.04.47
+        for <poky@lists.yoctoproject.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 10 Nov 2026 07:46:22 -0800 (PST)
+        Wed, 11 Nov 2026 01:04:47 -0800 (PST)
 From: Yoann Congal <yoann.congal@smile.fr>
 To: poky@lists.yoctoproject.org
-Cc: Paul Barker <paul@pbarker.dev>
-Subject: [meta-yocto][blacksail 0/5] Pull request (cover letter only)
-Date: Tue, 10 Nov 2026 16:46:10 +0100
-Message-ID: <cover.1794325462.git.yoann.congal@smile.fr>
+Subject: [meta-yocto][wrynose 0/3] Patch review
+Date: Wed, 11 Nov 2026 10:04:37 +0100
+Message-ID: <cover.1794387818.git.yoann.congal@smile.fr>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
-X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by lin-tor-korg-lkml-alma10-1 with HTTPS for <poky@lists.yoctoproject.org>; Tue, 10 Nov 2026 15:46:28 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13995
+X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by lin-tor-korg-lkml-alma10-1 with HTTPS for <poky@lists.yoctoproject.org>; Wed, 11 Nov 2026 09:04:59 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/13996
 Content-Type: text/plain; charset="utf-8"
 
-Those are the patches from the last patch review:
-https://lore.kernel.org/all/cover.1793868274.git.yoann.congal@smile.fr/
-(no review (just a suggestion of further backport), no change)
+Please review this set of changes for wrynose and have comments back by
+end of day Thursday, November 12.
 
 Passed a-full on autobuilder:
-https://autobuilder.yoctoproject.org/valkyrie/#/builders/29/builds/5060
+https://autobuilder.yoctoproject.org/valkyrie/#/builders/29/builds/5102
+* qemuarm64-musl-ptest failed with 15814 – qemuarm64 musl ptest failures
+  retried in https://autobuilder.yoctoproject.org/valkyrie/?#/builders/109/builds/1543
 
-The following changes since commit d0119aa2eb77b985fcd33ac527d5c0287eb68e58:
+The following changes since commit 79b6d87030178bed0088ad3b00aa6dfbabac37c4:
 
-  yocto-bsps: update to v6.18.54 (2026-10-05 11:53:53 +0200)
+  yocto-bsps: update to v6.18.54 (2026-10-15 16:28:52 +0200)
 
 are available in the Git repository at:
 
-  https://git.yoctoproject.org/meta-yocto-contrib stable/blacksail-next
-  https://git.yoctoproject.org/meta-yocto-contrib/log/?h=stable/blacksail-next
+  https://git.yoctoproject.org/meta-yocto-contrib stable/wrynose-review
+  https://git.yoctoproject.org/meta-yocto-contrib/log/?h=stable/wrynose-review
 
-for you to fetch changes up to 52327e67cab80384323bec9b73d39cd152fec7bc:
+for you to fetch changes up to b60511544c41f5d29d290681e15c9e302f747efe:
 
-  yocto-bsps: update to v7.2.13 (2026-11-02 16:20:11 +0100)
+  Fix LICENSE file and licensing (2026-11-06 09:53:58 +0100)
 
 ----------------------------------------------------------------
 
-Bruce Ashfield (4):
+Bruce Ashfield (2):
   yocto-bsps: update to v6.18.57
-  yocto-bsps: update to v7.2.11
   yocto-bsps: update to v6.18.59
-  yocto-bsps: update to v7.2.13
 
 Richard Purdie (1):
   Fix LICENSE file and licensing
@@ -100,7 +100,6 @@ Richard Purdie (1):
  .../lib/oeqa/controllers/beaglebonetarget.py  |  4 +--
  .../lib/oeqa/controllers/grubtarget.py        |  2 +-
  .../linux/linux-yocto_6.18.bbappend           |  2 +-
- .../linux/linux-yocto_7.2.bbappend            |  2 +-
- 6 files changed, 32 insertions(+), 17 deletions(-)
+ 5 files changed, 31 insertions(+), 16 deletions(-)
  create mode 100644 LICENSE.MIT
 
