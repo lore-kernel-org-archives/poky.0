@@ -1,150 +1,105 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
- by mx.groups.io with SMTP id smtpd.msgproc01-g2.116.1794497356454122758
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+ by mx.groups.io with SMTP id smtpd.msgproc01-g2.7352.1794561604243959263
  for <poky@lists.yoctoproject.org>;
- Thu, 12 Nov 2026 07:29:17 -0800
+ Fri, 13 Nov 2026 01:20:04 -0800
 Authentication-Results: mx.groups.io;
- dkim=pass header.i=@linuxfoundation.org header.s=google header.b=Ms6WTh1N;
- spf=pass (domain: linuxfoundation.org, ip: 209.85.128.54, mailfrom: richard.purdie@linuxfoundation.org)
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so46680355e9.2
-        for <poky@lists.yoctoproject.org>; Thu, 12 Nov 2026 07:29:16 -0800 (PST)
+ dkim=pass header.i=@smile.fr header.s=google2 header.b=LuSEWyrQ;
+ spf=pass (domain: smile.fr, ip: 209.85.128.41, mailfrom: yoann.congal@smile.fr)
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so3917865e9.3
+        for <poky@lists.yoctoproject.org>; Fri, 13 Nov 2026 01:20:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1794497354; x=1795102154; darn=lists.yoctoproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tpScfsvA5qgFIQ9uIE6MoXRhHQq+xklKZ2EMSRkgmEA=;
-        b=Ms6WTh1NqMRKt30estMJgCSsJtxNtXqYTLMwNnQFslL+D7fZvJZSDCap3RGzh4VnVR
-         wVGGMFWE8gqgcJkg8iZW1jJj0b4sXDLlNhW9aX1GbQhZ8RTgWsrmb/1j+ZgfLTwWB5/7
-         dJKByufUVBW194TY38zBzrGa+uxvYdU7jemqg=
+        d=smile.fr; s=google2; t=1794561602; x=1795166402; darn=lists.yoctoproject.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lKsYGY3pK0NzBRNJhknB/bc6w6kKZn5PTtX/HxH4L+Q=;
+        b=LuSEWyrQ1ai6cv5BckILut8IO76LC55I1oJzwM9nVkiMsRyoY3DhsWfuC6DqHta5z4
+         dDmQS0ELiqnqkIiJXbSqvLQcN8OLS9PqRjt2ydWDNl1l3/Is+l+40I6ktty6v2RiYxYy
+         ks6u4wEdFLVGcM8umMpOEs3qn8xRWfN/I3p1i+69gzGbYFgG34Kj19jRexMv3zw6SScO
+         Qc5oHl26cOX+ezt8zmhsWmkXHNyQmR3aCNkV25DWAkLZPrmOJ+wy/tZkny/w7OqVFlnK
+         p4n4uO2DX8LUBB+1GEimEqp/t3BKXHajzPa3ZF60QSIjoKvySd8zrP9lUEs7AzLfWJP0
+         M5Ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794497354; x=1795102154;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tpScfsvA5qgFIQ9uIE6MoXRhHQq+xklKZ2EMSRkgmEA=;
-        b=r+UDuvjAzoURsFCvITiarMvY/aZ/DGjGTu0oG/wVlyNFsfieqp/lhS2YLdxXwv7u6C
-         m6gqcPqdvFhXtMCcmOaxWomHjBPmWVd5DlwB6iYY0evi8lxZ9Qf0WXGncFdJIpGVygL4
-         GSuyZsEvTFpB6co0wfmcjWc5cnB1aubKlbkGTs7uAeIVWeycMcAgDwY0bl2Wdd48KSvr
-         J0etzB5S4VzpkwhlWH+ulBCrgTuHEmtEBxv5/1tiPo/4GAYDHj24XIzbXebsxExzF/UP
-         Ce7dTyE1ReEBL3hoZL6A5WqFiLlPwMz9Euo/RjPapJibm9Qek0Ohnqbice7RbGVqJUjI
-         xA+A==
-X-Gm-Message-State: APuU4Z8cXADJkQL1TpnXGa69qD4d7O2amv2GO6M/qRpxYfH3p3WLoV2R
-	sGRoDQ8wi4IpDXl2WW9hQsiJ9ps+lOeyEkSPEPEbSSx1l+N3PzZY/0NN9onW7ByJTxRvbzDWBcX
-	V/uTZ7O8=
-X-Gm-Gg: AYBFou2Y74a14Y5Xbqj67ArZ2LougmqqhzBhlnUfzCKiMcmazgQP5YncZwvU6L6f+rj
-	GjTcqjTDx/qlWqdf1aQsoqxc1ktZhV+EIi/tSnDWiyhscRcJ90DkwYMH9QOzP9UajpDx2G7yf+/
-	viMf8mTiaSlYuP4SU5hlEJZRAWcBK5gccNho8GjNBDmTtCQ7bETEkqDHpFpAsnjZPuCSYj6vRCx
-	CO2JRjuJD1io9CANTYjilXt0bxtfCG4zxNqaj13blYrkAqsCuX5NoPIh2wrzLgJlB4NghXWswzR
-	M/tDaAwgJ0H9ONcIwwqfM62pnOkXNM3J1XwKawDUGWklEhLsYo+L7Ecb4HpS6sZG13vd+hIK6fN
-	DZ8vHapB2xvDQNnluGjV4Bctt2YkUdly/DuIfGDVcLMdI0fwtatoplLtpg46BP1iA3Vxb2B1TFd
-	gSfSNtdKC8bDd4P4n5rLHvPYngqRjvsub+Iixcykfb3vmszJb9RIeoTiT4C1Ele9G+yB6W84EGv
-	ooJADju/0ANfdDKqSSkVl8q5CxasWssrtcwYYalgAlPAh0XbIUoHdR8hT1j+OcE8kGqj6FCcjJc
-	O1RubsdWdPRz31npB64Akv0tgAIaimDYW8wq9d9R/Sv5Hu+i0hM0G9QI1a+zeClE8S28WUjBy85
-	2vqw=
-X-Received: by 2002:a05:6000:230d:b0:48f:bc59:ab9c with SMTP id ffacd0b85a97d-499c898239amr13320855f8f.12.1794497354053;
-        Thu, 12 Nov 2026 07:29:14 -0800 (PST)
-Return-Path: <richard.purdie@linuxfoundation.org>
-Received: from max.int.rpsys.net ([2001:8b0:aba:5f3c:a049:45f3:9a6c:ad22])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498362eb158sm16889650f8f.36.2026.11.12.07.29.12
-        for <poky@lists.yoctoproject.org>
+        d=1e100.net; s=20260707; t=1794561602; x=1795166402;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lKsYGY3pK0NzBRNJhknB/bc6w6kKZn5PTtX/HxH4L+Q=;
+        b=PLUzAck/wyoFFY8yIS1S0PHseolivnQ9U5/Julzrk69SXxNYlI69VFD40HdGRtIMEu
+         90GYksczXodOys92dBOWb82VjMm//m2xXFolxRZvKHq8IlgpKoaNdIp3Qe2l3fstwIdz
+         oaaHRZ8nO4ksOxJoRq2BrOc95k/XVz7ubW8WC5wCdbo1UNGCaN0mUbdBq9cVlneKCa5G
+         B4kg+0L4gIV0NeTvDlDiyqoYAtq7alL8pKjulmh+Hx01zIKsefFz90eMDK1LvgTcYMUV
+         1oEiN9x5pYY4rbSshLQqzM7we/2fN5POb6AWmChrLfYAzw64Q5k8ccPf/4Fd4RHRNKIS
+         Qg7g==
+X-Gm-Message-State: APuU4Z9dB0xjLvKinHI7kvq2Ei8U7DeJQwTQEilKWJ9c+e8IGeEv5qEs
+	GggRc8+0iYXytvuOsGl6U/0EMum2lSlyROfTfg+hUcNpTJTat494V7l8zEmPKt/8CTvdHSnsqd1
+	x0MAxVdA=
+X-Gm-Gg: AYBFou0Z1kuqXgRqfx7AQ7T3/CDgzpnIWKRcGfEpsOrP0uFtT8dsNpTrcg01bOJeFl8
+	v/SUfFTENx5Mr/5ndi+xfDi51k76zkqFHTMz1JWVqWVbMYkAY2AEFUhUz8i+0nNW5u3AOTqqkde
+	9BxijJ0OS59TcKMOhzNM24N97z7iiTsCImNV5wVfBbnmqzx9igzbSWPt3q74VT3mkWOAo2fCTv+
+	DwFSW6D9YToTKxhyAE75Ik93q/Atj8H1GD4lG9GRZIX83szz9z/Fz8TE7Zg1brSa4jYcw8b+eqR
+	0ZZIVpGsnC5G3vArXzERVj6bYAM6G0mBK99t3sWuBdxDq5o56lptmkrOXshXZ58c7+nJAYC+4GG
+	an5FFPuC/EGFqKiuES05XvFNXoJaREEPpUec7PPMrxisHGEAoe9JHus7aX05VCruAsqUwiEz1zK
+	oF4y7V2eox9tWEp+iD0xEDnobxftXW3u9QMqzgyIzLicSLXjONRUZMIjoKvl5BJ3PIqwobD5veC
+	3Z2D+Pjj4VXcrZHKPWW7eNtKNA10lFC2jWmJQed53oHp23b3EeSfsdvj+DiTsIwo4p/pBWug6qT
+	lAjuqgIHQUWDsYvvlfiDG4J+tn8dOytZrJeap+x9mWPXz2bl0hoOVNgzOOTSM5ue0J6G8esnNDc
+	Wc6sP+Z3vcZ+VMiR+rGEgnvBSWYUfXw==
+X-Received: by 2002:a05:600c:46c9:b0:4a1:f8cb:7d70 with SMTP id 5b1f17b1804b1-4bb55aa51ecmr38053585e9.24.1794561602290;
+        Fri, 13 Nov 2026 01:20:02 -0800 (PST)
+Return-Path: <yoann.congal@smile.fr>
+Received: from FRSMI25-LASER.home (2a01cb001331aa00d795e58479169e39.ipv6.abo.wanadoo.fr. [2a01:cb00:1331:aa00:d795:e584:7916:9e39])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2842e6sm137937305e9.4.2026.11.13.01.20.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 07:29:13 -0800 (PST)
-From: Richard Purdie <richard.purdie@linuxfoundation.org>
+        Fri, 13 Nov 2026 01:20:01 -0800 (PST)
+From: Yoann Congal <yoann.congal@smile.fr>
 To: poky@lists.yoctoproject.org
-Subject: [PATCH] meta-poky: Drop sanity class
-Date: Thu, 12 Nov 2026 15:29:12 +0000
-Message-ID: <20261112152912.34019-1-richard.purdie@linuxfoundation.org>
+Cc: Paul Barker <paul@pbarker.dev>
+Subject: [meta-yocto][wrynose 0/3] Pull request (cover letter only)
+Date: Fri, 13 Nov 2026 10:19:17 +0100
+Message-ID: <cover.1794561483.git.yoann.congal@smile.fr>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 List-Id: <poky.lists.yoctoproject.org>
-X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by lin-tor-korg-lkml-alma10-1 with HTTPS for <poky@lists.yoctoproject.org>; Thu, 12 Nov 2026 15:29:21 -0000
-X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/14000
+X-Webhook-Received: from 45-33-107-173.ip.linodeusercontent.com [45.33.107.173] by lin-tor-korg-lkml-alma10-1 with HTTPS for <poky@lists.yoctoproject.org>; Fri, 13 Nov 2026 09:20:11 -0000
+X-Groupsio-URL: https://lists.yoctoproject.org/g/poky/message/14001
 Content-Type: text/plain; charset="utf-8"
 
-With bitbake-setup being adopted and now that the poky combo-layer repo is
-not longer used, we don't really need this sanity/migration code. Remove
-it.
+Those are the patches from the last patch review:
+https://lore.kernel.org/all/cover.1794387818.git.yoann.congal@smile.fr/
 
-Signed-off-by: Richard Purdie <richard.purdie@linuxfoundation.org>
----
- meta-poky/classes/poky-sanity.bbclass | 46 ---------------------------
- meta-poky/conf/distro/poky.conf       |  2 --
- meta-poky/conf/layer.conf             |  2 --
- 3 files changed, 50 deletions(-)
- delete mode 100644 meta-poky/classes/poky-sanity.bbclass
+Passed a-full on autobuilder:
+https://autobuilder.yoctoproject.org/valkyrie/#/builders/29/builds/5102
+* qemuarm64-musl-ptest failed with 15814 – qemuarm64 musl ptest failures
+  retried in https://autobuilder.yoctoproject.org/valkyrie/?#/builders/109/builds/1543
 
-diff --git a/meta-poky/classes/poky-sanity.bbclass b/meta-poky/classes/poky-sanity.bbclass
-deleted file mode 100644
-index a068c7368c1..00000000000
---- a/meta-poky/classes/poky-sanity.bbclass
-+++ /dev/null
-@@ -1,46 +0,0 @@
--# Provide some extensions to sanity.bbclass to handle poky-specific conf file upgrades
--
--python poky_update_bblayersconf() {
--    current_version = int(d.getVar('POKY_BBLAYERS_CONF_VERSION') or -1)
--    latest_version = int(d.getVar('REQUIRED_POKY_BBLAYERS_CONF_VERSION') or -1)
--    if current_version == -1 or latest_version == -1:
--        # one or the other missing => malformed configuration
--        raise NotImplementedError("You need to update bblayers.conf manually for this version transition")
--
--    success = True
--
--    # check for out of date templateconf.cfg file
--    lines = []
--    fn = os.path.join(d.getVar('TOPDIR'), 'conf/templateconf.cfg')
--
--    lines = sanity_conf_read(fn)
--    index, meta_yocto_line = sanity_conf_find_line(r'^meta-yocto/', lines)
--    if meta_yocto_line:
--        lines[index] = meta_yocto_line.replace('meta-yocto', 'meta-poky')
--        with open(fn, "w") as f:
--            f.write(''.join(lines))
--        bb.note("Your conf/templateconf.cfg file was updated from meta-yocto to meta-poky")
--
--    # add any additional layer checks/changes here
--
--    if success:
--        current_version = latest_version
--        bblayers_fn = bblayers_conf_file(d)
--        lines = sanity_conf_read(bblayers_fn)
--        # sanity_conf_update() will erroneously find a match when the var name
--        # is used in a comment, so do our own here. The code below can be
--        # removed when sanity_conf_update() is fixed in OE-Core.
--        #sanity_conf_update(bblayers_fn, lines, 'POKY_BBLAYERS_CONF_VERSION', current_version)
--        index, line = sanity_conf_find_line(r'^POKY_BBLAYERS_CONF_VERSION', lines)
--        lines[index] = 'POKY_BBLAYERS_CONF_VERSION = "%d"\n' % current_version
--        with open(bblayers_fn, "w") as f:
--            f.write(''.join(lines))
--        bb.note("Your conf/bblayers.conf has been automatically updated.")
--    if success:
--        return
--
--    raise NotImplementedError("You need to update bblayers.conf manually for this version transition")
--}
--
--# ensure our function runs after the OE-Core one
--BBLAYERS_CONF_UPDATE_FUNCS += "conf/bblayers.conf:POKY_BBLAYERS_CONF_VERSION:REQUIRED_POKY_BBLAYERS_CONF_VERSION:poky_update_bblayersconf"
-diff --git a/meta-poky/conf/distro/poky.conf b/meta-poky/conf/distro/poky.conf
-index 76808150677..59395b990f8 100644
---- a/meta-poky/conf/distro/poky.conf
-+++ b/meta-poky/conf/distro/poky.conf
-@@ -52,8 +52,6 @@ SANITY_TESTED_DISTROS ?= " \
-             rocky-9 \n \
-             rocky-10 \n \
-             "
--# add poky sanity bbclass
--INHERIT += "poky-sanity"
- 
- # QA check settings - a little stricter than the OE-Core defaults
- # (none currently necessary as we now match OE-Core)
-diff --git a/meta-poky/conf/layer.conf b/meta-poky/conf/layer.conf
-index 4a444d31046..a92e635f64c 100644
---- a/meta-poky/conf/layer.conf
-+++ b/meta-poky/conf/layer.conf
-@@ -16,5 +16,3 @@ LAYERSERIES_COMPAT_yocto = "blacksail"
- LAYERVERSION_yocto = "3"
- 
- LAYERDEPENDS_yocto = "core"
--
--REQUIRED_POKY_BBLAYERS_CONF_VERSION = "2"
+The following changes since commit 79b6d87030178bed0088ad3b00aa6dfbabac37c4:
+
+  yocto-bsps: update to v6.18.54 (2026-10-15 16:28:52 +0200)
+
+are available in the Git repository at:
+
+  https://git.yoctoproject.org/meta-yocto-contrib stable/wrynose-next
+  https://git.yoctoproject.org/meta-yocto-contrib/log/?h=stable/wrynose-next
+
+for you to fetch changes up to b60511544c41f5d29d290681e15c9e302f747efe:
+
+  Fix LICENSE file and licensing (2026-11-06 09:53:58 +0100)
+
+----------------------------------------------------------------
+
+Bruce Ashfield (2):
+  yocto-bsps: update to v6.18.57
+  yocto-bsps: update to v6.18.59
+
+Richard Purdie (1):
+  Fix LICENSE file and licensing
+
+ LICENSE                                       | 14 ++---------
+ LICENSE.MIT                                   | 25 +++++++++++++++++++
+ .../lib/oeqa/controllers/beaglebonetarget.py  |  4 +--
+ .../lib/oeqa/controllers/grubtarget.py        |  2 +-
+ .../linux/linux-yocto_6.18.bbappend           |  2 +-
+ 5 files changed, 31 insertions(+), 16 deletions(-)
+ create mode 100644 LICENSE.MIT
+
